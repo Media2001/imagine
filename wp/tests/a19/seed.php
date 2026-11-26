@@ -19,8 +19,10 @@ $plan = wp_insert_post(['post_type' => 'wc_membership_plan', 'post_status' => 'p
 update_post_meta($plan, '_access_method', 'manual-only');
 update_post_meta($plan, '_access_length', 'unlimited');
 $subs = [];
-foreach ([[$users[0], false, 'a19_fixture'], [$users[0], true, 'cheque'],
-    [$users[1], false, 'a19_fixture'], [$users[2], true, 'bacs']] as $i => [$user, $manual, $gateway]) {
+foreach (
+    [[$users[0], false, 'a19_fixture'], [$users[0], true, 'cheque'],
+    [$users[1], false, 'a19_fixture'], [$users[2], true, 'bacs']] as $i => [$user, $manual, $gateway]
+) {
     $s = wcs_create_subscription(['customer_id' => $user, 'status' => 'pending', 'billing_period' => 'month',
         'billing_interval' => 1, 'start_date' => '2026-01-01 00:00:00']);
     if (is_wp_error($s)) {

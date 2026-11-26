@@ -1,0 +1,12 @@
+{
+  "at": "2026-11-26T08:00:49.641089+00:00",
+  "scope": "imagine-test-demo",
+  "source_readback": {
+    "plugins/imagine-site/NewslettersRegles.php": "06d760725c8a2c8f00cc8841f0ef093b7ba674fc8977894daf1ae904de24754e",
+    "plugins/imagine-site/Newsletters.php": "4ad7646c5c8d529c99558541cee2ff4ee29f500d3a9346222a937645d6458b2a",
+    "plugins/imagine-site/NewslettersReglages.php": "22b8d112cbc4cef7de4961faa31375d395ea17fd7ca3bbbeb688bc430c03b7e3",
+    "plugins/imagine-site/Confidentialite.php": "f4a6916e10425b82b881a7859ab41f9df80de587e48ec8896c46917ea67fbfc3",
+    "plugins/imagine-site/imagine-site.php": "7a5cde3ffefcd9d907c400401add9b6ec16a76e42cfa3d8e58af6ca5f9eabdc6"
+  },
+  "native_preserved": true
+}

@@ -19,6 +19,7 @@ $fh = static function ($r) use (&$http) { $http++; return new \WP_Error('c22_int
 add_filter('pre_wp_mail', $fm, 1);
 add_filter('pre_http_request', $fh, 1);
 if ($checks['raccord_present']) {
+    $checks['accroche_sans_connecteur'] = has_action('imagine_newsletters_preferences_modifiees') === false;
     global $wpdb;
     $original = get_current_user_id();
     $wpdb->query('START TRANSACTION');

@@ -14,8 +14,10 @@ final class Inventory
         }
         foreach ($subscription->get_payment_tokens() as $id) {
             $token = \WC_Payment_Tokens::get((int) $id);
-            if ($token && $token->get_gateway_id() === $gateway
-                && (int) $token->get_user_id() === (int) $subscription->get_customer_id('edit')) {
+            if (
+                $token && $token->get_gateway_id() === $gateway
+                && (int) $token->get_user_id() === (int) $subscription->get_customer_id('edit')
+            ) {
                 return 'present';
             }
         }
@@ -68,14 +70,18 @@ final class Inventory
         }
         global $wpdb;
         $memberships = [];
-        $rows = $wpdb->get_results("SELECT ID,post_parent,post_author,post_status FROM `{$wpdb->posts}` "
-            . "WHERE post_type='wc_user_membership' AND post_status NOT IN ('trash','auto-draft') ORDER BY ID", ARRAY_A);
+        $rows = $wpdb->get_results(
+            "SELECT ID,post_parent,post_author,post_status FROM `{$wpdb->posts}` "
+                . "WHERE post_type='wc_user_membership' AND post_status NOT IN ('trash','auto-draft') ORDER BY ID",
+            ARRAY_A
+        );
         if (!is_array($rows) || $wpdb->last_error !== '') {
             throw new \RuntimeException('A19_QUERY_FAILED');
         }
         foreach ($rows as $row) {
             $id = get_post_meta((int) $row['ID'], '_subscription_id', true);
-            $status = str_starts_with($row['post_status'], 'wcm-') ? substr($row['post_status'], 4) : $row['post_status'];
+            $status = str_starts_with($row['post_status'], 'wcm-')
+                ? substr($row['post_status'], 4) : $row['post_status'];
             $memberships[] = ['plan' => (int) $row['post_parent'], 'user' => (int) $row['post_author'],
                 'status' => $status, 'subscription' => is_numeric($id) ? (int) $id : 0];
         }
@@ -84,6 +90,6 @@ final class Inventory
             'as_of_utc' => $asOf, 'counts' => Analysis::analyse($subscriptions, $memberships, $clock->getTimestamp()),
             'payment_reference_basis' => 'Reference Woo liee ou champs du schema natif de passerelle ; sinon inconnu.',
             'mode_basis' => 'Drapeau manuel enregistre, pas bascule manuelle effective du staging.',
-            'scope' => 'Magasin natif faisant autorite ; liens explicites conserves ; aucun rapprochement par identite.'];
+            'scope' => 'Magasin natif faisant autorite ; liens explicites ; aucun rapprochement par identite.'];
     }
 }

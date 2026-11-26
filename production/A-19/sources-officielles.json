@@ -1,0 +1,34 @@
+{
+  "consulted_at": "2026-11-26T08:58:26.173766+01:00",
+  "documentation": [
+    {
+      "url": "https://woocommerce.com/document/woocommerce-memberships-subscriptions-integration/",
+      "retrieval": "HTTP 200; public official integration documentation; resolved canonical URL checked",
+      "text_sha256": "86594d841ef5e77641569ccca8b11efc98eac42fe77455cc5dade7c44fc37067"
+    }
+  ],
+  "installed_code": {
+    "woocommerce-memberships/src/integrations/subscriptions/class-wc-memberships-integration-subscriptions-admin.php": "4651c0fe29df2ef36450d4aa8d0a66687d8352915b3e5de437e37c90b448f1e8",
+    "woocommerce-memberships/src/integrations/subscriptions/class-wc-memberships-integration-subscriptions-ajax.php": "f314515dd7e1259a05a0dd798078818cd029a4f2a50c63df068da2bbbf7b24a9",
+    "woocommerce-memberships/src/integrations/subscriptions/class-wc-memberships-integration-subscriptions-cli.php": "7cb46844d912e0b81e0b332c879490961f4db5cdd4701f22920b886271f5f4d8",
+    "woocommerce-memberships/src/integrations/subscriptions/class-wc-memberships-integration-subscriptions-discounts.php": "b6dc285c2fb20a979b90c67787526a8c55a47e5dd21e1c90c43d54f249fdb465",
+    "woocommerce-memberships/src/integrations/subscriptions/class-wc-memberships-integration-subscriptions-free-trial.php": "de7314ff62ffd52914aa4a115e8b464e5b037eb938d51ca7d27147cf6d8aa97e",
+    "woocommerce-memberships/src/integrations/subscriptions/class-wc-memberships-integration-subscriptions-frontend.php": "4019391be147b27a87ee670240936e1de84411e17b3d7956f108827b433e2873",
+    "woocommerce-memberships/src/integrations/subscriptions/class-wc-memberships-integration-subscriptions-lifecycle.php": "b31bb1250e15a1a94945a4eccb01ef8d08816e43f549c9d725f752d6a6f1d0ec",
+    "woocommerce-memberships/src/integrations/subscriptions/class-wc-memberships-integration-subscriptions-membership-plan.php": "9bab6b93327179223c0ab3ed7d12b9646c2ebf36abc8a00ebab08d94d0299eee",
+    "woocommerce-memberships/src/integrations/subscriptions/class-wc-memberships-integration-subscriptions-membership-plans.php": "d5342f3d7a7c58896951b82bcfc998b9260899cb7a4c5dbfca7871044b847948",
+    "woocommerce-memberships/src/integrations/subscriptions/class-wc-memberships-integration-subscriptions-user-membership.php": "a694851426f6dfc11499c99c4e6fbbdb59459c5e09c27a297fd7f34b8fa99daf",
+    "woocommerce-memberships/src/integrations/subscriptions/class-wc-memberships-integration-subscriptions-user-memberships.php": "87bed02e8e5ecf6ba294c4b260600f777ad61257abda48d2eee29c666ac57c49",
+    "woocommerce-memberships/src/integrations/subscriptions/class-wc-memberships-integration-subscriptions-utilities-activation-background-job.php": "e427832ad108dd524af1c672b426407b2ec444a65389722396839d1615cf8680",
+    "woocommerce-memberships/src/integrations/subscriptions/class-wc-memberships-integration-subscriptions-utilities.php": "84ffb51947b07db7a84d079eb659e933aafdd71527f6ed10b8c971ff3a31f277",
+    "woocommerce-memberships/src/integrations/subscriptions/class-wc-memberships-integration-subscriptions.php": "7136348109bac7b6cb936e32e111a876ff0bc75ef404e1ad32a5e2bf16056e8f",
+    "woocommerce-subscriptions/includes/core/class-wc-subscription.php": "50436292cbd84a9c6f1fa0830eb350616389888d8ed836caeebd29a72789ef93"
+  },
+  "inspection": "Exact licensed plugin packages already authorized for the owned synthetic bench, read only in network-none disposable container, removed and absence checked. No license activation, account or real site. No third-party source copied to repository.",
+  "decisions": [
+    "Stored manual flag, not is_manual staging fallback.",
+    "Explicit membership meta link; no ownership or email inference.",
+    "Payment reference presence through linked Woo token or native gateway schema; unknown if unavailable.",
+    "Native related paid parent, renewal, switch, resubscribe orders; stored date or paid status."
+  ]
+}

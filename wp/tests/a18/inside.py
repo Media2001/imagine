@@ -19,6 +19,9 @@ def run_storage(storage):
         p=b.wp(site,['eval-file','/opt/a18/seed.php','--use-include']);oracle=json.loads(next(x[9:] for x in p.stdout.splitlines() if x.startswith('A18_JSON=')))
     finally:(site/'wp-config.php').write_text(cfg)
     mu=site/'wp-content/mu-plugins/a18-runtime.php';mu.write_text('''<?php
+if (getenv('A18_CONFINED') === '1' && ($forced = get_option('a18_forced_exception', '')) !== '') {
+ throw new RuntimeException($forced);
+}
 if (getenv('A18_CONFINED') === '1') {
  global $wpdb; require_once ABSPATH.'wp-includes/pluggable.php';
  if ($wpdb->query('UPDATE wp_posts SET ID=ID WHERE 1=0') !== false

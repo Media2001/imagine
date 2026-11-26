@@ -32,6 +32,13 @@ def baseline(label):
 
 def deploy(label):
     before = state()
+    prior = hashes(NAMES)
+    first = json.loads((PROOF/'baseline.json').read_text(encoding='utf-8'))['source_before']
+    for name in NAMES:
+        allowed = {first[name], hashlib.sha256((ROOT/'wp'/name).read_bytes()).hexdigest()}
+        for receipt in PROOF.glob('installation-*.json'):
+            allowed.add(json.loads(receipt.read_text(encoding='utf-8'))['source_readback'].get(name))
+        assert prior[name] in allowed, 'Source drift: '+name
     for name in NAMES:
         profils.b00.upload(name, (ROOT / 'wp' / name).read_bytes())
     actual = hashes(NAMES)

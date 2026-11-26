@@ -134,6 +134,7 @@ def run(label):
     checks['observation_serveur_presente']=len(observations)>10
     checks['aucun_mail_tente_HTTP']=all(v['mail']==0 for v in observations.values())
     checks['aucun_transport_HTTP_sortant']=all(v['http']==v['http_blocked'] for v in observations.values())
+    checks['aucun_HTTP_newsletter_tente']=all(v['newsletter_http']==0 for v in observations.values())
     checks['instrumentation_retiree']=c22.hashes([observer])[observer] is None
     failures=[k for k,v in checks.items() if v is not True]
     c22.save(label,{'checks':checks,'total':len(checks),'failures':failures,'before':baseline,'after':after,'observed_requests':len(observations),'mail_attempts':sum(v['mail'] for v in observations.values()),'http_attempts':sum(v['http'] for v in observations.values()),'http_blocked':sum(v['http_blocked'] for v in observations.values()),'outside_demo_blocked':blocked,'captures':[label+'-'+n for n in ['nos-newsletters.png','mes-newsletters.png','sans-email.png','reglages-newsletters.png']],'visual_approval':False})
