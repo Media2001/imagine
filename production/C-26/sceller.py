@@ -40,7 +40,7 @@ def seal(delivery='livraison-finale', mutations='mutations-livraison'):
     (PROOF/'INVENTAIRE.md').write_text(text,encoding='utf-8')
     sources = {p.relative_to(ROOT).as_posix():sha(p) for folder in ['wp/outils/demo','wp/tests/demo'] for p in (ROOT/folder).glob('c26*') if p.is_file()}
     sources['wp/tests/demo/c23-tests.py'] = sha(ROOT/'wp/tests/demo/c23-tests.py')
-    artifacts = ['A-VOIR.md','INVENTAIRE.md','sceller.py','tests.json','tests-utf8.log','tests-cp1252.log','image.json','image.log']
+    artifacts = ['A-VOIR.md','INVENTAIRE.md','RAPPORT.md','sceller.py','tests.json','tests-utf8.log','tests-cp1252.log','image.json','image.log']
     for label in [delivery,mutations]:
         artifacts += [label+s for s in ['.json','.md','.log','-avant.json','-restauration.json','-privacy.json','-inventaire.json','-extension.json','-c23.json','-c23.md']]
     artifacts += [mutations+'-mutation-'+family+'.json' for family in ['agenda','personnalisation','retractation','sujet','cooperateurs','cooperative']]

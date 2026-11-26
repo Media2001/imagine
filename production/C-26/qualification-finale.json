@@ -1,0 +1,86 @@
+{
+  "scope": "imagine-test-demo",
+  "nominal_exit": 0,
+  "nominal_controls": 46,
+  "network_blocked": true,
+  "write_methods_blocked": true,
+  "production_unchanged": true,
+  "mutations": [
+    {
+      "case": "total",
+      "rejected": true,
+      "failures": [
+        "livraison-finale_total"
+      ],
+      "outer_seal_refreshed": true
+    },
+    {
+      "case": "matrice-vide",
+      "rejected": true,
+      "failures": [
+        "livraison-finale_nonempty",
+        "livraison-finale_total",
+        "livraison-finale_cases"
+      ],
+      "outer_seal_refreshed": true
+    },
+    {
+      "case": "case-manquante",
+      "rejected": true,
+      "failures": [
+        "livraison-finale_total",
+        "livraison-finale_cases"
+      ],
+      "outer_seal_refreshed": true
+    },
+    {
+      "case": "restauration",
+      "rejected": true,
+      "failures": [
+        "livraison-finale_restored"
+      ],
+      "outer_seal_refreshed": true
+    },
+    {
+      "case": "privacy-inverse",
+      "rejected": true,
+      "failures": [
+        "livraison-finale_privacy"
+      ],
+      "outer_seal_refreshed": true
+    },
+    {
+      "case": "mutation-blanchie",
+      "rejected": true,
+      "failures": [
+        "mutation_agenda"
+      ],
+      "outer_seal_refreshed": true
+    },
+    {
+      "case": "decouverte-forcee",
+      "rejected": true,
+      "failures": [
+        "livraison-finale_policy"
+      ],
+      "outer_seal_refreshed": true
+    },
+    {
+      "case": "tests-inventes",
+      "rejected": true,
+      "failures": [
+        "tests"
+      ],
+      "outer_seal_refreshed": true
+    },
+    {
+      "case": "source-fausse",
+      "rejected": true,
+      "failures": [
+        "sources"
+      ],
+      "outer_seal_refreshed": false
+    }
+  ],
+  "all_rejected": true
+}

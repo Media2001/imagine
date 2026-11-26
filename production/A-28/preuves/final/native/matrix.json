@@ -1,0 +1,23 @@
+{
+  "status": "FAIL",
+  "commands": [
+    {
+      "context": "utf8",
+      "argv": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "C:\\Users\\Ced\\imagine\\wp\\tests\\a28\\run.py",
+        "--output",
+        "C:\\Users\\Ced\\imagine\\production\\A-28\\preuves\\final\\native\\utf8"
+      ],
+      "exit": 0,
+      "sources_stable": true,
+      "stdout_sha256": "3fc941d3fd9b32f076156254590d7dc1a6fda7aaf72bd89833d72402d570451b",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "contexts": [
+    "utf8",
+    "cp1252"
+  ]
+}

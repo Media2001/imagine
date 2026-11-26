@@ -1,0 +1,50 @@
+[
+  {
+    "lot": "A-20",
+    "command": [
+      "C:\\Python314\\python.exe",
+      "-B",
+      "C:\\Users\\Ced\\imagine\\wp\\tests\\a20\\verify.py",
+      "C:\\Users\\Ced\\imagine\\production\\A-20\\preuves\\final"
+    ],
+    "exit": 0,
+    "failed_checks": [],
+    "code": null,
+    "stdout_sha256": "d5d25b71015b016f941d2bffc695af78a9e2050cd3b572721b77b5e4234e42fb",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "lot": "A-21",
+    "command": [
+      "C:\\Python314\\python.exe",
+      "-B",
+      "C:\\Users\\Ced\\imagine\\wp\\tests\\a21\\verify.py",
+      "C:\\Users\\Ced\\imagine\\production\\A-21\\preuves\\final"
+    ],
+    "exit": 1,
+    "failed_checks": [
+      "exact_current_dependencies",
+      "cp1252:executed_dependency_snapshot",
+      "utf8:executed_dependency_snapshot"
+    ],
+    "code": null,
+    "stdout_sha256": "16fe8fd4f9e66a4ea231eedc847059aa4ff1676e5e5636a468302fd23309d75f",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "lot": "A-22",
+    "command": [
+      "C:\\Python314\\python.exe",
+      "-B",
+      "C:\\Users\\Ced\\imagine\\wp\\tests\\a22\\verify.py",
+      "C:\\Users\\Ced\\imagine\\production\\A-22\\preuves\\final"
+    ],
+    "exit": 1,
+    "failed_checks": [
+      "exact_current_executed_sources"
+    ],
+    "code": null,
+    "stdout_sha256": "c62f8f314952b0e841797b5d49b46ab15e15f996ae8be0dcf0216b6691f040fb",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]
