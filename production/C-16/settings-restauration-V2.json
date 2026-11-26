@@ -1,0 +1,42 @@
+{
+  "source_journal": [
+    {
+      "quand_utc": "2026-11-26T02:38:59Z",
+      "qui_id": 30,
+      "qui_login": "e-admin",
+      "option": "imagine_decouverte_reglages",
+      "avant": null,
+      "apres": {
+        "ouverture": "fermee",
+        "forme": "articles",
+        "jours": 7,
+        "nombre": 2,
+        "numeros": []
+      }
+    },
+    {
+      "quand_utc": "2026-11-26T02:38:59Z",
+      "qui_id": 30,
+      "qui_login": "e-admin",
+      "option": "imagine_decouverte_relecture",
+      "avant": null,
+      "apres": "fermee"
+    },
+    {
+      "quand_utc": "2026-11-26T02:38:59Z",
+      "qui_id": 30,
+      "qui_login": "e-admin",
+      "option": "imagine_solidaire_categories",
+      "avant": null,
+      "apres": [
+        "à préciser"
+      ]
+    }
+  ],
+  "reread": {
+    "imagine_decouverte_reglages": null,
+    "imagine_decouverte_relecture": null,
+    "imagine_solidaire_categories": null
+  },
+  "journal_preserved": true
+}

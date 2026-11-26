@@ -1,10 +1,10 @@
 {
-  "started_at": "2026-11-26T02:36:40.664639+00:00",
+  "started_at": "2026-11-26T02:41:31.154952+00:00",
   "steps": [
     {
       "name": "preparer-image-V2",
-      "started_at": "2026-11-26T02:36:40.664639+00:00",
-      "finished_at": "2026-11-26T02:36:43.293466+00:00",
+      "started_at": "2026-11-26T02:41:31.154952+00:00",
+      "finished_at": "2026-11-26T02:41:34.159796+00:00",
       "exit": 0,
       "command": [
         "powershell.exe",
@@ -17,8 +17,8 @@
     },
     {
       "name": "deployment-V2",
-      "started_at": "2026-11-26T02:36:43.293466+00:00",
-      "finished_at": "2026-11-26T02:37:13.363817+00:00",
+      "started_at": "2026-11-26T02:41:34.159796+00:00",
+      "finished_at": "2026-11-26T02:42:04.091579+00:00",
       "exit": 0,
       "command": [
         "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
@@ -28,8 +28,8 @@
     },
     {
       "name": "unit-focused-V2",
-      "started_at": "2026-11-26T02:37:13.363817+00:00",
-      "finished_at": "2026-11-26T02:37:14.995206+00:00",
+      "started_at": "2026-11-26T02:42:04.091579+00:00",
+      "finished_at": "2026-11-26T02:42:05.746340+00:00",
       "exit": 0,
       "command": [
         "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
@@ -40,8 +40,8 @@
     },
     {
       "name": "unit-root-V2",
-      "started_at": "2026-11-26T02:37:14.995206+00:00",
-      "finished_at": "2026-11-26T02:37:18.949336+00:00",
+      "started_at": "2026-11-26T02:42:05.746340+00:00",
+      "finished_at": "2026-11-26T02:42:09.663025+00:00",
       "exit": 0,
       "command": [
         "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",

@@ -11,6 +11,7 @@ if (is_file('/subject/a15/Inventory.php')) {
     require '/subject/a15/Inventory.php';
     $email = new class {
         public string $id = 'fixture';
+        public bool $block_email_editor_enabled = false;
         public string $title = 'Fictif de contrôle';
         public array $settings = ['subject' => 'A15_PRIVATE_SUBJECT_CANARY', 'heading' => '', 'body' => 'A15_PRIVATE_BODY_CANARY', 'recipient' => 'a15-secret@example.org'];
         public function is_enabled(): bool { return false; }
@@ -35,6 +36,14 @@ if (is_file('/subject/a15/Inventory.php')) {
     $r = \Imagine\EmailInventory\Inventory::shape($email, 'fixture');
     $check('address_in_title_masked', !str_contains(json_encode($r, JSON_THROW_ON_ERROR), '@'));
     $check('absent_settings_not_custom', $r['subject_customised'] === false && $r['content_customised'] === false && $r['recipient_customised'] === false);
+    $email->block_email_editor_enabled = true;
+    $refused = false;
+    try {
+        \Imagine\EmailInventory\Inventory::shape($email, 'fixture');
+    } catch (RuntimeException $error) {
+        $refused = $error->getMessage() === 'A15_BLOCK_EDITOR_UNSUPPORTED';
+    }
+    $check('block_editor_not_misreported_as_unmodified', $refused);
 }
 $exit = in_array('FAIL', array_column($checks, 'status'), true) ? 1 : 0;
 file_put_contents('/report/unit.json', json_encode(['exit_code' => $exit, 'checks' => $checks], JSON_PRETTY_PRINT));

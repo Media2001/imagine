@@ -58,6 +58,7 @@ def run(label='http-corrections-V2', selection='all'):
     accounts = json.loads((Path.home()/'.imagine-demo/identifiants.json').read_text(encoding='utf-8'))['c09_accounts']
     operator = h.login(accounts['E-ABO'])
     checks, evidence, created = {}, {}, []
+    other_settings_before = None
     before = c16.wp(STATE)
     policy_before = c16.wp('echo wp_json_encode(get_option("imagine_commande_adresse_nouveau",null));')
     native = c16.wp('echo wp_json_encode(["uid"=>get_option("imagine_c09_fixture")["users"]["E-ABO"],"product"=>get_option("imagine_c09_fixture")["tariffs"]["normal-1"],"customer"=>get_option("imagine_c09_fixture")["users"]["V-INSCRIT"]]);')
@@ -125,6 +126,8 @@ def run(label='http-corrections-V2', selection='all'):
             keys=sorted({k.split('[')[0] for k in fields if k.startswith('imagine_') and k!='imagine_commande_adresse_nouveau'})
             options_code='$o=[];foreach(json_decode('+json.dumps(json.dumps(keys))+',true) as $k){$o[$k]=get_option($k,null);}echo wp_json_encode($o);'
             other_settings_before=c16.wp(options_code)
+            c16.save('settings-snapshot-V2',other_settings_before)
+            evidence['reglages_avant']=other_settings_before
             for value in ['non','oui']:
                 _,_,settings=h.fetch('/wp-admin/admin.php?page=imagine-reglages',settings_client)
                 fields=SettingsForm(settings).fields
@@ -132,7 +135,7 @@ def run(label='http-corrections-V2', selection='all'):
                 fields['imagine_commande_adresse_nouveau']=value
                 status,_,_=h.fetch('/wp-admin/options.php',settings_client,urlencode(fields).encode())
                 checks['reglage_C10_POST_natif_'+value+'_reread']=status==200 and c16.wp('echo wp_json_encode(get_option("imagine_commande_adresse_nouveau"));')==value
-            checks['reglages_autres_lots_preserves']=c16.wp(options_code)==other_settings_before
+            evidence['reglages_apres_POST_avant_restauration']=c16.wp(options_code)
             existing_code = '$u=get_userdata('+str(native['customer'])+');$c=new WC_Customer($u->ID);echo wp_json_encode(["name"=>$u->display_name,"email"=>$u->user_email,"first_name"=>$c->get_first_name(),"last_name"=>$c->get_last_name(),"billing"=>$c->get_billing(),"shipping"=>$c->get_shipping()]);'
             existing_before = c16.wp(existing_code)
             for name,client,policy in [
@@ -164,6 +167,11 @@ def run(label='http-corrections-V2', selection='all'):
                     evidence['compte_preexistant_avant']=existing_before
                     evidence['compte_preexistant_apres']=c16.wp(existing_code)
     finally:
+        if other_settings_before is not None:
+            # Native options.php materializes absent defaults from C12/C17; restore absence, not just effective values.
+            c16.wp('$old=json_decode('+json.dumps(json.dumps(other_settings_before))+',true);foreach($old as $k=>$v){if($v===null){delete_option($k);}elseif(get_option($k,null)!==$v){update_option($k,$v,false);}}echo "true";')
+            evidence['reglages_restauration_reread']=c16.wp(options_code)
+            checks['reglages_autres_lots_restaures_exactement']=evidence['reglages_restauration_reread']==other_settings_before
         c16.wp(('delete_option("imagine_commande_adresse_nouveau");' if policy_before is None else 'update_option("imagine_commande_adresse_nouveau",'+json.dumps(policy_before)+',false);')+'echo "true";')
         checks['reglage_restaure_exactement']=c16.wp('echo wp_json_encode(get_option("imagine_commande_adresse_nouveau",null));')==policy_before
         c16.wp('delete_option("imagine_c16_recette_v2");echo "true";')

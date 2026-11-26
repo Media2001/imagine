@@ -1,0 +1,19 @@
+# A-15 — Emails déclarés, pas un historique d'envoi
+
+```sh
+python3 wp/outils/bascule/a15/confine.py --wp-path=/copie-verifiee --audit=/rapports/audit/audit.json --output=/rapports/emails
+```
+
+Lanceur **obligatoire**, dans un conteneur Linux jetable déconnecté (seule interface `lo`) avec PHP ≥ 8.2/Python 3 et Landlock ABI ≥ 3, aucune permission d'écriture sur le site. A11 réemployé inchangé : DB READ ONLY avant les plugins, pas d'exécution de wp-config, garde HTTP/mail/cron. A12 réemployé pour le confinement système : aucune mutation hors du parent de sortie, PHP `mail` et processus désactivés. Compte SQL SELECT recommandé ; le banc éprouve également le refus transactionnel avec root. Aucun email de production, compte réel ou sauvegarde ne doit être lu sans GO distinct de Ced.
+
+L'audit A02 vient de la même copie, dans un dossier frère de la sortie neuve. Le parent des rapports doit être disjoint du site et du dépôt (ni descendant ni ancêtre commun). Rapport JSON et Markdown 0600, dossier 0700, jamais écrasés. Refus des constantes hors contrat, multisite, symlinks et caches/pare-feu/drop-ins ; le refus A11 nomme le chemin. Ne jamais désactiver ces protections sur un site réel : préparer une autre copie jetable neutralisée sans le fichier nommé, puis refaire A02.
+
+L'outil lit **WC()->mailer()->get_emails()**, réellement chargé après wp_loaded, y compris les classes Subscriptions, Memberships et les déclarants tiers enregistrés. Une ligne par identifiant natif ; classe concrète attribuée par Reflection, pas par nom supposé ni analyse de sources non exécutées. Actif = `is_enabled()` natif, pas une preuve d'envoi passé. Destinataire par nature seulement (client/administration), avec indicateur « personnalisé » pour recipient/CC/BCC configurés. Aucun appel trigger/get_content ni rendu de gabarit ; aucune adresse, clé, sujet ou corps (même par empreinte) n'est exporté. Un intitulé contenant une adresse/URL/balise est masqué.
+
+Objet personnalisé = réglage natif enregistré différent du défaut ; contenu personnalisé = heading/body/additional_content/preheader différent et, pour Memberships, contenu de l'un des plans différent du défaut via l'API native. Champs vides de repli d'objet/heading ne sont pas pris pour une personnalisation. Les surcharges effectives sont résolues par `wc_locate_template`, enfant avant parent : seulement le nom du fichier, jamais son contenu. Les transformations arbitraires par filtre ou par service ne sont pas rendues ni devinées. L'éditeur bloc expérimental Woo est **refusé explicitement** (`A15_BLOCK_EDITOR_UNSUPPORTED`) plutôt que décrit faussement « non personnalisé ».
+
+Extensions de transport : noms, versions et état actif/inactif des fournisseurs connus par nom, ou des propriétaires de callbacks mail effectivement chargés (phpmailer_init/pre_wp_mail/wp_mail). Ce sont des candidats observés, pas le choix d'un fournisseur ni ses réglages ; le formateur MIME natif WC_Email n'est pas un transport. Un transport tiers inactif non identifiable par son nom peut manquer. Le noyau WordPress n'a pas de registre global des appels directs wp_mail : ils ne sont pas inventés dans WC_Emails.
+
+Les emails envoyés **hors du site** par une passerelle ou un autre service sont invisibles pour cet outil ; cet inventaire ne prétend donc pas être exhaustif de tous les envois.
+
+Rejeu Windows sans PHP hôte : `python wp/tests/a15/run.py --output C:/Users/Ced/AppData/Local/hermes/cache/scratch/a15-rejeu-NOUVEAU`. Contrôle du paquet livré : `python wp/tests/a15/verify.py production/A-15/preuves/final`. Les deux magasins classic/HPOS utilisent le banc A02 (WordPress/Woo/WCS/Memberships réels, données entièrement fictives), jamais Imagine. Le test appelle réellement wp_mail et WC_Email::send sous les gardes et place un transport canari qui échoue s'il est atteint : aucun envoi n'est effectué.

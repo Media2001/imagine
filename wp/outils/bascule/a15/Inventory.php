@@ -15,6 +15,9 @@ final class Inventory
 
     public static function shape(object $email, string $owner, ?array $stored = null): array
     {
+        if (($email->block_email_editor_enabled ?? false) === true) {
+            throw new \RuntimeException('A15_BLOCK_EDITOR_UNSUPPORTED');
+        }
         $settings = $stored ?? $email->settings;
         $fields = $email->get_form_fields();
         $changed = static function (string $key, string $default, bool $emptyFallback = false) use ($settings): bool {
@@ -108,6 +111,11 @@ final class Inventory
                     try {
                         $ref = is_array($fn) ? new \ReflectionMethod($fn[0], $fn[1])
                             : (is_object($fn) && !$fn instanceof \Closure ? new \ReflectionMethod($fn, '__invoke') : new \ReflectionFunction($fn));
+                        // Core email MIME formatting is not an SMTP/provider implementation.
+                        if ($ref instanceof \ReflectionMethod && $ref->getDeclaringClass()->getName() === 'WC_Email'
+                            && $ref->getName() === 'handle_multipart') {
+                            continue;
+                        }
                         $file = $ref->getFileName();
                         if ($file) {
                             $hookOwners[self::owner($file, $site)] = true;
@@ -164,6 +172,13 @@ final class Inventory
                 throw new \RuntimeException('A15_SETTINGS_SHAPE');
             }
             $row = self::shape($email, $owner, $stored);
+            if ($email instanceof \WC_Memberships_User_Membership_Email) {
+                foreach (wc_memberships_get_membership_plans() as $plan) {
+                    if ($plan->get_email_content($email->id) !== $email->get_default_body()) {
+                        $row['content_customised'] = true;
+                    }
+                }
+            }
             $row['template_overrides'] = self::overrides($email, $site);
             $row['template_overridden'] = $row['template_overrides'] !== [];
             if (isset($emails[$row['id']])) {

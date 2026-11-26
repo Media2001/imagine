@@ -91,6 +91,17 @@ if (getenv('A15_CONFINED') === '1') {
     b.check(storage+':permissions',dest.stat().st_mode&0o777==0o700 and all(x.stat().st_mode&0o777==0o600 for x in dest.iterdir()))
     repeat=OUT/(storage+'-repeat');q=inventory(site,repeat,audit/'audit.json')
     b.check(storage+':replay_identical',q.returncode==0 and {x.name:x.read_bytes() for x in repeat.iterdir()}=={x.name:x.read_bytes() for x in dest.iterdir()})
+    (site/'wp-config.php').write_text(cfg.replace("define('DB_USER', 'a02_"+storage+"')","define('DB_USER', 'root')"))
+    try:
+        root_out=OUT/(storage+'-root-credential')
+        root_run=inventory(site,root_out,audit/'audit.json')
+        b.check(storage+':transaction_blocks_even_privileged_root',root_run.returncode==0 and json.loads((root_out/'emails.json').read_text())==data)
+    finally:(site/'wp-config.php').write_text(cfg)
+    import shutil
+    canonical=Path('/checkout/wp/outils/bascule')
+    if not canonical.exists():canonical.parent.mkdir(parents=True);shutil.copytree('/subject',canonical)
+    bad=b.cmd(['python3',str(canonical/'a15/confine.py'),'--wp-path='+str(site),'--output=/checkout/forbidden','--audit='+str(audit/'audit.json')],check=False)
+    b.check(storage+':canonical_repository_output_refused',bad.returncode==1 and bad.stderr=='A15_OUTPUT_UNSAFE\n' and not Path('/checkout/forbidden').exists())
     for label,path,extra in [('exists',dest,[]),('site',site/'forbidden',[]),('source',Path('/subject/forbidden'),[]),('ancestor',site.parent/'forbidden',[]),('root',Path('/forbidden'),[]),('argument',OUT/(storage+'-arg'),['--unknown=yes'])]:
         bad=inventory(site,path,audit/'audit.json',*extra);b.check(storage+':guard:'+label,bad.returncode==1 and (path==dest or not path.exists()))
     raw=b.cmd(['php','/subject/a15/inventorier-emails','--wp-path='+str(site),'--output=/report/'+storage+'-raw','--audit='+str(audit/'audit.json')],check=False)
