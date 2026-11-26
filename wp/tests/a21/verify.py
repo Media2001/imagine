@@ -8,6 +8,8 @@ import sys
 sys.dont_write_bytecode=True
 ROOT=Path(__file__).resolve().parents[3]
 OWN=['wp/tests/a21','wp/outils/bascule/a21']
+DEPENDENCIES=['wp/tests/a02-audit','wp/tests/a19','wp/outils/bascule/audit',
+              'wp/outils/bascule/a11','wp/outils/bascule/a12','wp/outils/staging']
 
 def inventory(roots):
     paths=[]
@@ -28,6 +30,10 @@ def verify(packet):
         checks.append({'check':name,'status':'PASS' if ok else 'FAIL'})
     source=load(packet/'sources.json')
     check('exact_current_sources',source==inventory(OWN))
+    dependencies=inventory(DEPENDENCIES)
+    # The shared README is verified by its exact lot contract, never a full hash.
+    dependencies.pop('wp/tests/a02-audit/README.md',None)
+    check('exact_current_dependencies',load(packet/'dependency-snapshot.json')==dependencies)
     required=['fixture_native_readback','a02_audit','documented_three_argument_command','default_clock_actual_utc',
               'keys_exact','webhooks_exact','store_connection_native_boolean','zero_outbound_attempts',
               'no_secrets_fragments_addresses_names_paths','private_permissions','frozen_replay_identical',
@@ -45,6 +51,7 @@ def verify(packet):
             counts[console+':'+kind]=len(names)
             check(console+':'+kind+':green_unique',data['exit_code']==0 and bool(names) and len(names)==len(set(names)) and all(r['status']=='PASS' for r in data['checks']))
         check(console+':executed_source_snapshot',load(folder/'sources.json')==source)
+        check(console+':executed_dependency_snapshot',load(folder/'dependency-snapshot.json')==dependencies)
         names={r['check'] for r in load(folder/'result.json')['checks']}
         for storage in ['classic','hpos']:
             check(console+':'+storage+':required_native_cases',all(storage+':'+name in names for name in required))

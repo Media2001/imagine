@@ -1,0 +1,40 @@
+{
+  "status": "CANDIDAT_GATE_PARENT",
+  "readiness_claimed": false,
+  "exit_code": 0,
+  "verifier": [
+    {
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\imagine\\wp\\tests\\a20\\verify.py",
+        "C:\\Users\\Ced\\imagine\\production\\A-20\\preuves\\final"
+      ],
+      "console": "utf-8",
+      "utf8_mode": 1,
+      "exit_code": 0,
+      "checks": 110,
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\imagine\\wp\\tests\\a20\\verify.py",
+        "C:\\Users\\Ced\\imagine\\production\\A-20\\preuves\\final"
+      ],
+      "console": "cp1252",
+      "utf8_mode": 0,
+      "exit_code": 0,
+      "checks": 110,
+      "stderr": ""
+    }
+  ],
+  "verifier_mutations": {
+    "location": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a20-b1-work\\verifier-repo",
+    "baseline": 0,
+    "changed_report": 1,
+    "extra_file": 1,
+    "restored": 0
+  }
+}

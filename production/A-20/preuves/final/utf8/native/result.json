@@ -1,0 +1,1165 @@
+{
+  "suite": "A02-real-commercial-fixture",
+  "checks": [
+    {
+      "check": "lint:audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:seed.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:fingerprint.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:unit.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:readonly-probe.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:commercial_fixture",
+      "status": "PASS",
+      "detail": {
+        "versions": {
+          "wordpress": "7.0.9",
+          "woocommerce": "11.1.1",
+          "subscriptions": "9.4.1",
+          "memberships": "1.30.3"
+        },
+        "hpos": false,
+        "subscriptions": 3,
+        "rules": 2,
+        "restriction_real": true
+      }
+    },
+    {
+      "check": "classic:native_fixture",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:a02_audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:native_confined_success",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "check": "classic:exact:live_subscriptions",
+      "status": "PASS",
+      "detail": {
+        "actual": 8,
+        "expected": 8
+      }
+    },
+    {
+      "check": "classic:exact:multiple_product_lines",
+      "status": "PASS",
+      "detail": {
+        "actual": 1,
+        "expected": 1
+      }
+    },
+    {
+      "check": "classic:exact:without_product_line",
+      "status": "PASS",
+      "detail": {
+        "actual": 0,
+        "expected": 0
+      }
+    },
+    {
+      "check": "classic:exact:with_fee_line",
+      "status": "PASS",
+      "detail": {
+        "actual": 1,
+        "expected": 1
+      }
+    },
+    {
+      "check": "classic:exact:with_shipping_line",
+      "status": "PASS",
+      "detail": {
+        "actual": 2,
+        "expected": 2
+      }
+    },
+    {
+      "check": "classic:exact:foreign_currency",
+      "status": "PASS",
+      "detail": {
+        "actual": 1,
+        "expected": 1
+      }
+    },
+    {
+      "check": "classic:exact:zero_recurring_total",
+      "status": "PASS",
+      "detail": {
+        "actual": 1,
+        "expected": 1
+      }
+    },
+    {
+      "check": "classic:exact:countries",
+      "status": "PASS",
+      "detail": {
+        "actual": [
+          {
+            "country": "BE",
+            "count": 5,
+            "with_shipping": 0
+          }
+        ],
+        "expected": [
+          {
+            "country": "BE",
+            "count": 5,
+            "with_shipping": 0
+          }
+        ]
+      }
+    },
+    {
+      "check": "classic:exact:other_countries",
+      "status": "PASS",
+      "detail": {
+        "actual": {
+          "count": 2,
+          "with_shipping": 2
+        },
+        "expected": {
+          "count": 2,
+          "with_shipping": 2
+        }
+      }
+    },
+    {
+      "check": "classic:exact:unknown_country",
+      "status": "PASS",
+      "detail": {
+        "actual": {
+          "count": 1,
+          "with_shipping": 0
+        },
+        "expected": {
+          "count": 1,
+          "with_shipping": 0
+        }
+      }
+    },
+    {
+      "check": "classic:exact_product_counts",
+      "status": "PASS",
+      "detail": {
+        "actual": [
+          {
+            "product": 24,
+            "variation": 0,
+            "count": 7,
+            "states": {
+              "active": 5,
+              "pending": 1,
+              "on-hold": 0,
+              "pending-cancel": 1
+            },
+            "schedules": [
+              {
+                "interval": 1,
+                "period": "month",
+                "count": 1
+              },
+              {
+                "interval": 1,
+                "period": "year",
+                "count": 6
+              }
+            ],
+            "non_annual": 1,
+            "amounts": [
+              {
+                "currency": "EUR",
+                "amount": "100.00",
+                "count": 5
+              }
+            ],
+            "other_amounts": 2
+          },
+          {
+            "product": 25,
+            "variation": 26,
+            "count": 2,
+            "states": {
+              "active": 0,
+              "pending": 0,
+              "on-hold": 1,
+              "pending-cancel": 1
+            },
+            "schedules": [
+              {
+                "interval": 1,
+                "period": "year",
+                "count": 2
+              }
+            ],
+            "non_annual": 0,
+            "amounts": [],
+            "other_amounts": 2
+          }
+        ],
+        "expected": [
+          {
+            "product": 24,
+            "variation": 0,
+            "count": 7,
+            "states": {
+              "active": 5,
+              "pending": 1,
+              "on-hold": 0,
+              "pending-cancel": 1
+            },
+            "schedules": [
+              {
+                "interval": 1,
+                "period": "month",
+                "count": 1
+              },
+              {
+                "interval": 1,
+                "period": "year",
+                "count": 6
+              }
+            ],
+            "non_annual": 1,
+            "amounts": [
+              {
+                "currency": "EUR",
+                "amount": "100.00",
+                "count": 5
+              }
+            ],
+            "other_amounts": 2
+          },
+          {
+            "product": 25,
+            "variation": 26,
+            "count": 2,
+            "states": {
+              "active": 0,
+              "pending": 0,
+              "on-hold": 1,
+              "pending-cancel": 1
+            },
+            "schedules": [
+              {
+                "interval": 1,
+                "period": "year",
+                "count": 2
+              }
+            ],
+            "non_annual": 0,
+            "amounts": [],
+            "other_amounts": 2
+          }
+        ]
+      }
+    },
+    {
+      "check": "classic:all_counts_explained",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:privacy_no_names_paths_ids_rare_amount_country",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:private_output_permissions",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:replay_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:documented_command_only_given_arguments",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:exists",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:site",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:repo",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:ancestor",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:root",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:unconfined_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:symlink_closed:False",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:symlink_closed:True",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_dropin:0",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_dropin:1",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_dropin:2",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_dropin:3",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_dropin:4",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_dropin:5",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:config_closed:define",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:config_closed:const",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:transaction_readonly_even_root",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:audit_guard:schema",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:audit_guard:storage",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_process:forged_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_artifacts:forged_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_process:invalid_utf8_stream",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_artifacts:invalid_utf8_stream",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_process:shutdown_invalid_json",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_artifacts:shutdown_invalid_json",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_process:report_extra_field",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_artifacts:report_extra_field",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_process:markdown_extra",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_artifacts:markdown_extra",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_process:direct_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_artifacts:direct_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_process:direct_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_artifacts:direct_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_process:echo_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_artifacts:echo_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_process:silent_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_artifacts:silent_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_process:die_message",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_artifacts:die_message",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_process:shutdown_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_artifacts:shutdown_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_process:shutdown_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_artifacts:shutdown_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_process:shutdown_echo",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_artifacts:shutdown_echo",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_process:shutdown_partial",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_artifacts:shutdown_partial",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_process:shutdown_extra_file",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_artifacts:shutdown_extra_file",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:all_tables_scheduler_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:files_identical",
+      "status": "PASS",
+      "detail": {
+        "before": "a92c0a9b73996cf651017408766ba661c6bef052210ac7843d74a42d8f61f18e",
+        "after": "a92c0a9b73996cf651017408766ba661c6bef052210ac7843d74a42d8f61f18e"
+      }
+    },
+    {
+      "check": "classic:config_not_executed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:plugin_exception_closed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:exception_database_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:all_artifacts_canary_absent",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:commercial_fixture",
+      "status": "PASS",
+      "detail": {
+        "versions": {
+          "wordpress": "7.0.9",
+          "woocommerce": "11.1.1",
+          "subscriptions": "9.4.1",
+          "memberships": "1.30.3"
+        },
+        "hpos": true,
+        "subscriptions": 3,
+        "rules": 2,
+        "restriction_real": true
+      }
+    },
+    {
+      "check": "hpos:native_fixture",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:a02_audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:native_confined_success",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "check": "hpos:exact:live_subscriptions",
+      "status": "PASS",
+      "detail": {
+        "actual": 8,
+        "expected": 8
+      }
+    },
+    {
+      "check": "hpos:exact:multiple_product_lines",
+      "status": "PASS",
+      "detail": {
+        "actual": 1,
+        "expected": 1
+      }
+    },
+    {
+      "check": "hpos:exact:without_product_line",
+      "status": "PASS",
+      "detail": {
+        "actual": 0,
+        "expected": 0
+      }
+    },
+    {
+      "check": "hpos:exact:with_fee_line",
+      "status": "PASS",
+      "detail": {
+        "actual": 1,
+        "expected": 1
+      }
+    },
+    {
+      "check": "hpos:exact:with_shipping_line",
+      "status": "PASS",
+      "detail": {
+        "actual": 2,
+        "expected": 2
+      }
+    },
+    {
+      "check": "hpos:exact:foreign_currency",
+      "status": "PASS",
+      "detail": {
+        "actual": 1,
+        "expected": 1
+      }
+    },
+    {
+      "check": "hpos:exact:zero_recurring_total",
+      "status": "PASS",
+      "detail": {
+        "actual": 1,
+        "expected": 1
+      }
+    },
+    {
+      "check": "hpos:exact:countries",
+      "status": "PASS",
+      "detail": {
+        "actual": [
+          {
+            "country": "BE",
+            "count": 5,
+            "with_shipping": 0
+          }
+        ],
+        "expected": [
+          {
+            "country": "BE",
+            "count": 5,
+            "with_shipping": 0
+          }
+        ]
+      }
+    },
+    {
+      "check": "hpos:exact:other_countries",
+      "status": "PASS",
+      "detail": {
+        "actual": {
+          "count": 2,
+          "with_shipping": 2
+        },
+        "expected": {
+          "count": 2,
+          "with_shipping": 2
+        }
+      }
+    },
+    {
+      "check": "hpos:exact:unknown_country",
+      "status": "PASS",
+      "detail": {
+        "actual": {
+          "count": 1,
+          "with_shipping": 0
+        },
+        "expected": {
+          "count": 1,
+          "with_shipping": 0
+        }
+      }
+    },
+    {
+      "check": "hpos:exact_product_counts",
+      "status": "PASS",
+      "detail": {
+        "actual": [
+          {
+            "product": 24,
+            "variation": 0,
+            "count": 7,
+            "states": {
+              "active": 5,
+              "pending": 1,
+              "on-hold": 0,
+              "pending-cancel": 1
+            },
+            "schedules": [
+              {
+                "interval": 1,
+                "period": "month",
+                "count": 1
+              },
+              {
+                "interval": 1,
+                "period": "year",
+                "count": 6
+              }
+            ],
+            "non_annual": 1,
+            "amounts": [
+              {
+                "currency": "EUR",
+                "amount": "100.00",
+                "count": 5
+              }
+            ],
+            "other_amounts": 2
+          },
+          {
+            "product": 25,
+            "variation": 26,
+            "count": 2,
+            "states": {
+              "active": 0,
+              "pending": 0,
+              "on-hold": 1,
+              "pending-cancel": 1
+            },
+            "schedules": [
+              {
+                "interval": 1,
+                "period": "year",
+                "count": 2
+              }
+            ],
+            "non_annual": 0,
+            "amounts": [],
+            "other_amounts": 2
+          }
+        ],
+        "expected": [
+          {
+            "product": 24,
+            "variation": 0,
+            "count": 7,
+            "states": {
+              "active": 5,
+              "pending": 1,
+              "on-hold": 0,
+              "pending-cancel": 1
+            },
+            "schedules": [
+              {
+                "interval": 1,
+                "period": "month",
+                "count": 1
+              },
+              {
+                "interval": 1,
+                "period": "year",
+                "count": 6
+              }
+            ],
+            "non_annual": 1,
+            "amounts": [
+              {
+                "currency": "EUR",
+                "amount": "100.00",
+                "count": 5
+              }
+            ],
+            "other_amounts": 2
+          },
+          {
+            "product": 25,
+            "variation": 26,
+            "count": 2,
+            "states": {
+              "active": 0,
+              "pending": 0,
+              "on-hold": 1,
+              "pending-cancel": 1
+            },
+            "schedules": [
+              {
+                "interval": 1,
+                "period": "year",
+                "count": 2
+              }
+            ],
+            "non_annual": 0,
+            "amounts": [],
+            "other_amounts": 2
+          }
+        ]
+      }
+    },
+    {
+      "check": "hpos:all_counts_explained",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:privacy_no_names_paths_ids_rare_amount_country",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:private_output_permissions",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:replay_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:documented_command_only_given_arguments",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:exists",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:site",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:repo",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:ancestor",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:root",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:unconfined_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:symlink_closed:False",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:symlink_closed:True",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_dropin:0",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_dropin:1",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_dropin:2",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_dropin:3",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_dropin:4",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_dropin:5",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:config_closed:define",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:config_closed:const",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:transaction_readonly_even_root",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:audit_guard:schema",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:audit_guard:storage",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_process:forged_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_artifacts:forged_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_process:invalid_utf8_stream",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_artifacts:invalid_utf8_stream",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_process:shutdown_invalid_json",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_artifacts:shutdown_invalid_json",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_process:report_extra_field",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_artifacts:report_extra_field",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_process:markdown_extra",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_artifacts:markdown_extra",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_process:direct_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_artifacts:direct_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_process:direct_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_artifacts:direct_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_process:echo_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_artifacts:echo_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_process:silent_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_artifacts:silent_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_process:die_message",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_artifacts:die_message",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_process:shutdown_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_artifacts:shutdown_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_process:shutdown_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_artifacts:shutdown_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_process:shutdown_echo",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_artifacts:shutdown_echo",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_process:shutdown_partial",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_artifacts:shutdown_partial",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_process:shutdown_extra_file",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_artifacts:shutdown_extra_file",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:all_tables_scheduler_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:files_identical",
+      "status": "PASS",
+      "detail": {
+        "before": "593eb65e43f194bd161bb33387ddf4d118170876526381459124a40103eab6f9",
+        "after": "593eb65e43f194bd161bb33387ddf4d118170876526381459124a40103eab6f9"
+      }
+    },
+    {
+      "check": "hpos:config_not_executed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:plugin_exception_closed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:exception_database_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:all_artifacts_canary_absent",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "network_interfaces",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "no_listener:tcp",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "no_listener:tcp6",
+      "status": "PASS",
+      "detail": null
+    }
+  ],
+  "exit_code": 0,
+  "licensed_sha256": {
+    "woocommerce-subscriptions.zip": "ed8c529d1382e2d06fa6e605e799c9db5607d8459806c229e74a20571f871083",
+    "woocommerce-memberships.zip": "d3a858a8d6ebc7153248a10d665c6752948ea4fa8a1836d6bdd8a8f267ee3285"
+  },
+  "no_real_site": true
+}

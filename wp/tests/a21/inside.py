@@ -39,7 +39,7 @@ if (getenv('A21_CONFINED') === '1') {
     if ($forced !== '') { throw new RuntimeException($forced); }
     add_action('woocommerce_webhook_delivery', static function () { throw new RuntimeException('A21_DELIVERY_ATTEMPT_CANARY'); });
     if (get_option('a21_probe_guards') === 'yes') {
-        add_action('plugins_loaded', static function () {
+        add_action('init', static function () {
         global $wpdb; require_once ABSPATH.'wp-includes/pluggable.php';
         if ($wpdb->query('UPDATE wp_posts SET ID=ID WHERE 1=0') !== false
             || @mysqli_query($wpdb->dbh,'UPDATE wp_posts SET ID=ID WHERE 1=0') !== false

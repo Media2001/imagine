@@ -1,0 +1,56 @@
+{
+  "container": "imagine-a20-style-15fcb93e2c",
+  "checks": [
+    {
+      "check": "isolation_before",
+      "status": "PASS"
+    },
+    {
+      "check": "phpcs_strict_exit",
+      "status": "PASS"
+    },
+    {
+      "check": "isolation_after",
+      "status": "PASS"
+    },
+    {
+      "check": "cleanup",
+      "status": "PASS"
+    },
+    {
+      "check": "owned_sources_stable",
+      "status": "PASS"
+    },
+    {
+      "check": "dependencies_stable",
+      "status": "PASS"
+    }
+  ],
+  "exit_code": 0,
+  "phpcs_exit": 0,
+  "totals": {
+    "errors": 0,
+    "warnings": 0,
+    "fixable": 0
+  },
+  "sources": {
+    "wp/outils/bascule/a20/Analysis.php": "4189fa5669e7819cc88f12ac8545d67fe2f63ca18bd6942c41a1371bb522efe7",
+    "wp/outils/bascule/a20/Command.php": "0492ceeffc422efe7596469b21df7b89d625e5e312bbf9dc87dfcb5612e6699a",
+    "wp/outils/bascule/a20/confine.py": "49e832698ade0a550000cc42e287362033e7d72227bedbbd691159fabb5f3131",
+    "wp/outils/bascule/a20/inventorier-tarifs": "30564ede8d5ade7aa3ad5850111da4aa7ee583b6d218feb5d4ac3d01069f40dd",
+    "wp/outils/bascule/a20/Inventory.php": "255eee53a01d60f9212357ff8b72ac845b68c02bda1344f2b23b49056cfb7d41",
+    "wp/outils/bascule/a20/README.md": "ec2f432730aa4944ce8b178afdef541a7df49da57e8779ff23471383a518d308",
+    "wp/outils/bascule/a20/report-contract.json": "51a205db3470bf897b8702a3e5e051ae02d32528bcd4d46b517d9e4f872ad5d4",
+    "wp/outils/bascule/a20/report.py": "a30437cfa9b7ff99b12f961bcbe8479d4647ec6e1a8a15339cfbb5f262517bbc",
+    "wp/tests/a20/inside.py": "b67ae7ae2595432b2c5abbe8d4c3850daf7b6bafc7a601ca6b6a0c9164d4cc21",
+    "wp/tests/a20/matrix.py": "836157e97a16115fc4e076918a4f10bb2ce09801dd28109d5da7f8354d1336bf",
+    "wp/tests/a20/pure-probe.php": "90896b6da84f4ecad19ab11544ce319f2cdf26733ea749f06c3b25c2a50903c9",
+    "wp/tests/a20/run.py": "0fed22114a18c5d3f528d075f2a0b7a68bfe3aa402c54552a135580cdbf5beb2",
+    "wp/tests/a20/seed.php": "5d2c056f847a9fe3cdf3cc0d2eb223be4026534aed0679f4e565f0205d300ba3",
+    "wp/tests/a20/style.py": "d856a2ea35f9a25c4be47e20fe5f3b8b9c2669b525f10b76cb35c1f6b0b8fe31",
+    "wp/tests/a20/test_launcher.py": "dba1512b121458352856f3f783a6f9087aece1c67cf61d04fbe637d536a92ebc",
+    "wp/tests/a20/test_report.py": "065317021b41a54e5cce42d1d01fbe60e699554d5010436390be8a466ff96967",
+    "wp/tests/a20/unit.php": "1aeb2b4b781ddc25a8c6d6262565977bc248b34c695afc1aab3181741f6c0601",
+    "wp/tests/a20/verify.py": "6610fff95a4b70013339030e376b5d168af5d3df077bc18bcaefedcfe1b42088"
+  }
+}
