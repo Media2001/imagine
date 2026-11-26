@@ -4,6 +4,28 @@ declare(strict_types=1);
 
 namespace Imagine\Demo\C17;
 
+/** PDF synthétique lisible, généré ici : aucune source ni identité réelle. */
+function document(string $code): string
+{
+    $text = 'BT /F1 16 Tf 50 760 Td (DOCUMENT FICTIF C17 - ' . $code . ') Tj 0 -35 Td (AUCUNE PERSONNE REELLE) Tj ET';
+    $objects = ['<< /Type /Catalog /Pages 2 0 R >>', '<< /Type /Pages /Kids [3 0 R] /Count 1 >>',
+        '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>',
+        '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>',
+        '<< /Length ' . strlen($text) . ">>\nstream\n" . $text . "\nendstream"];
+    $pdf = "%PDF-1.4\n";
+    $offsets = [0];
+    foreach ($objects as $i => $object) {
+        $offsets[] = strlen($pdf);
+        $pdf .= ($i + 1) . " 0 obj\n" . $object . "\nendobj\n";
+    }
+    $xref = strlen($pdf);
+    $pdf .= "xref\n0 6\n0000000000 65535 f \n";
+    foreach (array_slice($offsets, 1) as $offset) {
+        $pdf .= sprintf("%010d 00000 n \n", $offset);
+    }
+    return $pdf . "trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n" . $xref . "\n%%EOF\n";
+}
+
 /** Reset strictement limité aux deux comptes synthétiques ; aucun objet commercial. */
 function profils(bool $reset = false): array
 {
@@ -24,8 +46,9 @@ function profils(bool $reset = false): array
             $out[$code] = $old;
             continue;
         }
-        $bytes = "%PDF-1.4\n% DOCUMENT FICTIF C17 " . $code . " - AUCUNE PERSONNE REELLE\n1 0 obj\n<< /Type /Catalog >>\nendobj\n%%EOF\n";
-        $pending = \Imagine\Site\Justificatifs::recevoir($id, 'à préciser', $bytes, \Imagine\Site\Justificatifs::version($old));
+        $bytes = document($code);
+        $category = \Imagine\Site\JustificatifsReglages::categories()[0];
+        $pending = \Imagine\Site\Justificatifs::recevoir($id, $category, $bytes, \Imagine\Site\Justificatifs::version($old));
         if ($code === 'P-SOL-OK') {
             \Imagine\Site\Justificatifs::verrou($id, static function () use ($id, $pending): void {
                 $state = \Imagine\Site\JustificatifRegles::decider($pending, 'valide', gmdate('Y-m-d', time() + 45 * DAY_IN_SECONDS),

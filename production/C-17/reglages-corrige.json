@@ -1,0 +1,14 @@
+{
+  "checks": {
+    "champ_dans_formulaire_C10": true,
+    "POST_C10_persistant": true,
+    "categorie_configuree_depot": true,
+    "vide_refuse_liste_conservee": true,
+    "nonce_invalide_refuse": true,
+    "journal_C10_operateur": true,
+    "categories_restaurees": true,
+    "autres_options_commercial_acces_preserves": true
+  },
+  "total": 8,
+  "failures": []
+}

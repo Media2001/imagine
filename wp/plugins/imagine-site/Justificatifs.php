@@ -17,6 +17,7 @@ final class Justificatifs
             add_action('admin_post_imagine_justificatif_' . $action, [self::class, $action]);
             add_action('admin_post_nopriv_imagine_justificatif_' . $action, [self::class, $action]);
         }
+        add_action('imagine_compte_justificatif', [self::class, 'compte']);
         add_action('template_redirect', [self::class, 'servir'], -101);
         add_action('admin_menu', static function (): void {
             add_submenu_page('imagine', __('Justificatifs solidaires', 'imagine-site'),
@@ -236,7 +237,7 @@ final class Justificatifs
         try {
             self::verrou((int) $id, static function () use ($id): void {
                 $state = self::etat((int) $id);
-                if (($state['decision'] ?? '') !== 'en_attente'
+                if (($state['decision'] ?? '') !== 'en_attente' || !is_string($state['blob'] ?? null)
                     || !hash_equals($state['blob'], self::texte($_GET, 'version'))) {
                     throw new \RuntimeException('Document indisponible.');
                 }

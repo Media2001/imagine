@@ -46,7 +46,7 @@ final class JustificatifsReglages
                         $fn();
                         $html = ob_get_clean();
                         $end = strpos($html, '</form>');
-                        if ($end !== false && str_contains($html, 'value="imagine_reglages"')) {
+                        if ($end !== false && (str_contains($html, 'value="imagine_reglages"') || str_contains($html, "value='imagine_reglages'"))) {
                             $field = '<h2>' . esc_html__('Justificatifs du tarif solidaire', 'imagine-site') . '</h2><p><label for="imagine-solidaire-categories">'
                                 . esc_html__('Catégories — une par ligne (à confirmer par Imagine)', 'imagine-site') . '</label></p><textarea id="imagine-solidaire-categories" name="'
                                 . esc_attr(self::OPTION) . '" rows="4" cols="45">' . esc_textarea(implode("\n", self::categories())) . '</textarea><p>'

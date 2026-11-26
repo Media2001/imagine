@@ -1,17 +1,7 @@
 {
-  "at": "2026-11-25T23:57:06.208958+00:00",
+  "at": "2026-11-26T00:11:20.534493+00:00",
   "scope": "imagine-test-demo",
   "sha256_before": {
-    "plugins/imagine-site/JustificatifRegles.php": null,
-    "plugins/imagine-site/Justificatifs.php": null,
-    "plugins/imagine-site/JustificatifsReglages.php": null,
-    "plugins/imagine-site/PdfNumero.php": "009a20153f8a65773f6e65397e8328f255fd003a787690b101d54e30f2ed2cdf",
-    "plugins/imagine-site/imagine-site.php": "080a979aa5b40258f181e761298850d14ae1c07856782c1d19bad2fe774500a8",
-    "themes/imagine/parts/mon-compte.php": "a4cc64f8bdff688a4e2d9bb0333c2928c1f83a337a04f213db300afa1f7b684a",
-    "imagine-demo-build/c09-seed.php": "55aeb3d11504d845798ddfbc2107212785a090a322072f22a8cf281a3ecb0714",
-    "imagine-demo-build/c17-profils.php": null
-  },
-  "sha256_readback": {
     "plugins/imagine-site/JustificatifRegles.php": "aa032ec0a86b7b794ee105877648885b4d8dc734928723dcc9bba83fd4aa2cd3",
     "plugins/imagine-site/Justificatifs.php": "698a3588060a4d0179ec1514a75b3866c574d8530ab9a76763ca7dd206471cd3",
     "plugins/imagine-site/JustificatifsReglages.php": "dbda042c1b70695e5c0d5fe90333adbb602b3a7c82f698583d749060338c9c6c",
@@ -20,6 +10,16 @@
     "themes/imagine/parts/mon-compte.php": "ad79d388262831c78e0b9a49f24b8c7b148531d777ff52b2d9f9a5cdb4845040",
     "imagine-demo-build/c09-seed.php": "7b7ad355e03208cca739504ff64aef68969e4cfdd8a73fe94e4b3a10382fc382",
     "imagine-demo-build/c17-profils.php": "c1d1c8c563733d395ba4beee9669efcc8c170ab0fd8a89217477cfe2a265c75a"
+  },
+  "sha256_readback": {
+    "plugins/imagine-site/JustificatifRegles.php": "aa032ec0a86b7b794ee105877648885b4d8dc734928723dcc9bba83fd4aa2cd3",
+    "plugins/imagine-site/Justificatifs.php": "c1675f81a693f1db64d969222052bb467cfbfdbc2e15fea597063ae45b69e9cc",
+    "plugins/imagine-site/JustificatifsReglages.php": "620a939fc00d99d96a7255586765183e85539f29991c422c2b4360d95dfd81fc",
+    "plugins/imagine-site/PdfNumero.php": "dbb32496968b9e93c1ed90678ddf477b80bebd703019abff92149b327d2e0d49",
+    "plugins/imagine-site/imagine-site.php": "ce6750241cd7749c0c101668c7f9ea6f19ded1c2128ef4373a790ac8ad254708",
+    "themes/imagine/parts/mon-compte.php": "4b2c6983c96ee8defafd4eba64e7ccb7dfa1009c48d6dba34478a9a4a1a58ad2",
+    "imagine-demo-build/c09-seed.php": "7b7ad355e03208cca739504ff64aef68969e4cfdd8a73fe94e4b3a10382fc382",
+    "imagine-demo-build/c17-profils.php": "cef60aa196026fd53569bcf2d67e95163697d145573801db8d0325469a4541fa"
   },
   "before": {
     "commandes": {
@@ -996,13 +996,13 @@
     "P-SOL-ATT": {
       "categorie": "à préciser",
       "decision": "en_attente",
-      "blob": "fde0ded1b8f772da4a52bbcdd4bdae48"
+      "blob": "019f1a257dd679eae1e7e62e24b21f5e"
     },
     "P-SOL-OK": {
       "categorie": "à préciser",
       "decision": "valide",
-      "date_decision": "2026-11-25T23:57:05Z",
-      "fin": "2027-01-09",
+      "date_decision": "2026-11-26T00:07:23Z",
+      "fin": "2027-01-10",
       "operateur": "fixture-c09-fictive"
     }
   },

@@ -3,6 +3,7 @@ from pathlib import Path
 from datetime import datetime,timezone
 import hashlib
 import json
+import re
 import sys
 sys.dont_write_bytecode=True
 import profils
@@ -10,7 +11,7 @@ ROOT=profils.b00.ROOT
 PROOF=ROOT/'production/C-17'
 BLOCK="require_once __DIR__ . '/JustificatifRegles.php';\nrequire_once __DIR__ . '/JustificatifsReglages.php';\nrequire_once __DIR__ . '/Justificatifs.php';\nJustificatifsReglages::register();\nJustificatifs::register();\n\n"
 SEED="if (is_file(__DIR__ . '/c17-profils.php') && class_exists(\\Imagine\\Site\\Justificatifs::class)) {\n    require_once __DIR__ . '/c17-profils.php';\n    \\Imagine\\Demo\\C17\\profils(true);\n}\n"
-THEME='<ul data-imagine-factures><li><?php esc_html_e(\'Aucune facture disponible — raccord documentaire Odoo non disponible.\', \'imagine\'); ?></li></ul>\n<?php if (class_exists(\\Imagine\\Site\\Justificatifs::class)) { \\Imagine\\Site\\Justificatifs::compte(); } ?>'
+THEME='<ul data-imagine-factures><li><?php esc_html_e(\'Aucune facture disponible — raccord documentaire Odoo non disponible.\', \'imagine\'); ?></li></ul>\n<?php if (function_exists(\'do_action\')) { do_action(\'imagine_compte_justificatif\'); } ?>'
 OLD_THEME='<ul data-imagine-factures><li><?php esc_html_e(\'Aucune facture ou justificatif disponible — raccord documentaire non disponible.\', \'imagine\'); ?></li></ul>'
 def wp(code):
     r=profils.b00.wp('eval',code)
@@ -46,6 +47,12 @@ def reset():
 def deploy():
     profils.guard('imagine-test-demo')
     before=state();old={}
+    previous=json.loads((PROOF/'installation.json').read_text(encoding='utf-8')) if (PROOF/'installation.json').is_file() else None
+    if previous:
+        assert previous['scope']=='imagine-test-demo'
+        stamp=re.sub(r'[^0-9]','',previous['at'])
+        archived=PROOF/('installation-'+stamp+'.json')
+        if not archived.exists():save(archived.stem,previous)
     for name,path in targets().items():
         data=path.read_bytes();text=data.decode('utf-8')
         if name.endswith('imagine-site.php'):prior=text.replace(BLOCK,'')
@@ -56,6 +63,7 @@ def deploy():
         current=wp('$p=WP_CONTENT_DIR.'+json.dumps('/'+name)+';echo wp_json_encode(is_file($p)?hash_file("sha256",$p):null);')
         allowed={hashlib.sha256(data).hexdigest()}
         if prior is not None:allowed.add(hashlib.sha256(prior.encode()).hexdigest())
+        if previous and name in previous['sha256_readback']:allowed.add(previous['sha256_readback'][name])
         if current is not None and current not in allowed:raise RuntimeError('Source drift; refusing overwrite: '+name)
         old[name]=current
     # Dependencies first, shared bootstrap last. No other theme or global seed.
