@@ -25,6 +25,7 @@ def verify(packet):
     required+=['config_closed:'+x for x in ['define','const']]
     required+=['exact:'+x for x in ['live_subscriptions','multiple_product_lines','without_product_line','with_fee_line',
         'with_shipping_line','foreign_currency','zero_recurring_total','countries','other_countries','unknown_country']]
+    required+=['closed_'+kind+':'+label for kind in ['process','artifacts'] for label in ['forged_success','invalid_utf8_stream','shutdown_invalid_json','report_extra_field','markdown_extra','direct_stdout','direct_stderr','echo_exit','silent_exit','die_message','shutdown_stdout','shutdown_stderr','shutdown_echo','shutdown_partial','shutdown_extra_file']]
     for console in ['utf8','cp1252']:
         base=packet/console;folder=base/'native'
         env=load(base/'environment.json')
@@ -32,8 +33,8 @@ def verify(packet):
             and env['stdout']==('utf-8' if console=='utf8' else 'cp1252') and env['stderr']==env['stdout']
             and env['utf8_mode']==int(console=='utf8'))
         tests=(base/'launcher-tests.log').read_text(encoding='utf-8')
-        check(console+':eight_python_tests',re.search(r'Ran 8 tests in ',tests) is not None and '\nOK\n' in tests)
-        for kind,total in [('unit',23),('result',98),('runner',9)]:
+        check(console+':thirty_four_python_tests',re.search(r'Ran 34 tests in ',tests) is not None and '\nOK\n' in tests)
+        for kind,total in [('unit',23),('result',158),('runner',9)]:
             d=load(folder/(kind+'.json'));names=[c['check'] for c in d['checks']];counts[console+':'+kind]=len(names)
             check(console+':'+kind+'_all_pass',d['exit_code']==0 and len(names)==total and len(names)==len(set(names)) and all(x['status']=='PASS' for x in d['checks']))
         check(console+':sources_really_executed',load(folder/'sources.json')==source)
@@ -59,6 +60,8 @@ def verify(packet):
         deps=load(folder/'dependency-snapshot.json');check(console+':runtime_dependency_unchanged',deps['wp/outils/bascule/a11/Runtime.php']==hashlib.sha256((ROOT/'wp/outils/bascule/a11/Runtime.php').read_bytes()).hexdigest())
     style=load(packet/'style/style.json');check('strict_psr12_current_sources',style['exit_code']==style['phpcs_exit']==0 and style['totals']['errors']==style['totals']['warnings']==0 and style['sources']==source)
     matrix=load(packet/'windows-matrix.json');check('both_console_suites_executed',matrix['exit_code']==0 and len(matrix['rows'])==5 and all(r['exit_code']==0 for r in matrix['rows']))
+    check('all_retained_artifacts_canary_absent',not any(b'CANARY' in p.read_bytes() for p in packet.rglob('*') if p.is_file()))
+    check('no_PRET_child_delivery',not (ROOT/'production/A-20/PRET').exists())
     candidate=load(packet/'candidate.json');check('parent_gates_explicitly_pending',candidate=={'status':'CANDIDAT_GATE_PARENT','parent_preparation':'pending','parent_global_T01':'pending','readiness_claimed':False})
     lines=(ROOT/'production/A-20/readme-ajout.txt').read_text(encoding='utf-8').splitlines();shared=(ROOT/'wp/tests/a02-audit/README.md').read_text(encoding='utf-8').splitlines();check('only_own_two_shared_lines',len(lines)==2 and all(shared.count(line)==1 for line in lines))
     expected=inventory(OWN+[packet.relative_to(ROOT).as_posix()]);expected.pop((packet/'manifest.json').relative_to(ROOT).as_posix(),None)

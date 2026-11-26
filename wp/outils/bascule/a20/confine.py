@@ -68,13 +68,9 @@ def main():
         if result.returncode!=0 or result.stdout!=b'A20_OK tarifs.json tarifs.md\n' or result.stderr:
             message=closed_refusal(result)
             raise RuntimeError(message)
-        if not staged_out.is_dir() or set(p.name for p in staged_out.iterdir())!={'tarifs.json','tarifs.md'}:
-            raise RuntimeError('A20_REPORT_INVALID')
-        for name in ['tarifs.json','tarifs.md']:
-            file=staged_out/name
-            if file.is_symlink() or not file.is_file() or file.stat().st_size>16777216:raise RuntimeError('A20_REPORT_INVALID')
-        report=json.loads((staged_out/'tarifs.json').read_text(encoding='utf-8'))
-        if report.get('schema')!='imagine-a20-recurring-prices-v1':raise RuntimeError('A20_REPORT_INVALID')
+        spec=importlib.util.spec_from_file_location('a20_report',HERE/'report.py')
+        validator=importlib.util.module_from_spec(spec);spec.loader.exec_module(validator)
+        validator.validate(staged_out,audit)
         staged_out.rename(out)
     print('A20_OK tarifs.json tarifs.md')
 if __name__=='__main__':

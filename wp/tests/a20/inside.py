@@ -103,6 +103,9 @@ if (getenv('A20_CONFINED') === '1') {
     original_mu=mu.read_text(encoding='utf-8')
     target="foreach ($_SERVER['argv'] as $arg) { if (str_starts_with($arg, '--output=')) { $dir=substr($arg,9); } }"
     cases=[
+        ('forged_success',"fwrite(STDOUT, \"A20_OK tarifs.json tarifs.md\\n\"); exit(0);",'A20_REPORT_INVALID'),
+        ('invalid_utf8_stream',"fwrite(STDERR, chr(255));",'A20_PROCESS_OUTPUT_INVALID'),
+        ('shutdown_invalid_json',"register_shutdown_function(function () { "+target+" file_put_contents($dir.'/tarifs.json','{'); });",'A20_REPORT_INVALID'),
         ('report_extra_field',"register_shutdown_function(function () { "+target+" $p=$dir.'/tarifs.json'; $d=json_decode(file_get_contents($p),true); $d['private']='A20_REPORT_PRIVATE_CANARY'; file_put_contents($p,json_encode($d)); });",'A20_REPORT_INVALID'),
         ('markdown_extra',"register_shutdown_function(function () { "+target+" file_put_contents($dir.'/tarifs.md','A20_MARKDOWN_PRIVATE_CANARY',FILE_APPEND); });",'A20_REPORT_INVALID'),
         ('direct_stdout',"fwrite(STDOUT, 'A20_STDOUT_PRIVATE_CANARY');",'A20_PROCESS_OUTPUT_INVALID'),
