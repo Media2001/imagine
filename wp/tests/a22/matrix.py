@@ -23,10 +23,11 @@ def sources():
            'wp/outils/staging','wp/plugins/imagine-non-regression',
            'wp/outils/bascule/a20/confine.py','wp/outils/bascule/a21/confine.py']
     paths+=['wp/tests/'+DIRS[x] for x in LOTS]
-    paths+=['wp/outils/bascule/a'+str(x) for x in [3,10,11,12,13,14,15,16,17,18,19]]
+    paths+=['wp/outils/bascule/a'+str(x).zfill(2) for x in [3,10,11,12,13,14,15,16,17,18,19]]
     files=[]
     for name in paths:
         p=ROOT/name
+        if not p.exists():raise RuntimeError('A22_SOURCE_ROOT_MISSING')
         files.extend([p] if p.is_file() else [f for f in p.rglob('*') if f.is_file()])
     return {p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest()
             for p in sorted(set(files)) if '__pycache__' not in p.parts and p!=ROOT/'wp/tests/a02-audit/README.md'}

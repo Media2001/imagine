@@ -122,11 +122,12 @@ def complete(output,files):
         if p.suffix=='.json':
             try:json.loads(p.read_bytes())
             except (ValueError,UnicodeError):return False
-    return True
+    tool=next((tool for tool,names in FILES.items() if files==names),None)
+    return tool is not None and load('stream_reports',HERE/'stream_reports.py').validate(tool,output)
 
 
 def inventory(tool,entry,options,*,fence=None,input_data=None,arguments=None):
-    legacy_path={'A03':'A03_PATH_UNSAFE_OR_EXISTS','A11':'A11_PATH_INVALID'}.get(tool)
+    legacy_path={'A03':'A03_PATH_UNSAFE_OR_EXISTS','A11':'A11_PATH_INVALID','A12':'A12_PATH_INVALID'}.get(tool)
     try:
         site=Path(options['--wp-path']).resolve(strict=True)
         parent=Path(options['--output']).parent.resolve(strict=True)
