@@ -104,7 +104,7 @@ final class Command
             if (isset($worker['store']) && method_exists($worker['store'], 'failureCoordinate')) {
                 $failure['operation'] = $worker['store']->failureCoordinate();
             }
-            print(json_encode(['ok' => false, 'issues' => [$failure['code']], 'failure' => $failure], JSON_THROW_ON_ERROR) . "\n");
+            print(json_encode(['ok' => false, 'issues' => array_values(array_unique(['STAGING_REFUSE', $failure['code']])), 'failure' => $failure], JSON_THROW_ON_ERROR) . "\n");
             return 78;
         }
     }

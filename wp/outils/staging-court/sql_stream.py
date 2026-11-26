@@ -18,8 +18,8 @@ def binary_hex(literal):
 
 MAX_STATEMENT = 64 * 1024**2
 MARK = re.compile(rb"[;'\"`#]|--|/\*")
-QUOTED = {ord("'"): re.compile(rb"'(?:[^'\\]+|\\.|'')*'", re.S),
-          ord('"'): re.compile(rb'"(?:[^"\\]+|\\.|"")*"', re.S),
+QUOTED = {ord("'"): re.compile(rb"'(?:[^'\\]++|\\.|'')*'", re.S),
+          ord('"'): re.compile(rb'"(?:[^"\\]++|\\.|"")*"', re.S),
           ord('`'): re.compile(rb'`[^`]*`')}
 
 
@@ -150,6 +150,7 @@ class Validator:
         self.skipped_inserts = 0
         self.compatibility = []
         self.source_sql_mode = None
+        self.token = re.compile(module.TOKEN.pattern.replace(r"[^'\\]", r"[^'\\]++"), re.S)
         from diagnosis import catalogue
         self.policy = Policy(catalogue(), decisions)
 
@@ -195,7 +196,7 @@ class Validator:
                 tokens.append(('hex', hexadecimal[0]))
                 pos = hexadecimal.end()
                 continue
-            match = re.compile(self.module.TOKEN.pattern.replace(r"[^'\\]", r"[^'\\]+"), re.S).match(text, pos)
+            match = self.token.match(text, pos)
             if not match:
                 self.error('SQL_GRAMMAR')
                 if self.findings:

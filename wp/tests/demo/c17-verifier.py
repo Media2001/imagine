@@ -1,10 +1,12 @@
-"""C17 final gates; only the documented unchanged C09 historical action is reserved."""
+"""C17 gates with the authorized C09 successor baseline; read-only replay supported."""
 from pathlib import Path
 from datetime import datetime,timezone
 import hashlib,json,re,subprocess,sys
 sys.dont_write_bytecode=True
 sys.path.insert(0,str(Path(__file__).resolve().parents[2]/'outils/demo'))
 import c17
+import importlib
+successor = importlib.import_module('c09-successor-gates')
 ROOT=c17.ROOT
 PROOF=c17.PROOF
 
@@ -29,12 +31,12 @@ def run():
     after=c17.state();c17.save('verification-after',after)
     assert before==after,'Native state differs'
     original=json.loads(sorted(PROOF.glob('installation-*.json'))[0].read_text(encoding='utf-8'))['before']
-    assert original==after,'Native state differs from first C17 installation'
+    bridge=successor.baseline_contract(original,after,successor.repair_receipt())
     r=c17.profils.b00.wp('eval','require WP_CONTENT_DIR."/imagine-demo-build/c09-runtime.php";',check=False)
     assert not r['stderr'];native=json.loads(r['stdout']);c17.save('c09-native-final',native)
     assert native['total']==len(native['checks'])
-    reserve=['A-PAPIER:action_native_planifiee_ou_absente_selon_statut']
-    assert native['failures']==reserve and before['reserve_native_C09_action8103']['status']=='canceled'
+    assert r['code']==0 and native['total']==382 and native['failures']==[]
+    assert all(v is True for v in native['checks'].values())
     assert before['reserve_native_C09_action8103']==after['reserve_native_C09_action8103']
     receipts={}
     for name in ['http-final','reglages-final','faults-final']:
@@ -61,13 +63,15 @@ def run():
     sources=list(c17.targets().values())+[ROOT/'wp/outils/demo/profils.py',ROOT/'wp/outils/demo/c17.py',ROOT/'wp/outils/demo/c17-unit.py',ROOT/'wp/plugins/imagine-site/tests/JustificatifReglesTest.php']
     sources+=sorted((ROOT/'wp/tests/demo').glob('c17*.py'))
     source_hashes={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in sources}
-    result={'at':datetime.now(timezone.utc).isoformat(),'status':'PRET_TECHNIQUE_C17_AVEC_RESERVE_HISTORIQUE_C09',
+    result={'at':datetime.now(timezone.utc).isoformat(),'status':'PRET_TECHNIQUE_C17_C09_RESTAURE',
         'scope':'imagine-test-demo','receipts':receipts,'canonical_T01':canonical,'sha256_readback':hashes,
-        'source_sha256':source_hashes,'native_state_exactly_preserved':before==after==original,
+        'source_sha256':source_hashes,'native_state_exactly_preserved':before==after,'authorized_baseline_successor':bridge,
         'C16_nonshared_sources_unchanged':preserved,'shared_digest_successor_not_historical_rewrite':shared,
         'native_C09':{'exit':r['code'],'total':native['total'],'failures':native['failures'],'historical_action_unchanged':after['reserve_native_C09_action8103']},
-        'global_C09_green':False,'visual_approval':False,'C18_treated':False}
-    c17.save('final',result)
+        'global_C09_green':True,'visual_approval':False,'C18_treated':False}
+    c17.save('final-V2',result)
     print(json.dumps(result,ensure_ascii=False,indent=2))
     return 0
-if __name__=='__main__':sys.exit(run())
+if __name__=='__main__':
+    if '--readback-only' in sys.argv:successor.run('C-17')
+    else:sys.exit(run())

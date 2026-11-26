@@ -59,6 +59,12 @@ def execute(args, *, stage='external_command', timeout=300, check=True, sql_path
         detail = {'exit': result.returncode}
         if database:
             detail['database'] = database_error(result.stderr or b'', sql_path)
+            if sql_path is None:
+                statement = kwargs.get('input')
+                if statement is None and '-e' in args:
+                    statement = args[args.index('-e')+1].encode()
+                if isinstance(statement,bytes):
+                    detail['database'].update(statement_coordinate(statement[:4096]))
         if php:
             detail['php'] = php_error(result.stderr or b'')
         raise CommandFailure('DATABASE_COMMAND_REFUSED' if database else 'EXTERNAL_COMMAND_REFUSED', stage, **detail)

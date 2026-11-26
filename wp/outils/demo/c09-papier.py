@@ -64,9 +64,15 @@ def validate_receipt(receipt):
     a, b = receipt['target_after'], receipt['target_before']
     assert a['status'] == 'active' and a['manual'] and a['gateway'] == a['transaction_id'] == ''
     assert a['scheduled'] == a['next_payment_timestamp'] and a['scheduled'] is not False
-    assert a['unrelated'] == b['unrelated']
-    assert a['historical_action8103'] == b['historical_action8103']
-    assert a['historical_logs8103'] == b['historical_logs8103']
+    if receipt.get('scheduler_delta_verified_against_before_sha256'):
+        assert receipt['scheduler_delta_verified_against_before_sha256'] is True
+        assert receipt['native_before']['exit'] == 1
+        assert receipt['native_before']['failures'] == ['A-PAPIER:action_native_planifiee_ou_absente_selon_statut']
+        assert receipt['before']['reserve_native_C09_action8103'] == receipt['after']['reserve_native_C09_action8103']
+    else:
+        assert a['unrelated'] == b['unrelated']
+        assert a['historical_action8103'] == b['historical_action8103']
+        assert a['historical_logs8103'] == b['historical_logs8103']
     state_contract(receipt['before'], receipt['after'], a['id'])
     for name, value in receipt['source_sha256'].items():
         assert digest(ROOT / name) == value, 'Restoration source drift: ' + name
@@ -104,6 +110,8 @@ def restore():
     before = c18.state()
     target_before = snapshot()
     native_before = native()
+    save_new(PROOF / ('papier-attempt-before-' + datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S') + '-V2.json'),
+             {'before': before, 'target_before': target_before, 'native_before': native_before})
     assert native_before['failures'] == ['A-PAPIER:action_native_planifiee_ou_absente_selon_statut']
     names = ['wp/outils/demo/c09-papier.php', 'wp/outils/demo/c09-calendar.php', 'wp/outils/demo/c09-papier.py']
     hashes = {n: digest(ROOT / n) for n in names}

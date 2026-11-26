@@ -593,10 +593,12 @@ def main():
             receipt = {'name': name, 'storage': storage, 'trapped': bool(trapped), 'trap_kind': trapped, 'status': 'NOT_EXECUTED'}
             result['cases'].append(receipt)
             try:
+                receipt['stage'] = 'runner_prepare'
                 manifest = fresh_runner(runner); runner_created = True
                 receipt['offline_isolation_before'] = offline_isolation(runner)
                 receipt['source_manifest'] = manifest
                 if args.archive:
+                    receipt['stage'] = 'archive_copy_and_core_preflight'
                     # Operator-only path. Selection precedes any site/API lifecycle or PHP.
                     archive = Path(args.archive)
                     if archive.is_symlink() or not archive.is_file() or archive.suffix.lower() != '.wpress':
@@ -611,6 +613,7 @@ def main():
                         raise RuntimeError(receipt['archive_core_preflight']['code'])
                     prepared_core = prepare_core(receipt['archive_core_preflight']['source'])
                     result['public_core'] = prepared_core[1]
+                receipt['stage'] = 'empty_core_install'
                 receipt['runtime_core_preflight'] = set_empty_runner_core(runner, *prepared_core)
                 if qualified_69:
                     call(['exec', '-i', runner, 'python3', '-'], b"import shutil\nshutil.rmtree('/opt/woocommerce/woocommerce')\n")
@@ -618,6 +621,7 @@ def main():
                 if api('GET', '/api/sites/' + name)['code'] != 404:
                     raise RuntimeError('FRESH_SITE_REQUIRED')
                 # Normal API creation is explicitly authorized, automatic platform activation included.
+                receipt['stage'] = 'target_site_create'
                 site = api('POST', '/api/sites', {'name': name, 'template_slug': 'sandbox-wp-minimal',
                             'php_version': args.php_version, 'client_name': None, 'target_domain': None})['body']
                 created = True
@@ -630,6 +634,7 @@ def main():
                 if site['status'] != 'running':
                     raise RuntimeError('NORMAL_SITE_CREATION_REFUSED')
                 receipt['normal_creation'] = {k: site[k] for k in ('slug', 'status', 'url', 'port', 'php_version', 'mcp_enabled', 'mcp_status')}
+                receipt['stage'] = 'target_runtime_preflight'
                 php_runtime = call(['exec', 'wp-' + name, 'php', '-r', 'echo PHP_VERSION;']).stdout.decode().strip()
                 if not re.fullmatch(r'[0-9]+\.[0-9]+\.[0-9]+', php_runtime):
                     raise RuntimeError('TARGET_PHP_VERSION_REFUSED')
@@ -673,6 +678,7 @@ Path('/report/offline.json').write_text(json.dumps(r))
 print(json.dumps({'data_verified':r['data_verified']}))
 raise SystemExit(1 if 'failure' in r else 0)
 '''
+                receipt['stage'] = 'offline_restore'
                 request.update(start_database=not args.self_test_publication, archive=archive_path)
                 input_program = 'import io,sys\nsys.stdin=io.StringIO(' + repr(json.dumps(request)) + ')\n' + program
                 execution = call(['exec', '-i', runner, 'python3', '-'], input_program.encode(), check=False, timeout=5400)
@@ -711,12 +717,15 @@ raise SystemExit(1 if 'failure' in r else 0)
                     receipt['expected_blocking_issue'] = expected
                 injection = {}
                 def do_inject():
+                    receipt['stage'] = 'target_injection'
                     injection.update(inject(name, runner, offline, site['url'], helpers))
                 def do_start():
+                    receipt['stage'] = 'target_start'
                     api('POST', '/api/sites/' + name + '/start')
                     assert api('GET', '/api/sites/' + name)['body']['status'] == 'running'
                     time.sleep(3)
                 def checked_runtime():
+                    receipt['stage'] = 'target_runtime_verification'
                     probe = runtime_probe(name, site['port'], site['url'])
                     if probe.get('versions', {}).get('wordpress') != offline['core_versions']['source']:
                         probe.update(ok=False, core_version_mismatch=True)
@@ -761,6 +770,7 @@ except Exception as e: print(json.dumps({'reachable':False,'error_class':type(e)
                               'expected_core_version': args.expected_core_version,
                               'update_policy': result['update_policy'],
                               'post_verified_network_limit': result['post_verified_network_limit']}
+                    receipt['stage'] = 'verified_marker_write'
                     call(['exec', '-i', 'wp-' + name, 'tee', '/var/www/html/.imagine-staging-verified.json'], json.dumps(marker).encode())
                     assert read_json('wp-' + name, '/var/www/html/.imagine-staging-verified.json') == marker
                     receipt['verified_marker_readback'] = marker
@@ -771,7 +781,8 @@ except Exception as e: print(json.dumps({'reachable':False,'error_class':type(e)
             except Exception as exc:
                 receipt['status'] = 'FAIL'
                 receipt['error'] = str(exc) if re.fullmatch(r'[A-Z0-9_]{1,100}', str(exc)) else type(exc).__name__
-                receipt['failure'] = exc.failure if isinstance(exc, CommandFailure) else {'stage':'publication', 'code':receipt['error']}
+                receipt['failure'] = exc.failure if isinstance(exc, CommandFailure) else {'stage':receipt['stage'], 'code':receipt['error']}
+                receipt['failure']['publication_stage'] = receipt['stage']
                 receipt['frames'] = [{'file': Path(f.filename).name, 'line': f.lineno, 'function': f.name}
                                      for f in __import__('traceback').extract_tb(exc.__traceback__)]
             finally:

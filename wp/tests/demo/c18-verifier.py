@@ -5,6 +5,8 @@ import argparse, csv, hashlib, json, re, subprocess, sys
 sys.dont_write_bytecode = True
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'outils/demo'))
 import c18
+import importlib
+successor = importlib.import_module('c09-successor-gates')
 ROOT, PROOF = c18.ROOT, c18.PROOF
 
 
@@ -62,14 +64,14 @@ def run(args):
     assert not native['stderr']
     c09 = json.loads(native['stdout'])
     assert c09['total'] == len(c09['checks'])
-    assert c09['failures'] == ['A-PAPIER:action_native_planifiee_ou_absente_selon_statut']
+    assert native['code'] == 0 and c09['total'] == 382 and c09['failures'] == []
+    assert all(v is True for v in c09['checks'].values())
     c18.save('c09-native-final', {'exit': native['code'], 'total': c09['total'], 'failures': c09['failures']})
     after = c18.state()
     c18.save('verification-after', after)
     assert before == after, 'Native state changed'
     baseline = json.loads((PROOF / 'installation.json').read_text(encoding='utf-8'))['baseline']
-    assert after == baseline, 'Native state changed since installation'
-    assert after['reserve_native_C09_action8103']['status'] == 'canceled'
+    bridge = successor.baseline_contract(baseline, after, successor.repair_receipt())
     hashes = c18.readback()
     c17_installation = json.loads((ROOT / 'production/C-17/installation.json').read_text(encoding='utf-8'))
     prior = c17_installation['sha256_readback']
@@ -100,15 +102,15 @@ def run(args):
     shared = {'plugins/imagine-site/imagine-site.php': {'historical_C17': prior['plugins/imagine-site/imagine-site.php'],
                                                       'successor_C18': current['plugins/imagine-site/imagine-site.php']},
               'README_local_C18_sha256': hashlib.sha256((ROOT / 'wp/plugins/imagine-site/README.md').read_bytes()).hexdigest()}
-    result = {'at': datetime.now(timezone.utc).isoformat(), 'status': 'PRET_TECHNIQUE_C18_AVEC_RESERVE_HISTORIQUE_C09',
+    result = {'at': datetime.now(timezone.utc).isoformat(), 'status': 'PRET_TECHNIQUE_C18_C09_RESTAURE',
               'scope': 'imagine-test-demo', 'receipts': receipts, 'canonical_T01': canonical, 'PSR12_errors_only': style_result,
               'sha256_readback': hashes, 'source_sha256': {p.relative_to(ROOT).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest() for p in sources},
               'shared_runtime_readonly_sha256': {p.relative_to(ROOT).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest() for p in shared_runtime},
               'shared_digest_successor_no_historical_rewrite': shared, 'C17_nonshared_sources_unchanged': nonshared,
-              'CSV_reopened': csvs, 'native_state_preserved': before == after == baseline,
+              'CSV_reopened': csvs, 'native_state_preserved': before == after, 'authorized_baseline_successor': bridge,
               'native_C09': {'exit': native['code'], 'total': c09['total'], 'failures': c09['failures'], 'historical_action_unchanged': after['reserve_native_C09_action8103']},
-              'global_C09_green': False, 'visual_approval': False, 'fixture_reset': False}
-    c18.save('final', result)
+              'global_C09_green': True, 'visual_approval': False, 'fixture_reset': False}
+    c18.save('final-V2', result)
     print(json.dumps({'status': result['status'], 'receipts': receipts, 'canonical_T01': canonical,
                       'native_preserved': True, 'CSV_files_reopened': len(csvs), 'C09_reserved_failures': c09['failures']}, ensure_ascii=False))
     return result
@@ -119,4 +121,10 @@ if __name__ == '__main__':
     parser.add_argument('--prepare', action='store_true')
     parser.add_argument('--deploy', action='store_true')
     parser.add_argument('--canonical', action='store_true')
-    run(parser.parse_args())
+    parser.add_argument('--readback-only', action='store_true')
+    args = parser.parse_args()
+    if args.readback_only:
+        assert not (args.prepare or args.deploy or args.canonical)
+        successor.run('C-18')
+    else:
+        run(args)

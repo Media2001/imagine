@@ -62,6 +62,10 @@ class SQLCompatibility(unittest.TestCase):
             self.assertTrue(plan['compatibility'])
             self.assertEqual('NO_AUTO_VALUE_ON_ZERO',plan['source_sql_mode'])
 
+    def test_chunk_ending_inside_large_literal_has_bounded_time(self):
+        code = "import sys;sys.path.insert(0,"+repr(str(TOOLS))+");from sql_stream import Framer;f=Framer(lambda x:None);f.feed(b\"INSERT INTO `wp_posts` VALUES ('\"+b'F'*1048576)"
+        subprocess.run([sys.executable,'-c',code],capture_output=True,check=True,timeout=3)
+
     def test_executable_object_is_explicitly_refused_not_executed(self):
         import diagnosis
         from sql_stream import validate_file
