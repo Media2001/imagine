@@ -132,5 +132,45 @@ toolContract('a nonzero receipt exit cannot be hidden by a zero process exit', s
     toolExpect($result['failures'] > 0, 'Receipt error ignored');
 });
 
+foreach ([
+    'check false with exit zero' => '<?php file_put_contents("/report/unit.json", json_encode(["checks" => [["check" => "red", "status" => "FAIL"]]]));',
+    'process failure with green receipt' => '<?php file_put_contents("/report/unit.json", json_encode(["checks" => [["check" => "green", "status" => "PASS"]]])); exit(7);',
+    'missing receipt' => '<?php echo "no receipt";',
+    'invalid json' => '<?php file_put_contents("/report/unit.json", "not json");',
+    'empty receipt' => '<?php file_put_contents("/report/unit.json", json_encode(["checks" => []]));',
+    'invalid status' => '<?php file_put_contents("/report/unit.json", json_encode(["checks" => [["check" => "bad", "status" => "UNKNOWN"]]]));',
+    'boolean false' => '<?php file_put_contents("/report/unit.json", json_encode(["tests" => ["red" => false]]));',
+    'php warning' => '<?php trigger_error("synthetic warning", E_USER_WARNING); file_put_contents("/report/unit.json", json_encode(["checks" => [["check" => "green", "status" => "PASS"]]]));',
+] as $name => $unit) {
+    toolContract('fail closed: ' . $name, static function () use ($unit): void {
+        $root = toolFixture();
+        file_put_contents($root . '/tests/a90/unit.php', $unit);
+        $result = runT01Tools($root, '/tmp/t02-run-' . bin2hex(random_bytes(6)));
+        toolExpect($result['tools'] === 1 && $result['failures'] > 0, 'Bad unit accepted');
+    });
+}
+
+toolContract('a pure green tool preserves real PHPUnit totals', static function (): void {
+    [$code, $result, $output] = toolReplayFixture('<?php file_put_contents("/report/unit.json", json_encode(["checks" => [["check" => "green", "status" => "PASS"]]]));');
+    toolExpect($code === 0 && $result['pass'] === true && $result['tools']['tools'] === 1
+        && $result['tools']['checks'] === 1 && $result['tools']['failures'] === 0, $output);
+    toolExpect($result['tests'] === 1 && $result['assertions'] === 1, 'PHPUnit totals changed');
+});
+
+toolContract('only legacy path literals are relocated, never comments or lookalikes', static function (): void {
+    $source = '<?php /* /subject */ $a = "/subject/a90/File.php"; $b = "/subjective/untouched";';
+    toolExpect(relocateT01Unit($source, ['/subject' => '/tmp/synthetic'])
+        === '<?php /* /subject */ $a = "/tmp/synthetic/a90/File.php"; $b = "/subjective/untouched";', 'Assertion or non-root source changed');
+});
+
+toolContract('native excluded unit is never launched', static function (): void {
+    $root = toolFixture();
+    file_put_contents($root . '/tests/a90/unit.php', '<?php throw new RuntimeException("NATIVE_MUST_NOT_RUN");');
+    file_put_contents($root . '/tests/a90/unit.hors-rejeu', "WordPress et base requis\n");
+    $result = runT01Tools($root, '/tmp/t02-run-' . bin2hex(random_bytes(6)));
+    toolExpect($result['tools'] === 0 && $result['checks'] === 0 && $result['failures'] === 0
+        && $result['excluded'] === [['lot' => 'a90', 'reason' => 'WordPress et base requis']], 'Native code executed or silently omitted');
+});
+
 echo "T02 CONTRACT : $tests tests, $failures failures\n";
 exit($failures === 0 ? 0 : 1);

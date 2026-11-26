@@ -110,7 +110,7 @@ function runT01Tools(string $wpRoot, string $workspace = '/tmp/t01-tools'): arra
         ]));
         $stdout = $report . '/stdout.log';
         $stderr = $report . '/stderr.log';
-        $process = proc_open(['timeout', '30', 'php', $directory . '/unit.php'], [
+        $process = proc_open(['timeout', '30', 'php', '-d', 'display_errors=stderr', '-d', 'error_reporting=-1', $directory . '/unit.php'], [
             0 => ['file', '/dev/null', 'r'], 1 => ['file', $stdout, 'w'], 2 => ['file', $stderr, 'w'],
         ], $pipes, $directory);
         $code = is_resource($process) ? proc_close($process) : -1;
