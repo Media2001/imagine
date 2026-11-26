@@ -1,0 +1,20 @@
+{
+  "consulted_at": "2026-11-26T08:39:35.636675+01:00",
+  "standard_first": [
+    {
+      "url": "https://developer.woocommerce.com/docs/features/payments/payment-token-api/",
+      "observed": "Official Woo docs read in browser; reference/type/gateway and last4 semantics, not transversal scanner."
+    },
+    {
+      "url": "https://www.swift.com/standards/data-standards/iban-international-bank-account-number",
+      "observed": "403/operational denial, no fresh registry claim."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/arthurdejong/python-stdnum/master/stdnum/iban.dat",
+      "observed": "Primary implementation data, generated from iban-registry-v101.txt; structural facts only, no library installed or code copied.",
+      "sha256": "26eb81bd1be33d376133277bc71723f2b720b4b2054875e52723149acab503e6"
+    }
+  ],
+  "registry_countries": 89,
+  "rule_limit": "No media content read; server-rule presence only; effective protection unknown."
+}

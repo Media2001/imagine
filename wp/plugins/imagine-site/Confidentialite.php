@@ -7,7 +7,7 @@ namespace Imagine\Site;
 /** Uniquement des hooks des outils de confidentialité WordPress ; aucun écran parallèle. */
 final class Confidentialite
 {
-    private const META = ['imagine_sans_email', 'imagine_email_confirme'];
+    private const META = ['imagine_sans_email', 'imagine_email_confirme', 'imagine_newsletters_preferences'];
     private const JOURNAL = 'imagine_reglages_journal_';
     private const JOURNAUX = [self::JOURNAL, 'imagine_extraction_journal_', 'imagine_envoi_export_journal_'];
     private const LIMIT = 50;

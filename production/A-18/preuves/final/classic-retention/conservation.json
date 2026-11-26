@@ -1,0 +1,90 @@
+{
+    "schema": "imagine-a18-retention-v1",
+    "read_only": true,
+    "storage": "classic",
+    "database": {
+        "status": "observe",
+        "groups": [
+            {
+                "scope": "account",
+                "key": "_a18_card",
+                "iban": 0,
+                "card": 1,
+                "national": 0
+            },
+            {
+                "scope": "account",
+                "key": "_a18_rr",
+                "iban": 0,
+                "card": 0,
+                "national": 1
+            },
+            {
+                "scope": "option",
+                "key": "a18_bank_setting",
+                "iban": 1,
+                "card": 0,
+                "national": 0
+            },
+            {
+                "scope": "order",
+                "key": "_a18_bank",
+                "iban": 1,
+                "card": 0,
+                "national": 0
+            },
+            {
+                "scope": "subscription",
+                "key": "_a18_bank",
+                "iban": 1,
+                "card": 0,
+                "national": 0
+            }
+        ]
+    },
+    "payment_tokens": [
+        {
+            "gateway": "a18_fixture",
+            "type": "CC",
+            "count": 1
+        }
+    ],
+    "media": [
+        {
+            "folder": "autre",
+            "directories": 2,
+            "files": {
+                "txt": 1
+            },
+            "bytes": 4,
+            "server_rule_file_present": false,
+            "reading_denied": null
+        },
+        {
+            "folder": "exports",
+            "directories": 1,
+            "files": {
+                "csv": 2,
+                "log": 1
+            },
+            "bytes": 12,
+            "server_rule_file_present": false,
+            "reading_denied": null
+        },
+        {
+            "folder": "woocommerce_uploads",
+            "directories": 1,
+            "files": {
+                "html": 1,
+                "regles": 1
+            },
+            "bytes": 13,
+            "server_rule_file_present": true,
+            "reading_denied": null
+        }
+    ],
+    "count_basis": "Une valeur stockee compte au plus une fois par forme ; une cle est separee par portee.",
+    "server_rules": "Presence observee par nom technique ferme ; lecture effectivement interdite inconnue sans ouvrir les fichiers ni lire la configuration serveur.",
+    "token_basis": "References par passerelle et type ; jamais des numeros de carte ou IBAN.",
+    "audit_sha256": "f2b0dc7c11d1c6e749b8e17df0907c5a00bea8703596339a4ad30f866593ecfa"
+}

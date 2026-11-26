@@ -1,0 +1,16 @@
+{
+  "at": "2026-11-26T07:38:57.193887+00:00",
+  "scope": "imagine-test-demo",
+  "checks": {
+    "raccord_present": false,
+    "aucun_mail_tente": true,
+    "aucun_HTTP_tente": true
+  },
+  "total": 3,
+  "failures": [
+    "raccord_present"
+  ],
+  "exit": 1,
+  "stderr": "",
+  "native_preserved": true
+}

@@ -1,0 +1,16 @@
+{
+  "wp/outils/bascule/a18/Command.php": "ee31f13c0b2127d87578ec20c499bf9edb7a19859e6a579b05c79cfd7ec59c14",
+  "wp/outils/bascule/a18/confine.py": "1c78ce862f0a3a5b17e91b0b009e0a6b972537f7c71002b26f942f8ab6ab0cee",
+  "wp/outils/bascule/a18/Forms.php": "b89d7aa82a66a6acf6dc88757172ea9da9f1a5046f7b53e253f01781f423e49e",
+  "wp/outils/bascule/a18/iban-structures.json": "78bc7e969c192979ce0882c0472d723565d7eba882cf843215adcaee71ee4254",
+  "wp/outils/bascule/a18/inventorier-conservation": "66521a56d26c169f0d30bcc6a6f815203ccaa3aa4ae185eb6c1238fb193cc272",
+  "wp/outils/bascule/a18/Inventory.php": "90d1873143824e268d74dd074c34ed9e3d9a7c0442d3e1a4036fa14d9182df24",
+  "wp/outils/bascule/a18/README.md": "c48acfc201948c008842f624d73a213184620203f838e7d811854b1972256e0d",
+  "wp/tests/a18/inside.py": "38e7ca2882ce039a5fa67b4ba9b3298b3141a409d6133761a6322996375c6f0d",
+  "wp/tests/a18/run.py": "c6239199526c8eaa5f4a8b5e00d4ca1085915f615ed0a592bcadf75ae448fb33",
+  "wp/tests/a18/seed.php": "6d7c5c298100881b8899d15a131f2915e167b1815caa6521a79ffc9ad867ff61",
+  "wp/tests/a18/style.py": "d856a2ea35f9a25c4be47e20fe5f3b8b9c2669b525f10b76cb35c1f6b0b8fe31",
+  "wp/tests/a18/test_launcher.py": "966bbdfa1923b2342ec00e2a25f39187bcf881487b263c95d7dda1e331c23474",
+  "wp/tests/a18/unit.php": "16f73730caad8ac40702bcf52ea293f43c2c58c77fe5984e18150893e9b218b7",
+  "wp/tests/a18/verify.py": "f774eb9aa2466e162b638f51674829159e03c8f599661a494dd83171ec6abe17"
+}

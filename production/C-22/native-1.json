@@ -1,0 +1,29 @@
+{
+  "at": "2026-11-26T07:42:25.318210+00:00",
+  "scope": "imagine-test-demo",
+  "checks": {
+    "raccord_present": true,
+    "defaut_non_choisi": true,
+    "choix_date_lecteur": true,
+    "autre_compte_refuse": true,
+    "version_perimee_refusee": true,
+    "decocher": true,
+    "export_natif_preferences": true,
+    "effacement_natif_preferences": true,
+    "creation_non": true,
+    "creation_oui": true,
+    "creation_sans_email_fermee": true,
+    "sans_email_phrase_pas_cases": true,
+    "quatrieme_compte_page": true,
+    "anonyme_emplacement_pas_formulaire": true,
+    "sanitize_creation_ferme": true,
+    "sanitize_catalogue_invalide_conserve": true,
+    "aucun_mail_tente": true,
+    "aucun_HTTP_tente": true
+  },
+  "total": 18,
+  "failures": [],
+  "exit": 0,
+  "stderr": "",
+  "native_preserved": true
+}

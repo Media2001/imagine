@@ -87,6 +87,12 @@ MonCompte::register();
 require_once __DIR__ . '/Renouvellement.php';
 Renouvellement::register();
 
+require_once __DIR__ . '/NewslettersRegles.php';
+require_once __DIR__ . '/Newsletters.php';
+require_once __DIR__ . '/NewslettersReglages.php';
+Newsletters::register();
+NewslettersReglages::register();
+
 require_once __DIR__ . '/ConfidentialiteRegles.php';
 require_once __DIR__ . '/Confidentialite.php';
 Confidentialite::register();

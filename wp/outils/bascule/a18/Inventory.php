@@ -56,12 +56,20 @@ final class Inventory
         global $wpdb;
         $p = $wpdb->prefix;
         $queries = [
-            "SELECT umeta_id row_id,'account' scope,meta_key field_key,meta_value field_value FROM `{$p}usermeta` WHERE umeta_id>%d ORDER BY umeta_id LIMIT 500",
-            "SELECT option_id row_id,'option' scope,option_name field_key,option_value field_value FROM `{$p}options` WHERE option_id>%d ORDER BY option_id LIMIT 500",
+            "SELECT umeta_id row_id,'account' scope,meta_key field_key,meta_value field_value "
+                . "FROM `{$p}usermeta` WHERE umeta_id>%d ORDER BY umeta_id LIMIT 500",
+            "SELECT option_id row_id,'option' scope,option_name field_key,option_value field_value "
+                . "FROM `{$p}options` WHERE option_id>%d ORDER BY option_id LIMIT 500",
         ];
         $queries[] = $hpos
-            ? "SELECT m.id row_id,IF(o.type='shop_subscription','subscription','order') scope,m.meta_key field_key,m.meta_value field_value FROM `{$p}wc_orders_meta` m JOIN `{$p}wc_orders` o ON o.id=m.order_id WHERE m.id>%d AND o.type IN ('shop_order','shop_subscription') ORDER BY m.id LIMIT 500"
-            : "SELECT m.meta_id row_id,IF(o.post_type='shop_subscription','subscription','order') scope,m.meta_key field_key,m.meta_value field_value FROM `{$p}postmeta` m JOIN `{$p}posts` o ON o.ID=m.post_id WHERE m.meta_id>%d AND o.post_type IN ('shop_order','shop_subscription') ORDER BY m.meta_id LIMIT 500";
+            ? "SELECT m.id row_id,IF(o.type='shop_subscription','subscription','order') scope,"
+                . "m.meta_key field_key,m.meta_value field_value FROM `{$p}wc_orders_meta` m "
+                . "JOIN `{$p}wc_orders` o ON o.id=m.order_id WHERE m.id>%d "
+                . "AND o.type IN ('shop_order','shop_subscription') ORDER BY m.id LIMIT 500"
+            : "SELECT m.meta_id row_id,IF(o.post_type='shop_subscription','subscription','order') scope,"
+                . "m.meta_key field_key,m.meta_value field_value FROM `{$p}postmeta` m "
+                . "JOIN `{$p}posts` o ON o.ID=m.post_id WHERE m.meta_id>%d "
+                . "AND o.post_type IN ('shop_order','shop_subscription') ORDER BY m.meta_id LIMIT 500";
         $aggregated = [];
         foreach ($queries as $query) {
             // Aggregate every value independently, bounded pagination without retaining values.
@@ -93,7 +101,8 @@ final class Inventory
             $groups[$folder] ??= ['folder' => $folder, 'directories' => 0, 'files' => [], 'bytes' => 0,
                 'server_rule_file_present' => false, 'reading_denied' => null];
             $groups[$folder]['directories']++;
-            foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($top->getPathname(), \FilesystemIterator::SKIP_DOTS)) as $file) {
+            $iterator = new \RecursiveDirectoryIterator($top->getPathname(), \FilesystemIterator::SKIP_DOTS);
+            foreach (new \RecursiveIteratorIterator($iterator) as $file) {
                 if (!$file->isFile()) {
                     continue;
                 }
@@ -105,11 +114,14 @@ final class Inventory
                 $groups[$folder]['server_rule_file_present'] = $groups[$folder]['server_rule_file_present'] || $rule;
             }
             ksort($groups[$folder]['files']);
-            if (!$groups[$folder]['files']) {
-                $groups[$folder]['files'] = (object) [];
-            }
         }
         ksort($groups);
+        foreach ($groups as &$group) {
+            if (!$group['files']) {
+                $group['files'] = (object) [];
+            }
+        }
+        unset($group);
         return array_values($groups);
     }
 
@@ -119,8 +131,13 @@ final class Inventory
         global $wpdb;
         $hpos = get_option('woocommerce_custom_orders_table_enabled') === 'yes';
         $neutralised = get_option('imagine_staging_disabled_plugins', null) !== null;
-        $database = $neutralised ? ['status' => 'inconnu après neutralisation', 'groups' => null] : self::database($hpos);
-        $tokens = $wpdb->get_results("SELECT gateway_id,type,COUNT(*) count FROM `{$wpdb->prefix}woocommerce_payment_tokens` GROUP BY gateway_id,type ORDER BY gateway_id,type", ARRAY_A);
+        $database = $neutralised
+            ? ['status' => 'inconnu après neutralisation', 'groups' => null] : self::database($hpos);
+        $tokens = $wpdb->get_results(
+            "SELECT gateway_id,type,COUNT(*) count FROM `{$wpdb->prefix}woocommerce_payment_tokens` "
+                . 'GROUP BY gateway_id,type ORDER BY gateway_id,type',
+            ARRAY_A
+        );
         if (!is_array($tokens) || $wpdb->last_error !== '') {
             throw new \RuntimeException('A18_QUERY_FAILED');
         }
@@ -140,7 +157,8 @@ final class Inventory
         return ['schema' => 'imagine-a18-retention-v1', 'read_only' => true, 'storage' => $hpos ? 'hpos' : 'classic',
             'database' => $database, 'payment_tokens' => array_values($tokenGroups), 'media' => self::media($uploads),
             'count_basis' => 'Une valeur stockee compte au plus une fois par forme ; une cle est separee par portee.',
-            'server_rules' => 'Presence observee par nom technique ferme ; lecture effectivement interdite inconnue sans ouvrir les fichiers ni lire la configuration serveur.',
+            'server_rules' => 'Presence observee par nom technique ferme ; lecture effectivement interdite inconnue '
+                . 'sans ouvrir les fichiers ni lire la configuration serveur.',
             'token_basis' => 'References par passerelle et type ; jamais des numeros de carte ou IBAN.'];
     }
 }
