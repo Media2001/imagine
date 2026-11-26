@@ -16,11 +16,11 @@ final class C20PaywallAdapterTest extends TestCase
         return [
             'sans_fin_native_ferme' => ['', '2027-01-01 00:00:00', '2026-12-25 18:01:49', false, 'virement_non_valide'],
             'juste_avant_fin_ouvert' => ['2026-12-25 18:01:50', '2027-01-01 00:00:00', '2026-12-25 18:01:49', true, 'abonnement_actif'],
-            'fin_exacte_ferme' => ['2026-12-25 18:01:50', '2027-01-01 00:00:00', '2026-12-25 18:01:50', false, 'droits_expires'],
-            'apres_fin_ferme' => ['2026-12-25 18:01:50', '2027-01-01 00:00:00', '2026-12-25 18:01:51', false, 'droits_expires'],
+            'fin_exacte_ferme' => ['2026-12-25 18:01:50', '2027-01-01 00:00:00', '2026-12-25 18:01:50', false, 'expire'],
+            'apres_fin_ferme' => ['2026-12-25 18:01:50', '2027-01-01 00:00:00', '2026-12-25 18:01:51', false, 'expire'],
             'membership_plus_court_avant_ouvert' => ['2026-12-25 18:01:50', '2026-12-01 00:00:00', '2026-11-30 23:59:59', true, 'abonnement_actif'],
-            'membership_plus_court_exact_ferme' => ['2026-12-25 18:01:50', '2026-12-01 00:00:00', '2026-12-01 00:00:00', false, 'droits_expires'],
-            'membership_plus_court_apres_ferme' => ['2026-12-25 18:01:50', '2026-12-01 00:00:00', '2026-12-01 00:00:01', false, 'droits_expires'],
+            'membership_plus_court_exact_ferme' => ['2026-12-25 18:01:50', '2026-12-01 00:00:00', '2026-12-01 00:00:00', false, 'expire'],
+            'membership_plus_court_apres_ferme' => ['2026-12-25 18:01:50', '2026-12-01 00:00:00', '2026-12-01 00:00:01', false, 'expire'],
         ];
     }
 

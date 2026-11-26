@@ -284,24 +284,29 @@ Les tests PHP, dont l’adaptateur à horloge contrôlée à la borne 180 jours,
 
 Les reçus historiques, dont `final-V2.json`, restent immuables. Le successeur `production/C-19/corrections-V2/final.json` lie les nouveaux octets et vérifie le README partagé par contrat de section, pas par l’empreinte figée du fichier entier. Les sources des derniers reçus C17/C18 sont contrôlées séparément, sans réécriture de ces lots. Le reçu C09 restauré est exigé exactement, action A-PAPIER comprise ; aucun reset. Voir `production/C-19/A-VOIR.md`. Prêt technique seulement ; validation visuelle de Ced et arbitrage Q-1 attendus.
 
-## C-20 — deuxième passe partielle
+## C-20 — livraison réduite acceptée le 26 novembre 2026 à 7 h 30
 
-`Paywall` lit maintenant une adhésion Memberships `pending` liée nativement à une souscription `pending-cancel` avec fin renseignée comme active dans ses bornes natives. Les autres adhésions `pending` restent fermées. C06 et les règles/raccords C13 sont inchangés ; C13 traitait déjà `pending-cancel` correctement.
+**PRET technique sur le seul périmètre réduit**, après les corrections de deuxième relecture : raccord d’accès borné et écrans sans bouton. Ce n’est pas une clôture ni la réalisation complète du §3.4. Le bouton « ne pas renouveler », sa confirmation, l’émission de `imagine_non_renouvellement_confirme` et la preuve de fin native du quatre-fois restent reportés au branchement sur staging vérifié avec GO explicite de Ced. Aucun profil automatique ni passerelle n’est fabriqué.
 
-**Pas PRET : le point 2 reste bloqué.** Sur A-CARTE, l’accès corrigé reste `abonnement_actif`, mais la fin native du terme payé (25 décembre 2026, 18:01:50 UTC) précède la clôture du prochain numéro (5 janvier 2027, Europe/Brussels) : C13 retire effectivement sa ligne. Aucun droit postal n’est forcé. Le profil est manuel, méthode vide, produit privé ; la reprise est refusée par `contains_unavailable_product()`, pas simplement par l’absence de passerelle.
+`Paywall` lit une adhésion Memberships `pending` liée nativement à une souscription `pending-cancel` avec fin renseignée comme active dans le minimum des fins Memberships/Subscriptions. Tests locaux du véritable raccord `Paywall::decisionPdf`, doublures natives et horloge de requête contrôlée : sans fin natif fermé ; une seconde avant ouvert ; à la fin exacte et après fermé ; fin Memberships antérieure prioritaire. Le vrai moteur C06 est appelé, aucune règle recopiée. C06 et C13 restent inchangés. Les contre-exemples `pending` non lié, lié à `active` et premier virement A-VIR restent fermés dans la recette native existante.
 
-`RenouvellementRegles` est une présentation pure ; `Renouvellement` n’enregistre aucun contrôleur de mutation. Le bloc B02 annonce le manuel pour A-VIR/A-PAPIER et déclare honnêtement A-CARTE. A-SEPA4 affiche sans bouton une demande à Imagine, échéances dues conservées : C05 n’a pas sa marge obligatoire et ne fournit donc pas de date de fin calculable sans invention. La sonde s’arrête avant toute écriture de date sur ce cas ; elle ne prouve pas un échec du moteur de dates natif. Le filtre des boutons Woo est limité au seul site fictif local : Cancel/Reactivate sont retirés tant que ce parcours n’est pas livré. Il ne réécrit ni permission native ni état. Les autres actions standard ne sont pas présentées comme C20.
+La sortie postale de la seule ligne A-CARTE 89 est **attendue** : terme payé du 25 décembre 2026 à 18:01:50 UTC avant clôture du 5 janvier 2027 à 00:00 Europe/Brussels ; **8 → 7**, motif `expire`. Aucun droit postal forcé. Le profil est manuel, méthode vide, produit privé ; la reprise est refusée par `contains_unavailable_product()`.
 
-`Renouvellement::HOOK_CONFIRMATION` réserve le nom `imagine_non_renouvellement_confirme`, non émis puisque le succès sûr reste non livré. Aucun email, paiement, remboursement ou rétractation. La présentation d’un état pending-cancel existant relit date native et valeurs B02, compteur manquant nommé ; ce n’est pas une confirmation d’action réussie.
+`RenouvellementRegles` retourne des codes de message, sans phrase d’interface ; `Renouvellement` associe ces codes à des traductions WordPress à chaînes littérales puis échappe le résultat HTML. Aucun contrôleur de mutation. A-VIR/A-PAPIER : manuel ; A-CARTE : absence de carte/passerelle déclarée ; A-SEPA4 : « faites la demande auprès d’Imagine », sans bouton, échéances du bloc dues. Marge C05 absente : **aucune fin native essayée**, ni preuve positive ni échec natif allégué. Cancel/Reactivate restent retirés sur la seule démo locale, sans modifier permission ou état natifs. Le hook de confirmation est réservé mais non émis ; aucun email, paiement, remboursement ou rétractation.
+
+**À verrouiller au branchement, sans changement ici :** l’ordre actuel `arret_a_terme` avant `quatre_fois` est conservé ; décider explicitement sa priorité pour un quatre-fois natif `pending-cancel`. Hors démo, A-PAPIER avec méthode native vide reste inconnu (`EcheancesNatives::methode()` retourne `''`) et peut tomber dans `quatre_fois` : prévoir un raccord de méthode réelle validé, sans utiliser le drapeau fictif comme règle de production.
 
 ```powershell
-python wp/outils/demo/c20-unit.py unit-parent RenouvellementRegles
-python wp/outils/demo/c20-second.py --regressions parent-non-regression
-python wp/tests/demo/c20-http.py http-parent
-python wp/outils/demo/c20-second.py --verify
+python -B wp/tests/demo/c20-fusion-verifier.py
+python -B wp/outils/demo/c20-unit.py parent-fusion-c20 C20
+python -B wp/outils/demo/c20-unit.py parent-fusion-presentation RenouvellementRegles
 ```
 
-Les deux premières recettes natives C08/C13 sont rollbackées sur InnoDB ; les empreintes et profils sont relus dans un autre processus. La préparation d’image puis T01 complet ont été exécutés. Les sources partagées ont un contrat successeur C20 exact, sans réécriture des sceaux historiques. Preuves, blocages précis et captures : `production/C-20/A-VOIR.md`. Aucun C21/B05/C22 traité.
+Les preuves courantes et commandes parent sont dans `production/C-20/A-VOIR.md`. Préparation d’image/T01 complet et recettes natives existantes sont rejoués après les dernières écritures de code. README partagé contrôlé par section ; bootstrap, confidentialité et successeurs C21/B05/C22 préservés. Les reçus rouges et sceaux historiques restent immuables.
+
+### Historique daté — 26 novembre 2026, deuxième passe avant l’arbitrage de 7 h 30
+
+La mention d’alors « Pas PRET : le point 2 reste bloqué » constatait la sortie postale 8 → 7. L’arbitrage de 7 h a corrigé **le critère de réception**, pas C13 : ce comportement est attendu. L’ancien README et les preuves de blocage sont archivés dans `production/C-20/fusion-V2/README.md.before` et les reçus historiques, sans constituer l’état courant du lot.
 
 ## C-21 — confidentialité native
 

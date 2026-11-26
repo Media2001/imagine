@@ -1,0 +1,7 @@
+{
+  "source_readback": {
+    "plugins/imagine-site/Renouvellement.php": "7cf07fc77bef9505c4f5f2bbe1b17566f587be793359b341c6d74b94d2107b54",
+    "plugins/imagine-site/RenouvellementRegles.php": "ea4324d8df90b6a5766ee46a283809d8f61698467a33438a9f2ef7ffaaca204b"
+  },
+  "profiles_actions_exact": true
+}

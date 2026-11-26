@@ -43,9 +43,15 @@ final class Renouvellement
             return;
         }
         $view = self::vue($sub);
+        $message = match ($view['message']) {
+            'arret_a_terme' => __('L’abonnement s’arrêtera à la date indiquée. La reprise n’est pas disponible dans les profils actuels de cette démonstration ; contactez Imagine.', 'imagine-site'),
+            'manuel' => __('Le renouvellement est manuel : aucune reconduction automatique à désactiver.', 'imagine-site'),
+            'quatre_fois' => __('Pour ne pas renouveler votre engagement en quatre fois, faites la demande auprès d’Imagine ; les échéances du bloc en cours restent dues.', 'imagine-site'),
+            default => __('La gestion du renouvellement n’est pas disponible sur cette démonstration ; contactez Imagine.', 'imagine-site'),
+        };
         echo '<aside data-imagine-renouvellement="' . esc_attr($view['mode']) . '"><h4>'
             . esc_html__('Renouvellement', 'imagine-site') . '</h4><p>'
-            . esc_html(__($view['message'], 'imagine-site')) . '</p>';
+            . esc_html($message) . '</p>';
         if (EcheancesNatives::fictif($sub, 'A-CARTE')) {
             echo '<p>' . esc_html__('Profil fictif A-CARTE : souscription manuelle, moyen de paiement vide ; aucune carte ni passerelle raccordée.', 'imagine-site') . '</p>';
         }
