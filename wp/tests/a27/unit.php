@@ -73,6 +73,22 @@ try {
     $check('paypal_native_reference_without_token', $r['type'] === 'accord_paypal' && $r['link'] === 'unlinked');
     $r = Analysis::reference($sub(1, 'stripe_sepa', [], ['_stripe_source_id' => 'A27_MANDATE_CANARY']), []);
     $check('sepa_native_source_without_token', $r['type'] === 'mandat_sepa' && $r['link'] === 'unlinked');
+    foreach (['stripe_sepa', 'paypal'] as $gateway) {
+        $key = $gateway === 'paypal' ? '_paypal_subscription_id' : '_stripe_source_id';
+        $a = $token(1, 1, $gateway, 'eCheck');
+        $b = $token(2, 1, $gateway, 'eCheck');
+        $r = Analysis::reference($sub(1, $gateway, [2], [$key => $a['value']]), [$a, $b]);
+        $check('explicit_contradiction_' . $gateway, $r === [
+            'type' => 'illisible', 'link' => 'unknown', 'expiry' => null, 'present' => true]);
+        $r = Analysis::reference($sub(1, $gateway, [2], [$key => 'A27_NO_MATCH_PRIVATE_CANARY']), [$a, $b]);
+        $check('explicit_unresolved_' . $gateway, $r['type'] === 'illisible' && $r['link'] === 'unknown');
+        $r = Analysis::reference($sub(1, $gateway, [], [$key => 'A27_REFERENCE_ONLY_PRIVATE_CANARY']), []);
+        $check('reference_only_fallback_' . $gateway, $r['type'] === ($gateway === 'paypal'
+            ? 'accord_paypal' : 'mandat_sepa') && $r['link'] === 'unlinked');
+        $r = Analysis::reference($sub(1, $gateway, [1], [$key => $a['value']]), [$a, $b]);
+        $check('explicit_unique_match_' . $gateway, $r['type'] === ($gateway === 'paypal'
+            ? 'autre' : 'mandat_sepa') && $r['link'] === 'linked');
+    }
     $r = Analysis::reference($sub(1, 'stripe', [1, 2]), [$t, $token(2)]);
     $check('multiple_no_default_guessed', $r['type'] === 'illisible' && $r['link'] === 'unknown');
     $r = Analysis::reference($sub(1, 'stripe', [], ['x' => ['A27_CANARY']]), [$t]);

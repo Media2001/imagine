@@ -44,6 +44,8 @@ final class Engine
     private array $policy;
     private array $formTables;
     private array $formTypes;
+    /** Trusted pre-purge snapshot, retained across phases outside imported data. */
+    private array $knownFormPosts = [];
     public function __construct(private Store $store, private array $context, private string $prefix, array $decisions = [])
     {
         $this->target = Guard::context($context);
@@ -121,6 +123,12 @@ final class Engine
                 $this->unknownTypes[] = (string) ($post['post_type'] ?? '');
             }
         }
+        $provenance = $context['form_post_ids'] ?? [];
+        if (!is_array($provenance) || !array_is_list($provenance)
+            || count(array_filter($provenance, static fn (mixed $id): bool => is_int($id) && $id > 0)) !== count($provenance)) {
+            throw new RuntimeException('CONTEXTE_REFUSE');
+        }
+        $this->knownFormPosts = array_fill_keys($provenance, true) + $this->formPostIds();
     }
 
     private function options(): array
@@ -374,7 +382,8 @@ final class Engine
         $disabled = self::decode($this->options()['imagine_staging_disabled_plugins'] ?? serialize([]));
         $disabled = is_array($disabled) ? array_values(array_intersect($disabled, $this->disabledPlugins())) : [];
         $personalPosts = $this->personalPostIds();
-        $formPosts = $this->formPostIds();
+        $formPosts = $this->knownFormPosts + $this->formPostIds();
+        $this->knownFormPosts = $formPosts;
         foreach ($this->inventory as $table => $_) {
             if ($this->readOnly($table)) {
                 continue; // Une vue est inventoriée et inspectée, pas réécrite.
@@ -660,7 +669,9 @@ final class Engine
             $warnings[] = 'EXTENSION_A_DESACTIVER';
         }
         $transactionPosts = $this->personalPostIds();
-        $formResidues = count($this->formPostIds());
+        $liveFormPosts = $this->formPostIds();
+        $this->knownFormPosts += $liveFormPosts;
+        $formResidues = count($liveFormPosts);
         $admins = 0;
         foreach ($this->inventory as $table => $columns) {
             $kind = str_starts_with($table, $this->prefix) ? substr($table, strlen($this->prefix)) : '';
@@ -688,6 +699,9 @@ final class Engine
                 $warnings[] = 'TABLE_A_VIDER';
             }
             foreach ($rows as $row) {
+                if ($kind === 'postmeta' && isset($this->knownFormPosts[(int) ($row['post_id'] ?? 0)])) {
+                    ++$formResidues;
+                }
                 $emailScope = in_array($kind, ['users', 'usermeta', 'wc_orders', 'wc_order_addresses', 'wc_orders_meta', 'wc_customer_lookup',
                     'woocommerce_downloadable_product_permissions', 'woocommerce_order_items', 'woocommerce_order_itemmeta'], true)
                     || ($kind === 'posts' && isset($transactionPosts[(int) ($row['ID'] ?? 0)]))

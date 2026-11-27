@@ -40,6 +40,14 @@ try {
         $engine->neutraliser();
         $check('legacy_forced_empty_' . $kind, $store->tables['x_' . $kind] === []);
         foreach (['garder', 'anonymiser'] as $action) {
+            $absent = new MemoryStore();
+            $refusal = null;
+            try {
+                new Engine($absent, $context, 'x_', ['x_' . $kind => ['action' => $action]]);
+            } catch (Throwable $error) {
+                $refusal = Command::diagnostic($error, 'neutraliser');
+            }
+            $check('absent_closed_refusal_' . $action . '_' . $kind, ($refusal['code'] ?? '') === 'FORM_MESSAGES_DECISION_REFUSED');
             $store = new MemoryStore();
             $store->tables['x_' . $kind] = [['id' => 1, 'payload' => 'A28_FICTIVE_UNIT']];
             $before = $store->tables;
@@ -65,6 +73,24 @@ try {
         $check('residue_no_bootstrap_' . $kind, $calls === 0);
         $check('no_message_output_' . $kind, !str_contains(json_encode($report), 'A28_FICTIVE_UNIT'));
     }
+    // Known provenance must survive a parent removed before a new verification process.
+    $store = new MemoryStore();
+    $store->tables['x_postmeta'] = [
+        ['meta_id' => 1, 'post_id' => 41, 'meta_key' => '_a28_message', 'meta_value' => 'A28_FICTIVE_ORPHAN'],
+        ['meta_id' => 2, 'post_id' => 42, 'meta_key' => '_a28_message', 'meta_value' => 'A28_FICTIVE_REVISION'],
+        ['meta_id' => 3, 'post_id' => 99, 'meta_key' => '_a28_message', 'meta_value' => 'A28_UNKNOWN_ORPHAN'],
+    ];
+    $engine = new Engine($store, $context + ['form_post_ids' => [41, 42]], 'x_');
+    $calls = 0;
+    $report = $engine->verifier(static function () use (&$calls, $proof): array {
+        ++$calls;
+        return $proof();
+    });
+    $check('known_orphan_postmeta_counted', !$report['ok'] && $report['form_message_residues'] === 2
+        && in_array('FORM_MESSAGES_REMAIN', $report['issues'], true));
+    $check('known_orphan_no_bootstrap', $calls === 0);
+    $engine->neutraliser();
+    $check('unknown_orphan_not_globally_purged', array_column($store->rows('x_postmeta'), 'post_id') === [99]);
     foreach (['flamingo_inbound', 'flamingo_contact'] as $type) {
         $store = new MemoryStore();
         $store->tables['x_posts'] = [
@@ -82,7 +108,7 @@ try {
         ];
         $engine = new Engine($store, $context, 'x_');
         $report = $engine->verifier($proof);
-        $check('post_residue_' . $type, !$report['ok'] && $report['form_message_residues'] === 3);
+        $check('post_residue_' . $type, !$report['ok'] && $report['form_message_residues'] === 6);
         $engine->neutraliser();
         $check('known_posts_revisions_deleted_' . $type, array_column($store->rows('x_posts'), 'ID') === [4, 5]);
         $check('known_postmeta_deleted_' . $type, array_column($store->rows('x_postmeta'), 'post_id') === [4]);

@@ -185,7 +185,11 @@ def restore_and_verify(archive, request):
     context = {'environment': 'staging', 'isolated': True, 'restored': True, 'database': DB,
                'wp_path': str(SITE), 'target_url': target, 'production_hosts': [production.hostname],
                'prefix': prefix, 'table_decisions': plan['table_decisions'], 'table_policy_version':plan['table_policy_version']}
+    # Private worker context is created before any PHP/plugin bootstrap, outside the site.
+    # IDs are never exported in the public report and never reconstructed after purge.
+    context['form_post_ids'] = form_post_provenance(prefix)
     Path('/scratch/a01-context.json').write_text(json.dumps(context))
+    os.chmod('/scratch/a01-context.json', 0o600)
     steps = []
     report = {'ok': False, 'issues': ['NOT_VERIFIED']}
     for phase in ('neutraliser', 'anonymiser', 'verifier'):
@@ -219,6 +223,35 @@ def restore_and_verify(archive, request):
               'publication': 'NOT_IMPLEMENTED: no port or egress is opened; site remains stopped',
               'shared_tool_modified': False, 'no_Novamira': True}
     return result
+
+
+def form_post_provenance(prefix):
+    """Read only IDs before native deletion; never infer provenance from orphan meta."""
+    forms = json.loads((BASE.parent / 'staging/form-policy.json').read_bytes())
+    types = forms['post_types']
+    if (not types or not all(isinstance(t, str) and t.isascii() and t.replace('_', '').isalnum()
+                             for t in types)):
+        raise Refusal('TABLE_POLICY_REFUSED')
+    sql = ("SELECT ID FROM `" + prefix + "posts` WHERE post_type IN ("
+           + ','.join("'" + t + "'" for t in types) + ");"
+           + "SELECT ID,post_parent FROM `" + prefix + "posts` WHERE post_type='revision';")
+    raw = command(['mariadb', '--socket=' + SOCKET, '--user=root', '--batch', '--skip-column-names', DB],
+                  data=sql.encode(), stage='form_provenance').stdout
+    ids, revisions = set(), []
+    for line in raw.splitlines():
+        parts = line.split(b'\t')
+        if len(parts) not in (1, 2) or not all(p.isdigit() for p in parts):
+            raise Refusal('TABLE_POLICY_REFUSED')
+        numbers = [int(p) for p in parts]
+        if len(numbers) == 1:
+            ids.add(numbers[0])
+        else:
+            revisions.append(numbers)
+    while True:
+        additions = {child for child, parent in revisions if parent in ids} - ids
+        if not additions:
+            return sorted(ids)
+        ids.update(additions)
 
 
 def import_database(normalized):

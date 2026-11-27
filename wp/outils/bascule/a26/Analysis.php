@@ -144,26 +144,40 @@ final class Analysis
     public static function htmlUrls(string $content): array
     {
         $urls = [];
-        $content = preg_replace('~<(pre|code)\b[^>]*>.*?</\1\s*>|<!--.*?-->~is', '', $content) ?? '';
-        $resourcePattern = '~<(iframe|embed|object|script|img|audio|video|source|link|blockquote)\b([^>]*)>~is';
-        preg_match_all($resourcePattern, $content, $tags, PREG_SET_ORDER);
-        foreach ($tags as $tag) {
-            $attributePattern = '~\b(src|data-src|data|href|cite|data-instgrm-permalink)\s*=\s*'
-                . '(?:"([^"]*)"|\x27([^\x27]*)\x27|([^\s>]+))~i';
-            preg_match_all($attributePattern, $tag[2], $attrs, PREG_SET_ORDER);
-            foreach ($attrs as $attr) {
-                $key = strtolower($attr[1]);
-                if (
-                    ($key === 'href' && strtolower($tag[1]) !== 'link')
-                    || ($key === 'data' && strtolower($tag[1]) !== 'object')
-                ) {
+        $tags = new \WP_HTML_Tag_Processor($content);
+        $resources = ['IFRAME', 'EMBED', 'OBJECT', 'SCRIPT', 'IMG', 'AUDIO', 'VIDEO', 'SOURCE', 'LINK', 'BLOCKQUOTE'];
+        $literal = ['PRE' => 0, 'CODE' => 0];
+        $plain = '';
+        while ($tags->next_token()) {
+            $type = $tags->get_token_type();
+            if ($type === '#text') {
+                $plain .= array_sum($literal) === 0 ? $tags->get_modifiable_text() : "\x01";
+                continue;
+            }
+            // Keep markup boundaries: an ordinary anchor's URL text is not a bare URL line.
+            $plain .= "\x01";
+            if ($type !== '#tag') {
+                continue;
+            }
+            $tag = $tags->get_tag();
+            if (isset($literal[$tag])) {
+                $literal[$tag] = $tags->is_tag_closer() ? max(0, $literal[$tag] - 1) : $literal[$tag] + 1;
+            }
+            if ($tags->is_tag_closer() || array_sum($literal) > 0 || !in_array($tag, $resources, true)) {
+                continue;
+            }
+            foreach (['src', 'data-src', 'data', 'href', 'cite', 'data-instgrm-permalink'] as $key) {
+                if (($key === 'href' && $tag !== 'LINK') || ($key === 'data' && $tag !== 'OBJECT')) {
                     continue;
                 }
-                $urls[] = $attr[2] !== '' ? $attr[2] : (($attr[3] ?? '') !== '' ? $attr[3] : ($attr[4] ?? ''));
+                $value = $tags->get_attribute($key);
+                if (is_string($value)) {
+                    $urls[] = $value;
+                }
             }
         }
-        // WordPress autoembeds standalone URLs. Ordinary inline links are not requests.
-        preg_match_all('~(?:^|\n)\s*(https?://[^\s<>]+)\s*(?=\n|$)~i', $content, $bare);
+        // Only text tokens outside literal examples; no render, mutation, or network call.
+        preg_match_all('~(?:^|\n)\s*(https?://[^\s<>\x01]+)\s*(?=\n|$)~i', $plain, $bare);
         return [...$urls, ...$bare[1]];
     }
 

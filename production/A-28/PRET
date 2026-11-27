@@ -1,5 +1,0 @@
-A-28 prêt à relire — 27 novembre 2026, après matrices, préparation image et portes globales.
-Paquet unique : production/A-28/preuves/final ; manifeste SHA-256 67fa130884f4b653c3b5d40efabc164f6dc24ada1ab9530b5d470b4afc02d75c.
-Vérification sans argument : python -B production/A-28/verify.py ; sortie 0 en UTF-8 et cp1252.
-Avant : 108 contrôles du défaut ; corrigé : 172 contrôles d'import et 62 tests purs par console, 32 mutations réelles au total ; A01 et 9 portes vertes, global 1151 tests sans échec dans chaque contexte.
-Gardien et commandes Ced inchangés ; anciens paquets voisins préservés, invalidations A21–A27 et replays dans REJEUX-PARENT.md ; types inconnus non décidés. Ce PRET n'est ni clôture ni GO réel.

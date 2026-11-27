@@ -56,15 +56,21 @@ def audit_at(site, output):
     return audit
 
 
-def seed(site, cfg, repeats=1):
+def seed(site, cfg, repeats=1, correction=None):
     writable = cfg.replace("define('DB_USER', 'a02_" + site.name + "')", "define('DB_USER', 'root')").split(
         "\nfile_put_contents('/scratch/a02-bootstrap-trap'")[0]
     # WP-CLI already defines ABSPATH; only the writable oracle config is adapted.
     writable = writable.replace("define('ABSPATH', __DIR__.'/');", "if (!defined('ABSPATH')) { define('ABSPATH', __DIR__.'/'); }")
     (site / 'wp-config.php').write_text(writable, encoding='utf-8')
     try:
-        q = b.wp(site, ['eval-file', '/opt/a27/seed.php', '--use-include'], env={'A27_REPETITIONS': str(repeats)})
-        b.check(site.name + ':native_seed_' + str(repeats), q.stdout == 'A27_SEED_OK\n' and not q.stderr)
+        if correction is None:
+            q = b.wp(site, ['eval-file', '/opt/a27/seed.php', '--use-include'], env={'A27_REPETITIONS': str(repeats)})
+            b.check(site.name + ':native_seed_' + str(repeats), q.stdout == 'A27_SEED_OK\n' and not q.stderr)
+        else:
+            q = b.wp(site, ['eval-file', '/opt/a27/seed-corrections.php', '--use-include'],
+                     env={'A27_CORRECTION_CASE': correction})
+            b.check(site.name + ':correction_seed_' + correction,
+                    q.stdout == 'A27_CORRECTION_SEED_OK\n' and not q.stderr)
     finally:
         (site / 'wp-config.php').write_text(cfg, encoding='utf-8')
 
@@ -83,6 +89,13 @@ def run_storage(storage):
     mu = site / 'wp-content/mu-plugins/a27-probe.php'
     base_mu = '''<?php
 if (getenv('A27_CONFINED') === '1') {
+    add_filter('woocommerce_subscription_payment_meta', static function ($schema, $sub) {
+        if ($sub->get_payment_method('edit') === 'ppcp-gateway') {
+            $schema['ppcp-gateway']['post_meta']['a27_opaque'] = [
+                'value' => $sub->get_meta('_imagine_a27_opaque', true, 'edit')];
+        }
+        return $schema;
+    }, 10, 2);
     global $wpdb;
     require_once ABSPATH.'wp-includes/pluggable.php';
     add_action('plugins_loaded', static function () {
@@ -276,6 +289,34 @@ if (getenv('A27_CONFINED') === '1') {
     for suffix, value in [('before', five_before), ('after', five_after)]:
         (OUT / (storage + '-five-db-' + suffix + '.json')).write_text(json.dumps(value), encoding='utf-8')
     b.check(storage + ':five_db_files_unchanged', five_before == five_after and five_files == b.files(site))
+    for case in ('opaque', 'conflict', 'reference-only', 'unique'):
+        seed(site, cfg, correction=case)
+        case_before, case_files = b.fingerprint(db), b.files(site)
+        stem = storage + '-correction-' + case
+        case_audit = audit_at(site, OUT / (stem + '-audit'))
+        out = OUT / stem
+        p = inventory(site, out, case_audit)
+        b.check(storage + ':correction_success_' + case, (p.returncode, p.stdout, p.stderr) == (0, SUCCESS, ''))
+        data = json.loads((out / 'paiements.json').read_text(encoding='utf-8'))
+        gateway = 'ppcp-gateway' if case == 'opaque' else 'stripe_sepa'
+        kind = 'illisible' if case in ('opaque', 'conflict') else 'mandat_sepa'
+        relations = []
+        if case in ('conflict', 'unique'):
+            relations.append({'gateway': 'autre', 'metric': 'accounts_multiple_tokens', 'count': 5})
+        if case != 'unique':
+            relations.append({'gateway': gateway, 'metric': 'subscriptions_unlinked' if case == 'reference-only'
+                              else 'subscriptions_link_unknown', 'count': 5})
+        expected_case = {'automatic': {'groups': [{'gateway': gateway, 'type': kind, 'count': 5}], 'autres': 0},
+                         'cards': pool(0), 'relations': {'groups': relations, 'autres': 0}}
+        b.check(storage + ':correction_exact_five_' + case, data['counts'] == expected_case)
+        after, final_files = b.fingerprint(db), b.files(site)
+        for suffix, value in [('before', case_before), ('after', after)]:
+            (OUT / (stem + '-db-' + suffix + '.json')).write_text(json.dumps(value), encoding='utf-8')
+        (OUT / (stem + '-files.json')).write_text(json.dumps({'before': case_files, 'after': final_files}), encoding='utf-8')
+        b.check(storage + ':correction_db_files_unchanged_' + case, case_before == after and case_files == final_files)
+        b.check(storage + ':correction_private_values_absent_' + case,
+                not re.search(r'CANARY|@|4242|a27-correction', p.stdout + p.stderr
+                              + ''.join(f.read_text(encoding='utf-8') for f in out.iterdir())))
     b.check(storage + ':all_retained_files_clean', not any(b'CANARY' in f.read_bytes() for f in OUT.rglob('*') if f.is_file()))
 
 

@@ -106,6 +106,9 @@ final class Analysis
             if (count($refs) !== 1 || count($matches) > 1) {
                 return ['type' => 'illisible', 'link' => 'unknown', 'expiry' => null, 'present' => true];
             }
+            if ($ids && (count($matches) !== 1 || !in_array($matches[0]['id'], $ids, true))) {
+                return ['type' => 'illisible', 'link' => 'unknown', 'expiry' => null, 'present' => true];
+            }
             if (count($matches) === 1 && (!$ids || in_array($matches[0]['id'], $ids, true))) {
                 $t = $matches[0];
                 return ['type' => $t['readable'] ? self::tokenType($t['type'], $gateway) : 'illisible',

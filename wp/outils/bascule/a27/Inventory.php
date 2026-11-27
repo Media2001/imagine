@@ -22,6 +22,46 @@ final class Inventory
         return $rows;
     }
 
+    /** Preserve an opaque declared value across A-19's scalar presence reader. */
+    private static function paymentReference(\WC_Subscription $sub): string
+    {
+        $gateway = $sub->get_payment_method('edit');
+        $opaque = false;
+        $observer = static function ($schema) use ($gateway, &$opaque) {
+            if (!is_array($schema)) {
+                $opaque = true;
+                return $schema;
+            }
+            if (!array_key_exists($gateway, $schema)) {
+                return $schema;
+            }
+            if (!is_array($schema[$gateway])) {
+                $opaque = true;
+                return $schema;
+            }
+            foreach ($schema[$gateway] as $fields) {
+                if (!is_array($fields)) {
+                    $opaque = true;
+                    continue;
+                }
+                foreach ($fields as $field) {
+                    if (!is_array($field) || !array_key_exists('value', $field) || !is_scalar($field['value'])) {
+                        $opaque = true;
+                    }
+                }
+            }
+            return $schema;
+        };
+        // Observe the same evaluation used by A-19; never invoke gateway filters twice.
+        add_filter('woocommerce_subscription_payment_meta', $observer, PHP_INT_MAX);
+        try {
+            $reference = \Imagine\SubscriptionCoherence\Inventory::paymentReference($sub);
+        } finally {
+            remove_filter('woocommerce_subscription_payment_meta', $observer, PHP_INT_MAX);
+        }
+        return $opaque && $reference === 'absent' ? 'unknown' : $reference;
+    }
+
     public static function collect(string $site, string $audit): array
     {
         Analysis::clock($audit);
@@ -81,7 +121,7 @@ final class Inventory
                     'status' => $sub->get_status('edit'), 'gateway' => $gateway,
                     'manual' => (bool) $sub->get_requires_manual_renewal('edit'),
                     'tokens' => array_map('intval', $sub->get_payment_tokens()), 'metadata' => $meta,
-                    'reference' => \Imagine\SubscriptionCoherence\Inventory::paymentReference($sub)];
+                    'reference' => self::paymentReference($sub)];
             }
         }
         return ['schema' => 'imagine-a27-saved-payments-v1', 'read_only' => true, 'storage' => $storage,
