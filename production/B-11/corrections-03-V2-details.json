@@ -1,0 +1,41 @@
+{
+  "editors": {},
+  "settings_evidence": [
+    {
+      "mode": "0",
+      "names": [
+        "imagine_acces_reglages",
+        "imagine_decouverte_reglages",
+        "imagine_decouverte_relecture",
+        "imagine_c05_reglages",
+        "imagine_envoi_colonnes_export",
+        "imagine_commande_adresse_nouveau",
+        "imagine_solidaire_categories",
+        "imagine_partenaire_du_mois",
+        "imagine_newsletters_catalogue",
+        "imagine_newsletters_creation",
+        "imagine_personnalisation_questions",
+        "imagine_retractation_reglages",
+        "imagine_acquisition_choix",
+        "imagine_cooperateurs_roles_attribut",
+        "imagine_cooperateurs_roles_lecture",
+        "imagine_medias"
+      ],
+      "others_unchanged": false
+    }
+  ],
+  "external_attempts": [
+    {
+      "url": "https://secure.gravatar.com/avatar/d7c5125f16c5bb00456ad644b5581f52e93ce99e6ae6005cddd634cb613c420c?s=26&d=mm&r=g",
+      "context": "admin",
+      "origin": "http://192.168.129.32:8085/wp-admin/admin.php?page=imagine-reglages",
+      "blocked_before_transport": true
+    },
+    {
+      "url": "https://secure.gravatar.com/avatar/d7c5125f16c5bb00456ad644b5581f52e93ce99e6ae6005cddd634cb613c420c?s=26&d=mm&r=g",
+      "context": "admin",
+      "origin": "http://192.168.129.32:8085/wp-admin/admin.php?page=imagine-reglages",
+      "blocked_before_transport": true
+    }
+  ]
+}

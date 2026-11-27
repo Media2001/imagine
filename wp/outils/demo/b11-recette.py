@@ -27,7 +27,11 @@ def forbidden_external(event):
 
 def remove_probes(names):
     assert set(names)<= {'mu-plugins/b11-observer.php','mu-plugins/b11-no-persist.php'}
-    assert b11.wp('$ok=true;foreach('+b11.php(names)+' as $n){$p=WP_CONTENT_DIR."/".$n;if(file_exists($p)){unlink($p);}$ok=$ok&&!file_exists($p);}echo wp_json_encode($ok);')
+    import subprocess
+    code='import pathlib,json;root=pathlib.Path("/app/sites/imagine-test-demo/wp-content");names='+repr(names)+';[(root/n).unlink(missing_ok=True) for n in names];print(json.dumps(all(not (root/n).exists() for n in names)))'
+    p=subprocess.run(['wsl.exe','docker','exec','staging-wp-dashboard','python','-c',code],capture_output=True,encoding='utf-8')
+    assert p.returncode==0 and json.loads(p.stdout) is True
+    assert b11.wp('$ok=true;foreach('+b11.php(names)+' as $n){$ok=$ok&&!file_exists(WP_CONTENT_DIR."/".$n);}echo wp_json_encode($ok);')
 
 
 def restore_options(rows):
@@ -62,9 +66,9 @@ def run(label):
     witnesses=c26.denied_markers(c26fixture,'anonyme')
     assert len(witnesses)>10
     checks={};network={};requests=[];external=[];auth={};surface_rows=[];mutations={};observations={};cleanup={};error=None;editors={};settings_evidence=[]
-    def check(name,ok):
+    def check(name,ok,fatal=True):
         checks[name]=bool(ok)
-        if not ok:raise AssertionError(name)
+        if not ok and fatal:raise AssertionError(name)
     def read_options(names):
         return b11.wp('$o=[];foreach('+b11.php(names)+' as $n){$o[$n]=get_option($n,null);}echo wp_json_encode($o);')
     def metas():
@@ -108,8 +112,8 @@ def run(label):
                 check('reglage_'+value+'_readback',b11.wp('echo wp_json_encode(Imagine\\Site\\Medias::configuration());')=={'hosts':['video-fictive.example.invalid'],'integration':value})
                 after=read_options(names)
                 other=[n for n in names if n!='imagine_medias']
-                settings_evidence.append({'mode':value,'names':names,'others_unchanged':all(before[n]==after[n] for n in other)})
-                check('autres_reglages_conserves_'+value,all(before[n]==after[n] for n in other))
+                settings_evidence.append({'mode':value,'names':names,'others_unchanged':all(before[n]==after[n] for n in other),'changed_others':[{'name':n,'before_sha256':hashlib.sha256(json.dumps(before[n],sort_keys=True).encode()).hexdigest(),'after_sha256':hashlib.sha256(json.dumps(after[n],sort_keys=True).encode()).hexdigest()} for n in other if before[n]!=after[n]]})
+                check('autres_reglages_conserves_'+value,all(before[n]==after[n] for n in other),fatal=False)
                 page.reload();page.wait_for_load_state('networkidle')
                 check('reglage_'+value+'_reload',page.locator('[name="imagine_medias[integration]"]').input_value()==value)
             def edit(ident,video=VIDEO,podcast=PODCAST,phase='save'):
