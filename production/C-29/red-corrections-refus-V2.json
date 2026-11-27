@@ -1,0 +1,32 @@
+{
+  "exit": 1,
+  "stdout": "{\"checks\":{\"fiche_active\":true,\"actif\":true,\"pending\":true,\"on-hold\":true,\"expired\":true,\"cancelled\":true,\"pending-cancel\":true,\"absent\":true,\"sans_email\":true,\"sans_choix\":true,\"defaut_creation\":true,\"retrait\":true,\"liste_supprimee\":true,\"refus_hors_catalogue\":false,\"suppression_choix_positif_sans_retrait\":true,\"beneficiaire\":true,\"coop\":true,\"hors_liste\":true,\"ferme\":true,\"conflit\":true,\"incomplet\":true,\"projection_vide\":true,\"autre_liste\":true}}\n",
+  "stderr": "C29 refus_hors_catalogue expected {\"fiche\":{\"statut\":\"a_retirer\"},\"raison\":\"desinscrit_de_tout\"} actual {\"fiche\":null,\"raison\":\"aucun_choix_lecteur\"}\n",
+  "sources": {
+    "wp/outils/demo/c29-finaliser.py": "cece50c2782cdb34c8e8a35406abaff1744004d27780099208d6cf1db593db47",
+    "wp/outils/demo/c29-http.py": "d0669955e81bc166a5a1cf571376a94fd7f0d8702b39544b8bea437658c0c7c5",
+    "wp/outils/demo/c29-neighbors.py": "f3e57aadf4e470615f095b65b9a98dc492ea030f335c7525efa8c981dcc22b6b",
+    "wp/outils/demo/c29-recover-fixture.py": "c9494b840c8017a20f118515118f45969431ec04b2a1cf51720a948cdea66f91",
+    "wp/outils/demo/c29-recover-http.py": "1fd7a98ce581b65d936f626a8df3a7d7e18249f6b181055699dbc57094eccb95",
+    "wp/outils/demo/c29-recover.py": "cbde5670ec818d25720dfe7c30ace0c3d67096fadfc2fc357a503dad7b3c6f8b",
+    "wp/outils/demo/c29.py": "abcfef78f6ff721294b06f08eb1f15196e2db97f5adb772fedd889fab55bd2a0",
+    "wp/plugins/imagine-site/ContactBrevo.php": "76688ceb595e8f88ef01fbb495848eb9a44f92fd1589296b6d881762fd63f189",
+    "wp/plugins/imagine-site/ContactBrevoRegles.php": "4c67096993c57c96fe2bfe44b5b4cdfc8f9469a226866f0b0f3b0e1f3a2e3a0d",
+    "wp/plugins/imagine-site/Cooperateurs.php": "432d7e80200c4c3c83cd989542263ee6318bf8ef59be1d4288393906c6fbc23a",
+    "wp/plugins/imagine-site/EnvoiRelations.php": "ad6c6d4edd1dbd2ca5d63d1d4c16f4d261a651ba3f48e4ed139787381102edfb",
+    "wp/plugins/imagine-site/imagine-site.php": "e27ee706324066048c5610730c7b945b945a7b55e66200325147d0b8dcf00780",
+    "wp/plugins/imagine-site/Newsletters.php": "4ad7646c5c8d529c99558541cee2ff4ee29f500d3a9346222a937645d6458b2a",
+    "wp/plugins/imagine-site/NewslettersRegles.php": "0f8c6d04c6a326e940fbb8919d0e89187b9bbd560d8151df2a9bcf9d36b91e8a",
+    "wp/plugins/imagine-site/Personnalisation.php": "649f66416bf27c0936db4b1341547b8636d713c5dba82d57d9b59f8e822728ce",
+    "wp/plugins/imagine-site/PersonnalisationRegles.php": "100fea3d108327455d050f15114dc225fbc8dbb09ab64e166945db5c43a174cc",
+    "wp/plugins/imagine-site/SansEmail.php": "720148ca8163849666a68ef968d6d552647bbc4d909c3a287d12ce1a98def59c",
+    "wp/plugins/imagine-site/TableauBordAdmin.php": "5f7596195dd476e1bede9c93f6624146284a6f3a08292a56912c7ec4a9b4ec18",
+    "wp/plugins/imagine-site/tests/ContactBrevoC29Test.php": "85ae998e25f6e7a7c174fdff95c7b1ca0f84c98bc9b67939a3aaebbd4ccfe8a7",
+    "wp/plugins/imagine-site/tests/fixtures/c29-cases.php": "7ed4de07be0ed08121e7d88798f6e2f86e707ced417d9b8c7e4f52481cae5c86",
+    "wp/tests/demo/c29-attendus.php": "db746e9b6206e4ec576e64fd2e926a0ab73798529893ebae9923f20b631d09bc",
+    "wp/tests/demo/c29-observer.php": "b2af8964ff3c6e37a13ce8282a423b80916b46e3a39cf2ff714be25d18b8300a",
+    "wp/tests/demo/c29-proof-tests.py": "a34c029fc3ac8742ae28c24208a269161bcaf0b5068898b74ec554896250e8b0",
+    "wp/tests/demo/c29-pure.php": "b78706f7913fef96922f3a103a9939a40cd0bec5bb7e0bb4c7b60b21c4f19fc0",
+    "wp/tests/demo/c29-runtime.php": "3e44601723cff5ee00ca0833237ccf9453e2d157e9b3d3385b7813334310ce6f"
+  }
+}

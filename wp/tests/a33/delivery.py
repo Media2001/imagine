@@ -148,7 +148,7 @@ def global_valid(d, require_self=False):
         return False
     t, p = d.get('tools', {}), d.get('packets', {})
     lots = p.get('lots', [])
-    return (t.get('tools', 0) >= 23 and t.get('checks', 0) >= 846 and t.get('failures') == 0 and t.get('excluded') == []
+    return (t.get('tools', 0) >= 23 and t.get('checks', 0) >= 852 and t.get('failures') == 0 and t.get('excluded') == []
             and p.get('failures') == [] and p.get('excluded') == [] and p.get('verified') == len(lots)
             and len(lots) == len(set(lots)) and PREVIOUS <= set(lots) and (not require_self or 'A-33' in lots))
 

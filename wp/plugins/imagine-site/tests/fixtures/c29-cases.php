@@ -20,6 +20,8 @@ foreach ([
     'defaut_creation' => [['preferences' => ['principale' => ['choix' => true, 'origine' => 'defaut_creation']]], null, 'aucun_choix_lecteur'],
     'retrait' => [['preferences' => ['principale' => ['choix' => false, 'origine' => 'lecteur']]], ['statut' => 'a_retirer'], 'desinscrit_de_tout'],
     'liste_supprimee' => [['catalogue' => []], null, 'aucun_choix_lecteur'],
+    'refus_hors_catalogue' => [['catalogue' => [], 'preferences' => ['principale' => ['choix' => false, 'origine' => 'lecteur']]], ['statut' => 'a_retirer'], 'desinscrit_de_tout'],
+    'suppression_choix_positif_sans_retrait' => [['catalogue' => [], 'preferences' => ['principale' => ['choix' => true, 'origine' => 'lecteur']]], null, 'aucun_choix_lecteur'],
     'beneficiaire' => [['beneficiaire' => true], array_replace($active, ['statut' => 'inconnu', 'tarif' => 'inconnu']), 'eligible'],
     'coop' => [['cooperateur' => true], array_replace($active, ['cooperateur' => 'oui']), 'eligible'],
     'hors_liste' => [['abonnements' => [['etat' => 'active', 'tarifs' => ['invente']]]], array_replace($active, ['tarif' => 'inconnu']), 'eligible'],

@@ -10,13 +10,18 @@ spec.loader.exec_module(d)
 
 def global_green():
     return {'pass': True, 'tests': 1204, 'failures': 0, 'errors': 0, 'skipped': 0,
-            'tools': {'tools': 23, 'checks': 846, 'failures': 0, 'excluded': []},
+            'tools': {'tools': 23, 'checks': 852, 'failures': 0, 'excluded': []},
             'packets': {'verified': 13, 'lots': sorted(d.PREVIOUS | {'A-33'}), 'failures': [], 'excluded': []}}
 
 
 class DeliveryTests(unittest.TestCase):
     def test_green_global(self):
         self.assertTrue(d.global_valid(global_green(), True))
+
+    def test_missing_pure_controls_refused(self):
+        data = global_green()
+        data['tools']['checks'] = 846
+        self.assertFalse(d.global_valid(data, True))
 
     def test_hidden_packet_red_never_green_suite(self):
         data = global_green()

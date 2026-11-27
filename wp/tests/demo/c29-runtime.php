@@ -138,6 +138,18 @@ global $wpdb;
 $wpdb->update($wpdb->posts, ['post_author' => $users['P-BENEF']], ['ID' => $membership]);
 clean_post_cache($membership);
 update_post_meta($membership, '_subscription_id', (string)$fixture['subscriptions']['A-PAPIER']);
+foreach (['active' => 'wcm-active', 'paused' => 'wcm-paused'] as $expectedStatus => $postStatus) {
+    $wpdb->update($wpdb->posts, ['post_status' => $postStatus], ['ID' => $membership]);
+    clean_post_cache($membership);
+    wp_cache_flush();
+    $nativeMembership = wc_memberships_get_user_membership($membership);
+    $check('groupe_etat_natif_relu_' . $expectedStatus, $nativeMembership->get_status() === $expectedStatus);
+    $relation = Imagine\Site\EnvoiRelations::beneficiaires(wcs_get_subscription((int)$fixture['subscriptions']['A-PAPIER']));
+    $links = array_filter($relation['relation_native'], static fn (array $link): bool => $link['user_id'] === (int)$users['P-BENEF']);
+    $check('groupe_lien_natif_relu_' . $expectedStatus, count($links) === 1 && array_values($links)[0]['etat'] === $expectedStatus);
+    $fiche = ContactBrevo::fiche((int)$users['P-BENEF'])['fiche'];
+    $check('beneficiaire_groupe_inconnu_' . $expectedStatus, $fiche['statut'] === 'inconnu' && $fiche['tarif'] === 'inconnu');
+}
 $check('beneficiaire_groupe_inconnu', ContactBrevo::fiche((int)$users['P-BENEF'])['fiche']['statut'] === 'inconnu');
 $check('payeur_pas_beneficiaire_deduit', ContactBrevo::fiche((int)$users['A-PAPIER'])['fiche']['statut'] === 'abonne');
 wp_set_current_user(0);

@@ -17,15 +17,15 @@ final class ContactBrevoRegles
         }
         $newsletters = [];
         $retrait = false;
+        foreach ($source['preferences'] as $pref) {
+            if (($pref['origine'] ?? null) === 'lecteur' && ($pref['choix'] ?? null) === false) {
+                $retrait = true;
+            }
+        }
         foreach ($source['catalogue'] as $id) {
             $pref = $source['preferences'][$id] ?? [];
-            if (($pref['origine'] ?? null) !== 'lecteur') {
-                continue;
-            }
-            if (($pref['choix'] ?? null) === true) {
+            if (($pref['origine'] ?? null) === 'lecteur' && ($pref['choix'] ?? null) === true) {
                 $newsletters[] = $id;
-            } elseif (($pref['choix'] ?? null) === false) {
-                $retrait = true;
             }
         }
         if (!$newsletters) {
