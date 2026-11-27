@@ -10,9 +10,51 @@ $menu = get_option('imagine_b08_menu');
 if (!$menu || get_nav_menu_locations()['imagine-principal'] !== $menu['menu']) {
     throw new RuntimeException('B13 menu natif attendu absent');
 }
+$finish = static function (array $fixture) use ($menu): array {
+    $page = get_post((int)$fixture['page']);
+    $item = (int)$menu['items']['abonnement'];
+    $terms = wp_get_object_terms($item, 'nav_menu', ['fields' => 'ids']);
+    if (!$page || $page->post_status !== 'publish' || get_post_meta($page->ID, 'imagine_b13_page', true) !== '1'
+        || get_post_meta($item, 'imagine_b08_menu_item', true) !== 'abonnement' || $terms !== [(int)$menu['menu']]) {
+        throw new RuntimeException('B13 raccord détenu absent');
+    }
+    update_post_meta($item, '_menu_item_url', get_permalink($page));
+    if (get_post_meta($item, '_menu_item_url', true) !== get_permalink($page)) {
+        throw new RuntimeException('B13 raccord non relu');
+    }
+    $illustrations = [];
+    foreach (get_terms(['taxonomy' => 'imagine_thematique', 'hide_empty' => false]) as $term) {
+        $selected = get_posts([
+            'post_type' => 'post', 'post_status' => 'publish', 'post_password' => '',
+            'numberposts' => Imagine\Site\Navigation::nombre(get_option(Imagine\Site\Navigation::NOMBRE, 3)),
+            'orderby' => ['date' => 'DESC', 'ID' => 'DESC'],
+            'tax_query' => [['taxonomy' => 'imagine_thematique', 'terms' => $term->term_id]],
+        ]);
+        foreach ($selected as $article) {
+            if (!get_post_thumbnail_id($article)) {
+                $issue = (int)get_post_meta($article->ID, 'imagine_numero_id', true);
+                $image = get_post_thumbnail_id($issue);
+                if (!$image) {
+                    throw new RuntimeException('B13 couverture synthétique attendue absente');
+                }
+                set_post_thumbnail($article->ID, $image);
+            }
+            if (!get_post_thumbnail_id($article)) {
+                throw new RuntimeException('B13 illustration non relue');
+            }
+            $illustrations[$article->ID] = $article->ID;
+        }
+    }
+    $fixture['illustrations'] = array_values($illustrations);
+    update_option('imagine_b13_fixture', $fixture, false);
+    if (get_option('imagine_b13_fixture') !== $fixture) {
+        throw new RuntimeException('B13 fixture non relue');
+    }
+    return $fixture;
+};
 $old = get_option('imagine_b13_fixture');
 if ($old) {
-    echo wp_json_encode($old);
+    echo wp_json_encode($finish($old));
     return;
 }
 $page = get_page_by_path('abonnement-en-attente');
@@ -56,4 +98,4 @@ update_option('imagine_b13_fixture', $fixture, false);
 if (get_option('imagine_b13_fixture') !== $fixture) {
     throw new RuntimeException('B13 fixture non relue');
 }
-echo wp_json_encode($fixture);
+echo wp_json_encode($finish($fixture));

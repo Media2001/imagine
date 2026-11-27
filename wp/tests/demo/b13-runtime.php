@@ -14,6 +14,19 @@ $check = static function (string $name, bool $ok) use (&$checks): void {
         throw new RuntimeException($name);
     }
 };
+$b13MenuBefore = get_option('imagine_b08_menu');
+$b13IdsBefore = array_map(static fn ($p): int => $p->ID, wp_get_nav_menu_items($b13MenuBefore['menu']));
+for ($b13Pass = 1; $b13Pass <= 2; $b13Pass++) {
+    ob_start();
+    require WP_CONTENT_DIR . '/imagine-demo-build/b13-b08-sequence.php';
+    ob_end_clean();
+    $check('b08_retablit_ancre_' . $b13Pass, get_post_meta((int)$b13MenuBefore['items']['abonnement'], '_menu_item_url', true) === home_url('/#imagine-abonnement'));
+    ob_start();
+    require WP_CONTENT_DIR . '/imagine-demo-build/b13-seed-correction.php';
+    ob_end_clean();
+    $check('b13_repare_destination_' . $b13Pass, get_post_meta((int)$b13MenuBefore['items']['abonnement'], '_menu_item_url', true) === Navigation::abonnementUrl());
+    $check('sequence_ids_et_nombre_conserves_' . $b13Pass, array_map(static fn ($p): int => $p->ID, wp_get_nav_menu_items($b13MenuBefore['menu'])) === $b13IdsBefore);
+}
 $menu = get_option('imagine_b08_menu');
 $items = wp_get_nav_menu_items($menu['menu']);
 $top = array_values(array_filter($items, static fn ($p): bool => (int)$p->menu_item_parent === 0));
