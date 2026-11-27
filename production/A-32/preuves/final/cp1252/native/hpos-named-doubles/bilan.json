@@ -1,0 +1,82 @@
+{
+  "tournee": "partielle",
+  "outils": [
+    {
+      "outil": "A10",
+      "statut": "refus\u00e9",
+      "code": "A10_AUDIT_GUARD",
+      "rapport": "/report/hpos-named-doubles-a10"
+    },
+    {
+      "outil": "A11",
+      "statut": "en \u00e9chec",
+      "sortie": 255,
+      "rapport": "/report/hpos-named-doubles-a11"
+    },
+    {
+      "outil": "A12",
+      "statut": "r\u00e9ussi",
+      "rapport": "/report/hpos-named-doubles-a12"
+    },
+    {
+      "outil": "A15",
+      "statut": "r\u00e9ussi",
+      "rapport": "/report/hpos-named-doubles-a15"
+    },
+    {
+      "outil": "A16",
+      "statut": "r\u00e9ussi",
+      "rapport": "/report/hpos-named-doubles-a16"
+    },
+    {
+      "outil": "A17",
+      "statut": "r\u00e9ussi",
+      "rapport": "/report/hpos-named-doubles-a17"
+    },
+    {
+      "outil": "A18",
+      "statut": "r\u00e9ussi",
+      "rapport": "/report/hpos-named-doubles-a18"
+    },
+    {
+      "outil": "A19",
+      "statut": "r\u00e9ussi",
+      "rapport": "/report/hpos-named-doubles-a19"
+    },
+    {
+      "outil": "A20",
+      "statut": "r\u00e9ussi",
+      "rapport": "/report/hpos-named-doubles-a20"
+    },
+    {
+      "outil": "A21",
+      "statut": "r\u00e9ussi",
+      "rapport": "/report/hpos-named-doubles-a21"
+    },
+    {
+      "outil": "A23",
+      "statut": "r\u00e9ussi",
+      "rapport": "/report/hpos-named-doubles-a23"
+    },
+    {
+      "outil": "A24",
+      "statut": "r\u00e9ussi",
+      "rapport": "/report/hpos-named-doubles-a24"
+    },
+    {
+      "outil": "A25",
+      "statut": "r\u00e9ussi",
+      "rapport": "/report/hpos-named-doubles-a25"
+    },
+    {
+      "outil": "A26",
+      "statut": "r\u00e9ussi",
+      "rapport": "/report/hpos-named-doubles-a26"
+    },
+    {
+      "outil": "A27",
+      "statut": "r\u00e9ussi",
+      "rapport": "/report/hpos-named-doubles-a27"
+    }
+  ]
+}

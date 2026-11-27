@@ -1,0 +1,249 @@
+[
+  {
+    "command": [
+      "image",
+      "inspect",
+      "sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2"
+    ],
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "command": [
+      "create",
+      "--name",
+      "imagine-a32-tournee-4bf6e9c9e369",
+      "--label",
+      "org.imagine.a32-tournee=imagine-a32-tournee-4bf6e9c9e369",
+      "--network",
+      "none",
+      "--no-healthcheck",
+      "--cap-drop",
+      "ALL",
+      "--security-opt",
+      "no-new-privileges",
+      "--pids-limit",
+      "256",
+      "--memory",
+      "2048m",
+      "--cpus",
+      "2",
+      "--log-driver",
+      "none",
+      "--pull",
+      "never",
+      "--entrypoint",
+      "sleep",
+      "sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2",
+      "infinity"
+    ],
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "command": [
+      "inspect",
+      "imagine-a32-tournee-4bf6e9c9e369"
+    ],
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "command": [
+      "start",
+      "imagine-a32-tournee-4bf6e9c9e369"
+    ],
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "command": [
+      "exec",
+      "imagine-a32-tournee-4bf6e9c9e369",
+      "mkdir",
+      "-p",
+      "/subject/wp/outils",
+      "/opt/a02",
+      "/opt/a32",
+      "/report"
+    ],
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "command": [
+      "cp",
+      "/mnt/c/Users/Ced/imagine/wp/outils/bascule",
+      "imagine-a32-tournee-4bf6e9c9e369:/subject/wp/outils/bascule"
+    ],
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "command": [
+      "cp",
+      "/mnt/c/Users/Ced/imagine/wp/outils/staging",
+      "imagine-a32-tournee-4bf6e9c9e369:/subject/wp/outils/staging"
+    ],
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "command": [
+      "cp",
+      "/mnt/c/Users/Ced/imagine/wp/outils/bascule/audit",
+      "imagine-a32-tournee-4bf6e9c9e369:/subject/audit"
+    ],
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "command": [
+      "cp",
+      "/mnt/c/Users/Ced/imagine/wp/tests/a02-audit/inside.py",
+      "imagine-a32-tournee-4bf6e9c9e369:/opt/a02/inside.py"
+    ],
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "command": [
+      "cp",
+      "/mnt/c/Users/Ced/imagine/wp/tests/a02-audit/seed.php",
+      "imagine-a32-tournee-4bf6e9c9e369:/opt/a02/seed.php"
+    ],
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "command": [
+      "cp",
+      "/mnt/c/Users/Ced/imagine/wp/tests/a02-audit/fingerprint.php",
+      "imagine-a32-tournee-4bf6e9c9e369:/opt/a02/fingerprint.php"
+    ],
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "command": [
+      "cp",
+      "/mnt/c/Users/Ced/imagine/wp/tests/a02-audit/unit.php",
+      "imagine-a32-tournee-4bf6e9c9e369:/opt/a02/unit.php"
+    ],
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "command": [
+      "cp",
+      "/mnt/c/Users/Ced/imagine/wp/tests/a02-audit/readonly-probe.php",
+      "imagine-a32-tournee-4bf6e9c9e369:/opt/a02/readonly-probe.php"
+    ],
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "command": [
+      "cp",
+      "/mnt/c/Users/Ced/imagine/wp/tests/a16/seed.php",
+      "imagine-a32-tournee-4bf6e9c9e369:/opt/a32/seed16.php"
+    ],
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "command": [
+      "cp",
+      "/mnt/c/Users/Ced/imagine/wp/tests/a32/inside.py",
+      "imagine-a32-tournee-4bf6e9c9e369:/opt/a32/inside.py"
+    ],
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "command": [
+      "cp",
+      "/home/ced/staging-wp/plugins/woocommerce-subscriptions.zip",
+      "imagine-a32-tournee-4bf6e9c9e369:/opt/a02/woocommerce-subscriptions.zip"
+    ],
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "command": [
+      "cp",
+      "/home/ced/staging-wp/plugins/woocommerce-memberships.zip",
+      "imagine-a32-tournee-4bf6e9c9e369:/opt/a02/woocommerce-memberships.zip"
+    ],
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "command": [
+      "exec",
+      "--user",
+      "1000:1000",
+      "imagine-a32-tournee-4bf6e9c9e369",
+      "chmod",
+      "-R",
+      "a-w",
+      "/subject/wp/outils/bascule",
+      "/subject/wp/outils/staging",
+      "/subject/audit"
+    ],
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "command": [
+      "exec",
+      "imagine-a32-tournee-4bf6e9c9e369",
+      "python3",
+      "/opt/a32/inside.py"
+    ],
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "command": [
+      "cp",
+      "imagine-a32-tournee-4bf6e9c9e369:/report/.",
+      "/mnt/c/Users/Ced/AppData/Local/hermes/cache/scratch/a32-active-20261127/matrix-final-v2/cp1252/native"
+    ],
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "command": [
+      "inspect",
+      "imagine-a32-tournee-4bf6e9c9e369"
+    ],
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "command": [
+      "inspect",
+      "imagine-a32-tournee-4bf6e9c9e369"
+    ],
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "command": [
+      "rm",
+      "-f",
+      "imagine-a32-tournee-4bf6e9c9e369"
+    ],
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "command": [
+      "inspect",
+      "imagine-a32-tournee-4bf6e9c9e369"
+    ],
+    "exit_code": 1,
+    "stderr": "error: no such object: imagine-a32-tournee-4bf6e9c9e369\n"
+  }
+]
