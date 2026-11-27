@@ -1,0 +1,10 @@
+{
+  "command": [
+    "python",
+    "-B",
+    "wp/tests/demo/c27-verifier-tests.py"
+  ],
+  "exit": 0,
+  "log": "verification-verificateur.log",
+  "sha256": "910de338974ffd69ccd5e482b36226a8389724be9817282820af2a763525abb4"
+}
