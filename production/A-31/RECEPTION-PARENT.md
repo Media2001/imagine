@@ -1,48 +1,43 @@
-# A-31 — Réception des corrections du 27 novembre 2026
+# A-31 — Retouche du regroupement, file du 27 novembre 2026 à 19 h 30
 
-**Matrice complète vérifiée, blocage initial résolu par le parent.** Les résultats ci-dessous décrivent la qualification initiale et son refus authentique, pas un blocage courant. Après correction autorisée A-32, les deux collecteurs de gates ont réellement rendu exit 0, sources stables, sans assouplissement ni réécriture du lanceur. Les gates neuves remplacent les anciennes dans le seul paquet final. Le scellement est produit par reseal.py ; PRET exige ensuite un rejeu indépendant où A-31 et A-32 sont effectivement vérifiés. Le reçu post-sceau reste hors paquet dans files/rapports/.
+## Contrat courant
 
-## Les six instructions
+K=5 porte sur `years`, `statuses`, **`natures` et les années de `refunds`**. Une cellule de 1 à 4 perd son libellé et rejoint `autres`. Les quatre liens cassés (`orphan_renewals`, `living_without_parent`, `orders_missing_account`, `orders_link_unknown`) restent distincts et exacts, y compris 0 à 4 ; `refunds.total` reste exact et vaut `autres` plus la somme des groupes annuels visibles. La lecture précédente « années/années-états seulement » est remplacée, pas conservée comme contrat courant.
 
-1. Quatre compteurs de liens exacts distincts, sans pool : 0/1/2/3/4/5, seuls et mêlés aux trois autres métriques, classique/HPOS × UTF-8/cp1252. Le témoin RED remet volontairement les scalaires dans des pools dans la seule copie jetable ; le cas rare à 1 le détecte.
-2. K5 réservé à `years` et `statuses`. Décision à défaut, selon la consigne courante « années/années-états seulement » : natures et remboursements par année exacts, `autres=0`, total des remboursements égal à la somme exacte des années. La réception précédente, qui fondait aussi ces groupes, est retirée hors dépôt.
-3. Analyse PHP, schéma fermé Python, JSON, Markdown et oracles alignés. Les mutations de fin de processus altèrent encore des rapports valides JSON+Markdown : le contrôle SHA-256 les refuse. Le RED Python et le RED PHP sans mutation ont réellement échoué avant correction ; ils restent en scratch.
-4. Abonnement à la corbeille présent dans le recensement d'existence, ni vivant ni renouvellement orphelin. Preuve native dans chaque magasin et console.
-5. Dates natives locales `2018-01-01T00:30:00+01:00` et `2018-12-31T23:30:00-01:00` : années UTC 2017/2019, ancienneté 2017 lorsque le groupe atteint cinq. Les deux directions sont vérifiées dans les quatre cellules.
-6. Import A-28, gardien A-22, outils clos et lanceur gelé inchangés ; aucun Git, site réel, archive, compte, déploiement, voie 2, cron ou verrou modifié. Pas d'aléa partagé observé pendant les gates finales.
+Les cinq autres corrections restent : liens séparés testés seuls/mêlés ; rendu fermé JSON et Markdown avec liaison après fin du processus ; abonnement à la corbeille compté à l'existence, jamais vivant ; deux frontières UTC et ancienneté ; import, gardien et lanceur inchangés. Vivant = exactement `active`, comme A-19. Après le vrai neutraliser/anonymiser sur bases fictives, seul `natures` est inconnu après neutralisation, jamais zéro. L'outil ne répare, rattache ni supprime rien.
 
-Après le vrai neutraliser/anonymiser inchangé sur bases fictives, **seul `natures` est inconnu après neutralisation**, jamais zéro. Années/états, quatre liens, remboursements et oldest restent lisibles ; seul le K5 des années de commandes peut masquer oldest. Vivant = exactement `active`, comme A-19. L'outil ne répare, rattache ni supprime rien.
+Le témoin d'altération cohérente JSON+Markdown modifie désormais `orphan_renewals` : les groupes rares de natures sont justement vides. La mutation reste un rapport valide refusé par la liaison finale, pas seulement un schéma invalide.
 
-## Résultats réellement exécutés
+## Qualification réellement exécutée
 
-- Python Windows `C:/Python314/python.exe` **3.14.6** : 42 tests réussis par console ; stdout/stderr UTF-8 avec mode UTF8=1 puis cp1252 avec mode UTF8=0. `TMPDIR` retiré des enfants et mesuré `null` ; TEMP/TMP dirigés vers le scratch Hermes.
-- Par console : 238 assertions PHP pures, 19 de frontière native, 552 contrôles du banc, 15 du runner, 19 du standard installé par magasin. Matrice de 48 scénarios de liens par magasin/console, soit 192 exécutions natives distinctes ; empreintes DB/fichiers identiques avant/après chacune. Canaris sur tous les canaux ; PHP seulement dans des conteneurs jetables déconnectés.
-- Vérificateur de candidat : **324 contrôles PASS**, exit 0 ; 35 sources et 65 dépendances gelées. Style strict : 0 erreur, 0 avertissement. Les deux lignes A-31 du mode d'emploi partagé sont exactes, une fois chacune ; son fichier n'a pas été réécrit.
-- Préparation réelle de l'image : exit 0 et sonde Python hors ligne PASS. Deux rejeux globaux : chacun 1 204 tests, 36 667 assertions, 0 échec/erreur/ignoré PHP ; 22 outils, 791 contrôles, dont A-31/238, tous verts. Mais **un échec de paquet A-32** : la gate agrégée reste exit 1. Les lecteurs A-20/A-21/A-22/A-28 donnent exit 0.
-- `reseal.py` rend réellement exit 1 / `A31_PARENT_GATES_MISSING` ; aucun sceau ni PRET n'est créé. La lecture de livraison sans argument reste un refus `A31_PARTIAL_EVIDENCE`.
+- Une matrice complète classique/HPOS × UTF-8/cp1252, Windows `C:/Python314/python.exe` 3.14.6 ; stdout/stderr et mode UTF8 mesurés, TMPDIR retiré des enfants et mesuré `null`, TEMP/TMP sous le scratch Hermes.
+- Par console : 42 tests Python, 276 assertions PHP pures, 19 de frontière, 552 contrôles natifs, 15 runner et 19 du standard installé dans chacun des deux magasins. Les 48 scénarios de liens par magasin/console restent présents, soit 192 exécutions natives ; empreintes DB/fichiers identiques avant/après. Canaris sur tous les canaux et rapports ; PHP uniquement dans les conteneurs jetables déconnectés, nettoyés et absence contrôlée.
+- K5 des six natures et des remboursements/année testé à 0/1/2/3/4/5 ; cas mêlant rare/visible et total exact. Le RED préalable a réellement rendu 32 assertions PHP rouges et deux tests Python rouges ; reçus hors dépôt. Les témoins RED K5 et liens scalaires restent dans la matrice.
+- Lecteur candidat : 324 contrôles PASS, exit 0. PSR-12 strict : 0 erreur et 0 avertissement. Les deux lignes communes A-31 sont contrôlées par contrat exact et unique ; le mode d'emploi commun n'est pas réécrit.
+- Sept gates propres A-31 : préparation réelle de l'image, deux rejeux généraux et lecteurs A-20/A-21/A-22/A-28, tous exit 0, sources stables. Chaque rejeu : 1 204 tests, 36 667 assertions, 22 outils/829 contrôles, zéro échec ; `PAQUETS : 11 vérifiés, 0 échecs ; hors rejeu : A-31 (journaux absents)`. **Seul A-31 est exclu pendant cette préparation ; A-32 est effectivement vérifié et n'est pas retiré.** Aucune nouvelle séquence conjointe, aucun portail assoupli.
 
-## Commandes et preuves
+## Paquet unique et réception post-sceau
 
-Depuis `C:/Users/Ced/imagine`, commandes finales réellement passées, sérialisées :
+Scratch : `C:/Users/Ced/AppData/Local/hermes/cache/scratch/a31-retouche-20261127-2003/`.
 
-```sh
-C:/Python314/python.exe -B wp/tests/a31/matrix.py --include-native --parent-serialized --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a31-correction-20261127-1738/matrix-final-03
-C:/Python314/python.exe -B wp/tests/a31/verify.py --evidence=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a31-correction-20261127-1738/matrix-final-03
-C:/Python314/python.exe -B wp/tests/a31/gates.py --parent-serialized --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a31-correction-20261127-1738/gates-final
-C:/Python314/python.exe -B wp/tests/a31/reseal.py --parent-serialized --evidence=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a31-correction-20261127-1738/matrix-final-03 --gates=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a31-correction-20261127-1738/gates-final
-```
+- `avant-retouche/` conserve les préimages intégrales A-31 ; `ancien-paquet/` conserve manifeste, preuves et anciens reçus retirés sans perte. `PRET-avant-retouche` a été retiré par le parent avant les écritures.
+- `matrix-final/` est l'unique matrice neuve complète ; `gates-final/` ses seules gates courantes. Après installation, l'unique paquet publié est `production/A-31/preuves/final/`, avec les gates sous `gates/`.
+- Le sceau est calculé par `reseal.py`, sans substitution manuelle d'empreintes. Il ne crée pas PRET. Le lecteur de production sans argument doit ensuite être vert.
+- Réception post-sceau hors paquet : `post-seal/reception.json` et journaux des deux consoles. Elle exige les 12 paquets dont A-31/A-32, zéro échec/exclusion, 1 204 tests/36 667 assertions, 22 outils/829 contrôles, sources et paquets inchangés. PRET A-31 n'est restauré qu'après ces contrôles. A-32 et son PRET ne sont pas écrits.
+- T-03 n'est pas modifié. Sa photographie intégrale des voisins incluait l'ancien paquet A-31 : elle devient obsolète malgré ses propres source_hashes inchangés. Le verdict relu est retourné au parent dans `post-seal/t03-impact.json`, sans réactualiser son sceau.
 
-`gates.py` a réellement lancé `powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/preparer-image.ps1`, puis deux fois `powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/rejouer.ps1` avec les deux encodages explicites, puis les quatre lecteurs. Commandes exactes, sorties complètes et SHA-256 : `preuves/final/gates/commands.json`. Sondes Windows, matrices, témoins RED, DB/fichiers et style : `preuves/final/` — **unique paquet candidat, non scellé malgré son nom de répertoire**. La déclaration `rejeu.json` est conservée ; ses 28 journaux sont présents. Relecture native sans mutation :
+## Commandes
+
+Depuis `C:/Users/Ced/imagine`, étapes sérialisées sur répertoires scratch neufs :
 
 ```sh
-C:/Python314/python.exe -B wp/tests/a31/verify.py --evidence=production/A-31/preuves/final
+C:/Python314/python.exe -B wp/tests/a31/matrix.py --include-native --parent-serialized --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a31-retouche-20261127-2003/matrix-final
+C:/Python314/python.exe -B wp/tests/a31/verify.py --evidence=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a31-retouche-20261127-2003/matrix-final
+C:/Python314/python.exe -B wp/tests/a31/gates.py --parent-serialized --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a31-retouche-20261127-2003/gates-final
+C:/Python314/python.exe -B wp/tests/a31/reseal.py --parent-serialized --evidence=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a31-retouche-20261127-2003/matrix-final --gates=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a31-retouche-20261127-2003/gates-final
 C:/Python314/python.exe -B production/A-31/verify.py
 ```
 
-La première doit passer les 324 contrôles ; la seconde doit refuser la livraison non scellée. Les reçus authentiques après publication sont dans `verification-candidat.json` et `reception-finale.json` ; ils ne remplacent pas les gates rouges.
+Puis deux exécutions réelles de `powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/rejouer.ps1`, enfants Python en UTF-8 puis cp1252, TMPDIR absent. Le pilote scratch `postseal-a31.py` conserve les sorties complètes, mesure les consoles et ne restaure que PRET A-31 après vérification. Le rapport de réveil donne le résultat obtenu, pas une promesse de cette procédure.
 
-Essais et ancien paquet : `C:/Users/Ced/AppData/Local/hermes/cache/scratch/a31-correction-20261127-1738/`. Un premier foreground a été interrompu par le watchdog hôte ; son conteneur exact a été retiré puis son absence vérifiée. Un deuxième essai a été arrêté pour corriger deux avertissements PSR-12 ; même nettoyage exact. Aucun reçu de ces essais n'est présenté comme final ; le dernier rejeu complet est suivi comme processus de fond jusqu'à sa sortie réelle.
-
-## Procédure parent d'installation et de réception
-
-Le parent a traité A-32 dans son périmètre puis retiré sans perte le candidat A-31 et ses gates rouges vers le scratch a31-a32-joint-final. Les collecteurs a31/gates.py et a32/gates.py y ont rendu PASS. Cette préparation exclut honnêtement les paquets non installés, sans les prétendre vérifiés. Les sources A-31 n'ont pas changé. Installation exclusivement par reseal.py, sans empreinte changée à la main ; puis lecteur sans argument vert, rejeu canonique post-sceau avec A-31 et A-32 dans packets.lots et aucun échec, et seulement alors PRET. Le rapport parent hors paquet contient le résultat réellement observé de cette dernière étape. Aucune clôture indépendante ni aucun GO réel n'est prétendu.
+Aucun Git, compte réel, archive Imagine, déploiement, voie 2, verrou, A-33 ni fichier gelé modifié. Aucun changement demandé dans le périmètre A-32. Ceci n'est ni une clôture éditoriale ni un GO réel.

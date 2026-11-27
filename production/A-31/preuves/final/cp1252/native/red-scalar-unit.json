@@ -1,0 +1,1109 @@
+{
+    "checks": [
+        {
+            "check": "rare_one_no_label",
+            "status": "PASS"
+        },
+        {
+            "check": "rare_nature_one_pooled",
+            "status": "PASS"
+        },
+        {
+            "check": "rare_four_no_label",
+            "status": "PASS"
+        },
+        {
+            "check": "rare_nature_four_pooled",
+            "status": "PASS"
+        },
+        {
+            "check": "oldest_four_suppressed",
+            "status": "PASS"
+        },
+        {
+            "check": "oldest_rare_suppressed",
+            "status": "PASS"
+        },
+        {
+            "check": "renewal_five",
+            "status": "PASS"
+        },
+        {
+            "check": "year_five_k5",
+            "status": "PASS"
+        },
+        {
+            "check": "oldest_five_exact",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_parent",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_renewal",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_switch",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_resubscribe",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_none",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_illisible",
+            "status": "PASS"
+        },
+        {
+            "check": "closed_unknown_status",
+            "status": "PASS"
+        },
+        {
+            "check": "private_canary_absent",
+            "status": "PASS"
+        },
+        {
+            "check": "unknown_nature_not_none",
+            "status": "PASS"
+        },
+        {
+            "check": "renewal_orphans_count_orders_not_links",
+            "status": "FAIL"
+        },
+        {
+            "check": "missing_account_separate_from_guest",
+            "status": "FAIL"
+        },
+        {
+            "check": "a19_excludes_pending",
+            "status": "FAIL"
+        },
+        {
+            "check": "a19_excludes_on-hold",
+            "status": "FAIL"
+        },
+        {
+            "check": "a19_excludes_pending-cancel",
+            "status": "FAIL"
+        },
+        {
+            "check": "a19_excludes_cancelled",
+            "status": "FAIL"
+        },
+        {
+            "check": "a19_excludes_expired",
+            "status": "FAIL"
+        },
+        {
+            "check": "a19_excludes_switched",
+            "status": "FAIL"
+        },
+        {
+            "check": "a19_excludes_draft",
+            "status": "FAIL"
+        },
+        {
+            "check": "oldest_not_next_visible_year",
+            "status": "PASS"
+        },
+        {
+            "check": "refund_objects_separate",
+            "status": "PASS"
+        },
+        {
+            "check": "invalid_date_oldest_illisible",
+            "status": "PASS"
+        },
+        {
+            "check": "neutral_natures_unknown",
+            "status": "PASS"
+        },
+        {
+            "check": "neutral_orphan_readable",
+            "status": "FAIL"
+        },
+        {
+            "check": "neutral_years_preserved",
+            "status": "PASS"
+        },
+        {
+            "check": "empty_not_unknown",
+            "status": "PASS"
+        },
+        {
+            "check": "scalar_orphan_renewals_0_alone_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_0_alone_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_0_alone_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_0_alone_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_0_mixed_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_0_mixed_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_0_mixed_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_0_mixed_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_1_alone_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_1_alone_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_1_alone_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_1_alone_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_1_mixed_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_1_mixed_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_1_mixed_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_1_mixed_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_2_alone_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_2_alone_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_2_alone_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_2_alone_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_2_mixed_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_2_mixed_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_2_mixed_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_2_mixed_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_3_alone_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_3_alone_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_3_alone_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_3_alone_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_3_mixed_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_3_mixed_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_3_mixed_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_3_mixed_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_4_alone_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_4_alone_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_4_alone_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_4_alone_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_4_mixed_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_4_mixed_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_4_mixed_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_4_mixed_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_5_alone_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_5_alone_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_5_alone_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_5_alone_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_5_mixed_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_5_mixed_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_5_mixed_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orphan_renewals_5_mixed_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_0_alone_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_0_alone_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_0_alone_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_0_alone_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_0_mixed_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_0_mixed_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_0_mixed_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_0_mixed_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_1_alone_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_1_alone_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_1_alone_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_1_alone_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_1_mixed_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_1_mixed_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_1_mixed_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_1_mixed_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_2_alone_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_2_alone_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_2_alone_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_2_alone_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_2_mixed_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_2_mixed_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_2_mixed_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_2_mixed_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_3_alone_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_3_alone_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_3_alone_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_3_alone_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_3_mixed_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_3_mixed_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_3_mixed_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_3_mixed_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_4_alone_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_4_alone_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_4_alone_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_4_alone_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_4_mixed_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_4_mixed_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_4_mixed_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_4_mixed_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_5_alone_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_5_alone_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_5_alone_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_5_alone_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_5_mixed_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_5_mixed_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_5_mixed_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_living_without_parent_5_mixed_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_0_alone_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_0_alone_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_0_alone_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_0_alone_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_0_mixed_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_0_mixed_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_0_mixed_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_0_mixed_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_1_alone_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_1_alone_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_1_alone_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_1_alone_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_1_mixed_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_1_mixed_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_1_mixed_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_1_mixed_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_2_alone_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_2_alone_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_2_alone_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_2_alone_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_2_mixed_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_2_mixed_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_2_mixed_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_2_mixed_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_3_alone_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_3_alone_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_3_alone_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_3_alone_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_3_mixed_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_3_mixed_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_3_mixed_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_3_mixed_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_4_alone_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_4_alone_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_4_alone_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_4_alone_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_4_mixed_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_4_mixed_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_4_mixed_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_4_mixed_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_5_alone_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_5_alone_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_5_alone_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_5_alone_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_5_mixed_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_5_mixed_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_5_mixed_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_missing_account_5_mixed_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_0_alone_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_0_alone_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_0_alone_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_0_alone_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_0_mixed_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_0_mixed_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_0_mixed_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_0_mixed_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_1_alone_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_1_alone_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_1_alone_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_1_alone_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_1_mixed_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_1_mixed_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_1_mixed_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_1_mixed_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_2_alone_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_2_alone_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_2_alone_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_2_alone_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_2_mixed_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_2_mixed_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_2_mixed_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_2_mixed_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_3_alone_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_3_alone_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_3_alone_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_3_alone_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_3_mixed_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_3_mixed_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_3_mixed_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_3_mixed_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_4_alone_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_4_alone_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_4_alone_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_4_alone_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_4_mixed_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_4_mixed_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_4_mixed_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_4_mixed_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_5_alone_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_5_alone_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_5_alone_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_5_alone_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_5_mixed_orphan_renewals",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_5_mixed_living_without_parent",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_5_mixed_orders_missing_account",
+            "status": "FAIL"
+        },
+        {
+            "check": "scalar_orders_link_unknown_5_mixed_orders_link_unknown",
+            "status": "FAIL"
+        },
+        {
+            "check": "refund_exact_total_0",
+            "status": "PASS"
+        },
+        {
+            "check": "refund_pooled_year_0",
+            "status": "PASS"
+        },
+        {
+            "check": "refund_exact_total_1",
+            "status": "PASS"
+        },
+        {
+            "check": "refund_pooled_year_1",
+            "status": "PASS"
+        },
+        {
+            "check": "refund_exact_total_2",
+            "status": "PASS"
+        },
+        {
+            "check": "refund_pooled_year_2",
+            "status": "PASS"
+        },
+        {
+            "check": "refund_exact_total_3",
+            "status": "PASS"
+        },
+        {
+            "check": "refund_pooled_year_3",
+            "status": "PASS"
+        },
+        {
+            "check": "refund_exact_total_4",
+            "status": "PASS"
+        },
+        {
+            "check": "refund_pooled_year_4",
+            "status": "PASS"
+        },
+        {
+            "check": "refund_exact_total_5",
+            "status": "PASS"
+        },
+        {
+            "check": "refund_pooled_year_5",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_k5_parent_0",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_k5_parent_1",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_k5_parent_2",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_k5_parent_3",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_k5_parent_4",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_k5_parent_5",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_k5_renewal_0",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_k5_renewal_1",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_k5_renewal_2",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_k5_renewal_3",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_k5_renewal_4",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_k5_renewal_5",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_k5_switch_0",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_k5_switch_1",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_k5_switch_2",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_k5_switch_3",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_k5_switch_4",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_k5_switch_5",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_k5_resubscribe_0",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_k5_resubscribe_1",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_k5_resubscribe_2",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_k5_resubscribe_3",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_k5_resubscribe_4",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_k5_resubscribe_5",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_k5_none_0",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_k5_none_1",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_k5_none_2",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_k5_none_3",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_k5_none_4",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_k5_none_5",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_k5_illisible_0",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_k5_illisible_1",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_k5_illisible_2",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_k5_illisible_3",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_k5_illisible_4",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_k5_illisible_5",
+            "status": "PASS"
+        },
+        {
+            "check": "nature_k5_mixed",
+            "status": "PASS"
+        },
+        {
+            "check": "refund_k5_mixed_total_exact",
+            "status": "PASS"
+        }
+    ],
+    "exit_code": 1
+}

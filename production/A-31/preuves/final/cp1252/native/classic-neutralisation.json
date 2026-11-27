@@ -1,0 +1,14 @@
+{
+  "neutraliser_and_anonymiser_executed": true,
+  "structure_before_sha256": "85919dcd2286d8b4fdccd8784d8261e54113366db611d2b3ea82d822bbd2b49a",
+  "structure_after_sha256": "85919dcd2286d8b4fdccd8784d8261e54113366db611d2b3ea82d822bbd2b49a",
+  "extension_relation_before": 1,
+  "extension_relation_after": 0,
+  "renewal_relation_before": 3,
+  "renewal_relation_after": 3,
+  "renewal_rows_before": 4,
+  "renewal_rows_after": 4,
+  "opaque_renewal_before": 1,
+  "opaque_renewal_after": 1,
+  "marker_count": 1
+}

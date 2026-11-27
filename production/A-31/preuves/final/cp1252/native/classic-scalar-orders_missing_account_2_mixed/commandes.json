@@ -1,0 +1,42 @@
+{
+    "schema": "imagine-a31-history-v1",
+    "read_only": true,
+    "storage": "classic",
+    "neutralisation": "observe",
+    "counts": {
+        "orphan_renewals": 4,
+        "living_without_parent": 4,
+        "orders_missing_account": 2,
+        "orders_link_unknown": 4,
+        "years": {
+            "groups": [
+                {
+                    "year": 2020,
+                    "count": 6
+                }
+            ],
+            "autres": 4
+        },
+        "statuses": {
+            "groups": [
+                {
+                    "year": 2020,
+                    "status": "completed",
+                    "count": 6
+                }
+            ],
+            "autres": 4
+        },
+        "natures": {
+            "groups": [],
+            "autres": 10
+        },
+        "refunds": {
+            "total": 0,
+            "groups": [],
+            "autres": 0
+        },
+        "oldest_year": "illisible"
+    },
+    "audit_sha256": "cad6c04d85593335c4f3509ddd7e874b1274fb033bf6dd0c2247b97635a287db"
+}
