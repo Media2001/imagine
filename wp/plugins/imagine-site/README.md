@@ -521,6 +521,36 @@ python -B wp/tests/demo/b11-verifier.py --live
 
 Les quatre tests PHPUnit sont découverts dans la configuration racine. La recette complémentaire joue les formulaires natifs, les deux réglages, le décodage audio navigateur, GET/HEAD/refus, deux mutations réelles de gardes B11 puis restauration. Elle réutilise les 32 témoins de C26, réponse brute et 36 injections témoins, sans modifier/étendre sa matrice ni resceller C23. Recette limitée à la boîte classique native (filtre temporaire sur les deux IDs) et à l'option B11 dans Settings API ; l'observateur ne survit pas. Zéro appel issu de B11, zéro chargement tiers public ; tentatives de mise à jour Novamira ambiantes, bloquées par B00, et avatars admin bloqués sont comptés séparément, jamais déclarés absents. Pas de changement d'abonnement, commande, compte ou droit. Limites et première reprise de recette : `production/B-11/NOTE.md`. Adresses et commandes parent : `production/B-11/A-VOIR.md`.
 
+## C-28 — packs thématiques
+
+### Le standard d'abord — cinq lignes
+
+1. Le [produit groupé natif WooCommerce](https://woocommerce.com/document/managing-products/#grouped-products) présente plusieurs produits sur une page ; chaque enfant entre séparément au panier.
+2. Ce conteneur n'est pas lui-même achetable et n'a pas de prix global autonome (`WC_Product_Grouped::is_purchasable()` et prix des enfants, code Woo installé relu).
+3. [Product Bundles](https://woocommerce.com/document/bundles/bundles-configuration/#pricing) ajouterait un prix de base global, des enfants configurables et leurs règles de prix/stock ; aucune extension commerciale n'est activée.
+4. Choix proportionné : **un produit simple natif**, une liste de numéros publiée dans son administration et un prix pour l'ensemble ; pas de nouveau type Woo, produit enfant ou moteur de vente.
+5. Le seul complément est l'instantané des numéros à la persistance du paiement ; chaque numéro repasse ensuite par **la décision et le remboursement C14**, sans modifier les bibliothèques closes C06/C11/C14.
+
+Dans les données générales d'un produit simple : sélection multiple **Pack : numéros inclus**. La saisie passe par le formulaire natif Woo (nonce/capacité), les IDs sont stricts, dédoublonnés, publiés ; une liste invalide est refusée sans remplacer l'ancienne. Un pack valide retire le rattachement C14 « un seul numéro ». Vider la sélection retire le pack pour les achats suivants. Aucune remise pour un numéro déjà possédé.
+
+`imagine_pack_numeros` contient seulement les IDs éditoriaux. À la création d'une ligne, `_imagine_pack_candidat` note son éligibilité sans figer la liste. Après persistance native d'un paiement daté, `_imagine_pack_paye` garde `numeros`, `paye_le`, `produit`, une seule fois, y compris une liste devenue vide. La liste est donc celle **du paiement**, pas du panier ; absence de marque historique : pas de reprise rétroactive. Une modification/suppression du produit ne modifie pas l'instantané. Un échec avant persistance du paiement ne crée pas cet instantané, testé rouge puis vert.
+
+Le filtre additif `imagine_achat_instantanes` du **raccord** `AchatsNumeros::droits()` déroule les IDs de la même ligne commerciale, puis appelle inchangé `AchatNumero::droit()` pour chacun. Propriétaire, statut, date, quantité, publication et remboursement restent ceux de C14. Même réglage `imagine_achat_remboursement=commande|ligne`, aucun réglage parallèle : rembourser la ligne pack retire tous les numéros de cette ligne ; un partiel non ventilé suit la politique existante ; un total ferme les deux modes. `MonCompte`, `Paywall`, `PdfNumero` et les bibliothèques closes sont inchangés. La question de composition passée suit `docs/decisions.md` : pas de réglage nouveau.
+
+`single-product.php` réutilise les classes B01, les couvertures/titres/dates publics de B04 et le bouton/panier Woo ; aucun corps d'article, PDF embarqué, CSS ou JS nouveau. La fiche démo affiche un prix explicitement fictif. Le seul MU de démonstration `c28-demo.php` exempte **la fiche du pack fictif** de Coming Soon sur le seul `imagine-test-demo`, sans changer l'option de boutique, les passerelles ni les autres fiches.
+
+```text
+python -B wp/tests/demo/c28-verifier.py
+python -B wp/tests/demo/c28-verifier.py --live
+python -B wp/outils/demo/c28-local.py LABEL-NEUF
+python -B wp/outils/demo/c28.py runtime LABEL-NEUF
+python -B wp/outils/demo/c28-recette.py LABEL-NEUF
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/preparer-image.ps1
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/rejouer.ps1
+```
+
+Les deux premières commandes vérifient le paquet et, avec `--live`, relisent seulement le site fictif. La recette navigateur est temporairement mutante : formulaire produit natif, panier réel, paiement/remboursements natifs **sans passerelle ni transfert**, GET articles/PDF et compte pour acheteur/tiers/anonyme ; ajout du quatrième et retrait du premier sans changer le passé. Les 32 témoins C26 sont réutilisés sans changer sa matrice. Snapshot privé avant la recette, retour relu des profils, commandes, réglages, sessions et actions métier ; aucune réinitialisation C09. Fixture laissée : seul produit pack fictif, liste de trois numéros et option de déclaration, pas de nouvel achat permanent. Preuves, commandes exactes et limites : `production/C-28/{NOTE.md,A-VOIR.md,reception.json}`. PRET signifie prêt à relire, ni clôture, ni validation visuelle, ni GO sur le réel.
+
 
 
 

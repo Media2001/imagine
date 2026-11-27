@@ -26,6 +26,9 @@ if ($f === null) {
         }
         $articles[$id] = $posts[0]->ID;
     }
+    global $wpdb;
+    $actionsTable = $wpdb->prefix . 'actionscheduler_actions';
+    $actionsBefore = $wpdb->get_col("SELECT action_id FROM $actionsTable");
     $p = new WC_Product_Simple();
     $p->set_name('C28 — Pack thématique entièrement fictif');
     $p->set_slug('c28-pack-thematique-fictif');
@@ -39,6 +42,16 @@ if ($f === null) {
     $p->update_meta_data(Imagine\Site\PacksThematiques::PRODUIT, [11, 18, 25]);
     $p->update_meta_data('_imagine_c28_fictif', '1');
     $p->save();
+    // Pas de travail de catalogue natif laissé en attente par la seule fixture.
+    foreach ($wpdb->get_results("SELECT * FROM $actionsTable", ARRAY_A) as $row) {
+        if (!in_array($row['action_id'], $actionsBefore, true)
+            && $row['hook'] === 'woocommerce_run_product_attribute_lookup_update_callback'
+            && $row['args'] === wp_json_encode([$p->get_id(), 1])
+            && $row['status'] === 'pending' && $row['attempts'] === '0') {
+            $wpdb->delete($wpdb->prefix . 'actionscheduler_logs', ['action_id' => $row['action_id']]);
+            $wpdb->delete($actionsTable, ['action_id' => $row['action_id']]);
+        }
+    }
     $f = ['fictif' => true, 'product' => $p->get_id(), 'issues' => [11, 18, 25], 'fourth' => 32,
         'articles' => $articles, 'price_fictif' => '3.28'];
     update_option('imagine_c28_fixture', $f, false);

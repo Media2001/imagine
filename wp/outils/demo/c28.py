@@ -79,5 +79,37 @@ def seed(label):
     print(json.dumps(first, ensure_ascii=False))
 
 
+def preservation(label):
+    import copy
+    guard()
+    baseline = json.loads((OUT/'fixture-01.json').read_text(encoding='utf-8'))['before']
+    current = state()
+    projected = copy.deepcopy(current)
+    fixture = wp('echo wp_json_encode(get_option("imagine_c28_fixture"));')
+    ident = fixture['product']
+    projected['native']['produits'].pop(str(ident))
+    fingerprints = wp('''global $wpdb;$id='''+str(ident)+''';$out=[];foreach(['posts'=>"SELECT * FROM {$wpdb->posts} WHERE ID<>$id",'postmeta'=>"SELECT * FROM {$wpdb->postmeta} WHERE post_id<>$id"] as $key=>$sql){$rows=$wpdb->get_results($sql,ARRAY_A);$hashes=array_map(static fn($r)=>hash('sha256',serialize($r)),$rows);sort($hashes);$out[$key]=['count'=>count($hashes),'sha256'=>hash('sha256',serialize($hashes))];}echo wp_json_encode($out);''')
+    projected['native']['native_fingerprints'].update(fingerprints)
+    checks = {key:baseline[key] == projected[key] for key in baseline}
+    assert all(checks.values()), checks
+    save(label, {'checks':checks, 'initial_before_fixture':baseline, 'current':current, 'projected_without_only_owned_product':projected, 'declared_delta':{'product':ident, 'fixture_option':'imagine_c28_fixture', 'demo_mu':'mu-plugins/imagine-c28-demo.php'}, 'sources':sources()})
+    print('C28 : état initial préservé, seul produit fictif ajouté.')
+
+
+def regressions(label):
+    guard()
+    before = state()
+    results = {}
+    for filename in ['c14-runtime.php', 'c14-corrections-runtime.php']:
+        source = (ROOT/'wp/tests/demo'/filename).read_text(encoding='utf-8').split('<?php',1)[1]
+        code = "global $wpdb;$wpdb->query('START TRANSACTION');try{eval("+php(source)+");}finally{$wpdb->query('ROLLBACK');wp_cache_flush();}"
+        r = b11.b10.b09.b08.c25.b06.profils.b00.wp('eval', code, check=False)
+        results[filename] = r
+        assert r['code'] == 0 and not r['stderr'] and all(json.loads(r['stdout']).values()), r
+    assert before == state()
+    save(label, {'results':results, 'business_preserved':True, 'sources':sources()})
+    print(json.dumps({n:len(json.loads(r['stdout'])) for n,r in results.items()}))
+
+
 if __name__ == '__main__':
     globals()[sys.argv[1]](sys.argv[2])
