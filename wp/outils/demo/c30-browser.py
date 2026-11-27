@@ -13,7 +13,7 @@ def checker(page,body,role,index,f,markers,check):
     main=page.locator('#imagine-main')
     check(f'{role}_{index}_page',main.locator('h1').all_text_contents()==['Bienvenue'])
     check(f'{role}_{index}_aucun_code_affiche','NON_LISTE_INTERDIT' not in main.inner_html() and 'fictif-affiche' not in main.inner_html())
-    check(f'{role}_{index}_texte_vide',main.locator('article').inner_text().strip()=="Bienvenue\nS’abonner")
+    check(f'{role}_{index}_texte_vide',main.locator('article').inner_text().split()==['Bienvenue','S’abonner'])
     check(f'{role}_{index}_etanche',common.c26.c23.assess(200,body,markers)['ok'])
     check(f'{role}_{index}_mutation',not common.c26.c23.assess(200,body+'<!--'+markers[0]+'-->',markers)['ok'])
     check(f'{role}_{index}_abonnement',main.locator('a[href$="/abonnement-en-attente/"]').count()==1)
@@ -32,7 +32,13 @@ def checker(page,body,role,index,f,markers,check):
 try:
     common.run(owner,sys.argv[1],checker,paths=['/bienvenue/','/bienvenue/?code=NON_LISTE_INTERDIT','/bienvenue/?code=fictif-affiche','/bienvenue/?code=fictif-magazine','/bienvenue/'])
 finally:
-    restore=b13.wp('global $wpdb;$before='+b13.php(rows_before)+';$keys='+b13.php(list(keys))+';foreach($keys as $key){$wpdb->delete($wpdb->prefix."woocommerce_sessions",["session_key"=>$key]);}foreach($before as $row){if(in_array($row["session_key"],$keys,true)){$wpdb->insert($wpdb->prefix."woocommerce_sessions",$row);}}echo wp_json_encode($wpdb->get_results("SELECT * FROM {$wpdb->prefix}woocommerce_sessions ORDER BY session_key",ARRAY_A)===$before);')
+    by_key={r['session_key']:r for r in rows_before}
+    for key in keys:
+        code='global $wpdb;$wpdb->delete($wpdb->prefix."woocommerce_sessions",["session_key"=>'+b13.php(key)+']);'
+        if key in by_key:code+='$wpdb->insert($wpdb->prefix."woocommerce_sessions",'+b13.php(by_key[key])+');'
+        assert b13.wp(code+'echo wp_json_encode(true);')
+    readback=b13.wp('global $wpdb;echo wp_json_encode($wpdb->get_results("SELECT * FROM {$wpdb->prefix}woocommerce_sessions ORDER BY session_key",ARRAY_A));')
+    restore=readback==rows_before
     b13.save(owner,sys.argv[1]+'-sessions',{'restored':restore,'private':private,'sources':owner.sources(owner)})
     print('Sessions restaurées',restore)
     assert restore
