@@ -19,6 +19,9 @@ class ContactWPDB
         $this->last_error = $this->fail ? 'Panne fictive' : '';
         if ($this->fail) { return []; }
         [$sql, $args] = $query;
+        if (str_contains($sql, 'SELECT meta_key')) {
+            return array_values(array_filter(array_keys($GLOBALS['b09_meta'][$args[0]] ?? []), static fn($key) => str_starts_with($key, 'imagine_contact_')));
+        }
         $ids = [];
         foreach ($GLOBALS['b09_posts'] as $id => $p) {
             if ($p->post_type === $args[0] && get_post_meta($id, 'imagine_contact_email', true) === $args[1]) { $ids[] = $id; }
@@ -37,6 +40,8 @@ function esc_html(string $s): string { return htmlspecialchars($s, ENT_QUOTES, '
 function esc_attr(string $s): string { return esc_html($s); }
 function esc_url(string $s): string { return esc_html($s); }
 function get_option(string $k, mixed $d = false): mixed { return $GLOBALS['b09_options'][$k] ?? $d; }
+function update_option(string $k, mixed $v, bool $autoload = false): bool { $GLOBALS['b09_options'][$k] = $v; return true; }
+function delete_option(string $k): bool { unset($GLOBALS['b09_options'][$k]); return true; }
 function home_url(string $path = ''): string { return 'https://demo.example.org' . $path; }
 function get_permalink(int $id): string { return 'https://demo.example.org/page/' . $id; }
 function get_page_by_path(string $path): object { return (object)['ID' => $path === 'espace-cooperateurs' ? 90 : 91]; }
@@ -64,10 +69,21 @@ function get_post_meta(int $id, string $key, bool $one = true): mixed { return $
 function wp_delete_post(int $id, bool $force = false): bool
 {
     if ($GLOBALS['b09_fail_delete'] ?? false) { return false; }
+    if ($GLOBALS['b09_partial_delete'] ?? false) {
+        unset($GLOBALS['b09_posts'][$id]);
+        $GLOBALS['b09_meta'][$id] = ['imagine_contact_texte' => $GLOBALS['b09_meta'][$id]['imagine_contact_texte']];
+        return true;
+    }
     unset($GLOBALS['b09_posts'][$id], $GLOBALS['b09_meta'][$id]);
     return true;
 }
 function wp_mail(mixed ...$args): void { $GLOBALS['b09_calls']['mail']++; }
+function delete_post_meta(int $id, string $key): bool
+{
+    if ($GLOBALS['b09_fail_meta_delete'] ?? false) { return false; }
+    unset($GLOBALS['b09_meta'][$id][$key]);
+    return true;
+}
 function wp_remote_get(mixed ...$args): void { $GLOBALS['b09_calls']['http']++; }
 function add_action(string $name, mixed $fn, int $priority = 10, int $args = 1): void { $GLOBALS['b09_hooks'][$name][] = $fn; }
 function add_filter(string $name, mixed $fn, int $priority = 10, int $args = 1): void { add_action($name, $fn, $priority, $args); }

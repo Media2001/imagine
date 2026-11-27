@@ -132,6 +132,31 @@ final class ContactAdapterTest extends TestCase
         self::assertSame('FAQ native inchangée', $render('FAQ native inchangée'));
     }
 
+    public function testSuppressionPartielleRefuseSuccesEtReprendSansPostNiEmail(): void
+    {
+        self::assertTrue(Contact::enregistrer('Fictif', 'partiel@example.org', 'Texte personnel fictif', false));
+        self::assertTrue(Contact::enregistrer('Tiers', 'tiers@example.org', 'Texte tiers', true));
+        $GLOBALS['b09_partial_delete'] = true;
+        $first = ContactConfidentialite::effacer('partiel@example.org');
+        self::assertNull(get_post(100), 'Le post a réellement disparu');
+        self::assertSame('Texte personnel fictif', get_post_meta(100, 'imagine_contact_texte', true));
+        self::assertSame('', get_post_meta(100, 'imagine_contact_email', true), 'La reprise ne peut pas rechercher cette adresse');
+        self::assertFalse($first['done'], 'Une méta personnelle orpheline interdit done');
+        self::assertTrue($first['items_retained']);
+        self::assertFalse($first['items_removed']);
+        $GLOBALS['b09_partial_delete'] = false;
+        $GLOBALS['b09_fail_meta_delete'] = true;
+        self::assertFalse(ContactConfidentialite::effacer('partiel@example.org')['done']);
+        $GLOBALS['b09_fail_meta_delete'] = false;
+        $last = ContactConfidentialite::effacer('partiel@example.org');
+        self::assertTrue($last['done']);
+        self::assertTrue($last['items_removed']);
+        self::assertSame([], $GLOBALS['b09_meta'][100] ?? []);
+        self::assertSame('Texte tiers', get_post_meta(101, 'imagine_contact_texte', true));
+        self::assertCount(1, ContactConfidentialite::exporter('tiers@example.org')['data']);
+        self::assertSame(['imagine_b09_pages' => ['contact' => 3]], $GLOBALS['b09_options']);
+    }
+
     public function testPrivacyPaginationAdresseTiersErreursEtEffacement(): void
     {
         self::assertTrue(class_exists(ContactConfidentialite::class), 'Privacy B09 absente');
