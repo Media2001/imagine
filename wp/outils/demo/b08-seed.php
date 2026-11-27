@@ -37,7 +37,20 @@ $menu = wp_get_nav_menu_object('imagine-b08-principal');
 if ($menu && (int)($prior['menu'] ?? 0) !== $menu->term_id) {
     throw new RuntimeException('Collision menu B08');
 }
-$menuId = $menu ? $menu->term_id : wp_create_nav_menu('imagine-b08-principal');
+$rememberMenu = static function (int $id) use (&$prior): void {
+    $prior = ['menu' => $id, 'items' => []];
+    update_option('imagine_b08_menu', $prior, false);
+    if (get_option('imagine_b08_menu') !== $prior) {
+        throw new RuntimeException('Témoin menu refusé');
+    }
+};
+// Le hook natif inscrit l'appartenance avant que la création rende la main.
+add_action('wp_create_nav_menu', $rememberMenu);
+try {
+    $menuId = $menu ? $menu->term_id : wp_create_nav_menu('imagine-b08-principal');
+} finally {
+    remove_action('wp_create_nav_menu', $rememberMenu);
+}
 if (is_wp_error($menuId)) {
     throw new RuntimeException('Menu refusé');
 }
@@ -52,20 +65,45 @@ $entries = [
     'compte' => ['Connexion', wc_get_page_permalink('myaccount'), 0],
 ];
 $items = [];
-$put = static function (string $key, array $args) use ($menuId, $prior, &$items): int {
-    $id = (int)($prior['items'][$key] ?? 0);
-    if ($id) {
-        if (get_post_meta($id, 'imagine_b08_menu_item', true) !== $key || !get_post($id)) {
+$owned = [];
+$keys = [...array_keys($entries), ...array_keys($map['enfants'])];
+foreach (wp_get_nav_menu_items((int)$menuId, ['post_status' => 'any']) as $item) {
+    $key = get_post_meta($item->ID, 'imagine_b08_menu_item', true);
+    if (!in_array($key, $keys, true) || isset($owned[$key])
+        || (isset($prior['items'][$key]) && (int)$prior['items'][$key] !== $item->ID)) {
+        throw new RuntimeException('Item étranger');
+    }
+    $owned[$key] = $item->ID;
+}
+foreach ($prior['items'] ?? [] as $key => $id) {
+    if (($owned[$key] ?? 0) !== (int)$id) {
+        throw new RuntimeException('Item étranger');
+    }
+}
+$put = static function (string $key, array $args) use ($menuId, &$prior, $owned, &$items): int {
+    $id = (int)($owned[$key] ?? 0);
+    $rememberItem = static function (int $menu, int $item) use ($key, $menuId, &$prior): void {
+        if ($menu !== (int)$menuId) {
             throw new RuntimeException('Item étranger');
         }
-        $items[$key] = $id;
-        return $id;
+        update_post_meta($item, 'imagine_b08_menu_item', $key);
+        $prior['items'][$key] = $item;
+        update_option('imagine_b08_menu', $prior, false);
+        if (get_post_meta($item, 'imagine_b08_menu_item', true) !== $key
+            || get_option('imagine_b08_menu') !== $prior) {
+            throw new RuntimeException('Témoin item refusé');
+        }
+    };
+    // Marquer dès l'insertion ; un item interrompu sera complété au rejeu.
+    add_action('wp_add_nav_menu_item', $rememberItem, 10, 2);
+    try {
+        $id = wp_update_nav_menu_item((int)$menuId, $id, $args + ['menu-item-status' => 'publish']);
+    } finally {
+        remove_action('wp_add_nav_menu_item', $rememberItem, 10);
     }
-    $id = wp_update_nav_menu_item((int)$menuId, 0, $args + ['menu-item-status' => 'publish']);
     if (is_wp_error($id) || !$id) {
         throw new RuntimeException('Item refusé');
     }
-    update_post_meta($id, 'imagine_b08_menu_item', $key);
     $items[$key] = $id;
     return $id;
 };
@@ -82,7 +120,7 @@ foreach ($map['enfants'] as $slug => $id) {
         'menu-item-position' => ++$order, 'menu-item-parent-id' => $items['cooperative']]);
 }
 $locations = get_nav_menu_locations();
-if (isset($locations['imagine-principal']) && (int)$locations['imagine-principal'] !== (int)$menuId) {
+if (!empty($locations['imagine-principal']) && (int)$locations['imagine-principal'] !== (int)$menuId) {
     throw new RuntimeException('Menu principal déjà attribué');
 }
 $locations['imagine-principal'] = (int)$menuId;
