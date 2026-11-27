@@ -46,7 +46,8 @@ final class Accueil
 
     private static function ouvrir(string $key, string $title): void
     {
-        echo '<section data-b14-section="' . esc_attr($key) . '" aria-labelledby="imagine-accueil-'
+        echo '<section' . ($key === 'thematiques' ? ' id="imagine-thematiques"' : '')
+            . ' data-b14-section="' . esc_attr($key) . '" aria-labelledby="imagine-accueil-'
             . esc_attr($key) . '"><h2 id="imagine-accueil-' . esc_attr($key) . '">' . esc_html($title) . '</h2>';
     }
 

@@ -6,11 +6,12 @@ declare(strict_types=1);
 add_filter('pre_wp_mail', '__return_false', PHP_INT_MAX);
 foreach (['2026-12-31 23:59:59', '2027-01-01 00:00:00', '2027-01-01 00:00:01'] as $next) {
     $sub = wcs_create_subscription([
+        'customer_id' => (int) get_user_by('login', 'a02-admin')->ID,
         'status' => 'pending', 'billing_period' => 'month',
         'billing_interval' => 1, 'start_date' => '2026-01-01 00:00:00',
     ]);
     if (is_wp_error($sub)) {
-        throw new RuntimeException('A32_CLOCK_FIXTURE:' . $sub->get_error_code() . ':' . $sub->get_error_message());
+        throw new RuntimeException('A32_CLOCK_FIXTURE');
     }
     $sub->set_requires_manual_renewal(true);
     $sub->set_payment_method('bacs');

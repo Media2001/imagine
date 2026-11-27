@@ -1,0 +1,10 @@
+{
+  "scope": "imagine-test-demo",
+  "fixture": {
+    "issue": 39,
+    "article": 45,
+    "image": 40,
+    "old_image": 0
+  },
+  "idempotent": true
+}
