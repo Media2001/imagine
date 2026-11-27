@@ -1,0 +1,19 @@
+{
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "old": "c862e6849c314e76e5c82c20695774bb2f10835c566510942a56def474567048",
+  "readback": {
+    "plugins/imagine-site/IntegrationsCorps.php": "242bfd18f5bf9d3765be11f0278ab31f03c368feaab628ed7e7011ef408eddc0",
+    "plugins/imagine-site/imagine-site.php": "e27ee706324066048c5610730c7b945b945a7b55e66200325147d0b8dcf00780"
+  },
+  "business_preserved": true,
+  "bootstrap_not_written": true
+}

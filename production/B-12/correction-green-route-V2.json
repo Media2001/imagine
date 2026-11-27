@@ -1,0 +1,35 @@
+{
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "native": {
+    "code": 0,
+    "stdout": "{\"checks\":{\"0_absent_transient_absent\":true,\"0_absent_route_native\":true,\"0_absent_lien_seul\":true,\"0_absent_jamais_iframe_vignette\":true,\"0_absent_zero_tentative\":true,\"0_absent_anonyme_refuse\":true,\"0_absent_edit_posts_revoque_refuse\":true,\"0_absent_transient_retire\":true,\"0_ancien_transient_reel\":true,\"0_ancien_temoin_cache_natif\":true,\"0_ancien_route_native\":true,\"0_ancien_lien_seul\":true,\"0_ancien_jamais_iframe_vignette\":true,\"0_ancien_zero_tentative\":true,\"0_ancien_anonyme_refuse\":true,\"0_ancien_edit_posts_revoque_refuse\":true,\"0_ancien_transient_retire\":true,\"1_absent_transient_absent\":true,\"1_absent_route_native\":true,\"1_absent_lien_seul\":true,\"1_absent_jamais_iframe_vignette\":true,\"1_absent_zero_tentative\":true,\"1_absent_anonyme_refuse\":true,\"1_absent_edit_posts_revoque_refuse\":true,\"1_absent_transient_retire\":true,\"1_ancien_transient_reel\":true,\"1_ancien_temoin_cache_natif\":true,\"1_ancien_route_native\":true,\"1_ancien_lien_seul\":true,\"1_ancien_jamais_iframe_vignette\":true,\"1_ancien_zero_tentative\":true,\"1_ancien_anonyme_refuse\":true,\"1_ancien_edit_posts_revoque_refuse\":true,\"1_ancien_transient_retire\":true,\"2_absent_transient_absent\":true,\"2_absent_route_native\":true,\"2_absent_lien_seul\":true,\"2_absent_jamais_iframe_vignette\":true,\"2_absent_zero_tentative\":true,\"2_absent_anonyme_refuse\":true,\"2_absent_edit_posts_revoque_refuse\":true,\"2_absent_transient_retire\":true,\"2_ancien_transient_reel\":true,\"2_ancien_temoin_cache_natif\":true,\"2_ancien_route_native\":true,\"2_ancien_lien_seul\":true,\"2_ancien_jamais_iframe_vignette\":true,\"2_ancien_zero_tentative\":true,\"2_ancien_anonyme_refuse\":true,\"2_ancien_edit_posts_revoque_refuse\":true,\"2_ancien_transient_retire\":true,\"transport_interdit\":true},\"total\":52,\"cases\":[{\"route\":\"\\/oembed\\/1.0\\/proxy\",\"cache\":\"absent\",\"status\":200,\"data\":{\"version\":\"1.0\",\"type\":\"link\",\"html\":\"<a href=\\\"https:\\/\\/www.youtube.com\\/watch?v=B12FICTIF01&#038;case=0_absent\\\">https:\\/\\/www.youtube.com\\/watch?v=B12FICTIF01&amp;case=0_absent<\\/a>\"},\"attempts\":0},{\"route\":\"\\/oembed\\/1.0\\/proxy\",\"cache\":\"ancien\",\"status\":200,\"data\":{\"version\":\"1.0\",\"type\":\"link\",\"html\":\"<a href=\\\"https:\\/\\/www.youtube.com\\/watch?v=B12FICTIF01&#038;case=0_ancien\\\">https:\\/\\/www.youtube.com\\/watch?v=B12FICTIF01&amp;case=0_ancien<\\/a>\"},\"attempts\":0},{\"route\":\"\\/oembed\\/1.0\\/PROXY\",\"cache\":\"absent\",\"status\":200,\"data\":{\"version\":\"1.0\",\"type\":\"link\",\"html\":\"<a href=\\\"https:\\/\\/www.youtube.com\\/watch?v=B12FICTIF01&#038;case=1_absent\\\">https:\\/\\/www.youtube.com\\/watch?v=B12FICTIF01&amp;case=1_absent<\\/a>\"},\"attempts\":0},{\"route\":\"\\/oembed\\/1.0\\/PROXY\",\"cache\":\"ancien\",\"status\":200,\"data\":{\"version\":\"1.0\",\"type\":\"link\",\"html\":\"<a href=\\\"https:\\/\\/www.youtube.com\\/watch?v=B12FICTIF01&#038;case=1_ancien\\\">https:\\/\\/www.youtube.com\\/watch?v=B12FICTIF01&amp;case=1_ancien<\\/a>\"},\"attempts\":0},{\"route\":\"\\/oembed\\/1.0\\/PrOxY\",\"cache\":\"absent\",\"status\":200,\"data\":{\"version\":\"1.0\",\"type\":\"link\",\"html\":\"<a href=\\\"https:\\/\\/www.youtube.com\\/watch?v=B12FICTIF01&#038;case=2_absent\\\">https:\\/\\/www.youtube.com\\/watch?v=B12FICTIF01&amp;case=2_absent<\\/a>\"},\"attempts\":0},{\"route\":\"\\/oembed\\/1.0\\/PrOxY\",\"cache\":\"ancien\",\"status\":200,\"data\":{\"version\":\"1.0\",\"type\":\"link\",\"html\":\"<a href=\\\"https:\\/\\/www.youtube.com\\/watch?v=B12FICTIF01&#038;case=2_ancien\\\">https:\\/\\/www.youtube.com\\/watch?v=B12FICTIF01&amp;case=2_ancien<\\/a>\"},\"attempts\":0}],\"events\":[],\"transport\":0,\"transients_removed\":[\"oembed_cad3a0d03086f64825b12278cba8fdd8\",\"oembed_9d8ebec1faa6aa0f8957773fc6d34f91\",\"oembed_8093e366b46d66f8f59d6713096e02a5\",\"oembed_66df8141e36406eb315fdbb7afca1cce\",\"oembed_45aa57a0e37cf1c8873c262460074359\",\"oembed_0ace8b8ec22ec5dca2024d5a23d9b715\"]}",
+    "stderr": ""
+  },
+  "business_preserved": true,
+  "probe_removed": true,
+  "sources": {
+    "wp/outils/demo/b12-corrections.py": "721fc9fc60012eb9757fb82277bff74016b5171f268d8f71164140e934819907",
+    "wp/outils/demo/b12-finaliser.py": "f8b902868f7abca331f5376b0cba6cda229c39aa3d592f692b7af797d333ad96",
+    "wp/outils/demo/b12-inspect.py": "19e81d4a0825e3c38810937e1ed99cbd5622f754edf2ef06aeee64cea068886d",
+    "wp/outils/demo/b12-neighbors.py": "13480fed252c8f0103d4c65dc499c3a8871d0e2f2fdcc3309dcaf90f1206cc81",
+    "wp/outils/demo/b12-standard.py": "d81485e72eaa4047b883dbb6820eb17942a8b7be6323ccbf66f223c2edc86ca4",
+    "wp/outils/demo/b12.py": "127a1e33b7bd8a307dd46e1a9a230fc807bbeb418d5a96c10f37d0dd994ade9b",
+    "wp/plugins/imagine-site/imagine-site.php": "e27ee706324066048c5610730c7b945b945a7b55e66200325147d0b8dcf00780",
+    "wp/plugins/imagine-site/IntegrationsCorps.php": "242bfd18f5bf9d3765be11f0278ab31f03c368feaab628ed7e7011ef408eddc0",
+    "wp/plugins/imagine-site/tests/IntegrationsCorpsB12Stubs.php": "ff635a352975fb7f4c278f1eb56ff9ab6bacbf567f300b3564b31752c02bf229",
+    "wp/plugins/imagine-site/tests/IntegrationsCorpsB12Test.php": "2ab5050c5890966e79c955b025cc8c01c50caed4cbed8ec49cd40c3807fb8046",
+    "wp/tests/demo/b12-proof-tests.py": "67aacb987be429eabe1c5c35ee6f8c9182720940ac74c9685d283e7f84ab67cd",
+    "wp/tests/demo/b12-routes-runtime.php": "2da845391befb565253b5fefe2270c2512a7182c399e17fde711d32743ee5887",
+    "wp/tests/demo/b12-runtime.php": "c548afd7e9d6372acc179e8c5cb2abf739bbf4eddffa61c94ea183f50a626dde",
+    "wp/tests/demo/b12-verifier.py": "81ba656b25b74453214143d075e31efdb78932916c23d9723073caf164e77b2e"
+  }
+}

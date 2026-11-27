@@ -1,0 +1,15 @@
+{
+  "scope": "imagine-test-demo",
+  "historical_receipts": {
+    "production/B-12/reception-V2.json": "b67ab9be94b7c97a881860c772ea5c53e57e46dc7579196e45baea212e9cc2b6",
+    "production/B-12/reception-complement-voisins-V2.json": "7db78fcaa447423706e34835f1e26b89dac40f822765244b0554daa67a6f7a96",
+    "production/C-29/reception-V2.json": "0affe402ccfba84220134494a19c78184105e4a003c7bd3083d3bcadbfc8dba5",
+    "production/C-29/reception-complement-voisins-V2.json": "fd37d2fdfdd21f4d5afbbe0d37645f08d6b926f6dc3651aa90a4f0b64ba8b4e8",
+    "production/C-29/PRET": "089eff625eaa4540abb4047856a9b98b1e9ff09e9773c1d056db5ca78a51184d"
+  },
+  "previous_B12_PRET": {
+    "archive": "PRET-avant-corrections-V2",
+    "sha256": "7460d5695b1274690c1e25c53abc8058ed0e4a0dbb62f875cee55fe0d5682b53"
+  },
+  "C29_before_PRET_renewal": "offline and live PASS"
+}

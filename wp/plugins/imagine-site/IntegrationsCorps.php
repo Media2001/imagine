@@ -69,7 +69,7 @@ final class IntegrationsCorps
     public static function apercu(mixed $response, \WP_REST_Request $request, string $route): mixed
     {
         $url = $request->get_param('url');
-        if (rtrim($request->get_route(), '/') !== '/oembed/1.0/proxy'
+        if (strcasecmp(rtrim($request->get_route(), '/'), '/oembed/1.0/proxy') !== 0
             || !is_string($url) || !self::externe($url)
             || is_wp_error($response) || !current_user_can('edit_posts')
         ) {

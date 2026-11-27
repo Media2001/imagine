@@ -66,6 +66,21 @@ final class IntegrationsCorpsB12Test extends TestCase
         self::assertNull(IntegrationsCorps::apercu(null, $request, ''));
     }
 
+    public function testProxyCaseVariantsKeepLinkShapeAndPermissionGuard(): void
+    {
+        foreach (['/oembed/1.0/PROXY', '/oembed/1.0/PrOxY'] as $route) {
+            $request = new \WP_REST_Request($route, 'https://tiers.example.invalid/a');
+            $result = IntegrationsCorps::apercu(null, $request, '/oembed/1.0/proxy');
+            self::assertInstanceOf(\WP_REST_Response::class, $result);
+            self::assertSame(['version', 'type', 'html'], array_keys($result->data));
+            self::assertSame('link', $result->data['type']);
+            self::assertDoesNotMatchRegularExpression('/<(iframe|img|script)\b/i', $result->data['html']);
+            $GLOBALS['b12_editor'] = false;
+            self::assertNull(IntegrationsCorps::apercu(null, $request, '/oembed/1.0/proxy'));
+            $GLOBALS['b12_editor'] = true;
+        }
+    }
+
     public function testNativeHookRegistrationPrecedesCaches(): void
     {
         IntegrationsCorps::register();
