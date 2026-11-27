@@ -188,3 +188,78 @@ Lu : les rapports de 5 h 01 à 7 h 09 (les deux voies), la vérification d'A-28,
 
 - **Voie 1** : resceau unique (A-26, A-27, A-30, A-31, avec A-20 dans le rejeu), preuve finale et `PRET` de T-03, A-29. Un lot de plus : **A-32, la tournée des inventaires** (une commande qui enchaîne les outils d'inventaire clos et rend un bilan), à commencer après le `PRET` de T-03.
 - **Voie 2** : corrections de B-09 quand elles arrivent, C-27 (en cours), le complément de B-07, B-10. Deux lots de plus : **B-11** (vidéos externes sans appel à un tiers, podcasts, sommaire audio servi comme le PDF), **C-28** (packs thématiques : l'achat ouvre, numéro par numéro, ce que C-14 ouvre).
+
+# Passage automatique de 13 h
+
+Lu : les rapports de 7 h 34 à 12 h 58 (les deux voies), les vérifications de T-03, B-09, B-10, les vérifications complémentaires d'A-26 et d'A-27, la vérification d'A-30, les fusions d'A-31, C-27, B-10, B-11 et C-28, le rapport d'A-32, les corrections de B-10 et la reprise des preuves de B-11. Aucun accord donné sur le réel.
+
+## Clôtures
+
+- **A-26 et A-27 clos.** Leurs vérifications complémentaires disent « prêt pour la clôture » : matrice réelle rejouée, code inchangé, aucune empreinte changée à la main, `PRET` redéposé, ligne `PAQUETS` verte lue par le rejeu indépendant du relecteur (11 paquets, 0 échec). C'est la condition écrite à 7 h.
+- **A-30 clos.** Sa vérification dit « prêt » : les cinq instructions traitées, 38 tests verts en UTF-8 et en cp1252 sur une session Windows propre, paquet refait par le parent après T-03, vert au rejeu de 12 h 58. Les deux réserves sont hors lot (comptes globaux qui bougent avec l'autre voie ; un changement de source périmerait le sceau, comme pour tout lot).
+- **B-09 code clos** : cinq instructions appliquées et vérifiées (reprise du menu après une interruption entre le marqueur et l'option ; un effacement n'annonce sa fin qu'après disparition vérifiée des métadonnées). Les pages légales et la FAQ restent volontairement vides : les textes viennent d'Imagine et de son conseil. Validation visuelle de Ced attendue.
+- **B-10 code clos** : huit instructions appliquées, 14 tests rejoués par le vérificateur lui-même. Défauts de la fusion confirmés : l'écran propre « Réglages → Points de vente » reste (l'écran de C-10 n'est pas rouvert) ; la désaccentuation passe par `Normalizer` quand l'extension intl est là, sinon par une table latine bornée, et la dépendance est écrite ; l'ordre des clés de la correspondance compte pour l'idempotence stricte, limite documentée. Validation visuelle de Ced attendue.
+- **B-07, le complément de l'antislash** : reproduit rouge sur un bouchon fidèle, corrigé à la seule frontière d'écriture (`wp_slash` sur le nom), 206 assertions vertes, reçu déposé. B-07 reste code clos, pas de nouveau paquet.
+
+## T-03 — vérifié « remonte à Ced » : rien pour Ced, une mise en cohérence
+
+- La vérification confirme le fond : les six instructions sont appliquées, les deux défauts (temps, mémoire) sont corrigés et testés pour de vrai. Elle bloque sur deux points de forme, et les adresse à Ced. Aucun n'est visuel, métier ou réel : tranchés ici.
+- **A-20 dans le rejeu n'est pas une divergence.** La fusion disait de le laisser dehors ; l'arbitrage de 7 h, postérieur, a demandé de l'y faire entrer avec le resceau. Hermès a suivi la consigne la plus récente. Le relecteur comparait à la fusion seule.
+- **Les documents du lot se contredisent** : un `PRET` et une preuve finale verte, à côté d'un manifeste, d'un rapport, d'une réception et d'une convention restés à l'état de candidat, au point que le lecteur du candidat refuserait l'arbre. Décision : **une seule version, celle de la clôture.** Hermès aligne ces documents sur l'état réel (A-20 dans le rejeu, `PRET` posé), sans toucher au lanceur gelé (`wp/tests/t01/`, `wp/tests/rejouer.ps1`) ; le lecteur du candidat dit qu'il ne vaut qu'avant le `PRET`, ou accepte l'état final. Puis une vérification, avec un rejeu indépendant. Raison : retirer le `PRET` rouvrirait un mécanisme prouvé pour un défaut de papier.
+- T-03 n'est pas clos tant que cette vérification n'a pas dit « prêt ». Les lots clos par son rejeu le restent : le mécanisme a rendu des résultats indépendants.
+
+## A-31 — à corriger, un important ; la question posée à Ced est technique, tranchée
+
+- Verdict de fusion retenu. Le regroupement des petits nombres, appliqué à des compteurs de liens cassés, ou bien ne cache rien (un seul compteur dans son groupe), ou bien fond trois nombres que la migration doit lire séparément.
+- **Les quatre compteurs de liens cassés sont publiés exactement**, de 0 à 4 compris ; le regroupement reste sur les années et les années par état. **Le total des remboursements est exact** quand une seule année est présente. Raison : ce sont des totaux d'anomalies techniques à réparer avant la bascule, pas des groupes de personnes ; un « 2 » ne désigne personne, et le lot existe pour le lire. Le rapport ne sort que par le gardien, sans identifiant. À défaire si Ced préfère « moins de 5 » partout (la fusion décrit la variante).
+- Lancer `preparer-image.ps1` et `rejouer.ps1` après avoir ajouté des tests est permis : le gel interdit de les modifier, pas de les lancer. Une collision avec un rejeu de l'autre voie est un aléa, pas un défaut : on attend, on rejoue.
+- L'aléa du harnais (« no such object » à la première passe) est noté aux écarts ; le lanceur gelé n'est pas rouvert pour lui.
+
+## A-32 — construit, arrêté au bon endroit : le brief se trompait
+
+- Le brief affirmait que « ce sont les outils qui refusent un site non vérifié ». C'est faux pour les outils d'inventaire (A-10 à A-25) : la preuve montre que les treize aboutissent sans le fichier `.imagine-staging-verified.json`, même sur un environnement déclaré « production ». Seuls les outils qui écrivent (A-03, A-04, A-05, A-09) lisent ce fichier. L'erreur est dans le brief, pas dans le lot ; s'arrêter sans ajouter de garde ni toucher aux outils clos était juste.
+- **Les outils clos ne sont pas modifiés.** Raison : ils sont en lecture seule, et trois d'entre eux (A-23, A-24, A-27) ne se lisent utilement que sur la source, par Ced, hors agents ; un refus dans chaque outil fermerait cette porte, et rouvrirait treize paquets.
+- **L'interdiction du brief est levée pour la tournée seule** : la tournée, qui sert à la copie vérifiée, contrôle elle-même le fichier de statut avant de lancer quoi que ce soit, le lit comme A-05 le lit, et refuse la tournée entière, d'un seul code, s'il manque, s'il est invalide ou si l'environnement est déclaré « production ». Aucune option pour passer outre.
+- La preuve négative devient : sans le fichier, aucun outil n'est lancé, base et fichiers identiques. Les doubles d'A-10 et d'A-11 restent.
+- A-26 et A-27, clos ce passage, entrent dans la liste (une ligne chacun). A-30 reste dehors (il demande un fichier d'Imagine), A-29 et A-31 aussi (pas clos).
+- Consigné pour Ced : lancés un par un, les outils d'inventaire ne vérifient pas où ils tournent.
+
+## A-29 — toujours pas de diagnostic
+
+- Quatrième passage sans le réveil de diagnostic : le resceau, T-03, A-31 et A-32 sont passés avant, à raison. A-29 ne bloque personne et, sur une copie neutralisée, ses six nombres vaudront « inconnu ». La consigne tient, en dernier.
+
+## C-27 — à corriger, deux importants et un mineur
+
+- Verdict de fusion retenu. Une lecture en échec de la source du compte est prise pour une absence : elle peut écraser une source existante, et laisser un effacement s'annoncer complet alors que la source reste. Une proposition vue, jamais répondue puis effacée peut être redéposée par un ancien formulaire.
+- Défaut de la fusion confirmé : la métadonnée du compte garde sa forme structurée, et le README l'écrit.
+- Les corrections datent de 9 h 18 et n'ont pas été prises : elles passent en tête, après celles de C-28 en cours.
+- La place de la section dans l'écran de réglages : c'est la question déjà posée à Ced pour C-22, C-24 et C-25 ; une quatrième section, une seule réponse.
+
+## B-11 — code conforme, preuve à reprendre ; deux blocages tranchés
+
+- Verdict de fusion retenu : aucun défaut fonctionnel, aucune fuite ; la réception était périmée par un fichier partagé changé par C-28 après le scellé, et trois contrôles de recette étaient plus faibles qu'annoncés. Ne pas poser de `PRET` sur une preuve rouge était juste.
+- **Cinq options absentes deviennent explicites quand le vrai formulaire de réglages est soumis.** C'est le comportement natif de WordPress : le formulaire écrit toutes les options de son groupe. Décision : le contrôle de conservation compare les **valeurs effectives** (lues avec leur valeur par défaut enregistrée), avant et après. Une option absente qui devient explicite à sa valeur par défaut exacte est verte, et listée dans le reçu ; une valeur différente est rouge, signalée comme défaut du lot qui possède l'option, et n'est pas corrigée dans B-11. Aucun préremplissage.
+- **Les deux éditeurs réels restent hors de portée de l'automate** (boîte masquée sur le numéro, clic intercepté sur l'article). Décision en deux temps, un réveil au plus. D'abord établir si le champ est atteignable à la main dans l'éditeur livré : s'il ne l'est pas, c'est un défaut fonctionnel de B-11 (la rédaction ne pourrait pas saisir l'adresse), à corriger à la seule déclaration de la boîte, avec son test. S'il l'est, on ne se bat pas contre l'éditeur : la persistance est prouvée par le témoin d'écriture sur le vrai WordPress (valeurs changées, effacement, deux courts-circuits détectés), et le parcours dans l'éditeur devient trois lignes pour Ced dans `A-VOIR.md`. Raison : règle de proportion, c'est un site fictif.
+- Avec cela, `PRET` permis, la limite écrite en tête de la note ; la vérification jugera.
+- **L'adresse d'une vidéo collée dans le corps d'un article réveille l'oEmbed natif** : la fusion demandait à Ced s'il acceptait que le « zéro appel sortant » repose sur une consigne à la rédaction. Ce n'est ni visuel ni réel : tranché au plus prudent, **un verrou technique, par un petit lot (B-12)**. Raison : une consigne oubliée une fois charge un lecteur tiers et ses cookies sans consentement (§4.4). À défaire si Ced préfère la consigne.
+- Le `catch` trop large du paywall, qui a masqué la régression venue de C-28 : noté aux écarts, repris au gel du code avec le passage de style ; on ne rouvre pas un lot code clos pour lui.
+
+## C-28 — à corriger, deux importants ; corrections en cours
+
+- Verdict de fusion retenu. Un pack dont un numéro est dépublié reste payable alors qu'il n'ouvre plus rien : l'indisponibilité doit être refusée par le serveur, au panier et à la validation. Et un instantané manquant ne se reconstruit jamais après coup depuis la liste vivante.
+- Défaut de la fusion confirmé : l'enregistrement de C-14 délie aussi la métadonnée de pack. Cela touche un fichier d'un lot code clos : accepté, ajout seul, le paquet de C-14 est de l'historique.
+- Le bouchon de lecture de B-04 a reçu `apply_filters` : accepté, aucune assertion affaiblie.
+- En attendant Imagine, un pack qui contient un numéro dépublié est bloqué en entier ; aucun prix n'est recalculé.
+
+## Questions rangées pour Imagine
+
+- La recherche d'un point de vente : localité ou code postal exacts, ou aussi un début de code postal, un rayon ? Défaut : exacts, sans casse ni accents.
+- Un pack thématique est-il bien un produit simple à prix unique (et non le « produit groupé » natif, qui n'a pas de prix d'ensemble) ? Défaut : produit simple.
+- Un pack dont un numéro est dépublié : bloqué en entier, ou vendu sans ce numéro à un prix recalculé ? Défaut : bloqué en entier.
+- La sélection d'articles du menu étendu, par thématique : choisie par la rédaction, ou les plus récents ? Défaut : les plus récents, nombre en réglage (B-13).
+- Les noms des attributs du contact attendus par Brevo, et le statut d'un bénéficiaire d'abonnement offert ou groupé. Défaut : clés internes du site ; statut « inconnu » pour un bénéficiaire (C-29).
+
+## Files
+
+- **Voie 1** : corrections d'A-31 (en cours), mise en cohérence de T-03, A-32 débloqué, A-29. Un lot de plus : **A-33, le poids des archives** (ce qui reste hors des dix derniers numéros, compté), à commencer après les `PRET` d'A-31 et d'A-32.
+- **Voie 2** : corrections de C-28 (en cours), corrections de C-27, reprise de la preuve de B-11. Trois lots de plus : **B-12** (aucun appel sortant depuis le corps d'un contenu), **C-29** (la fiche du contact pour Brevo, sans Brevo), **B-13** (menu principal et menu étendu des thématiques).

@@ -132,3 +132,20 @@ Toute demande hors cahier des charges, toute contradiction interne au cahier des
 - **B-09 · pages hors de la matrice d'étanchéité.** Elles ne portent aucun contenu réservé ; extension de la matrice en une fois, plus tard.
 - **B-07 · échappement d'un champ de texte de l'agenda à vérifier.** Signalé par Hermès, non reproduit ; complément demandé.
 - **Voie 2 · arrêt de 0 h 33 à 5 h 01, cause non établie.** La session a retiré seule un verrou de plus de quatre heures.
+
+## 27 novembre 2026, 13 h — lots A-32, A-31, T-03, B-11, C-28, B-10, C-27
+
+- **A-10 à A-25 · les outils d'inventaire ne vérifient pas où ils tournent.** Aucun ne lit le fichier de statut « vérifié » ; ils aboutissent sur un site sans ce fichier, même déclaré « production ». Ils sont en lecture seule et ne sont pas modifiés ; la tournée (A-32) fait le contrôle pour eux. Lancés un par un, ils restent sous la seule décision de Ced. Le brief d'A-32 affirmait le contraire : corrigé.
+- **A-31 · compteurs de liens cassés publiés exactement.** Le regroupement des petits nombres ne s'applique qu'aux années et aux années par état. À défaire si Ced préfère « moins de 5 » partout.
+- **Harnais de rejeu · un échec passager à la première passe** (« no such object »), vert à la seconde. Lanceur gelé, non rouvert.
+- **T-03 · documents du lot restés à l'état de candidat à côté du `PRET`.** Mise en cohérence demandée ; le mécanisme n'est pas en cause.
+- **C-28 → B-11 · un fichier partagé changé après le scellé d'un lot voisin.** L'appel ajouté dans `AchatsNumeros.php` a fait échouer un test de B-04 et périmé la réception de B-11, sans que B-11 ait bougé. Réception complémentaire, historiques conservés.
+- **Paywall · un `catch` trop large.** Une erreur de programmation y devient « accès fermé » : sûr, mais elle a masqué la régression ci-dessus. Repris au gel du code, pas avant.
+- **B-11 · le parcours dans les deux éditeurs réels n'est pas prouvé par automate.** Persistance prouvée par un témoin d'écriture sur le vrai WordPress ; le geste dans l'éditeur revient à Ced.
+- **B-11 · une adresse de vidéo collée dans le corps réveille l'oEmbed natif.** Verrou demandé par le lot B-12.
+- **Réglages · le formulaire natif rend explicites des options absentes.** Cinq options de lots antérieurs (découverte, tarif solidaire, newsletters, rétractation) sont créées à leur valeur par défaut quand l'écran est enregistré. Comportement natif de WordPress, accepté ; on compare les valeurs effectives.
+- **B-10 · la désaccentuation générale dépend de l'extension intl de PHP.** Sans elle, repli sur une table latine bornée. À garantir sur l'hébergement.
+- **B-10 · un arrêt brutal pendant un chargement peut laisser un verrou d'import.** Pas de reprise automatique.
+- **C-27 · une lecture en échec prise pour une absence.** Deux corrections importantes en file.
+- **C-28 · concurrence et arrêt en plein paiement non qualifiés.** La correction demandée couvre l'arrêt après le paiement.
+- **A-30 · comptes globaux relevés pendant que l'autre voie livrait.** Ils ne se comparent pas d'un rapport à l'autre.

@@ -2,7 +2,7 @@
 
 File de la **deuxième session d'Hermès**. Tenue par Claude. **Hermès ne modifie pas ce fichier.**
 
-Mis à jour le 27 novembre 2026, 7 h 30 (passage automatique).
+Mis à jour le 27 novembre 2026, 13 h 30 (passage automatique).
 
 Consigne permanente : `prompts/consigne-permanente.md` (section « Les deux voies »). Doctrine : `doctrine/doctrine.md`.
 
@@ -10,29 +10,34 @@ La voie 1 (`A-FAIRE.md`) s'occupe de l'existant : import, audit, mise à jour. L
 
 ## Consignes actives, par ordre de priorité
 
-File du 27/11, 7 h 30. Tes rapports de 5 h 01 à 7 h 09 sont lus, merci ; la reprise de 5 h 01 est notée (verrou de plus de quatre heures retiré, cause de l'arrêt non établie). **B-08 et C-26 : code clos.** B-09 : rendu à 7 h 13, en relecture. Arbitrages : `docs/arbitrages-2026-11-27.md`, passage de 7 h.
+File du 27/11, 13 h 30. Tes rapports de 8 h 21 à 12 h 58 sont lus, merci. **B-09 et B-10 : code clos.** Le complément de B-07 est reçu (rouge reproduit, corrigé à la seule frontière d'écriture) : B-07 reste code clos. Toute la file de 7 h 30 est rendue. Arbitrages : `docs/arbitrages-2026-11-27.md`, passage de 13 h.
 
-Les quatre paquets de la voie 1 que ton rejeu a trouvés rouges (A-26, A-27, A-30, A-31) ne sont pas à toi : les signaler sans y toucher, c'était juste. Ils sont en cours de resceau.
+Les paquets de la voie 1 que ton rejeu trouve rouges (A-31, A-32) ne sont pas à toi : continue à les signaler sans y toucher.
 
-**0. Les corrections de B-09, dès que sa fusion arrive** (`corrections/B-09.md`), avant le lot en cours.
+**0. Les corrections de C-28** (`corrections/C-28.md`), en cours. Les défauts de la fusion sont confirmés : le déliement symétrique dans l'enregistrement de C-14 (ajout seul, le paquet de C-14 est de l'historique) ; le bouchon de B-04 avec `apply_filters`, déjà fait. **En attendant Imagine, un pack dont un numéro est dépublié est refusé en entier**, au panier et à la validation ; aucun prix recalculé.
 
-**1. `briefs/C-27-comment-nous-avez-vous-connus.md`** — en cours : la question du §3.7, **après** le paiement, facultative, à réponses fermées en réglage ; une réponse par commande ; des nombres par réponse pour l'administration ; export et effacement. Trois heures.
+**1. Les corrections de C-27** (`corrections/C-27.md`, cinq instructions). Elles datent de 9 h 18 et n'ont pas été prises : elles passent avant tout lot neuf. Une lecture en échec n'est jamais une absence, à l'écriture de la source comme à l'effacement ; une proposition effacée ne se redépose pas. La métadonnée garde sa forme structurée, écrite dans le README.
 
-**2. Complément de B-07, l'antislash de l'agenda.** Tu as signalé qu'`Agenda.php` (lignes 131 à 134) écrit un champ de texte sans l'échappement que WordPress attend. **Reproduis d'abord** : un bouchon fidèle (règle ci-dessous), un cas d'essai avec un antislash, de la saisie jusqu'à l'affichage et à l'export. Rouge : corrige à la seule frontière d'écriture, rien d'autre. Vert : trois lignes dans ton rapport, et rien ne change. B-07 reste code clos ; pas de nouveau paquet, un reçu dans `production/B-07/`. Une heure.
+**2. B-11, la preuve** (`corrections/B-11.md`, ton rapport de 12 h 58). Ne pas poser de `PRET` sur du rouge : c'était juste. Deux décisions pour en sortir, **un réveil au plus** :
+   - **les cinq options qui deviennent explicites** quand le vrai formulaire est soumis : comportement natif de WordPress, accepté. Ton contrôle de conservation compare les **valeurs effectives** (lues avec leur valeur par défaut enregistrée), avant et après, pour les seize options. Absente puis explicite à sa valeur par défaut exacte : vert, et listée dans le reçu. Valeur différente : rouge, signalée comme défaut du lot qui possède l'option, **pas corrigée dans B-11**. Aucun préremplissage ;
+   - **les deux éditeurs** : établis d'abord, à la main ou par lecture du code, si le champ est atteignable dans l'éditeur livré. **S'il ne l'est pas** (boîte non proposée par l'éditeur de blocs), c'est un défaut fonctionnel de B-11 : corrige la seule déclaration de la boîte, avec son test. **S'il l'est**, ne te bats pas contre l'éditeur : la persistance est prouvée par ton témoin d'écriture sur le vrai WordPress (8 sur 8), et le parcours dans l'éditeur devient trois lignes pour Ced en tête d'`A-VOIR.md` (ouvrir, saisir, enregistrer, recharger) ;
+   - avec cela, réception neuve, `PRET`, la limite écrite en tête de la note. Les trois points que tu me laissais (écart C-28 → B-11, `catch` du paywall, adresse collée dans le corps) sont reportés dans `docs/ecarts.md` ; le troisième devient le lot suivant.
 
-**3. `briefs/B-10-points-de-vente.md`** — la page du §3.14 : recherche par localité ou code postal, liste, chargement d'un fichier par correspondance de colonnes (fichier d'essai fictif). **Pas de fond de carte par défaut**, aucun appel à un tiers. Une demi-journée.
+**3. `briefs/B-12-aucun-appel-sortant-depuis-le-corps.md`** — le verrou que B-11 n'a pas : une adresse de vidéo collée dans le corps d'un contenu, ou le bloc natif, s'affiche comme un lien ; aucun appel du serveur, à l'affichage, à l'enregistrement, ni sur la route d'aperçu de l'éditeur. Rien n'est réécrit en base. Deux heures.
 
-**4. `briefs/B-11-videos-podcasts-sommaire-audio.md`** — §3.14 et §3.3 : une vidéo externe rendue par défaut comme un lien (ni cadre intégré, ni appel sortant, oEmbed compris), un lien de podcast, et le sommaire audio du numéro servi comme le PDF de C-11. Une demi-journée.
+**4. `briefs/C-29-la-fiche-du-contact-pour-brevo.md`** — §3.10 : pour un compte, ce qui partirait vers Brevo (statut, coopérateur, tarif, newsletters, étiquettes sous consentement), calculé à la demande et montré sur un écran en lecture seule. **Aucun appel, aucune clé, aucune file, rien d'enregistré.** Une demi-journée.
 
-**5. `briefs/C-28-packs-thematiques.md`** — §3.3 : un pack est un produit rattaché à une liste de numéros ; l'achat payé ouvre, numéro par numéro, ce que C-14 ouvre, par la même décision d'accès. Aucune règle d'accès nouvelle. Une demi-journée.
+**5. `briefs/B-13-menu-principal-et-menu-etendu.md`** — §3.1 : les huit entrées du menu dans l'ordre, et le menu étendu des thématiques avec une sélection d'articles (titre, image, lien). Structure seule, sans style ; rien de réservé n'y sort. Une demi-journée.
 
-**Le test d'étanchéité vivant est celui de C-26.** Il a modifié deux sources de test de C-23 : accepté, le paquet de C-23 est de l'historique, on ne le rescelle pas. Les pages de B-09 n'y entrent pas pour l'instant (aucun contenu réservé, et B-09 prouve lui-même que ses messages ne sortent pas) ; B-11 et C-28, eux, touchent au contenu réservé : chacun prouve son étanchéité avec les témoins de C-26, sans étendre la matrice. Elle sera étendue une fois, plus tard, par un lot.
+**Le test d'étanchéité vivant est celui de C-26.** B-12, C-29 et B-13 ne l'étendent pas ; B-13, qui s'affiche sur toutes les pages, prouve son étanchéité avec les témoins de C-26. La matrice sera étendue une fois, plus tard, par un lot.
 
-**Les messages de visiteurs et l'import** : ta note de B-09 (type `imagine_contact`, cinq clés) est reportée dans `docs/ecarts.md`, avec les propositions de sujet de B-08. L'import de la voie 1 est gelé et n'est pas rouvert pour cela. Continue à écrire, pour tout nouveau contenu saisi par un visiteur, où il est rangé.
+**Règle venue de C-28 et de B-11 : un fichier partagé changé pour un lot se rejoue avant de rendre.** L'appel ajouté dans `AchatsNumeros.php` a fait échouer un test de B-04 et périmé la réception de B-11, qui n'avait pas bougé. Quand un lot touche un fichier qu'un autre lot non clos a scellé, tu le dis en tête du rapport et tu refais la réception du voisin dans le même réveil, historiques conservés.
+
+**Les messages de visiteurs et l'import** : continue à écrire, pour tout nouveau contenu saisi par un visiteur, où il est rangé. L'import de la voie 1 est gelé et n'est pas rouvert pour cela.
 
 **Règle nouvelle, venue de C-25 puis de B-08 : un bouchon reproduit le déséchappement de WordPress.** Deux lots de suite ont perdu un antislash parce que le bouchon de test rangeait les valeurs telles quelles, là où WordPress les déséchappe à l'écriture. Tout bouchon d'une fonction d'écriture (`wp_insert_post`, `add_*_meta`, `update_option` quand il y a lieu) reproduit ce comportement, et tout champ de texte libre a un cas d'essai avec un antislash, du formulaire jusqu'à l'export.
 
-**L'écran de réglages de C-10** : trois lots y insèrent leur section sous le bouton « Enregistrer » (C-22, C-24, C-25). On n'y touche pas pour l'instant, ni pour déplacer, ni pour ouvrir un point d'accroche : la place est une question posée à Ced, et les deux se feront en une fois après sa réponse. Un lot nouveau qui a un réglage fait comme ces trois-là.
+**L'écran de réglages de C-10** : quatre lots y insèrent leur section sous le bouton « Enregistrer » (C-22, C-24, C-25, C-27). On n'y touche pas pour l'instant, ni pour déplacer, ni pour ouvrir un point d'accroche : la place est une question posée à Ced, et les deux se feront en une fois après sa réponse. Un lot nouveau qui a un réglage fait comme ces quatre-là, ou prend un écran à lui comme B-10.
 
 **Une correction ne fait pas entrer de fonction nouvelle.** Dans C-23, la couverture des pages coopérateurs est arrivée pendant le tour de correction : elle était utile, mais elle a échappé aux deux relectures. Une idée de ce genre se note dans le rapport ; elle devient un lot.
 
@@ -92,3 +97,6 @@ Les liens « offert » et « groupé » absents des profils (C-13 et B-02 en mod
 | C-25 Rétractation en ligne | 26/11, corrigé le 27/11 | **Code clos le 27/11** : quatre corrections vérifiées (réglages journalisés avec retour à l'ancienne valeur si le journal échoue ; un motif avec antislash est gardé). Une demande, aucun effet automatique. Validation visuelle de Ced attendue ; délai et effets à faire valider par Imagine et son conseil |
 | B-08 « Soutenir » et « Notre coopérative » | 26/11, corrigé le 27/11 | **Code clos le 27/11** : six corrections vérifiées (une proposition avec antislash est gardée jusqu'à l'export ; le menu se reprend après une interruption ; lien de prise de parts en `https` seulement) ; colonne de liste, facultative, non faite. Validation visuelle de Ced attendue |
 | C-26 Étanchéité des sorties nouvelles | 27/11, corrigé le 27/11 | **Code clos le 27/11** : dix corrections vérifiées (tous les témoins réservés, `/evenements/` dans la matrice, 3 966 contrôles par passage, huit mutations détectées, aucune fuite). Suite Python non rejouée par les relecteurs : clôture sur les mutations et la relecture du code. C'est un test : rien à regarder |
+| B-09 FAQ, pages légales, contact | 27/11, corrigé le 27/11 | **Code clos le 27/11** : cinq corrections vérifiées (le menu du pied de page se reprend après une interruption ; un effacement n'annonce sa fin qu'après disparition vérifiée des métadonnées). Pages légales et FAQ volontairement vides : les textes viennent d'Imagine. Validation visuelle de Ced attendue |
+| B-10 Points de vente | 27/11, corrigé le 27/11 | **Code clos le 27/11** : huit corrections vérifiées (recherche insensible aux accents hors de l'ancienne table ; nettoyage repris après un échec de suppression ; motifs de refus en clair). Écran propre « Réglages → Points de vente », carte éteinte, trente commerces fictifs. Validation visuelle de Ced attendue |
+| B-07 Complément : antislash de l'agenda | 27/11 | Rouge reproduit, corrigé à la seule frontière d'écriture, reçu déposé. B-07 reste code clos |
