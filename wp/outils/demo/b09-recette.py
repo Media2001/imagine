@@ -62,7 +62,7 @@ def run(label):
         footer=re.search(r'<nav aria-label="Navigation de pied de page">(.*?)</nav>',home,re.S)
         checks['footer_natif_present']=footer is not None
         footerlinks=Links(); footerlinks.feed(footer.group(1))
-        rows=json.loads((b09.PROOF/'pages-reprise.json').read_text(encoding='utf-8'))['readback']
+        rows=json.loads((b09.PROOF/'pages-reprise-finale.json').read_text(encoding='utf-8'))['readback']
         checks['footer_cinq_pages_natives']=footerlinks.hrefs==[r['url'] for r in rows.values()]
         main=re.search(r'<nav aria-label="Navigation principale">(.*?)</nav>',home,re.S).group(1)
         checks['principal_sans_entree_B09']=all(r['url'] not in main for r in rows.values()) and 'Notre coopérative' in main
@@ -136,7 +136,7 @@ def run(label):
         checks['effacement_postmeta_relu']=b09.wp('global $wpdb;echo wp_json_encode((int)$wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE post_id='+str(owned[0])+'"));')==0
         observations=b09.wp('echo wp_json_encode(get_option("imagine_b09_observations"));')
         checks['aucun_email_HTTP_du_contact']=not any(v for k,v in (observations.items() if isinstance(observations,dict) else []) if k.startswith('b09_'))
-        evidence={'baseline_isolation':baseline,'mutation_isolation':mutation,'after_mutation_isolation':after_mutation,'observations':observations,'native_privacy':privacy}
+        evidence={'positive_observers':positive,'baseline_isolation':baseline,'mutation_isolation':mutation,'after_mutation_isolation':after_mutation,'observations':observations,'native_privacy':privacy}
         assert all(v is True for v in checks.values()),checks
     except Exception as e:
         error=type(e).__name__

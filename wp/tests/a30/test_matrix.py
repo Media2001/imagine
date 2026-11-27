@@ -1,5 +1,7 @@
 """Matrix evidence contracts; never execute Docker, WSL or native PHP."""
 import importlib.util
+import hashlib
+import json
 import os
 from pathlib import Path
 import unittest
@@ -18,6 +20,37 @@ def matrix_module():
 
 
 class MatrixTests(unittest.TestCase):
+    def test_packet_verifier_requires_unset_environment_and_real_log_counts(self):
+        spec = importlib.util.spec_from_file_location('a30_verifier_contract', HERE / 'verify.py')
+        verifier = importlib.util.module_from_spec(spec); spec.loader.exec_module(verifier)
+        # Explicit boundary fixtures only: no native receipt is constructed here.
+        with temporary_directory('a30-verifier-python-') as scratch:
+            folder = Path(scratch)
+            measured = {'platform': 'win32', 'stdout': 'cp1252', 'stderr': 'cp1252',
+                        'utf8_mode': 0, 'TMPDIR_present': False, 'TMPDIR': None,
+                        'TEMP': scratch, 'TMP': scratch, 'tempdir': scratch,
+                        'suite_discovered': 33}
+            log = folder / 'python-tests.log'
+            log.write_text('Ran 33 tests in 0.1s\n\nOK\n', encoding='utf-8')
+            environment = folder / 'environment.json'
+            environment.write_text(json.dumps(measured), encoding='utf-8')
+            row = {'console': 'cp1252', 'exit_code': 0, 'tests_run': 33,
+                   'suite_discovered': 33, 'failures': 0, 'errors': 0, 'skipped': 0,
+                   'all_pass': True, 'TMPDIR_present': False, 'log_encoding': 'utf-8',
+                   'subprocess_decode_encoding': 'cp1252',
+                   'environment_sha256': hashlib.sha256(environment.read_bytes()).hexdigest(),
+                   'log_sha256': hashlib.sha256(log.read_bytes()).hexdigest()}
+            self.assertTrue(verifier.python_evidence_valid(folder, row, 'cp1252', 0))
+            for key, value in [('tests_run', 25), ('suite_discovered', 25), ('TMPDIR_present', True),
+                               ('log_encoding', 'cp1252'), ('environment_sha256', 'wrong')]:
+                with self.subTest(key=key):
+                    self.assertFalse(verifier.python_evidence_valid(folder, {**row, key: value}, 'cp1252', 0))
+            for key, value in [('TMPDIR_present', True), ('TMPDIR', 'inherited'), ('suite_discovered', 25)]:
+                environment.write_text(json.dumps({**measured, key: value}), encoding='utf-8')
+                resealed = {**row, 'environment_sha256': hashlib.sha256(environment.read_bytes()).hexdigest()}
+                with self.subTest(environment=key):
+                    self.assertFalse(verifier.python_evidence_valid(folder, resealed, 'cp1252', 0))
+
     def test_clean_environment_discards_inherited_tmpdir_and_sets_windows_scratch(self):
         matrix = matrix_module()
         with temporary_directory('a30-matrix-env-') as scratch:

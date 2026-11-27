@@ -118,13 +118,15 @@ class DiscoveryTests(unittest.TestCase):
     def test_process_command_is_fixed_and_writes_are_redirected_to_tmp(self):
         from unittest.mock import patch
         self.ready()
-        process = Mock(returncode=0)
-        with patch.object(paquets.subprocess, 'run', return_value=process) as run:
-            paquets.execute_verifier(self.root, self.lot / 'verify.py')
-        args, kwargs = run.call_args
+        with patch.object(paquets.subprocess, 'Popen', side_effect=OSError('boundary')) as launch:
+            with self.assertRaises(OSError):
+                paquets.execute_verifier(self.root, self.lot / 'verify.py')
+        args, kwargs = launch.call_args
         self.assertEqual(args[0], ['/usr/bin/python3', '-B', str(self.lot / 'verify.py')])
         self.assertEqual(kwargs['cwd'], self.root)
-        self.assertEqual(kwargs['timeout'], 90)
+        self.assertTrue(kwargs['start_new_session'])
+        self.assertEqual(kwargs['stdout'], paquets.subprocess.PIPE)
+        self.assertEqual(kwargs['stderr'], paquets.subprocess.PIPE)
         self.assertEqual(kwargs['env']['PYTHONDONTWRITEBYTECODE'], '1')
         self.assertEqual(kwargs['env']['HOME'], '/tmp')
         self.assertEqual(kwargs['env']['TMPDIR'], '/tmp')
@@ -164,13 +166,13 @@ class DiscoveryTests(unittest.TestCase):
             self.assertEqual(result['failures'], [{'lot': 'A-22', 'control': 'DECLARATION_INVALID'}])
             self.execute.assert_not_called()
 
-    def test_global_packet_budget_cannot_exhaust_the_T01_timeout(self):
-        from unittest.mock import patch
-        self.ready()
-        with patch.object(paquets, 'packet_time', side_effect=[0, 121]):
-            result = paquets.replay(self.root, execute=self.execute)
-        self.assertEqual(result['failures'], [{'lot': 'A-22', 'control': 'VERIFIER_TIMEOUT'}])
-        self.execute.assert_not_called()
+    def test_shared_deadline_regression_is_a_real_container_fixture_not_a_fake_clock(self):
+        native = HERE.parents[2] / 'production/T-03/test-corrections.py'
+        source = native.read_text(encoding='utf-8')
+        self.assertIn("'shared-deadline'", source)
+        self.assertIn('usleep(2500000)', source)
+        self.assertNotIn('packet_time', source)
+        self.assertNotIn('side_effect=[0', source)
 
     def test_verified_lots_are_explicit_and_counted_exactly(self):
         self.ready()

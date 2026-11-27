@@ -3,6 +3,8 @@ import json
 import os
 from pathlib import Path, PurePosixPath
 import re
+import selectors
+import signal
 import subprocess
 import sys
 from time import monotonic as packet_time
@@ -59,13 +61,77 @@ def declaration(root, lot):
     return data
 
 
+STREAM_LIMIT = 1024 * 1024
+PACKET_EXPIRED = False
+
+
+class PacketDeadline(Exception):
+    """The PHP envelope expired; unwind verifier cleanup before exiting."""
+
+
+def packet_expired(signum, frame):
+    # Do not raise asynchronously across Popen: its child might exist before
+    # the Python handle has been assigned. Unwind from the bounded read loop.
+    global PACKET_EXPIRED
+    PACKET_EXPIRED = True
+
+
 def execute_verifier(root, verifier, timeout=90):
-    # No shell, installation, host transport, argument or source rewriting.
-    return subprocess.run(['/usr/bin/python3', '-B', str(verifier)], cwd=root,
-                          env={**os.environ, 'PYTHONDONTWRITEBYTECODE': '1',
-                               'PYTHONIOENCODING': 'utf-8', 'PYTHONUTF8': '1',
-                               'HOME': '/tmp', 'TMPDIR': '/tmp', 'XDG_CACHE_HOME': '/tmp'},
-                          stdin=subprocess.DEVNULL, capture_output=True, timeout=timeout)
+    # A private session contains descendants. Both pipes are bounded *as read*,
+    # never communicate()/capture_output and never a shell. Even a normally
+    # exiting parent cannot leave a writer/descendant alive behind it.
+    if PACKET_EXPIRED:
+        raise PacketDeadline()
+    command = ['/usr/bin/python3', '-B', str(verifier)]
+    deadline = packet_time() + timeout
+    process = subprocess.Popen(command, cwd=root,
+                               env={**os.environ, 'PYTHONDONTWRITEBYTECODE': '1',
+                                    'PYTHONIOENCODING': 'utf-8', 'PYTHONUTF8': '1',
+                                    'HOME': '/tmp', 'TMPDIR': '/tmp', 'XDG_CACHE_HOME': '/tmp'},
+                               stdin=subprocess.DEVNULL, stdout=subprocess.PIPE,
+                               stderr=subprocess.PIPE, start_new_session=True)
+    output = [bytearray(), bytearray()]
+    try:
+        with selectors.DefaultSelector() as selector:
+            for index, stream in enumerate((process.stdout, process.stderr)):
+                os.set_blocking(stream.fileno(), False)
+                selector.register(stream, selectors.EVENT_READ, index)
+            while selector.get_map():
+                if PACKET_EXPIRED:
+                    raise PacketDeadline()
+                remaining = deadline - packet_time()
+                if remaining <= 0:
+                    raise subprocess.TimeoutExpired(command, timeout)
+                for key, _ in selector.select(min(remaining, 0.05)):
+                    chunk = os.read(key.fileobj.fileno(), 65536)
+                    if not chunk:
+                        selector.unregister(key.fileobj)
+                        continue
+                    buffer = output[key.data]
+                    if len(chunk) > STREAM_LIMIT - len(buffer):
+                        # Discard overflow, return only a fixed closed red. The
+                        # finally block kills the whole group immediately.
+                        return subprocess.CompletedProcess(command, -9, b'', b'STREAM_LIMIT')
+                    buffer.extend(chunk)
+        while process.poll() is None:
+            if PACKET_EXPIRED:
+                raise PacketDeadline()
+            remaining = deadline - packet_time()
+            if remaining <= 0:
+                raise subprocess.TimeoutExpired(command, timeout)
+            try:
+                process.wait(timeout=min(remaining, 0.05))
+            except subprocess.TimeoutExpired:
+                pass
+        return subprocess.CompletedProcess(command, process.returncode, bytes(output[0]), bytes(output[1]))
+    finally:
+        try:
+            os.killpg(process.pid, signal.SIGKILL)
+        except ProcessLookupError:
+            pass
+        process.wait(timeout=1)
+        process.stdout.close()
+        process.stderr.close()
 
 
 def parse_verdict(process, controls):
@@ -159,7 +225,10 @@ def main():
                 or Path(__file__).resolve() != Path('/repo/wp/tests/t01/paquets.py')
                 or not Path('/packet-repo/production').is_dir()):
             raise ValueError('RUNNER_CONTEXT')
+        signal.signal(signal.SIGTERM, packet_expired)
         result = replay(Path('/packet-repo'))
+    except PacketDeadline:
+        result['failures'].append({'lot': 'T-03', 'control': 'RUNNER_TIMEOUT'})
     except Exception:
         result['failures'].append({'lot': 'T-03', 'control': 'RUNNER_CONTEXT'})
     print('T03_PACKETS ' + json.dumps(result, ensure_ascii=True, separators=(',', ':')))

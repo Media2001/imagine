@@ -415,4 +415,40 @@ python -B wp/outils/demo/c25-recette.py recette-<nom-neuf>
 
 Cette recette écrit une préimage durable privée dans le scratch Hermes avant les sessions/mutations. Elle passe réellement par `options.php` (création/modification et refus SQL du journal dans les deux cas ; groupe de recette borné à C25 pour préserver les autres réglages), puis relit les valeurs, et traverse le POST du motif à antislash jusqu’à la métadonnée et au callback enregistré de l’export C21. Les profils, commandes classiques/HPOS, options et actions métier reviennent à leur état initial et sont relus ; caches et données temporaires ne sont pas des règles métier. Les anciens reçus restent historiques. Commandes exactes, preuves courantes et questions visuelles/juridiques : `production/C-25/{NOTE.md,A-VOIR.md}` ; PRET technique seulement.
 
+## B-09 — FAQ, pages légales et contact
+
+Cinq **pages WordPress natives**, menu natif `imagine-footer`, sans changement du menu principal. La FAQ contient seulement quatre blocs Titre : **Accès numérique, Abonnement, Facturation, Livraison**. Dans Pages → FAQ du service client, ajouter un bloc **Détails** sous une rubrique ; le résumé est la question, le paragraphe intérieur est la réponse. Enregistrer depuis l’éditeur natif, sans code. Le seed ne réécrit jamais les textes déjà édités. CGV, politique de confidentialité et gestion des cookies sont vides ; `wp_page_for_privacy_policy` désigne vraiment la page de confidentialité publiée. Aucun bandeau ni texte juridique livré.
+
+`Contact` réemploie la validation pure `SujetRegles` et la mécanique B-08 corrigée : POST natif avec nonce, consentement au recontact facultatif et non coché, aucune recherche de compte ni newsletter. Stockage privé `imagine_contact`, corps vide, cinq clés `imagine_contact_nom/email/texte/consentement/date`. Les POST sont déséchappés une fois, puis `wp_slash($meta)` compense le déséchappement natif à l’écriture ; nom et message avec antislash sont relus identiquement au détail admin et à l’export. Toutes les capacités du type exigent `manage_options`, création manuelle refusée ; ni REST, recherche ni export WXR. Rien ne part par email ou HTTP.
+
+`ContactConfidentialite::exporter/effacer` est déclaré sous **`imagine-contacts`** dans les outils natifs WordPress/C-21, par adresse (avec ou sans compte), pages de 50, tiers préservés ; une panne de lecture/effacement reste incomplète. Inventaire destiné à la voie 1 dans `production/B-09/NOTE.md` : ce type et ses postmeta devront être vidés par un prochain lot d’import autorisé, **l’import clos n’est pas modifié ici**.
+
+Le seed marque le menu dès sa création et les items dès leur insertion, récupère un item interrompu avant son rattachement, refuse les pages/menus/items étrangers et n’actualise pas les items déjà identiques. La preuve coupe réellement un processus au troisième item, puis reprend dans un autre processus. Le footer n’ajoute ni style ni fallback vers le menu principal.
+
+Contrôle du paquet **hors réseau, sans argument, Python 3.11** :
+
+```text
+python -B production/B-09/verifier.py
+```
+
+Tests ciblés isolés et suite générale (les six tests Contact sont découverts par le paquet racine existant ; les recettes natives demeurent explicitement séparées) :
+
+```text
+python -B wp/outils/demo/b09-local.py parent-unitaires-NOM-NEUF
+python -B wp/outils/demo/b09-mutations.py parent-mutations-NOM-NEUF
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/preparer-image.ps1
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/rejouer.ps1
+```
+
+Recettes **sur le seul `imagine-test-demo` fictif**, avec snapshots privés durables, remise en état et readback ; choisir chaque fois une étiquette neuve :
+
+```text
+python -B wp/outils/demo/b09.py runtime parent-structure-NOM-NEUF
+python -B wp/outils/demo/b09.py reseed parent-seed-stable-NOM-NEUF
+python -B wp/outils/demo/b09-recette.py parent-contact-NOM-NEUF
+python -B wp/outils/demo/b09-readback.py parent-readback-NOM-NEUF
+```
+
+`seed` est la recette de première création/interruption déjà jouée, pas une commande à relancer sur le squelette complet. `reseed` relit deux rejeux sur le squelette livré. Adresses, preuves finales et limites : `production/B-09/{A-VOIR.md,NOTE.md,final-V2.json}`. PRET technique du squelette ne vaut ni validation visuelle ni conformité juridique, ni accord sur le réel. Les paquets clos C-23/C-26 et les autres sections de ce README restent inchangés.
+
 

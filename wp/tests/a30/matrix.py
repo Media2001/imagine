@@ -1,5 +1,6 @@
 """A30 real Windows Python matrix; native execution is an explicit parent gate."""
 import argparse
+import atexit
 import hashlib
 import importlib.util
 import json
@@ -37,7 +38,7 @@ def environment_valid(env, encoding, mode, scratch):
                 and env['TMPDIR_present'] is False and env['TMPDIR'] is None
                 and all(Path(env[key]).resolve() == expected for key in ('TEMP', 'TMP', 'tempdir'))
                 and type(env['suite_discovered']) is int and env['suite_discovered'] > 0)
-    except (KeyError, TypeError, ValueError, RuntimeError):
+    except (KeyError, TypeError, ValueError, RuntimeError, AttributeError):
         return False
 
 
@@ -85,7 +86,6 @@ def main():
              "'TEMP':os.environ.get('TEMP'),'TMP':os.environ.get('TMP'),'tempdir':tempfile.gettempdir(),"
              "'suite_discovered':suite.countTestCases()}))")
     temporary = tempfile.TemporaryDirectory(prefix='a30-clean-windows-', dir=temp_root)
-    import atexit
     atexit.register(temporary.cleanup)
     scratch = temporary.name
     for label, encoding, mode in [('utf8', 'utf-8', '1'), ('cp1252', 'cp1252', '0')]:

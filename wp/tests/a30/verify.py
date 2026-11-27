@@ -10,6 +10,7 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
 PACKET = ROOT / 'production/A-30/preuves/final'
 from cases import CHANNELS, EXPECTED_LINES
+from matrix import environment_valid, test_result
 
 
 def read(path):
@@ -31,6 +32,23 @@ def shared_contract(shared, expected):
     return len(lines) == 2 and all(line.endswith(b'\n') and shared.splitlines(keepends=True).count(line) == 1 for line in lines)
 
 
+def python_evidence_valid(folder, row, encoding, mode):
+    try:
+        env_path = folder / 'environment.json'
+        env = read(env_path)
+        log = folder / 'python-tests.log'
+        observed = test_result(log.read_text(encoding='utf-8'), row['exit_code'], env['suite_discovered'])
+        return (environment_valid(env, encoding, mode, env['TEMP'])
+                and row['console'] == encoding and row['TMPDIR_present'] is False
+                and row['log_encoding'] == 'utf-8' and row['subprocess_decode_encoding'] == encoding
+                and observed['all_pass'] is True
+                and all(row[key] == value for key, value in observed.items())
+                and row['environment_sha256'] == hashlib.sha256(env_path.read_bytes()).hexdigest()
+                and row['log_sha256'] == hashlib.sha256(log.read_bytes()).hexdigest())
+    except (OSError, KeyError, TypeError, ValueError):
+        return False
+
+
 def verify(packet=PACKET):
     checks = []
 
@@ -50,7 +68,7 @@ def verify(packet=PACKET):
               and style['totals']['errors'] == style['totals']['warnings'] == 0
               and style['sources'] == runner.manifest(runner.OWN))
         matrix = read(packet / 'windows-matrix.json')
-        check('python_matrix_exit', matrix['exit_code'] == 0)
+        check('python_matrix_exit', matrix['exit_code'] == 0 and matrix.get('schema') == 'a30-clean-windows-v1')
         for label, encoding, mode in [('utf8', 'utf-8', 1), ('cp1252', 'cp1252', 0)]:
             folder = packet / label
             env = read(folder / 'environment.json')
@@ -59,8 +77,7 @@ def verify(packet=PACKET):
                   and bool(env['executable']) and '3.14.6' in env['version'])
             rows = [row for row in matrix['rows'] if row['console'] == encoding and 'tests_run' in row]
             check(label + ':python_tests', len(rows) == 1 and rows[0]['exit_code'] == 0
-                  and rows[0]['all_pass'] is True and rows[0]['tests_run'] >= 17
-                  and rows[0]['log_sha256'] == hashlib.sha256((folder / 'python-tests.log').read_bytes()).hexdigest())
+                  and python_evidence_valid(folder, rows[0], encoding, mode))
             # Missing files fail closed, never convert a test plan into a native receipt.
             n = folder / 'native'
             receipt = read(n / 'runner.json')

@@ -2,6 +2,8 @@
 
 La commande relecteur reste `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\wp\tests\rejouer.ps1`, sans argument. La decouverte examine uniquement les dossiers immediats `production/<lot>` dont le nom est `[A-Z]-[0-9]{2}`, avec `verify.py` ou `rejeu.json` ; aucun glob de banc natif, aucune adaptation implicite d'arguments.
 
+Seuls les lots déclarés opt-in figurent parmi les vérifiés de la ligne `PAQUETS` ; un lot absent de cette ligne n'est ni vérifié ni compté hors rejeu (une entrée `verify.py` sans déclaration est, elle, explicitement nommée hors rejeu : `declaration absente`).
+
 ## Declaration `production/<lot>/rejeu.json`
 
 Exemple de **format**, pas une preuve ni une declaration deja installee pour A-28 :
