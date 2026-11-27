@@ -1,12 +1,12 @@
 {
     "schema": "imagine-a10-coupons-v1",
     "read_only": true,
-    "generated_at_utc": "2026-11-27T18:10:22Z",
+    "generated_at_utc": "2026-11-27T21:13:50Z",
     "storage": "classic",
     "currency": "USD",
     "window": {
-        "from_utc": "2025-11-27T18:10:22Z",
-        "to_utc": "2026-11-27T18:10:22Z",
+        "from_utc": "2025-11-27T21:13:50Z",
+        "to_utc": "2026-11-27T21:13:50Z",
         "inclusive": true
     },
     "codes": [],
@@ -21,5 +21,5 @@
         "Aucun reclassement ni suppression. Usage limits 0 sans limite, item_limit null sans limite, seuils vides 0 sans restriction; montants vides ou invalides null; fiche introuvable: tous reglages inconnus null, jamais classee expiree ou jamais utilisee sans compteur.",
         "Site simple, configuration litterale, tables InnoDB, stockage Woo standard; metadonnees coupon dupliquees refusees."
     ],
-    "audit_sha256": "b0febe082fd145d45dbf535800a2edacfecc06319be8d8df65adac4158c9d420"
+    "audit_sha256": "eae3b5fa3d58cf2a686d1a1e20ac89bfac0c1c1efd31625a672624d7de2308aa"
 }

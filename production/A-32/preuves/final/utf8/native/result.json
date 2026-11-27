@@ -142,12 +142,57 @@
       }
     },
     {
+      "check": "classic:a16_omitted_limit_still_default_ten",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "classic:whole_nominal_db_files_immutable",
       "status": "PASS",
       "detail": null
     },
     {
       "check": "classic:named_doubles_continue_every_remaining_real_tool",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:supervision_codes_preserved",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:a19_clock:current",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:a19_clock:later",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:a19_clock:year_before",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:a19_clock:equality",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:a19_clock:year_after",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:a19_later_replay_advances_utc",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:a19_equality_and_year_change",
       "status": "PASS",
       "detail": null
     },
@@ -231,6 +276,21 @@
     },
     {
       "check": "classic:tour_guard_zero_tools:production",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:tour_guard_zero_tools:environment_absent",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:tour_guard_zero_tools:define_in_string",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:tour_guard_zero_tools:define_in_comment",
       "status": "PASS",
       "detail": null
     },
@@ -360,12 +420,57 @@
       }
     },
     {
+      "check": "hpos:a16_omitted_limit_still_default_ten",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "hpos:whole_nominal_db_files_immutable",
       "status": "PASS",
       "detail": null
     },
     {
       "check": "hpos:named_doubles_continue_every_remaining_real_tool",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:supervision_codes_preserved",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:a19_clock:current",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:a19_clock:later",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:a19_clock:year_before",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:a19_clock:equality",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:a19_clock:year_after",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:a19_later_replay_advances_utc",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:a19_equality_and_year_change",
       "status": "PASS",
       "detail": null
     },
@@ -449,6 +554,21 @@
     },
     {
       "check": "hpos:tour_guard_zero_tools:production",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:tour_guard_zero_tools:environment_absent",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:tour_guard_zero_tools:define_in_string",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:tour_guard_zero_tools:define_in_comment",
       "status": "PASS",
       "detail": null
     },

@@ -183,8 +183,8 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         }
     ],
     "update_source": "local_cache_only_not_a_live_check",
-    "plugin_cache_checked_epoch": 1795803055,
-    "theme_cache_checked_epoch": 1795803055
+    "plugin_cache_checked_epoch": 1795814067,
+    "theme_cache_checked_epoch": 1795814067
 }
 ```
 
@@ -395,7 +395,7 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
             "status": "wc-active",
             "period": "month",
             "interval": 1,
-            "count": 1
+            "count": 4
         },
         {
             "status": "wc-on-hold",
@@ -550,7 +550,7 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         },
         {
             "name": "shop_order_placehold",
-            "count": 6
+            "count": 9
         },
         {
             "name": "wc_membership_plan",
@@ -783,7 +783,7 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         {
             "name": "wp_actionscheduler_actions",
             "bytes": 163840,
-            "rows": 24,
+            "rows": 40,
             "ownership": "active_action_scheduler"
         },
         {
@@ -801,7 +801,7 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         {
             "name": "wp_actionscheduler_logs",
             "bytes": 49152,
-            "rows": 29,
+            "rows": 55,
             "ownership": "active_action_scheduler"
         },
         {
@@ -813,7 +813,7 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         {
             "name": "wp_comments",
             "bytes": 147456,
-            "rows": 8,
+            "rows": 11,
             "ownership": "wordpress"
         },
         {
@@ -843,7 +843,7 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         {
             "name": "wp_posts",
             "bytes": 147456,
-            "rows": 39,
+            "rows": 42,
             "ownership": "wordpress"
         },
         {
@@ -873,7 +873,7 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         {
             "name": "wp_usermeta",
             "bytes": 49152,
-            "rows": 60,
+            "rows": 61,
             "ownership": "wordpress"
         },
         {
@@ -933,19 +933,19 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         {
             "name": "wp_wc_orders",
             "bytes": 163840,
-            "rows": 6,
+            "rows": 9,
             "ownership": "active_woocommerce"
         },
         {
             "name": "wp_wc_orders_meta",
             "bytes": 49152,
-            "rows": 68,
+            "rows": 125,
             "ownership": "active_woocommerce"
         },
         {
             "name": "wp_wc_order_addresses",
             "bytes": 81920,
-            "rows": 6,
+            "rows": 9,
             "ownership": "active_woocommerce"
         },
         {
@@ -957,7 +957,7 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         {
             "name": "wp_wc_order_operational_data",
             "bytes": 49152,
-            "rows": 6,
+            "rows": 9,
             "ownership": "active_woocommerce"
         },
         {
@@ -1227,6 +1227,11 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         },
         {
             "hook": "wcs_report_update_cache",
+            "status": "canceled",
+            "count": 4
+        },
+        {
+            "hook": "wcs_report_update_cache",
             "status": "pending",
             "count": 5
         },
@@ -1258,12 +1263,12 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         {
             "hook": "woocommerce_scheduled_subscription_customer_notification_renewal",
             "status": "canceled",
-            "count": 2
+            "count": 5
         },
         {
             "hook": "woocommerce_scheduled_subscription_customer_notification_renewal",
             "status": "pending",
-            "count": 1
+            "count": 4
         },
         {
             "hook": "woocommerce_scheduled_subscription_end_of_prepaid_term",
@@ -1278,12 +1283,12 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         {
             "hook": "woocommerce_scheduled_subscription_payment",
             "status": "canceled",
-            "count": 2
+            "count": 5
         },
         {
             "hook": "woocommerce_scheduled_subscription_payment",
             "status": "pending",
-            "count": 1
+            "count": 4
         }
     ],
     "cron": [
@@ -1291,43 +1296,43 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
             "hook": "a02_fixture_cron",
             "schedule": "daily",
             "count": 1,
-            "next_epoch": 1795806655
+            "next_epoch": 1795817667
         },
         {
             "hook": "action_scheduler_run_queue",
             "schedule": "every_minute",
             "count": 1,
-            "next_epoch": 1795803046
+            "next_epoch": 1795814058
         },
         {
             "hook": "do_pings",
             "schedule": "single",
             "count": 1,
-            "next_epoch": 1795803054
+            "next_epoch": 1795814066
         },
         {
             "hook": "jetpack_clean_nonces",
             "schedule": "hourly",
             "count": 1,
-            "next_epoch": 1795803050
+            "next_epoch": 1795814062
         },
         {
             "hook": "jetpack_v2_heartbeat",
             "schedule": "daily",
             "count": 1,
-            "next_epoch": 1795803050
+            "next_epoch": 1795814062
         },
         {
             "hook": "recovery_mode_clean_expired_keys",
             "schedule": "daily",
             "count": 1,
-            "next_epoch": 1795803046
+            "next_epoch": 1795814058
         },
         {
             "hook": "wc_admin_process_orders_milestone",
             "schedule": "hourly",
             "count": 1,
-            "next_epoch": 1795803050
+            "next_epoch": 1795814062
         },
         {
             "hook": "wc_memberships_jobs_cleanup",
@@ -1339,31 +1344,31 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
             "hook": "wp_privacy_delete_old_export_files",
             "schedule": "hourly",
             "count": 1,
-            "next_epoch": 1795803046
+            "next_epoch": 1795814058
         },
         {
             "hook": "wp_site_health_scheduled_check",
             "schedule": "weekly",
             "count": 1,
-            "next_epoch": 1795889446
+            "next_epoch": 1795900458
         },
         {
             "hook": "wp_update_plugins",
             "schedule": "twicedaily",
             "count": 1,
-            "next_epoch": 1795808445
+            "next_epoch": 1795819457
         },
         {
             "hook": "wp_update_themes",
             "schedule": "twicedaily",
             "count": 1,
-            "next_epoch": 1795810245
+            "next_epoch": 1795821257
         },
         {
             "hook": "wp_version_check",
             "schedule": "twicedaily",
             "count": 1,
-            "next_epoch": 1795806645
+            "next_epoch": 1795817657
         }
     ],
     "arguments_excluded": true

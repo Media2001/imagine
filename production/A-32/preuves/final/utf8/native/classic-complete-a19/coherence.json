@@ -2,13 +2,13 @@
     "schema": "imagine-a19-coherence-v1",
     "read_only": true,
     "storage": "classic",
-    "as_of_utc": "2026-11-26T00:00:00Z",
+    "as_of_utc": "2026-11-27T21:08:58Z",
     "counts": {
         "cross": [],
         "subscriptions_without_membership": [
             {
                 "status": "active",
-                "count": 1
+                "count": 4
             },
             {
                 "status": "on-hold",
@@ -44,12 +44,16 @@
             {
                 "gateway": "aucune",
                 "count": 3
+            },
+            {
+                "gateway": "bacs",
+                "count": 3
             }
         ],
-        "multiple_active_subscription_accounts": 0,
+        "multiple_active_subscription_accounts": 1,
         "multiple_active_membership_accounts": 0,
         "active_past_next_payment": 0,
-        "active_without_paid_order": 1,
+        "active_without_paid_order": 4,
         "definitions": {
             "cross": "Chaque adhesion explicitement liee compte une fois, par plan et couple detats.",
             "subscriptions_without_membership": "Abonnements sans aucune adhesion portant leur lien, par etat.",
@@ -68,5 +72,5 @@
     "payment_reference_basis": "Reference Woo liee ou champs du schema natif de passerelle ; sinon inconnu.",
     "mode_basis": "Drapeau manuel enregistre, pas bascule manuelle effective du staging.",
     "scope": "Magasin natif faisant autorite ; liens explicites ; aucun rapprochement par identite.",
-    "audit_sha256": "74e6ab9c3e5cfc3450aab8398823539dd0833fba3de8ecd93e629efd15fb08a3"
+    "audit_sha256": "1f76d5d129a6bd27a6bcec161a9ee5d300c0626825d13592bfd0c91a477b1caf"
 }

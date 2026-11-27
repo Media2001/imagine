@@ -12,7 +12,7 @@
   },
   "native": {
     "code": 0,
-    "stdout": "{\"checks\":{\"numero_regle_b04\":true,\"reportage_designe_b04\":true,\"ordre_huit_sections\":true,\"ancre_thematiques_menu_conservee\":true,\"partenaire_apres_cooperative\":true,\"partenariat_conserve\":true,\"une_image_prioritaire\":true,\"pas_video_iframe\":true,\"pas_derniers_articles\":true,\"selection_evenements_bornee\":true,\"newsletter_lien_seul\":true,\"achat_positif_avant_retrait\":true,\"produit_natif_existe\":true,\"produit_retrait_relu_4089\":true,\"achat_absent_hors_vente\":true,\"reportage_absent_si_aucun_libre\":true,\"section_reportage_absente\":true},\"total\":17}",
+    "stdout": "{\"checks\":{\"numero_regle_b04\":true,\"reportage_designe_b04\":true,\"ordre_huit_sections\":true,\"ancre_thematiques_menu_conservee\":true,\"partenaire_apres_cooperative\":true,\"partenariat_conserve\":true,\"une_image_prioritaire\":true,\"pas_video_iframe\":true,\"pas_derniers_articles\":true,\"selection_evenements_bornee\":true,\"newsletter_lien_seul\":true,\"achat_positif_avant_retrait\":true,\"produit_natif_existe\":true,\"produit_retrait_relu_4090\":true,\"achat_absent_hors_vente\":true,\"reportage_absent_si_aucun_libre\":true,\"section_reportage_absente\":true},\"total\":17}",
     "stderr": ""
   },
   "before": {
@@ -6247,10 +6247,10 @@
   },
   "restored": true,
   "sources": {
-    "production/B-14/verifier.py": "3464be0bf40349bfdc29cddd4cc1c828e923d31e823d7bf1002833d396032659",
+    "production/B-14/verifier.py": "b7d4d1d095093f00ac51e26df23f6642b055fc3021ae073f2353f2d032479d58",
     "wp/outils/demo/b13-browser.py": "02a69cab956e503b2a79625df2b084858df9e6b417af638fa503240ebc0d3de0",
     "wp/outils/demo/b13.py": "3960057fde352c412024678a14d06a7ed6dec04c8d1bff378f7e5305420a5357",
-    "wp/outils/demo/b14-browser.py": "0a9a78cdc2388677e4c569f6fb9adb2b98888693a00d6a96a69ba1f21691ca03",
+    "wp/outils/demo/b14-browser.py": "2bd50bab5b37ccd2b686a34b5c9cfc7093e39d879fd875dbb33b7ada822e9dea",
     "wp/outils/demo/b14-seed.php": "88aba6f2032602a2070d653509e5ee0040f53ccdcbfee96274ef8cb5e0d7af34",
     "wp/outils/demo/b14.py": "1020cbc445a62da13af4c4ee08fba38138d4932a8973ef62c2f2b6259c498b2b",
     "wp/plugins/imagine-site/Accueil.php": "04bfea4a7137439eff4c9099115a355eb6b0683eb488ce16bbf0f5b1d8482da7",

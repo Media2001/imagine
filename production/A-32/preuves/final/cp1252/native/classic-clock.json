@@ -1,0 +1,95 @@
+{
+  "oracle": {
+    "active_next_native": [
+      1798761599,
+      1798761600,
+      1798761601,
+      1798405959
+    ]
+  },
+  "rows": [
+    {
+      "case": "current",
+      "command": [
+        "python3",
+        "/subject/wp/outils/bascule/a19/confine.py",
+        "--wp-path=/scratch/classic",
+        "--audit=/report/classic-audit/audit.json",
+        "--output=/report/classic-clock-current"
+      ],
+      "exit_code": 0,
+      "as_of_utc": "2026-11-27T21:13:09Z",
+      "start_utc": 1795813989,
+      "end_utc": 1795813989,
+      "expected_count": 0,
+      "actual_count": 0
+    },
+    {
+      "case": "later",
+      "command": [
+        "python3",
+        "/subject/wp/outils/bascule/a19/confine.py",
+        "--wp-path=/scratch/classic",
+        "--audit=/report/classic-audit/audit.json",
+        "--output=/report/classic-clock-later"
+      ],
+      "exit_code": 0,
+      "as_of_utc": "2026-11-27T21:13:10Z",
+      "start_utc": 1795813990,
+      "end_utc": 1795813991,
+      "expected_count": 0,
+      "actual_count": 0
+    },
+    {
+      "case": "year_before",
+      "command": [
+        "python3",
+        "/subject/wp/outils/bascule/a19/confine.py",
+        "--wp-path=/scratch/classic",
+        "--audit=/report/classic-audit/audit.json",
+        "--output=/report/classic-clock-year_before",
+        "--as-of=2026-12-31T23:59:59Z"
+      ],
+      "exit_code": 0,
+      "as_of_utc": "2026-12-31T23:59:59Z",
+      "start_utc": 1795813991,
+      "end_utc": 1795813991,
+      "expected_count": 1,
+      "actual_count": 1
+    },
+    {
+      "case": "equality",
+      "command": [
+        "python3",
+        "/subject/wp/outils/bascule/a19/confine.py",
+        "--wp-path=/scratch/classic",
+        "--audit=/report/classic-audit/audit.json",
+        "--output=/report/classic-clock-equality",
+        "--as-of=2027-01-01T00:00:00Z"
+      ],
+      "exit_code": 0,
+      "as_of_utc": "2027-01-01T00:00:00Z",
+      "start_utc": 1795813991,
+      "end_utc": 1795813992,
+      "expected_count": 2,
+      "actual_count": 2
+    },
+    {
+      "case": "year_after",
+      "command": [
+        "python3",
+        "/subject/wp/outils/bascule/a19/confine.py",
+        "--wp-path=/scratch/classic",
+        "--audit=/report/classic-audit/audit.json",
+        "--output=/report/classic-clock-year_after",
+        "--as-of=2027-01-01T00:00:01Z"
+      ],
+      "exit_code": 0,
+      "as_of_utc": "2027-01-01T00:00:01Z",
+      "start_utc": 1795813992,
+      "end_utc": 1795813993,
+      "expected_count": 3,
+      "actual_count": 3
+    }
+  ]
+}

@@ -9,44 +9,44 @@
       },
       {
         "outil": "A11",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A11_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-stdout-a11"
       },
       {
         "outil": "A12",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A12_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-stdout-a12"
       },
       {
         "outil": "A15",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A15_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-stdout-a15"
       },
       {
         "outil": "A16",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A16_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-stdout-a16"
       },
       {
         "outil": "A17",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A17_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-stdout-a17"
       },
       {
         "outil": "A18",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A18_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-stdout-a18"
       },
       {
         "outil": "A19",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A19_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-stdout-a19"
       },
       {
@@ -106,44 +106,44 @@
       },
       {
         "outil": "A11",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A11_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-stderr-a11"
       },
       {
         "outil": "A12",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A12_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-stderr-a12"
       },
       {
         "outil": "A15",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A15_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-stderr-a15"
       },
       {
         "outil": "A16",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A16_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-stderr-a16"
       },
       {
         "outil": "A17",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A17_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-stderr-a17"
       },
       {
         "outil": "A18",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A18_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-stderr-a18"
       },
       {
         "outil": "A19",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A19_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-stderr-a19"
       },
       {
@@ -203,44 +203,44 @@
       },
       {
         "outil": "A11",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A11_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-early_exit-a11"
       },
       {
         "outil": "A12",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A12_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-early_exit-a12"
       },
       {
         "outil": "A15",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A15_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-early_exit-a15"
       },
       {
         "outil": "A16",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A16_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-early_exit-a16"
       },
       {
         "outil": "A17",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A17_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-early_exit-a17"
       },
       {
         "outil": "A18",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A18_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-early_exit-a18"
       },
       {
         "outil": "A19",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A19_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-early_exit-a19"
       },
       {
@@ -300,44 +300,44 @@
       },
       {
         "outil": "A11",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A11_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-silent_exit-a11"
       },
       {
         "outil": "A12",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A12_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-silent_exit-a12"
       },
       {
         "outil": "A15",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A15_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-silent_exit-a15"
       },
       {
         "outil": "A16",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A16_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-silent_exit-a16"
       },
       {
         "outil": "A17",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A17_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-silent_exit-a17"
       },
       {
         "outil": "A18",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A18_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-silent_exit-a18"
       },
       {
         "outil": "A19",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A19_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-silent_exit-a19"
       },
       {
@@ -397,44 +397,44 @@
       },
       {
         "outil": "A11",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A11_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-shutdown_stdout-a11"
       },
       {
         "outil": "A12",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A12_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-shutdown_stdout-a12"
       },
       {
         "outil": "A15",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A15_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-shutdown_stdout-a15"
       },
       {
         "outil": "A16",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A16_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-shutdown_stdout-a16"
       },
       {
         "outil": "A17",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A17_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-shutdown_stdout-a17"
       },
       {
         "outil": "A18",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A18_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-shutdown_stdout-a18"
       },
       {
         "outil": "A19",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A19_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-shutdown_stdout-a19"
       },
       {
@@ -494,44 +494,44 @@
       },
       {
         "outil": "A11",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A11_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-shutdown_stderr-a11"
       },
       {
         "outil": "A12",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A12_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-shutdown_stderr-a12"
       },
       {
         "outil": "A15",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A15_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-shutdown_stderr-a15"
       },
       {
         "outil": "A16",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A16_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-shutdown_stderr-a16"
       },
       {
         "outil": "A17",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A17_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-shutdown_stderr-a17"
       },
       {
         "outil": "A18",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A18_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-shutdown_stderr-a18"
       },
       {
         "outil": "A19",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A19_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-shutdown_stderr-a19"
       },
       {
@@ -591,44 +591,44 @@
       },
       {
         "outil": "A11",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A11_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-report-a11"
       },
       {
         "outil": "A12",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A12_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-report-a12"
       },
       {
         "outil": "A15",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A15_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-report-a15"
       },
       {
         "outil": "A16",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A16_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-report-a16"
       },
       {
         "outil": "A17",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A17_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-report-a17"
       },
       {
         "outil": "A18",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A18_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-report-a18"
       },
       {
         "outil": "A19",
-        "statut": "en \u00e9chec",
-        "sortie": 1,
+        "statut": "refus\u00e9",
+        "code": "A19_PROCESS_OUTPUT_INVALID",
         "rapport": "/report/classic-channel-report-a19"
       },
       {

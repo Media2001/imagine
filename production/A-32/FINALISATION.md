@@ -1,3 +1,38 @@
+# A-32 — Finalisation après corrections du 27 novembre
+
+**État courant : A-31 est scellé avec PRET ; ne pas le déplacer ni le resceller. A-33 est construit, sa matrice locale est verte et ses gates de paquet sont rouges.** La séquence A-31/A-32 ci-dessous est historique, autorisée une fois : elle n'autorise pas de déplacement d'A-33. Aucun lecteur, import, gardien ou lanceur n'est assoupli pour résoudre ce cycle.
+
+## Contrôles actuels, lecture seule
+
+Depuis `C:/Users/Ced/imagine` :
+
+```sh
+C:/Python314/python.exe -B wp/tests/a32/verify.py --evidence=production/A-32/preuves/final
+C:/Python314/python.exe -B production/A-32/verify.py
+C:/Python314/python.exe -B production/A-31/verify.py
+C:/Python314/python.exe -B production/A-33/verify.py
+```
+
+Le premier contrôle ne qualifie que la matrice complète ; le lecteur de production exige toujours de vraies gates vertes. RAPPORT.md précise les sorties effectivement observées, sans transformer le candidat en PRET.
+
+Après résolution autorisée du blocage par le parent, les seules commandes A-32 nécessaires sont :
+
+```sh
+C:/Python314/python.exe -B wp/tests/a32/gates.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a32-gates-apres-parent-NEUF
+C:/Python314/python.exe -B wp/tests/a32/seal.py --gates=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a32-gates-apres-parent-NEUF
+C:/Python314/python.exe -B production/A-32/verify.py
+```
+
+**Ne lancer le sceau que si le collecteur rend vraiment 0.** Les gates photographient récursivement tout `wp/outils/bascule/`, A-33 inclus. Aucun paquet rouge n'est ignoré ; `T01_RESULT.pass=true` ne suffit jamais si `packets.failures` n'est pas vide. `seal.py` ne crée jamais PRET et refuse les gates rouges. Une réinstallation locale utilise `--evidence=<matrice-verifiee> --archive-existing=<scratch-neuf>`, sans empreinte remplacée à la main.
+
+Après les sceaux A-32/A-33 : rejeu indépendant dans les deux consoles, TMPDIR retiré, reçus hors paquets ; exiger zéro échec et A-31/A-32/A-33 réellement dans `packets.lots`, aucun exclu, puis relire les lecteurs sans argument. Alors seulement les PRET pertinents et T-03 par ses propres contrôles. Tant que le cycle reste rouge : candidat vérifié, aucun PRET, retour au parent ; ne pas exclure discrètement A-33 ni effacer ses gates.
+
+---
+
+## Historique — ancienne finalisation conjointe, ne pas rejouer
+
+Les états et commandes qui suivent décrivent la réception antérieure aux corrections et à A-33, pas la situation actuelle.
+
 # A-32 — Finalisation conjointe réservée au parent
 
 Ce document ne déclare aucun `PRET`. La matrice locale complète est indépendante des paquets A-31/T-03. Le vérificateur de production exige toujours les gates réellement vertes ; `A31_PARTIAL_EVIDENCE` n'est ni ignoré, ni remplacé, ni assoupli. Le contrôle local A-31 (324 PASS dans la réception du parent) n'est pas sa réception de production.

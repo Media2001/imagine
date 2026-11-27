@@ -19,10 +19,10 @@ Comptes seulement ; aucune garantie de renouvellement.
         },
         "relations": {
             "groups": [],
-            "autres": 0
+            "autres": 3
         }
     },
-    "as_of_utc": "2026-11-27T18:06:19+00:00",
-    "audit_sha256": "74e6ab9c3e5cfc3450aab8398823539dd0833fba3de8ecd93e629efd15fb08a3"
+    "as_of_utc": "2026-11-27T21:08:54+00:00",
+    "audit_sha256": "1f76d5d129a6bd27a6bcec161a9ee5d300c0626825d13592bfd0c91a477b1caf"
 }
 ```

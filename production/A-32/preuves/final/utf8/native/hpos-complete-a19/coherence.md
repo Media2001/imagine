@@ -7,13 +7,13 @@ Comptes uniquement ; aucune valeur ni decision de suppression.
     "schema": "imagine-a19-coherence-v1",
     "read_only": true,
     "storage": "hpos",
-    "as_of_utc": "2026-11-26T00:00:00Z",
+    "as_of_utc": "2026-11-27T21:10:44Z",
     "counts": {
         "cross": [],
         "subscriptions_without_membership": [
             {
                 "status": "active",
-                "count": 1
+                "count": 4
             },
             {
                 "status": "on-hold",
@@ -49,12 +49,16 @@ Comptes uniquement ; aucune valeur ni decision de suppression.
             {
                 "gateway": "aucune",
                 "count": 3
+            },
+            {
+                "gateway": "bacs",
+                "count": 3
             }
         ],
-        "multiple_active_subscription_accounts": 0,
+        "multiple_active_subscription_accounts": 1,
         "multiple_active_membership_accounts": 0,
         "active_past_next_payment": 0,
-        "active_without_paid_order": 1,
+        "active_without_paid_order": 4,
         "definitions": {
             "cross": "Chaque adhesion explicitement liee compte une fois, par plan et couple detats.",
             "subscriptions_without_membership": "Abonnements sans aucune adhesion portant leur lien, par etat.",
@@ -73,6 +77,6 @@ Comptes uniquement ; aucune valeur ni decision de suppression.
     "payment_reference_basis": "Reference Woo liee ou champs du schema natif de passerelle ; sinon inconnu.",
     "mode_basis": "Drapeau manuel enregistre, pas bascule manuelle effective du staging.",
     "scope": "Magasin natif faisant autorite ; liens explicites ; aucun rapprochement par identite.",
-    "audit_sha256": "ef28720039a69e3ca5d69eadb9f760f1a2ccc867cc3f128ebfd38720165fc2c7"
+    "audit_sha256": "aec09cf6ece42609021b8375a725261ded07b29109b0f7567b4f327f15c746e5"
 }
 ```

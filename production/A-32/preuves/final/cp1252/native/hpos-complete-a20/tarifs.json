@@ -3,7 +3,7 @@
     "read_only": true,
     "storage": "hpos",
     "counts": {
-        "live_subscriptions": 3,
+        "live_subscriptions": 6,
         "products": [
             {
                 "product": 17,
@@ -43,15 +43,15 @@
             "with_shipping": 0
         },
         "unknown_country": {
-            "count": 3,
+            "count": 6,
             "with_shipping": 0
         },
         "multiple_product_lines": 0,
-        "without_product_line": 0,
+        "without_product_line": 3,
         "with_fee_line": 0,
         "with_shipping_line": 0,
         "foreign_currency": 0,
-        "zero_recurring_total": 3,
+        "zero_recurring_total": 6,
         "definitions": {
             "live_subscriptions": "Un abonnement natif actif, en attente, suspendu ou en annulation a terme ; pas un compte ni un paiement constate.",
             "products": "Une fois par abonnement et couple produit/variation ; variation 0 sans variation, produit 0 reference absente. Les groupes peuvent se recouper.",
@@ -72,5 +72,5 @@
         }
     },
     "scope": "Magasin natif faisant autorite ; totaux recurrents enregistres, pas prelevements garantis ; aucune correspondance de tarif.",
-    "audit_sha256": "078e2d960f7b66b563b652fe1df2bebd0a9617fc143afd6a3d351c65db112760"
+    "audit_sha256": "807bf442702253ea47c94b5341970e169b2e31d9cbad34ad527d715567f03ffd"
 }

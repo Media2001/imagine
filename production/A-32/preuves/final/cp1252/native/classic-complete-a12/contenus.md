@@ -168,8 +168,8 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
                 "draft": 2,
                 "publish": 5
             },
-            "first_published_utc": "2026-11-27T18:09:17Z",
-            "last_published_utc": "2026-11-27T18:09:21Z",
+            "first_published_utc": "2026-11-27T21:12:30Z",
+            "last_published_utc": "2026-11-27T21:12:34Z",
             "metadata_keys": [
                 {
                     "key": "_wp_page_template",
@@ -191,7 +191,7 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
                 "publish": 4
             },
             "first_published_utc": "2023-12-31T23:30:00Z",
-            "last_published_utc": "2026-11-27T18:09:17Z",
+            "last_published_utc": "2026-11-27T21:12:30Z",
             "metadata_keys": [
                 {
                     "key": "_encloseme",
@@ -220,8 +220,8 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
             "states": {
                 "publish": 1
             },
-            "first_published_utc": "2026-11-27T18:09:26Z",
-            "last_published_utc": "2026-11-27T18:09:26Z",
+            "first_published_utc": "2026-11-27T21:12:39Z",
+            "last_published_utc": "2026-11-27T21:12:39Z",
             "metadata_keys": [
                 {
                     "key": "_backorders",
@@ -518,9 +518,9 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
                     "file": "wp-content\/plugins\/woocommerce\/includes\/wc-order-functions.php"
                 }
             ],
-            "content_count": 3,
+            "content_count": 6,
             "states": {
-                "wc-active": 1,
+                "wc-active": 4,
                 "wc-on-hold": 1,
                 "wc-pending-cancel": 1
             },
@@ -529,11 +529,11 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
             "metadata_keys": [
                 {
                     "key": "_billing_address_index",
-                    "content_count": 3
+                    "content_count": 6
                 },
                 {
                     "key": "_billing_email",
-                    "content_count": 3
+                    "content_count": 6
                 },
                 {
                     "key": "_billing_first_name",
@@ -541,23 +541,23 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
                 },
                 {
                     "key": "_billing_interval",
-                    "content_count": 3
+                    "content_count": 6
                 },
                 {
                     "key": "_billing_period",
-                    "content_count": 3
+                    "content_count": 6
                 },
                 {
                     "key": "_cancelled_email_sent",
-                    "content_count": 3
+                    "content_count": 6
                 },
                 {
                     "key": "_cart_discount",
-                    "content_count": 3
+                    "content_count": 6
                 },
                 {
                     "key": "_cart_discount_tax",
-                    "content_count": 3
+                    "content_count": 6
                 },
                 {
                     "key": "_contains_synced_subscription",
@@ -565,119 +565,127 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
                 },
                 {
                     "key": "_customer_user",
-                    "content_count": 3
+                    "content_count": 6
                 },
                 {
                     "key": "_download_permissions_granted",
-                    "content_count": 3
+                    "content_count": 6
                 },
                 {
                     "key": "_last_order_date_created",
-                    "content_count": 3
+                    "content_count": 6
                 },
                 {
                     "key": "_new_order_email_sent",
-                    "content_count": 3
+                    "content_count": 6
                 },
                 {
                     "key": "_order_currency",
-                    "content_count": 3
+                    "content_count": 6
                 },
                 {
                     "key": "_order_key",
-                    "content_count": 3
+                    "content_count": 6
                 },
                 {
                     "key": "_order_shipping",
-                    "content_count": 3
+                    "content_count": 6
                 },
                 {
                     "key": "_order_shipping_tax",
-                    "content_count": 3
+                    "content_count": 6
                 },
                 {
                     "key": "_order_stock_reduced",
-                    "content_count": 3
+                    "content_count": 6
                 },
                 {
                     "key": "_order_tax",
-                    "content_count": 3
+                    "content_count": 6
                 },
                 {
                     "key": "_order_total",
-                    "content_count": 3
+                    "content_count": 6
                 },
                 {
                     "key": "_order_version",
+                    "content_count": 6
+                },
+                {
+                    "key": "_payment_method",
+                    "content_count": 3
+                },
+                {
+                    "key": "_payment_method_title",
                     "content_count": 3
                 },
                 {
                     "key": "_prices_include_tax",
-                    "content_count": 3
+                    "content_count": 6
                 },
                 {
                     "key": "_recorded_coupon_usage_counts",
-                    "content_count": 3
+                    "content_count": 6
                 },
                 {
                     "key": "_recorded_sales",
-                    "content_count": 3
+                    "content_count": 6
                 },
                 {
                     "key": "_requires_manual_renewal",
-                    "content_count": 3
+                    "content_count": 6
                 },
                 {
                     "key": "_schedule_cancelled",
-                    "content_count": 3
+                    "content_count": 6
                 },
                 {
                     "key": "_schedule_end",
-                    "content_count": 3
+                    "content_count": 6
                 },
                 {
                     "key": "_schedule_next_payment",
-                    "content_count": 3
+                    "content_count": 6
                 },
                 {
                     "key": "_schedule_payment_retry",
-                    "content_count": 3
+                    "content_count": 6
                 },
                 {
                     "key": "_schedule_start",
-                    "content_count": 3
+                    "content_count": 6
                 },
                 {
                     "key": "_schedule_trial_end",
-                    "content_count": 3
+                    "content_count": 6
                 },
                 {
                     "key": "_shipping_address_index",
-                    "content_count": 3
+                    "content_count": 6
                 },
                 {
                     "key": "_subscription_renewal_order_ids_cache",
-                    "content_count": 3
+                    "content_count": 6
                 },
                 {
                     "key": "_subscription_resubscribe_order_ids_cache",
-                    "content_count": 3
+                    "content_count": 6
                 },
                 {
                     "key": "_subscription_switch_data",
-                    "content_count": 3
+                    "content_count": 6
                 },
                 {
                     "key": "_subscription_switch_order_ids_cache",
-                    "content_count": 3
+                    "content_count": 6
                 },
                 {
                     "key": "_suspension_count",
-                    "content_count": 3
+                    "content_count": 6
                 },
                 {
                     "key": "_trial_period",
-                    "content_count": 3
+                    "content_count": 6
                 },
                 {
                     "key": "end_date_pre_cancellation",
@@ -717,8 +725,8 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
             "states": {
                 "publish": 1
             },
-            "first_published_utc": "2026-11-27T18:09:26Z",
-            "last_published_utc": "2026-11-27T18:09:26Z",
+            "first_published_utc": "2026-11-27T21:12:39Z",
+            "last_published_utc": "2026-11-27T21:12:39Z",
             "metadata_keys": [
                 {
                     "key": "_access_length",
@@ -979,7 +987,7 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
                 "publish": 4
             },
             "first_published_utc": "2023-12-31T23:30:00Z",
-            "last_published_utc": "2026-11-27T18:09:17Z",
+            "last_published_utc": "2026-11-27T21:12:30Z",
             "top_terms": [
                 {
                     "name": "Uncategorized",
@@ -1130,8 +1138,8 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
             "states": {
                 "publish": 1
             },
-            "first_published_utc": "2026-11-27T18:09:26Z",
-            "last_published_utc": "2026-11-27T18:09:26Z",
+            "first_published_utc": "2026-11-27T21:12:39Z",
+            "last_published_utc": "2026-11-27T21:12:39Z",
             "top_terms": [
                 {
                     "name": "Uncategorized",
@@ -1198,8 +1206,8 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
             "states": {
                 "publish": 1
             },
-            "first_published_utc": "2026-11-27T18:09:26Z",
-            "last_published_utc": "2026-11-27T18:09:26Z",
+            "first_published_utc": "2026-11-27T21:12:39Z",
+            "last_published_utc": "2026-11-27T21:12:39Z",
             "top_terms": [
                 {
                     "name": "subscription",
@@ -1409,6 +1417,6 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
         "Les seuls textes libres permis sont les noms des termes; valeurs suspectes masquees. Aucun titre, contenu, auteur, contact, identifiant de client, valeur de champ ou chemin de media exporte.",
         "Les comptes editoriaux restent dans posts\/postmeta dans les deux magasins; aucune lecture des coordonnees de commande HPOS ni interpretation des droits."
     ],
-    "audit_sha256": "b0febe082fd145d45dbf535800a2edacfecc06319be8d8df65adac4158c9d420"
+    "audit_sha256": "eae3b5fa3d58cf2a686d1a1e20ac89bfac0c1c1efd31625a672624d7de2308aa"
 }
 ```

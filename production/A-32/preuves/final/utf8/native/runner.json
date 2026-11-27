@@ -1,6 +1,6 @@
 {
   "suite": "A32-native-owned",
-  "at": "2026-11-27T18:09:06.109376+00:00",
+  "at": "2026-11-27T21:12:17.929112+00:00",
   "checks": [
     {
       "check": "isolation_before",

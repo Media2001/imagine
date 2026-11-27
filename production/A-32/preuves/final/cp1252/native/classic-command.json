@@ -43,8 +43,7 @@
       "--wp-path=/scratch/classic",
       "--audit=/report/classic-audit/audit.json",
       "--correspondance=/subject/wp/outils/bascule/a16/correspondance.exemple.json",
-      "--output=/report/classic-complete-a16",
-      "--limit=10"
+      "--output=/report/classic-complete-a16"
     ],
     [
       "python3",
@@ -65,8 +64,7 @@
       "/subject/wp/outils/bascule/a19/confine.py",
       "--wp-path=/scratch/classic",
       "--audit=/report/classic-audit/audit.json",
-      "--output=/report/classic-complete-a19",
-      "--as-of=2026-11-26T00:00:00Z"
+      "--output=/report/classic-complete-a19"
     ],
     [
       "python3",

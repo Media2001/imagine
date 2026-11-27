@@ -26,7 +26,7 @@ def verify(live=False, manifest=None, require_pret=True):
     nd = json.loads(native['native']['stdout'])
     assert nd['total'] == len(nd['checks']) == 17 and all(nd['checks'].values())
     browser = load('browser-final-V2.json')
-    assert browser['total'] == len(browser['checks']) == 37 and all(browser['checks'].values())
+    assert browser['total'] == len(browser['checks']) == 45 and all(browser['checks'].values())
     assert browser['sources'] == owner.sources(owner), 'TESTED_BROWSER_BYTES'
     assert browser['restored'] and browser['session_restored'] and browser['probe_removed'] and browser['error'] is None
     assert browser['markers_count'] > 10 and len(browser['rows']) == 2

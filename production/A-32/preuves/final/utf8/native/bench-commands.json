@@ -12,9 +12,9 @@
     "command": [
       "create",
       "--name",
-      "imagine-a32-tournee-a11eab7450c1",
+      "imagine-a32-tournee-822846036a2e",
       "--label",
-      "org.imagine.a32-tournee=imagine-a32-tournee-a11eab7450c1",
+      "org.imagine.a32-tournee=imagine-a32-tournee-822846036a2e",
       "--network",
       "none",
       "--no-healthcheck",
@@ -43,7 +43,7 @@
   {
     "command": [
       "inspect",
-      "imagine-a32-tournee-a11eab7450c1"
+      "imagine-a32-tournee-822846036a2e"
     ],
     "exit_code": 0,
     "stderr": ""
@@ -51,7 +51,7 @@
   {
     "command": [
       "start",
-      "imagine-a32-tournee-a11eab7450c1"
+      "imagine-a32-tournee-822846036a2e"
     ],
     "exit_code": 0,
     "stderr": ""
@@ -59,7 +59,7 @@
   {
     "command": [
       "exec",
-      "imagine-a32-tournee-a11eab7450c1",
+      "imagine-a32-tournee-822846036a2e",
       "mkdir",
       "-p",
       "/subject/wp/outils",
@@ -74,7 +74,7 @@
     "command": [
       "cp",
       "/mnt/c/Users/Ced/imagine/wp/outils/bascule",
-      "imagine-a32-tournee-a11eab7450c1:/subject/wp/outils/bascule"
+      "imagine-a32-tournee-822846036a2e:/subject/wp/outils/bascule"
     ],
     "exit_code": 0,
     "stderr": ""
@@ -83,7 +83,7 @@
     "command": [
       "cp",
       "/mnt/c/Users/Ced/imagine/wp/outils/staging",
-      "imagine-a32-tournee-a11eab7450c1:/subject/wp/outils/staging"
+      "imagine-a32-tournee-822846036a2e:/subject/wp/outils/staging"
     ],
     "exit_code": 0,
     "stderr": ""
@@ -92,7 +92,7 @@
     "command": [
       "cp",
       "/mnt/c/Users/Ced/imagine/wp/outils/bascule/audit",
-      "imagine-a32-tournee-a11eab7450c1:/subject/audit"
+      "imagine-a32-tournee-822846036a2e:/subject/audit"
     ],
     "exit_code": 0,
     "stderr": ""
@@ -101,7 +101,7 @@
     "command": [
       "cp",
       "/mnt/c/Users/Ced/imagine/wp/tests/a02-audit/inside.py",
-      "imagine-a32-tournee-a11eab7450c1:/opt/a02/inside.py"
+      "imagine-a32-tournee-822846036a2e:/opt/a02/inside.py"
     ],
     "exit_code": 0,
     "stderr": ""
@@ -110,7 +110,7 @@
     "command": [
       "cp",
       "/mnt/c/Users/Ced/imagine/wp/tests/a02-audit/seed.php",
-      "imagine-a32-tournee-a11eab7450c1:/opt/a02/seed.php"
+      "imagine-a32-tournee-822846036a2e:/opt/a02/seed.php"
     ],
     "exit_code": 0,
     "stderr": ""
@@ -119,7 +119,7 @@
     "command": [
       "cp",
       "/mnt/c/Users/Ced/imagine/wp/tests/a02-audit/fingerprint.php",
-      "imagine-a32-tournee-a11eab7450c1:/opt/a02/fingerprint.php"
+      "imagine-a32-tournee-822846036a2e:/opt/a02/fingerprint.php"
     ],
     "exit_code": 0,
     "stderr": ""
@@ -128,7 +128,7 @@
     "command": [
       "cp",
       "/mnt/c/Users/Ced/imagine/wp/tests/a02-audit/unit.php",
-      "imagine-a32-tournee-a11eab7450c1:/opt/a02/unit.php"
+      "imagine-a32-tournee-822846036a2e:/opt/a02/unit.php"
     ],
     "exit_code": 0,
     "stderr": ""
@@ -137,7 +137,7 @@
     "command": [
       "cp",
       "/mnt/c/Users/Ced/imagine/wp/tests/a02-audit/readonly-probe.php",
-      "imagine-a32-tournee-a11eab7450c1:/opt/a02/readonly-probe.php"
+      "imagine-a32-tournee-822846036a2e:/opt/a02/readonly-probe.php"
     ],
     "exit_code": 0,
     "stderr": ""
@@ -146,7 +146,7 @@
     "command": [
       "cp",
       "/mnt/c/Users/Ced/imagine/wp/tests/a16/seed.php",
-      "imagine-a32-tournee-a11eab7450c1:/opt/a32/seed16.php"
+      "imagine-a32-tournee-822846036a2e:/opt/a32/seed16.php"
     ],
     "exit_code": 0,
     "stderr": ""
@@ -155,7 +155,16 @@
     "command": [
       "cp",
       "/mnt/c/Users/Ced/imagine/wp/tests/a32/inside.py",
-      "imagine-a32-tournee-a11eab7450c1:/opt/a32/inside.py"
+      "imagine-a32-tournee-822846036a2e:/opt/a32/inside.py"
+    ],
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "command": [
+      "cp",
+      "/mnt/c/Users/Ced/imagine/wp/tests/a32/clock_seed.php",
+      "imagine-a32-tournee-822846036a2e:/opt/a32/clock_seed.php"
     ],
     "exit_code": 0,
     "stderr": ""
@@ -164,7 +173,7 @@
     "command": [
       "cp",
       "/home/ced/staging-wp/plugins/woocommerce-subscriptions.zip",
-      "imagine-a32-tournee-a11eab7450c1:/opt/a02/woocommerce-subscriptions.zip"
+      "imagine-a32-tournee-822846036a2e:/opt/a02/woocommerce-subscriptions.zip"
     ],
     "exit_code": 0,
     "stderr": ""
@@ -173,7 +182,7 @@
     "command": [
       "cp",
       "/home/ced/staging-wp/plugins/woocommerce-memberships.zip",
-      "imagine-a32-tournee-a11eab7450c1:/opt/a02/woocommerce-memberships.zip"
+      "imagine-a32-tournee-822846036a2e:/opt/a02/woocommerce-memberships.zip"
     ],
     "exit_code": 0,
     "stderr": ""
@@ -183,7 +192,7 @@
       "exec",
       "--user",
       "1000:1000",
-      "imagine-a32-tournee-a11eab7450c1",
+      "imagine-a32-tournee-822846036a2e",
       "chmod",
       "-R",
       "a-w",
@@ -197,7 +206,7 @@
   {
     "command": [
       "exec",
-      "imagine-a32-tournee-a11eab7450c1",
+      "imagine-a32-tournee-822846036a2e",
       "python3",
       "/opt/a32/inside.py"
     ],
@@ -207,8 +216,8 @@
   {
     "command": [
       "cp",
-      "imagine-a32-tournee-a11eab7450c1:/report/.",
-      "/mnt/c/Users/Ced/AppData/Local/hermes/cache/scratch/a32-active-20261127/matrix-final-v2/utf8/native"
+      "imagine-a32-tournee-822846036a2e:/report/.",
+      "/mnt/c/Users/Ced/AppData/Local/hermes/cache/scratch/a32-corrections-20261127-2158/matrix-final/utf8/native"
     ],
     "exit_code": 0,
     "stderr": ""
@@ -216,7 +225,7 @@
   {
     "command": [
       "inspect",
-      "imagine-a32-tournee-a11eab7450c1"
+      "imagine-a32-tournee-822846036a2e"
     ],
     "exit_code": 0,
     "stderr": ""
@@ -224,7 +233,7 @@
   {
     "command": [
       "inspect",
-      "imagine-a32-tournee-a11eab7450c1"
+      "imagine-a32-tournee-822846036a2e"
     ],
     "exit_code": 0,
     "stderr": ""
@@ -233,7 +242,7 @@
     "command": [
       "rm",
       "-f",
-      "imagine-a32-tournee-a11eab7450c1"
+      "imagine-a32-tournee-822846036a2e"
     ],
     "exit_code": 0,
     "stderr": ""
@@ -241,9 +250,9 @@
   {
     "command": [
       "inspect",
-      "imagine-a32-tournee-a11eab7450c1"
+      "imagine-a32-tournee-822846036a2e"
     ],
     "exit_code": 1,
-    "stderr": "error: no such object: imagine-a32-tournee-a11eab7450c1\n"
+    "stderr": "error: no such object: imagine-a32-tournee-822846036a2e\n"
   }
 ]

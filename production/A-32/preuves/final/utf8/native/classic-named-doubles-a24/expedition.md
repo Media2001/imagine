@@ -10,48 +10,48 @@ Comptes seulement ; aucune adresse ni décision postale.
     "neutralisation": "observe",
     "counts": {
         "overall": {
-            "subscriptions": 3,
-            "shipping_empty": 3,
+            "subscriptions": 6,
+            "shipping_empty": 6,
             "empty_with_billing": 3,
-            "missing_any": 3,
+            "missing_any": 6,
             "missing_required": {
-                "shipping_first_name": 3,
-                "shipping_last_name": 3,
+                "shipping_first_name": 6,
+                "shipping_last_name": 6,
                 "shipping_company": 0,
-                "shipping_country": 3,
-                "shipping_address_1": 3,
+                "shipping_country": 6,
+                "shipping_address_1": 6,
                 "shipping_address_2": 0,
-                "shipping_city": 3,
-                "shipping_state": 3,
-                "shipping_postcode": 3,
+                "shipping_city": 6,
+                "shipping_state": 6,
+                "shipping_postcode": 6,
                 "shipping_phone": 0
             },
-            "country_absent": 3,
+            "country_absent": 6,
             "country_unknown": 0,
             "different_from_account": 0,
             "account_unavailable": 0
         },
         "countries": [
             {
-                "country": "autres pays",
+                "country": "country_absent",
                 "counts": {
-                    "subscriptions": 3,
-                    "shipping_empty": 3,
+                    "subscriptions": 6,
+                    "shipping_empty": 6,
                     "empty_with_billing": 3,
-                    "missing_any": 3,
+                    "missing_any": 6,
                     "missing_required": {
-                        "shipping_first_name": 3,
-                        "shipping_last_name": 3,
+                        "shipping_first_name": 6,
+                        "shipping_last_name": 6,
                         "shipping_company": 0,
-                        "shipping_country": 3,
-                        "shipping_address_1": 3,
+                        "shipping_country": 6,
+                        "shipping_address_1": 6,
                         "shipping_address_2": 0,
-                        "shipping_city": 3,
-                        "shipping_state": 3,
-                        "shipping_postcode": 3,
+                        "shipping_city": 6,
+                        "shipping_state": 6,
+                        "shipping_postcode": 6,
                         "shipping_phone": 0
                     },
-                    "country_absent": 3,
+                    "country_absent": 6,
                     "country_unknown": 0,
                     "different_from_account": 0,
                     "account_unavailable": 0
@@ -59,6 +59,6 @@ Comptes seulement ; aucune adresse ni décision postale.
             }
         ]
     },
-    "audit_sha256": "74e6ab9c3e5cfc3450aab8398823539dd0833fba3de8ecd93e629efd15fb08a3"
+    "audit_sha256": "1f76d5d129a6bd27a6bcec161a9ee5d300c0626825d13592bfd0c91a477b1caf"
 }
 ```

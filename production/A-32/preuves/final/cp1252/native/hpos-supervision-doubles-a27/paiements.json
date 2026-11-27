@@ -1,0 +1,22 @@
+{
+    "schema": "imagine-a27-saved-payments-v1",
+    "read_only": true,
+    "storage": "hpos",
+    "neutralisation": "observe",
+    "counts": {
+        "automatic": {
+            "groups": [],
+            "autres": 0
+        },
+        "cards": {
+            "groups": [],
+            "autres": 0
+        },
+        "relations": {
+            "groups": [],
+            "autres": 3
+        }
+    },
+    "as_of_utc": "2026-11-27T21:14:31+00:00",
+    "audit_sha256": "807bf442702253ea47c94b5341970e169b2e31d9cbad34ad527d715567f03ffd"
+}

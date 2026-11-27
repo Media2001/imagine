@@ -8,44 +8,44 @@
     },
     {
       "outil": "A11",
-      "statut": "en \u00e9chec",
-      "sortie": 1,
+      "statut": "refus\u00e9",
+      "code": "A11_PROCESS_OUTPUT_INVALID",
       "rapport": "/report/classic-channel-stdout-a11"
     },
     {
       "outil": "A12",
-      "statut": "en \u00e9chec",
-      "sortie": 1,
+      "statut": "refus\u00e9",
+      "code": "A12_PROCESS_OUTPUT_INVALID",
       "rapport": "/report/classic-channel-stdout-a12"
     },
     {
       "outil": "A15",
-      "statut": "en \u00e9chec",
-      "sortie": 1,
+      "statut": "refus\u00e9",
+      "code": "A15_PROCESS_OUTPUT_INVALID",
       "rapport": "/report/classic-channel-stdout-a15"
     },
     {
       "outil": "A16",
-      "statut": "en \u00e9chec",
-      "sortie": 1,
+      "statut": "refus\u00e9",
+      "code": "A16_PROCESS_OUTPUT_INVALID",
       "rapport": "/report/classic-channel-stdout-a16"
     },
     {
       "outil": "A17",
-      "statut": "en \u00e9chec",
-      "sortie": 1,
+      "statut": "refus\u00e9",
+      "code": "A17_PROCESS_OUTPUT_INVALID",
       "rapport": "/report/classic-channel-stdout-a17"
     },
     {
       "outil": "A18",
-      "statut": "en \u00e9chec",
-      "sortie": 1,
+      "statut": "refus\u00e9",
+      "code": "A18_PROCESS_OUTPUT_INVALID",
       "rapport": "/report/classic-channel-stdout-a18"
     },
     {
       "outil": "A19",
-      "statut": "en \u00e9chec",
-      "sortie": 1,
+      "statut": "refus\u00e9",
+      "code": "A19_PROCESS_OUTPUT_INVALID",
       "rapport": "/report/classic-channel-stdout-a19"
     },
     {
