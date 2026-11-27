@@ -33,6 +33,7 @@ $engine->neutraliser();
 $engine->anonymiser(bin2hex(random_bytes(24)));
 $after = ['cron' => $cronCount(), 'pending' => $count('pending'), 'failed' => $count('failed'),
     'canceled' => $count('canceled')];
-$marker = (int) $pdo->query("SELECT COUNT(*) FROM wp_options WHERE option_name='imagine_staging_disabled_plugins'")->fetchColumn();
+$markerSql = "SELECT COUNT(*) FROM wp_options WHERE option_name='imagine_staging_disabled_plugins'";
+$marker = (int) $pdo->query($markerSql)->fetchColumn();
 echo json_encode(['neutraliser_and_anonymiser_executed' => true, 'before' => $before,
     'after' => $after, 'marker_count' => $marker], JSON_THROW_ON_ERROR) . "\n";

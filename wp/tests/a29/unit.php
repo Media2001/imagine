@@ -61,7 +61,8 @@ $check('k5_boundary_four', Analysis::pool(['renouvellement' => 4], 'family') ===
 $check('k5_boundary_five', Analysis::pool(['renouvellement' => 5], 'family') === ['groups' => [
     ['family' => 'renouvellement', 'count' => 5],
 ], 'autres' => 0]);
-$check('all_rare_families_fused', Analysis::pool(['email' => 2, 'autre' => 3], 'family') === ['groups' => [], 'autres' => 5]);
+$check('all_rare_families_fused', Analysis::pool(['email' => 2, 'autre' => 3], 'family')
+    === ['groups' => [], 'autres' => 5]);
 $check('async_immediate_overdue', Analysis::analyse([$row('A29_PRIVATE_CANARY', 0)], $clock, false)['overdue']
     === ['groups' => [], 'autres' => 1]);
 $check('ignore_terminal_and_running', Analysis::analyse([
@@ -89,6 +90,7 @@ $exit = (int) in_array('FAIL', array_column($checks, 'status'), true);
 if (($argv[1] ?? '') === '--pure') {
     echo 'A29_PURE_' . ($exit ? 'FAIL ' : 'OK ') . count($checks) . "\n";
 } else {
-    file_put_contents('/report/unit.json', json_encode(['checks' => $checks, 'exit_code' => $exit], JSON_PRETTY_PRINT) . "\n");
+    $json = json_encode(['checks' => $checks, 'exit_code' => $exit], JSON_PRETTY_PRINT);
+    file_put_contents('/report/unit.json', $json . "\n");
 }
 exit($exit);

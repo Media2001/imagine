@@ -99,3 +99,5 @@ A-26 — Ressources tierces : comptes fermés en lecture seule, limites et prér
 python3 wp/outils/bascule/a26/confine.py --wp-path=/copie-verifiee --audit=/hors-web/audit-date/audit.json --output=/hors-web/tiers-date
 A-27 : compter les références de paiement enregistrées via wp/outils/bascule/a27/confine.py ; mode d'emploi dans wp/outils/bascule/a27/README.md.
 Sur copie neutralisée, tous ces comptes sont « inconnu après neutralisation » ; réception native et portes parent : production/A-27/RECEPTION-PARENT.md.
+A-29 : compter les tâches planifiées via wp/outils/bascule/a29/confine.py ; mode d'emploi dans wp/outils/bascule/a29/README.md.
+Sur copie neutralisée, tous ces comptes sont « inconnu après neutralisation » ; réception et limites : production/A-29/RECEPTION-PARENT.md.

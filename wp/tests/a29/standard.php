@@ -37,7 +37,8 @@ $checks = [
         && str_contains($sources['email'], 'get_current_blog_id()')
         && str_contains($sources['background'], "'_cron'"),
 ];
-foreach (['enqueue_async_action', 'schedule_single_action', 'schedule_recurring_action', 'schedule_cron_action'] as $api) {
+$apis = ['enqueue_async_action', 'schedule_single_action', 'schedule_recurring_action', 'schedule_cron_action'];
+foreach ($apis as $api) {
     $checks['native_pre_as_' . $api] = str_contains($sources['as_functions'], "'pre_as_" . $api . "'");
 }
 $roots = [$site . '/wp-includes', $site . '/wp-admin', $woo,
@@ -48,7 +49,8 @@ foreach ($roots as $root) {
     if (!is_dir($root) || is_link($root)) {
         throw new RuntimeException('A29_STANDARD_SOURCE_MISSING');
     }
-    foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($root, FilesystemIterator::SKIP_DOTS)) as $file) {
+    $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($root, FilesystemIterator::SKIP_DOTS));
+    foreach ($iterator as $file) {
         if (!$file->isFile() || $file->isLink() || $file->getExtension() !== 'php') {
             continue;
         }

@@ -259,12 +259,16 @@ if (getenv('A25_CONFINED') === '1') {
     phase = cmd(['php', '/opt/a25/neutralise.php'], env={'A25_DB': clone})
     provenance = json.loads(phase.stdout)
     (OUT / (storage + '-neutralisation.json')).write_text(json.dumps(provenance, indent=2) + '\n', encoding='utf-8')
-    b.check(storage + ':actual_import_comments_changed_forms_clear',
+    b.check(storage + ':actual_import_comments_anonymised',
             provenance['neutraliser_and_anonymiser_executed'] is True and provenance['marker_count'] == 1
             and provenance['comments_before'] == provenance['comments_after'] == 3
             and provenance['emails_before'] == 2 and provenance['emails_after'] == 3
             and provenance['ip_before'] == 2 and provenance['ip_after'] == 0
-            and provenance['known_message_preserved'] and provenance['unknown_message_preserved']
+            and provenance['guest_orders_preserved'])
+    b.check(storage + ':actual_import_known_forms_purged',
+            provenance['known_messages_before'] == 2 and provenance['known_messages_after'] == 0)
+    b.check(storage + ':actual_import_unknown_forms_kept_separately',
+            provenance['unknown_messages_before'] == 2 and provenance['unknown_message_preserved']
             and provenance['submission_pk_messages_preserved'] and provenance['submission_child_rows_preserved']
             and provenance['guest_orders_preserved'])
     b.sql('mysql', "GRANT SELECT ON " + clone + ".* TO 'a02_" + storage + "'@'localhost'")

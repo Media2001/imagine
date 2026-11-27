@@ -59,7 +59,8 @@ for ($n = 0; $n < $repetitions; $n++) {
         }
         $expected[$status] = ($expected[$status] ?? 0) + 1;
     }
-    foreach ([[$renewal, $now + 604800], ['wp_1_wc_emailer_cron', $now + 60], ['wp_version_check', $now - 2]] as [$hook, $time]) {
+    $cronCases = [[$renewal, $now + 604800], ['wp_1_wc_emailer_cron', $now + 60], ['wp_version_check', $now - 2]];
+    foreach ($cronCases as [$hook, $time]) {
         $cron[$time][$hook][md5(serialize($args))] = ['schedule' => false, 'args' => $args];
     }
 }
@@ -76,7 +77,10 @@ foreach ($read as $hooks) {
 if ($cronCount !== 3 * $repetitions || $expected !== ['pending' => 12 * $repetitions, 'failed' => $repetitions]) {
     throw new RuntimeException('A29_SEED_COUNTS');
 }
-$stored = $wpdb->get_results("SELECT status,COUNT(*) AS n FROM {$wpdb->prefix}actionscheduler_actions GROUP BY status", ARRAY_A);
+$stored = $wpdb->get_results(
+    "SELECT status,COUNT(*) AS n FROM {$wpdb->prefix}actionscheduler_actions GROUP BY status",
+    ARRAY_A
+);
 $actual = [];
 foreach ($stored as $row) {
     $actual[$row['status']] = (int) $row['n'];

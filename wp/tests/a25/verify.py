@@ -72,6 +72,17 @@ def form_observation_valid(data, variant):
         'clear_messages_after_import_label': 'avertissement éditorial permanent, non mesuré sur la copie inspectée'} and data['counts']['forms'] == counts
 
 
+def import_purge_valid(data):
+    """Positive real-purge witness, unknown preservation and unchanged order semantics."""
+    expected = {'neutraliser_and_anonymiser_executed': True, 'marker_count': 1,
+                'comments_before': 3, 'comments_after': 3, 'emails_before': 2, 'emails_after': 3,
+                'ip_before': 2, 'ip_after': 0, 'known_messages_before': 2, 'known_messages_after': 0,
+                'unknown_messages_before': 2, 'unknown_message_preserved': True,
+                'submission_pk_messages_preserved': True, 'submission_child_rows_preserved': True,
+                'guest_orders_preserved': True}
+    return type(data) is dict and data == expected and all(type(data[k]) is type(v) for k, v in expected.items())
+
+
 def verify(packet, sealed=True, require_shared=False):
     checks, counts = [], {}
 
@@ -87,7 +98,8 @@ def verify(packet, sealed=True, require_shared=False):
                 'replay_identical', 'documented_only_given_arguments', 'unconfined_php_refused',
                 'transaction_readonly_even_root', 'audit_guard:schema', 'audit_guard:storage',
                 'all_tables_and_scheduler_identical', 'site_files_identical', 'config_never_executed',
-                'actual_import_comments_changed_forms_clear', 'neutralised_audit', 'neutralised_success',
+                'actual_import_comments_anonymised', 'actual_import_known_forms_purged',
+                'actual_import_unknown_forms_kept_separately', 'neutralised_audit', 'neutralised_success',
                 'neutral_unknown_never_zero', 'unchanged_native_counts_after_import',
                 'neutralised_all_tables_files_identical', 'five_native_seed', 'five_audit', 'five_confined_success',
                 'five_native_year_state_utc', 'five_native_form_year', 'five_native_guests_year',
@@ -135,6 +147,7 @@ def verify(packet, sealed=True, require_shared=False):
         for storage in ('classic', 'hpos'):
             prefix = console + ':' + storage
             check(prefix + ':mandatory_cases', all(storage + ':' + key in native for key in required))
+            check(prefix + ':actual_purge_provenance', import_purge_valid(read(folder / (storage + '-neutralisation.json'))))
             before = read(folder / (storage + '-db-before.json'))
             check(prefix + ':all_tables_identical', before == read(folder / (storage + '-db-after.json'))
                   and {'wp_comments', 'wp_fluentform_submissions', 'wp_a25_unknown_entries',

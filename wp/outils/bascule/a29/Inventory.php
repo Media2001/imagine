@@ -74,7 +74,10 @@ final class Inventory
             $GLOBALS['wp_filter'][$hook][PHP_INT_MAX][] = ['function' => static fn(): int => 0, 'accepted_args' => 0];
         }
         \Imagine\PublicAddresses\Runtime::boot($site);
-        if (!class_exists(\ActionScheduler::class) || !class_exists(\Automattic\WooCommerce\Utilities\OrderUtil::class)) {
+        if (
+            !class_exists(\ActionScheduler::class)
+            || !class_exists(\Automattic\WooCommerce\Utilities\OrderUtil::class)
+        ) {
             throw new \RuntimeException('A29_NATIVE_API_UNAVAILABLE');
         }
         global $wpdb;
