@@ -1,0 +1,15 @@
+{
+  "scope": "imagine-test-demo",
+  "before": {
+    "plugins/imagine-site/Accueil.php": "04bfea4a7137439eff4c9099115a355eb6b0683eb488ce16bbf0f5b1d8482da7",
+    "themes/imagine/front-page.php": "fb7093445a9e1a216ea24b8686803622a60fa4b59c2732d44f02174ffafd0e8e",
+    "themes/imagine/inc/catalogue.php": "60fdcb75cc450a756164995eca8e5623f6b480ee755c16bdda6f9d1dde6a9e5e",
+    "themes/imagine/single-imagine_numero.php": "701a14b4dcf8f04182af4d4f0729cb696fc475d9096dcba9e4ba19d4f2d8fef8"
+  },
+  "readback": {
+    "plugins/imagine-site/Accueil.php": "c074d745f67e9110fc21e7b2a3149f0ec63a843e7a39c7fe0748f510a44c4eac",
+    "themes/imagine/front-page.php": "fb7093445a9e1a216ea24b8686803622a60fa4b59c2732d44f02174ffafd0e8e",
+    "themes/imagine/inc/catalogue.php": "5bd9051350729166674984deeacad7f5ed344f681a2e9616297114ed0ec0e914",
+    "themes/imagine/single-imagine_numero.php": "c1c982d3093b010c7368a9d73d7d445d83e219ff38958d05daf7c53ec872a1dc"
+  }
+}

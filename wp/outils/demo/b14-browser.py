@@ -43,6 +43,19 @@ def checker(page, body, role, index, fixture, markers, check):
     check(role+'_ancre_menu_valide', page.locator('#imagine-thematiques').count() == 1)
     check(role+'_absence_temoins_C26', b.c26.c23.assess(200, body, markers)['ok'])
     check(role+'_mutation_fuite_refusee', not b.c26.c23.assess(200, body+'<!-- '+markers[0]+' -->', markers)['ok'])
+    anchor = page.locator('#imagine-abonnement')
+    check(role+'_ancre_abonnement_unique', anchor.count() == 1)
+    check(role+'_ancre_contient_cta', anchor.locator('a[href="'+page.locator('.imagine-nav-abonnement > a').get_attribute('href')+'"]').count() == 1)
+    if role == 'anonyme':
+        response = page.goto(fixture['base']+fixture['article_path'], wait_until='networkidle')
+        check('paywall_200_zero_sortant', response.status == 200 and b.observation(response.text()) == {'http': [], 'mail': []})
+        target = page.locator('[data-imagine-bloc] a[href$="#imagine-abonnement"]')
+        check('paywall_lien_abonnement_present', target.count() > 0)
+        target.first.click()
+        page.wait_for_load_state('networkidle')
+        check('paywall_atteint_conversion_avec_cta', page.url.endswith('#imagine-abonnement')
+            and page.locator('#imagine-abonnement').count() == 1
+            and "S'abonner" in page.locator('#imagine-abonnement').inner_text().replace('’', "'"))
     return {'sections':keys,'events':events,'buy':buy,'main_sha256':b.hashlib.sha256(main.inner_html().encode()).hexdigest()}
 
 if __name__ == '__main__':
