@@ -1,0 +1,14 @@
+{
+  "first_outer_rollback_not_sufficient": true,
+  "removed_owned_item": 3474,
+  "removed_owned_actions": [
+    9165,
+    9166
+  ],
+  "private_snapshot": {
+    "file": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\b11-private-h575dtp9\\snapshot.json",
+    "sha256": "846ae196fb1ab57066a0c9de87e7cddb37db6fbd87c7b9945747270f0d1dff23",
+    "private": true
+  },
+  "exact_business_restored": true
+}

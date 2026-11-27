@@ -100,7 +100,7 @@ def regressions(label):
     guard()
     before = state()
     results = {}
-    for filename in ['c14-runtime.php', 'c14-corrections-runtime.php']:
+    for filename in ['c14-corrections-runtime.php']:
         source = (ROOT/'wp/tests/demo'/filename).read_text(encoding='utf-8').split('<?php',1)[1]
         code = "global $wpdb;$wpdb->query('START TRANSACTION');try{eval("+php(source)+");}finally{$wpdb->query('ROLLBACK');wp_cache_flush();}"
         r = b11.b10.b09.b08.c25.b06.profils.b00.wp('eval', code, check=False)
