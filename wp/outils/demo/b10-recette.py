@@ -66,7 +66,7 @@ def run(label):
             # Vrai POST avec nonce invalide, configuration inchangée.
             page.goto(settings)
             page.locator('form').filter(has=page.locator('textarea[name=mapping]')).locator('input[name=_b10]').evaluate("e=>e.value='invalide'")
-            page.locator('select[name=carte]').select_option('1');page.locator('button[value=enregistrer]').click()
+            page.locator('select[name=carte]').select_option('1');page.locator('button[value=enregistrer]').click();page.wait_for_load_state('networkidle')
             checks['nonce_invalide_refuse']='Opération refusée' in page.content() and b10.wp('echo wp_json_encode(Imagine\\Site\\PointsVente::configuration()["carte"]);')=='0'
             reader=context('lecteur');rpage=reader.new_page();r=rpage.goto(settings)
             checks['lecteur_sans_acces_import']=r.status==403 and rpage.locator('input[name=csv]').count()==0

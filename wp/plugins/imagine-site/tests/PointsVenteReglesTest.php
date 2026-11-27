@@ -11,6 +11,55 @@ require_once __DIR__ . '/../PointsVenteRegles.php';
 
 final class PointsVenteReglesTest extends TestCase
 {
+    public function testColonnesOptionnellesEtCsvStandard(): void
+    {
+        $map = ['nom' => 'n', 'adresse' => 'a', 'localite' => 'v', 'postal' => 'p', 'personne' => 'contact', 'telephone' => 'tel'];
+        $csv = "\xEF\xBB\xBFn,a,v,p,contact,tel\r\n\"Kiosque, fictif\",\"Rue \"\"inventée\"\"\",Étoile,00001,Personnage fictif,000-fictif\r\n";
+        $r = PointsVenteRegles::charger($csv, $map, ',');
+        self::assertSame('Kiosque, fictif', $r['lignes'][0]['nom']);
+        self::assertSame('Rue "inventée"', $r['lignes'][0]['adresse']);
+        self::assertSame('Personnage fictif', $r['lignes'][0]['personne']);
+        self::assertSame('000-fictif', $r['lignes'][0]['telephone']);
+        $multi = "n;a;v;p\n\"Nom\nfictif\";rue;ville;00001\nmal;forme\n";
+        $r = PointsVenteRegles::charger($multi, array_slice($map, 0, 4), ';');
+        self::assertSame([['ligne' => 4, 'motif' => 'nombre_colonnes']], $r['refus']);
+    }
+
+    public function testRefusSansDonneeEtDoublon(): void
+    {
+        $map = ['nom' => 'n', 'adresse' => 'a', 'localite' => 'v', 'postal' => 'p'];
+        $csv = "n;a;v;p\nFictif;rue;Étoile;00001\nFictif;rue;Étoile;00001\n;RUE_SECRETE;ville;00001\n\"guillemet\"suffixe;rue;ville;00001\n";
+        $r = PointsVenteRegles::charger($csv, $map, ';');
+        self::assertCount(1, $r['lignes']);
+        self::assertSame([
+            ['ligne' => 3, 'motif' => 'doublon'],
+            ['ligne' => 4, 'motif' => 'champ_requis'],
+            ['ligne' => 5, 'motif' => 'syntaxe_csv'],
+        ], $r['refus']);
+        self::assertStringNotContainsString('RUE_SECRETE', json_encode($r));
+    }
+
+    public function testFichiersEtMappingsInvalides(): void
+    {
+        $map = ['nom' => 'n', 'adresse' => 'a', 'localite' => 'v', 'postal' => 'p'];
+        foreach ([
+            ['', $map, ';'],
+            ["n;a;v;p\n;rue;ville;00001\n", $map, ';'],
+            ["n;n;v;p\nA;B;V;P\n", $map, ';'],
+            ["n;a;v;p\nA;B;V;P\n", ['nom' => 'n'], ';'],
+            ["n;a;v;p\nA;B;V;P\n", $map + ['secret' => 'n'], ';'],
+            ["n;a;v;p\nA;B;V;P\n", $map, '|'],
+            ["n;a;v;p\nA;\xFF;V;P\n", $map, ';'],
+        ] as [$csv, $mapping, $delimiter]) {
+            try {
+                PointsVenteRegles::charger($csv, $mapping, $delimiter);
+                self::fail('Fichier invalide accepté');
+            } catch (\InvalidArgumentException $e) {
+                self::assertMatchesRegularExpression('/^[a-z_]+$/', $e->getMessage());
+            }
+        }
+    }
+
     public function testRechercheExacteEtTri(): void
     {
         $rows = [
