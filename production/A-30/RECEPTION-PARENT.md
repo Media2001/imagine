@@ -1,7 +1,9 @@
-# A30 — réception parent BLOQUÉE 2026-11-27T07:32:11.108748+01:00
+# A30 — réception parent finale 2026-11-27T08:10:38.117262+01:00
 
-Matrice fraîche entière réellement verte : 34 tests par console Windows UTF-8/cp1252, TMPDIR absent ; PHP natif classique/HPOS et style strict en conteneurs. Lecteurs Windows sans argument à 0.
+Lecture historique Windows corrigée uniquement dans env_valid ; contrôles réels clean_environment inchangés. RED Linux 1 puis GREEN 0 et lecteur complet sur racine/montage read-only 0. Les 34 tests anciens sont conservés et 38 tests sont mesurés en UTF-8 et cp1252 sans TMPDIR. Matrice native classique/HPOS et style strict réexécutés.
 
-Le vrai global UTF-8 nomme A-30 NATIVE_PACKET_INVALID. Reproduction RO Linux : utf8:python_tests et cp1252:python_tests FAIL ; environnement Windows C:\... interprété par Path.resolve() sous /packet-repo, puis refus hors-dépôt. Les contrôles, tests et sources ne sont pas modifiés pour obtenir vert. Le deuxième global cp1252 échoue séparément après disparition du runner ; logs bruts conservés.
+PAQUETS : 11 vérifiés, 0 échecs ; hors rejeu : aucun
+OUTILS : 22 outils, 584 contrôles, 0 échecs ; hors rejeu : aucun
+REJEU : 1166 tests, 36318 assertions, 0 échecs, 0 erreurs, 0 ignorés — PASS
 
-Aucun PRET, aucun GO. Paquet natif courant unique ; historique préservé hors dépôt dans C:\Users\Ced\AppData\Local\hermes\cache\scratch\a30-t03-20261127-final-0714. Reçus parent finaux et preuve T03 un octet non validés, faute de nominal vert. Verrou conservé non libéré.
+Paquet courant unique ; historiques hors dépôt sous C:\Users\Ced\AppData\Local\hermes\cache\scratch\a30-reader-resceau-0743. PRET subordonné à la preuve finale T03 sur copie, jamais à un simple remplacement d’empreinte. Import, gardien et lanceur gelés intacts ; aucun GO réel.

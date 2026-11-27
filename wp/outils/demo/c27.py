@@ -4,7 +4,12 @@ sys.dont_write_bytecode = True
 import hashlib
 import json
 import subprocess
+import os
 from pathlib import Path
+# Le processus hôte peut hériter de TMPDIR=Local/Temp : ne jamais y déposer de préimage.
+SCRATCH = Path(os.environ['LOCALAPPDATA']) / 'hermes/cache/scratch'
+SCRATCH.mkdir(parents=True, exist_ok=True)
+os.environ['TMPDIR'] = str(SCRATCH)
 import b09
 ROOT = b09.ROOT
 PROOF = ROOT / 'production/C-27'

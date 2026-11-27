@@ -9,17 +9,17 @@
       "-File",
       "wp/tests/preparer-image.ps1"
     ],
-    "start": "2026-11-27T07:39:35.825208+01:00",
-    "end": "2026-11-27T07:39:39.004619+01:00",
+    "start": "2026-11-27T08:07:53.455389+01:00",
+    "end": "2026-11-27T08:07:56.432560+01:00",
     "exit_code": 0,
     "stdout": "prepare-image.stdout.log",
     "stderr": "prepare-image.stderr.log",
-    "stdout_sha256": "61c304e31e306bd76f01f2f03a9842038f14b54759059d2f8e4ea92bbae486a3",
+    "stdout_sha256": "cdd8def2f7073ed7cad78d808fb965ee0a50ff64923f2b2ebd74aba6801f60c4",
     "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "sources_stable": true,
     "provenance": "FRESH_EXECUTED",
     "log": "prepare-image.stdout.log",
-    "log_sha256": "61c304e31e306bd76f01f2f03a9842038f14b54759059d2f8e4ea92bbae486a3"
+    "log_sha256": "cdd8def2f7073ed7cad78d808fb965ee0a50ff64923f2b2ebd74aba6801f60c4"
   },
   {
     "name": "global-utf8",
@@ -31,16 +31,17 @@
       "-File",
       "wp/tests/rejouer.ps1"
     ],
+    "start": "2026-11-27T08:07:56.832960+01:00",
+    "end": "2026-11-27T08:09:16.266499+01:00",
     "exit_code": 0,
-    "console": "utf-8",
-    "sources_stable": true,
     "stdout": "global-utf8.stdout.log",
-    "stdout_sha256": "3dceff61b951be35823dd08048684b1aa316ce9304421f548aa93c91c90a0e54",
     "stderr": "global-utf8.stderr.log",
+    "stdout_sha256": "234f93b27a94e69ddaa5ffefab50f3934fa19af64766748a5d461b6ad392b2f3",
     "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "provenance": "HISTORICAL_BOOTSTRAP_ONLY_NOT_FINAL",
+    "sources_stable": true,
+    "provenance": "FRESH_EXECUTED",
     "log": "global-utf8.stdout.log",
-    "log_sha256": "3dceff61b951be35823dd08048684b1aa316ce9304421f548aa93c91c90a0e54"
+    "log_sha256": "234f93b27a94e69ddaa5ffefab50f3934fa19af64766748a5d461b6ad392b2f3"
   },
   {
     "name": "global-cp1252",
@@ -52,16 +53,17 @@
       "-File",
       "wp/tests/rejouer.ps1"
     ],
+    "start": "2026-11-27T08:09:16.710858+01:00",
+    "end": "2026-11-27T08:10:37.595210+01:00",
     "exit_code": 0,
-    "console": "cp1252",
-    "sources_stable": true,
     "stdout": "global-cp1252.stdout.log",
-    "stdout_sha256": "f5e8099b2aa8bbcf8afc1ff0eead0102e0b6193e478878e9a221045f39a0063e",
     "stderr": "global-cp1252.stderr.log",
+    "stdout_sha256": "c4e2571522d51840a6d33908e166aed99fcbbd1be201022f7f719459c9bfc3b3",
     "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "provenance": "HISTORICAL_BOOTSTRAP_ONLY_NOT_FINAL",
+    "sources_stable": true,
+    "provenance": "FRESH_EXECUTED",
     "log": "global-cp1252.stdout.log",
-    "log_sha256": "f5e8099b2aa8bbcf8afc1ff0eead0102e0b6193e478878e9a221045f39a0063e"
+    "log_sha256": "c4e2571522d51840a6d33908e166aed99fcbbd1be201022f7f719459c9bfc3b3"
   },
   {
     "name": "a20-readonly",
@@ -70,8 +72,8 @@
       "-B",
       "production/A-20/verify.py"
     ],
-    "start": "2026-11-27T08:03:01.443284+01:00",
-    "end": "2026-11-27T08:03:01.662667+01:00",
+    "start": "2026-11-27T08:07:47.476981+01:00",
+    "end": "2026-11-27T08:07:47.642352+01:00",
     "exit_code": 0,
     "stdout": "a20-readonly.stdout.log",
     "stderr": "a20-readonly.stderr.log",
@@ -89,8 +91,8 @@
       "-B",
       "production/A-21/verify.py"
     ],
-    "start": "2026-11-27T08:03:01.670219+01:00",
-    "end": "2026-11-27T08:03:01.850818+01:00",
+    "start": "2026-11-27T08:07:47.649737+01:00",
+    "end": "2026-11-27T08:07:47.871917+01:00",
     "exit_code": 0,
     "stdout": "a21-readonly.stdout.log",
     "stderr": "a21-readonly.stderr.log",
@@ -108,8 +110,8 @@
       "-B",
       "production/A-22/verify.py"
     ],
-    "start": "2026-11-27T08:03:01.861531+01:00",
-    "end": "2026-11-27T08:03:02.550581+01:00",
+    "start": "2026-11-27T08:07:47.873324+01:00",
+    "end": "2026-11-27T08:07:48.287187+01:00",
     "exit_code": 0,
     "stdout": "a22-readonly.stdout.log",
     "stderr": "a22-readonly.stderr.log",
@@ -127,8 +129,8 @@
       "-B",
       "production/A-28/verify.py"
     ],
-    "start": "2026-11-27T08:04:07.846854+01:00",
-    "end": "2026-11-27T08:04:08.139403+01:00",
+    "start": "2026-11-27T08:07:49.622213+01:00",
+    "end": "2026-11-27T08:07:49.965918+01:00",
     "exit_code": 0,
     "stdout": "a28-readonly.stdout.log",
     "stderr": "a28-readonly.stderr.log",

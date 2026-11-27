@@ -69,6 +69,8 @@ def run(label):
         settings_path='/wp-admin/admin.php?page=imagine-reglages'
         _,settings_body,_=http(settings_path,role='admin')
         checks['C10_section_dans_formulaire_sous_bouton_sans_deplacement']=settings_body.index('id="submit"')<settings_body.index('id="imagine-acquisition-reglages"')<settings_body.index('</form>',settings_body.index('id="imagine-acquisition-reglages"')) and all(n in settings_body for n in ['imagine-retractation-reglages','imagine-personnalisation','imagine-newsletter'])
+        # Préimage (liste de démonstration incluse) restaurée en finally ; exercer une vraie création absente.
+        c27.wp('delete_option(Imagine\\Site\\Acquisition::OPTION);echo wp_json_encode(true);')
         initial=configuration()
         _,failed_create,_=settings('lune|Radio fictive',True)
         checks['C10_creation_journal_en_panne_restaure_preimage']=configuration()==initial and 'setting-error-imagine_acquisition_journal' in failed_create

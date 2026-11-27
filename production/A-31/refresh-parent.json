@@ -1,26 +1,24 @@
 {
-  "at": "2026-11-27T07:32:11.059214+01:00",
-  "state": "BLOCKED_PARENT_GLOBALS_NOT_GREEN_NO_PRET",
-  "reason": "Executed test_verify.py imports wp/tests/t01/paquets.py; native verifier exact_current_dependencies and executed_dependencies refuse old snapshot. Entire real matrix replayed unchanged controls.",
+  "at": "2026-11-27T08:10:38.180055+01:00",
+  "scope": "FULL_REAL_NATIVE_MATRIX_REPLAY",
+  "state": "FINAL_GATES_PASS",
   "command": {
     "name": "a31-matrix",
     "command": [
       "C:/Python314/python.exe",
       "-B",
       "wp/tests/a31/matrix.py",
-      "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-t03-20261127-final-0714\\a31-matrix",
+      "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-reader-resceau-0743\\a31-matrix",
       "--include-native",
       "--parent-serialized"
     ],
-    "start": "2026-11-27T07:20:54.641195+01:00",
-    "end": "2026-11-27T07:25:33.368145+01:00",
+    "start": "2026-11-27T07:46:27.823092+01:00",
+    "end": "2026-11-27T07:51:08.396052+01:00",
     "exit_code": 0,
     "stdout": "a31-matrix.log",
     "stderr": "a31-matrix.stderr.log",
-    "stdout_sha256": "be6dce3bc4066b532c0fafe2ea24feb5a1fe925329a6be206a4abb2b001afcb3",
+    "stdout_sha256": "8b4d2d1748d5ed92cbd139b28e0fc744ab5611bd569fb217402ffdfcc26ee498",
     "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   },
-  "historical_native_outside_repository": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-t03-20261127-final-0714\\A31-historical-preuves",
-  "no_historical_receipt_rehashed": true,
-  "reason_global": "A30 NATIVE_PACKET_INVALID under Linux; Windows native reader is 0. Separate cp1252 global lost runner, retained raw failure."
+  "historical_outside_repository": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-reader-resceau-0743\\historical-A31-preuves"
 }

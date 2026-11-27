@@ -21,7 +21,8 @@ for row in added:
     if row['option_name']=='imagine_acquisition_choix':continue
     event=c27.wp('echo wp_json_encode(get_option('+c27.php(row['option_name'])+'));')
     assert event['option']=='imagine_acquisition_choix' and event['avant'] is None and event['apres']==choices
-untouched=lambda data:[r for r in data['options'] if r['option_name'] in prior]
+volatile={'_transient_timeout_wcs_woocommerce_active_version'}
+untouched=lambda data:[r for r in data['options'] if r['option_name'] in prior and r['option_name'] not in volatile]
 assert untouched(saved)==untouched(current)
-c27.save(sys.argv[1],{'identity':identity,'private_snapshot':durable,'choices':actual,'idempotent':True,'all_existing_options_preserved':True,'restoration_except_new_setting':exact,'added_business_options':len(added),'business_preserved':business==c27.state()})
+c27.save(sys.argv[1],{'identity':identity,'private_snapshot':durable,'choices':actual,'idempotent':True,'existing_nonvolatile_options_preserved':True,'volatile_options_excluded':sorted(volatile),'restoration_except_new_setting':exact,'added_business_options':len(added),'business_preserved':business==c27.state()})
 print('Deux choix fictifs relus, deux rejeux identiques ; aucune commande, profil ou action changé.')

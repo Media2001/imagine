@@ -1,0 +1,36 @@
+{
+  "old_34_preserved": true,
+  "four_new_regressions": 4,
+  "rows": [
+    {
+      "console": "utf8",
+      "old_tests": 34,
+      "current_discovered": 38,
+      "old_test_names_preserved": true,
+      "added_test_names": [
+        "test_mismatch_refused_and_windows_case_semantics_retained (test_historical_windows.HistoricalWindowsTests.test_mismatch_refused_and_windows_case_semantics_retained)",
+        "test_missing_malformed_or_noncanonical_paths_refused (test_historical_windows.HistoricalWindowsTests.test_missing_malformed_or_noncanonical_paths_refused)",
+        "test_root_inside_and_overlap_refused (test_historical_windows.HistoricalWindowsTests.test_root_inside_and_overlap_refused)",
+        "test_valid_windows_capture_is_readable_on_current_host (test_historical_windows.HistoricalWindowsTests.test_valid_windows_capture_is_readable_on_current_host)"
+      ],
+      "TMPDIR_present": false,
+      "repository_root_windows": "C:\\Users\\Ced\\imagine"
+    },
+    {
+      "console": "cp1252",
+      "old_tests": 34,
+      "current_discovered": 38,
+      "old_test_names_preserved": true,
+      "added_test_names": [
+        "test_mismatch_refused_and_windows_case_semantics_retained (test_historical_windows.HistoricalWindowsTests.test_mismatch_refused_and_windows_case_semantics_retained)",
+        "test_missing_malformed_or_noncanonical_paths_refused (test_historical_windows.HistoricalWindowsTests.test_missing_malformed_or_noncanonical_paths_refused)",
+        "test_root_inside_and_overlap_refused (test_historical_windows.HistoricalWindowsTests.test_root_inside_and_overlap_refused)",
+        "test_valid_windows_capture_is_readable_on_current_host (test_historical_windows.HistoricalWindowsTests.test_valid_windows_capture_is_readable_on_current_host)"
+      ],
+      "TMPDIR_present": false,
+      "repository_root_windows": "C:\\Users\\Ced\\imagine"
+    }
+  ],
+  "linux_red_exit": 1,
+  "linux_green_exit": 0
+}

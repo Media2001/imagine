@@ -1,0 +1,22 @@
+{
+  "at": "2026-11-27T08:10:37.990057+01:00",
+  "scope": "FULL_REAL_NATIVE_MATRIX_REPLAY",
+  "state": "FINAL_GATES_PASS",
+  "command": {
+    "name": "a26-matrix",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "wp/tests/a26/matrix.py",
+      "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-reader-resceau-0743\\a26-matrix"
+    ],
+    "start": "2026-11-27T07:42:40.130928+01:00",
+    "end": "2026-11-27T07:46:24.393168+01:00",
+    "exit_code": 0,
+    "stdout": "a26-matrix.log",
+    "stderr": "a26-matrix.stderr.log",
+    "stdout_sha256": "71aad379f30c4204776e219656156b173f18fef9a902c1fba5eea5bf31707887",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "historical_outside_repository": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-reader-resceau-0743\\historical-A26-preuves"
+}

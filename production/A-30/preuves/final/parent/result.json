@@ -1,0 +1,144 @@
+{
+  "at": "2026-11-27T08:10:37.944610+01:00",
+  "exit_code": 0,
+  "commands": [
+    {
+      "name": "prepare-image-final",
+      "command": [
+        "powershell.exe",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "wp/tests/preparer-image.ps1"
+      ],
+      "start": "2026-11-27T08:07:53.455389+01:00",
+      "end": "2026-11-27T08:07:56.432560+01:00",
+      "exit_code": 0,
+      "stdout": "prepare-image-final.log",
+      "stderr": "prepare-image-final.stderr.log",
+      "stdout_sha256": "cdd8def2f7073ed7cad78d808fb965ee0a50ff64923f2b2ebd74aba6801f60c4",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "global-utf8",
+      "command": [
+        "powershell.exe",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "wp/tests/rejouer.ps1"
+      ],
+      "start": "2026-11-27T08:07:56.832960+01:00",
+      "end": "2026-11-27T08:09:16.266499+01:00",
+      "exit_code": 0,
+      "stdout": "global-utf8.log",
+      "stderr": "global-utf8.stderr.log",
+      "stdout_sha256": "234f93b27a94e69ddaa5ffefab50f3934fa19af64766748a5d461b6ad392b2f3",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "global-cp1252",
+      "command": [
+        "powershell.exe",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "wp/tests/rejouer.ps1"
+      ],
+      "start": "2026-11-27T08:09:16.710858+01:00",
+      "end": "2026-11-27T08:10:37.595210+01:00",
+      "exit_code": 0,
+      "stdout": "global-cp1252.log",
+      "stderr": "global-cp1252.stderr.log",
+      "stdout_sha256": "c4e2571522d51840a6d33908e166aed99fcbbd1be201022f7f719459c9bfc3b3",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "replays": [
+    {
+      "at": "2026-11-27T08:09:16.280202+01:00",
+      "marker": {
+        "tests": 1166,
+        "assertions": 36318,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "tools": {
+          "tools": 22,
+          "checks": 584,
+          "failures": 0,
+          "excluded": []
+        },
+        "packets": {
+          "verified": 11,
+          "lots": [
+            "A-20",
+            "A-21",
+            "A-22",
+            "A-23",
+            "A-24",
+            "A-25",
+            "A-26",
+            "A-27",
+            "A-28",
+            "A-30",
+            "A-31"
+          ],
+          "failures": [],
+          "excluded": []
+        },
+        "pass": true
+      },
+      "last": "REJEU : 1166 tests, 36318 assertions, 0 \u00e9checs, 0 erreurs, 0 ignor\u00e9s \u2014 PASS",
+      "summaries": [
+        "PAQUETS : 11 v\u00e9rifi\u00e9s, 0 \u00e9checs ; hors rejeu : aucun",
+        "OUTILS : 22 outils, 584 contr\u00f4les, 0 \u00e9checs ; hors rejeu : aucun",
+        "REJEU : 1166 tests, 36318 assertions, 0 \u00e9checs, 0 erreurs, 0 ignor\u00e9s \u2014 PASS"
+      ]
+    },
+    {
+      "at": "2026-11-27T08:10:37.606299+01:00",
+      "marker": {
+        "tests": 1166,
+        "assertions": 36318,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "tools": {
+          "tools": 22,
+          "checks": 584,
+          "failures": 0,
+          "excluded": []
+        },
+        "packets": {
+          "verified": 11,
+          "lots": [
+            "A-20",
+            "A-21",
+            "A-22",
+            "A-23",
+            "A-24",
+            "A-25",
+            "A-26",
+            "A-27",
+            "A-28",
+            "A-30",
+            "A-31"
+          ],
+          "failures": [],
+          "excluded": []
+        },
+        "pass": true
+      },
+      "last": "REJEU : 1166 tests, 36318 assertions, 0 \u00e9checs, 0 erreurs, 0 ignor\u00e9s \u2014 PASS",
+      "summaries": [
+        "PAQUETS : 11 v\u00e9rifi\u00e9s, 0 \u00e9checs ; hors rejeu : aucun",
+        "OUTILS : 22 outils, 584 contr\u00f4les, 0 \u00e9checs ; hors rejeu : aucun",
+        "REJEU : 1166 tests, 36318 assertions, 0 \u00e9checs, 0 erreurs, 0 ignor\u00e9s \u2014 PASS"
+      ]
+    }
+  ]
+}

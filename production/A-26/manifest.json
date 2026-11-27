@@ -1,16 +1,16 @@
 {
   "lot": "A-26",
-  "status": "PARENT_FINAL_PENDING_NO_PRET",
+  "status": "QUALIFIE_POUR_RELECTURE",
   "recorded_at": "2026-11-27T05:03:10.517531+01:00",
   "packet": "production/A-26/preuves/final",
-  "file_count": 218,
+  "file_count": 219,
   "files": {
     "production/A-26/FINALISATION.md": "e6dc7d32dfbe95a4b1e4481cfb1a9fa630941d4eccc59d997c913e89ccb980f2",
     "production/A-26/RECEPTION-PARENT.md": "321b809fa045fc35eb0c2a5d056dd8f89a942c1bd8c9025510e6766b3f2811ef",
-    "production/A-26/RESCEAU-20261127.md": "1e7157d2acd7ba5630f94ac4b86706fbdab304ffe2e25923d2f7344ae04d2651",
+    "production/A-26/RESCEAU-20261127.md": "bbb128f4d4005a63d5d19b6f7a1cc027d633a0ad6f8f91653c09824c25698bb0",
     "production/A-26/corrections-1h30.md": "266983ff14298a2b2d12119c19daf5c88c660f79ee7ecc56fb3dd012b83cc2fe",
     "production/A-26/notes.md": "e6dc7d32dfbe95a4b1e4481cfb1a9fa630941d4eccc59d997c913e89ccb980f2",
-    "production/A-26/parent-gates.json": "26906053b58bcd373959b87be399056af27df9ef24d6c2240d1bc4fa29d76b05",
+    "production/A-26/parent-gates.json": "1e23440cf2eede3e54af96ef2020d717bab3fdc4d0f6a6f329aa47c2a2cf5d6a",
     "production/A-26/preuves/final/candidate.json": "a3d6bf510e5be0fade55bcda6ab2f3609958521a3b1bff3b3aa5440bfa2c3708",
     "production/A-26/preuves/final/cp1252/environment.json": "b02d3d5247023a7d138eb84c52afc268fc25380c1b8e04213250024199825daf",
     "production/A-26/preuves/final/cp1252/native/classic-audit/audit.json": "af0817778d3d671ce6eed1e0af98182578a78e446ac5a8b3fadf16d5d51873e3",
@@ -178,6 +178,7 @@
     "production/A-26/rapport-court.md": "458e9a2c7cdb0a2222f041d695d06af1222543a80d00d97ff6fb1bff6d9c8a39",
     "production/A-26/readme-ajout.txt": "8a3111b20b3feb2c406d9ebd85f26744f3f39e995be1f4694d452021a0547227",
     "production/A-26/readme-parent.delta.patch": "36b6b2116fac1f56fd35a7220b4f13e641540c18f9d8b329b67e01c24c5c4dcf",
+    "production/A-26/refresh-parent.json": "3fae36525d120a8a0cf20b1e70fe70f22aade740ea4971629eedec2beadc251b",
     "production/A-26/rejeu.json": "e7ea3f978a02b87f6ccdcdd2fbb034c7df9d4785c9e366e403a3ad64ef61b716",
     "production/A-26/standard/consent_api.txt": "eb5650e8bc7634767492b3171c413ed2edb991acf64111ce9880ecf7e5c0a311",
     "production/A-26/standard/embeds.txt": "ecd9f7badcfb3b9c66fa0f39eefa0a79ce831170876bf5c03f38c5f466d89506",
@@ -224,5 +225,5 @@
     "wp/tests/a26/unit.php": "739b5494654defefca93014d4237840427fcaeaaaca8d2676dc8ae9575a9e6c5",
     "wp/tests/a26/verify.py": "920157945e7fbbbee39ee53085ba428d68195f3d753e724acd4559048f0f2fb6"
   },
-  "sealed_at": "2026-11-27T08:04:08.284889+01:00"
+  "sealed_at": "2026-11-27T08:10:38.036277+01:00"
 }

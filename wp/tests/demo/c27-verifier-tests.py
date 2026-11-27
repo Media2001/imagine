@@ -16,7 +16,7 @@ verify=importlib.util.module_from_spec(spec);spec.loader.exec_module(verify)
 
 class PacketTests(unittest.TestCase):
     def setUp(self):
-        self.temp=tempfile.TemporaryDirectory(prefix='c27-verifier-',dir=os.environ.get('TMPDIR'))
+        self.temp=tempfile.TemporaryDirectory(prefix='c27-verifier-',dir=Path(os.environ['LOCALAPPDATA'])/'hermes/cache/scratch')
         self.addCleanup(self.temp.cleanup)
         self.root=Path(self.temp.name)
         self.packet=copy.deepcopy(verify.load(ROOT/'production/C-27/final-V2.json'))

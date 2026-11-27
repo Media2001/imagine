@@ -39,5 +39,7 @@
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     }
   ],
-  "parent_gates": "PENDING_NO_PRET"
+  "parent_gates": "PASS_REAL_ELEVEN_PACKETS",
+  "completed_at": "2026-11-27T08:10:38.117590+01:00",
+  "final_declaration_sha256": "82b5adff87ac2043233c1655aeba29e5a4e9a860e0bb8379a1a87f7bb244d921"
 }
