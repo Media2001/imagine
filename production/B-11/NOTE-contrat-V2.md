@@ -1,0 +1,13 @@
+# B11 — réception au contrat 16h30
+
+**Réception courante : `reception-contrat-V2.json`. Politique 13h30 inchangée : `UI_save_verified=false`.** Les trois lignes Ced restent dans `A-VOIR.md`, reprises dans `A-VOIR-contrat-V2.md`. Aucun parcours de saisie/enregistrement/rechargement UI n’est inventé.
+
+Seuls les vérificateurs, leur qualification, le finaliseur de réception et la section documentaire B11 changent. Aucun PHP, thème fonctionnel, bootstrap, donnée ou réglage du site n’est écrit. `b11-verifier.py` garde son point d’entrée ; `b11-verifier1330.py` contrôle désormais ses fichiers propres, son bloc exact unique dans l’amorçage et sa section README bornée au titre de niveau 2 suivant. Un ajout étranger ne périme pas le lot. Aucun PRET voisin n’est requis.
+
+Les preuves 13h30 sont conservées brutes : recette 102/102, formulaire complet OFF→ON→OFF et 16 valeurs effectives, témoin backend 8/8 avec deux mutants, natif 23/23, audit des éditeurs, sorties/absence de tiers/restaurations. Les sources fonctionnelles et sondes de ces preuves sont comparées exactement aux fichiers propres actuels. La seule ancienne source modifiée est le vérificateur : sa préimage scellée est conservée dans `verifier1330-avant-contrat-V2.py`, non présentée comme les nouveaux octets. Les anciens reçus, leurs pièces et le PRET archivé restent exacts ; le complément voisins historique n’est ni réexécuté ni un critère vivant.
+
+Qualification : 12 contre-exemples bornés via le vrai lecteur, hors réseau et sans mutation disque : source propre, bloc absent/modifié/doublé et section propre absente/modifiée/doublée refusés ; ajout d’un vrai bloc d’enregistrement étranger et d’une section README étrangère acceptés ; aucune lecture de réception/PRET voisin ; preuve altérée refusée. Les 9 tests d’assertions B11 restent applicables.
+
+Les vérifications offline et live sont réellement lancées après les derniers changements. `--live` relit seulement le site fictif gardé : empreintes des fichiers fonctionnels propres, bloc propre, fixture OFF, silences privés et absence de sondes. Aucun déploiement ou recette mutante. Aucun nouveau PHP : le rejeu général n’est pas répété ; les compteurs historiques ne sont pas renommés en rejeu frais. L’arbre courant 1204/36667 annoncé par le parent est distinct des journaux historiques B11.
+
+Commandes parent et résultats : `A-VOIR-contrat-V2.md`, `qualification-contrat-V2.log`, `verification-contrat-offline-V2.log`, `verification-contrat-live-V2.log`. PRET reste technique : ni clôture, validation visuelle ni autorisation sur le réel. A31/A32 hors périmètre ; C27/C28 clos non rouverts.

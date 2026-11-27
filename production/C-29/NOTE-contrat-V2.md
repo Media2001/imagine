@@ -1,0 +1,13 @@
+# C29 — réception courante au contrat 16h30
+
+**Réception courante : `reception-contrat-V2.json`.** Le lecteur usuel `verifier.py` contrôle les empreintes des fichiers propres, le bloc C29 exact et unique dans l’amorçage et la section C29 du README bornée au titre de niveau 2 suivant. Aucun sceau entier de l’amorçage, aucune lecture du PRET ou de la réception vivante d’un voisin.
+
+Aucun code fonctionnel, PHP de test, bootstrap, profil, option métier, session, action ou service externe n’est modifié. Le seul ancien lecteur modifié est archivé octet pour octet dans `verifier-avant-contrat-V2.py` ; l’empreinte de cette archive est exactement celle de `verifier.py` dans l’ancienne réception. `reception-V2.json`, ses preuves pures/native/HTTP et son complément voisins restent bruts. `PRET-avant-contrat-V2` préserve le pointeur précédent. Le nouveau reçu distingue les octets fonctionnels/sondes déjà exercés des nouveaux fichiers de vérification ; il ne prétend pas avoir rejoué les expériences navigateur historiques.
+
+Preuves conservées et contrôlées : **21 purs, 51 natifs, 73 HTTP, 27 profils**, comparaison des fiches complètes et du tableau indépendant, refus et témoins positifs de consentement/écriture/HTTP/mail, restauration native et sessions HTTP exactes à leur départ final. Les limites historiques des essais interrompus et du bootstrap WordPress restent celles de `NOTE.md`. Pas de branchement Brevo/Odoo ni identité tarifaire réelle inventée.
+
+Qualification : 12 cas courts exécutant le vrai lecteur hors réseau. Mutation de fichier propre/bloc propre/section propre, disparition et doublons sont refusés ; un véritable bloc d’enregistrement étranger et une section étrangère sont acceptés ; aucune dépendance de disponibilité d’un voisin ; preuve altérée refusée. Les 9 tests de lecture des preuves C29 restent verts.
+
+Les lecteurs offline et live sont réellement exécutés après les derniers changements. `--live` relit seulement `imagine-test-demo` gardé : les deux sources fonctionnelles propres, le bloc C29 exact, les tarifs fictifs et l’absence de sonde/payload. Aucune recette native/HTTP mutante, déploiement ou nouveau rejeu général ; aucun PHP ajouté. Les 1203/36657 du journal C29 sont historiques ; les 1204/36667 annoncés par le parent sont le courant séparé, non un nouveau rejeu de ce passage.
+
+Documents actuels et commandes : `A-VOIR-contrat-V2.md`. Logs `qualification-contrat-V2.log`, `verification-contrat-offline-V2.log`, `verification-contrat-live-V2.log`. B11 garde UI_save_verified=false ; C27/C28 clos non rouverts, A31/A32 hors périmètre. PRET technique ne vaut ni clôture, validation visuelle ni GO sur le réel.

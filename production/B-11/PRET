@@ -1,3 +1,4 @@
-B11 PRET TECHNIQUE — politique du 27 novembre 2026, 13h30.
-Réception courante : reception-politique1330-V2.json ; NOTE.md et A-VOIR.md.
-Persistance backend prouvée ; saisie UI/reload à parcourir par Ced. Ni validation visuelle, ni clôture, ni GO réel.
+B11 PRET TECHNIQUE — UI_save_verified=false, politique13h30 conservée; 16 options effectives et témoin backend 8/8.
+Réception courante : reception-contrat-V2.json ; NOTE-contrat-V2.md et A-VOIR-contrat-V2.md.
+Contrat16h30 : fichiers propres, bloc propre exact unique, section README bornée; pas de sceau global ni de PRET voisin.
+Lecteurs offline/live-readonly réels PASS; aucune modification fonctionnelle ou nouvelle matrice. Historiques conservés. Ni clôture, validation visuelle ou GO réel.
