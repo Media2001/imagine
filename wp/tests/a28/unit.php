@@ -47,7 +47,8 @@ try {
             } catch (Throwable $error) {
                 $refusal = Command::diagnostic($error, 'neutraliser');
             }
-            $check('absent_closed_refusal_' . $action . '_' . $kind, ($refusal['code'] ?? '') === 'FORM_MESSAGES_DECISION_REFUSED');
+            $check('absent_closed_refusal_' . $action . '_' . $kind, ($refusal['code']
+                ?? '') === 'FORM_MESSAGES_DECISION_REFUSED');
             $store = new MemoryStore();
             $store->tables['x_' . $kind] = [['id' => 1, 'payload' => 'A28_FICTIVE_UNIT']];
             $before = $store->tables;
@@ -120,7 +121,8 @@ try {
             ['ID' => 2, 'post_type' => 'revision', 'post_parent' => 1, 'post_content' => 'A28_FICTIVE_UNIT'],
             ['ID' => 3, 'post_type' => 'revision', 'post_parent' => 2, 'post_content' => 'A28_FICTIVE_UNIT'],
             ['ID' => 4, 'post_type' => 'fiction_magazine', 'post_parent' => 0, 'post_content' => 'A28_FICTIVE_UNIT'],
-            ['ID' => 5, 'post_type' => 'wpcf7_contact_form', 'post_parent' => 0, 'post_content' => 'A28_FORM_DEFINITION'],
+            ['ID' => 5, 'post_type' => 'wpcf7_contact_form', 'post_parent' => 0, 'post_content' =>
+                'A28_FORM_DEFINITION'],
         ];
         $store->tables['x_postmeta'] = [
             ['meta_id' => 1, 'post_id' => 1, 'meta_key' => '_body', 'meta_value' => 'A28_FICTIVE_UNIT'],
@@ -155,7 +157,8 @@ try {
     $store = new MemoryStore();
     $engine = new Engine($store, $context, 'x_');
     $report = $engine->verifier(static function () use ($store, $proof): array {
-        $store->tables['x_posts'][] = ['ID' => 42, 'post_type' => 'flamingo_inbound', 'post_content' => 'A28_FICTIVE_UNIT'];
+        $store->tables['x_posts'][] = ['ID' => 42, 'post_type' => 'flamingo_inbound', 'post_content' =>
+            'A28_FICTIVE_UNIT'];
         return $proof();
     });
     $check('residue_introduced_during_bootstrap_refused', !$report['ok'] && $report['form_message_residues'] === 1);

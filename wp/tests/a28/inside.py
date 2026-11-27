@@ -83,7 +83,7 @@ def database_digest():
 
 def orphan_postmeta_witness(archive, request, storage):
     """Omit only the meta purge, not posts/revisions or either transformation phase."""
-    path = Path('/subject/lib.php')
+    path = Path('/subject/engine.php')
     original = path.read_bytes()
     purge = b" || ($kind === 'postmeta' && isset($formPosts[(int) ($row['post_id'] ?? 0)]))"
     gate = b"$issues[] = 'FORM_MESSAGES_REMAIN';"
@@ -220,19 +220,19 @@ def main():
                             check(storage + ':residue_refused:' + item,
                                   refused['exit'] == 1 and 'FORM_MESSAGES_REMAIN' in refused['report']['issues']
                                   and refused['report']['form_message_residues'] == 1 and refused['stderr_empty'])
-                            original = Path('/subject/lib.php').read_bytes()
+                            original = Path('/subject/engine.php').read_bytes()
                             old = b"$issues[] = 'FORM_MESSAGES_REMAIN';"
                             check(storage + ':mutation_seam:' + item, original.count(old) == 1)
                             try:
-                                Path('/subject/lib.php').write_bytes(original.replace(old, b"/* A28 disposable witness: removed residue gate */"))
+                                Path('/subject/engine.php').write_bytes(original.replace(old, b"/* A28 disposable witness: removed residue gate */"))
                                 mutant = verifier()
                                 check(storage + ':mutation_allows_residue:' + item, mutant['exit'] == 0 and mutant['report']['ok'])
                             finally:
-                                Path('/subject/lib.php').write_bytes(original)
+                                Path('/subject/engine.php').write_bytes(original)
                             restored = verifier()
                             check(storage + ':restored_refuses:' + item, restored['exit'] == 1)
                             case.setdefault('residue_probes', []).append({'kind': item, 'refused': refused, 'mutant': mutant,
-                                                                         'restored': restored, 'source_restored': Path('/subject/lib.php').read_bytes() == original})
+                                                                         'restored': restored, 'source_restored': Path('/subject/engine.php').read_bytes() == original})
                             if item in TABLES:
                                 query('DELETE FROM `wp_' + item + '` WHERE id=42')
                             else:

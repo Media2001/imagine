@@ -131,6 +131,47 @@ class DiscoveryTests(unittest.TestCase):
         self.assertEqual(kwargs['env']['PYTHONIOENCODING'], 'utf-8')
         self.assertNotIn('shell', kwargs)
 
+    def test_duplicates_unknown_green_names_and_non_json_are_refused(self):
+        self.ready()
+        for payload in (b'{"exit_code":0,"checks":[{"check":"PRIVATE_CANARY_PATH","status":"PASS"}]}',
+                        b'{"exit_code":0,"checks":[{"check":"PACKAGE_DRIFT","status":"PASS"},{"check":"PACKAGE_DRIFT","status":"PASS"}]}',
+                        b'{"exit_code":0,"checks":[]}', b'[]', b'null', b'\xff',
+                        b'{"exit_code":0,"status":"FAIL"}', b'{"exit_code":0,"exit":1}'):
+            result = paquets.replay(self.root, execute=Mock(return_value=Mock(returncode=0, stdout=payload, stderr=b'')))
+            self.assertEqual(result['failures'], [{'lot': 'A-22', 'control': 'VERIFIER_OUTPUT'}])
+            self.assertNotIn('PRIVATE', json.dumps(result))
+
+    def test_duplicate_declaration_key_and_missing_entrypoint_never_pass(self):
+        self.declare(logs=[])
+        path = self.lot / 'rejeu.json'
+        path.write_text(path.read_text(encoding='utf-8').replace('"schema": 1', '"schema": 1, "schema": 1'), encoding='utf-8')
+        result = paquets.replay(self.root, execute=self.execute)
+        self.assertEqual(result['failures'], [{'lot': 'A-22', 'control': 'DECLARATION_INVALID'}])
+        self.declare(logs=[])
+        (self.lot / 'verify.py').unlink()
+        result = paquets.replay(self.root, execute=self.execute)
+        self.assertEqual(result['failures'], [{'lot': 'A-22', 'control': 'VERIFIER_START'}])
+        self.execute.assert_not_called()
+
+    def test_symlink_boundary_is_rejected_before_read_or_execution(self):
+        from unittest.mock import patch
+        original = Path.is_symlink
+        self.ready()
+        for path in (self.lot, self.lot / 'rejeu.json', self.lot / 'verify.py',
+                     self.root / 'production/A-22/preuves'):
+            with patch.object(Path, 'is_symlink', lambda p: p == path or original(p)):
+                result = paquets.replay(self.root, execute=self.execute)
+            self.assertEqual(result['failures'], [{'lot': 'A-22', 'control': 'DECLARATION_INVALID'}])
+            self.execute.assert_not_called()
+
+    def test_global_packet_budget_cannot_exhaust_the_T01_timeout(self):
+        from unittest.mock import patch
+        self.ready()
+        with patch.object(paquets, 'packet_time', side_effect=[0, 121]):
+            result = paquets.replay(self.root, execute=self.execute)
+        self.assertEqual(result['failures'], [{'lot': 'A-22', 'control': 'VERIFIER_TIMEOUT'}])
+        self.execute.assert_not_called()
+
     def test_verified_lots_are_explicit_and_counted_exactly(self):
         self.ready()
         good = Mock(returncode=0, stdout=b'{"exit":0,"status":"PASS"}', stderr=b'')

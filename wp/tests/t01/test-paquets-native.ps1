@@ -38,8 +38,8 @@ try {
     foreach ($directory in @('wp', 'production', 'files')) {
         Copy-Item -LiteralPath (Join-Path $root $directory) -Destination (Join-Path $copy $directory) -Recurse -Force
     }
-    $green = Invoke-CopyReplay 'green'
     $proof.native_executed = $true
+    $green = Invoke-CopyReplay 'green'
     if (@($green.packets.failures).Count -ne 0 -or $green.summary -notmatch '^PAQUETS : [1-9][0-9]* .+, 0 .+checs ; hors rejeu : ') { throw 'BASELINE_PACKETS_NOT_GREEN' }
     $target = Join-Path $copy $receipt
     $before = [IO.File]::ReadAllBytes($target)

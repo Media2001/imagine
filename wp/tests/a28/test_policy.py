@@ -81,6 +81,28 @@ class FormPolicy(unittest.TestCase):
                           'failure': {'stage': 'sql_preflight', 'code': 'FORM_MESSAGES_DECISION_REFUSED',
                                       'detail': {'table': 'fluentform_submissions'}}}, receipt)
 
+    def test_provenance_captures_only_known_ids_and_transitive_revisions(self):
+        from types import SimpleNamespace
+        sys.modules.setdefault('legacy_importer', parser_module())
+        spec = importlib.util.spec_from_file_location('a28_provenance_subject', TOOLS / 'inside.py')
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        module.BASE = TOOLS
+        calls = []
+        def query(argv, **kwargs):
+            calls.append(kwargs['data'])
+            return SimpleNamespace(stdout=b'41\n43\t42\n42\t41\n99\t88\n')
+        module.command = query
+        self.assertEqual([41, 42, 43], module.form_post_provenance('wp_'))
+        self.assertEqual(1, len(calls))
+        self.assertNotIn(b'postmeta', calls[0])
+        self.assertNotIn(b'post_content', calls[0])
+        module.command = lambda *a, **kw: SimpleNamespace(stdout=b'99\t88\n')
+        self.assertEqual([], module.form_post_provenance('wp_'))
+        module.command = lambda *a, **kw: SimpleNamespace(stdout=b'-1\n')
+        with self.assertRaises(Refusal):
+            module.form_post_provenance('wp_')
+
     def test_dependency_in_actual_transfer(self):
         # Actual standalone importer copies the one shared JSON to PHP and Python consumers.
         spec = importlib.util.spec_from_file_location('a28_run_subject', TOOLS / 'run.py')

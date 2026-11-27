@@ -122,6 +122,43 @@ class SafetyTests(CoreTests):
                 self.assertEqual(['export.csv'], sorted(x.name for x in folder.iterdir()))
                 self.assertEqual(content, source.read_bytes())
 
+    def test_extended_a13_fixture_retains_exact_five_issue_source_lines(self):
+        from cases import EXPECTED_LINES, five_issues_bytes
+        source = self.work / 'five.csv'
+        source.write_bytes(five_issues_bytes((FIXTURES / 'a13-export-propre-fictif.csv').read_bytes()))
+        result = self.core.prepare(source, MAPPING, date(2026, 11, 25), self.config())
+        self.assertEqual(EXPECTED_LINES['refuse_a13'], [r['line'] for r in result['rows'] if r['rejected']])
+        self.assertEqual(EXPECTED_LINES['sans_email'], [r['line'] for r in result['rows'] if not r['rejected'] and not r['email']])
+        self.assertEqual(EXPECTED_LINES['type_a_decider'], [r['line'] for r in result['rows'] if r['product'] is None])
+        self.assertEqual(25, len(result['rows']))
+
+    def test_cp1252_explicit_and_utf16_bom_use_exact_a13_decoder(self):
+        original = (FIXTURES / 'a13-export-propre-fictif.csv').read_text(encoding='utf-8')
+        for encoding in ('cp1252', 'utf-16'):
+            with self.subTest(encoding=encoding):
+                source = self.work / (encoding + '.csv'); source.write_bytes(original.encode(encoding))
+                config = json.loads(MAPPING.read_text(encoding='utf-8'))
+                config['encodage'] = encoding if encoding == 'cp1252' else 'auto'
+                mapping = self.work / (encoding + '.json'); mapping.write_text(json.dumps(config), encoding='utf-8')
+                result = self.core.prepare(source, mapping, date(2026, 11, 25), self.config())
+                self.assertEqual(0, result['a13_code']); self.assertEqual(30, len(result['rows']))
+                self.assertEqual(original.encode(encoding), source.read_bytes())
+
+    def test_physical_multiline_numbers_and_unknown_type_not_guessed(self):
+        text = (FIXTURES / 'a13-export-propre-fictif.csv').read_text(encoding='utf-8')
+        text = text.replace(';1 rue Imaginaire;', ';"1 rue\nImaginaire";').replace(';papier;', ';type-secret-inconnu;')
+        source = self.work / 'multi.csv'; source.write_text(text, encoding='utf-8')
+        result = self.core.prepare(source, MAPPING, date(2026, 11, 25), self.config())
+        self.assertEqual([2,4,5], [r['line'] for r in result['rows'][:3]])
+        self.assertTrue(all(r['product'] is None for r in result['rows']))
+        self.assertEqual(0, result['a13_code'])
+
+    def test_small_product_and_payment_groups_are_pooled_without_labels(self):
+        self.assertEqual({'groups': [{'key': 910002, 'count': 5}], 'autres': 4},
+                         self.core.grouped([910001]*4 + [910002]*5))
+        self.assertEqual({'groups': [{'key': 'virement', 'count': 5}], 'autres': 4},
+                         self.core.grouped(['domiciliation_papier']*4 + ['virement']*5))
+
     def test_dirty_a13_fixture_exact_rejected_physical_lines(self):
         source = self.work / 'dirty.csv'
         source.write_bytes((FIXTURES / 'a13-export-defauts-fictif.csv').read_bytes())

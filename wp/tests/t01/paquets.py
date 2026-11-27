@@ -5,6 +5,7 @@ from pathlib import Path, PurePosixPath
 import re
 import subprocess
 import sys
+from time import monotonic as packet_time
 
 sys.dont_write_bytecode = True
 
@@ -58,13 +59,13 @@ def declaration(root, lot):
     return data
 
 
-def execute_verifier(root, verifier):
+def execute_verifier(root, verifier, timeout=90):
     # No shell, installation, host transport, argument or source rewriting.
     return subprocess.run(['/usr/bin/python3', '-B', str(verifier)], cwd=root,
                           env={**os.environ, 'PYTHONDONTWRITEBYTECODE': '1',
                                'PYTHONIOENCODING': 'utf-8', 'PYTHONUTF8': '1',
                                'HOME': '/tmp', 'TMPDIR': '/tmp', 'XDG_CACHE_HOME': '/tmp'},
-                          stdin=subprocess.DEVNULL, capture_output=True, timeout=90)
+                          stdin=subprocess.DEVNULL, capture_output=True, timeout=timeout)
 
 
 def parse_verdict(process, controls):
@@ -100,11 +101,12 @@ def parse_verdict(process, controls):
         if process.returncode != 0 or exits[0] != 0 or ('status' in data and data['status'] not in ('PASS', 'CANDIDAT_GATE_PARENT')):
             raise ValueError('CONTRADICTION')
         return None
-    except (ValueError, TypeError, KeyError, UnicodeError):
+    except (ValueError, TypeError, KeyError, UnicodeError, RecursionError):
         return 'VERIFIER_OUTPUT'
 
 
 def replay(root, execute=None):
+    deadline = packet_time() + 120
     result = {'verified': 0, 'lots': [], 'failures': [], 'excluded': []}
     for lot in sorted((root / 'production').iterdir()):
         if not LOT.fullmatch(lot.name):
@@ -127,7 +129,7 @@ def replay(root, execute=None):
             if any(not (root / name).is_file() for name in data['logs']):
                 result['excluded'].append({'lot': lot.name, 'reason': 'journaux absents'})
                 continue
-        except (OSError, ValueError, TypeError):
+        except (OSError, ValueError, TypeError, RecursionError):
             result['failures'].append({'lot': lot.name, 'control': 'DECLARATION_INVALID'})
             continue
         result['verified'] += 1
@@ -136,7 +138,10 @@ def replay(root, execute=None):
             control = 'VERIFIER_START'
         else:
             try:
-                control = parse_verdict((execute or execute_verifier)(root, lot / 'verify.py'), data['controls'])
+                remaining = deadline - packet_time()
+                if remaining <= 0:
+                    raise subprocess.TimeoutExpired('packet-budget', 120)
+                control = parse_verdict((execute or execute_verifier)(root, lot / 'verify.py', min(90, remaining)), data['controls'])
             except subprocess.TimeoutExpired:
                 control = 'VERIFIER_TIMEOUT'
             except OSError:

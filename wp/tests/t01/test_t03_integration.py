@@ -38,6 +38,31 @@ class IntegrationContracts(unittest.TestCase):
         self.assertIn("'t01/Dockerfile'", preparer)
         self.assertNotIn('python', (ROOT / 'wp/tests/rejouer.ps1').read_text(encoding='utf-8').lower())
 
+    def test_declared_python_process_is_never_run_on_host_by_cli(self):
+        source = (HERE / 'paquets.py').read_text(encoding='utf-8')
+        self.assertIn("sys.platform != 'linux'", source)
+        self.assertIn("Path('/.dockerenv').is_file()", source)
+        self.assertIn("Path('/packet-repo/production').is_dir()", source)
+
+    def test_owned_documentation_is_exactly_three_lines(self):
+        appendix = (ROOT / 'production/T-03/readme-ajout.txt').read_bytes().splitlines(keepends=True)
+        mode = (ROOT / 'production/T-01/notes.md').read_bytes().splitlines(keepends=True)
+        self.assertEqual(len(appendix), 3)
+        self.assertEqual(len(set(appendix)), 3)
+        self.assertTrue(all(mode.count(line) == 1 for line in appendix))
+
+    @unittest.skipUnless(sys.platform == 'win32', 'Windows PowerShell syntax parser')
+    def test_all_changed_powershell_files_parse_without_execution(self):
+        paths = [ROOT / 'wp/tests/rejouer.ps1', HERE / 'commun.ps1', HERE / 'paquets.ps1',
+                 HERE / 'mock-wsl.ps1', HERE / 'test-paquets-native.ps1']
+        script = "$ErrorActionPreference='Stop'; "
+        for path in paths:
+            script += "$t=$null;$e=$null;[void][Management.Automation.Language.Parser]::ParseFile('" + str(path) + "',[ref]$t,[ref]$e);if($e.Count){throw 'POWERSHELL_SYNTAX'};"
+        child = subprocess.run(['powershell.exe', '-NoProfile', '-EncodedCommand',
+                                base64.b64encode(script.encode('utf-16le')).decode()],
+                               env={**os.environ, 'PYTHONIOENCODING': 'utf-8'}, capture_output=True, timeout=30)
+        self.assertEqual(child.returncode, 0, child.stderr.decode('utf-8', errors='replace'))
+
     @unittest.skipUnless(sys.platform == 'win32', 'Windows PowerShell mock boundary')
     def test_complete_script_mock_boundary_never_propagates_packet_red(self):
         outputs = {}

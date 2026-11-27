@@ -15,7 +15,10 @@ SCRATCH = Path('C:/Users/Ced/AppData/Local/hermes/cache/scratch/a28-correction-2
 spec = importlib.util.spec_from_file_location('a28_package_verifier', BASE / 'verify.py')
 v = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(v)
-OWN_CHANGED = {'wp/outils/staging/lib.php', 'wp/outils/staging-court/inside.py'}
+OWN_CHANGED = {'wp/outils/staging/lib.php', 'wp/outils/staging-court/inside.py',
+               'wp/outils/staging-court/run.py', 'wp/outils/staging/store.php',
+               'wp/outils/staging/form-decision-refused.php', 'wp/outils/staging/engine.php',
+               'wp/outils/staging/guard.php'}
 
 
 def digest(path):

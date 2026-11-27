@@ -13,13 +13,13 @@ function Get-T03PacketSummary {
         if ($lots.Count -ne $data.verified -or @($lots | Select-Object -Unique).Count -ne $lots.Count) { throw 'COUNT' }
         foreach ($lot in $lots) { if ($lot -isnot [string] -or $lot -cnotmatch '^[A-Z]-[0-9]{2}$') { throw 'LOT' } }
         $reds = @($data.failures | ForEach-Object {
-            if ((@($_.PSObject.Properties.Name | Sort-Object) -join ',') -ne 'control,lot' -or $_.lot -cnotmatch '^[A-Z]-[0-9]{2}$' -or $_.control -cnotmatch '^[A-Za-z][A-Za-z0-9_:.-]{0,159}$') { throw 'CONTROL' }
+            if ((@($_.PSObject.Properties.Name | Sort-Object) -join ',') -ne 'control,lot' -or $_.lot -isnot [string] -or $_.control -isnot [string] -or $_.lot -cnotmatch '^[A-Z]-[0-9]{2}$' -or $_.control -cnotmatch '^[A-Za-z][A-Za-z0-9_:.-]{0,159}$') { throw 'CONTROL' }
             $_.lot + ' ' + $_.control
         })
         if (@($data.failures.lot | Select-Object -Unique).Count -ne $reds.Count) { throw 'DUPLICATE_RED' }
         $reasons = @('declaration absente', 'journaux absents', 'Docker requis', 'reseau requis', 'ecriture depot requise', 'argument requis')
         $outside = @($data.excluded | ForEach-Object {
-            if ((@($_.PSObject.Properties.Name | Sort-Object) -join ',') -ne 'lot,reason' -or $_.lot -cnotmatch '^[A-Z]-[0-9]{2}$' -or $reasons -cnotcontains $_.reason -or $lots -contains $_.lot) { throw 'OUTSIDE' }
+            if ((@($_.PSObject.Properties.Name | Sort-Object) -join ',') -ne 'lot,reason' -or $_.lot -isnot [string] -or $_.reason -isnot [string] -or $_.lot -cnotmatch '^[A-Z]-[0-9]{2}$' -or $reasons -cnotcontains $_.reason -or $lots -contains $_.lot) { throw 'OUTSIDE' }
             $_.lot + ' (' + $_.reason + ')'
         })
         if (@($data.excluded.lot | Select-Object -Unique).Count -ne $outside.Count) { throw 'DUPLICATE_OUTSIDE' }

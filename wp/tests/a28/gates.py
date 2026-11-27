@@ -36,6 +36,16 @@ def main():
 
     def run(name, argv, encoding='utf-8', utf8='1'):
         env = {**os.environ, 'PYTHONDONTWRITEBYTECODE': '1', 'PYTHONIOENCODING': encoding, 'PYTHONUTF8': utf8}
+        if name in ('prepare-image', 'global-utf8', 'global-cp1252'):
+            common = ['wp/tests/preparer-image.ps1', 'wp/tests/rejouer.ps1', 'wp/tests/t01/commun.ps1',
+                      'wp/tests/t01/executer.php', 'wp/tests/t01/tools.php', 'wp/tests/t01/Dockerfile',
+                      'wp/tests/t01/packets.php', 'wp/tests/t01/packages.php']
+            observed = {'utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),
+                        'purpose': 'observed concurrent T03 version, not a whole-repository freeze',
+                        'files': {rel: hashlib.sha256((ROOT / rel).read_bytes()).hexdigest()
+                                  if (ROOT / rel).is_file() else None for rel in common}}
+            (out / (name + '.common-observed.json')).write_text(json.dumps(observed, indent=2), encoding='utf-8')
+            print(name + ': observed common version ' + json.dumps(observed['files']), flush=True)
         p = subprocess.run(argv, cwd=ROOT, env=env, capture_output=True, timeout=1800)
         (out / (name + '.stdout.log')).write_bytes(p.stdout)
         (out / (name + '.stderr.log')).write_bytes(p.stderr)

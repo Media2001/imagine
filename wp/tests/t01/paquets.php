@@ -5,7 +5,7 @@ declare(strict_types=1);
 // Same container as PHPUnit. The packet channel cannot change the test totals.
 try {
     $process = proc_open(
-        ['/usr/bin/python3', '-B', __DIR__ . '/paquets.py'],
+        ['timeout', '150', '/usr/bin/python3', '-B', __DIR__ . '/paquets.py'],
         [0 => ['file', '/dev/null', 'r'], 1 => ['pipe', 'w'], 2 => ['pipe', 'w']],
         $pipes,
         '/tmp'
