@@ -1,5 +1,6 @@
 """Parent-only synthetic classic/HPOS bank; private streams stay in RAM."""
 import importlib.util
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -96,6 +97,27 @@ def seed(site, cfg, repeats=1):
                           "SELECT hook FROM wp_actionscheduler_actions WHERE status='pending'").stdout.splitlines()[1:]
             receipt['closed_extra_followups'] = [helpers.get(hook, 'unqualified_native_followup')
                                                 for hook in hooks if hook not in planned]
+            extra = set(hook for hook in hooks if hook not in planned)
+            receipt['extra_followup_sha256'] = sorted(hashlib.sha256(hook.encode('utf-8')).hexdigest() for hook in extra)
+            matched = []
+            for owner in ('woocommerce', 'woocommerce-subscriptions'):
+                root = site / 'wp-content/plugins' / owner
+                for source_file in root.rglob('*.php'):
+                    source = source_file.read_text(encoding='utf-8', errors='replace')
+                    for hook in extra:
+                        literal = "'" + hook + "'"
+                        position = source.find(literal)
+                        if position < 0:
+                            continue
+                        functions = re.findall(r'function\s+([A-Za-z_][A-Za-z0-9_]*)\s*\(', source[:position])
+                        line_index = source.count('\n', 0, position)
+                        excerpt = '\n'.join(source.splitlines()[max(0, line_index - 5):line_index + 20]).replace(hook, '<NATIVE_HELPER>')
+                        excerpt = re.sub(r"'(?:\\.|[^'\\])*'|\"(?:\\.|[^\"\\])*\"", "'<LITERAL>'", excerpt)
+                        matched.append({'owner': owner, 'source_sha256': hashlib.sha256(source_file.read_bytes()).hexdigest(),
+                                        'method': functions[-1] if functions else 'class_constant',
+                                        'hook_sha256': hashlib.sha256(hook.encode('utf-8')).hexdigest(),
+                                        'public_source_excerpt_literals_masked': excerpt[:4000]})
+            receipt['public_native_source_matches'] = matched
         (OUT / (site.name + '-seed-shutdown-' + str(repeats) + '.json')).write_text(
             json.dumps(receipt, indent=2) + '\n', encoding='utf-8')
         b.check(site.name + ':native_seed_after_shutdown_' + str(repeats), observed == expected)
