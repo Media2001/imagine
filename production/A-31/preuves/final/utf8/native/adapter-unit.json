@@ -1,0 +1,81 @@
+{
+    "checks": [
+        {
+            "check": "parent_native_relation",
+            "status": "PASS"
+        },
+        {
+            "check": "standalone_not_default_for_opaque",
+            "status": "PASS"
+        },
+        {
+            "check": "native_relation_renewal",
+            "status": "PASS"
+        },
+        {
+            "check": "native_relation_switch",
+            "status": "PASS"
+        },
+        {
+            "check": "native_relation_resubscribe",
+            "status": "PASS"
+        },
+        {
+            "check": "renewal_missing_native_subscription",
+            "status": "PASS"
+        },
+        {
+            "check": "existing_subscription_not_orphan",
+            "status": "PASS"
+        },
+        {
+            "check": "missing_reference_never_resolved_by_logging_getter",
+            "status": "PASS"
+        },
+        {
+            "check": "malformed_0",
+            "status": "PASS"
+        },
+        {
+            "check": "malformed_1",
+            "status": "PASS"
+        },
+        {
+            "check": "malformed_2",
+            "status": "PASS"
+        },
+        {
+            "check": "malformed_3",
+            "status": "PASS"
+        },
+        {
+            "check": "malformed_4",
+            "status": "PASS"
+        },
+        {
+            "check": "malformed_5",
+            "status": "PASS"
+        },
+        {
+            "check": "malformed_6",
+            "status": "PASS"
+        },
+        {
+            "check": "mixed_natures_illisible",
+            "status": "PASS"
+        },
+        {
+            "check": "parent_and_renewal_illisible",
+            "status": "PASS"
+        },
+        {
+            "check": "extension_relation_illisible",
+            "status": "PASS"
+        },
+        {
+            "check": "native_filter_contradiction_illisible",
+            "status": "PASS"
+        }
+    ],
+    "exit_code": 0
+}

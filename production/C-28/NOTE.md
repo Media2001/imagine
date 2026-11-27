@@ -1,4 +1,42 @@
-# C-28 — note de réception
+# C-28 — réception corrigée après fusion du 27 novembre 2026, 12 h 40
+
+## État courant — remplace la note historique ci-dessous
+
+**C28-01 corrigé** : gardes serveur d'achetabilité Woo, ajout direct et revalidation du panier au checkout, produit relu ; dernier garde avant première persistance du paiement. Un numéro dépublié bloque tout le pack. Prix global fictif inchangé, pas de prix recalculé.
+
+**C28-02 corrigé** : état persisté relu avant sauvegarde ; capture éphémère liée au seul objet (`WeakMap`) uniquement pour la première transition non payée vers payée et datée, consommée après persistance et avant ligne. Commande déjà payée ou déjà datée : jamais de reconstruction depuis le produit vivant. Instantané absent/non fiable : fermeture, puis signalement persistant `imagine_pack_anomalie` visible sur la ligne lors de sa sauvegarde. Date et produit incohérents refusés ; la suppression native du produit (ID de ligne ramené à zéro) conserve le bon instantané acquis. Aucun moteur de réparation automatique.
+
+**Déliement technique symétrique appliqué** : un numéro C14 valide retire la méta pack, même avec le seul champ C14 soumis. Règles `AchatNumero`, accès et remboursements C14 inchangés, aucun réglage/prix nouveau. Produit simple à prix global et blocage du pack entier sont les défauts prudents de la fusion ; les confirmations métier d'Imagine n'arrêtent pas le lot.
+
+### Preuves actuelles
+
+- `correction-unitaire-final.log` : **3 tests / 54 assertions** ; couche `candidat`/`payer`/`instantanes` et hooks panier sur doubles persistés, intégrée au paquet PHPUnit rejouable.
+- `correction-canaris-final.json` : **5 mutants de source rouges puis GREEN**, copie jetable hors réseau : ajout direct, checkout, reconstruction tardive, commande déjà payée sans date fiable, déliement C14. Aucun mutant hors ligne appliqué au site.
+- `correction-natif-final.json` : **25/25** contrôles ; `correction-fenetre-finale.json` : **18/18**, dont panier réel avant dépublication et vraie panne de sauvegarde de ligne **APRÈS paiement persisté**, objet rechargé, pack édité, sauvegarde tardive fermée/signalée, deux sens du déliement.
+- `correction-c14-final.json` : **45/45** régressions du complément C14 existant inchangé.
+- `correction-recette-finale.json` : **200/200** navigateur/HTTP ; profils, commandes, sessions, réglage et actions restaurés puis relus. **32 témoins C26**, **7 sorties non vides**, **32 injections de réponse détectées**, **1 mutation de source détectée/restaurée** ; matrice inchangée.
+- `correction-preservation-finale.json` : état avant fixture retrouvé hors seul produit déclaré ; aucun achat C28 permanent ni droit C09 laissé ouvert.
+- `correction-lint-final.json` : **19 fichiers PHP**, syntaxe valide.
+- `correction-image-finale.*` : `preparer-image.ps1` rejoué après ajout des tests, sortie **0**, image vérifiée.
+- `correction-regression-finale.*` : **1 190 tests / 36 548 assertions**, 0 échec/erreur/ignoré, **PASS** ; **22 outils / 720 contrôles**, 0 échec.
+
+`reception-corrections.json` est le sceau courant ; `reception.json` et `PRET-avant-corrections-12h40-historique.txt` sont historiques. La fixture reste produit 3592, liste [11,18,25], 3.28 EUR fictifs ; aucun compte créé, article/PDF existant modifié ni paiement financier. Installation des seuls fichiers C28/C14 modifiés, sources relues.
+
+### Limites et relectures
+
+- Relectures initiales : Claude avait joué `rejouer.ps1` (1 189 tests / 36 512 assertions). Codex n'avait pas pu lancer PHPUnit (`Wsl/Service/E_ACCESSDENIED`) et avait joué seulement le vérificateur (27 contrôles). **Aucun des deux n'avait rejoué les recettes `--live`/mutantes**. Les exécutions corrigées ci-dessus sont celles de livraison, pas un rejeu indépendant des relecteurs.
+- Le témoin de panne est une exception réelle lors de la sauvegarde de ligne, pas un arrêt brutal du conteneur. Woo 11.2.2 l'absorbe dans `save()` : le témoin atteste son déclenchement puis relit séparément paiement persisté et ligne absente. Premier essai rouge conservé (attente erronée d'une exception propagée), état métier restauré. Autre rouge conservé : ID produit remis à zéro à la suppression, garde ajusté sans retirer le test puis vert.
+- Paiement/remboursement **fictifs natifs**, sans passerelle ni checkout bancaire. Pas de garantie nouvelle de concurrence d'éditions simultanées, réparation automatique ou identité intégrale de base : caches/transients, logs/analytics et compteurs peuvent varier ; exclusions historiques des caches de rapports WCS conservées. Comparaison métier et restitutions ciblées seulement.
+- Paquets hors lot : **A-31 hors rejeu, journaux absents**, **A-32 / A32_PACKAGE_DRIFT** ; **11 paquets vérifiés, 1 échec**. Aucun code/reçu/sceau A31/A32 corrigé. Le PASS porte sur tests/outils, pas sur tous les paquets.
+- **B-11 reste BLOQUÉ sans PRET**, aucun code/réglage/preuve B11 touché ; bootstrap inchangé. Aucun autre site, file, verrou ou bibliothèque close modifié. Validation visuelle de Ced attendue, aucun GO sur le réel.
+
+---
+
+## HISTORIQUE — réception initiale antérieure à la fusion, périmée
+
+Les nombres, empreintes et limites des sections suivantes décrivent uniquement l'état initial ; ils ne valent pas preuve courante.
+
+# C-28 — note de réception initiale
 
 ## Livré
 

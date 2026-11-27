@@ -1,0 +1,95 @@
+{
+    "source_sha256": {
+        "order": "2b3384b5e8a49ad8d6e948eaa40cd5492c7e8f0354617df6c6db9774b02fbe64",
+        "functions": "79abc32d650f91360a66b9b76eff15c5bee8f6a2c9fdea4579e851f7401ddca7",
+        "customer": "bd7989763fe03479a5ac8968abbfa2b87c345a394a21dc1bdf7d9460fe7149d6",
+        "classic": "0b91459ec32942d7caa61a005516828cb557e19c707dfe4c3d4110b221fbf6f2",
+        "hpos": "197bf9ac40b0bca4332c4b85918d0bb9535e9a8b5012add1cd429ff0d3e5ab30",
+        "refund": "3d0175116e59ac7bc4a31e884167b69df8b8d549af1a0ed4ae830e950c625a4b",
+        "statuses": "c450145dc48bf0620456ca3a89fa7b9eb75ee7bf5126ebee96e064c85deaa830",
+        "internal_statuses": "cde293c708bb37991e37e8fe06a52aa0190b55824ec2a9945d2fc3d18963edf4",
+        "native_wcs_parent_field": "ae3d40fc12277bcb3bd0e1edf1ac9d2e8bd57380887308a6385ca20afbeba7ab",
+        "native_wcs_uncached_related_reader": "c83f2c618f9aaba268e99b4e55491dfe2dc37c3177a29fc61cc0a80615400415",
+        "native_wcs_subscription_getter": "70f61d3049628023a027b099065034abefae18be4408014e3c824ceebff450ca",
+        "native_wcs_default_types": "771aea4df76efbd37f7446a410320f0b8e7f21513373baad7303ac2b25c0487d"
+    },
+    "checks": [
+        {
+            "check": "native_order_get_parent",
+            "status": "PASS"
+        },
+        {
+            "check": "native_order_get_date",
+            "status": "PASS"
+        },
+        {
+            "check": "native_order_get_customer",
+            "status": "PASS"
+        },
+        {
+            "check": "native_closed_statuses",
+            "status": "PASS"
+        },
+        {
+            "check": "native_classic_reader",
+            "status": "PASS"
+        },
+        {
+            "check": "native_hpos_reader",
+            "status": "PASS"
+        },
+        {
+            "check": "native_refund_type",
+            "status": "PASS"
+        },
+        {
+            "check": "native_status_pending",
+            "status": "PASS"
+        },
+        {
+            "check": "native_status_processing",
+            "status": "PASS"
+        },
+        {
+            "check": "native_status_on-hold",
+            "status": "PASS"
+        },
+        {
+            "check": "native_status_completed",
+            "status": "PASS"
+        },
+        {
+            "check": "native_status_cancelled",
+            "status": "PASS"
+        },
+        {
+            "check": "native_status_refunded",
+            "status": "PASS"
+        },
+        {
+            "check": "native_status_failed",
+            "status": "PASS"
+        },
+        {
+            "check": "native_status_checkout_draft",
+            "status": "PASS"
+        },
+        {
+            "check": "native_wcs_subscription_getter",
+            "status": "PASS"
+        },
+        {
+            "check": "native_wcs_uncached_related_reader",
+            "status": "PASS"
+        },
+        {
+            "check": "native_wcs_default_types",
+            "status": "PASS"
+        },
+        {
+            "check": "native_wcs_parent_field",
+            "status": "PASS"
+        }
+    ],
+    "exit_code": 0
+}
