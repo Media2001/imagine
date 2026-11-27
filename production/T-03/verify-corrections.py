@@ -37,6 +37,11 @@ def verify():
             or manifest.get('readiness_claimed') is not False
             or manifest.get('parent_final_gates_pending') is not True or (BASE / 'PRET').exists()):
         raise ValueError('CANDIDATE_NOT_PRET_CONTRACT')
+    return verify_evidence(manifest)
+
+
+def verify_evidence(manifest):
+    """Shared read-only evidence assertions, with no readiness/status decision."""
     spec = importlib.util.spec_from_file_location('t03_candidate_qualification', BASE / 'qualifier-corrections.py')
     helper = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(helper)

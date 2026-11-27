@@ -1,8 +1,8 @@
 # Réception des corrections T-03 — 27 novembre 2026
 
-**Candidat courant sans PRET, gates globales bloquées. Aucun GO.** L'ancien marqueur de 8 h 14 et tout son paquet ont été archivés hors dépôt avant correction dans `C:/Users/Ced/AppData/Local/hermes/cache/scratch/t03-cloture-20261127-1829/historique-T03/`. Un seul paquet courant reste dans `preuves/final/`. Le parent reprend A-32, puis les gates A-31/T-03 et la preuve nominale/un octet. Aucun paquet voisin n'est rescellé ici.
+**État final : PRET posé après les gates de clôture, aucun GO.** Les blocages A-31/A-32 de 18 h 42 ont été levés par la réception conjointe parent à 19 h 30, sans modification de ces paquets ici. L'ancien PRET de 8 h 14 et son paquet restent historiques dans `C:/Users/Ced/AppData/Local/hermes/cache/scratch/t03-cloture-20261127-1829/historique-T03/`. Un seul paquet courant reste dans `preuves/final/` ; aucun paquet voisin rescellé.
 
-**Contrat choisi : `verify-corrections.py` ne vaut qu'avant le dépôt de PRET**, pas pour lire l'état final. Après PRET, son refus est intentionnel ; la vérification finale est le rejeu indépendant et les gates du parent. `sceller-candidat.py` reconstruit l'inventaire et appelle tous les contrôles de ce lecteur ; une erreur restaure le manifeste précédent. Aucun remplacement manuel d'empreinte, aucun PRET produit par le sceau candidat. Toute nouvelle écriture de document/source T-03 exige une nouvelle qualification.
+**`verify-corrections.py` reste avant PRET seulement** : après PRET, son refus est intentionnel. **`verify-final.py` est le lecteur final read-only** ; il réutilise toutes les assertions d'évidence du candidat, puis vérifie gates nominale/un octet, gel exact, sources et logs de clôture et marqueur. `sceller-candidat.py` puis `finaliser.py` calculent les empreintes, vérifient leurs propres contrôles et restaurent le manifeste précédent en cas d'erreur ; aucun hash manuel. Toute nouvelle écriture source/notice exige une qualification neuve.
 
 ## 1. Six instructions appliquées
 
@@ -36,7 +36,7 @@ Le paquet courant `preuves/final/qualification/` est la nouvelle qualification c
 
 Le lecteur du candidat vérifie 14 commandes terminées, leur exit réel, leurs flux hachés, les trois cas par console, la mesure des consoles, l'inventaire et les sources courantes. Son succès signifie **tests des corrections PASS**, jamais gate globale ou PRET.
 
-## 3. État nominal historique et blocage courant
+## 3. Historique nominal et résolution finale
 
 Le premier rejeu nominal réellement observé (`qualification-01`, avant réception A-30) affichait **10 vérifiés**, A-21 à A-28, A-30 et A-31 ; **A-20 seul hors rejeu**, et honnêtement quatre rouges :
 
@@ -47,7 +47,7 @@ Le premier rejeu nominal réellement observé (`qualification-01`, avant récept
 
 **Historique avant réception de 8 h 14, pas diagnostic courant** : ces dépendances communes avaient nécessité une vraie requalification, jamais un remplacement manuel d'empreintes. Ces étapes et leurs journaux ne sont pas ré-étiquetés comme preuves des sources actuelles.
 
-**Reprise courante** : 12 lots tentés (A-20 à A-28, A-30, A-31, A-32), aucune exclusion ; rouges **A-31 `A31_PARTIAL_EVIDENCE`** et **A-32 `A32_PACKAGE_DRIFT`**, REJEU PASS et nettoyage relu. Le code 0 global ne suffit pas. A-32 n'est ni modifié ni contourné ; son traitement et les gates du candidat A-31 restent au parent. Aucun faux PRET ni preuve un octet sur baseline prétendument verte. Contrôles de clôture, préparation de l'image et rejeux de reprise : `preuves/final/cloture/`.
+**Historique de reprise à 18 h 42** : 12 lots tentés, aucune exclusion ; rouges A-31 `A31_PARTIAL_EVIDENCE` et A-32 `A32_PACKAGE_DRIFT`, REJEU PASS. Aucun contournement ou faux PRET n'a été posé sur cette base. **État final après réception conjointe parent** : 12 lots A-20…A-28/A-30/A-31/A-32, zéro échec/exclusion. La preuve native courante est nominale verte puis un octet A-28, A-28 PACKAGE_DRIFT seul, REJEU identique ; copie/conteneurs absents et original intact. Gates et gel exact dans `preuves/final/cloture/`, preuve un octet dans `preuves/final/native/`. Aucun changement A-31/A-32.
 
 ## 4. Commandes de réception/finalisation parent
 
