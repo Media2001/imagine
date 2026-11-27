@@ -1,0 +1,23 @@
+{
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "before": {
+    "plugins/imagine-site/ContactBrevoRegles.php": "4c67096993c57c96fe2bfe44b5b4cdfc8f9469a226866f0b0f3b0e1f3a2e3a0d",
+    "plugins/imagine-site/ContactBrevo.php": "a40afd2b8bb32010eb437ac304fbf3104b2eba95cd57c9cb1b9036719628c31c",
+    "plugins/imagine-site/imagine-site.php": "e27ee706324066048c5610730c7b945b945a7b55e66200325147d0b8dcf00780"
+  },
+  "readback": {
+    "plugins/imagine-site/ContactBrevoRegles.php": "4c67096993c57c96fe2bfe44b5b4cdfc8f9469a226866f0b0f3b0e1f3a2e3a0d",
+    "plugins/imagine-site/ContactBrevo.php": "76688ceb595e8f88ef01fbb495848eb9a44f92fd1589296b6d881762fd63f189",
+    "plugins/imagine-site/imagine-site.php": "e27ee706324066048c5610730c7b945b945a7b55e66200325147d0b8dcf00780"
+  },
+  "business_preserved": true
+}

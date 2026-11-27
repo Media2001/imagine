@@ -12,7 +12,10 @@ final class ContactBrevo
 
     public static function register(): void
     {
+        add_action('admin_init', [self::class, 'reglages']);
         add_action('admin_menu', static function (): void {
+            add_options_page(__('Tarifs de la fiche Brevo', 'imagine-site'), __('Tarifs de la fiche Brevo', 'imagine-site'),
+                'manage_options', 'imagine-brevo-tarifs', [self::class, 'pageReglages']);
             if (TableauBordAdmin::autorise()) {
                 add_submenu_page('imagine', __('Ce qui partirait vers Brevo', 'imagine-site'),
                     __('Ce qui partirait vers Brevo', 'imagine-site'),
@@ -30,6 +33,95 @@ final class ContactBrevo
             return $pagenow === 'admin.php' && ($_GET['page'] ?? null) === self::PAGE
                 && TableauBordAdmin::autorise() ? false : $prevent;
         });
+    }
+
+    /** Réglage autonome : jamais soumis par l'écran de projection ni avec le groupe C10. */
+    public static function reglages(): void
+    {
+        register_setting('imagine_brevo_tarifs', self::TARIFS, ['type' => 'array', 'default' => [],
+            'show_in_rest' => false, 'sanitize_callback' => [self::class, 'nettoyerTarifs']]);
+    }
+
+    public static function nettoyerTarifs(mixed $value): array
+    {
+        if (is_string($value)) {
+            $value = json_decode($value, true);
+        }
+        return self::tarifs($value);
+    }
+
+    public static function pageReglages(): void
+    {
+        if (!current_user_can('manage_options')) {
+            wp_die(esc_html__('Réglage réservé à l’administration.', 'imagine-site'), '', ['response' => 403]);
+        }
+        echo '<div class="wrap"><h1>' . esc_html__('Tarifs de la fiche Brevo', 'imagine-site') . '</h1><p>'
+            . esc_html__('Réglage distinct de la consultation. Liste fermée JSON : identifiant natif de produit ou variation vers clé interne. Vide ou invalide : inconnu. Ne définit aucun prix ni droit. Aucun tarif réel n’est prérempli.', 'imagine-site') . '</p><form method="post" action="options.php">';
+        settings_fields('imagine_brevo_tarifs');
+        echo '<label for="imagine-brevo-tarifs">' . esc_html__('Correspondance fermée', 'imagine-site') . '</label><br><textarea id="imagine-brevo-tarifs" name="'
+            . esc_attr(self::TARIFS) . '" rows="10" cols="70">' . esc_textarea(wp_json_encode((object)self::tarifs(get_option(self::TARIFS, [])), JSON_PRETTY_PRINT)) . '</textarea>';
+        submit_button();
+        echo '</form></div>';
+    }
+
+    private static function verifier(): void
+    {
+        if (!TableauBordAdmin::autorise()) {
+            wp_die(esc_html__('Fiches réservées au Référent abonnements.', 'imagine-site'), '', ['response' => 403]);
+        }
+        if (!in_array($_SERVER['REQUEST_METHOD'] ?? 'GET', ['GET', 'HEAD'], true)) {
+            header('Allow: GET, HEAD');
+            wp_die(esc_html__('Écran en lecture seule.', 'imagine-site'), '', ['response' => 405]);
+        }
+    }
+
+    public static function bilan(array $ids, array $contexte): array
+    {
+        $totaux = ['abonne' => 0, 'non_abonne' => 0, 'inconnu' => 0, 'a_retirer' => 0, 'absent' => 0];
+        foreach (array_unique($ids) as $id) {
+            $result = self::fiche((int)$id, $contexte);
+            $totaux[$result['fiche']['statut'] ?? 'absent']++;
+        }
+        return $totaux;
+    }
+
+    public static function page(): void
+    {
+        self::verifier();
+        nocache_headers();
+        header('Cache-Control: private, no-store, no-cache, must-revalidate, max-age=0');
+        echo '<div class="wrap" data-imagine-brevo><h1>' . esc_html__('Ce qui partirait vers Brevo', 'imagine-site') . '</h1><p>'
+            . esc_html__('Lecture seule, calcul à la demande. Rien ne part, rien n’est enregistré. Aucun droit d’accès n’est modifié. Clés internes, correspondance Brevo à définir.', 'imagine-site') . '</p>';
+        $raw = $_GET['compte'] ?? '';
+        $id = is_string($raw) && preg_match('/^[1-9][0-9]*$/D', $raw) && (string)(int)$raw === $raw ? (int)$raw : 0;
+        echo '<form method="get" action="' . esc_url(admin_url('admin.php')) . '"><input type="hidden" name="page" value="' . esc_attr(self::PAGE)
+            . '"><label for="imagine-brevo-compte">' . esc_html__('Identifiant du compte', 'imagine-site') . '</label> <input type="number" min="1" id="imagine-brevo-compte" name="compte" value="'
+            . esc_attr($id ? (string)$id : '') . '"> <button type="submit">' . esc_html__('Voir la fiche', 'imagine-site') . '</button></form>';
+        try {
+            $contexte = self::contexte();
+            $totaux = self::bilan(get_users(['fields' => 'ID']), $contexte);
+            $result = $id ? self::fiche($id, $contexte) : null;
+            echo '<h2>' . esc_html__('Nombre de fiches par statut', 'imagine-site') . '</h2><table class="widefat striped"><tbody>';
+            foreach (['abonne' => 'Abonné', 'non_abonne' => 'Non-abonné', 'inconnu' => 'Inconnu', 'a_retirer' => 'À retirer', 'absent' => 'Sans fiche'] as $key => $label) {
+                echo '<tr><th scope="row">' . esc_html(__($label, 'imagine-site')) . '</th><td data-brevo-total="' . esc_attr($key) . '">' . esc_html((string)$totaux[$key]) . '</td></tr>';
+            }
+            echo '</tbody></table>';
+            if ($result !== null) {
+                $reasons = ['compte_absent' => 'Compte absent.', 'email_non_recevable' => 'Compte sans email recevable.',
+                    'aucun_choix_lecteur' => 'Aucune newsletter choisie par le lecteur.', 'desinscrit_de_tout' => 'Désinscrit de toutes les newsletters : à retirer.',
+                    'eligible' => 'Compte éligible.'];
+                echo '<h2>' . esc_html__('Fiche du compte', 'imagine-site') . '</h2><p data-brevo-raison="' . esc_attr($result['raison']) . '">'
+                    . esc_html(__($reasons[$result['raison']], 'imagine-site')) . '</p>';
+                if ($result['fiche'] !== null) {
+                    echo '<pre data-brevo-fiche>' . esc_html(wp_json_encode($result['fiche'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)) . '</pre>';
+                }
+            } else {
+                echo '<p>' . esc_html__('Choisissez un identifiant de compte valide.', 'imagine-site') . '</p>';
+            }
+        } catch (\Throwable) {
+            echo '<p data-brevo-indisponible>' . esc_html__('Lecture native indisponible : aucun nombre ni fiche de remplacement.', 'imagine-site') . '</p>';
+        }
+        echo '<p>' . esc_html__('Seul l’état actif signifie abonné, pas l’accès numérique. Bénéficiaire offert ou groupé : statut inconnu. Tarif absent, hors liste ou contradictoire : inconnu. Les attributs personnels viennent directement de C24 et de son consentement distinct.', 'imagine-site') . '</p></div>';
     }
 
     /** Liste fermée produit/variation natif => clé interne ; vide/invalide = tout inconnu. */

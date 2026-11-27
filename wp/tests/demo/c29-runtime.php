@@ -58,6 +58,11 @@ try {
         $actual[$code] = ContactBrevo::fiche((int)$id);
         $check('profil_' . $code, $actual[$code] === ['fiche' => $want, 'raison' => $reason]);
     }
+    $check('reglages_present', method_exists(ContactBrevo::class, 'reglages'));
+    ContactBrevo::reglages();
+    $check('reglage_tarif_enregistre', get_registered_settings()[ContactBrevo::TARIFS]['default'] === []);
+    $check('tarif_invalide_ferme', ContactBrevo::tarifs(['0' => 'normal']) === [] && ContactBrevo::tarifs(['192' => '<script>']) === [] && ContactBrevo::tarifs('mauvais') === []);
+    $check('tarif_map_valide', ContactBrevo::tarifs(['192' => 'normal-1']) === [192 => 'normal-1']);
     $check('ecran_present', method_exists(ContactBrevo::class, 'page'));
     wp_set_current_user((int)$users['E-ABO']);
     $_SERVER['REQUEST_METHOD'] = 'GET';
