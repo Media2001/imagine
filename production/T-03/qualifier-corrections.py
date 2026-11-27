@@ -32,6 +32,15 @@ def source_hashes():
     return {name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest() for name in sorted(names)}
 
 
+def console_environment(context, inherited=None):
+    environment = dict(os.environ if inherited is None else inherited)
+    environment.pop('TMPDIR', None)
+    environment.update(PYTHONIOENCODING='utf-8' if context == 'utf8' else 'cp1252',
+                       PYTHONUTF8='1' if context == 'utf8' else '0',
+                       PYTHONDONTWRITEBYTECODE='1')
+    return environment
+
+
 def run(output, nominal=False):
     output = output.resolve()
     if output == ROOT or ROOT in output.parents:
@@ -40,10 +49,8 @@ def run(output, nominal=False):
     before = source_hashes()
     commands = []
     for context in ('utf8', 'cp1252'):
-        environment = {**os.environ, 'PYTHONIOENCODING': 'utf-8' if context == 'utf8' else 'cp1252',
-                       'PYTHONUTF8': '1' if context == 'utf8' else '0', 'PYTHONDONTWRITEBYTECODE':'1',
-                       'TMPDIR': str(Path(os.environ['LOCALAPPDATA']) / 'hermes/cache/scratch')}
-        probe = "import json,locale,sys;print(json.dumps({'executable':sys.executable,'version':sys.version,'stdout':sys.stdout.encoding,'stderr':sys.stderr.encoding,'locale':locale.getencoding(),'preferred':locale.getpreferredencoding(False),'utf8_mode':sys.flags.utf8_mode}))"
+        environment = console_environment(context)
+        probe = "import json,locale,os,sys;print(json.dumps({'executable':sys.executable,'version':sys.version,'stdout':sys.stdout.encoding,'stderr':sys.stderr.encoding,'locale':locale.getencoding(),'preferred':locale.getpreferredencoding(False),'utf8_mode':sys.flags.utf8_mode,'tmpdir_present':'TMPDIR' in os.environ}))"
         commands.append((context + '-python-context', [sys.executable, '-c', probe], environment, 30))
         for name in ('test_paquets', 'test_t03_integration'):
             commands.append((context + '-' + name,
@@ -51,7 +58,7 @@ def run(output, nominal=False):
         commands.append((context + '-real-corrections',
                          [sys.executable, '-B', str(ROOT / 'production/T-03/test-corrections.py'),
                           '--output', str(output / (context + '-real-fixtures'))], environment, 180))
-    environment = {**os.environ, 'PYTHONIOENCODING':'utf-8', 'PYTHONUTF8':'1', 'PYTHONDONTWRITEBYTECODE':'1'}
+    environment = console_environment('utf8')
     for name, path in [('streams-native', 'production/T-03/test-streams-native.ps1'),
                        ('php-corrections', 'wp/tests/t01/test-php-corrections.ps1'),
                        ('tools-contract', 'wp/tests/t01/test-tools.ps1'),

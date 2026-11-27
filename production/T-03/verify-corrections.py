@@ -1,4 +1,9 @@
-"""Read-only verifier for the T03 correction candidate, NOT a PRET/global gate."""
+"""Read-only T03 correction verifier: BEFORE PRET ONLY, never a global/final gate.
+
+A successful read validates correction evidence, not readiness. Run before the
+PRET marker; after PRET its deliberate refusal is not a final-package verdict.
+Use the independent canonical replay to verify the final state after PRET.
+"""
 import hashlib
 import importlib.util
 import json
@@ -15,6 +20,13 @@ def inventory(source_names):
     names = set(source_names)
     names.update(p.relative_to(ROOT).as_posix() for p in (BASE / 'preuves/final').rglob('*') if p.is_file())
     return {name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest() for name in sorted(names)}
+
+
+def verify_console(console, context):
+    if console.get('tmpdir_present') is not False:
+        raise ValueError('CLEAN_WINDOWS_SESSION_NOT_MEASURED')
+    if console['stdout'] != ('utf-8' if context == 'utf8' else 'cp1252') or console['utf8_mode'] != int(context == 'utf8'):
+        raise ValueError('CONSOLE_CONTEXT_NOT_MEASURED')
 
 
 def verify():
@@ -50,8 +62,7 @@ def verify():
                 or any(case['status'] != 'PASS' or not case['fixture_absent'] or not all(case['checks'].values()) for case in real['cases'])):
             raise ValueError('REAL_FIXTURE_FAILED')
         console = json.loads((proof / (context + '-python-context.log')).read_bytes())
-        if console['stdout'] != ('utf-8' if context == 'utf8' else 'cp1252') or console['utf8_mode'] != int(context == 'utf8'):
-            raise ValueError('CONSOLE_CONTEXT_NOT_MEASURED')
+        verify_console(console, context)
     native = (proof / 'streams-native.log').read_text(encoding='utf-8-sig')
     if not re.search(r'Ran 7 tests in ', native) or '\nOK' not in native or 'FAILED' in native:
         raise ValueError('NATIVE_STREAM_REGRESSIONS_MISSING')
