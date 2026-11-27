@@ -43,7 +43,9 @@ final class PageArticle
 
     public static function resume(WP_Post $post): string
     {
-        return trim($post->post_excerpt);
+        // La requête C08 peut fournir un clone expurgé avec une phrase de repli.
+        // Relire seulement la colonne publique, jamais le corps ni un extrait généré.
+        return trim((string) get_post_field('post_excerpt', $post->ID, 'raw'));
     }
 
     public static function appel(array $decision, bool $abonne): bool

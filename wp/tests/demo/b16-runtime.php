@@ -15,8 +15,7 @@ $check = static function (string $name, bool $ok) use (&$checks): void {
 $f = get_option('imagine_c09_fixture');
 $article = get_posts(['post_type' => 'post', 'numberposts' => 1])[0];
 $check('resume_saisi_sans_generation', PageArticle::resume($article) === trim($article->post_excerpt));
-$copy = clone $article;
-$copy->post_excerpt = '';
+$copy = get_post(82);
 $copy->post_content = 'CONTENU_FICTIF_RESERVE_NE_JAMAIS_EXTRAIRE';
 $check('resume_vide_pas_corps', PageArticle::resume($copy) === '');
 $check('pas_cta_paywall', !PageArticle::appel(['complet' => false], false));

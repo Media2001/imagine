@@ -13,7 +13,7 @@ common=importlib.util.module_from_spec(spec);spec.loader.exec_module(common)
 def run(label):
     identity=b13.guard(); _,markers=common.inventory()
     before=b13.c29.state()
-    snapshot=b13.wp('''global $wpdb;$ids=[14,17,82];$u=get_option('imagine_c09_fixture')['users'];$out=['posts'=>[],'meta'=>[],'terms'=>[],'sessions'=>[]];foreach($ids as $id){$out['posts'][$id]=get_post($id)->to_array();$out['meta'][$id]=$wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->postmeta} WHERE post_id=%d",$id),ARRAY_A);$out['terms'][$id]=wp_get_object_terms($id,'post_tag',['fields'=>'ids']);}foreach(['A-PAPIER','P-NUMERO'] as $r){$id=(int)$u[$r];$out['sessions'][$id]=$wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->usermeta} WHERE user_id=%d AND meta_key='session_tokens'",$id),ARRAY_A);}echo wp_json_encode($out);''')
+    snapshot=b13.wp('''global $wpdb;$ids=[14,17,82];$u=get_option('imagine_c09_fixture')['users'];$out=['posts'=>[],'meta'=>[],'terms'=>[],'sessions'=>[],'cache'=>$wpdb->get_results("SELECT * FROM {$wpdb->options} WHERE option_name IN ('_transient_product_query-transient-version','_transient_imagine_b13_thematiques','_transient_timeout_imagine_b13_thematiques','_transient_imagine_b15_numero','_transient_timeout_imagine_b15_numero')",ARRAY_A)];foreach($ids as $id){$out['posts'][$id]=get_post($id)->to_array();$out['meta'][$id]=$wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->postmeta} WHERE post_id=%d",$id),ARRAY_A);$out['terms'][$id]=wp_get_object_terms($id,'post_tag',['fields'=>'ids']);}foreach(['A-PAPIER','P-NUMERO'] as $r){$id=(int)$u[$r];$out['sessions'][$id]=$wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->usermeta} WHERE user_id=%d AND meta_key='session_tokens'",$id),ARRAY_A);}echo wp_json_encode($out);''')
     private=b13.b11.private(label,snapshot)
     checks={};rows=[];error=None;external=[]
     def check(name, ok):
@@ -44,7 +44,7 @@ def run(label):
                     expected=(i<2 and role=='P-NUMERO') or (i==1 and role=='anonyme')
                     check(f'{role}_{i}_cta',article.locator('[data-b16="abonnement"]').count()==int(expected))
                     if expected:
-                        check(f'{role}_{i}_lien_menu',article.locator('[data-b16="abonnement"] a').get_attribute('href')==page.locator('[data-imagine-nav="abonnement"] a').get_attribute('href'))
+                        check(f'{role}_{i}_lien_menu',article.locator('[data-b16="abonnement"] a').get_attribute('href')==page.locator('nav[aria-label="Navigation principale"] a[href$="/abonnement-en-attente/"]').first.get_attribute('href'))
                     surrounding=head.inner_html()+''.join(article.locator('[data-b16="abonnement"]').all_inner_texts())
                     check(f'{role}_{i}_etanche',b13.c29 is not None and common.c26.c23.assess(200,surrounding,markers)['ok'])
                     check(f'{role}_{i}_mutation_detectee',not common.c26.c23.assess(200,surrounding+'<!--'+markers[0]+'-->',markers)['ok'])
@@ -59,7 +59,7 @@ def run(label):
         check('aucun_tiers',external==[])
     except Exception as exc:error=repr(exc)
     finally:
-        restore=b13.wp('''global $wpdb;$s='''+b13.php(snapshot)+''';foreach($s['posts'] as $id=>$row){$wpdb->delete($wpdb->postmeta,['post_id'=>$id]);foreach($s['meta'][$id] as $m){$wpdb->insert($wpdb->postmeta,$m);}wp_set_post_terms((int)$id,$s['terms'][$id],'post_tag');clean_post_cache($id);}'''+('wp_delete_term('+str(seeded['term'])+",'post_tag');" if 'seeded' in locals() else '')+'''foreach($s['sessions'] as $id=>$rows){$wpdb->delete($wpdb->usermeta,['user_id'=>$id,'meta_key'=>'session_tokens']);foreach($rows as $r){$wpdb->insert($wpdb->usermeta,$r);}}wp_cache_flush();echo wp_json_encode(true);''')
+        restore=b13.wp('''global $wpdb;$s='''+b13.php(snapshot)+''';foreach($s['posts'] as $id=>$row){$wpdb->delete($wpdb->postmeta,['post_id'=>$id]);foreach($s['meta'][$id] as $m){$wpdb->insert($wpdb->postmeta,$m);}wp_set_post_terms((int)$id,$s['terms'][$id],'post_tag');clean_post_cache($id);}'''+('wp_delete_term('+str(seeded['term'])+",'post_tag');" if 'seeded' in locals() else '')+'''foreach($s['sessions'] as $id=>$rows){$wpdb->delete($wpdb->usermeta,['user_id'=>$id,'meta_key'=>'session_tokens']);foreach($rows as $r){$wpdb->insert($wpdb->usermeta,$r);}}$wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name IN ('_transient_product_query-transient-version','_transient_imagine_b13_thematiques','_transient_timeout_imagine_b13_thematiques','_transient_imagine_b15_numero','_transient_timeout_imagine_b15_numero')");foreach($s['cache'] as $row){$wpdb->insert($wpdb->options,$row);}wp_cache_flush();echo wp_json_encode(true);''')
         after=b13.c29.state()
         allowed={'_transient_imagine_b13_thematiques','_transient_timeout_imagine_b13_thematiques','_transient_imagine_b15_numero','_transient_timeout_imagine_b15_numero'}
         delta={k for k in before['option_fingerprints'].keys()|after['option_fingerprints'].keys() if before['option_fingerprints'].get(k)!=after['option_fingerprints'].get(k)}
