@@ -1,0 +1,9 @@
+# B13 — corrections reçues pendant B15
+
+Les huit instructions de `corrections/B-13.md` sont traitées sans retoucher les lots clos. Trois RED réels sont conservés : image absente de l'article44 ; retour anticipé du seed ne réparant pas le lien ; retrait direct de relation ne vidant pas le cache. Puis neuf images de démonstration relues individuellement, test natif de la séquence des **vrais** seeds B08/B13/B08/B13, et invalidation `deleted_term_relationships`.
+
+Deux thématiques temporaires de douze articles permettent de comparer les **IDs exacts** pour les limites1/3/10, avec dates puis IDs décroissants, et un cas vide distinct. Ces fixtures, les menus, réglages et relations temporaires sont annulés en transaction ; les images synthétiques assignées aux neuf articles sélectionnés sont les seules données permanentes de la correction. Native34 contrôles, navigateur123 (6 surfaces, 54 assertions individuelles d'image) ; zéro tentative sortante et restauration des sessions. Copies de seeds et sonde supprimées, lecture de leur absence ajoutée au lecteur live.
+
+Décisions par défaut : un article récent sans image hors préparation de la démonstration reste sans image, ni exclusion ni placeholder ; alphabet conservé ; sur-invalidation save_post laissée en place car sans risque. Fragilité de la classe `imagine-nav-thematiques` explicitée, Connexion inchangé. Banc partagé B13/B14/B15 (`b13.py`, `b13-browser.py`, observateur, adaptateur de contrat) et `lot_reception_contract.py` inchangés ; un wrapper de corrections propre évite de périmer les preuves des voisins. Le script de qualification générique accepte seulement le nom du reçu courant déclaré par le lecteur, archive initiale conservée.
+
+Référence courante : `reception-corrections-V2.json`. Les reçus initiaux et leurs preuves restent historiques. Aucun compte, prix, droit, article réel, achat, envoi ni déploiement. Validation visuelle toujours attendue.

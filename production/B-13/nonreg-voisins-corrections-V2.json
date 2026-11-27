@@ -1,0 +1,90 @@
+{
+  "checks": [
+    {
+      "command": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "-B",
+        "production/C-29/verifier.py"
+      ],
+      "exit": 0,
+      "stdout": "{\"C29\": \"PASS\", \"receipt\": \"reception-corrections-V2.json\", \"pure\": 23, \"native\": 57, \"http\": 73, \"profiles\": 27, \"phpunit_tests\": 3, \"foreign_packet_failures\": [{\"lot\": \"A-32\", \"control\": \"A32_PARTIAL_EVIDENCE\"}, {\"lot\": \"A-33\", \"control\": \"A33_GATES_INVALID\"}]}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "-B",
+        "production/C-29/verifier.py",
+        "--live"
+      ],
+      "exit": 0,
+      "stdout": "{\"C29\": \"PASS\", \"receipt\": \"reception-corrections-V2.json\", \"pure\": 23, \"native\": 57, \"http\": 73, \"profiles\": 27, \"phpunit_tests\": 3, \"foreign_packet_failures\": [{\"lot\": \"A-32\", \"control\": \"A32_PARTIAL_EVIDENCE\"}, {\"lot\": \"A-33\", \"control\": \"A33_GATES_INVALID\"}]}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "-B",
+        "production/B-14/verifier.py"
+      ],
+      "exit": 0,
+      "stdout": "{\"B14\": \"PASS\", \"native\": 17, \"browser\": 45, \"surfaces\": 2, \"phpunit\": 1, \"replay_tests\": 1206, \"replay_assertions\": 36680, \"tools\": {\"tools\": 23, \"checks\": 852, \"failures\": 0, \"excluded\": []}, \"foreign_packets\": [{\"lot\": \"A-32\", \"control\": \"A32_PACKAGE_DRIFT\"}, {\"lot\": \"A-33\", \"control\": \"A33_GATES_INVALID\"}]}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "-B",
+        "production/B-14/verifier.py",
+        "--live"
+      ],
+      "exit": 0,
+      "stdout": "{\"B14\": \"PASS\", \"native\": 17, \"browser\": 45, \"surfaces\": 2, \"phpunit\": 1, \"replay_tests\": 1206, \"replay_assertions\": 36680, \"tools\": {\"tools\": 23, \"checks\": 852, \"failures\": 0, \"excluded\": []}, \"foreign_packets\": [{\"lot\": \"A-32\", \"control\": \"A32_PACKAGE_DRIFT\"}, {\"lot\": \"A-33\", \"control\": \"A33_GATES_INVALID\"}]}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "-B",
+        "production/B-15/verifier.py"
+      ],
+      "exit": 0,
+      "stdout": "{\"B15\": \"PASS\", \"pure\": 4, \"native\": 15, \"browser\": 155, \"surfaces\": 10, \"identical_raw_footer\": true, \"phpunit\": 2, \"replay_tests\": 1208, \"replay_assertions\": 36685, \"tools\": {\"tools\": 23, \"checks\": 852, \"failures\": 0, \"excluded\": []}, \"foreign_packets\": []}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "-B",
+        "production/B-15/verifier.py",
+        "--live"
+      ],
+      "exit": 0,
+      "stdout": "{\"B15\": \"PASS\", \"pure\": 4, \"native\": 15, \"browser\": 155, \"surfaces\": 10, \"identical_raw_footer\": true, \"phpunit\": 2, \"replay_tests\": 1208, \"replay_assertions\": 36685, \"tools\": {\"tools\": 23, \"checks\": 852, \"failures\": 0, \"excluded\": []}, \"foreign_packets\": []}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "-B",
+        "production/B-13/qualifier.py",
+        "B-14"
+      ],
+      "exit": 0,
+      "stdout": "{'lot': 'B-14', 'checks': 9, 'PASS': True, 'results': {'fichier_propre_modifie_refuse': True, 'bloc_absent_refuse': True, 'bloc_duplique_refuse': True, 'bloc_modifie_refuse': True, 'bloc_etranger_accepte': True, 'section_propre_modifiee_refusee': True, 'section_absente_refusee': True, 'section_dupliquee_refusee': True, 'section_etrangere_acceptee': True}}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "-B",
+        "production/B-13/qualifier.py",
+        "B-15"
+      ],
+      "exit": 0,
+      "stdout": "{'lot': 'B-15', 'checks': 9, 'PASS': True, 'results': {'fichier_propre_modifie_refuse': True, 'bloc_absent_refuse': True, 'bloc_duplique_refuse': True, 'bloc_modifie_refuse': True, 'bloc_etranger_accepte': True, 'section_propre_modifiee_refusee': True, 'section_absente_refusee': True, 'section_dupliquee_refusee': True, 'section_etrangere_acceptee': True}}\n",
+      "stderr": ""
+    }
+  ],
+  "all_pass": true
+}

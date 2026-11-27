@@ -1,0 +1,54 @@
+{
+  "scope": "imagine-test-demo",
+  "ready": true,
+  "contract_version": 1,
+  "sources": {
+    "production/B-14/verifier.py": "b7d4d1d095093f00ac51e26df23f6642b055fc3021ae073f2353f2d032479d58",
+    "wp/outils/demo/b13-browser.py": "02a69cab956e503b2a79625df2b084858df9e6b417af638fa503240ebc0d3de0",
+    "wp/outils/demo/b13.py": "3960057fde352c412024678a14d06a7ed6dec04c8d1bff378f7e5305420a5357",
+    "wp/outils/demo/b14-browser.py": "2bd50bab5b37ccd2b686a34b5c9cfc7093e39d879fd875dbb33b7ada822e9dea",
+    "wp/outils/demo/b14-seed.php": "88aba6f2032602a2070d653509e5ee0040f53ccdcbfee96274ef8cb5e0d7af34",
+    "wp/outils/demo/b14.py": "1020cbc445a62da13af4c4ee08fba38138d4932a8973ef62c2f2b6259c498b2b",
+    "wp/plugins/imagine-site/Accueil.php": "04bfea4a7137439eff4c9099115a355eb6b0683eb488ce16bbf0f5b1d8482da7",
+    "wp/plugins/imagine-site/tests/AccueilB14Test.php": "8085f7f18d39ccf09cac51a92f2b70a0dcf2c2624cd2efc41cba55e06b00d4fb",
+    "wp/tests/demo/b13-contract.py": "ebdb04de4f948ec77ec5214bdf7c17f03c0366a02ad97722cfef9c6b1d9ebe63",
+    "wp/tests/demo/b13-observer.php": "72d46a7ab527893be8d4e7aa8a0e04073bcd9f0c38c655620a1e603290a6c03f",
+    "wp/tests/demo/b14-runtime.php": "99bef4922c9669b3b80455e4f3988f8971debf728b52d0da068c985683bdf5d6",
+    "wp/themes/imagine/front-page.php": "fb7093445a9e1a216ea24b8686803622a60fa4b59c2732d44f02174ffafd0e8e"
+  },
+  "bootstrap_contract": {
+    "block": "// B14 — accueil structurel, sans texte réservé.\nrequire_once __DIR__ . '/Accueil.php';\nAccueil::register();\n\n",
+    "sha256": "e5200566696891dc5a8195ed10a9f6d57e48509aa3ab82fdca6a96358ebe8c1b",
+    "occurrences": 1
+  },
+  "readme_section": "08555a79a9b2181c8f9de88194ee4b7ac84e20eb799ffd24220697706f4a9500",
+  "evidence": {
+    "A-VOIR.md": "209dce0dbb6dd95182cea71dfc6c420da60fd142014d5a19a47a5fe2602843e2",
+    "avant-mutations-browser-final-V2.json": "bd8d8d7300c4cddd48194a52e9503f47e003f07a6b2b0634da41d2b4f7bddc76",
+    "avant-mutations-browser-final-V2.png": "5fb69a0ffab33dc40949c867b8f10c3bab81eefdf259a1d6d68578d4cbee8ffe",
+    "avant-mutations-native-final-V2.json": "e570bc2f9ef96284e5fcc9d0edaf4e0774c128dd49baa21435079ac143bb9607",
+    "browser-final-V2.json": "24381c6f506f01497116b0f27a0f60cf6ba61aa40757fa7fe12f1a33fb68d5d5",
+    "browser-final-V2.png": "5fb69a0ffab33dc40949c867b8f10c3bab81eefdf259a1d6d68578d4cbee8ffe",
+    "browser-first-V2.json": "d5b109ede211bc474290a16706b0af54b17f11a7f6ac3a34af7220d328f20c70",
+    "browser-first-V2.png": "5fb69a0ffab33dc40949c867b8f10c3bab81eefdf259a1d6d68578d4cbee8ffe",
+    "code-ancre-demo-V2.json": "4debebac6f312fbb437c8e6993b67af1e5f61a293d1424f4186ddac8cb309114",
+    "code-demo-V2.json": "d9d4fbd03baf0ae72154219750c66ce12cede06a1194e9efd3a1a2ec17e6f0c5",
+    "fixture-V2.json": "f90d3b9ab7b0326ea1cd2a6b240837a540ed3e93d789c332f1b94fc0d09b92c8",
+    "green-first-V2.json": "fd4ea98a42e80e9e2f5391f492c419f55a84fcb0809678ad90e585094c3b028a",
+    "green-second-V2.json": "fa1b207a47c033c7d9bdcb16c3fbb81bafcde9a561d6829bac9943d4a8154c46",
+    "green-third-V2.json": "f93c24dd0c4fcdaf9aa2ce683bf9ce34f1aff33417a5303fdd46aaf4c6279245",
+    "image-V2.json": "c98f4016752cfcd3f20c43dc6542e24fe336f9f741703075634852d502fc6126",
+    "image-V2.log": "2003a3a1dfff4a90d172c53358ed1586a332423c6eb5bd6327e0c62a5d27d9e6",
+    "native-final-V2.json": "bbc3ca0bbeb5757850e0f8c807649bf83584fd31b011ad9224c8c29c79ed8af2",
+    "paquets-etrangers-V2.json": "817ebfc7042dd650f22170b4e0f972518e21125fa5fcaa093664cd8ca337fcc5",
+    "red-ancre-V2.json": "15b35a1f06b26a828d9ffd641c0695ac3699fc1be2fe3f70e13bd33d3247d17e",
+    "red-V2.json": "982ff14ce4e33ad320ee6e8cfdd92fc14481f22143786499ebdc35dacc674a62",
+    "replay-V2.json": "244833e185f2ea3ab8d46fdb596395430a82beceef592f655cc9a6cc49b76a37",
+    "replay-V2.log": "868f01319fa5aeb1f18bd868223330a1a7694015f0c7231d7e3dd3ca6f7b1074",
+    "sources-officielles-V2.json": "47ec78bb0255e5096ffa8753908ed8ef4917b51ce58dbdebf4369b8bbde5b198",
+    "verifier.py": "b7d4d1d095093f00ac51e26df23f6642b055fc3021ae073f2353f2d032479d58"
+  },
+  "historical_files": {
+    "red-V2.json": "982ff14ce4e33ad320ee6e8cfdd92fc14481f22143786499ebdc35dacc674a62"
+  }
+}
