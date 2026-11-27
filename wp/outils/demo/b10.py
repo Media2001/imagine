@@ -37,19 +37,19 @@ def deploy(label):
 
 def runtime(label):
     guard();name='imagine-demo-build/b10-runtime.php'
-    before=wp('echo wp_json_encode([get_option("imagine_vente_actifs",null),get_posts(["post_type"=>"imagine_vente","post_status"=>"any","numberposts"=>-1,"fields"=>"ids"])]);')
-    assert before==[None,[]], 'Recette initiale seulement, liste déjà présente'
+    read='echo wp_json_encode([get_option("imagine_vente_actifs",null),get_option("imagine_vente_configuration",null),class_exists("Imagine\\\\Site\\\\PointsVente")?Imagine\\Site\\PointsVente::lignes():[]]);'
+    before=wp(read)
     assert wp('echo wp_json_encode(file_exists(WP_CONTENT_DIR."/'+name+'"));') is False
     result={}
     try:
         upload(name,(ROOT/'wp/tests/demo/b10-runtime.php').read_bytes())
-        raw=b09.b08.c25.b06.profils.b00.wp('eval','require WP_CONTENT_DIR."/'+name+'";',check=False)
-        result=raw
+        assert b09.b08.c25.b06.hashes([name])[name]==hashlib.sha256((ROOT/'wp/tests/demo/b10-runtime.php').read_bytes()).hexdigest()
+        code='''global $wpdb;if(wp_using_ext_object_cache()){throw new RuntimeException('Cache externe refusé');}foreach([$wpdb->posts,$wpdb->postmeta,$wpdb->options] as $table){$row=$wpdb->get_row($wpdb->prepare('SHOW TABLE STATUS WHERE Name=%s',$table),ARRAY_A);if(($row['Engine']??'')!=='InnoDB'){throw new RuntimeException('Transaction indisponible');}}$wpdb->query('START TRANSACTION');try{require WP_CONTENT_DIR."/".'''+php(name)+''';}finally{$wpdb->query('ROLLBACK');wp_cache_flush();}'''
+        result=b09.b08.c25.b06.profils.b00.wp('eval',code,check=False)
     finally:
         b09.remove_remote([name])
-        wp('foreach(get_posts(["post_type"=>"imagine_vente","post_status"=>"any","numberposts"=>-1,"fields"=>"ids"]) as $id){wp_delete_post($id,true);}delete_option("imagine_vente_actifs");delete_option("imagine_vente_configuration");echo wp_json_encode(true);')
-        restored=wp('echo wp_json_encode([get_option("imagine_vente_actifs",null),get_posts(["post_type"=>"imagine_vente","post_status"=>"any","numberposts"=>-1,"fields"=>"ids"])]);')==before
-        save(label,{**result,'restored':restored})
+        restored=wp(read)==before
+        save(label,{**result,'restored':restored,'transaction_rollback':True})
     print(json.dumps(result,ensure_ascii=False))
     assert restored and result['code']==0
 

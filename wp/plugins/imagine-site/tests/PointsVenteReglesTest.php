@@ -11,6 +11,13 @@ require_once __DIR__ . '/../PointsVenteRegles.php';
 
 final class PointsVenteReglesTest extends TestCase
 {
+    public function testToutesLignesRefuseesGardentLeursNumeros(): void
+    {
+        $r = PointsVenteRegles::charger("n;a;v;p\nsecret;incomplet\n", ['nom' => 'n', 'adresse' => 'a', 'localite' => 'v', 'postal' => 'p'], ';');
+        self::assertSame([], $r['lignes']);
+        self::assertSame([['ligne' => 2, 'motif' => 'nombre_colonnes']], $r['refus']);
+    }
+
     public function testColonnesOptionnellesEtCsvStandard(): void
     {
         $map = ['nom' => 'n', 'adresse' => 'a', 'localite' => 'v', 'postal' => 'p', 'personne' => 'contact', 'telephone' => 'tel'];
@@ -44,7 +51,6 @@ final class PointsVenteReglesTest extends TestCase
         $map = ['nom' => 'n', 'adresse' => 'a', 'localite' => 'v', 'postal' => 'p'];
         foreach ([
             ['', $map, ';'],
-            ["n;a;v;p\n;rue;ville;00001\n", $map, ';'],
             ["n;n;v;p\nA;B;V;P\n", $map, ';'],
             ["n;a;v;p\nA;B;V;P\n", ['nom' => 'n'], ';'],
             ["n;a;v;p\nA;B;V;P\n", $map + ['secret' => 'n'], ';'],

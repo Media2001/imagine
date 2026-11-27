@@ -1,0 +1,7 @@
+{
+  "code": 0,
+  "stdout": "{\"checks\":{\"chargement\":true,\"antislash_natif\":true,\"rechargement_ids_stables\":true,\"colonnes_personnelles_non_mappees_absentes\":true,\"remplacement_et_refus_numero_motif\":true,\"tous_refuses_numeros_sans_remplacement\":true,\"entete_refusee\":true,\"mapping_personne_explicite\":true,\"retrait_mapping_personne_cache_immediatement\":true,\"affichage_personne_explicite\":true,\"reglage_deux_valeurs_ferme\":true,\"type_prive_sans_REST_recherche\":true}}",
+  "stderr": "",
+  "restored": true,
+  "transaction_rollback": true
+}

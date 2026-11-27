@@ -80,6 +80,9 @@ final class PointsVente
     public static function importer(string $csv, array $mapping, string $separateur): array
     {
         $result = PointsVenteRegles::charger($csv, $mapping, $separateur);
+        if ($result['lignes'] === []) {
+            return ['pris' => 0, 'refus' => $result['refus']];
+        }
         if (!add_option('imagine_vente_import_en_cours', '1', '', false)) {
             throw new RuntimeException('import_en_cours');
         }

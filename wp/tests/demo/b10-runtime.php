@@ -29,6 +29,8 @@ $new = PointsVente::importer(str_replace('Commerce fictif \\ A', 'Autre fictif',
 $expect('remplacement_et_refus_numero_motif', $new === ['pris' => 1, 'refus' => [['ligne' => 3, 'motif' => 'nombre_colonnes']]]
     && get_post($old) === null && PointsVente::lignes()[0]['nom'] === 'Autre fictif');
 $before = get_option(PointsVente::ACTIFS);
+$allRefused = PointsVente::importer("enseigne;rue;ville;cp;personne\nSECRET;incomplet\n", $mapping, ';');
+$expect('tous_refuses_numeros_sans_remplacement', $allRefused === ['pris' => 0, 'refus' => [['ligne' => 2, 'motif' => 'nombre_colonnes']]] && get_option(PointsVente::ACTIFS) === $before);
 try {
     PointsVente::importer("mauvais;entête\nrefus;fictif\n", $mapping, ';');
     $expect('entete_refusee', false);

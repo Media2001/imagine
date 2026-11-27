@@ -114,9 +114,6 @@ final class PointsVenteRegles
             }
         }
         fclose($stream);
-        if ($rows === []) {
-            throw new InvalidArgumentException('aucun_commerce');
-        }
         return ['lignes' => $rows, 'refus' => $refus];
     }
 }
