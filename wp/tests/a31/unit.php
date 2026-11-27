@@ -17,14 +17,14 @@ $order = static fn (string $nature, int $year = 2020): array => [
 $one = Analysis::analyse([$order('renewal')], [], []);
 $check('rare_one_no_label', $one['years'] === ['groups' => [], 'autres' => 1]);
 $check(
-    'rare_nature_one_exact',
-    $one['natures'] === ['groups' => [['nature' => 'renewal', 'count' => 1]], 'autres' => 0]
+    'rare_nature_one_pooled',
+    $one['natures'] === ['groups' => [], 'autres' => 1]
 );
 $four = Analysis::analyse(array_fill(0, 4, $order('renewal')), [], []);
 $check('rare_four_no_label', $four['years'] === ['groups' => [], 'autres' => 4]);
 $check(
-    'rare_nature_four_exact',
-    $four['natures'] === ['groups' => [['nature' => 'renewal', 'count' => 4]], 'autres' => 0]
+    'rare_nature_four_pooled',
+    $four['natures'] === ['groups' => [], 'autres' => 4]
 );
 $check('oldest_four_suppressed', $four['oldest_year'] === 'fusionne');
 $check('oldest_rare_suppressed', $one['oldest_year'] === 'fusionne');
@@ -111,9 +111,29 @@ foreach ($metrics as $metric) {
 foreach ([0, 1, 2, 3, 4, 5] as $count) {
     $result = Analysis::analyse([], [], array_fill(0, $count, ['year' => 2021]));
     $check('refund_exact_total_' . $count, ($result['refunds']['total'] ?? null) === $count);
-    $check('refund_exact_year_' . $count, $result['refunds']['groups'] === ($count > 0
-        ? [['year' => 2021, 'count' => $count]] : []));
+    $check('refund_pooled_year_' . $count, $result['refunds']['groups'] === ($count >= 5
+        ? [['year' => 2021, 'count' => $count]] : [])
+        && $result['refunds']['autres'] === ($count < 5 ? $count : 0));
 }
+foreach (Analysis::NATURES as $nature) {
+    foreach ([0, 1, 2, 3, 4, 5] as $count) {
+        $result = Analysis::analyse(array_fill(0, $count, $order($nature)), [], []);
+        $check(
+            'nature_k5_' . $nature . '_' . $count,
+            $result['natures'] === ['groups' => $count >= 5 ? [['nature' => $nature, 'count' => $count]] : [],
+                'autres' => $count < 5 ? $count : 0]
+        );
+    }
+}
+$result = Analysis::analyse(
+    [...array_fill(0, 4, $order('renewal')), ...array_fill(0, 5, $order('none'))],
+    [],
+    [...array_fill(0, 4, ['year' => 2020]), ...array_fill(0, 5, ['year' => 2021])]
+);
+$check('nature_k5_mixed', $result['natures'] === [
+    'groups' => [['nature' => 'none', 'count' => 5]], 'autres' => 4]);
+$check('refund_k5_mixed_total_exact', $result['refunds'] === [
+    'total' => 9, 'groups' => [['year' => 2021, 'count' => 5]], 'autres' => 4]);
 $code = (int) in_array('FAIL', array_column($checks, 'status'), true);
 if (!defined('A31_PURE_PROBE')) {
     file_put_contents(

@@ -121,7 +121,7 @@ def verify(packet, python_only=False):
         actual = {c['check'] for c in receipts['result']['checks']}
         check(console + ':network_no_listener', {'network_interfaces', 'no_listener:tcp', 'no_listener:tcp6'}.issubset(actual))
         units = {c['check'] for c in receipts['unit']['checks']}
-        unit_required = {'renewal_five', 'year_five_k5', 'rare_nature_one_exact', 'rare_nature_four_exact', 'oldest_rare_suppressed', 'oldest_five_exact', 'oldest_not_next_visible_year',
+        unit_required = {'renewal_five', 'year_five_k5', 'rare_nature_one_pooled', 'rare_nature_four_pooled', 'oldest_rare_suppressed', 'oldest_five_exact', 'oldest_not_next_visible_year',
                          'closed_unknown_status', 'unknown_nature_not_none', 'neutral_natures_unknown',
                          'neutral_orphan_readable', 'neutral_years_preserved', 'refund_objects_separate',
                          'invalid_date_oldest_illisible', 'missing_account_separate_from_guest',
@@ -130,7 +130,10 @@ def verify(packet, python_only=False):
         unit_required |= {'scalar_' + metric + '_' + str(n) + '_' + mixed + '_' + key
                           for metric in report.LINKS for n in range(6)
                           for mixed in ('alone', 'mixed') for key in report.LINKS}
-        unit_required |= {'refund_' + kind + '_' + str(n) for kind in ('exact_total', 'exact_year') for n in range(6)}
+        unit_required |= {'refund_exact_total_' + str(n) for n in range(6)}
+        unit_required |= {'refund_pooled_year_' + str(n) for n in range(6)}
+        unit_required |= {'nature_k5_' + nature + '_' + str(n) for nature in report.NATURES for n in range(6)}
+        unit_required |= {'nature_k5_mixed', 'refund_k5_mixed_total_exact'}
         check(console + ':required_pure_cases', unit_required.issubset(units))
         adapter = {c['check'] for c in receipts['adapter-unit']['checks']}
         check(console + ':required_adapter_cases', {'parent_native_relation', 'renewal_missing_native_subscription',

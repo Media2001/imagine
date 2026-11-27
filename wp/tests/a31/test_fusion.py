@@ -35,24 +35,24 @@ class FusionTests(unittest.TestCase):
                             bad['counts'][metric] = {'groups': [], 'autres': count}
                             self.assertFalse(r.projection(bad, '0' * 64))
 
-    def test_refund_total_and_year_exact_without_k5(self):
+    def test_refund_total_exact_years_pooled(self):
         for count in range(6):
             data = payload()
-            data['counts']['refunds'] = {'total': count, 'autres': 0,
-                                         'groups': [{'year': 2021, 'count': count}] if count else []}
+            data['counts']['refunds'] = {'total': count, 'autres': count if count < 5 else 0,
+                                         'groups': [{'year': 2021, 'count': count}] if count >= 5 else []}
             self.assertTrue(r.projection(data, '0' * 64))
             data['counts']['refunds']['total'] += 1
             self.assertFalse(r.projection(data, '0' * 64))
 
-    def test_only_year_and_year_status_are_pooled(self):
+    def test_natures_and_refund_years_restore_k5(self):
         for key, fields in [('natures', {'nature': 'renewal'}), ('refunds', {'year': 2021})]:
             for count in range(1, 5):
                 data = payload()
-                data['counts'][key] = {'groups': [{**fields, 'count': count}], 'autres': 0}
+                data['counts'][key] = {'groups': [], 'autres': count}
                 if key == 'refunds':
                     data['counts'][key]['total'] = count
                 self.assertTrue(r.projection(data, '0' * 64))
-                data['counts'][key].update(groups=[], autres=count)
+                data['counts'][key].update(groups=[{**fields, 'count': count}], autres=0)
                 self.assertFalse(r.projection(data, '0' * 64))
 
     def test_windows_child_environment_omits_tmpdir_and_proves_console(self):

@@ -82,8 +82,7 @@ final class Analysis
         foreach ($buckets as $key => $rows) {
             ksort($rows, SORT_STRING);
             $result[$key] = $neutralised && $key === 'natures'
-                ? self::UNKNOWN : (in_array($key, ['years', 'statuses'], true)
-                    ? self::pool($rows) : ['groups' => array_values($rows), 'autres' => 0]);
+                ? self::UNKNOWN : self::pool($rows);
         }
         $result['refunds'] = ['total' => count($refunds)] + $result['refunds'];
         $oldest = null;
