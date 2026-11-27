@@ -159,7 +159,7 @@ if (getenv('A29_CONFINED') === '1') {
                         ('ancestor', site.parent / 'forbidden'), ('root', Path('/forbidden'))]:
         p = inventory(site, path, audit)
         b.check(storage + ':guard_' + label, p.returncode == 1 and p.stdout == ''
-                and re.fullmatch(r'A(?:27|12)_[A-Z_]+\n', p.stderr) is not None
+                and re.fullmatch(r'A(?:29|12)_[A-Z_]+\n', p.stderr) is not None
                 and (path == dest or not path.exists()))
     raw = cmd(['php', '/subject/a29/inventorier-taches', '--wp-path=' + str(site),
                '--audit=' + str(audit), '--output=/report/raw-' + storage], check=False)

@@ -75,6 +75,13 @@ class ContractTests(unittest.TestCase):
         self.assertIn("required=True)", runner)
         self.assertIn("'preparation'", (folder / 'gates.py').read_text(encoding='utf-8'))
 
+    def test_owned_native_refusal_vocabulary(self):
+        native = (ROOT / 'wp/tests/a29/inside.py').read_text(encoding='utf-8')
+        pattern = re.search(r"re.fullmatch\(r'([^']+)', p.stderr\)", native).group(1)
+        self.assertIsNotNone(re.fullmatch(pattern, 'A29_OUTPUT_UNSAFE\n'))
+        self.assertIsNotNone(re.fullmatch(pattern, 'A12_OUTPUT_UNSAFE\n'))
+        self.assertIsNone(re.fullmatch(pattern, 'A27_OUTPUT_UNSAFE\n'))
+
     def test_attribution_never_guesses_extension_from_callback_or_name(self):
         analysis = (TOOLS / 'Analysis.php').read_text(encoding='utf-8')
         self.assertIn("$other ? 'attribution indéterminée' : 0", analysis)
