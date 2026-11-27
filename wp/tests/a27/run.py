@@ -75,9 +75,12 @@ def main():
             for p in sorted(source.iterdir()):
                 if p.is_file():
                     b.call(['cp', b.local(p), name + ':' + dest + '/' + p.name])
+        # A-19 itself is required by the pure adapter-boundary suite too.
+        b.call(['cp', b.local(ROOT / 'wp/outils/bascule/a19'), name + ':/subject/a19'])
         if not a.unit_only:
             for key in SHARED:
-                b.call(['cp', b.local(ROOT / 'wp/outils/bascule' / key), name + ':/subject/' + key])
+                if key != 'a19':
+                    b.call(['cp', b.local(ROOT / 'wp/outils/bascule' / key), name + ':/subject/' + key])
             b.call(['cp', b.local(ROOT / 'wp/outils/staging'), name + ':/subject/staging'])
             for f in ['inside.py', 'seed.php', 'fingerprint.php', 'unit.php', 'readonly-probe.php']:
                 b.call(['cp', b.local(ROOT / 'wp/tests/a02-audit' / f), name + ':/opt/a02/' + f])
@@ -95,6 +98,17 @@ def main():
         red_data = json.loads((out / 'red-unit.json').read_text(encoding='utf-8'))
         check('red_mutation_cc_caught', red.returncode == 1 and any(
             x['check'] == 'cc_native_type' and x['status'] == 'FAIL' for x in red_data['checks']))
+        regression = b.call(['exec', name, 'python3', '/opt/a27/corrections-red.py'], check=False)
+        check('red_r2_r3_witnesses', (regression.returncode, regression.stdout, regression.stderr)
+              == (0, 'A27_CORRECTION_RED_OK\n', ''))
+        for filename in ('red-r2.json', 'red-r3.json'):
+            b.call(['cp', name + ':/report/' + filename, b.local(out / filename)])
+        adapter = b.call(['exec', name, 'php', '/opt/a27/adapter-unit.php'], check=False)
+        (out / 'adapter-unit.log').write_text(adapter.stdout + adapter.stderr, encoding='utf-8')
+        b.call(['cp', name + ':/report/adapter-unit.json', b.local(out / 'adapter-unit.json')])
+        adapter_data = json.loads((out / 'adapter-unit.json').read_text(encoding='utf-8'))
+        check('adapter_actual_a19_boundary_green', adapter.returncode == 0 and not adapter.stderr
+              and adapter_data['exit_code'] == 0 and bool(adapter_data['checks']))
         p = b.call(['exec', name, 'php', '/opt/a27/unit.php'], check=False)
         (out / 'unit.log').write_text(p.stdout + p.stderr, encoding='utf-8')
         b.call(['cp', name + ':/report/unit.json', b.local(out / 'unit.json')])

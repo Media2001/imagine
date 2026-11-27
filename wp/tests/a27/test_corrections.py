@@ -24,6 +24,15 @@ class CorrectionContracts(unittest.TestCase):
         guarded = source[source.index(guard):source.index('if (count($matches) === 1')]
         self.assertIn("'type' => 'illisible', 'link' => 'unknown'", guarded)
 
+    def test_packet_requires_targeted_php_and_native_correction_cases(self):
+        source = (ROOT / 'wp/tests/a27/verify.py').read_text(encoding='utf-8')
+        self.assertIn("'adapter-unit'", source)
+        self.assertIn("'red-r2.json'", source)
+        self.assertIn("'red-r3.json'", source)
+        self.assertIn("'correction_exact_five_'", source)
+        self.assertIn("'opaque', 'conflict', 'reference-only', 'unique'", source)
+        self.assertIn("':correction_exact_counts_'", source)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -52,14 +52,21 @@ update_post_meta($video, 'imagine_numero_id', $issues[10]);
 $other = $publish('<iframe src="https://A26_DOMAIN_PRIVATE_CANARY.invalid/embed"></iframe>'
     . '<img src="https://A26_DOMAIN_PRIVATE_CANARY.invalid/pixel"><a href="https://vimeo.com/123">not embedded</a>');
 update_post_meta($other, 'imagine_numero_id', $issues[9]);
-foreach ([[$old, 0], [$video, 10], [$other, 9]] as [$article, $number]) {
+$quotedVideo = $publish(
+    '<iframe title="a > b" src="https://www.youtube.com/embed/A26_QUOTED_PRIVATE_CANARY"></iframe>'
+);
+$titleOnly = $publish('<img title=\'src="https://vimeo.com/123"\' src="/local.png">');
+update_post_meta($quotedVideo, 'imagine_numero_id', $issues[10]);
+update_post_meta($titleOnly, 'imagine_numero_id', $issues[9]);
+$linked = [[$old, 0], [$video, 10], [$other, 9], [$quotedVideo, 10], [$titleOnly, 9]];
+foreach ($linked as [$article, $number]) {
     wp_update_post(['ID' => $article, 'post_parent' => $issues[$number]]);
 }
 register_taxonomy('a26_issue', ['post'], ['public' => false]);
 for ($i = 0; $i < 11; $i++) {
     $term = wp_insert_term('a26-invented-' . $i, 'a26_issue');
     update_term_meta($term['term_id'], 'a26_date', sprintf('2025-%02d-01 00:00:00', $i + 1));
-    foreach ([[$old, 0], [$video, 10], [$other, 9]] as [$article, $number]) {
+    foreach ($linked as [$article, $number]) {
         if ($number === $i) {
             wp_set_object_terms($article, [(int) $term['term_id']], 'a26_issue');
         }

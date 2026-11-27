@@ -20,7 +20,8 @@ b.LABEL = 'org.imagine.a26-tiers'
 OWN = ['wp/outils/bascule/a26', 'wp/tests/a26']
 DEPS = ['wp/outils/bascule/' + f for f in ['audit', 'a11', 'a12', 'a16/Mapping.php', 'stream_guard.py', 'stream_refusals.json']] + [
     'wp/tests/a02-audit/' + f for f in ['run.py', 'inside.py', 'seed.php', 'fingerprint.php', 'unit.php', 'readonly-probe.php']
-] + ['wp/outils/staging', 'production/A-26/readme-ajout.txt',
+] + ['wp/outils/staging', 'wp/outils/staging/form-policy.json', 'production/A-26/readme-ajout.txt',
+     'production/A-26/standard/html-tag-processor-sources.json',
      'production/A-26/standard/sources.json', 'production/A-26/standard/sitekit_settings.txt']
 
 

@@ -81,6 +81,52 @@ def database_digest():
     return hashlib.sha256(raw).hexdigest()
 
 
+def orphan_postmeta_witness(archive, request, storage):
+    """Omit only the meta purge, not posts/revisions or either transformation phase."""
+    path = Path('/subject/lib.php')
+    original = path.read_bytes()
+    purge = b" || ($kind === 'postmeta' && isset($formPosts[(int) ($row['post_id'] ?? 0)]))"
+    gate = b"$issues[] = 'FORM_MESSAGES_REMAIN';"
+    check(storage + ':orphan:seams', original.count(purge) == 1 and original.count(gate) == 1)
+    try:
+        path.write_bytes(original.replace(purge, b''))
+        result = subject.execute_offline_request(archive, request, False)
+    finally:
+        path.write_bytes(original)
+    check(storage + ':orphan:import_refused', result.get('data_verified') is False
+          and [p['exit'] for p in result.get('steps', [])] == [0, 0, 1])
+    counts = oracle()
+    check(storage + ':orphan:parents_revisions_absent', all(counts[t] == 0 for t in TYPES)
+          and counts['known_revisions'] == 0)
+    check(storage + ':orphan:four_meta_canaries_remain', counts['known_meta'] == 4)
+    context = json.loads(Path('/scratch/a01-context.json').read_bytes())
+    known_ids = context['form_post_ids']
+    check(storage + ':orphan:trusted_snapshot_four_ids', len(known_ids) == len(set(known_ids)) == 4)
+    orphan_count = int(query('SELECT COUNT(*) FROM wp_postmeta m LEFT JOIN wp_posts p ON p.ID=m.post_id '
+        + 'WHERE p.ID IS NULL AND m.post_id IN (' + ','.join(map(str, known_ids)) + ");"))
+    check(storage + ':orphan:known_orphans_verified_by_sql', orphan_count == 4)
+    refused = verifier()
+    check(storage + ':orphan:refused', refused['exit'] == 1 and refused['stderr_empty']
+          and refused['report']['form_message_residues'] == 4
+          and 'FORM_MESSAGES_REMAIN' in refused['report']['issues']
+          and 'SONDE_NON_EXECUTEE_DONNEES_REFUSEES' in refused['report']['warnings'])
+    try:
+        path.write_bytes(original.replace(gate, b'/* A28 witness: removed residue refusal */'))
+        mutant = verifier()
+    finally:
+        path.write_bytes(original)
+    restored = verifier()
+    check(storage + ':orphan:control_removed_accepts', mutant['exit'] == 0 and mutant['report']['ok']
+          and mutant['report']['form_message_residues'] == 4 and mutant['stderr_empty'])
+    check(storage + ':orphan:control_restored_refuses', restored['exit'] == 1
+          and restored['report']['form_message_residues'] == 4
+          and 'FORM_MESSAGES_REMAIN' in restored['report']['issues'])
+    return result, {'refused': refused, 'mutant': mutant, 'restored': restored,
+                    'known_parent_posts': 0, 'known_revision_posts': 0, 'known_orphan_meta': orphan_count,
+                    'provenance_ids_count': len(known_ids), 'source_restored': path.read_bytes() == original,
+                    'mutation': 'omit_only_postmeta_purge', 'oracle': counts}
+
+
 def main():
     baseline = sys.argv[1:] == ['baseline']
     receipt = {'status': 'FAIL', 'baseline': baseline, 'synthetic_only': True, 'cases': [], 'checks': checks}
@@ -99,7 +145,7 @@ def main():
             sql = subject.command(['php', '/opt/court/export.php'], env={'E2E_DATABASE': database}).stdout
             archive = Path('/scratch/a28-' + storage + '.wpress')
             write_archive(archive, source, sql)
-            modes = ['default', 'keep-unknown', 'keep-known'] if baseline else ['default', 'keep-unknown', 'keep-known', 'anonymise-known']
+            modes = ['default', 'keep-unknown', 'keep-known'] if baseline else ['default', 'keep-unknown', 'keep-known', 'anonymise-known', 'omit-meta-purge']
             for mode in modes:
                 decisions = {}
                 if mode == 'keep-unknown':
@@ -109,6 +155,13 @@ def main():
                         else {'action': 'anonymiser', 'columns': ['payload']})
                 request = {'target_url': 'https://fixture.synthetic.test', 'production_url': 'https://source.invalid',
                            'password': secrets.token_urlsafe(32), 'decisions': decisions}
+                if mode == 'omit-meta-purge':
+                    result, witness = orphan_postmeta_witness(archive, request, storage)
+                    receipt['cases'].append({'storage': storage, 'mode': mode,
+                        'archive_sha256': hashlib.sha256(archive.read_bytes()).hexdigest(),
+                        'result': result, 'postmeta_purge_witness': witness})
+                    reset()
+                    continue
                 result = subject.execute_offline_request(archive, request, False)
                 case = {'storage': storage, 'mode': mode, 'archive_sha256': hashlib.sha256(archive.read_bytes()).hexdigest(),
                         'result': result}

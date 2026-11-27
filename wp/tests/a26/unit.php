@@ -78,20 +78,7 @@ try {
         'case_trailing_dot_supported',
         Analysis::services(['https://WWW.YOUTUBE.COM./embed/1'], 'example.org') === ['youtube']
     );
-    $html = '<iframe src="https://youtube.com/embed/a"></iframe><iframe src="https://youtube.com/embed/b"></iframe>'
-        . '<a href="https://vimeo.com/123">ordinary link</a><img src="https://A26_DOMAIN_PRIVATE_CANARY.invalid/p.png">'
-        . '<audio src="/local.mp3"></audio>';
-    $check(
-        'html_resources_not_ordinary_links',
-        Analysis::services(Analysis::htmlUrls($html), 'example.org') === ['youtube', 'autre']
-    );
-    $check(
-        'plain_oembed_line',
-        Analysis::services(Analysis::htmlUrls("\nhttps://vimeo.com/123\n"), 'example.org') === ['vimeo']
-    );
-    $literalExample = '<pre><iframe src="https://vimeo.com/1"></iframe></pre>'
-        . '<!-- <iframe src="https://vimeo.com/2"></iframe> -->';
-    $check('code_and_comments_not_resources', Analysis::htmlUrls($literalExample) === []);
+    // HTML belongs to html-unit.php with the real WordPress parser; never a fake parser in this pure bank.
     $rows = [['year' => 2026, 'services' => ['youtube', 'youtube', 'autre'], 'selected' => true],
         ['year' => 2025, 'services' => ['youtube'], 'selected' => false]];
     $year = Analysis::content($rows, false, false);

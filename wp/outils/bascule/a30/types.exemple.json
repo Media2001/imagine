@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "types": {
+    "papier": 910001,
+    "numerique-fictif": 910002
+  },
+  "paiements": {
+    "virement": "virement",
+    "domiciliation papier": "domiciliation_papier"
+  },
+  "options": {
+    "importer_echus": false,
+    "resoudre_doublons": false,
+    "calculer_prochaine_echeance": false
+  }
+}

@@ -90,13 +90,27 @@ def verify(packet, python_only=False):
         if python_only:
             continue
         native = base / 'native'
-        for name in ('unit', 'result', 'runner', 'classic-standard', 'hpos-standard'):
+        for name in ('unit', 'adapter-unit', 'result', 'runner', 'classic-standard', 'hpos-standard'):
             receipt = read(native / (name + '.json'))
             counts[console + ':' + name] = len(receipt.get('checks', []))
             check(console + ':' + name + '_pass', receipt_valid(receipt))
         red = read(native / 'red-unit.json')
         check(console + ':real_red_mutation', red['exit_code'] == 1 and any(
             c['check'] == 'cc_native_type' and c['status'] == 'FAIL' for c in red['checks']))
+        for filename, required in [('red-r2.json', {'opaque_adapted_presence',
+                                                      'opaque_five_automatic_illisible', 'opaque_five_relation_unknown'}),
+                                   ('red-r3.json', {'explicit_contradiction_stripe_sepa'})]:
+            red = read(native / filename)
+            failed = {c['check'] for c in red['checks'] if c['status'] == 'FAIL'}
+            check(console + ':' + filename + '_targeted_red', red['exit_code'] == 1 and required.issubset(failed))
+        adapter = {c['check'] for c in read(native / 'adapter-unit.json')['checks']}
+        check(console + ':adapter_boundary_required', {'opaque_actual_a19_boundary', 'opaque_adapted_presence',
+              'opaque_five_automatic_illisible', 'opaque_five_relation_unknown', 'opaque_one_schema_evaluation',
+              'empty_adapted_presence', 'observer_removed_after_exception'}.issubset(adapter))
+        unit_checks = {c['check'] for c in read(native / 'unit.json')['checks']}
+        check(console + ':r3_required_distinct_cases', all(kind + gateway in unit_checks
+              for gateway in ('stripe_sepa', 'paypal') for kind in ('explicit_contradiction_',
+              'explicit_unresolved_', 'reference_only_fallback_', 'explicit_unique_match_')))
         check(console + ':executed_sources', read(native / 'sources.json') == source)
         check(console + ':executed_dependencies', read(native / 'dependencies.json') == runner.manifest(runner.DEPS))
         check(console + ':pure_no_extensions_no_writes', (native / 'pure.log').read_text(encoding='utf-8')
@@ -115,7 +129,31 @@ def verify(packet, python_only=False):
             mandatory += ['audit_refusal_' + key for key in ('schema', 'clock', 'storage')]
             mandatory += [kind + '_' + key for key in CHANNELS for kind in ('closed_channel', 'discarded_channel')]
             mandatory += ['mutation_witness_' + key for key in WITNESSES]
+            mandatory += [kind + case for case in ('opaque', 'conflict', 'reference-only', 'unique')
+                          for kind in ('correction_seed_', 'correction_success_', 'correction_exact_five_',
+                                       'correction_db_files_unchanged_', 'correction_private_values_absent_')]
             check(prefix + ':required_native_cases', all(storage + ':' + key in actual for key in mandatory))
+            for case in ('opaque', 'conflict', 'reference-only', 'unique'):
+                stem = storage + '-correction-' + case
+                gateway = 'ppcp-gateway' if case == 'opaque' else 'stripe_sepa'
+                kind = 'illisible' if case in ('opaque', 'conflict') else 'mandat_sepa'
+                relations = []
+                if case in ('conflict', 'unique'):
+                    relations.append({'gateway': 'autre', 'metric': 'accounts_multiple_tokens', 'count': 5})
+                if case != 'unique':
+                    relations.append({'gateway': gateway, 'metric': 'subscriptions_unlinked' if case == 'reference-only'
+                                      else 'subscriptions_link_unknown', 'count': 5})
+                expected_case = {'automatic': {'groups': [{'gateway': gateway, 'type': kind, 'count': 5}], 'autres': 0},
+                                 'cards': {'groups': [], 'autres': 0}, 'relations': {'groups': relations, 'autres': 0}}
+                correction = read(native / stem / 'paiements.json')
+                check(prefix + ':correction_exact_counts_' + case,
+                      correction['storage'] == storage and correction['counts'] == expected_case)
+                check(prefix + ':correction_projection_' + case, report.complete_report(
+                    native / stem, native / (stem + '-audit') / 'audit.json'))
+                check(prefix + ':correction_db_immutable_' + case,
+                      read(native / (stem + '-db-before.json')) == read(native / (stem + '-db-after.json')))
+                files = read(native / (stem + '-files.json'))
+                check(prefix + ':correction_files_immutable_' + case, files['before'] == files['after'])
             for variant in ('', '-neutral', '-five'):
                 stem = storage + variant
                 before = read(native / (stem + '-db-before.json'))

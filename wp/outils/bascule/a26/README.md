@@ -1,6 +1,6 @@
 # A-26 — Ce que le site déclare charger chez des tiers
 
-Ce complément de l'audit ne désactive rien, ne contacte aucun service et n'évalue ni les cookies réellement déposés ni la conformité. La qualification native déléguée et les portes finales sont décrites dans `production/A-26/FINALISATION.md` ; seul `production/A-26/PRET` annonce la disponibilité à la relecture, jamais un GO réel.
+Ce complément de l'audit ne désactive rien, ne contacte aucun service et n'évalue ni les cookies réellement déposés ni la conformité. État courant après corrections du 27/11, file de 1 h 30 : `production/A-26/corrections-1h30.md`. Code corrigé, Python seul rejoué ; qualification PHP/native et nouveau sceau réservés au parent après stabilisation A-28. `production/A-26/FINALISATION.md` et `production/A-26/preuves/final/` restent historiques, pas une qualification du code corrigé. Aucun nouveau PRET.
 
 ## Le standard d'abord — dix lignes
 
@@ -8,14 +8,14 @@ Ce complément de l'audit ne désactive rien, ne contacte aucun service et n'év
 2. Les installations multisites possèdent aussi des activations réseau ; le runtime réemployé les refuse, elles ne sont pas transformées en faux zéro.
 3. Les réglages d'extensions sont généralement des options, mais leur schéma appartient à chaque extension, pas à WordPress (`get_option`).
 4. Le contenu enregistré est `posts.post_content` ; cet outil lit uniquement les contenus publiés des types déclarés publics, hors pièces jointes et blocs réutilisables isolés.
-5. Le parseur natif `WP_Block_Parser` expose attributs et blocs internes sans les rendre (`parse_blocks`) ; son implémentation par défaut est appelée directement pour éviter le filtre remplaçable.
+5. `WP_Block_Parser` lit les blocs sans rendu ; `WP_HTML_Tag_Processor` lit les vraies balises/attributs HTML sans expression régulière, notamment les guillemets contenant `>` et les faux `src` dans un titre.
 6. Les blocs `core/embed`, audio, vidéo et image peuvent déclarer une URL ; les blocs réutilisables `core/block` sont résolus localement, sans appel oEmbed.
 7. WordPress sait intégrer une URL seule sur une ligne ; une URL dans un lien ordinaire n'est pas à elle seule une ressource chargée (`Embeds`).
 8. Les codes courts sont reconnus par la grammaire native `get_shortcode_regex` et leurs attributs, jamais par `do_shortcode` ni un callback de rendu.
 9. Les outils de confidentialité du cœur aident à rédiger une politique et à exporter/effacer des données ; ils ne fournissent pas un bandeau universel bloquant toutes les ressources (`Privacy`).
 10. Même l'extension WP Consent API précise qu'elle communique des catégories et nécessite un gestionnaire de consentement ; elle ne gère ni le consentement ni le blocage à elle seule.
 
-Références officielles récupérées avant le code PHP : `production/A-26/standard/sources.json`, textes associés et empreintes de réponse. Références : `https://developer.wordpress.org/reference/functions/parse_blocks/`, `https://developer.wordpress.org/reference/functions/get_shortcode_regex/`, `https://developer.wordpress.org/reference/functions/get_option/`, `https://developer.wordpress.org/reference/functions/get_plugins/`, `https://developer.wordpress.org/plugins/privacy/`, `https://wordpress.org/documentation/article/embeds/`, `https://wordpress.org/plugins/wp-consent-api/`.
+Références officielles : `production/A-26/standard/sources.json` et, pour le lecteur HTML natif, `production/A-26/standard/html-tag-processor-sources.json` (réponses officielles archivées et empreintes). Références : `https://developer.wordpress.org/reference/functions/parse_blocks/`, `https://developer.wordpress.org/reference/functions/get_shortcode_regex/`, `https://developer.wordpress.org/reference/functions/get_option/`, `https://developer.wordpress.org/reference/functions/get_plugins/`, `https://developer.wordpress.org/plugins/privacy/`, `https://wordpress.org/documentation/article/embeds/`, `https://wordpress.org/plugins/wp-consent-api/`.
 
 ## Parcours opérateur
 

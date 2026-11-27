@@ -100,8 +100,34 @@ def verify(packet, python_only=False, require_shared=False):
         result = read(native / 'result.json')
         required = []
         for storage in ('classic', 'hpos'):
+            html_names = ['html_quoted_gt_real_youtube', 'html_title_src_no_phantom_vimeo']
+            html_green = read(native / (storage + '-html-unit.json'))
+            html_red = read(native / (storage + '-html-red-unit.json'))
+            html_failed = {row['check'] for row in html_red['checks'] if row['status'] == 'FAIL'}
+            if (not named(html_green, html_names) or html_red['exit_code'] != 1
+                    or not set(html_names) <= html_failed):
+                raise RuntimeError('A26_HTML_RED_GREEN_INCOMPLETE')
+            witness = read(native / (storage + '-html-red-green.json'))
+            current = read(native / (storage + '-tiers/tiers.json'))['content']
+            modes = [row['mode'] for row in witness['red_reports']]
+            if (witness['storage'] != storage or witness['source_restored_exactly'] is not True
+                    or witness['source_sha256'] != read(packet / 'sources.json')['wp/outils/bascule/a26/Analysis.php']
+                    or witness['green_content'] != current
+                    or current['all']['youtube'] != 4 or current['all']['vimeo'] != 1
+                    or len(modes) != 4 or set(modes) != {'annee', 'postmeta', 'post_parent', 'taxonomy'}):
+                raise RuntimeError('A26_HTML_REPORT_PROOF_INCOMPLETE')
+            for row in witness['red_reports']:
+                red_content = row['content']
+                if red_content['all']['youtube'] != 3 or red_content['all']['vimeo'] != 2:
+                    raise RuntimeError('A26_HTML_REPORT_RED_NOT_OBSERVED')
+                if row['mode'] != 'annee':
+                    red_last = red_content['selection']['last_ten']
+                    if red_last['youtube'] != 1 or red_last['vimeo'] != 1:
+                        raise RuntimeError('A26_HTML_REPORT_RED_NOT_OBSERVED')
             required.extend(storage + ':' + name for name in (
                 'confined_success', 'one_active_each_family', 'exact_content_per_service_once', 'annual_fallback_utc',
+                'html_two_counterexamples_red', 'html_native_bank_green', 'html_report_two_counterexamples_red',
+                'html_quoted_gt_report_count', 'html_title_src_no_phantom_report_count', 'html_source_restored_exactly',
                 'all_private_values_absent_all_report_files', 'documented_command_only_given_arguments',
                 'all_tables_and_scheduler_identical', 'site_files_identical', 'actual_unchanged_import_executed',
                 'neutral_unknown_never_zero', 'neutralised_all_tables_files_identical', 'all_output_artifacts_clean'))
@@ -110,6 +136,11 @@ def verify(packet, python_only=False, require_shared=False):
                 required.append(storage + ':closed_channel:' + channel)
             for mode in ('postmeta', 'post_parent', 'taxonomy'):
                 required.append(storage + ':last_ten_exact_no_oldest_no_orphans:' + mode)
+                required.append(storage + ':html_last_ten_two_counterexamples_red:' + mode)
+                required.append(storage + ':html_last_ten_quoted_gt_and_no_phantom:' + mode)
+                last = read(native / (storage + '-last-ten-' + mode) / 'tiers.json')['content']['selection']['last_ten']
+                if last['youtube'] != 2 or last['vimeo'] != 0:
+                    raise RuntimeError('A26_HTML_REPORT_GREEN_INVALID')
             for phase in ('', '-neutralised'):
                 prefix = storage + phase
                 if read(native / (prefix + '-db-before.json')) != read(native / (prefix + '-db-after.json')):

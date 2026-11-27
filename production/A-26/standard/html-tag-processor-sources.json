@@ -1,0 +1,23 @@
+[
+  {
+    "name": "html-tag-processor",
+    "url": "https://developer.wordpress.org/reference/classes/wp_html_tag_processor/",
+    "retrieved_utc": "2026-11-27T01:59:39.147951+00:00",
+    "source_sha256": "e2a5ab98ead7205329941734347bfb79477faf8d101fdd7e441c198ae85be533",
+    "file": "html-tag-processor.html"
+  },
+  {
+    "name": "html-next-token",
+    "url": "https://developer.wordpress.org/reference/classes/wp_html_tag_processor/next_token/",
+    "retrieved_utc": "2026-11-27T01:59:39.963328+00:00",
+    "source_sha256": "2a52bdc00eaa87dff4e7570b5e7bc49a1a702c5a0f5e676fca0127e30ccce43f",
+    "file": "html-next-token.html"
+  },
+  {
+    "name": "html-get-attribute",
+    "url": "https://developer.wordpress.org/reference/classes/wp_html_tag_processor/get_attribute/",
+    "retrieved_utc": "2026-11-27T01:59:40.874762+00:00",
+    "source_sha256": "6e7f76d4b3071fd8aacc22463d9eb6f3922edcb01496b1bf40e229f6ae09a095",
+    "file": "html-get-attribute.html"
+  }
+]

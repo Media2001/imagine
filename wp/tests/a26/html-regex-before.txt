@@ -1,0 +1,26 @@
+    public static function htmlUrls(string $content): array
+    {
+        $urls = [];
+        $content = preg_replace('~<(pre|code)\b[^>]*>.*?</\1\s*>|<!--.*?-->~is', '', $content) ?? '';
+        $resourcePattern = '~<(iframe|embed|object|script|img|audio|video|source|link|blockquote)\b([^>]*)>~is';
+        preg_match_all($resourcePattern, $content, $tags, PREG_SET_ORDER);
+        foreach ($tags as $tag) {
+            $attributePattern = '~\b(src|data-src|data|href|cite|data-instgrm-permalink)\s*=\s*'
+                . '(?:"([^"]*)"|\x27([^\x27]*)\x27|([^\s>]+))~i';
+            preg_match_all($attributePattern, $tag[2], $attrs, PREG_SET_ORDER);
+            foreach ($attrs as $attr) {
+                $key = strtolower($attr[1]);
+                if (
+                    ($key === 'href' && strtolower($tag[1]) !== 'link')
+                    || ($key === 'data' && strtolower($tag[1]) !== 'object')
+                ) {
+                    continue;
+                }
+                $urls[] = $attr[2] !== '' ? $attr[2] : (($attr[3] ?? '') !== '' ? $attr[3] : ($attr[4] ?? ''));
+            }
+        }
+        // WordPress autoembeds standalone URLs. Ordinary inline links are not requests.
+        preg_match_all('~(?:^|\n)\s*(https?://[^\s<>]+)\s*(?=\n|$)~i', $content, $bare);
+        return [...$urls, ...$bare[1]];
+    }
+

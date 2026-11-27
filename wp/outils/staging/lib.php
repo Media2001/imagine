@@ -23,10 +23,9 @@ interface Store
 /** The suffix is validated against the closed, repository-owned policy, never site text. */
 final class FormDecisionRefused extends RuntimeException
 {
-    public function __construct(public readonly string $table)
+    public function __construct(public readonly string $table, array $tables)
     {
-        $policy = json_decode(file_get_contents(__DIR__ . '/form-policy.json'), true, 32, JSON_THROW_ON_ERROR);
-        if (!in_array($table, $policy['tables'], true)) {
+        if (!in_array($table, $tables, true)) {
             throw new RuntimeException('FORM_POLICY_REFUSED');
         }
         parent::__construct('FORM_MESSAGES_DECISION_REFUSED');
@@ -84,9 +83,9 @@ final class Engine
         }
         foreach ($this->decisions as $table => $decision) {
             $kind = is_string($table) && str_starts_with($table, $prefix) ? substr($table, strlen($prefix)) : '';
-            if (isset($this->inventory[$table]) && in_array($kind, $this->formTables, true)) {
+            if (in_array($kind, $this->formTables, true)) {
                 if ($decision !== ['action' => 'vider']) {
-                    throw new FormDecisionRefused($kind);
+                    throw new FormDecisionRefused($kind, $this->formTables);
                 }
                 continue;
             }

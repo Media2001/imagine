@@ -2,7 +2,8 @@
 
 declare(strict_types=1);
 
-$paths = ['parser' => '/opt/wordpress/wordpress/wp-includes/class-wp-block-parser.php',
+$paths = ['html' => '/opt/wordpress/wordpress/wp-includes/html-api/class-wp-html-tag-processor.php',
+    'parser' => '/opt/wordpress/wordpress/wp-includes/class-wp-block-parser.php',
     'shortcodes' => '/opt/wordpress/wordpress/wp-includes/shortcodes.php',
     'plugins' => '/opt/wordpress/wordpress/wp-admin/includes/plugin.php',
     'options' => '/opt/wordpress/wordpress/wp-includes/option.php',
@@ -15,7 +16,10 @@ foreach ($paths as $key => $path) {
     $sources[$key] = file_get_contents($path);
     $hashes[$key] = hash('sha256', $sources[$key]);
 }
-$rules = ['native_default_block_parser' => str_contains($sources['parser'], 'class WP_Block_Parser'),
+$rules = ['native_html_tag_processor' => str_contains($sources['html'], 'class WP_HTML_Tag_Processor')
+        && str_contains($sources['html'], 'function next_token(')
+        && str_contains($sources['html'], 'function get_attribute('),
+    'native_default_block_parser' => str_contains($sources['parser'], 'class WP_Block_Parser'),
     'native_shortcode_regex' => str_contains($sources['shortcodes'], 'function get_shortcode_regex('),
     'native_shortcode_attributes' => str_contains($sources['shortcodes'], 'function shortcode_parse_atts('),
     'native_active_plugins_option' => str_contains($sources['plugins'], "get_option( 'active_plugins'"),

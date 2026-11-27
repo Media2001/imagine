@@ -1,5 +1,6 @@
 """Native synthetic A26 bank. Only the parent runs this inside its isolated runner."""
 import importlib.util
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -9,6 +10,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+from html_mutation import legacy_html
 
 sys.dont_write_bytecode = True
 spec = importlib.util.spec_from_file_location('fixture', '/opt/a02/inside.py')
@@ -65,6 +67,18 @@ def run_storage(storage):
     try:
         p = b.wp(site, ['eval-file', '/opt/a26/seed.php', '--use-include'])
         b.check(storage + ':native_seed', 'A26_SEED_OK' in p.stdout)
+        with legacy_html():
+            red = b.wp(site, ['eval-file', '/opt/a26/html-unit.php', '--use-include'], check=False)
+            red_html = json.loads(red.stdout)
+        green = b.wp(site, ['eval-file', '/opt/a26/html-unit.php', '--use-include'], check=False)
+        green_html = json.loads(green.stdout)
+        for suffix, value in [('html-red-unit', red_html), ('html-unit', green_html)]:
+            (OUT / (storage + '-' + suffix + '.json')).write_text(json.dumps(value, indent=2) + '\n', encoding='utf-8')
+        failed = {row['check'] for row in red_html['checks'] if row['status'] == 'FAIL'}
+        b.check(storage + ':html_two_counterexamples_red', red.returncode != 0 and red_html['exit_code'] == 1
+                and {'html_quoted_gt_real_youtube', 'html_title_src_no_phantom_vimeo'} <= failed)
+        b.check(storage + ':html_native_bank_green', green.returncode == 0 and green_html['exit_code'] == 0
+                and all(row['status'] == 'PASS' for row in green_html['checks']))
     finally:
         (site / 'wp-config.php').write_text(cfg, encoding='utf-8')
     mu = site / 'wp-content/mu-plugins/a26-probe.php'
@@ -101,6 +115,18 @@ if (getenv('A26_CONFINED') === '1') {
     b.check(storage + ':audit_success', b.audit(site, audit).returncode == 0)
     before, files = b.fingerprint(db), b.files(site)
     (OUT / (storage + '-db-before.json')).write_text(json.dumps(before), encoding='utf-8')
+    html_witness = {'suite': 'A26-native-HTML-reports', 'storage': storage, 'red_reports': []}
+    with tempfile.TemporaryDirectory(prefix='a26-html-red-', dir='/scratch') as tmp:
+        (Path(tmp) / 'audit').mkdir()
+        shutil.copyfile(audit / 'audit.json', Path(tmp) / 'audit/audit.json')
+        with legacy_html() as digest:
+            red_dest = Path(tmp) / 'tiers'
+            red = inventory(site, red_dest, Path(tmp) / 'audit/audit.json')
+            red_report = json.loads((red_dest / 'tiers.json').read_text(encoding='utf-8'))
+        html_witness['source_sha256'] = digest
+        html_witness['red_reports'].append({'mode': 'annee', 'content': red_report['content']})
+        b.check(storage + ':html_report_two_counterexamples_red', red.returncode == 0
+                and red_report['content']['all'] == exact_counts(youtube=3, vimeo=2, spotify=1, autre=1))
     dest = OUT / (storage + '-tiers')
     p = inventory(site, dest, audit / 'audit.json')
     b.check(storage + ':confined_success', (p.returncode, p.stdout, p.stderr) == (0, 'A26_OK tiers.json tiers.md\n', ''))
@@ -108,10 +134,12 @@ if (getenv('A26_CONFINED') === '1') {
     b.check(storage + ':one_active_each_family', len(d['families']) == 10 and all(row['active'] == 1 for row in d['families'].values()))
     b.check(storage + ':qualified_identifier_yes_others_unreadable', d['families']['mesure']['identifier'] == 'oui'
             and all(row['identifier'] == 'illisible' for key, row in d['families'].items() if key != 'mesure'))
-    b.check(storage + ':exact_content_per_service_once', d['content']['all'] == exact_counts(youtube=3, vimeo=1, spotify=1, autre=1))
+    b.check(storage + ':exact_content_per_service_once', d['content']['all'] == exact_counts(youtube=4, vimeo=1, spotify=1, autre=1))
+    b.check(storage + ':html_quoted_gt_report_count', d['content']['all']['youtube'] == 4)
+    b.check(storage + ':html_title_src_no_phantom_report_count', d['content']['all']['vimeo'] == 1)
     years = {row['year']: row['counts'] for row in d['content']['selection']['years']}
     b.check(storage + ':annual_fallback_utc', d['content']['selection']['mode'] == 'annee'
-            and years[2024] == exact_counts(youtube=1) and years[2026] == exact_counts(youtube=1, autre=1)
+            and years[2024] == exact_counts(youtube=1) and years[2026] == exact_counts(youtube=2, autre=1)
             and years[2023] == exact_counts(vimeo=1, spotify=1) and years[2022] == exact_counts(youtube=1))
     payload = p.stdout + p.stderr + ''.join(f.read_text(encoding='utf-8') for f in dest.iterdir())
     b.check(storage + ':all_private_values_absent_all_report_files', not re.search(r'CANARY|@|/scratch|\.invalid|a02-admin', payload))
@@ -142,14 +170,32 @@ if (getenv('A26_CONFINED') === '1') {
             current['liaison']['cle'] = 'a26_issue'
         path = OUT / (storage + '-mapping-' + mode + '.json')
         path.write_text(json.dumps(current), encoding='utf-8')
+        with tempfile.TemporaryDirectory(prefix='a26-html-last-red-', dir='/scratch') as tmp:
+            (Path(tmp) / 'audit').mkdir()
+            shutil.copyfile(audit / 'audit.json', Path(tmp) / 'audit/audit.json')
+            with legacy_html():
+                red_dest = Path(tmp) / 'tiers'
+                red = inventory(site, red_dest, Path(tmp) / 'audit/audit.json', '--a16-map=' + str(path))
+                red_report = json.loads((red_dest / 'tiers.json').read_text(encoding='utf-8'))
+            html_witness['red_reports'].append({'mode': mode, 'content': red_report['content']})
+            b.check(storage + ':html_last_ten_two_counterexamples_red:' + mode, red.returncode == 0
+                    and red_report['content']['selection']['last_ten'] == exact_counts(youtube=1, vimeo=1, autre=1))
         out = OUT / (storage + '-last-ten-' + mode)
         q = inventory(site, out, audit / 'audit.json', '--a16-map=' + str(path))
         b.check(storage + ':a16_mapping_success:' + mode, q.returncode == 0 and q.stderr == '')
         last = json.loads((out / 'tiers.json').read_text(encoding='utf-8'))
         b.check(storage + ':last_ten_exact_no_oldest_no_orphans:' + mode,
                 last['content']['selection'] == {'mode': 'dix_derniers', 'years': [],
-                                                'last_ten': exact_counts(youtube=1, autre=1)}
+                                                'last_ten': exact_counts(youtube=2, autre=1)}
                 and last['content']['all'] == d['content']['all'])
+        b.check(storage + ':html_last_ten_quoted_gt_and_no_phantom:' + mode,
+                last['content']['selection']['last_ten']['youtube'] == 2
+                and last['content']['selection']['last_ten']['vimeo'] == 0)
+    html_witness['green_content'] = d['content']
+    html_witness['source_restored_exactly'] = hashlib.sha256(
+        Path('/subject/a26/Analysis.php').read_bytes()).hexdigest() == html_witness['source_sha256']
+    b.check(storage + ':html_source_restored_exactly', html_witness['source_restored_exactly'])
+    (OUT / (storage + '-html-red-green.json')).write_text(json.dumps(html_witness, indent=2) + '\n', encoding='utf-8')
     for label, path in [('exists', dest), ('site', site / 'forbidden'), ('repo', Path('/subject/forbidden')),
                         ('ancestor', site.parent / 'forbidden'), ('root', Path('/forbidden'))]:
         q = inventory(site, path, audit / 'audit.json')

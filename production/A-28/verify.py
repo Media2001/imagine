@@ -33,11 +33,32 @@ def readme_contract(raw, lines, commands):
         previous = at
 
 
+def orphan_contract(probe, result):
+    need(probe['mutation'] == 'omit_only_postmeta_purge' and probe['source_restored'] is True
+         and probe['known_parent_posts'] == probe['known_revision_posts'] == 0
+         and probe['known_orphan_meta'] == probe['provenance_ids_count'] == 4, 'ORPHAN_PROVENANCE')
+    need(result['data_verified'] is False and [s['phase'] for s in result['steps']] == ['neutraliser', 'anonymiser', 'verifier']
+         and [s['exit'] for s in result['steps']] == [0, 0, 1], 'ORPHAN_IMPORT')
+    for key in ('refused', 'restored'):
+        row = probe[key]
+        need(row['exit'] == 1 and row['stderr_empty'] is True and row['report']['ok'] is False
+             and row['report']['form_message_residues'] == 4
+             and 'FORM_MESSAGES_REMAIN' in row['report']['issues']
+             and 'SONDE_NON_EXECUTEE_DONNEES_REFUSEES' in row['report']['warnings'], 'ORPHAN_REFUSAL')
+    row = probe['mutant']
+    need(row['exit'] == 0 and row['stderr_empty'] is True and row['report']['ok'] is True
+         and row['report']['form_message_residues'] == 4, 'ORPHAN_MUTATION')
+    oracle = probe['oracle']
+    need(oracle['known_meta'] == 4 and oracle['known_revisions'] == 0
+         and all(oracle[t] == 0 for t in TYPES + TABLES)
+         and oracle['fiction_magazine'] == 1, 'ORPHAN_ORACLE')
+
+
 def native_contract(data, baseline=False):
     need(data['status'] == 'PASS' and data['synthetic_only'] is True and data['baseline'] is baseline, 'NATIVE_STATUS')
     checks = data['checks']
     need(checks and all(c['pass'] is True for c in checks) and data['failed'] == 0 and data['passed'] == len(checks), 'NATIVE_CHECKS')
-    modes = ['default', 'keep-unknown', 'keep-known'] if baseline else ['default', 'keep-unknown', 'keep-known', 'anonymise-known']
+    modes = ['default', 'keep-unknown', 'keep-known'] if baseline else ['default', 'keep-unknown', 'keep-known', 'anonymise-known', 'omit-meta-purge']
     expected = {(storage, mode) for storage in ('classic', 'hpos') for mode in modes}
     cases = data['cases']
     need(len(cases) == len(expected) and {(c['storage'], c['mode']) for c in cases} == expected, 'NATIVE_MATRIX')
@@ -45,6 +66,9 @@ def native_contract(data, baseline=False):
         need(re.fullmatch('[0-9a-f]{64}', case['archive_sha256']) is not None, 'NATIVE_ARCHIVE')
         mode = case['mode']
         result = case['result']
+        if mode == 'omit-meta-purge':
+            orphan_contract(case['postmeta_purge_witness'], result)
+            continue
         if baseline or mode in ('default', 'keep-unknown'):
             need(result['data_verified'] is True and [s['phase'] for s in result['steps']] == ['neutraliser', 'anonymiser', 'verifier']
                  and all(s['exit'] == 0 and s['report']['ok'] is True for s in result['steps']), 'NATIVE_PHASES')
