@@ -67,3 +67,62 @@ Lu : les rapports de 22 h 56, 23 h 42, 0 h 53 et 1 h 02 (voie 1), ceux de 22 h 3
 - **Voie 1** : corrections de code d'A-26 et d'A-27, banc d'A-25, fin d'A-29 ; à l'arrivée de la fusion d'A-28, ses corrections puis une seule requalification. Deux lots de plus : T-03 (les vérificateurs de paquet rejoués par les relecteurs) et A-30 (l'import à blanc des abonnés hors ligne : ce que ferait l'import, en nombres, sans rien écrire ; §4.3).
 - **Voie 2** : sa file était vide à 1 h 08, hors corrections de B-08. Trois lots de plus, dans l'ordre du §3.14 et du §3.7 : B-09 (FAQ, pages légales, contact), C-27 (« Comment nous avez-vous connus ? », après le paiement), B-10 (points de vente, sans fond de carte par défaut).
 - « Tunnel et emails » reste en attente des décisions 3 à 5 d'Imagine : aucun de ces lots n'y touche.
+
+# Passage automatique de 4 h
+
+Lu : les rapports de 1 h 30, 1 h 45, 2 h 25, 2 h 52 et 3 h 52 (voie 1), les deux relectures et la fusion d'A-28, les deux relectures et la fusion de C-26, les notes et le `PRET` d'A-28 corrigé, les réceptions de T-03, d'A-29 et d'A-30. **Aucun rapport de la voie 2 depuis 0 h 31, et aucun fichier d'elle dans le dépôt depuis 0 h 33.** Aucune clôture ce passage. Aucun accord donné sur le réel.
+
+## A-28 — à corriger, corrigé à 3 h 52, vérification attendue
+
+- Verdict de fusion retenu : aucun bloquant, un important. L'étape de vérification comptait les messages de formulaires restants, mais pas leurs champs (`postmeta`) quand le message lui-même avait disparu : le filet avait un trou là où vit le texte du visiteur. Corrigé : les identifiants des messages connus sont relevés avant la purge, gardés hors du site et hors du rapport, et la vérification refuse s'il reste une ligne rattachée à l'un d'eux. Témoin demandé livré (purge des champs seule omise : refus ; contrôle retiré : accepté ; remis : refus), classique et HPOS.
+- Défauts techniques de la fusion (instructions 4 et 5) : appliqués par Hermès, confirmés. L'exception reçoit la liste déjà chargée ; un `garder` posé sur une table de la liste est refusé avec le même code, que la table soit ou non dans l'archive. Raison : un seul code pour un seul refus.
+- Deux tables de la liste (`fluentform_draft_submissions`, `ff_scheduled_actions`) sans phrase officielle citée : elles **restent dans la liste**, marquées « doute » dans `standard.md`, comme la fusion le permettait. Raison : dans le doute, vider une table de brouillons de formulaires sur une copie de travail est le choix prudent ; la retirer laisserait du texte de visiteur.
+- **Ce que la correction a fait en plus, et que personne n'avait demandé : le fichier de l'import a été découpé en cinq** (`lib.php`, `engine.php`, `store.php`, `guard.php`, `form-decision-refused.php`) pour passer PSR-12 sans exclusion. Je ne le fais pas défaire. Raison : revenir en arrière serait un troisième changement de l'import dans la nuit ; Hermès livre une preuve d'équivalence des jetons, le différentiel hors formulaires rejoué, et les commandes de Ced identiques octet pour octet. Mais :
+  - **A-28 ne se clôt que si sa vérification a regardé ce découpage** (équivalence, charge utile de l'import portant bien les cinq fichiers, commandes de Ced inchangées). Si elle dit « prêt » sans en parler, une vérification complémentaire sera demandée avant la clôture ;
+  - règle étendue à la voie 1 : **une correction ne restructure pas un fichier commun**, et n'y fait entrer ni fonction ni mise en forme. Le style de l'import est une dette jusqu'au gel du code, comme pour la voie 2 ;
+  - **l'import est gelé pour de bon** à l'état scellé par A-28 (empreintes dans `production/A-28/preuves/final/dependency-invalidations.json`), style compris.
+- La question des contenus d'un type inconnu reste à Ced, inchangée (`ETAT.md`).
+
+## La requalification — faite une fois trop tôt, à refaire une fois
+
+- Les matrices d'A-21 à A-27 ont été rejouées au vert entre 1 h 30 et 2 h 25, avant l'arrivée de la fusion d'A-28 ; la correction d'A-28 a rechangé l'import à 3 h 27. Ces candidats sont périmés. Hermès ne les a pas scellés et ne les requalifie pas par un simple changement d'empreinte : c'est juste.
+- Ordre maintenu, précisé : la requalification part **quand la vérification d'A-28 est arrivée**. « Prêt » : elle part tout de suite. « À corriger » en touchant à l'import : ses corrections d'abord. Si la vérification n'est pas là au réveil suivant, la requalification part quand même sur l'import gelé : elle comptera si l'import ne bouge plus. Raison : ne pas rester à l'arrêt plus d'une heure pour économiser une heure de matrices.
+- Les corrections de code d'A-26 (lecteur de balises) et d'A-27 (« illisible », jamais « absent ») sont faites et ont passé leur matrice une fois ; leur `PRET` vient avec le paquet refait.
+- A-23, A-24, A-25 : rien de changé au fond ; toujours « clôture sur le paquet refait ». A-25 : son banc attend maintenant le refus du `garder` et la purge, comme demandé.
+
+## T-03 — candidat rendu, sans preuve native ; trois questions tranchées
+
+- Honnête : contrats Python et doubles seulement, aucun nombre natif revendiqué, pas de `PRET`.
+- **Les déclarations `rejeu.json` s'ajoutent pendant la requalification, lot par lot, avant le sceau** (A-21 à A-30). Raison : ajouter un fichier dans un paquet déjà scellé le périme.
+- **Les lots clos avant A-21 ne reçoivent pas de déclaration** : ils sortent « hors rejeu : déclaration absente », nommés sur la ligne `PAQUETS`. Raison : leur ajouter un fichier périmerait des paquets clos pour rien ; ce n'est pas un échec.
+- A-21 et A-22, dont le vérificateur exige un argument : un point d'entrée sans argument dans `production/<lot>/`, qui appelle le vérificateur existant sur l'unique paquet du lot. **Aucun contrôle n'est changé pour rendre la ligne verte.**
+- T-01 et T-02 restent clos : T-03 change leur lanceur, il ne les rouvre pas (règle d'A-21). C'est le paquet de T-03 qui prouve que les anciennes frontières tiennent, en natif.
+- Le montage de la racine du dépôt en lecture seule dans le conteneur isolé : accepté. Raison : rien de réel ni de secret n'est dans le dépôt (doctrine §3), le conteneur n'a ni réseau ni écriture. Il ne s'élargit jamais à un dossier parent.
+
+## A-29 — bloqué en natif, pas de règle assouplie
+
+- Sur la copie neutralisée, le processus finit en sortie 255 après avoir écrit un résultat de succès, sans message. Hermès n'a déclaré aucun succès : c'est juste. **Une sortie 255 n'est pas un succès, quel que soit le résultat écrit avant.**
+- Le diagnostic se borne à un réveil, sur l'import gelé, sans retirer de canari ni de compteur. S'il n'aboutit pas : un rapport de dix lignes (ce qui est établi, ce qui ne l'est pas, les deux hypothèses) et le lot attend le passage suivant. Raison : A-29 ne bloque personne.
+
+## A-30 — construit, natif attendu
+
+- Paquet Python seulement, sans `PRET`. Défauts retenus : les trois règles laissées en option fermée (importer un abonné échu, résoudre un doublon, calculer la prochaine échéance) refusent la valeur « oui » au lieu de l'interpréter ; un courriel qui correspond à deux comptes refuse le passage. Trois questions rangées pour Imagine.
+- Priorité entre les issues d'une même ligne (refus d'A-13, puis sans adresse, puis type à décider, puis rapprochement) : c'est un ordre de comptage, pas une règle métier ; confirmé. Raison : une ligne n'est comptée qu'une fois, et le motif le plus bloquant d'abord.
+- Sur une copie neutralisée, « à créer » et « existant » ne se distinguent pas : « inconnu après neutralisation », pas une sixième issue. Confirmé, reporté aux écarts.
+
+## C-26 — à corriger, un bloquant sur la preuve, aucune fuite constatée
+
+- Verdict de fusion retenu, les dix instructions. Le bloquant : les sorties nouvelles (Soutenir, coopérative, agenda) étaient contrôlées contre une liste de témoins plus étroite que celle de C-23 ; « aucune fuite » y repose donc sur un contrôle incomplet. Ce n'est pas une fuite trouvée, c'est une étanchéité non prouvée.
+- Les trois défauts techniques de la fusion (instructions 7 à 9) : confirmés.
+- **Ordre** : les corrections de B-08 d'abord, celles de C-26 ensuite. Raison : C-26 contrôle les sorties de B-08 ; les prouver avant que B-08 ne change obligerait à les reprouver.
+- Instruction 10 (rejeu de la suite par les relecteurs sous Python 3.11) : Hermès écrit dans `A-VOIR.md` la commande exacte, sans argument. Si les relecteurs ne peuvent toujours pas la lancer, ce n'est pas un motif de troisième tour : le constat s'écrit, et la clôture se fera sur les mutations et la relecture du code. Raison : proportion sur le site fictif.
+- La réserve sur la couverture des pages coopérateurs de C-23 tient toujours.
+
+## Voie 2 — à l'arrêt depuis 0 h 33
+
+- Sa file est pleine depuis 1 h 30 (corrections de B-08, B-09, C-27, B-10) et rien n'en est sorti. Ce n'est pas un blocage que je peux lever par écrit : aucune question n'est posée, aucun rapport n'est déposé. Signalé à Ced en tête d'`ETAT.md`. Aucun brief de plus pour elle ce passage.
+
+## Files
+
+- **Voie 1** : T-03 (déclarations, image), la requalification à l'arrivée de la vérification d'A-28, A-29, A-30. Un lot de plus, qui ne dépend pas de l'issue d'A-28 pour être construit : **A-31, l'historique des commandes des abonnés, compté** (§4.3 : les abonnés en ligne gardent leur historique).
+- **Voie 2** : corrections de B-08, puis de C-26, puis B-09, C-27, B-10.

@@ -85,6 +85,9 @@ Issues des lots, au 26/11 à 10 h (chacune est un réglage au défaut prudent, a
 | Rétractation : la demande acceptée déclenche-t-elle un remboursement depuis le site ? | Non : aucun remboursement, même manuel, n'est lancé par ce parcours | Pas de réglage : aucun effet n'est livré (C-25) |
 | Après l'effacement des données d'un compte, garde-t-on la trace d'une demande de rétractation (date et référence de commande, sans motif ni identité), pour empêcher un second dépôt ? | Oui, trace dépersonnalisée gardée | Pas de réglage : règle de l'effacement (C-25) |
 | Dans le compte des moyens de paiement du site actuel, « carte qui expire dans les six mois » inclut-il tout le mois d'expiration, ou s'arrête-t-il au jour de l'audit six mois plus tard ? | Au jour de l'audit : une carte de mai 2027 n'est pas « dans les six mois » d'un audit de novembre 2026 | Pas de réglage : présentation de l'inventaire (A-27) |
+| Import des abonnés hors ligne : un abonné dont l'échéance est déjà passée dans le fichier est-il importé ? | Non décidé : l'import à blanc le compte à part et n'en fait rien | Option de la configuration, fermée ; « oui » est refusé tant qu'aucune règle n'est écrite (A-30) |
+| Import des abonnés hors ligne : quand une ligne du fichier tombe sur un compte qui existe déjà à la même adresse, rattache-t-on l'abonnement à ce compte, ou la ligne revient-elle à l'administration ? | Rien n'est rattaché : la ligne est comptée « compte existant » | Option de la configuration, fermée (A-30) |
+| Import des abonnés hors ligne : la prochaine échéance est-elle reprise telle quelle du fichier, ou recalculée d'après les numéros dus et le calendrier de parution (§3.5) ? | Aucune échéance n'est calculée | Option de la configuration, fermée (A-30) |
 
 Rappel de règle, sans question : un abonnement actif dans l'administration mais **sans paiement validé** ne figure pas dans la liste d'envoi.
 

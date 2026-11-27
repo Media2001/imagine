@@ -104,3 +104,14 @@ Toute demande hors cahier des charges, toute contradiction interne au cahier des
 - **C-25 · une demande sans effet, et un droit non validé.** Le §3.7 demande la fonction de rétractation en deux étapes ; il ne dit ni ce que la demande déclenche, ni comment le délai se compte. Livré : la demande datée, visible de l'administration, rien d'autre. Délai (14 jours), point de départ (paiement) et borne (incluse) sont des défauts techniques, pas une lecture de la loi : à faire valider par le conseil juridique d'Imagine, comme le §3.8 le prévoit.
 - **C-25, B-08 · un antislash perdu, deux fois.** Les bouchons de test ne reproduisaient pas le déséchappement de WordPress ; un texte libre contenant un antislash était refusé ou altéré. Corrigé dans C-25, à corriger dans B-08 ; règle ajoutée à la file de la voie 2.
 - **C-22, C-24, C-25 · trois sections insérées dans l'écran de réglages par réécriture du HTML.** Pas de point d'accroche dédié dans C-10. Dette acceptée jusqu'à la réponse de Ced sur la place de ces sections ; un seul changement de l'écran alors.
+
+## 27 novembre 2026, 4 h — lots A-28, T-03, A-29, A-30, C-26, voie 2
+
+- **A-28 · l'import a changé deux fois dans la nuit.** La correction demandée (compter les champs restants d'un message purgé) est faite ; elle a aussi découpé le fichier de l'import en cinq, pour le style, sans que ce soit demandé. Non défait (équivalence prouvée par Hermès, à regarder par la vérification) ; règle ajoutée : une correction ne restructure pas un fichier commun. Import gelé, style compris.
+- **A-28 · deux tables vidées sans phrase officielle citée.** `fluentform_draft_submissions` et `ff_scheduled_actions` restent dans la liste, marquées « doute ».
+- **A-21 à A-27 · une requalification perdue.** Sept matrices rejouées avant la fusion d'A-28, périmées par sa correction. À refaire une fois, à l'arrivée de la vérification d'A-28.
+- **T-03 · les lots clos avant A-21 restent hors du rejeu des paquets.** Leur ajouter une déclaration périmerait leurs preuves. Ils sont nommés « hors rejeu » ; seuls A-21 à A-30 sont rejoués par les relecteurs.
+- **A-29 · pas de preuve native.** Sur la copie neutralisée, le processus finit en erreur (sortie 255) après un résultat de succès. Cause non établie ; aucun succès déclaré.
+- **A-30 · sur une copie neutralisée, on ne sait pas dire « à créer » ou « existant ».** Les adresses sont anonymisées par l'import : le rapprochement vaut « inconnu ». Le nombre utile demandera le fichier d'Imagine et une lecture sur la source, par Ced : rien n'est lancé.
+- **C-26 · étanchéité des sorties nouvelles non prouvée.** Le test contrôlait Soutenir, la coopérative et l'agenda contre une liste de témoins incomplète, et ne visitait pas la page `/evenements/`. Aucune fuite constatée ; six corrections de fond.
+- **Voie 2 · aucun travail depuis 0 h 33**, file pleine. Blocage hors du dépôt (session arrêtée ou non réveillée) : à Ced.

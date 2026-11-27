@@ -2,7 +2,7 @@
 
 File de la **deuxième session d'Hermès**. Tenue par Claude. **Hermès ne modifie pas ce fichier.**
 
-Mis à jour le 27 novembre 2026, 1 h 30 (passage automatique).
+Mis à jour le 27 novembre 2026, 4 h 30 (passage automatique).
 
 Consigne permanente : `prompts/consigne-permanente.md` (section « Les deux voies »). Doctrine : `doctrine/doctrine.md`.
 
@@ -10,7 +10,7 @@ La voie 1 (`A-FAIRE.md`) s'occupe de l'existant : import, audit, mise à jour. L
 
 ## Consignes actives, par ordre de priorité
 
-File du 27/11, 1 h 30. Tes quatre rapports de 22 h 33 à 0 h 31 sont lus, merci : toute la file de 22 h 30 est rendue. **B-07, C-24 et C-25 sont code clos** (vérifications « prêt »). **C-26** : rendu, en relecture, rien à faire. **B-08** : relu « à corriger », deux importants. Arbitrages : `docs/arbitrages-2026-11-27.md`, passage de 1 h.
+File du 27/11, 4 h 30. **Aucun rapport de toi depuis 0 h 31 et aucun fichier depuis 0 h 33**, alors que cette file a du travail depuis 1 h 30. Si tu lis ceci : commence par cinq lignes dans `files/rapports/` (ce que tu as fait, ce qui t'a arrêté), puis reprends à la consigne 0. Rien n'est bloqué de mon côté. **C-26 : relu « à corriger »** (un bloquant sur la preuve, aucune fuite constatée). B-08 : toujours à corriger. Arbitrages : `docs/arbitrages-2026-11-27.md`, passage de 4 h.
 
 **0. Corrections de B-08** (`corrections/B-08.md`), les sept :
    - une proposition contenant un antislash est aujourd'hui refusée et perdue : écris les métadonnées selon la convention de WordPress (valeurs échappées à l'écriture, valeurs propres pour la relecture) ; **corrige d'abord le bouchon** qui masquait le défaut, puis un cas d'essai du formulaire jusqu'au détail de l'administration et à l'export ;
@@ -19,6 +19,15 @@ File du 27/11, 1 h 30. Tes quatre rapports de 22 h 33 à 0 h 31 sont lus, merci 
    - une entrée de menu ne reçoit une adresse que si sa cible existe ;
    - la section B-08 du README de l'extension ; B-06 et B-07 aussi si c'est au même coût ;
    - la colonne de liste de l'administration est facultative.
+
+**0 bis. Corrections de C-26** (`corrections/C-26.md`), les dix, **après** celles de B-08 : C-26 contrôle les sorties de B-08, autant les prouver une seule fois, sur B-08 corrigé.
+   - le bloquant : les sorties nouvelles (Soutenir, coopérative, agenda) sont contrôlées contre **tous** les témoins réservés, ceux de C-23 compris (phrases de C-08, C-10, C-12, témoins de l'espace coopérateurs), droits du numéro et droits de coopérateur appliqués séparément ; un contenu réservé inventorié sans témoin reconnu est refusé ; une mutation injecte un témoin de C-08 **et** un de B-06 dans une sortie nouvelle, attendue rouge ;
+   - la page `/evenements/` entre dans la matrice ;
+   - l'attendu de l'espace coopérateurs se déduit des personnages et des réglages livrés, **pas** du code qu'on teste ; une mutation de la décision d'autorisation avant l'inventaire, attendue rouge ;
+   - le vérificateur exige l'ensemble exact des contrôles et recalcule échecs et fuites sur toutes les lignes ; il déduit lui-même ce qu'il attend pour le propriétaire et pour un tiers, sans croire le reçu ;
+   - les remises en état sont indépendantes : chacune est tentée même si une autre échoue, et le bilan s'écrit même sur une erreur ; le refus d'écraser une dérive reste ;
+   - les trois mineurs : confirmés tels que la fusion les propose (`re.findall`, `/my-account/` par défaut, des marqueurs `C26_*` à la place des dates) ;
+   - écris dans `A-VOIR.md` la commande exacte, sans argument, qui rejoue la suite sous Python 3.11. Proportion : si une preuve fine t'échappe sur le site fictif, écris l'écart et continue.
 
 **1. `briefs/B-09-autres-pages.md`** — FAQ du service client (quatre rubriques du §3.14, vides), pages légales (la page de confidentialité native, CGV, cookies ; pas de bandeau), formulaire de contact sur la mécanique corrigée de B-08, le tout dans un menu de pied de page reprenable. Rien ne part. Une demi-journée.
 
@@ -87,4 +96,4 @@ Les liens « offert » et « groupé » absents des profils (C-13 et B-02 en mod
 | B-07 Agenda | 26/11, corrigé le 26/11 | **Code clos le 27/11** : huit corrections vérifiées (lien d'un événement partenaire déclaré commercial, export qui échoue au lieu de rendre une page vide, adaptateur dans la suite rejouable). Validation visuelle de Ced attendue |
 | C-25 Rétractation en ligne | 26/11, corrigé le 27/11 | **Code clos le 27/11** : quatre corrections vérifiées (réglages journalisés avec retour à l'ancienne valeur si le journal échoue ; un motif avec antislash est gardé). Une demande, aucun effet automatique. Validation visuelle de Ced attendue ; délai et effets à faire valider par Imagine et son conseil |
 | B-08 « Soutenir » et « Notre coopérative » | 26/11 | Relu « à corriger » le 27/11, deux importants, aucun bloquant : sept instructions (consigne 0) |
-| C-26 Étanchéité des sorties nouvelles | 27/11 | Rendu à 0 h 33, en relecture |
+| C-26 Étanchéité des sorties nouvelles | 27/11 | Relu « à corriger » le 27/11 : un bloquant sur la preuve (liste de témoins incomplète), cinq importants, aucune fuite constatée ; dix instructions (consigne 0 bis) |
