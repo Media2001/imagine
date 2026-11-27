@@ -129,6 +129,9 @@ final class PacksThematiques
         add_filter('imagine_achat_instantanes', [self::class, 'instantanes'], 10, 2);
         add_action('woocommerce_product_options_general_product_data', [self::class, 'champ']);
         add_action('woocommerce_admin_process_product_object', [self::class, 'enregistrer'], 20);
+        add_filter('woocommerce_product_single_add_to_cart_text', static function (string $text, $product): string {
+            return self::numeros($product) !== [] ? __('Acheter ce pack', 'imagine-site') : $text;
+        }, 10, 2);
         add_filter('woocommerce_hidden_order_itemmeta', static function (array $keys): array {
             return [...$keys, self::CANDIDAT, self::LIGNE];
         });

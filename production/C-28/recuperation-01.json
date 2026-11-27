@@ -1,0 +1,17 @@
+{
+  "removed_exact_created_actions": [
+    9145,
+    9146
+  ],
+  "private_snapshot": {
+    "file": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\b11-private-1b2jy43w\\snapshot.json",
+    "sha256": "2a5b43d300afcdc4c10d9c54015d706112f27b5ba44b720db74e0be260d8a189",
+    "private": true
+  },
+  "business_restored_to_first_recipe_before": true,
+  "demo_only_coming_soon_exception": {
+    "file": "mu-plugins/imagine-c28-demo.php",
+    "sha256": "207cb6ff91ea6af285b7f83c7e42465f8948fd8da5dc1768ed3cdd31a68c5dfc"
+  },
+  "woocommerce_coming_soon_option_unchanged": true
+}
