@@ -40,5 +40,31 @@ def runtime(label):
     assert result['code'] == 0 and not result['stderr'] and preserved
 
 
+def deploy(label):
+    identity = guard()
+    before = state()
+    old = wp('$o=[];foreach('+php(FILES)+' as $n){$p=WP_CONTENT_DIR."/".$n;$o[$n]=is_file($p)?file_get_contents($p):null;}echo wp_json_encode($o);')
+    local = {n:(ROOT/'wp'/n).read_text(encoding='utf-8') for n in FILES}
+    assert old[FILES[3]] in [local[FILES[3]], local[FILES[3]].replace(BLOCK, '')], 'Bootstrap divergent'
+    # C14 : seul un point d'expansion, même décision/remboursement, aucune bibliothèque changée.
+    c14 = local[FILES[2]]
+    start = c14.index('                    // C28 :')
+    end = c14.index('\n                }\n            }\n        } while', start)
+    wrapped = c14[start:end].splitlines()
+    legacy = '\n'.join(line[4:] for line in wrapped[3:-1])
+    c14old = c14[:start] + legacy + c14[end:]
+    assert old[FILES[2]] in [c14, c14old], 'Adaptateur C14 divergent'
+    for name in [FILES[0], FILES[1], FILES[4]]:
+        assert old[name] in [None, local[name]], name
+    snap = private('C28-'+label, {'files':old, 'business':before})
+    save(label+'-avant', {'identity':identity, 'private_snapshot':snap, 'business':before})
+    for name in FILES:
+        upload(name, (ROOT/'wp'/name).read_bytes())
+    expected = {n:hashlib.sha256((ROOT/'wp'/n).read_bytes()).hexdigest() for n in FILES}
+    assert hashes(FILES) == expected and before == state()
+    save(label, {'readback':expected, 'business_preserved':True})
+    print('C28 sources relues :', len(expected))
+
+
 if __name__ == '__main__':
     globals()[sys.argv[1]](sys.argv[2])

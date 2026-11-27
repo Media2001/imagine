@@ -135,23 +135,27 @@ final class AchatsNumeros
                     && $amount >= (float) $order->get_total();
                 foreach ($order->get_items('line_item') as $item) {
                     $snapshot = self::identifiant($item->get_meta(self::LIGNE, true, 'edit'));
-                    $issue = $snapshot ? get_post($snapshot) : null;
-                    $right = AchatNumero::droit($client, [
-                        'client' => (int) $order->get_customer_id(), 'etat' => $order->get_status('edit'),
-                        'payee' => $order->is_paid(), 'acquis' => $acquired,
-                        'remboursement' => AchatNumero::remboursement(
-                            get_option(self::REMBOURSEMENT, 'commande'),
-                            $refunds !== [],
-                            $complete,
-                            isset($refundedLines[$item->get_id()])
-                        ),
-                        'instantane' => $snapshot,
-                        'publie' => $issue && $issue->post_type === 'imagine_numero'
-                            && $issue->post_status === 'publish',
-                        'quantite' => $item->get_quantity(),
-                    ]);
-                    if ($right !== null) {
-                        $rights[] = $right;
+                    // C28 : la même ligne commerciale peut porter plusieurs instantanés.
+                    foreach (apply_filters('imagine_achat_instantanes', [$snapshot], $item) as $snapshot) {
+                        $snapshot = self::identifiant($snapshot);
+                        $issue = $snapshot ? get_post($snapshot) : null;
+                        $right = AchatNumero::droit($client, [
+                            'client' => (int) $order->get_customer_id(), 'etat' => $order->get_status('edit'),
+                            'payee' => $order->is_paid(), 'acquis' => $acquired,
+                            'remboursement' => AchatNumero::remboursement(
+                                get_option(self::REMBOURSEMENT, 'commande'),
+                                $refunds !== [],
+                                $complete,
+                                isset($refundedLines[$item->get_id()])
+                            ),
+                            'instantane' => $snapshot,
+                            'publie' => $issue && $issue->post_type === 'imagine_numero'
+                                && $issue->post_status === 'publish',
+                            'quantite' => $item->get_quantity(),
+                        ]);
+                        if ($right !== null) {
+                            $rights[] = $right;
+                        }
                     }
                 }
             }

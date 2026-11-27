@@ -171,6 +171,11 @@ require_once __DIR__ . '/AudioNumero.php';
 Medias::register();
 AudioNumero::register();
 
+// C28 — instantané du pack au paiement, décision et remboursements C14 inchangés.
+require_once __DIR__ . '/PacksRegles.php';
+require_once __DIR__ . '/PacksThematiques.php';
+PacksThematiques::register();
+
 add_action('init', static function (): void {
     foreach ([
         'imagine_numero' => [__('Numéros fictifs', 'imagine-site'), 'numeros'],
