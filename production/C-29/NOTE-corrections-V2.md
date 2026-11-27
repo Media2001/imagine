@@ -1,0 +1,11 @@
+# C29 — corrections après relecture, voie 2
+
+- C29-01 : les refus explicites du lecteur sont examinés indépendamment du catalogue ; les seuls choix positifs encore au catalogue composent les inscriptions. Un choix positif supprimé administrativement ne devient pas un retrait. Fiche réduite inchangée `{statut:a_retirer}`, sans identifiant.
+- C29-02 : liens natifs `relation_native/user_id` pour les groupes, indépendamment de l'activité postale. État actif puis paused relu avant chaque assertion ; statut et tarif inconnus dans les deux cas. Aucun octet d'EnvoiRelations modifié.
+- C29-03/i18n : appels multilignes réécrits ; traductions littérales dans les tableaux. Pas de nouvelle fonction métier.
+- Preuves : RED pur du refus et RED natif sur le groupe paused, puis 23 contrôles purs, 57 natifs, 73 HTTP et 27 profils ; rollback natif, restauration métier/sessions HTTP et retrait de sonde vérifiés. Zéro tentative SQL/HTTP/mail dans le rendu C29, témoins positifs interceptés.
+- Le premier essai natif a trouvé le cache mémoire Memberships encore actif ; la sonde seule invalide ce cache avant sa lecture native. Le premier HTTP complet a rafraîchi les caches expirés du bootstrap (neuf différences d'options de cache, aucun profil/action ni option métier) ; reçu rouge conservé. Le second HTTP sur caches chauds prouve l'égalité stricte à son propre départ, sans élargir les exclusions.
+- Image préparée et vérifiée ; REJEU 1204 tests / 36671 assertions PASS, OUTILS 23 / 852 / zéro échec. Paquets étrangers A32 `A32_PARTIAL_EVIDENCE`, A33 `A33_GATES_INVALID` ; A33 sans PRET constaté par existence du seul marqueur, aucun contenu V1 ouvert. Pas de correction de ces lots ; règle de clôture 19h30 appliquée, A32 explicitement exempté et A33 en cours sans PRET.
+- Réception par le socle `lot_reception_contract.py` inchangé : fichiers propres, bloc C29 exact et unique, section README bornée. Anciennes réceptions et ancien PRET conservés, nouveau lecteur et sceau nommés.
+
+Décisions prises à défaut : conserver le retrait explicite et la qualification bénéficiaire inconnue comme tranché à 19h30. Rien n'est envoyé, aucun compte réel, aucune activation Brevo/Odoo. Validation visuelle de Ced toujours attendue.

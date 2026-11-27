@@ -1,5 +1,11 @@
 # C29 — à voir et commandes du parent
 
+## Réception corrigée du 27 novembre, reprise 21h18
+
+Référence courante : `reception-corrections-V2.json` et `NOTE-corrections-V2.md`.
+Le lecteur usuel contrôle maintenant 23 cas purs, 57 contrôles natifs et 73 HTTP : refus conservé hors catalogue et lien de groupe actif/suspendu relu nativement. `EnvoiRelations.php` est inchangé. Capture courante : `http-corrections-chaud-V2.png`. Les sections ci-dessous restent la notice et l'historique de la première livraison ; le paquet `reception-contrat-V2.json` n'est plus la réception courante.
+
+
 ## Pour Ced — uniquement la démo fictive existante
 
 1. Dans `imagine-test-demo`, ouvrir une session **Référent abonnements** (E-ABO) ou Administrateur avec le mécanisme privé habituel ; aucun identifiant n’est dans ce paquet.

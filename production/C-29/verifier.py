@@ -75,6 +75,56 @@ def historical_verify(live=False,manifest=None,require_pret=True):
         assert all(result.values()), 'LIVE_RESTORED'
     result={'C29':'PASS','receipt':'reception-contrat-V2.json','contract':'owned-files + unique exact own block + bounded own README','mode':'live-readonly' if live else 'offline','pure_checks':len(pd['checks']),'native_checks':nd['total'],'http_checks':hr['total'],'profiles':len(nd['profils']),'phpunit_tests':len(tests),'phpunit_assertions':sum(int(t.get('assertions')) for t in tests),'global_tests':counts['tests'],'global_assertions':counts['assertions'],'tool_checks':counts['tools']['checks'],'foreign_packet_failures':counts['packets']['failures']}
     print(json.dumps(result,ensure_ascii=False));return result
+def verify(live=False, manifest=None, require_pret=True):
+    m = manifest or load('reception-corrections-V2.json')
+    assert m['scope'] == 'imagine-test-demo' and m['ready'] is True
+    contract.integrity('C29', m, OUT)
+    pure = load(m['pure'])
+    assert pure['exit'] == 0 and not pure['stderr']
+    checks = json.loads(pure['stdout'])['checks']
+    assert len(checks) == 23 and all(checks.values())
+    assert checks['refus_hors_catalogue'] and checks['suppression_choix_positif_sans_retrait']
+    native = load(m['native'])
+    nd = native_receipt(native, 57)
+    assert all(nd['checks'][key] for key in [
+        'groupe_etat_natif_relu_active', 'groupe_lien_natif_relu_active', 'beneficiaire_groupe_inconnu_active',
+        'groupe_etat_natif_relu_paused', 'groupe_lien_natif_relu_paused', 'beneficiaire_groupe_inconnu_paused'])
+    http = http_receipt(load(m['http']))
+    current = c29.sources()
+    for receipt in [pure, native, http]:
+        assert receipt['sources'] == current, 'TESTED_FINAL_BYTES'
+    assert all(row['fiche'] == nd['profils'][row['code']]['fiche'] for row in http['surfaces'])
+    red = load('red-corrections-refus-V2.json')
+    assert red['exit'] == 1 and 'refus_hors_catalogue' in red['stderr']
+    red = load('red-corrections-groupe-cache-V2.json')
+    assert red['business_preserved'] and red['native']['code'] == 1 and 'beneficiaire_groupe_inconnu_paused' in red['native']['stderr']
+    image = load(m['image'])
+    assert image['exit'] == 0 and 'image verifiee sha256:' in (OUT/image['log']).read_text(encoding='utf-8')
+    replay = load(m['replay'])
+    text = (OUT/replay['log']).read_text(encoding='utf-8')
+    counts = json.loads(re.search(r'^T01_RESULT (.+)$', text, re.M)[1])
+    assert counts['pass'] and counts['failures'] == counts['errors'] == counts['skipped'] == 0
+    assert counts['tools']['failures'] == 0
+    assert all(row['lot'] in ['A-31', 'A-32', 'A-33'] for row in counts['packets']['failures']), 'OWNED_PACKET_FAILURE'
+    # A33 : paquet en cours sans PRET constaté au rejeu, aucune lecture V1.
+    assert load('paquets-etrangers-V2.json') == {'A-33': {'pret_exists': False}}, 'FOREIGN_PACKET_STATE'
+    assert re.search(r'REJEU .*PASS', text) and re.search(r'OUTILS .*', text)
+    tests = []
+    for _, xml in re.findall(r'T01 JUNIT BEGIN ([^\n]+)\n(.*?)T01 JUNIT END', text, re.S):
+        tests.extend(t for t in ET.fromstring(xml.strip()).iter('testcase') if t.get('class') == 'Imagine\\Site\\Tests\\ContactBrevoC29Test')
+    assert len(tests) == 3 and all(t.find('failure') is None and t.find('error') is None for t in tests)
+    if require_pret:
+        assert 'reception-corrections-V2.json' in (OUT/'PRET').read_text(encoding='utf-8')
+    if live:
+        import b11, b06
+        b11.guard()
+        owned = [n for n in c29.FILES if 'wp/'+n != contract.BOOT]
+        assert b06.hashes(owned) == {n: digest(ROOT/'wp'/n) for n in owned}
+        contract.live_registration('C29', b11.wp, b11.php)
+    result = {'C29': 'PASS', 'receipt': 'reception-corrections-V2.json', 'pure': len(checks), 'native': nd['total'], 'http': http['total'], 'profiles': len(nd['profils']), 'phpunit_tests': len(tests), 'foreign_packet_failures': counts['packets']['failures']}
+    print(json.dumps(result, ensure_ascii=False))
+    return result
+
 if __name__=='__main__':
     assert sys.argv[1:] in [[],['--live']]
     verify(bool(sys.argv[1:]))
