@@ -41,13 +41,19 @@ def run(label):
                         check(f'{role}_{i}_liens',head.locator('[data-b16="numero"] a').count()==1 and head.locator('[data-b16="thematique"] a').count()>0 and head.locator('[data-b16="signature"] a').count()==0)
                     else:
                         check(f'{role}_{i}_vides_omis',all(x not in keys for x in ['resume','signature','numero']))
-                    expected=(i<2 and role=='P-NUMERO') or (i==1 and role=='anonyme')
+                    expected=(i==0 and role=='P-NUMERO')
                     check(f'{role}_{i}_cta',article.locator('[data-b16="abonnement"]').count()==int(expected))
                     if expected:
                         check(f'{role}_{i}_lien_menu',article.locator('[data-b16="abonnement"] a').get_attribute('href')==page.locator('nav[aria-label="Navigation principale"] a[href$="/abonnement-en-attente/"]').first.get_attribute('href'))
-                    surrounding=head.inner_html()+''.join(article.locator('[data-b16="abonnement"]').all_inner_texts())
-                    check(f'{role}_{i}_etanche',b13.c29 is not None and common.c26.c23.assess(200,surrounding,markers)['ok'])
-                    check(f'{role}_{i}_mutation_detectee',not common.c26.c23.assess(200,surrounding+'<!--'+markers[0]+'-->',markers)['ok'])
+                    def extract():
+                        return head.evaluate('(x)=>x.outerHTML')+article.locator('[data-b16="abonnement"]').evaluate_all('(xs)=>xs.map(x=>x.outerHTML).join(\"\")')
+                    surrounding=extract()
+                    check(f'{role}_{i}_etanche',common.c26.c23.assess(200,surrounding,markers)['ok'])
+                    target=article.locator('[data-b16="abonnement"]') if expected else head
+                    target.evaluate('(x,m)=>x.setAttribute(\"data-b16-mutant\",m)',markers[0])
+                    mutated=extract()
+                    check(f'{role}_{i}_mutation_detectee',not common.c26.c23.assess(200,mutated,markers)['ok'])
+                    target.evaluate('(x)=>x.removeAttribute(\"data-b16-mutant\")')
                     page.evaluate("document.documentElement.classList.add('imagine-reading')")
                     check(f'{role}_{i}_lecture_texte_seul',not head.is_visible() and article.locator('[data-imagine-body="article"]').is_visible() and (not expected or not article.locator('[data-b16="abonnement"]').is_visible()))
                     page.evaluate("document.documentElement.classList.remove('imagine-reading')")

@@ -48,32 +48,13 @@ final class PageArticle
         return trim((string) get_post_field('post_excerpt', $post->ID, 'raw'));
     }
 
-    public static function appel(array $decision, bool $abonne): bool
+    public static function appel(array $decision): bool
     {
-        return ($decision['complet'] ?? false) === true && !$abonne;
-    }
-
-    /** Présentation seulement, aucun octroi d'accès. Inconnu : appel masqué. */
-    public static function abonne(): bool
-    {
-        $uid = get_current_user_id();
-        if (!$uid) {
-            return false;
-        }
-        if (!function_exists('wc_memberships_get_user_memberships')) {
-            return true;
-        }
-        $plans = get_option('imagine_acces_plans', []);
-        foreach (wc_memberships_get_user_memberships($uid, ['status' => 'active']) ?? [] as $member) {
-            if (
-                $member->get_user_id() === $uid && $member->get_status() === 'active'
-                && in_array($plans[$member->get_plan_id()] ?? '', ['abonnement', 'offert', 'groupe'], true)
-                && (!$member->get_end_date('timestamp') || $member->get_end_date('timestamp') > time())
-            ) {
-                return true;
-            }
-        }
-        return false;
+        return ($decision['complet'] ?? false) === true && in_array(
+            $decision['motif'] ?? '',
+            ['numero_achete', 'decouverte_duree', 'decouverte_articles'],
+            true
+        );
     }
 
     public static function entete(WP_Post $post): void
@@ -106,7 +87,7 @@ final class PageArticle
     public static function fin(WP_Post $post): void
     {
         // Appel après le corps : C08 a déjà mémorisé cette décision de lecture.
-        if (!self::appel(Paywall::decision($post), self::abonne())) {
+        if (!self::appel(Paywall::decision($post))) {
             return;
         }
         $url = Navigation::abonnementUrl();
