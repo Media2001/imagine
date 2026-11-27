@@ -8,6 +8,23 @@ use PHPUnit\Framework\TestCase;
 
 final class ContactBrevoC29Test extends TestCase
 {
+    public function testMatricePureIndependante(): void
+    {
+        foreach (require __DIR__ . '/fixtures/c29-cases.php' as $name => [$source, $expected]) {
+            $copy = $source;
+            self::assertSame($expected, \Imagine\Site\ContactBrevoRegles::fiche($source), $name);
+            self::assertSame($copy, $source, $name . ' sans mutation');
+        }
+    }
+
+    public function testAllowlistFermeeSansPrixNiCorrespondanceInventee(): void
+    {
+        self::assertSame([], \Imagine\Site\ContactBrevo::nettoyerTarifs('mauvais'));
+        self::assertSame([], \Imagine\Site\ContactBrevo::nettoyerTarifs('{"0":"normal-1"}'));
+        self::assertSame([], \Imagine\Site\ContactBrevo::nettoyerTarifs('{"192":"<script>"}'));
+        self::assertSame([192 => 'normal-1'], \Imagine\Site\ContactBrevo::nettoyerTarifs('{"192":"normal-1"}'));
+    }
+
     public function testUnCompteConsentiActifProduitUneFichePure(): void
     {
         self::assertTrue(class_exists(\Imagine\Site\ContactBrevoRegles::class), 'C29 calcul pur absent');
