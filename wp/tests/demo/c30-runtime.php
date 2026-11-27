@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Imagine\Site\CodesSuivis;
 use Imagine\Site\CodesSuivisRegles;
+use Imagine\Site\CodesSuivisConfidentialite;
 
 if (!class_exists(CodesSuivis::class)) { throw new RuntimeException('C30 absent'); }
 $checks = [];
@@ -15,7 +16,7 @@ update_option(CodesSuivis::OPTION, ['fictif-affiche' => 'FICTIF Affiche \\ Test'
 $check('reglage_relu', count(CodesSuivis::configuration()) === 3);
 $check('inconnu_non_range', CodesSuivisRegles::retenir('NON_LISTE_INTERDIT', CodesSuivis::configuration()) === null);
 $check('mutation_inconnu_detectee', CodesSuivisRegles::retenir('NON_LISTE_INTERDIT', CodesSuivis::configuration()) !== ['code' => 'NON_LISTE_INTERDIT', 'libelle' => 'invente']);
-if (!WC()->session) { WC()->initialize_session(); }
+WC()->session = new WC_Session_Handler();
 WC()->session->__unset(CodesSuivis::SESSION);
 CodesSuivis::retenir('fictif-affiche');
 $check('session_code_valide', WC()->session->get(CodesSuivis::SESSION)['code'] === 'fictif-affiche');

@@ -196,6 +196,15 @@ PiedPage::register();
 require_once __DIR__ . '/PageArticle.php';
 PageArticle::register();
 
+// C30 — accueil et code suivi local, sans avantage financier.
+require_once __DIR__ . '/CodesSuivisRegles.php';
+require_once __DIR__ . '/CodesSuivis.php';
+require_once __DIR__ . '/CodesSuivisAdmin.php';
+require_once __DIR__ . '/CodesSuivisConfidentialite.php';
+CodesSuivis::register();
+CodesSuivisAdmin::register();
+CodesSuivisConfidentialite::register();
+
 // C28 — instantané du pack au paiement, décision et remboursements C14 inchangés.
 require_once __DIR__ . '/PacksRegles.php';
 require_once __DIR__ . '/PacksThematiques.php';
