@@ -26,7 +26,7 @@ def routes(label):
         b12.b11.b10.b09.remove_remote([name])
         absent = b12.wp('echo wp_json_encode(!file_exists(WP_CONTENT_DIR.' + b12.php('/' + name) + '));')
         restored = before == b12.b11.state()
-        b12.save(label, {'identity': identity, 'native': result, 'business_preserved': restored, 'probe_removed': absent, 'sources': b12.sources()})
+        b12.save(label, {'identity': identity, 'native': result, 'business_preserved': restored, 'probe_removed': absent, 'sources': b12.sources(), 'bootstrap_contract': b12.contract_block()})
     print(json.dumps(result, ensure_ascii=False))
     assert restored and absent
     return result

@@ -154,10 +154,46 @@ def verify_correction(live=False,manifest=None,require_pret=True):
     result={'B12':'PASS','mode':'live-readonly' if live else 'offline','native_checks':a['total'],'route_checks':r['total'],'route_cases':len(r['cases']),'attempts_with_lock':len(a['events'])+len(r['events']),'mutation_checks':b['total'],'mutation_attempts':len(b['events']),'phpunit_tests':len(tests),'phpunit_assertions':sum(int(t.get('assertions')) for t in tests),'global_tests':totals['tests'],'global_assertions':totals['assertions'],'foreign_packet_failures':totals['packets']['failures']}
     print(json.dumps(result,ensure_ascii=False));return result
 
+def verify_contract(live=False,manifest=None,require_pret=True):
+    m=manifest or load('reception-contrat-V2.json')
+    assert m['scope']=='imagine-test-demo' and m['ready'] is True
+    assert m['sources']==b12.contract_sources(), 'SOURCES'
+    assert m['bootstrap_contract']==b12.contract_block(), 'BOOTSTRAP_CONTRACT'
+    assert m['readme_section']==hashlib.sha256(b12.readme_section().encode()).hexdigest(), 'README_SECTION'
+    assert m['evidence'] and all(digest(OUT/n)==s for n,s in m['evidence'].items()), 'EVIDENCE'
+    r=routes(load(m['routes']));a=native(load(m['green']),False);b=native(load(m['mutation']),True)
+    routes(load('correction-red-route-V2.json'),True)
+    routes(load('correction-mutation-case-V2-rejet.json'),True)
+    inverse=load('correction-mutation-case-V2.json');assert inverse['source_restored'] and inverse['business_preserved'], 'SOURCE_MUTATION_RESTORED'
+    for name in [m['routes'],m['green'],m['mutation']]:
+        n=load(name)
+        owned={k:v for k,v in n['sources'].items() if k!=BOOT}
+        assert owned==m['sources'], 'FINAL_TESTED_OWNED_BYTES'
+        assert n['bootstrap_contract']==m['bootstrap_contract'], 'TESTED_BOOTSTRAP_BLOCK'
+    image=load(m['image']);assert image['exit']==0 and 'image verifiee sha256:' in (OUT/image['log']).read_text(encoding='utf-8'), 'IMAGE'
+    replay=load(m['replay']);text=(OUT/replay['log']).read_text(encoding='utf-8')
+    totals=json.loads(re.search(r'^T01_RESULT (.+)$',text,re.M)[1])
+    assert replay['exit']==0 and totals['pass'] and totals['failures']==totals['errors']==totals['skipped']==0, 'REPLAY'
+    assert totals['tools']['failures']==0 and all(f['lot'] in ['A-31','A-32'] for f in totals['packets']['failures']), 'FOREIGN_PACKETS'
+    tests=[]
+    for _,xml in re.findall(r'T01 JUNIT BEGIN ([^\n]+)\n(.*?)T01 JUNIT END',text,re.S):
+        tests.extend(t for t in ET.fromstring(xml.strip()).iter('testcase') if t.get('class')=='Imagine\\Site\\Tests\\IntegrationsCorpsB12Test')
+    assert len(tests)==6 and all(t.find('failure') is None and t.find('error') is None for t in tests), 'PHPUNIT_CASE_TEST'
+    if require_pret:assert 'reception-contrat-V2.json' in (OUT/'PRET').read_text(encoding='utf-8'), 'CURRENT_PRET'
+    if live:
+        b12.guard()
+        assert b12.b11.b10.b09.b08.c25.b06.hashes([b12.FILES[0]])[b12.FILES[0]]==digest(ROOT/'wp'/b12.FILES[0]), 'LIVE_SOURCE'
+        restored=b12.wp('$raw=file_get_contents(WP_CONTENT_DIR."/plugins/imagine-site/imagine-site.php");$o=["own_block_exact"=>substr_count($raw,'+b12.php(b12.BLOCK)+')===1,"probes_absent"=>!file_exists(WP_CONTENT_DIR."/imagine-demo-build/b12-runtime.php")&&!file_exists(WP_CONTENT_DIR."/imagine-demo-build/b12-routes-runtime.php"),"posts_absent"=>true,"transients_absent"=>true,"titles_absent"=>count(get_posts(["post_type"=>"post","post_status"=>"any","s"=>"B12 ESSAI FICTIF TEMPORAIRE","numberposts"=>-1]))===0];foreach('+b12.php(a['ids_removed']+b['ids_removed'])+' as $id){$o["posts_absent"]=$o["posts_absent"]&&get_post($id)===null;}foreach('+b12.php(r['transients_removed'])+' as $key){$o["transients_absent"]=$o["transients_absent"]&&get_transient($key)===false;}echo wp_json_encode($o);')
+        assert all(restored.values()), 'LIVE_CONTRACT_AND_RESTORATION'
+    result={'B12':'PASS','contract':'owned-files + exact unique B12 bootstrap block + bounded B12 README section','mode':'live-readonly' if live else 'offline','native_checks':a['total'],'route_checks':r['total'],'route_cases':len(r['cases']),'attempts_with_lock':len(a['events'])+len(r['events']),'mutation_attempts':len(b['events']),'phpunit_tests':len(tests),'phpunit_assertions':sum(int(t.get('assertions')) for t in tests),'global_tests':totals['tests'],'global_assertions':totals['assertions'],'foreign_packet_failures':totals['packets']['failures']}
+    print(json.dumps(result,ensure_ascii=False));return result
+
 def verify(live=False,manifest=None,require_pret=True):
-    if manifest is not None and 'correction_version' not in manifest:
+    if manifest is not None:
+        if 'contract_version' in manifest:return verify_contract(live,manifest,require_pret)
+        if 'correction_version' in manifest:return verify_correction(live,manifest,require_pret)
         return verify_historical(live,manifest,require_pret)
-    return verify_correction(live,manifest,require_pret)
+    return verify_contract(live,None,require_pret)
 
 if __name__=='__main__':
     assert sys.argv[1:] in [[],['--live']]

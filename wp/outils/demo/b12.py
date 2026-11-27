@@ -23,6 +23,24 @@ def sources():
         files.extend(p for p in ROOT.glob(pat) if p.is_file())
     return {p.relative_to(ROOT).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(set(files)) if p.is_file()}
 
+def contract_block(raw=None):
+    raw = (ROOT/'wp/plugins/imagine-site/imagine-site.php').read_bytes() if raw is None else raw
+    assert raw.count(BLOCK.encode()) == 1, 'B12_BOOTSTRAP_CONTRACT'
+    return {'block': BLOCK, 'sha256': hashlib.sha256(BLOCK.encode()).hexdigest(), 'occurrences': 1}
+
+
+def contract_sources():
+    # 16h30 arbitration: source equality remains exact, but belongs to this lot.
+    values = sources()
+    del values['wp/plugins/imagine-site/imagine-site.php']
+    return values
+
+
+def readme_section():
+    text = (ROOT/'wp/plugins/imagine-site/README.md').read_text(encoding='utf-8')
+    return text.split('## B-12 — aucun appel sortant depuis le corps', 1)[1].split('\n## ', 1)[0].strip()
+
+
 def runtime(label, mutant=False):
     identity = guard()
     before = b11.state()
@@ -38,7 +56,7 @@ def runtime(label, mutant=False):
         b11.b10.b09.remove_remote([name])
         absent = wp('echo wp_json_encode(!file_exists(WP_CONTENT_DIR . '+php('/'+name)+'));')
         restored = before == b11.state()
-        save(label, {'identity': identity, 'native': result, 'business_preserved': restored, 'probe_removed': absent, 'sources': sources()})
+        save(label, {'identity': identity, 'native': result, 'business_preserved': restored, 'probe_removed': absent, 'sources': sources(), 'bootstrap_contract': contract_block()})
     print(json.dumps(result, ensure_ascii=False))
     assert result['code'] == 0 and not result['stderr'] and restored and absent
 
