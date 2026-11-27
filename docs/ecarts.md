@@ -161,3 +161,15 @@ Toute demande hors cahier des charges, toute contradiction interne au cahier des
 - **C-28 · une clé écrite en toutes lettres dans le fichier de C-14** au lieu de la constante. Sans effet ; repris au gel du code.
 - **C-27 · effacement et réponse simultanés non qualifiés.** Le verrou est symétrique et testé ; l'entrelacement réel ne l'est pas.
 - **A-29 · sortie 255 après un succès sur une copie neutralisée, cause non établie.** Lot rangé sans `PRET`, hors de la tournée ; le gardien refuse, aucun faux succès.
+
+## 27 novembre 2026, 19 h — lots A-31, A-32, T-03, C-29, B-12, voie 1, voie 2
+
+- **Voie 1 · arrêt de 13 h 33 à 17 h 34, cause non établie.** Reprise seule au réveil horaire, sur un verrou de plus de quatre heures retiré par Hermès. Quatre heures perdues.
+- **A-31, A-32, T-03 · blocage croisé des portails.** Chaque lot exige un rejeu général sans paquet rouge, et chacun est le rouge de l'autre tant qu'il n'est pas scellé. Sortie retenue : la séquence conjointe d'Hermès, une fois ; la preuve est le rejeu général après les deux sceaux.
+- **A-31 · consigne de la file plus large que l'arbitrage.** Les natures et les remboursements par année ont été publiés exactement sur une phrase résumée trop vite ; resserré avant le sceau. Erreur de la file, pas d'Hermès.
+- **A-31 · le lanceur dit `pass=true` et sort en 0 avec un paquet rouge.** Connu : la ligne `PAQUETS` se lit à part. Le lanceur est gelé et n'est pas rouvert ; les portails des lots lisent déjà les deux canaux.
+- **C-29 · un relecteur « conforme », l'autre « à corriger ».** Les deux défauts tenaient à des enchaînements que ni le jeu d'essai ni l'attendu ne couvraient ; la fusion a relu le code.
+- **C-29 · plusieurs lectures par compte dans le bilan de l'écran.** Accepté pour la démonstration ; à requalifier avant tout volume réel.
+- **C-29 · incident de banc.** Deux préparations de jeu d'essai avaient programmé une tâche de cache à l'arrêt ; état restauré et relu, sauf l'égalité des sessions au départ d'un ancien essai, non revendiquée.
+- **B-12 · preuve « zéro sortie » hors de la suite scellée.** Réserve permanente, écrite au README : matrice native à rejouer à chaque montée de version du cœur.
+- **Voie 2 · rien depuis 17 h 13**, corrections de C-29 arrivées à 17 h 53 et B-13 en file. Moins de trois heures : noté, pas d'alerte.

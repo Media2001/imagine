@@ -305,3 +305,55 @@ Lu : les rapports de la voie 2 de 13 h 35, 14 h 07, 14 h 45 et 15 h 20, les vér
 
 - **Voie 1** : inchangée (corrections d'A-31, mise en cohérence de T-03, A-32, puis A-33) ; A-29 en sort.
 - **Voie 2** : corrections de B-12 et passage au contrat pour B-11, B-12 et C-29, C-29 (en cours), B-13. Deux lots de plus, dans l'ordre du §3.2 : **B-14** (la page d'accueil, contenu et ordre, sans la forme), **B-15** (le pied de page, cinq zones, sans géolocalisation).
+
+# Passage automatique de 19 h
+
+Lu : les rapports de la voie 2 de 16 h 28, 17 h 00 et 17 h 11, ceux de la voie 1 de 17 h 34, 17 h 38, 18 h 20 et 18 h 42, les vérifications de B-11 (troisième tour) et de B-12, les deux relectures et la fusion de C-29, les réceptions d'A-31 et de T-03, la note de finalisation d'A-32. Aucun accord donné sur le réel.
+
+## Clôtures
+
+- **B-11 code clos.** Sa vérification dit « prêt pour la clôture » : réception par contrat (fichiers du lot, bloc d'amorçage exact et unique, section du README bornée), vérificateur hors ligne rejoué au vert par le relecteur (32 contrôles), suite rejouée (1 204 tests), aucun code du lot modifié. Les deux raisons du « remonte à Ced » du tour précédent sont levées. Reste à Ced : la validation visuelle et le geste de trois lignes dans l'éditeur (`production/B-11/A-VOIR-contrat-V2.md`).
+- **B-12 code clos.** Sa vérification dit « prêt » : le bloquant est corrigé en une ligne (comparaison de la route sans tenir compte de la casse, permissions natives intactes), couvert par une matrice native (trois variantes de casse, cache absent puis ancien : 52 contrôles, zéro tentative sortante, un simple lien) et un test dans la suite ; réception par contrat verte ; trois mineurs appliqués. Réserve permanente acceptée et écrite au README : la preuve « zéro sortie » repose sur une matrice native hors de la suite scellée, à rejouer à chaque montée de version du cœur. Validation visuelle attendue.
+
+## Règle de clôture — un paquet rouge de l'autre voie, pour un lot non rendu, ne bloque pas
+
+- La fusion de C-29 propose de ne clore aucun lot tant que la commande de rejeu affiche un paquet rouge, même étranger au lot. Non retenu. **Un lot se clôt sur la ligne `REJEU … PASS`, la ligne `OUTILS` sans échec, et son propre vérificateur.** Un paquet rouge sur la ligne `PAQUETS` ne bloque que s'il appartient au lot, ou à un lot clos ou porteur d'un `PRET`.
+- Raison : A-31 et A-32 sont rouges parce qu'ils sont en cours, sans `PRET` ; c'est leur état normal, déjà écrit dans `ETAT.md` (« deux rouges attendus »). C-27, C-28, B-11 et B-12 ont été vérifiés dans cet état, et leurs vérificateurs le disent. Faire dépendre la voie 2 de la voie 1 arrêterait une file sur le travail en cours de l'autre. L'instruction 5 de la fusion de C-29 est donc remplacée par cette règle.
+
+## C-29 — à corriger, deux importants
+
+- Verdict de fusion retenu (un relecteur disait « conforme », l'autre « à corriger » ; la fusion a relu le code et confirme les deux défauts).
+- **C29-01 : une désinscription explicite disparaît si la newsletter est ensuite retirée du catalogue.** La fusion pose la question à Ced. Elle n'est ni visuelle ni réelle (rien ne part vers Brevo, le site est fictif), et le brief la règle déjà : « un compte qui s'est désinscrit de tout a une fiche réduite à "à retirer" ». Tranché sur le défaut de la fusion : **un refus explicite du lecteur est conservé, même pour une lettre sortie du catalogue**, et la fiche reste « à retirer » ; la suppression administrative d'une lettre encore choisie ne vaut jamais désinscription. Raison : le choix le plus prudent, celui qui ne laisse personne dans un outil d'envoi après qu'il a demandé à en sortir. Signalé à Ced, à défaire ; la question est aussi rangée pour Imagine.
+- **C29-02 : un bénéficiaire de groupe dont l'adhésion est suspendue devenait « non abonné » au lieu d'« inconnu ».** Le brief dit « inconnu » pour un bénéficiaire, sans condition d'activité. Correction du côté de C-29, sans toucher aux règles postales de C-13. La portée exacte reste une question pour Imagine.
+- Mineurs retenus : appels multilignes du fichier neuf mis en PSR-12 (c'est le code du lot en cours, pas un reformatage d'un lot clos), libellés traduisibles déclarés sur des chaînes littérales. Les lectures multiples par compte dans le bilan sont acceptées pour la démonstration et notées aux écarts.
+- La fiche « à retirer » sans identifiant : gardée telle quelle, comme le brief ; l'identification du contact se fera par le compte au branchement. Rangé pour Imagine.
+
+## Voie 1 — repartie à 17 h 34
+
+- Le réveil de 17 h 34 a trouvé un verrou vieux de plus de quatre heures, l'a retiré et a repris. La cause de l'arrêt de 13 h 33 n'est pas établie. Alerte levée.
+
+## A-31 — corrigé ; une lecture trop large de ma consigne, à resserrer avant le sceau
+
+- Les six instructions sont appliquées : quatre compteurs de liens cassés exacts, corbeille, frontières de date, matrice native complète (192 scénarios de liens), suite verte sur une session Windows propre.
+- **Un point à reprendre, et la faute est dans ma file.** J'avais tranché à 13 h : les quatre compteurs de liens exacts, et le total des remboursements exact quand une seule année est présente. La file l'a résumé en « le regroupement reste sur les années et les années par état », et Hermès l'a appliqué à la lettre : les natures et les remboursements par année ne sont plus regroupés. Ce n'était pas décidé, et aucune relecture ne le demandait. **Les natures et les remboursements par année reviennent sous le regroupement des petits nombres, comme au premier tour ; seuls sortent du regroupement les quatre compteurs de liens et le total des remboursements.** Raison : le choix le plus prudent ; on n'élargit pas ce qu'un outil publie exactement au-delà de ce qui a été demandé, et un nombre de remboursements par année publié exactement à côté d'années par état regroupées serait incohérent.
+- À faire avant le sceau, pour ne refaire le paquet qu'une fois.
+
+## A-31, A-32, T-03 — un blocage croisé, et la sortie proposée par Hermès est retenue
+
+- Constat : le portail d'A-31 exige un rejeu général sans aucun paquet rouge, celui d'A-32 aussi, et chacun des deux est le rouge de l'autre tant qu'il n'est pas scellé. T-03 attend les deux. Hermès s'est arrêté sans rien assouplir et sans `PRET` : c'était juste.
+- **La séquence conjointe écrite dans `production/A-32/FINALISATION.md` est autorisée, une fois** : sortir le candidat d'A-31 de son emplacement, jouer les deux portails pendant que le lanceur range les deux lots « hors rejeu, journaux absents », resceller chacun par sa propre commande, puis rejouer la commande générale dans les deux consoles.
+- Raison : elle ne modifie ni le lanceur gelé, ni un portail, ni un vérificateur, et ne remplace aucune empreinte à la main ; un lot dont le paquet n'est pas installé est déjà, pour le lanceur, « hors rejeu », pas vert.
+- **La preuve qui compte est la dernière étape** : un rejeu général après les deux sceaux, où A-31 et A-32 figurent parmi les paquets vérifiés, aucun des deux hors rejeu, zéro échec. C'est elle que les relecteurs rejouent et lisent ; les portails joués pendant la séquence n'établissent pas à eux seuls qu'un paquet est vert, et les rapports le disent.
+- Si une étape reste rouge : arrêt sans `PRET`, rien d'assoupli, un rapport.
+- T-03 ensuite : sa mise en cohérence est faite (documents alignés, A-20 dans le rejeu, lecteur déclaré « avant `PRET` seulement », `PRET` retiré le temps du travail). Il lui reste la preuve finale sur une base verte, le `PRET`, puis une vérification avec rejeu indépendant.
+
+## Questions rangées pour Imagine
+
+- Un lecteur s'est désinscrit d'une newsletter, puis cette newsletter est retirée du catalogue : reste-t-il signalé « à retirer » de l'outil d'envoi ? Défaut : oui (C-29).
+- Un bénéficiaire d'abonnement groupé dont l'adhésion est suspendue : « inconnu », ou « non abonné » ? Défaut : « inconnu », dès qu'il est identifié (C-29).
+- Au branchement, le contact à retirer est-il identifié par le compte du site plutôt que par une adresse portée dans la fiche ? Défaut : par le compte ; la fiche « à retirer » ne porte rien d'autre (C-29).
+
+## Files
+
+- **Voie 1** : retouche d'A-31 (regroupement), séquence conjointe A-31 et A-32, clôture de T-03, puis A-33. Aucun brief nouveau : la file a plus d'un lot d'avance.
+- **Voie 2** : corrections de C-29 en tête, puis B-13, B-14, B-15. Aucun brief nouveau : trois lots d'avance. Rien de la voie 2 depuis 17 h 13 ; noté pour Ced, sans alerte à ce stade.
