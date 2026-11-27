@@ -78,6 +78,36 @@ class TourneeTests(unittest.TestCase):
                     self.assertEqual(called, [])
                     self.assertFalse((reports / 'production').exists())
 
+    def test_cli_refusal_never_echoes_site_or_marker(self):
+        import subprocess
+        import hashlib
+        m = load()
+        scratch = Path.home() / 'AppData/Local/hermes/cache/scratch'
+        with tempfile.TemporaryDirectory(dir=scratch, prefix='a32-cli-') as tmp:
+            root = Path(tmp)
+            site = root / 'PRIVATE_PATH_CANARY'
+            site.mkdir()
+            config = site / 'wp-config.php'
+            config.write_text("<?php define('WP_ENVIRONMENT_TYPE', 'staging');", encoding='utf-8')
+            marker = site / '.imagine-staging-verified.json'
+            target = root / 'must-not-exist'
+            command = [sys.executable, '-B', str(ROOT / 'wp/outils/bascule/tournee/tournee.py'),
+                       '--wp-path=' + str(site), '--audit=' + str(root / 'absent.json'),
+                       '--correspondance=' + str(root / 'absent-map.json'), '--output=' + str(target)]
+            valid = {'status': 'verified', 'offline_verified': True, 'runtime_probe_passed': True}
+            for value, environment in [(None, 'staging'), (b'PRIVATE_MARKER_CANARY', 'staging'),
+                                       (json.dumps(valid).encode(), 'production')]:
+                marker.unlink(missing_ok=True)
+                if value is not None:
+                    marker.write_bytes(value)
+                before = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in site.iterdir()}
+                env = {**os.environ, 'PYTHONIOENCODING': 'utf-8', 'WP_ENVIRONMENT_TYPE': environment, 'PYTHONDONTWRITEBYTECODE': '1'}
+                env.pop('TMPDIR', None)
+                p = subprocess.run(command, env=env, capture_output=True, timeout=30)
+                self.assertEqual((p.returncode, p.stdout, p.stderr), (1, b'', b'A32_NOT_VERIFIED\n'))
+                self.assertFalse(target.exists())
+                self.assertEqual(before, {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in site.iterdir()})
+
     def test_refusal_allowlist_and_no_site_value(self):
         m = load()
         e = m.entries()[0]

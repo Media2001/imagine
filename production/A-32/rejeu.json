@@ -3,10 +3,15 @@
   "entrypoint": "verify.py",
   "requires": [],
   "logs": [
-    "production/A-32/preuves/final/utf8/python-tests.log",
-    "production/A-32/preuves/final/cp1252/python-tests.log",
-    "production/A-32/preuves/final/native/native.log",
-    "production/A-32/preuves/final/runner-console.log"
+    "production/A-32/preuves/final/utf8/python-console.log",
+    "production/A-32/preuves/final/utf8/native-console.log",
+    "production/A-32/preuves/final/utf8/native/native.log",
+    "production/A-32/preuves/final/cp1252/python-console.log",
+    "production/A-32/preuves/final/cp1252/native-console.log",
+    "production/A-32/preuves/final/cp1252/native/native.log",
+    "production/A-32/preuves/final/gates/prepare-image.stdout.log",
+    "production/A-32/preuves/final/gates/global-utf8.stdout.log",
+    "production/A-32/preuves/final/gates/global-cp1252.stdout.log"
   ],
   "controls": [
     "A32_ARGUMENTS_REFUSED",

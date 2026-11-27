@@ -152,6 +152,9 @@ def run(site, audit, mapping, output, executor=None):
 
 
 def main():
+    # Closed protocol is byte-identical on Windows and Linux consoles.
+    sys.stdout.reconfigure(newline='\n')
+    sys.stderr.reconfigure(newline='\n')
     try:
         options = {}
         for arg in sys.argv[1:]:
