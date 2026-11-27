@@ -148,6 +148,17 @@ Contact::register();
 ContactConfidentialite::register();
 AutresPages::register();
 
+// C27 — déclaration facultative après paiement seulement.
+require_once __DIR__ . '/AcquisitionRegles.php';
+require_once __DIR__ . '/Acquisition.php';
+require_once __DIR__ . '/AcquisitionReglages.php';
+require_once __DIR__ . '/AcquisitionConfidentialite.php';
+require_once __DIR__ . '/AcquisitionAdmin.php';
+Acquisition::register();
+AcquisitionReglages::register();
+AcquisitionConfidentialite::register();
+AcquisitionAdmin::register();
+
 add_action('init', static function (): void {
     foreach ([
         'imagine_numero' => [__('Numéros fictifs', 'imagine-site'), 'numeros'],
