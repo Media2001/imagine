@@ -1,0 +1,13 @@
+{
+  "scope": "imagine-test-demo",
+  "command": [
+    "powershell.exe",
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "C:\\Users\\Ced\\imagine\\wp\\tests\\rejouer.ps1"
+  ],
+  "exit": 1,
+  "log": "replay-V2.log"
+}
