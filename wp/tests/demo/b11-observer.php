@@ -7,6 +7,10 @@ if (wp_get_environment_type() !== 'local' || get_option('imagine_demo_site') !==
     return;
 }
 if (($_SERVER['HTTP_X_IMAGINE_B11_SETTINGS'] ?? '') === 'fictif') {
+    add_filter('use_block_editor_for_post', static function (bool $use, $post): bool {
+        $f = get_option('imagine_b11_fixture', []);
+        return in_array($post->ID, [$f['issue'] ?? 0, $f['article'] ?? 0], true) ? false : $use;
+    }, PHP_INT_MAX, 2);
     add_filter('allowed_options', static function (array $items): array {
         $items['imagine_reglages'] = ['imagine_medias'];
         return $items;

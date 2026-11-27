@@ -21,7 +21,8 @@ def run(label):
     observer='mu-plugins/b11-observer.php'
     assert b11.wp('echo wp_json_encode(file_exists(WP_CONTENT_DIR."/'+observer+'"));') is False
     saved=b11.wp('''global $wpdb;$users=get_option('imagine_c09_fixture')['users'];$out=[];foreach(['admin'=>get_users(['role'=>'administrator','number'=>1])[0]->ID,'active'=>$users['A-CARTE'],'buyer'=>$users['P-NUMERO'],'reader'=>$users['V-INSCRIT'],'expired'=>$users['A-EXPIRE'],'suspended'=>$users['A-SUSP']] as $key=>$id){$u=get_userdata($id);if(!$u||!str_ends_with($u->user_email,'@example.org')){throw new RuntimeException('Fictif requis');}$out[$key]=['id'=>$id,'rows'=>$wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->usermeta} WHERE user_id=%d AND meta_key='session_tokens'",$id),ARRAY_A)];}echo wp_json_encode($out);''')
-    durable=b11.private(label,{'sessions':saved,'settings':settings0,'business':business})
+    owned=b11.wp('''global $wpdb;$ids=['''+str(fixture['issue'])+','+str(fixture['article'])+'''];$where=implode(',',array_map('intval',$ids));$posts=$wpdb->get_results("SELECT * FROM {$wpdb->posts} WHERE ID IN ($where) OR (post_type='revision' AND post_parent IN ($where)) ORDER BY ID",ARRAY_A);$all=implode(',',array_map('intval',array_column($posts,'ID')));echo wp_json_encode(['posts'=>$posts,'meta'=>$wpdb->get_results("SELECT * FROM {$wpdb->postmeta} WHERE post_id IN ($all) ORDER BY meta_id",ARRAY_A),'admin'=>$wpdb->get_results("SELECT * FROM {$wpdb->usermeta} WHERE user_id=1 ORDER BY umeta_id",ARRAY_A)]);''')
+    durable=b11.private(label,{'sessions':saved,'settings':settings0,'business':business,'owned':owned})
     hashes=b11.b10.b09.b08.c25.b06.hashes(b11.FILES)
     baseline_meta=b11.wp('$o=[];foreach('+b11.php([fixture['issue'],fixture['article']])+' as $id){$o[$id]=[get_post_meta($id,Imagine\\Site\\Medias::VIDEO,true),get_post_meta($id,Imagine\\Site\\Medias::PODCAST,true)];}echo wp_json_encode($o);')
     c26path=b11.ROOT/'production/C-26/correction-livraison-V2-inventaire.json'
@@ -60,7 +61,9 @@ def run(label):
                 page.locator('[name="imagine_medias[integration]"]').select_option(value)
                 form=page.locator('form').filter(has=page.locator('#imagine-medias-reglages'))
                 form.evaluate("e=>e.action+='?b11_observe=settings-save'")
+                print('SETTING_READBACK',value,b11.wp('echo wp_json_encode(get_option("imagine_medias"));'),page.locator('body').inner_text()[-500:])
                 page.locator('#submit').click();page.wait_for_load_state('networkidle')
+                print('SETTING_AFTER',value,b11.wp('echo wp_json_encode(get_option("imagine_medias"));'),page.url,page.locator('body').inner_text()[-700:])
                 check('reglage_'+value+'_readback',b11.wp('echo wp_json_encode(Imagine\\Site\\Medias::configuration());')=={'hosts':['video-fictive.example.invalid'],'integration':value})
             def edit(ident,video=VIDEO,podcast=PODCAST,phase='save'):
                 page.goto(identity['url']+'/wp-admin/post.php?post='+str(ident)+'&action=edit');page.wait_for_load_state('networkidle')
@@ -167,6 +170,7 @@ def run(label):
             b11.wp('global $wpdb;$wpdb->delete($wpdb->usermeta,["user_id"=>'+str(uid)+',"meta_key"=>"session_tokens"]);foreach('+b11.php(rows)+' as $r){$wpdb->insert($wpdb->usermeta,$r);}wp_cache_delete('+str(uid)+',"user_meta");echo wp_json_encode(true);')
             actual=b11.wp('global $wpdb;echo wp_json_encode($wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->usermeta} WHERE user_id=%d AND meta_key=\'session_tokens\'",'+str(uid)+'),ARRAY_A));')
             cleanup['session_'+str(uid)]=actual==rows
+        cleanup['owned_restored']=b11.wp('''global $wpdb;$old='''+b11.php(owned)+''';$ids=['''+str(fixture['issue'])+','+str(fixture['article'])+'''];$where=implode(',',array_map('intval',$ids));$all=$wpdb->get_col("SELECT ID FROM {$wpdb->posts} WHERE ID IN ($where) OR (post_type='revision' AND post_parent IN ($where))");$allSql=implode(',',array_map('intval',$all));$wpdb->query('START TRANSACTION');try{$wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE post_id IN ($allSql)");$oldIds=array_column($old['posts'],'ID');foreach($all as $id){if(!in_array($id,$oldIds,true)){$wpdb->delete($wpdb->posts,['ID'=>$id]);}}foreach($old['posts'] as $r){$id=$r['ID'];unset($r['ID']);$wpdb->update($wpdb->posts,$r,['ID'=>$id]);}foreach($old['meta'] as $r){$wpdb->insert($wpdb->postmeta,$r);}$wpdb->delete($wpdb->usermeta,['user_id'=>1]);foreach($old['admin'] as $r){$wpdb->insert($wpdb->usermeta,$r);}$wpdb->query('COMMIT');}catch(Throwable $e){$wpdb->query('ROLLBACK');throw $e;}foreach($all as $id){clean_post_cache((int)$id);}clean_user_cache(1);echo wp_json_encode(true);''')
         cleanup['observer_absent_readback']=b11.wp('echo wp_json_encode(!file_exists(WP_CONTENT_DIR."/'+observer+'")&&get_option("imagine_b11_observations",null)===null);')
         cleanup['sources_restored']=b11.b10.b09.b08.c25.b06.hashes(b11.FILES)==hashes
         cleanup['business_preserved']=b11.state()==business
