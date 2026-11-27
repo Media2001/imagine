@@ -31,7 +31,11 @@ final class Inventory
             $raw = [];
             foreach ($order->get_meta('_subscription_' . $type, false, 'edit') as $meta) {
                 $value = $meta->get_data()['value'];
-                if ((!is_int($value) && !is_string($value)) || !preg_match('/\A[1-9][0-9]*\z/D', (string) $value)) {
+                if (
+                    (!is_int($value) && !is_string($value))
+                    || !preg_match('/\A[1-9][0-9]*\z/D', (string) $value)
+                    || (string) (int) $value !== (string) $value
+                ) {
                     $opaque = true;
                     continue;
                 }
@@ -50,7 +54,7 @@ final class Inventory
             }
             if ($type === 'renewal') {
                 foreach ($raw as $id) {
-                    if (!wcs_get_subscription($id) instanceof \WC_Subscription) {
+                    if (!(wcs_get_subscription($id) instanceof \WC_Subscription)) {
                         $orphan = true;
                     }
                 }

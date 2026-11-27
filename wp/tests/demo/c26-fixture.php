@@ -47,8 +47,8 @@ if ($operation === 'seed') {
     $question = $questions[0];
     Personnalisation::enregistrer($owner, [$question['id'] => [$question['choix'][0]['id']]], null, Personnalisation::version($owner));
     $answers = Personnalisation::reponses($owner);
-    // Fixture applicative : date ISO valide distinctive, jamais ajoutée à une réponse mémoire.
-    $answers[$question['id']]['date_utc'] = '2001-01-01T01:26:24Z';
+    // Sentinelle de fixture dédiée : pas une date susceptible d'apparaître ailleurs.
+    $answers[$question['id']]['date_utc'] = 'C26_PERSONNALISATION_FICTIF';
     update_user_meta($owner, Personnalisation::META, $answers);
     if (Personnalisation::reponses($owner) !== $answers) {
         throw new RuntimeException('C26 réponse fixture non persistée');
@@ -64,6 +64,15 @@ if ($operation === 'seed') {
     if (is_wp_error($record)) {
         throw new RuntimeException('C26 demande fixture absente');
     }
+    // Sentinelle temporaire persistée : traverse le vrai accusé et le vrai export.
+    $record['date'] = 'C26_ACCUSE_FICTIF';
+    update_comment_meta((int)$record['note'], Retractation::META, wp_slash($record));
+    $journal = get_option(Retractation::JOURNAL . $order->get_id());
+    $journal['apres']['date'] = $record['date'];
+    update_option(Retractation::JOURNAL . $order->get_id(), $journal, false);
+    if (Retractation::lire((int)$order->get_id()) !== $record) {
+        throw new RuntimeException('C26 accusé fixture non persisté');
+    }
     $pages = get_option('imagine_b08_pages');
     $list = [];
     foreach ([$pages['cooperative'], $pages['soutenir'], $pages['sujet'], ...array_values($pages['enfants'])] as $id) {
@@ -76,8 +85,8 @@ if ($operation === 'seed') {
     echo wp_json_encode(['scope' => 'imagine-test-demo', 'pages' => $list, 'events' => $events,
         'owner' => $owner, 'registration' => Agenda::inscriptions($user->user_email)[0],
         'subject' => Sujet::ids($user->user_email)[0], 'order' => $order->get_id(), 'note' => $record['note'],
-        'markers' => ['agenda' => 'C26_AGENDA_FICTIF', 'personnalisation' => '2001-01-01T01:26:24Z',
-            'retractation' => 'C26_RETRACTATION_FICTIF', 'sujet' => 'C26_SUJET_FICTIF', 'accuse' => $record['date']]]);
+        'markers' => ['agenda' => 'C26_AGENDA_FICTIF', 'personnalisation' => 'C26_PERSONNALISATION_FICTIF',
+            'retractation' => 'C26_RETRACTATION_FICTIF', 'sujet' => 'C26_SUJET_FICTIF', 'accuse' => 'C26_ACCUSE_FICTIF']]);
 } elseif ($operation === 'privacy') {
     $registry = apply_filters('wp_privacy_personal_data_exporters', []);
     $keys = ['agenda' => 'imagine-agenda', 'personnalisation' => 'imagine-personnalisation',

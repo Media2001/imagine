@@ -230,6 +230,33 @@ class ExtensionTest(unittest.TestCase):
         self.assertIn("'accuse' => 'C26_ACCUSE_FICTIF'",source)
         self.assertNotIn('2001-01-01T01:26:24Z',source)
 
+    def test_mutation_source_relecture_et_restauration_sur_erreur(self):
+        import hashlib
+        m = load('c26-preparer')
+        name = 'themes/imagine/archive-imagine_evenement.php'
+        original = (ROOT/'wp'/name).read_bytes()
+        mutated = original+b'<!-- C26_SECRET -->'
+        remote = {name:original}
+        def hashes(names): return {n:hashlib.sha256(remote[n]).hexdigest() for n in names}
+        with patch.object(m.b06,'hashes',side_effect=hashes), \
+             patch.object(m.b06.profils.b00,'upload',side_effect=lambda n,b:remote.update({n:b})):
+            with self.assertRaises(RuntimeError):
+                m.mutate_source(name,mutated,lambda:(_ for _ in ()).throw(RuntimeError('test')))
+        self.assertEqual(remote[name],original)
+
+    def test_mutation_source_refuse_ecrasement_derive_concurrente(self):
+        import hashlib
+        m = load('c26-preparer')
+        name = 'themes/imagine/archive-imagine_evenement.php'
+        original = (ROOT/'wp'/name).read_bytes()
+        remote = {name:original}
+        def hashes(names): return {n:hashlib.sha256(remote[n]).hexdigest() for n in names}
+        with patch.object(m.b06,'hashes',side_effect=hashes), \
+             patch.object(m.b06.profils.b00,'upload',side_effect=lambda n,b:remote.update({n:b})):
+            with self.assertRaises(ValueError):
+                m.mutate_source(name,original+b' mutation',lambda:remote.update({name:b'concurrent'}))
+        self.assertEqual(remote[name],b'concurrent')
+
     def test_commande_visiteur_ne_lance_pas_de_mutation(self):
         import ast
         m = load('c26')

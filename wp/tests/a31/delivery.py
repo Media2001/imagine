@@ -61,6 +61,8 @@ def gate_logs_valid(folder):
             matches = re.findall(r'^T01_RESULT (.+)$', text, re.M)
             if len(matches) != 1:
                 return False
+            if re.search(r'^T01 TOOL : a31 ; [1-9][0-9]* controls ; 0 failures ; exit=0$', text, re.M) is None:
+                return False
             marker = json.loads(matches[0])
             if (marker.get('pass') is not True or marker['failures'] != 0 or marker['errors'] != 0
                     or marker['tools']['failures'] != 0 or marker['packets']['failures'] != []

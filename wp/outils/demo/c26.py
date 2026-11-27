@@ -10,6 +10,16 @@ from urllib.parse import urlencode, quote
 import c23
 PROOF = Path(__file__).resolve().parents[3] / 'production/C-26'
 FAMILIES = ['agenda', 'personnalisation', 'retractation', 'sujet']
+MUTATIONS = FAMILIES + ['cooperateurs', 'cooperative', 'archive', 'autorisation-b06']
+
+
+def source_hashes():
+    root = Path(__file__).resolve().parents[3]
+    files = [p for folder in ['wp/outils/demo','wp/tests/demo']
+             for p in (root/folder).glob('c26*') if p.is_file()]
+    files += [root/name for name in ['wp/outils/demo/c23.py', 'wp/outils/demo/c23-inventaire.php',
+        'wp/outils/demo/c23-preparer.py', 'wp/tests/demo/c23-tests.py']]
+    return {p.relative_to(root).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in files}
 
 
 def routes(f):

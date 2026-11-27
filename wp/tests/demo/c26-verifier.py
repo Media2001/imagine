@@ -90,6 +90,9 @@ def c23_checks(record, f):
 def restored(r):
     return (set(r.get('exact_restoration',{}))==set(EXACT)
             and all(v is True for v in r['exact_restoration'].values())
+            and not r.get('run_error') and r.get('restoration_errors')==[]
+            and set(r.get('restoration_steps',{}))=={'cleanup','b06','usermeta'}
+            and all(x.get('attempted') is True and x.get('ok') is True for x in r['restoration_steps'].values())
             and all(r.get(k) is True for k in ['business_preserved','live_sources_preserved','business_unchanged_during_GETs','privacy_green'])
             and r.get('command_exit')==0 and r.get('before_sha256')==r.get('after_sha256')
             and bool(re.fullmatch('[a-f0-9]{64}',r.get('before_sha256',''))))
@@ -105,15 +108,14 @@ def verify(packet=PROOF):
         labels = [manifest['delivery'],manifest['mutations']]
         check('scope',manifest.get('scope')=='imagine-test-demo')
         check('labels',all(bool(re.fullmatch('[a-zA-Z0-9-]+',x)) for x in labels) and len(set(labels))==2)
-        own = {p.relative_to(ROOT).as_posix():sha(p) for folder in ['wp/outils/demo','wp/tests/demo'] for p in (ROOT/folder).glob('c26*') if p.is_file()}
-        source_contract = {**own,'wp/tests/demo/c23-tests.py':sha(ROOT/'wp/tests/demo/c23-tests.py')}
-        check('sources',manifest['sources']==source_contract)
+        own = c26.source_hashes()
+        check('sources',manifest['sources']==own)
         artifacts = manifest['artifacts']
         check('artifact_hashes',bool(artifacts) and all(Path(n).name==n and sha(packet/n)==h for n,h in artifacts.items()))
         required = {'tests.json','tests-utf8.log','tests-cp1252.log','image.json','image.log','A-VOIR.md','INVENTAIRE.md'}
         for label in labels:
             required.update(label+s for s in ['.json','.md','.log','-avant.json','-restauration.json','-privacy.json','-inventaire.json','-extension.json','-c23.json','-c23.md'])
-        required.update(labels[1]+'-mutation-'+family+'.json' for family in c26.FAMILIES+['cooperateurs','cooperative'])
+        required.update(labels[1]+'-mutation-'+family+'.json' for family in c26.MUTATIONS)
         check('required_artifacts',required.issubset(artifacts))
         for index,label in enumerate(labels):
             record, f, r = read(label+'.json'),read(label+'-inventaire.json'),read(label+'-restauration.json')
@@ -125,35 +127,55 @@ def verify(packet=PROOF):
             check(label+'_private_preimage',r['private_snapshot']==before['private_snapshot'] and r['private_snapshot'].get('private') is True and bool(re.fullmatch('[a-f0-9]{64}',r['private_snapshot'].get('sha256',''))))
             catalog = c26.routes(f['extension'])
             publics = c26.c23.audience_order(f)+['abonne-actif']
+            check(label+'_b06_oracle',set(c26.validate_cooperator(f))==set(f['cooperator_publics']))
+            check(label+'_witness_oracle',bool(c26.denied_markers(f,'anonyme'))
+                and all(re.fullmatch('C26_[A-Z_]+',m) is not None for m in f['extension']['markers'].values()))
             check(label+'_catalogue',record['routes']==catalog and record['publics']==publics and record['coverage']=='C26-nouvelles-sorties' and record['c23_exit']==0)
             for key,val in matrix_checks(record,catalog,publics).items():
                 check(label+'_'+key,val)
             privacy = read(label+'-privacy.json')
-            wanted = {(p,family) for p in publics+['inverse-proprietaire'] for family in c26.FAMILIES}
-            rows = privacy['results']
-            check(label+'_privacy',privacy['total']==len(rows)==len(wanted) and {(x['public'],x['family']) for x in rows}==wanted and privacy['failures']==privacy['leaks']==0 and all(x['ok'] is True and x['leak'] is False and x['surface_present'] is True and (x['witnesses_found']>0 if x['positive'] else x['witnesses_found']==0) for x in rows))
+            for key,value in privacy_checks(privacy,publics).items():
+                check(label+'_privacy_'+key,value)
             c23 = read(label+'-c23.json')
-            expected = c26.c23.build_routes(f)
-            # C23 possède des inverses/identités en plus du produit cartésien.
-            normal = [x for x in c23['results'] if x['public'] in c23['publics'] and x['name'] in {p['name'] for p in expected}]
-            c23copy = dict(c23,total=len(normal),results=normal)
-            check(label+'_c23',c23['publics']==c26.c23.audience_order(f) and c23['total']==len(c23['results']) and c23['leaks']==c23['failures']==0 and c23['routes']==len(expected) and c23['command_sha256']==sha(ROOT/'wp/outils/demo/c23.py') and all(matrix_checks(c23copy,expected,c23['publics']).values()))
+            check(label+'_c23_source',c23['command_sha256']==sha(ROOT/'wp/outils/demo/c23.py'))
+            for key,value in c23_checks(c23,f).items():
+                check(label+'_c23_'+key,value)
             check(label+'_b06_inverse',all(any(x['name']=='b06-'+str(p['id'])+'-'+kind and x['public']=='profil-p-coop' and x['ok'] is True and x['witnesses_found']>0 for x in c23['results']) for p in f['cooperator_pages'] for kind in ['html','rest','rest-route','collection','embed','recherche']))
             check(label+'_policy',c23['discovery']['policy']==f['discovery_policy'] and c23['discovery']['audience']==c26.c23.discovery_audience(f) and (c23['discovery']['exhausted_played'] is False if f['discovery_policy']['ouverture']=='fermee' else c23['discovery']['exhausted_played'] is True))
             if index==0:
                 check('normal_not_mutation','mutations_detected' not in r)
             else:
-                check('mutation_families',set(r.get('mutations_detected',[]))==set(c26.FAMILIES+['cooperateurs','cooperative']))
+                check('mutation_families',Counter(r.get('mutations_detected',[]))==Counter(c26.MUTATIONS))
                 for family in c26.FAMILIES:
                     m = read(label+'-mutation-'+family+'.json')
-                    rows = m['results']
-                    bad = [x for x in rows if x['family']==family and not x['positive']]
-                    check('mutation_'+family,m['route']=='registered-native-exporter-callbacks' and m['mutation']==family and m['total']==len(rows)==len(wanted) and len(bad)==len(publics) and m['failures']==m['leaks']==len(bad) and all(x['leak'] is True and x['ok'] is False and x['witnesses_found']>0 and x['surface_present'] is True for x in bad))
+                    check('mutation_'+family,m['route']=='registered-native-exporter-callbacks' and m['mutation']==family and all(privacy_checks(m,publics,family).values()))
                 for family in ['cooperateurs','cooperative']:
                     m = read(label+'-mutation-'+family+'.json')
                     check('mutation_'+family,m.get('persisted_fixture') is True and m['total']==len(m['results'])==1 and all(x['leak'] is True and x['ok'] is False and x['witnesses_found']>0 and x['surface_present'] is True and x['status']==200 and x['bytes']>0 for x in m['results']))
+                    if family=='cooperative':
+                        check('mutation_C08_et_B06',m.get('families')=={'C08':True,'B06':True}
+                            and m['results'][0]['witnesses_found']>=2)
+                for family,name in [('archive','themes/imagine/archive-imagine_evenement.php'),
+                                    ('autorisation-b06','plugins/imagine-site/Cooperateurs.php')]:
+                    m = read(label+'-mutation-'+family+'.json')
+                    expected_sha = before['live_source_hashes'][name]
+                    check('mutation_source_'+family,m.get('source')==name and m.get('source_restored') is True
+                        and m.get('before_sha256')==m.get('restored_sha256')==expected_sha
+                        and m.get('mutated_sha256')!=expected_sha
+                        and bool(re.fullmatch('[a-f0-9]{64}',m.get('mutated_sha256',''))))
+                    if family=='archive':
+                        check('mutation_archive',m['total']==len(m['results'])==1
+                            and all(x['name']=='agenda-archive' and x['public']=='anonyme'
+                            and x['leak'] is True and x['ok'] is False and x['witnesses_found']>0
+                            and x['surface_present'] is True and x['status']==200 and x['bytes']>0 for x in m['results']))
+                    else:
+                        check('mutation_autorisation_b06',all(m.get(k) is True for k in
+                            ['oracle_rejected','inventory_after_mutation','roles_unchanged','actors_unchanged'])
+                            and m['expected']==c26.cooperator_expected(f)
+                            and set(m['observed'])==set(m['expected'])|{'connecte-sans-abonnement'}
+                            and 'connecte-sans-abonnement' not in m['expected'])
         tests,image = read('tests.json'),read('image.json')
-        check('tests',all(tests[k]['exit']==0 and tests[k]['tests']==42 and tests[k]['TMPDIR_present'] is False and tests[k]['network_blocked'] is True and 'Ran 42 tests' in (packet/('tests-'+k+'.log')).read_text(encoding='utf-8') and '\nOK\n' in (packet/('tests-'+k+'.log')).read_text(encoding='utf-8') for k in ['utf8','cp1252']))
+        check('tests',all(tests[k]['exit']==0 and tests[k]['tests']==52 and tests[k]['version'].startswith('3.11.') and tests[k]['TMPDIR_present'] is False and tests[k]['network_blocked'] is True and 'Ran 52 tests' in (packet/('tests-'+k+'.log')).read_text(encoding='utf-8') and '\nOK\n' in (packet/('tests-'+k+'.log')).read_text(encoding='utf-8') for k in ['utf8','cp1252']))
         check('image',image['exit']==0 and 'T01 IMAGE READY' in (packet/'image.log').read_text(encoding='utf-8'))
         check('no_session_dump',not any('wordpress_logged_in_' in (packet/n).read_text(encoding='utf-8',errors='replace') or 'X-WP-Nonce' in (packet/n).read_text(encoding='utf-8',errors='replace') for n in artifacts if n.endswith('.json')))
     except Exception as error:

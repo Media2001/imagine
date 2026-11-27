@@ -69,7 +69,7 @@ foreach (['renewal', 'switch', 'resubscribe'] as $type) {
 }
 $check('renewal_missing_native_subscription', $read(['_subscription_renewal' => ['8']])['orphan_renewal']);
 $check('existing_subscription_not_orphan', !$read(['_subscription_renewal' => ['7']])['orphan_renewal']);
-foreach (['', '0', '-7', '7junk', 'A31_PRIVATE_CANARY', ['7']] as $i => $value) {
+foreach (['', '0', '-7', '7junk', 'A31_PRIVATE_CANARY', ['7'], '99999999999999999999999'] as $i => $value) {
     $check('malformed_' . $i, $read(['_subscription_renewal' => [$value]])['nature'] === 'illisible');
 }
 $check(

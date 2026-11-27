@@ -42,14 +42,31 @@ def run():
     delivery,mutations = manifest['delivery'],manifest['mutations']
     cases = []
     # Le sceau externe est recalculé après chaque falsification : les contrôles sémantiques doivent rougir.
+    def drop_extras(d):
+        d['results']=[r for r in d['results'] if r['name'] not in ['identite-REST','inverse-article','inverse-pdf','inverse-C08','inverse-achat-C14']]
+        d['total']=len(d['results'])
+    def duplicate_identity(d):
+        d['results'].append(copy.deepcopy(next(r for r in d['results'] if r['name']=='identite-REST')))
+        d['total']=len(d['results'])
     changes = [('total',delivery+'.json',lambda d:d.update(total=d['total']+1)),
                ('matrice-vide',delivery+'.json',lambda d:d.update(results=[])),
                ('case-manquante',delivery+'.json',lambda d:d['results'].pop()),
                ('restauration',delivery+'-restauration.json',lambda d:d['exact_restoration'].update(usermeta=False)),
                ('privacy-inverse',delivery+'-privacy.json',lambda d:d['results'].pop()),
+               ('privacy-inverse-vide-redesigne',delivery+'-privacy.json',lambda d:[r.update(positive=False,witnesses_found=0) for r in d['results'] if r['public']=='inverse-proprietaire']),
+               ('privacy-tiers-positive',delivery+'-privacy.json',lambda d:[r.update(positive=True,witnesses_found=1) for r in d['results'] if r['public']=='anonyme']),
+               ('c23-extras-supprimes',delivery+'-c23.json',drop_extras),
+               ('c23-identite-dupliquee',delivery+'-c23.json',duplicate_identity),
+               ('c23-inverse-vide',delivery+'-c23.json',lambda d:[r.update(witnesses_found=0) for r in d['results'] if r['name']=='inverse-article']),
+               ('c23-echec-cache',delivery+'-c23.json',lambda d:[r.update(ok=False,leak=True) for r in d['results'] if r['name']=='inverse-C08']),
+               ('oracle-b06-circulaire',delivery+'-inventaire.json',lambda d:d['cooperator_publics'].append('connecte-sans-abonnement')),
+               ('restauration-etape-erreur',delivery+'-restauration.json',lambda d:d['restoration_steps']['b06'].update(ok=False)),
                ('mutation-blanchie',mutations+'-mutation-agenda.json',lambda d:[r.update(ok=True,leak=False,witnesses_found=0) for r in d['results']]),
                ('decouverte-forcee',delivery+'-c23.json',lambda d:d['discovery']['policy'].update(ouverture='premiere_lecture')),
                ('tests-inventes','tests.json',lambda d:d['utf8'].update(tests=999)),
+               ('mutation-c08-b06-incomplete',mutations+'-mutation-cooperative.json',lambda d:d['families'].update(B06=False)),
+               ('mutation-archive-blanchie',mutations+'-mutation-archive.json',lambda d:[r.update(ok=True,leak=False,witnesses_found=0) for r in d['results']]),
+               ('mutation-autorisation-blanchie',mutations+'-mutation-autorisation-b06.json',lambda d:d.update(observed=d['expected'])),
                ('source-fausse','manifest.json',lambda d:d['sources'].update({'wp/outils/demo/c26.py':'0'*64}))]
     scratch = Path(os.environ.get('TMPDIR') or str(Path(os.environ.get('LOCALAPPDATA',str(Path.home()/'AppData/Local')))/'hermes/cache/scratch'))
     scratch.mkdir(parents=True,exist_ok=True)

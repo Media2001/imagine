@@ -40,21 +40,66 @@ def fixture(operation, data):
 
 
 def own_sources():
-    return {p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest()
-            for folder in ['wp/outils/demo', 'wp/tests/demo'] for p in (ROOT/folder).glob('c26*') if p.is_file()}
+    return c26.source_hashes()
 
 
 def restoration(saved, ids, pages):
-    # Supprimer exclusivement les nouvelles données de fixture via les APIs natives.
+    # Chaque remise en état est tentée ; aucune erreur ne prive les autres de leur chance.
+    outcomes = {}
+    def attempt(name, action):
+        try:
+            action()
+            outcomes[name] = {'attempted':True, 'ok':True}
+        except Exception as error:
+            outcomes[name] = {'attempted':True, 'ok':False, 'error':type(error).__name__}
     owner = next(int(r['ID']) for r in saved['users'] if r['user_login'] == 'v-dec')
-    fixture('cleanup', {'owner':owner, 'old_private_ids':[int(p['ID']) for p in saved['posts'] if p['post_type'] in ['imagine_inscription','imagine_sujet']]})
-    prep.restore_cooperator(pages)
+    attempt('cleanup', lambda: fixture('cleanup', {'owner':owner, 'old_private_ids':[int(p['ID']) for p in saved['posts'] if p['post_type'] in ['imagine_inscription','imagine_sujet']]}))
+    attempt('b06', lambda: prep.restore_cooperator(pages))
     rows = [r for r in saved['usermeta'] if int(r['user_id']) in ids]
-    wp('''global $wpdb;$ids='''+php(ids)+''';$old='''+php(rows)+''';
+    attempt('usermeta', lambda: wp('''global $wpdb;$ids='''+php(ids)+''';$old='''+php(rows)+''';
 $all=$wpdb->get_results("SELECT * FROM {$wpdb->usermeta} WHERE user_id IN (".implode(',',array_map('intval',$ids)).")",ARRAY_A);
 $prior=array_column($old,'umeta_id');foreach($all as $r){if(!in_array($r['umeta_id'],$prior,true)){$wpdb->delete($wpdb->usermeta,['umeta_id'=>$r['umeta_id']]);}}
 foreach($old as $r){$ok=$wpdb->replace($wpdb->usermeta,$r);if($ok===false){throw new RuntimeException('C26 restauration meta impossible');}}
-foreach($ids as $id){clean_user_cache($id);wp_cache_delete($id,'user_meta');}echo 'true';''')
+foreach($ids as $id){clean_user_cache($id);wp_cache_delete($id,'user_meta');}echo 'true';'''))
+    return outcomes
+
+
+def finish_restoration(label, result, saved, ids, pages, before, names, remote):
+    errors = []
+    try:
+        result['restoration_steps'] = restoration(saved, ids, pages)
+    except Exception as error:
+        result['restoration_steps'] = {}
+        errors.append('restoration:'+type(error).__name__)
+    exact = {k:False for k in ['users','usermeta','posts','postmeta','comments','commentmeta','wc_orders','wc_orders_meta','wc_order_addresses','wc_order_operational_data','woocommerce_order_items','woocommerce_order_itemmeta','navigation','business_options']}
+    result.update(exact_restoration=exact, business_preserved=False, live_sources_preserved=False,
+        before_sha256=hashlib.sha256(json.dumps(before,sort_keys=True).encode()).hexdigest())
+    try:
+        current = b08.snapshot()
+        for key in exact:
+            if key != 'business_options':
+                exact[key] = current[key] == saved[key]
+        options = lambda db:[r for r in db['options'] if r['option_name'].startswith('imagine_') or r['option_name']=='cron']
+        exact['business_options'] = options(current)==options(saved)
+        if not all(exact.values()):
+            result['private_after'] = prep.private_snapshot('c26-'+label+'-after',current)
+    except Exception as error:
+        errors.append('snapshot:'+type(error).__name__)
+    try:
+        after = b06.state()
+        result.update(business_preserved=before==after,
+            after_sha256=hashlib.sha256(json.dumps(after,sort_keys=True).encode()).hexdigest())
+    except Exception as error:
+        errors.append('business:'+type(error).__name__)
+    try:
+        result['live_sources_preserved'] = b06.hashes(names)==remote
+    except Exception as error:
+        errors.append('sources:'+type(error).__name__)
+    result['restoration_errors'] = errors
+    save(label+'-restauration', result)
+    print(json.dumps({'restoration':exact,'business':result['business_preserved'],
+        'steps':result['restoration_steps'],'errors':errors},ensure_ascii=False),flush=True)
+    return result
 
 
 def privacy(extension, f, mutation=''):
@@ -75,17 +120,41 @@ def privacy(extension, f, mutation=''):
                 total=len(rows), failures=sum(not r['ok'] for r in rows), leaks=sum(r['leak'] for r in rows), results=rows)
 
 
+def mutate_source(name, mutated, action):
+    if name not in ['plugins/imagine-site/Cooperateurs.php','themes/imagine/archive-imagine_evenement.php']:
+        raise ValueError('C26 mutation source hors périmètre')
+    original = (ROOT/'wp'/name).read_bytes()
+    old_hash = hashlib.sha256(original).hexdigest()
+    new_hash = hashlib.sha256(mutated).hexdigest()
+    assert b06.hashes([name])[name]==old_hash and new_hash!=old_hash
+    try:
+        b06.profils.b00.upload(name,mutated)
+        assert b06.hashes([name])[name]==new_hash
+        outcome = action()
+    finally:
+        current = b06.hashes([name])[name]
+        if current not in [old_hash,new_hash]:
+            raise ValueError('C26 dérive concurrente source : restauration refusée')
+        if current != old_hash:
+            b06.profils.b00.upload(name,original)
+        assert b06.hashes([name])[name]==old_hash
+    return dict(source=name,before_sha256=old_hash,mutated_sha256=new_hash,
+        restored_sha256=old_hash,source_restored=True,**outcome)
+
+
 def run(label, mutations=False):
     if not re.fullmatch('[a-zA-Z0-9-]+', label) or any(PROOF.glob(label+'*')):
         raise ValueError('C26 nom de reçu neuf requis')
     identity = b06.guard()
     # Lire le bootstrap actuel et les dépendances livrées ; ne rien installer ni réécrire.
     names = ['plugins/imagine-site/'+n for n in ['imagine-site.php','Agenda.php','AgendaConfidentialite.php','Personnalisation.php','PersonnalisationConfidentialite.php','Retractation.php','RetractationConfidentialite.php','Cooperative.php','Soutenir.php','Sujet.php','SujetConfidentialite.php','Cooperateurs.php']]
+    names.append('themes/imagine/archive-imagine_evenement.php')
     remote = b06.hashes(names)
     assert remote == {n:hashlib.sha256((ROOT/'wp'/n).read_bytes()).hexdigest() for n in names}, 'C26 sources live différentes'
     before = b06.state()
     saved = b08.snapshot()
     f = prep.inventory()
+    c26.validate_cooperator(f)
     owner = wp('echo wp_json_encode((int)get_option("imagine_c09_fixture")["users"]["V-DEC"]);')
     assert owner and owner not in f['users'].values()
     ids = sorted(set(list(f['users'].values())+[owner]))
@@ -102,6 +171,7 @@ def run(label, mutations=False):
         save(label+'-extension', extension)
         prep.seed_cooperator_witness(pages)
         f = prep.inventory()
+        c26.validate_cooperator(f)
         prep.validate_discovery(f)
         f['extension'] = extension
         sessions = prep.create_sessions(f)
@@ -110,6 +180,27 @@ def run(label, mutations=False):
         save(label+'-privacy', privacy_normal)
         if mutations:
             mutated = []
+            # Le code d'autorisation réel est muté AVANT l'inventaire, réglages inchangés.
+            name = 'plugins/imagine-site/Cooperateurs.php'
+            original = (ROOT/'wp'/name).read_bytes()
+            token = b'return CooperateursRegles::lecture('
+            assert original.count(token)==1
+            changed = original.replace(token,('return get_current_user_id() === '+str(f['users']['V-INSCRIT'])+' || CooperateursRegles::lecture(').encode())
+            def decision_probe():
+                observed = prep.inventory()
+                expected = c26.cooperator_expected(observed)
+                try:
+                    c26.validate_cooperator(observed)
+                except ValueError:
+                    return dict(oracle_rejected=True,inventory_after_mutation=True,
+                        expected=expected,observed=observed['cooperator_publics'],
+                        roles_unchanged=observed['cooperator_roles']==f['cooperator_roles'],
+                        actors_unchanged=observed['cooperator_actors']==f['cooperator_actors'])
+                raise AssertionError('C26 oracle B06 circulaire')
+            receipt = mutate_source(name,changed,decision_probe)
+            assert receipt['roles_unchanged'] and receipt['actors_unchanged']
+            save(label+'-mutation-autorisation-b06',dict(scope='imagine-test-demo',**receipt))
+            mutated.append('autorisation-b06')
             for family in c26.FAMILIES:
                 receipt = privacy(extension, f, family)
                 save(label+'-mutation-'+family, receipt)
@@ -132,18 +223,36 @@ def run(label, mutations=False):
             public_page = next(p for p in extension['pages'] if p['path']=='/soutenir/')
             original_page = next(p for p in saved['posts'] if int(p['ID'])==public_page['id'])
             assert original_page['post_content'] == ''
-            primary = 'CONTENU_FICTIF_RESERVE_DEMO-2026-T4_1'
-            wp('''global $wpdb;if($wpdb->query($wpdb->prepare("UPDATE {$wpdb->posts} SET post_content=%s WHERE ID=%d AND BINARY post_content=%s",'<p>'''+primary+'''</p>','''+str(public_page['id'])+''',''))!==1){throw new RuntimeException('C26 mutation publique refusée');}clean_post_cache('''+str(public_page['id'])+''');echo 'true';''')
+            c08 = 'Les lucioles violettes de C08 gardent le secret du village fictif.'
+            coop = c26.c23.cooperator_routes(f)[0]['cooperator_marker']
+            injected = '<p>'+c08+' '+coop+'</p>'
+            wp('''global $wpdb;if($wpdb->query($wpdb->prepare("UPDATE {$wpdb->posts} SET post_content=%s WHERE ID=%d AND BINARY post_content=%s",'''+php(injected)+''','''+str(public_page['id'])+''',''))!==1){throw new RuntimeException('C26 mutation publique refusée');}clean_post_cache('''+str(public_page['id'])+''');echo 'true';''')
             try:
                 route = next(r for r in c26.routes(extension) if r['path']==public_page['path'])
                 response = c26.c23.fetch(route['path'])
-                verdict = c26.assess(route,response,[primary])
-                assert verdict['leak'] and not verdict['ok']
-                save(label+'-mutation-cooperative', {'scope':'imagine-test-demo','total':1,'results':[dict(name=route['name'],public='anonyme',status=response[0],bytes=len(response[2]),**verdict)],'persisted_fixture':True})
+                verdict = c26.assess(route,response,c26.denied_markers(f,'anonyme'))
+                families = {k:c26.assess(route,response,[w])['leak'] for k,w in [('C08',c08),('B06',coop)]}
+                assert verdict['leak'] and not verdict['ok'] and all(families.values())
+                save(label+'-mutation-cooperative', {'scope':'imagine-test-demo','total':1,'families':families,'results':[dict(name=route['name'],public='anonyme',status=response[0],bytes=len(response[2]),**verdict)],'persisted_fixture':True})
                 mutated.append('cooperative')
             finally:
                 restored_page = wp('''global $wpdb;$wpdb->update($wpdb->posts,['post_content'=>''],['ID'=>'''+str(public_page['id'])+''']);clean_post_cache('''+str(public_page['id'])+''');echo wp_json_encode($wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->posts} WHERE ID=%d",'''+str(public_page['id'])+'''),ARRAY_A));''')
                 assert restored_page == original_page, 'C26 page publique non restaurée'
+            # Injection propre au rendu d'archive : vrai GET, pas une réponse falsifiée.
+            name = 'themes/imagine/archive-imagine_evenement.php'
+            original = (ROOT/'wp'/name).read_bytes()
+            marker = 'Les lanternes turquoise de C10 éclairent le jardin imaginaire.'
+            changed = original.replace(b'get_header();',('get_header(); echo '+php('<!-- '+marker+' -->')+';').encode())
+            def archive_probe():
+                route = next(r for r in c26.routes(extension) if r['name']=='agenda-archive')
+                response = c26.c23.fetch(route['path'])
+                verdict = c26.assess(route,response,c26.denied_markers(f,'anonyme'))
+                assert verdict['leak'] and not verdict['ok'] and verdict['surface_present']
+                return dict(total=1,results=[dict(name=route['name'],public='anonyme',
+                    status=response[0],bytes=len(response[2]),**verdict)])
+            receipt = mutate_source(name,changed,archive_probe)
+            save(label+'-mutation-archive',dict(scope='imagine-test-demo',**receipt))
+            mutated.append('archive')
             result['mutations_detected'] = mutated
         prepared = b06.state()
         env = dict(os.environ, PYTHONIOENCODING='utf-8', PYTHONDONTWRITEBYTECODE='1')
@@ -152,22 +261,14 @@ def run(label, mutations=False):
         print(p.stdout[-2000:]+p.stderr,flush=True)
         result.update(command_exit=p.returncode,privacy_green=privacy_normal['failures']==0,
                       business_unchanged_during_GETs=prepared==b06.state())
+    except Exception as error:
+        result.update(run_error=type(error).__name__, command_exit=1)
     finally:
-        restoration(saved, ids, pages)
-        current = b08.snapshot()
-        exact = {k:current[k]==saved[k] for k in ['users','usermeta','posts','postmeta','comments','commentmeta','wc_orders','wc_orders_meta','wc_order_addresses','wc_order_operational_data','woocommerce_order_items','woocommerce_order_itemmeta','navigation']}
-        options = lambda db:[r for r in db['options'] if r['option_name'].startswith('imagine_') or r['option_name']=='cron']
-        exact['business_options'] = options(current)==options(saved)
-        after = b06.state()
-        result.update(exact_restoration=exact,business_preserved=before==after,
-                      before_sha256=hashlib.sha256(json.dumps(before,sort_keys=True).encode()).hexdigest(),
-                      after_sha256=hashlib.sha256(json.dumps(after,sort_keys=True).encode()).hexdigest(),
-                      live_sources_preserved=b06.hashes(names)==remote)
-        if not all(exact.values()):
-            result['private_after'] = prep.private_snapshot('c26-'+label+'-after',current)
-        save(label+'-restauration', result)
-        print(json.dumps({'restoration':exact,'business':result['business_preserved']},ensure_ascii=False),flush=True)
-    assert all(exact.values()) and result['business_preserved'] and result['live_sources_preserved'], 'C26 restauration non prouvée'
+        finish_restoration(label,result,saved,ids,pages,before,names,remote)
+    assert not result.get('run_error'), 'C26 exécution interrompue : '+str(result.get('run_error'))
+    assert (all(result['exact_restoration'].values()) and result['business_preserved']
+        and result['live_sources_preserved'] and not result['restoration_errors']
+        and all(x['ok'] for x in result['restoration_steps'].values())), 'C26 restauration non prouvée'
     assert result['command_exit']==0 and result['privacy_green'] and result['business_unchanged_during_GETs'], 'C26 matrice rouge'
     return 0
 
