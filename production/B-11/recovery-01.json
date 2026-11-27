@@ -1,0 +1,24 @@
+{
+  "business_exactly_restored": false,
+  "checks": {
+    "native": false,
+    "schedule_business": true,
+    "posts": true,
+    "postmeta": true,
+    "usermeta_count": true
+  },
+  "private_snapshot": {
+    "file": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\b11-private-c0ti6ism\\snapshot.json",
+    "sha256": "39ecb81c5224ac097650f6cb9d12b1576b633ec5d07288be9fb76699ca64660b",
+    "private": true
+  },
+  "limit": "Ancienne préférence administrateur modifiée avant la préimage complète : empreinte usermeta résiduelle, non reconstruite. Aucune restauration inventée.",
+  "cleaned_owned_request_artifacts": {
+    "global_styles": 3455,
+    "edit_lock": 22540,
+    "admin_preferences": [
+      14063,
+      14064
+    ]
+  }
+}

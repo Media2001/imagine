@@ -5,10 +5,17 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[3]/'wp/outils/demo'))
 import b11
 b11.guard()
 r=b11.wp('''global $wpdb;echo wp_json_encode(['post'=>$wpdb->get_row("SELECT * FROM {$wpdb->posts} WHERE ID=3455",ARRAY_A),'postmeta'=>$wpdb->get_results("SELECT * FROM {$wpdb->postmeta} WHERE meta_id=22540",ARRAY_A),'usermeta'=>$wpdb->get_results("SELECT * FROM {$wpdb->usermeta} WHERE umeta_id IN (14063,14064) ORDER BY umeta_id",ARRAY_A)]);''')
-assert r['post']['post_type']=='wp_global_styles' and r['post']['post_name']=='wp-global-styles-imagine'
-assert [(x['post_id'],x['meta_key']) for x in r['postmeta']]==[('11','_edit_lock')]
-assert [(x['user_id'],x['meta_key']) for x in r['usermeta']]==[('1','meta-box-order_product'),('1','wp_persisted_preferences')]
-s=b11.private('recovery-01',r)
+if r['post'] is not None:
+    assert r['post']['post_type']=='wp_global_styles' and r['post']['post_name']=='wp-global-styles-imagine'
+    assert [(x['post_id'],x['meta_key']) for x in r['postmeta']]==[('11','_edit_lock')]
+    assert [(x['user_id'],x['meta_key']) for x in r['usermeta']]==[('1','meta-box-order_product'),('1','wp_persisted_preferences')]
+    s=b11.private('recovery-01',r)
+else:
+    import os,hashlib
+    root=Path(os.environ.get('LOCALAPPDATA',str(Path.home()/'AppData/Local')))/'hermes/cache/scratch'
+    matches=[p for p in root.glob('b11-private-*/snapshot.json') if json.loads(p.read_text()).get('label')=='recovery-01']
+    assert len(matches)==1
+    s={'file':str(matches[0]),'sha256':hashlib.sha256(matches[0].read_bytes()).hexdigest(),'private':True}
 b11.wp('''global $wpdb;$wpdb->delete($wpdb->posts,['ID'=>3455,'post_type'=>'wp_global_styles']);$wpdb->delete($wpdb->postmeta,['meta_id'=>22540,'post_id'=>11,'meta_key'=>'_edit_lock']);foreach([14063,14064] as $id){$wpdb->delete($wpdb->usermeta,['umeta_id'=>$id,'user_id'=>1]);}clean_post_cache(3455);clean_post_cache(11);clean_user_cache(1);echo wp_json_encode(true);''')
 p=json.loads((b11.OUT/'recette-01.json').read_text());expected=json.loads(Path(p['private_snapshot']['file']).read_text())['payload']['business']
 actual=b11.state()

@@ -82,6 +82,10 @@ def run(label):
                     r=pub.goto(url+'?b11_observe=mode'+value+'-render');pub.wait_for_load_state('networkidle')
                     check('rendu_'+value+'_'+kind,r.status==200 and pub.locator('[data-imagine-video]').get_attribute('href')==VIDEO and pub.locator('[data-imagine-podcast]').get_attribute('href')==PODCAST and pub.locator('[data-imagine-video-emplacement]').count()==int(value))
                     check('zero_ressource_tiers_'+value+'_'+kind,pub.locator('iframe,script[src*="example.invalid"],img[src*="example.invalid"]').count()==0)
+                    if kind=='numero':
+                        audio=pub.locator('[data-imagine-audio]')
+                        duration=audio.evaluate("e=>new Promise((resolve,reject)=>{e.addEventListener('loadedmetadata',()=>resolve(e.duration),{once:true});e.addEventListener('error',()=>reject(Error('audio decode failed')),{once:true});e.load();})")
+                        check('lecteur_natif_decode_3_secondes_'+value,duration==3 and audio.get_attribute('controls') is not None and audio.get_attribute('preload')=='none')
                 network[value]={'browser_requests':requests[seen:],'external':[u for u in external[start:] if urlsplit(u).netloc!='secure.gravatar.com']}
                 check('navigateur_'+value+'_zero_tiers',not network[value]['external'] and bool(network[value]['browser_requests']))
             invalid=edit(fixture['article'],'https://evil.invalid/INTERDIT',phase='bad-host-save')
@@ -160,6 +164,7 @@ def run(label):
         destinations=observations.get('destinations',[]) if isinstance(observations,dict) else []
         check('save_render_B11_zero_HTTP_oembed_mail',not any(d['subject_b11'] for d in destinations) and not any(v for k,v in (observations.items() if isinstance(observations,dict) else []) if k.endswith(('_oembed','_mail')) and not k.startswith('ambiance_')))
         check('tentatives_ambiance_qualifiees_bloquees_B00',all(d['ambient_novamira_update'] and d['host']=='license.dynamic.ooo' for d in destinations))
+        check('toutes_tentatives_HTTP_coupees_avant_transport',all(observations.get(k.removesuffix('_http')+'_blocked',0)==v for k,v in observations.items() if k.endswith('_http')) and not any(k.endswith('_NOT_BLOCKED') for k in observations))
         check('seuls_gravatars_admin_bloques',all(urlsplit(u).netloc=='secure.gravatar.com' for u in external))
     except Exception as exc:
         error=type(exc).__name__+': '+str(exc)

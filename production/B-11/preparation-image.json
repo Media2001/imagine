@@ -1,0 +1,33 @@
+{
+  "action": "image",
+  "command": [
+    "powershell.exe",
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "C:\\Users\\Ced\\imagine\\wp\\tests\\preparer-image.ps1"
+  ],
+  "exit": 0,
+  "log": "preparation-image.log",
+  "sources": {
+    "wp/outils/demo/b11-diagnostic.py": "9dca0d9fb03426247d85faf6320ebd349907d0c14896bdfd8bddeb63436e8392",
+    "wp/outils/demo/b11-drift.py": "c6cdc5d78e6a66cdc5cce68fe54b1b042bf2393bedd0dc1350554722d6f1c39b",
+    "wp/outils/demo/b11-gates.py": "9d6fccb63abe21bb552427af2aa7fd7fa60e664fc5a5bd0957bf7b5eb3841257",
+    "wp/outils/demo/b11-local.py": "6e83b95ffca944b5467fad664550ff99dc2906a2649148af707e91f53f690051",
+    "wp/outils/demo/b11-recette.py": "362f530e0eaae5bb5c6c61c6871453ac055c02df4ed04d2cc3572d370da28bd5",
+    "wp/outils/demo/b11-recovery.py": "42970ff3ba3aaa136f629362dc839628c286bfb9a6ceb0c32dfbc29adb7e6c79",
+    "wp/outils/demo/b11-seed.php": "59702f660561af6e573e0c1d1b6094f128d66005c874d3216a9cba0c7794dda1",
+    "wp/outils/demo/b11.py": "60827017da5856f8eedd21bbd06899524e3ad1e86cc058242b1906411059765b",
+    "wp/plugins/imagine-site/AudioNumero.php": "0cd603323234f1c56de2d3ef0a3d2c3b20a6c3b379ca8b4ae53d21b64545c3a4",
+    "wp/plugins/imagine-site/imagine-site.php": "d21ac8e9360faab640fef5fe94a5076ed4e677c78521170f90310d8e5daac204",
+    "wp/plugins/imagine-site/Medias.php": "f10574b8ae775b30e9a7a25f0639d1c2ce1bef373878ac534e529af0611e793a",
+    "wp/plugins/imagine-site/MediasRegles.php": "85179039a7c2221ed6cf41fe144a1b9960818ca3586696035178875d7b8f917f",
+    "wp/plugins/imagine-site/tests/MediasB11Test.php": "47014deb4ca094333494c92948c149ad4864470a97d3f271354f872abc1471ed",
+    "wp/tests/demo/b11-horslive.php": "1a17c1a6d3ba996fbcc20ce93903acd127a98b761ab7ab4bce794958ddbc6e9b",
+    "wp/tests/demo/b11-observer.php": "262feab0185767afd7e72dbbef985cbebc8d35d1dcd11e7ba88062ae3293824e",
+    "wp/tests/demo/b11-runtime.php": "398598604d01c808e1a800e864054a544c5d3847b5898d42948e9db2f07bf348",
+    "wp/themes/imagine/single-imagine_numero.php": "701a14b4dcf8f04182af4d4f0729cb696fc475d9096dcba9e4ba19d4f2d8fef8",
+    "wp/themes/imagine/single.php": "71b98dcdd3f3a9f537224f8e6c574dc5754760795de78369f7a526a46af0bfad"
+  }
+}

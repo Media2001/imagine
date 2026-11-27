@@ -501,5 +501,24 @@ python -B wp/outils/demo/b10-recette.py LABEL-NEUF
 
 Le premier vérificateur est autonome et hors réseau, le second lit uniquement imagine-test-demo. Les six tests PHPUnit sont inclus dans le paquet racine et dans le rejeu T01 ; la recette native utilise WordPress et un rollback InnoDB, sans bouchon d’écriture. La recette navigateur charge/recharge réellement le CSV par multipart, refuse la ligne 32 et un nonce invalide, exerce accent/casse/postal et les deux valeurs de carte. Observations positives des détecteurs ; aucun tiers sur les deux rendus publics, aucune tentative email/HTTP issue de B10. Les avatars Gravatar de l’administration native sont détectés et bloqués avant transport par la recette, séparément du rendu public. Sessions et observateur retirés puis relus ; 30 commerces manifestement fictifs laissés pour Ced, carte OFF. Sources, preuves finales, adresses et limites : `production/B-10/`. Rebuild `wp/tests/preparer-image.ps1` effectué avant PRET ; aucun B11/C28 ni bibliothèque close modifié.
 
+## B-11 — vidéos, podcasts et sommaire audio
+
+Champs éditoriaux séparés du contenu : `_imagine_video`, `_imagine_podcast`, protégés, non exposés dans REST. Boîte « Vidéo et podcast » des articles et numéros, capacité native `edit_post`, nonce, refus global conservant les deux anciennes valeurs si une adresse est invalide. Ne pas coller l'adresse brute dans le corps : l'auto-oEmbed natif des autres contenus n'est pas modifié. Le lien est créé directement par le thème, sans oEmbed, iframe, vignette ou JavaScript distant. Sur un article, `Paywall::decision()` est vérifiée avant lecture/rendu des champs ; les publics qui ne reçoivent que l'extrait ne reçoivent ni lien ni adresse.
+
+Option `imagine_medias` : `hosts` liste fermée d'hôtes exacts (vide par défaut, un seul hôte fictif livré : `video-fictive.example.invalid`) et `integration` chaîne fermée `0|1`, défaut `0`. HTTPS sans identité, port, caractère de contrôle ou antislash ; le podcast reste un simple lien HTTPS. La section rejoint le formulaire C10 sous le bouton existant, sans modifier C10. À `1`, un div vide est affiché, sans appel, même après un éventuel clic : aucun consentement/lecteur tiers n'est implémenté.
+
+`AudioNumero` réutilise **sans modification** `PdfNumero::directory()`, ses en-têtes privés/no-store et `Paywall::decisionPdf()` (C06, type PDF). Blob aléatoire `.wav` dans le même répertoire hors webroot, mode 0600 ; pas d'attachment WordPress, ni chemin/URL physique publié. Chaque GET/HEAD `/?imagine_audio=ID` reprend la décision ; méthodes étrangères 405, références invalides 404, refus vers la page numéro sans adresse audio. Le `<audio controls preload="none">` n'existe que pour l'ayant droit. Dépôt éditorial local explicite via `AudioNumero::proteger(ID, SOURCE)` : SOURCE doit déjà être dans le répertoire privé C11 ; pas d'upload public ou distant. Démo : trois secondes de silence PCM fabriquées, sans contenu tiers. Le même silence est déposé sur les numéros 11 (acheteur existant) et 39 (abonné actif existant), car C06 ferme le PDF antérieur du profil A-CARTE ; aucune règle ni aucun droit changé.
+
+```text
+python -B wp/outils/demo/b11-local.py LABEL-NEUF
+python -B wp/outils/demo/b11.py runtime LABEL-NEUF
+python -B wp/outils/demo/b11-recette.py LABEL-NEUF
+python -B wp/tests/demo/b11-verifier.py
+python -B wp/tests/demo/b11-verifier.py --live
+```
+
+Les quatre tests PHPUnit sont découverts dans la configuration racine. La recette complémentaire joue les formulaires natifs, les deux réglages, le décodage audio navigateur, GET/HEAD/refus, deux mutations réelles de gardes B11 puis restauration. Elle réutilise les 32 témoins de C26, réponse brute et 36 injections témoins, sans modifier/étendre sa matrice ni resceller C23. Recette limitée à la boîte classique native (filtre temporaire sur les deux IDs) et à l'option B11 dans Settings API ; l'observateur ne survit pas. Zéro appel issu de B11, zéro chargement tiers public ; tentatives de mise à jour Novamira ambiantes, bloquées par B00, et avatars admin bloqués sont comptés séparément, jamais déclarés absents. Pas de changement d'abonnement, commande, compte ou droit. Limites et première reprise de recette : `production/B-11/NOTE.md`. Adresses et commandes parent : `production/B-11/A-VOIR.md`.
+
+
 
 

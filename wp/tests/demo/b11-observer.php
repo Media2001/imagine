@@ -16,6 +16,20 @@ if (($_SERVER['HTTP_X_IMAGINE_B11_SETTINGS'] ?? '') === 'fictif') {
         return $items;
     }, PHP_INT_MAX);
 }
+// Lecture de la décision du coupe-circuit APRÈS son inscription ; ne la modifie pas.
+add_action('muplugins_loaded', static function (): void {
+    add_filter('pre_http_request', static function ($value) {
+        $phase = $_GET['b11_observe'] ?? 'ambiance';
+        if (is_string($phase) && preg_match('/\A[a-z0-9-]+\z/D', $phase)) {
+            $counts = get_option('imagine_b11_observations', []);
+            $suffix = is_wp_error($value) && $value->get_error_code() === 'imagine_demo_offline' ? '_blocked' : '_NOT_BLOCKED';
+            $key = $phase . $suffix;
+            $counts[$key] = ($counts[$key] ?? 0) + 1;
+            update_option('imagine_b11_observations', $counts, false);
+        }
+        return $value;
+    }, PHP_INT_MAX, 1);
+});
 foreach (['pre_wp_mail' => 'mail', 'pre_http_request' => 'http', 'pre_oembed_result' => 'oembed'] as $hook => $kind) {
     add_filter($hook, static function ($value, $args = null, $url = null) use ($kind) {
         $phase = $_GET['b11_observe'] ?? 'ambiance';
