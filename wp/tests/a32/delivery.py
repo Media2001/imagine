@@ -103,7 +103,8 @@ def local_valid(folder):
                 return False
             for label in ('absent', 'invalid', 'fields', 'production'):
                 proof = read(native / (storage + '-unverified-' + label + '-proof.json'))
-                if (proof['exit_code'] != 1 or proof['stdout_empty'] is not True or proof['stderr'] != 'A32_NOT_VERIFIED\n'
+                if (proof.get('measurement') != 'real_default_executor_python_audit_subprocess.Popen'
+                        or proof['exit_code'] != 1 or proof['stdout_empty'] is not True or proof['stderr'] != 'A32_NOT_VERIFIED\n'
                         or proof['commands'] != [] or proof['tools_launched'] != 0 or proof['output_absent'] is not True
                         or proof['database_before'] != proof['database_after'] or proof['files_before'] != proof['files_after']):
                     return False

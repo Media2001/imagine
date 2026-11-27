@@ -108,6 +108,16 @@ class TourneeTests(unittest.TestCase):
                 self.assertFalse(target.exists())
                 self.assertEqual(before, {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in site.iterdir()})
 
+    def test_new_closed_tool_refusals_remain_refusals(self):
+        m = load()
+        for entry in m.entries()[-2:]:
+            codes = json.loads((ROOT / ('wp/outils/bascule/' + entry['lot'].lower() + '/refusals.json')).read_text(encoding='utf-8'))
+            for code in codes:
+                with self.subTest(tool=entry['lot'], code=code):
+                    row = m.classify(entry, 1, b'', (code + '\n').encode('ascii'), Path('/absent'))
+                    self.assertEqual(row['statut'], 'refusé')
+                    self.assertEqual(row['code'], code)
+
     def test_refusal_allowlist_and_no_site_value(self):
         m = load()
         e = m.entries()[0]

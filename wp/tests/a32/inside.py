@@ -23,6 +23,16 @@ m = load('tournee', '/subject/wp/outils/bascule/tournee/tournee.py')
 OUT = Path('/report')
 BASE = Path('/subject/wp/outils/bascule')
 ORIGINAL = b.check
+PROCESS_EVENTS = []
+TRACK_PROCESS = False
+
+
+def process_audit(event, args):
+    if TRACK_PROCESS and event == 'subprocess.Popen':
+        PROCESS_EVENTS.append(list(args[1]))
+
+
+sys.addaudithook(process_audit)
 
 
 def check(name, ok, detail=None):
@@ -51,6 +61,7 @@ def tour(site, audit, mapping, out):
 
 
 def run_storage(storage):
+    global TRACK_PROCESS
     site, db, _ = b.install(storage)
     (OUT / (storage + '-seed.json')).unlink()
     cfg = (site / 'wp-config.php').read_text()
@@ -144,14 +155,20 @@ def run_storage(storage):
             (site / 'wp-config.php').write_text(config)
             unverified_before, unverified_files = b.fingerprint(db), b.files(site)
             target = OUT / (storage + '-unverified-' + label)
-            calls = []
+            PROCESS_EVENTS.clear()
+            TRACK_PROCESS = True
             try:
-                m.run(site, audit / 'audit.json', mapping, target, lambda command: calls.append(command))
+                # Real default executor; Python audits every actual subprocess.
+                m.run(site, audit / 'audit.json', mapping, target)
                 refused = False
             except RuntimeError as error:
                 refused = str(error) == 'A32_NOT_VERIFIED'
+            finally:
+                TRACK_PROCESS = False
+            calls = list(PROCESS_EVENTS)
             q, argv = tour(site, audit / 'audit.json', mapping, target)
             negative = {'case': label, 'marker_exists': marker.exists(), 'exit_code': q.returncode,
+                        'measurement': 'real_default_executor_python_audit_subprocess.Popen',
                         'stdout_empty': q.stdout == b'', 'stderr': q.stderr.decode('ascii'),
                         'command': argv, 'tools_launched': len(calls), 'commands': calls,
                         'output_absent': not target.exists() and not list(OUT.glob(target.name + '-*')),
