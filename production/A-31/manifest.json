@@ -74,6 +74,24 @@
     "production/A-31/preuves/final/cp1252/python-tests.log": "3d1a7c92a4329b938a116ecd86d34f039b8a4746b218352a223fcae0ae8976ba",
     "production/A-31/preuves/final/cp1252/runner-console.log": "d70276335f6d1c975454659ea03adc50cf3491bf2cfe2f43b743cc412bdbcc07",
     "production/A-31/preuves/final/dependencies.json": "b1cc405662c3efa3c98c8ce41dd2c80392efbdc695a57e7eba28d9dde27865d0",
+    "production/A-31/preuves/final/gates/a20-readonly.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "production/A-31/preuves/final/gates/a20-readonly.stdout.log": "d5d25b71015b016f941d2bffc695af78a9e2050cd3b572721b77b5e4234e42fb",
+    "production/A-31/preuves/final/gates/a21-readonly.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "production/A-31/preuves/final/gates/a21-readonly.stdout.log": "16a8ee043293b815161e08d4069460791dec8c8babfb4c07673bc8a1b956c12d",
+    "production/A-31/preuves/final/gates/a22-readonly.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "production/A-31/preuves/final/gates/a22-readonly.stdout.log": "a5b01f4bc28d9c13fde8766bfe94a43ee7e52ef7db457b24238ff56a45885744",
+    "production/A-31/preuves/final/gates/a28-readonly.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "production/A-31/preuves/final/gates/a28-readonly.stdout.log": "2f04e949ba0b86a1aba62276ddec772051965ad3659719f2d34fb1567dc0a131",
+    "production/A-31/preuves/final/gates/commands.json": "d760e4626928178d2de20704449801284990f1a21cfe79d03aeff97dfe0ded21",
+    "production/A-31/preuves/final/gates/global-cp1252.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "production/A-31/preuves/final/gates/global-cp1252.stdout.log": "f5e8099b2aa8bbcf8afc1ff0eead0102e0b6193e478878e9a221045f39a0063e",
+    "production/A-31/preuves/final/gates/global-utf8.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "production/A-31/preuves/final/gates/global-utf8.stdout.log": "3dceff61b951be35823dd08048684b1aa316ce9304421f548aa93c91c90a0e54",
+    "production/A-31/preuves/final/gates/prepare-image.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "production/A-31/preuves/final/gates/prepare-image.stdout.log": "61c304e31e306bd76f01f2f03a9842038f14b54759059d2f8e4ea92bbae486a3",
+    "production/A-31/preuves/final/gates/result.json": "a9ba8c25edd93304a52911ece6a8c44fa0e06798d51a03775922f241d6f157a5",
+    "production/A-31/preuves/final/gates/source-roots.json": "908ec94f881d4373919f1e0a66c9bbe90c34b28cc7dddc196120e3c65a7462ec",
+    "production/A-31/preuves/final/gates/sources.json": "b0333a5cdf6a409e6779e3e2e15bf3e74d98997c1ba4295181743d2d165da092",
     "production/A-31/preuves/final/sources.json": "12e705828983beeeabfa6629c1b8e679e4698be60b005fe4752e1a2a325b8aef",
     "production/A-31/preuves/final/style-console.log": "a4c52e01c7136e499d55adabd1e09e59d1e54cbb75ad23f3a26039bb9f409c98",
     "production/A-31/preuves/final/style/phpcs.json": "01328923fd033294ca9b76b8cd0a9af34178beac68c317f6cfcf2c2360a18af4",
@@ -185,6 +203,6 @@
     "wp/tests/a31/verify.py": "10c7750d5ecef0852bb9919bc0d6daec75026dcfdd1080bc846d20accd72559e"
   },
   "status": "PARENT_FINAL_PENDING_NO_PRET",
-  "sealed_at": "2026-11-27T08:03:01.249068+01:00",
-  "file_count": 181
+  "sealed_at": "2026-11-27T08:04:08.389338+01:00",
+  "file_count": 199
 }

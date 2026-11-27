@@ -1,0 +1,184 @@
+{
+  "scope": "imagine-test-demo",
+  "sources": {
+    "wp/outils/demo/c27-finaliser.py": "c4a65dee585f9d418f4b7bc8c1785cdf2cdfa50d5251f3c8e3cd5fbbe70fef6d",
+    "wp/outils/demo/c27-gates.py": "133be5259e45e69015ad6152a927dcc2b151391afef7f35915d3832f59f0fe29",
+    "wp/outils/demo/c27-mutations.py": "692b477028259526b3501f45d8c29274aef0eaffb1bf4e46684ca3e9b0e7e65c",
+    "wp/outils/demo/c27-native.py": "7628a5701924cdce7335413ae3dfb2d8e8c6fcef14338ca8ed5798484c5c5e41",
+    "wp/outils/demo/c27-readback.py": "0885269bc21093a84f95fd38d716fb6f607f2d4f23838b627585e15a05e38213",
+    "wp/outils/demo/c27-recette.py": "00816adf4f0754567c368ca1c32dede30205ef9f1973c62f564e056f846f2669",
+    "wp/outils/demo/c27-seed.py": "266487290c52eb43c45651defbb16e564f9221c934da242647c6ed46bf8c4b24",
+    "wp/outils/demo/c27.py": "fe9d07a3df4629fb6241c7f8fdff39ddde1726270fd3527af309039cb0b43dd2",
+    "wp/plugins/imagine-site/Acquisition.php": "21e5e0cdfae8ee2adf056777299bd8aab9ad911f65a5b365788b6c0b7cfe7a05",
+    "wp/plugins/imagine-site/AcquisitionAdmin.php": "0f9b70bdc8eed7591a6c42fa17a0b7f33283d7b50d66c2f267cd3283ff960a4c",
+    "wp/plugins/imagine-site/AcquisitionConfidentialite.php": "c7cbb30510ff33ddf94387572c84d4ce70f9b0665dde287b14a8d823ba391563",
+    "wp/plugins/imagine-site/AcquisitionReglages.php": "225937e1971f220a0ada69b0c1389bf4fbebddca47387b5ca4a7ff317cb224bc",
+    "wp/plugins/imagine-site/AcquisitionRegles.php": "388b89cd261f73c30ea1e2564b84aab778feb481e5f098795f4b30eca9ba8f93",
+    "wp/plugins/imagine-site/tests/AcquisitionAdapterTest.php": "cb67d35e36f815b186525c76a176dc93b86b5d84382fd2b981442b63ba2c40ca",
+    "wp/plugins/imagine-site/tests/AcquisitionReglesTest.php": "37e4c918a775f62b126a421167dc6f3c731be6c0ac7ee569d19c7e24a8e38ab5",
+    "wp/plugins/imagine-site/tests/AcquisitionWPStubs.php": "5e765feeb5c1b44157f2fb54b4c1ddf9097b505109f223746ab4a264fcb7ebc1",
+    "wp/tests/demo/c27-horslive.php": "76b719c2f0aa47de56ab25086ec76bbb916666aa8d52cc9b25322e139e3f68fa",
+    "wp/tests/demo/c27-observer.php": "d6d3c1456f9ff62f8a86bf3c9eac6c924870005cc69934cff70215988d150f68",
+    "wp/tests/demo/c27-runtime.php": "0fb01d5987c0cc190fc3ca4db7e0060271c52ab28bcac4e79b8bb4ec97fff7f8",
+    "wp/tests/demo/c27-verifier-tests.py": "8f9d6cf25f0e02f67959912a08cd2affdd0ff0cd25feb96727ff6ee4b04e2a47"
+  },
+  "checks": {
+    "observateurs_positifs": true,
+    "C10_section_dans_formulaire_sous_bouton_sans_deplacement": true,
+    "C10_creation_journal_en_panne_restaure_preimage": true,
+    "C10_POST_natif_liste_journal_auteur_date": true,
+    "C10_liste_invalide_rejetee_sans_journal": true,
+    "C10_modification_panne_restaure_antislash_exact": true,
+    "tunnel_avant_paiement_sans_question": true,
+    "confirmation_impayee_absence_non_vide": true,
+    "POST_signe_avant_paiement_refuse": true,
+    "mutation_native_pas_avant_paiement_tue_POST": true,
+    "garde_revenue_apres_mutation": true,
+    "autre_compte_et_anonyme_sans_question": true,
+    "confirmation_payee_question_facultative_fermee": true,
+    "question_ne_revient_pas_sans_reponse": true,
+    "nonce_invalide_refuse": true,
+    "choix_libre_refuse": true,
+    "tiers_POST_signe_refuse": true,
+    "deux_POST_concurrents_une_reponse": true,
+    "double_envoi_refuse_immuable": true,
+    "source_compte_vide_initialisee": true,
+    "deuxieme_commande_source_non_ecrasee": true,
+    "compte_tiers_temoin_reel": true,
+    "passer_ne_bloque_rien": true,
+    "liste_vide_confirmation_payee_aucune_trace": true,
+    "liste_vide_POST_signe_refuse": true,
+    "vrai_brouillon_C16_aucun_champ_source": true,
+    "C16_meme_payee_jamais_interrogee": true,
+    "chiffres_anonymes_periode_exacte": true,
+    "periode_sans_reponse_zero_reel": true,
+    "periode_invalide_pas_de_nombre": true,
+    "chiffres_droits_C19_refus_lecteur": true,
+    "export_natif_C21_reponses_date_source_sans_tiers": true,
+    "projection_newsletter_et_preferences_inchangees": true,
+    "declaration_hors_payload_commande_Odoo": true,
+    "effacement_natif_C21_source_reponses_et_propositions": true,
+    "effacement_preserve_tiers": true,
+    "trace_depersonnalisee_pas_de_nouvelle_reponse": true,
+    "chiffres_recalcules_apres_effacement": true,
+    "aucun_envoi_C27_email_ou_HTTP": true,
+    "mutation_absence_transmission_detectee": true
+  },
+  "cleanup": {
+    "sources_exactes": true,
+    "commandes_natives_supprimees": true,
+    "adresses_HPOS_et_actions_C16_restaurees": true,
+    "brouillon_C16_retire": true,
+    "options_et_journaux_C27_restaures": true,
+    "profil_admin": true,
+    "profil_lecteur": true,
+    "profil_tiers": true,
+    "observateur_retire": true
+  },
+  "restoration": {
+    "users": true,
+    "usermeta": true,
+    "posts": true,
+    "postmeta": true,
+    "comments": true,
+    "commentmeta": true,
+    "navigation": true,
+    "wc_orders": true,
+    "wc_orders_meta": true,
+    "wc_order_addresses": true,
+    "wc_order_operational_data": true,
+    "woocommerce_order_items": true,
+    "woocommerce_order_itemmeta": true,
+    "actionscheduler_actions": true,
+    "actionscheduler_logs": true,
+    "actionscheduler_groups": true,
+    "actionscheduler_claims": true,
+    "options_metier": true
+  },
+  "business_preserved": true,
+  "private_snapshot": {
+    "file": "c25-private-6cs3mml3/snapshot.json",
+    "sha256": "d8341ae59c9cf8cc50c31f4c91310ae4c64c1196826975fb4ceb700f899c3a97",
+    "private": true
+  },
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "error": null,
+  "mutation_pas_avant_paiement": {
+    "expected_baseline": {
+      "form_present": false,
+      "post_status": 403,
+      "response_written": false
+    },
+    "mutant_observed": {
+      "form_present": true,
+      "post_status": 200,
+      "response_written": true
+    }
+  },
+  "settings": {
+    "initial": {
+      "value": null,
+      "events": []
+    },
+    "configured": {
+      "value": {
+        "lune": "Radio fictive \\ lune",
+        "mars": "Journal martien fictif"
+      },
+      "events": [
+        {
+          "quand_utc": "2026-11-27T07:02:37Z",
+          "qui_id": 1,
+          "qui_login": "admin",
+          "option": "imagine_acquisition_choix",
+          "avant": null,
+          "apres": {
+            "lune": "Radio fictive \\ lune",
+            "mars": "Journal martien fictif"
+          }
+        }
+      ]
+    }
+  },
+  "parallel_statuses": [
+    403,
+    200
+  ],
+  "counts_expected": {
+    "mars": 3
+  },
+  "counts_observed": {
+    "mars": 3
+  },
+  "export_items": 5,
+  "erasure": {
+    "items_removed": true,
+    "items_retained": false,
+    "messages": [],
+    "done": true
+  },
+  "observations_baseline": {
+    "ambiance_http": 149,
+    "ambiance_mail": 20
+  },
+  "observations_mutant": {
+    "ambiance_http": 149,
+    "ambiance_mail": 20,
+    "c27_mail": 1,
+    "c27_http": 1
+  },
+  "positive_observers": {
+    "ambiance_mail": 1,
+    "ambiance_http": 1
+  },
+  "owned_order_count": 7
+}

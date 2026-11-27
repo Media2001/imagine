@@ -1,0 +1,380 @@
+[
+  {
+    "name": "a26-matrix",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "wp/tests/a26/matrix.py",
+      "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-reader-resceau-0743\\a26-matrix"
+    ],
+    "start": "2026-11-27T07:42:40.130928+01:00",
+    "end": "2026-11-27T07:46:24.393168+01:00",
+    "exit_code": 0,
+    "stdout": "a26-matrix.stdout.log",
+    "stderr": "a26-matrix.stderr.log",
+    "stdout_sha256": "71aad379f30c4204776e219656156b173f18fef9a902c1fba5eea5bf31707887",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sources_stable": true,
+    "provenance": "FRESH_EXECUTED",
+    "log": "a26-matrix.stdout.log",
+    "log_sha256": "71aad379f30c4204776e219656156b173f18fef9a902c1fba5eea5bf31707887"
+  },
+  {
+    "name": "a26-candidate-verify",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "wp/tests/a26/verify.py"
+    ],
+    "start": "2026-11-27T08:01:02.915082+01:00",
+    "end": "2026-11-27T08:01:03.054589+01:00",
+    "exit_code": 0,
+    "stdout": "a26-candidate-verify.stdout.log",
+    "stderr": "a26-candidate-verify.stderr.log",
+    "stdout_sha256": "83c64bd819295e4d4a136be74cea9b98a7e47237c4de03f90939efbfa66d9ef3",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sources_stable": true,
+    "provenance": "FRESH_EXECUTED",
+    "log": "a26-candidate-verify.stdout.log",
+    "log_sha256": "83c64bd819295e4d4a136be74cea9b98a7e47237c4de03f90939efbfa66d9ef3"
+  },
+  {
+    "name": "a27-matrix",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "wp/tests/a27/matrix.py",
+      "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-reader-resceau-0743\\a27-matrix",
+      "--include-native",
+      "--parent-serialized"
+    ],
+    "start": "2026-11-27T07:54:14.773694+01:00",
+    "end": "2026-11-27T08:00:58.625516+01:00",
+    "exit_code": 0,
+    "stdout": "a27-matrix.stdout.log",
+    "stderr": "a27-matrix.stderr.log",
+    "stdout_sha256": "283903915ad9de26b3b0e8fb6603cadece8248cb0408159cc7a597b2210dee95",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sources_stable": true,
+    "provenance": "FRESH_EXECUTED",
+    "log": "a27-matrix.stdout.log",
+    "log_sha256": "283903915ad9de26b3b0e8fb6603cadece8248cb0408159cc7a597b2210dee95"
+  },
+  {
+    "name": "a27-candidate-verify",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "wp/tests/a27/verify.py"
+    ],
+    "start": "2026-11-27T08:01:03.063438+01:00",
+    "end": "2026-11-27T08:01:03.246215+01:00",
+    "exit_code": 0,
+    "stdout": "a27-candidate-verify.stdout.log",
+    "stderr": "a27-candidate-verify.stderr.log",
+    "stdout_sha256": "60197a54ac6f68a03c137ad1306a415801b51fb093e21e528a5790ce88707d52",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sources_stable": true,
+    "provenance": "FRESH_EXECUTED",
+    "log": "a27-candidate-verify.stdout.log",
+    "log_sha256": "60197a54ac6f68a03c137ad1306a415801b51fb093e21e528a5790ce88707d52"
+  },
+  {
+    "name": "prepare-image",
+    "command": [
+      "powershell.exe",
+      "-NoProfile",
+      "-ExecutionPolicy",
+      "Bypass",
+      "-File",
+      "wp/tests/preparer-image.ps1"
+    ],
+    "start": "2026-11-27T07:39:35.825208+01:00",
+    "end": "2026-11-27T07:39:39.004619+01:00",
+    "exit_code": 0,
+    "stdout": "prepare-image.stdout.log",
+    "stderr": "prepare-image.stderr.log",
+    "stdout_sha256": "61c304e31e306bd76f01f2f03a9842038f14b54759059d2f8e4ea92bbae486a3",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sources_stable": true,
+    "provenance": "FRESH_EXECUTED",
+    "log": "prepare-image.stdout.log",
+    "log_sha256": "61c304e31e306bd76f01f2f03a9842038f14b54759059d2f8e4ea92bbae486a3"
+  },
+  {
+    "name": "global-utf8",
+    "command": [
+      "powershell.exe",
+      "-NoProfile",
+      "-ExecutionPolicy",
+      "Bypass",
+      "-File",
+      "wp/tests/rejouer.ps1"
+    ],
+    "start": "2026-11-27T05:02:29.034475+01:00",
+    "end": "2026-11-27T05:02:44.954886+01:00",
+    "exit_code": 0,
+    "python_encoding_environment": "utf-8",
+    "log": "global-utf8.stdout.log",
+    "stderr": "global-utf8.stderr.log",
+    "log_sha256": "9e66535367f4cf0ba795de114a24abb9699e2f844d537a9f509f585524a241cc",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sources_stable": true,
+    "frozen_at": "2026-11-27T04:05:13.105973+01:00",
+    "provenance": "HISTORICAL_BOOTSTRAP_ONLY_NOT_FINAL",
+    "stdout": "global-utf8.stdout.log",
+    "stdout_sha256": "9e66535367f4cf0ba795de114a24abb9699e2f844d537a9f509f585524a241cc"
+  },
+  {
+    "name": "global-cp1252",
+    "command": [
+      "powershell.exe",
+      "-NoProfile",
+      "-ExecutionPolicy",
+      "Bypass",
+      "-File",
+      "wp/tests/rejouer.ps1"
+    ],
+    "start": "2026-11-27T05:02:45.139468+01:00",
+    "end": "2026-11-27T05:03:00.418658+01:00",
+    "exit_code": 0,
+    "python_encoding_environment": "cp1252",
+    "log": "global-cp1252.stdout.log",
+    "stderr": "global-cp1252.stderr.log",
+    "log_sha256": "8e3946111878da26fe5acdce29cdae19483a82fc661d1b30b17c20ea075f08f3",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sources_stable": true,
+    "frozen_at": "2026-11-27T04:05:13.105973+01:00",
+    "provenance": "HISTORICAL_BOOTSTRAP_ONLY_NOT_FINAL",
+    "stdout": "global-cp1252.stdout.log",
+    "stdout_sha256": "8e3946111878da26fe5acdce29cdae19483a82fc661d1b30b17c20ea075f08f3"
+  },
+  {
+    "name": "a20-readonly-utf8",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "production/A-20/verify.py"
+    ],
+    "start": "2026-11-27T08:03:01.443284+01:00",
+    "end": "2026-11-27T08:03:01.662667+01:00",
+    "exit_code": 0,
+    "stdout": "a20-readonly-utf8.stdout.log",
+    "stderr": "a20-readonly-utf8.stderr.log",
+    "stdout_sha256": "d5d25b71015b016f941d2bffc695af78a9e2050cd3b572721b77b5e4234e42fb",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sources_stable": true,
+    "provenance": "FRESH_EXECUTED",
+    "log": "a20-readonly-utf8.stdout.log",
+    "log_sha256": "d5d25b71015b016f941d2bffc695af78a9e2050cd3b572721b77b5e4234e42fb"
+  },
+  {
+    "name": "a21-readonly-utf8",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "production/A-21/verify.py"
+    ],
+    "start": "2026-11-27T08:03:01.670219+01:00",
+    "end": "2026-11-27T08:03:01.850818+01:00",
+    "exit_code": 0,
+    "stdout": "a21-readonly-utf8.stdout.log",
+    "stderr": "a21-readonly-utf8.stderr.log",
+    "stdout_sha256": "16a8ee043293b815161e08d4069460791dec8c8babfb4c07673bc8a1b956c12d",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sources_stable": true,
+    "provenance": "FRESH_EXECUTED",
+    "log": "a21-readonly-utf8.stdout.log",
+    "log_sha256": "16a8ee043293b815161e08d4069460791dec8c8babfb4c07673bc8a1b956c12d"
+  },
+  {
+    "name": "a22-readonly-utf8",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "production/A-22/verify.py"
+    ],
+    "start": "2026-11-27T08:03:01.861531+01:00",
+    "end": "2026-11-27T08:03:02.550581+01:00",
+    "exit_code": 0,
+    "stdout": "a22-readonly-utf8.stdout.log",
+    "stderr": "a22-readonly-utf8.stderr.log",
+    "stdout_sha256": "a5b01f4bc28d9c13fde8766bfe94a43ee7e52ef7db457b24238ff56a45885744",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sources_stable": true,
+    "provenance": "FRESH_EXECUTED",
+    "log": "a22-readonly-utf8.stdout.log",
+    "log_sha256": "a5b01f4bc28d9c13fde8766bfe94a43ee7e52ef7db457b24238ff56a45885744"
+  },
+  {
+    "name": "a23-readonly-utf8",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "production/A-23/verify.py"
+    ],
+    "start": "2026-11-27T08:03:02.558653+01:00",
+    "end": "2026-11-27T08:03:02.868373+01:00",
+    "exit_code": 0,
+    "stdout": "a23-readonly-utf8.stdout.log",
+    "stderr": "a23-readonly-utf8.stderr.log",
+    "stdout_sha256": "db01ab0a5e80fd35b3424fe8368ccb288f8b936127629eb3cc98183a1aafb9fa",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sources_stable": true,
+    "provenance": "FRESH_EXECUTED",
+    "log": "a23-readonly-utf8.stdout.log",
+    "log_sha256": "db01ab0a5e80fd35b3424fe8368ccb288f8b936127629eb3cc98183a1aafb9fa"
+  },
+  {
+    "name": "a24-readonly-utf8",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "production/A-24/verify.py"
+    ],
+    "start": "2026-11-27T08:03:02.875537+01:00",
+    "end": "2026-11-27T08:03:03.192727+01:00",
+    "exit_code": 0,
+    "stdout": "a24-readonly-utf8.stdout.log",
+    "stderr": "a24-readonly-utf8.stderr.log",
+    "stdout_sha256": "b5f92ff1b6c1927a6dd8ad4c579b7249062a531008d6f0bdf80949af2209fdc2",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sources_stable": true,
+    "provenance": "FRESH_EXECUTED",
+    "log": "a24-readonly-utf8.stdout.log",
+    "log_sha256": "b5f92ff1b6c1927a6dd8ad4c579b7249062a531008d6f0bdf80949af2209fdc2"
+  },
+  {
+    "name": "a25-readonly-utf8",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "production/A-25/verify.py"
+    ],
+    "start": "2026-11-27T08:03:03.199282+01:00",
+    "end": "2026-11-27T08:03:03.469291+01:00",
+    "exit_code": 0,
+    "stdout": "a25-readonly-utf8.stdout.log",
+    "stderr": "a25-readonly-utf8.stderr.log",
+    "stdout_sha256": "8c82e89fcb37646b526444616884d848c31d8f186a56064729da7d23c26b51d0",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sources_stable": true,
+    "provenance": "FRESH_EXECUTED",
+    "log": "a25-readonly-utf8.stdout.log",
+    "log_sha256": "8c82e89fcb37646b526444616884d848c31d8f186a56064729da7d23c26b51d0"
+  },
+  {
+    "name": "a20-readonly-cp1252",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "production/A-20/verify.py"
+    ],
+    "start": "2026-11-27T08:03:03.476138+01:00",
+    "end": "2026-11-27T08:03:03.662563+01:00",
+    "exit_code": 0,
+    "stdout": "a20-readonly-cp1252.stdout.log",
+    "stderr": "a20-readonly-cp1252.stderr.log",
+    "stdout_sha256": "d5d25b71015b016f941d2bffc695af78a9e2050cd3b572721b77b5e4234e42fb",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sources_stable": true,
+    "provenance": "FRESH_EXECUTED",
+    "log": "a20-readonly-cp1252.stdout.log",
+    "log_sha256": "d5d25b71015b016f941d2bffc695af78a9e2050cd3b572721b77b5e4234e42fb"
+  },
+  {
+    "name": "a21-readonly-cp1252",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "production/A-21/verify.py"
+    ],
+    "start": "2026-11-27T08:03:03.670106+01:00",
+    "end": "2026-11-27T08:03:03.833567+01:00",
+    "exit_code": 0,
+    "stdout": "a21-readonly-cp1252.stdout.log",
+    "stderr": "a21-readonly-cp1252.stderr.log",
+    "stdout_sha256": "16a8ee043293b815161e08d4069460791dec8c8babfb4c07673bc8a1b956c12d",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sources_stable": true,
+    "provenance": "FRESH_EXECUTED",
+    "log": "a21-readonly-cp1252.stdout.log",
+    "log_sha256": "16a8ee043293b815161e08d4069460791dec8c8babfb4c07673bc8a1b956c12d"
+  },
+  {
+    "name": "a22-readonly-cp1252",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "production/A-22/verify.py"
+    ],
+    "start": "2026-11-27T08:03:03.835384+01:00",
+    "end": "2026-11-27T08:03:04.289452+01:00",
+    "exit_code": 0,
+    "stdout": "a22-readonly-cp1252.stdout.log",
+    "stderr": "a22-readonly-cp1252.stderr.log",
+    "stdout_sha256": "a5b01f4bc28d9c13fde8766bfe94a43ee7e52ef7db457b24238ff56a45885744",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sources_stable": true,
+    "provenance": "FRESH_EXECUTED",
+    "log": "a22-readonly-cp1252.stdout.log",
+    "log_sha256": "a5b01f4bc28d9c13fde8766bfe94a43ee7e52ef7db457b24238ff56a45885744"
+  },
+  {
+    "name": "a23-readonly-cp1252",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "production/A-23/verify.py"
+    ],
+    "start": "2026-11-27T08:03:04.296285+01:00",
+    "end": "2026-11-27T08:03:04.502958+01:00",
+    "exit_code": 0,
+    "stdout": "a23-readonly-cp1252.stdout.log",
+    "stderr": "a23-readonly-cp1252.stderr.log",
+    "stdout_sha256": "db01ab0a5e80fd35b3424fe8368ccb288f8b936127629eb3cc98183a1aafb9fa",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sources_stable": true,
+    "provenance": "FRESH_EXECUTED",
+    "log": "a23-readonly-cp1252.stdout.log",
+    "log_sha256": "db01ab0a5e80fd35b3424fe8368ccb288f8b936127629eb3cc98183a1aafb9fa"
+  },
+  {
+    "name": "a24-readonly-cp1252",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "production/A-24/verify.py"
+    ],
+    "start": "2026-11-27T08:03:04.504406+01:00",
+    "end": "2026-11-27T08:03:04.735117+01:00",
+    "exit_code": 0,
+    "stdout": "a24-readonly-cp1252.stdout.log",
+    "stderr": "a24-readonly-cp1252.stderr.log",
+    "stdout_sha256": "b5f92ff1b6c1927a6dd8ad4c579b7249062a531008d6f0bdf80949af2209fdc2",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sources_stable": true,
+    "provenance": "FRESH_EXECUTED",
+    "log": "a24-readonly-cp1252.stdout.log",
+    "log_sha256": "b5f92ff1b6c1927a6dd8ad4c579b7249062a531008d6f0bdf80949af2209fdc2"
+  },
+  {
+    "name": "a25-readonly-cp1252",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "production/A-25/verify.py"
+    ],
+    "start": "2026-11-27T08:03:04.737062+01:00",
+    "end": "2026-11-27T08:03:04.994754+01:00",
+    "exit_code": 0,
+    "stdout": "a25-readonly-cp1252.stdout.log",
+    "stderr": "a25-readonly-cp1252.stderr.log",
+    "stdout_sha256": "8c82e89fcb37646b526444616884d848c31d8f186a56064729da7d23c26b51d0",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sources_stable": true,
+    "provenance": "FRESH_EXECUTED",
+    "log": "a25-readonly-cp1252.stdout.log",
+    "log_sha256": "8c82e89fcb37646b526444616884d848c31d8f186a56064729da7d23c26b51d0"
+  }
+]
