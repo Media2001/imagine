@@ -16,8 +16,14 @@ class IntegrationContracts(unittest.TestCase):
         worker = (HERE / 'executer.php').read_text(encoding='utf-8')
         self.assertIn("'/paquets.php'", worker)
         self.assertLess(worker.index("'/paquets.php'"), worker.index("echo 'T01_RESULT '"))
-        self.assertNotIn('$packet', worker[worker.index('$pass = $pass &&'):])
+        self.assertNotIn('$packet', next(line for line in worker.splitlines() if line.startswith('$pass = $pass &&')))
         self.assertIn('exit($pass ? 0 : 1);', worker)
+
+    def test_packet_metadata_reuses_existing_marker_not_an_extra_public_line(self):
+        worker = (HERE / 'executer.php').read_text(encoding='utf-8')
+        self.assertIn("'packets' => $packetTotals", worker)
+        self.assertNotIn('echo $packetOutput;', (HERE / 'paquets.php').read_text(encoding='utf-8'))
+        self.assertNotIn("Write-Output ('T03 ISOLATION", (HERE / 'commun.ps1').read_text(encoding='utf-8'))
 
     def test_existing_wp_mount_and_all_isolation_flags_are_preserved(self):
         replay = (ROOT / 'wp/tests/rejouer.ps1').read_text(encoding='utf-8')
@@ -95,7 +101,7 @@ class IntegrationContracts(unittest.TestCase):
         ]
         encoded = base64.b64encode(json.dumps(values).encode()).decode()
         script = "$ErrorActionPreference='Stop'; [Console]::OutputEncoding=New-Object Text.UTF8Encoding($false); . '" + str(HERE / 'paquets.ps1') + "'; "
-        script += "$items=([Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('" + encoded + "')) | ConvertFrom-Json); foreach($item in $items) { Get-T03PacketSummary ('T03_PACKETS ' + ($item | ConvertTo-Json -Compress -Depth 10)) }"
+        script += "$items=([Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('" + encoded + "')) | ConvertFrom-Json); foreach($item in $items) { Get-T03PacketSummary ('T01_RESULT ' + (@{ packets = $item } | ConvertTo-Json -Compress -Depth 10)) }"
         command = base64.b64encode(script.encode('utf-16le')).decode()
         child = subprocess.run(['powershell.exe', '-NoProfile', '-EncodedCommand', command],
                                env={**os.environ, 'PYTHONIOENCODING': 'utf-8'}, capture_output=True, timeout=30)

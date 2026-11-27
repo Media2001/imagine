@@ -56,8 +56,8 @@ function global:wsl.exe {
             return (ConvertTo-Json -Depth 15 -Compress -InputObject @($info))
         }
         'start' {
-            if ($global:T01Mockcase -eq 'packet-pass') { Write-Output 'T03_PACKETS {"verified":2,"lots":["A-22","A-28"],"failures":[],"excluded":[]}' }
-            if ($global:T01Mockcase -eq 'packet-fail') { Write-Output 'T03_PACKETS {"verified":2,"lots":["A-22","A-28"],"failures":[{"lot":"A-28","control":"PACKAGE_DRIFT"}],"excluded":[]}' }
+            if ($global:T01Mockcase -eq 'packet-pass') { return 'T01_RESULT {"tests":7,"assertions":19,"failures":0,"errors":0,"skipped":0,"tools":{"tools":2,"checks":5,"failures":0,"excluded":[]},"packets":{"verified":2,"lots":["A-22","A-28"],"failures":[],"excluded":[]},"pass":true}' }
+            if ($global:T01Mockcase -eq 'packet-fail') { return 'T01_RESULT {"tests":7,"assertions":19,"failures":0,"errors":0,"skipped":0,"tools":{"tools":2,"checks":5,"failures":0,"excluded":[]},"packets":{"verified":2,"lots":["A-22","A-28"],"failures":[{"lot":"A-28","control":"PACKAGE_DRIFT"}],"excluded":[]},"pass":true}' }
             $global:T01Mockstarted = $true
             if ($global:T01Mockcase -eq 'start-error') { $global:LASTEXITCODE = 1; return 'Start failed (test double)' }
             if ($global:T01Mockcase -eq 'malformed') { return 'T01_RESULT {"tests":"unknown"}' }

@@ -27,7 +27,7 @@ Declaration absente : hors rejeu `declaration absente`. Une entree declaree mais
 
 Le verificateur conserve son JSON existant : un seul objet sur stdout, stderr vide, entier `exit_code` ou `exit` egal a 0/1 (si les deux sont presents ils doivent etre egaux), code processus coherent. `checks`, lorsqu'il existe, est une liste non vide de controles uniques avec `status` PASS/FAIL ; si `status` global existe au vert, il vaut PASS ou CANDIDAT_GATE_PARENT. Les sorties A-21/A-22 candidates sont ainsi acceptables sans les transformer en preuve de gates parent. Une sortie rouge ne publie que son premier controle declare ; erreur de protocole ou nom inconnu = `VERIFIER_OUTPUT`, delai depasse = `VERIFIER_TIMEOUT`, lancement impossible = `VERIFIER_START`. Jamais de stdout/stderr brut du verificateur sur la sortie relecteur.
 
-Le JSON interne `T03_PACKETS` porte `verified` (entrees tentees, rouges comprises), `lots` (ces lots dans l'ordre), `failures` (premier controle rouge de chaque paquet) et `excluded` (lot et raison fermee). Les declarations invalides peuvent etre rouges sans entree tentee. La seule nouvelle ligne de bilan est :
+Le champ `packets` du marqueur `T01_RESULT` existant porte `verified` (entrees tentees, rouges comprises), `lots` (ces lots dans l'ordre), `failures` (premier controle rouge de chaque paquet) et `excluded` (lot et raison fermee). Les declarations invalides peuvent etre rouges sans entree tentee. La seule nouvelle ligne de bilan est :
 
 ```text
 PAQUETS : n verifies, n echecs ; hors rejeu : ... ; A-28 PACKAGE_DRIFT

@@ -93,7 +93,6 @@ function Assert-T01Isolation {
         if ($packetMounts.Count -ne 1 -or ($PacketSource + '/wp') -cne $Source) { throw 'Montage paquet absent ou racine incoherente.' }
         $p = $packetMounts[0]
         if ($p.Type -ne 'bind' -or $p.RW -or $p.Source -cne $PacketSource) { throw 'Montage paquet non conforme (lecture seule obligatoire).' }
-        Write-Output ('T03 ISOLATION : mount=' + $p.Source + ':/packet-repo:ro ; same offline container')
     }
     if ($Info.NetworkSettings.Networks -and @($Info.NetworkSettings.Networks.PSObject.Properties.Name | Where-Object { $_ -ne 'none' }).Count) { throw 'Reseau externe detecte.' }
     Write-Output ('T01 ISOLATION : network=none ; rootfs=ro ; mount=' + $m.Source + ':/repo/wp:ro ; ports=none ; cap-drop=ALL ; no-new-privileges')

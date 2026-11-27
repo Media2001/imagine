@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "native_token_equivalence": {
+    "engine.php": true,
+    "guard.php": true,
+    "form-decision-refused.php": true,
+    "store.php": true,
+    "lib.php": true,
+    "unit.php": true
+  },
+  "final_outputs_sha256": {
+    "engine.php": "fef246a543f993f1b1b1b8a2a21873d94fc02ba3e40edd730b9926bb3690336f",
+    "guard.php": "9852be418707dc3b06c83ba621a1fc2689d7c650f8d6274d40d6e49b0b09182a",
+    "form-decision-refused.php": "c79989ab2daa975e5e2435c218c4ed05ff35dcecbb413305e0157edeb644822b",
+    "store.php": "88617b0e97809476bb99942f12069afa434e22a0c2dbc4929161249d7be75f66",
+    "lib.php": "c6ebdbb9ad3568f64069bc80d92acc22a01f234dbc9ab7012ac0cedf8d9b1953",
+    "unit.php": "e33a0ba41972a8b67a9e4211f30de14a9a714be62468cbd8fae920cc2b9de78d"
+  },
+  "script_handle": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a28-correction-20261127-0258\\wrapped\\token-proof.php",
+  "script_sha256": "b61614a720e0450c920b216c987e6f6ffd6371746058e86ff2720738d078ba6d",
+  "stdout_sha256": "d94a1af7c04e2000a718474887b1450b9426aa87e77ad9f6e8eff6d115d7d684"
+}

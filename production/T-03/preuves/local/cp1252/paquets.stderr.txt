@@ -15,6 +15,6 @@ test_unsupported_requirements_are_outside_with_fixed_reason (test_paquets.Discov
 test_verified_lots_are_explicit_and_counted_exactly (test_paquets.DiscoveryTests.test_verified_lots_are_explicit_and_counted_exactly) ... ok
 
 ----------------------------------------------------------------------
-Ran 15 tests in 0.128s
+Ran 15 tests in 0.119s
 
 OK

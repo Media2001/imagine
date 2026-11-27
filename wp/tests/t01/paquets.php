@@ -22,7 +22,7 @@ try {
         || strlen($packetOutput) > 1048576 || !preg_match('/\AT03_PACKETS [^\r\n]+\r?\n\z/D', $packetOutput)) {
         throw new RuntimeException('PACKET_RUNNER');
     }
-    echo $packetOutput;
+    return json_decode(substr($packetOutput, 12), true, 512, JSON_THROW_ON_ERROR);
 } catch (Throwable $packetFailure) {
-    echo 'T03_PACKETS {"verified":0,"lots":[],"failures":[{"lot":"T-03","control":"RUNNER_OUTPUT"}],"excluded":[]}' . "\n";
+    return ['verified' => 0, 'lots' => [], 'failures' => [['lot' => 'T-03', 'control' => 'RUNNER_OUTPUT']], 'excluded' => []];
 }

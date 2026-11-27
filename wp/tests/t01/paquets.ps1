@@ -4,9 +4,10 @@ function Get-T03PacketSummary {
     $e = [char]0x00e9
     $fallback = 'PAQUETS : 0 v{0}rifi{0}s, 1 {0}checs ; hors rejeu : aucun ; T-03 RUNNER_OUTPUT' -f $e
     try {
-        $markers = @($Text -split "`n" | Where-Object { $_ -match '^T03_PACKETS ' })
+        $markers = @($Text -split "`n" | Where-Object { $_ -match '^T01_RESULT ' })
         if ($markers.Count -ne 1) { throw 'MARKER' }
-        $data = $markers[0].Substring(12) | ConvertFrom-Json
+        $envelope = $markers[0].Substring(11) | ConvertFrom-Json
+        $data = $envelope.packets
         if ((@($data.PSObject.Properties.Name | Sort-Object) -join ',') -ne 'excluded,failures,lots,verified') { throw 'SCHEMA' }
         if ($data.verified -isnot [int] -or $data.verified -lt 0 -or $data.verified -gt 10000 -or $data.lots -isnot [Array] -or $data.failures -isnot [Array] -or $data.excluded -isnot [Array]) { throw 'COUNTERS' }
         $lots = @($data.lots)

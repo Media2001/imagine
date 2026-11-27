@@ -3,11 +3,12 @@ test_complete_script_mock_boundary_never_propagates_packet_red (test_t03_integra
 test_declared_python_process_is_never_run_on_host_by_cli (test_t03_integration.IntegrationContracts.test_declared_python_process_is_never_run_on_host_by_cli) ... ok
 test_existing_wp_mount_and_all_isolation_flags_are_preserved (test_t03_integration.IntegrationContracts.test_existing_wp_mount_and_all_isolation_flags_are_preserved) ... ok
 test_owned_documentation_is_exactly_three_lines (test_t03_integration.IntegrationContracts.test_owned_documentation_is_exactly_three_lines) ... ok
+test_packet_metadata_reuses_existing_marker_not_an_extra_public_line (test_t03_integration.IntegrationContracts.test_packet_metadata_reuses_existing_marker_not_an_extra_public_line) ... ok
 test_php_tests_remain_independent_of_package_results (test_t03_integration.IntegrationContracts.test_php_tests_remain_independent_of_package_results) ... ok
 test_powershell_summary_parser_keeps_red_separate_and_closed (test_t03_integration.IntegrationContracts.test_powershell_summary_parser_keeps_red_separate_and_closed) ... ok
 test_python_added_only_by_existing_image_preparation (test_t03_integration.IntegrationContracts.test_python_added_only_by_existing_image_preparation) ... ok
 
 ----------------------------------------------------------------------
-Ran 8 tests in 2.259s
+Ran 9 tests in 2.386s
 
 OK

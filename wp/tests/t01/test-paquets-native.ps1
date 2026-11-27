@@ -23,9 +23,9 @@ function Invoke-CopyReplay {
     $proof.commands += @{ name = $Label; exit_code = $code; log = $Label + '.log' }
     if ($code -ne 0 -or $lines[-1] -notmatch '^REJEU : [1-9][0-9]* tests, [0-9]+ assertions, 0 .+checs, 0 erreurs, 0 ignor.+ .+ PASS$') { throw 'REPLAY_TESTS_NOT_GREEN' }
     if (@($lines | Where-Object { $_ -match '^T01 CLEANUP : absence verifiee de imagine-t01-[a-f0-9]{32}$' }).Count -ne 1 -or @($lines | Where-Object { $_ -match 'NETTOYAGE EN ECHEC' }).Count) { throw 'CONTAINER_ABSENCE_NOT_PROVED' }
-    $markers = @($lines | Where-Object { $_ -match '^T03_PACKETS ' })
+    $markers = @($lines | Where-Object { $_ -match '^T01_RESULT ' })
     if ($markers.Count -ne 1) { throw 'PACKET_MARKER' }
-    $packets = $markers[0].Substring(12) | ConvertFrom-Json
+    $packets = ($markers[0].Substring(11) | ConvertFrom-Json).packets
     if ($packets.lots -notcontains 'A-22' -or $packets.lots -notcontains 'A-28' -or $packets.verified -ne @($packets.lots).Count) { throw 'A22_A28_NOT_REPLAYED' }
     if (@($lines | Where-Object { $_ -match '^PAQUETS : ' }).Count -ne 1) { throw 'PACKET_LINE_COUNT' }
     return @{ last = $lines[-1]; packets = $packets; summary = @($lines | Where-Object { $_ -match '^PAQUETS : ' })[0] }
