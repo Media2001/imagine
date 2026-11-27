@@ -96,6 +96,7 @@ Issues des lots, au 26/11 à 10 h (chacune est un réglage au défaut prudent, a
 | Pack thématique dont un numéro a été dépublié : le pack est-il retiré de la vente en entier, ou vendu sans ce numéro à un prix recalculé ? | Retiré de la vente en entier, refusé au panier et à la commande ; aucun prix recalculé | Pas de réglage (C-28) |
 | Menu étendu des thématiques (§3.1, « une sélection d'articles illustrés ») : la sélection est-elle choisie par la rédaction, ou faite des articles les plus récents ? | Les articles les plus récents de la thématique | Nombre d'articles en réglage (B-13) |
 | Brevo (§3.10) : quels noms d'attributs le compte Brevo d'Imagine attend-il, et quel statut porte le bénéficiaire d'un abonnement offert ou groupé ? | Clés internes du site ; statut « inconnu » pour un bénéficiaire. Rien n'est transmis | Correspondance des noms à mettre en réglage au branchement (C-29) |
+| Pied de page (§3.2, « point de vente le plus proche ») : le site cherche-t-il le point de vente le plus proche du visiteur, par géolocalisation, ou renvoie-t-il vers la recherche par localité ? | Un lien vers la recherche ; aucune géolocalisation, ni par le navigateur, ni par l'adresse IP | Pas de réglage pour l'instant (B-15) |
 
 Rappel de règle, sans question : un abonnement actif dans l'administration mais **sans paiement validé** ne figure pas dans la liste d'envoi.
 

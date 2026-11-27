@@ -2,7 +2,7 @@
 
 Tenu à jour par Claude à chaque session avec Ced. **Hermès ne modifie pas ce fichier** : il signale dans son rapport ce qu'il a fait et ce qui bloque, et la consigne passe en « Terminé » à la session suivante.
 
-Mis à jour le 27 novembre 2026, 13 h 30 (passage automatique).
+Mis à jour le 27 novembre 2026, 16 h 30 (passage automatique).
 
 **Deux voies depuis le 23/11.** Ce fichier est la file de la voie 1. Une deuxième session d'Hermès suit `A-FAIRE-2.md` (site de démonstration, squelette du thème, paywall sur article, profils, écran de réglages). Lis la section « Les deux voies » de la consigne permanente. Ne touche ni au site `imagine-test-demo`, ni aux dossiers `wp/themes/imagine/`, `wp/plugins/imagine-site/`, `wp/outils/demo/`, `wp/tests/demo/`.
 
@@ -11,6 +11,8 @@ Consigne permanente : `prompts/consigne-permanente.md`. Doctrine : `doctrine/doc
 Le projet a trois chantiers indépendants. Un lot porte la lettre de son chantier : **A** l'existant, **B** le thème, **C** le code sur mesure. Les lots actifs de chantiers différents peuvent avancer en parallèle.
 
 ## Consignes actives, par ordre de priorité
+
+**Passage de 16 h 30 : rien de toi depuis 13 h 33** (ni rapport, ni preuve, ni `PRET`). La file ci-dessous tient telle quelle, dans l'ordre, sauf A-29 (consigne 3, tranchée). Si tu reprends après une interruption, commence par un rapport de cinq lignes dans `files/rapports/` : ce qui t'a arrêté, où tu en es. Ton diagnostic d'A-29 et ta note de reprise d'A-31 sont lus, merci.
 
 File du 27/11, 13 h 30. Tes rapports de 7 h 34, 8 h 18, 8 h 42 et 12 h 50 sont lus, merci. **Clos ce passage : A-26, A-27, A-30.** Le resceau est fait, une seule fois, comme demandé. T-03 : fond vérifié, pas clos (consigne 1). S'arrêter sur A-32 sans ajouter de garde ni toucher aux outils clos : c'était juste, et l'erreur était dans mon brief (consigne 2). Arbitrages : `docs/arbitrages-2026-11-27.md`, passage de 13 h.
 
@@ -35,7 +37,7 @@ File du 27/11, 13 h 30. Tes rapports de 7 h 34, 8 h 18, 8 h 42 et 12 h 50 sont l
    - **A-26 et A-27 sont clos : une ligne chacun dans la liste.** A-30 reste dehors (fichier d'Imagine), A-29 et A-31 aussi (pas clos) ;
    - puis la matrice complète, le paquet unique, `PRET`. Le mode d'emploi dit en une phrase que la tournée ne tourne que sur une copie vérifiée, et que lancer un outil seul reste la décision de Ced.
 
-**3. A-29** : la consigne tient, en dernier. Une sortie 255 n'est pas un succès. **Un réveil de diagnostic, pas plus**, sans retirer ni canari ni compteur, sans toucher à l'import, au gardien ni au lanceur. S'il n'aboutit pas : dix lignes dans ton rapport (ce qui est établi, ce qui ne l'est pas, tes deux hypothèses) et tu passes à la suite ; je trancherai. A-29 ne bloque personne.
+**3. A-29 : rangé, tu n'y touches plus.** Ton diagnostic est lu : dix lignes nettes, rien d'assoupli, c'était juste. La cause du 255 n'est pas établie ; sur une copie neutralisée ses six nombres vaudraient « inconnu », et un vert n'y apprendrait rien. Pas de `PRET`, pas de nouvel essai, pas de trace de fin de processus, hors de la tournée d'A-32. Le code et les preuves restent où ils sont. Il sera repris par une consigne de cette file, pas avant.
 
 **4. `briefs/A-33-le-poids-des-archives.md`** — ce qui reste hors des dix derniers numéros, compté : contenus par type et par année, fichiers joints en nombre et en poids, fichiers sans parent. Lecture seule, des nombres. **À commencer après les `PRET` d'A-31 et d'A-32**, pas avant. Une demi-journée.
 
