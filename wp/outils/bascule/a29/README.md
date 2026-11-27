@@ -1,6 +1,6 @@
 # A-29 — Les tâches planifiées, comptes en lecture seule
 
-**Livraison locale partielle.** Aucun PHP, Docker ou WSL exécuté par le worker. Les lecteurs, banques PHP et classique/HPOS sont préparés ; leur qualification appartient au parent. Aucun `PRET`. Aucune donnée réelle, archive, compte ou site existant ne fait partie de ce lot.
+La réception native et ses chiffres sont consignés dans `production/A-29/FINALISATION.md` ; seul le `PRET` final, après matrices, gates et sceau courants, atteste la disponibilité technique. Une suite Python seule reste partielle. Aucune donnée réelle, archive, compte ou site existant ne fait partie de ce lot ; aucune clôture ni GO réel n'en découle.
 
 ## Le standard d'abord — dix lignes
 
@@ -51,11 +51,13 @@ Deux fichiers 0600 dans un répertoire 0700 : `taches.json`, `taches.md`. Le pro
 - `other_active_extensions` : en présence de tâches `autre`, **attribution indéterminée**. Ni hook, groupe AS, préfixe, nom d'extension active ni fichier d'un callback ne prouvent l'auteur de la planification. Aucun nombre n'est inventé à partir de ces indices. S'il n'y a aucune tâche `autre` dans le périmètre observé, cette contribution vaut 0 ; cela ne prétend pas inventorier les intentions futures de toutes les extensions. Cette limite fonctionnelle est explicite.
 - Magasin AS personnalisé, migration hybride, données/date/statut/structure non reconnus : refus fermé, jamais zéro de remplacement. Classic/HPOS est relu par l'utilitaire Woo natif et doit correspondre à l'audit ; aucun magasin d'abonnements n'est concaténé.
 
+Le banc fictif sélectionne explicitement le **DBStore natif** par le filtre installé `action_scheduler_store_class`, avant bootstrap, uniquement dans son MU de fixture ; aucun job de migration n'est lancé. Le HybridStore de la copie vierge n'est pas assimilé à un DBStore : sa lecture native peut migrer des actions. Un cas réel distinct impose le refus `A29_STORE_UNSUPPORTED`, sans sortie de rapport et avec base/fichiers immuables. Le sujet ne modifie ni cette sélection, ni une migration, ni les droits ; les stores non qualifiés restent refusés.
+
 ## Import et résultat sur une copie neutralisée
 
 Lecture du code commun sans modification : `wp/outils/staging/lib.php`, `transform()` vide `cron`, supprime les actions `failed`/`complete` et certains hooks d'import/export, annule les actions `pending`/`in-progress`, efface leurs charges opaques, et pose `imagine_staging_disabled_plugins`. Ce marqueur existe même si aucune extension n'a été désactivée. A-29 le teste par **présence en base**, pas par vérité du tableau et pas en déduisant la provenance de queues vides.
 
-Ces transformations faussent **tous les six comptes** : `pending`, `overdue`, `failed`, `renewal_weeks`, `other_tasks`, `other_active_extensions`. Sur copie marquée, ils deviennent tous **inconnu après neutralisation**, jamais zéro et jamais une reconstruction des tâches annulées. Aucun des nombres demandés sur la source n'y reste utile. C'est le résultat prudent attendu, non une raison de toucher l'import ou d'autoriser un agent à lire la source. Les banques parent doivent encore le prouver par le véritable moteur inchangé sur un clone fictif ; aucun changement d'A-28 ne doit être contourné.
+Ces transformations faussent **tous les six comptes** : `pending`, `overdue`, `failed`, `renewal_weeks`, `other_tasks`, `other_active_extensions`. Sur copie marquée, ils deviennent tous **inconnu après neutralisation**, jamais zéro et jamais une reconstruction des tâches annulées. Aucun des nombres demandés sur la source n'y reste utile. C'est le résultat prudent attendu, non une raison de toucher l'import ou d'autoriser un agent à lire la source. Les reçus natifs exigent le véritable moteur inchangé sur un clone fictif ; aucun changement d'A-28 ne doit être contourné.
 
 ## Tests et réception
 
@@ -65,4 +67,4 @@ C:/Python314/python.exe -B wp/tests/a29/matrix.py --output=C:/Users/Ced/AppData/
 C:/Python314/python.exe -B wp/tests/a29/verify.py --python-only --evidence=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a29-python-neuf
 ```
 
-La matrice Python seule est **partielle** : refus CLI, schéma, copies jetables mutées, vrais pipes et vraie publication Python avec doubles explicites des frontières PHP et noyau. Pas de PHP, DB, WordPress, Docker ni Landlock validés par ces tests. Banques PHP pur, classique/HPOS, immutabilité intégrale, absence d'actions/appels sortants, standard installé, cinq canaux natifs et commande documentée : `production/A-29/RECEPTION-PARENT.md`. Une matrice finale complète, après gel A-28 et style, doit remplacer l'unique paquet local partiel ; aucun `PRET` ici.
+La matrice Python seule est **partielle** : refus CLI, schéma, copies jetables mutées, vrais pipes et vraie publication Python avec doubles explicites des frontières PHP et noyau. Pas de PHP, DB, WordPress, Docker ni Landlock validés par ces tests. Banque native complète, réservée au propriétaire Docker/WSL sérialisé : `C:/Python314/python.exe -B wp/tests/a29/matrix.py --include-native --parent-serialized --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a29-natif-neuf`. Réception courante : `production/A-29/FINALISATION.md` ; la livraison partielle historique reste expliquée dans `RECEPTION-PARENT.md`. Vérifier le paquet actuel sans argument avec `wp/tests/a29/verify.py`, puis son sceau avec `wp/tests/a29/seal.py --check` ; aucun de ces deux contrôles ne crée de `PRET`.

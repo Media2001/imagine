@@ -91,6 +91,12 @@ def expected_counts(repeats):
 def run_storage(storage):
     site, db, _ = b.install(storage)
     (OUT / (storage + '-seed.json')).unlink()
+    # The pristine fixture is in AS migration mode (HybridStore). Qualify the
+    # supported native DBStore explicitly through its installed factory filter;
+    # never run a migration job and never weaken the subject's store refusal.
+    datastore_mu = site / 'wp-content/mu-plugins/a29-datastore.php'
+    dbstore_fixture = "<?php\nadd_filter('action_scheduler_store_class', static fn(): string => 'ActionScheduler_DBStore', PHP_INT_MAX);\n"
+    datastore_mu.write_text(dbstore_fixture, encoding='utf-8')
     q = cmd(['php', '/opt/a29/standard.php', str(site)], check=False)
     b.check(storage + ':installed_standard_before_subject', q.returncode == 0 and q.stdout == q.stderr == '')
     cfg = (site / 'wp-config.php').read_text(encoding='utf-8')
@@ -144,6 +150,20 @@ if (getenv('A29_CONFINED') === '1') {
     p = inventory(site, repeat, audit)
     b.check(storage + ':replay_identical', (p.returncode, p.stdout, p.stderr) == (0, SUCCESS, '')
             and {f.name: f.read_bytes() for f in repeat.iterdir()} == {f.name: f.read_bytes() for f in dest.iterdir()})
+    # Real native HybridStore remains unsupported: reading its query API can
+    # migrate actions. Refuse it rather than guessing that DB tables are complete.
+    hybrid_before = b.fingerprint(db)
+    datastore_mu.write_text(dbstore_fixture.replace('ActionScheduler_DBStore', 'ActionScheduler_HybridStore'), encoding='utf-8')
+    try:
+        hybrid_files = b.files(site)
+        unsupported = OUT / (storage + '-hybrid-refused')
+        q = inventory(site, unsupported, audit)
+        b.check(storage + ':native_hybrid_store_refused',
+                (q.returncode, q.stdout, q.stderr) == (1, '', 'A29_STORE_UNSUPPORTED\n') and not unsupported.exists())
+        b.check(storage + ':native_hybrid_refusal_database_files_unchanged',
+                hybrid_before == b.fingerprint(db) and hybrid_files == b.files(site))
+    finally:
+        datastore_mu.write_text(dbstore_fixture, encoding='utf-8')
     line = next(x for x in Path('/subject/a29/README.md').read_text(encoding='utf-8').splitlines()
                 if x.startswith('python3 wp/outils/bascule/a29/confine.py '))
     documented = OUT / (storage + '-documented')

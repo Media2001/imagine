@@ -75,6 +75,15 @@ class ContractTests(unittest.TestCase):
         self.assertIn("required=True)", runner)
         self.assertIn("'preparation'", (folder / 'gates.py').read_text(encoding='utf-8'))
 
+    def test_fixture_datastore_is_explicit_and_hybrid_is_refused(self):
+        native = (ROOT / 'wp/tests/a29/inside.py').read_text(encoding='utf-8')
+        for token in ('a29-datastore.php', 'action_scheduler_store_class', 'native_hybrid_store_refused',
+                      'native_hybrid_refusal_database_files_unchanged'):
+            self.assertIn(token, native)
+        inventory = (TOOLS / 'Inventory.php').read_text(encoding='utf-8')
+        self.assertIn("get_class(\\ActionScheduler::store()) !== 'ActionScheduler_DBStore'", inventory)
+        self.assertNotIn('ActionScheduler_HybridStore', inventory)
+
     def test_native_seed_uses_existing_customer(self):
         seed = (ROOT / 'wp/tests/a29/seed.php').read_text(encoding='utf-8')
         arguments = re.search(r'wcs_create_subscription\((\[.*?\])\)', seed, re.S).group(1)

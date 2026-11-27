@@ -171,6 +171,7 @@ def verify(packet, python_only=False):
                          'neutral_all_unknown_no_useful_number', 'neutral_db_files_unchanged',
                          'native_seed_5', 'five_success', 'five_exact_families_utc_boundaries',
                          'five_db_files_unchanged', 'all_retained_files_clean']
+            mandatory += ['native_hybrid_store_refused', 'native_hybrid_refusal_database_files_unchanged']
             mandatory += ['guard_' + key for key in ('exists', 'site', 'repo', 'ancestor', 'root')]
             mandatory += ['audit_refusal_' + key for key in ('schema', 'clock', 'storage')]
             mandatory += [kind + '_' + key for key in CHANNELS for kind in ('closed_channel', 'discarded_channel')]
