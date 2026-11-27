@@ -1,8 +1,8 @@
 {
-  "at": "2026-11-27T07:32:11.109154+01:00",
-  "declaration_sha256": "b717091931c1c9a126c2d01c0b95379d3563b76df6b4f6fa32ab637f7a9b5dbb",
+  "at": "2026-11-27T08:01:01.761360+01:00",
+  "declaration_sha256": "89dd427a8fdf8ade4c640ae6ce6c3b1662ff86c69dfad141ce6fb741a845cef8",
   "before_first_seal": true,
-  "historical_outside_repository": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-t03-20261127-final-0714\\before-A-30",
+  "historical_outside_repository": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-reader-resceau-0743\\before-A-30",
   "native_commands": [
     {
       "name": "a30-matrix",
@@ -10,16 +10,16 @@
         "C:/Python314/python.exe",
         "-B",
         "wp/tests/a30/matrix.py",
-        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-t03-20261127-final-0714\\a30-matrix",
-        "--temp-root=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-t03-20261127-final-0714",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-reader-resceau-0743\\a30-matrix",
+        "--temp-root=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-reader-resceau-0743",
         "--with-native"
       ],
-      "start": "2026-11-27T07:17:57.466458+01:00",
-      "end": "2026-11-27T07:20:54.627481+01:00",
+      "start": "2026-11-27T07:39:42.408780+01:00",
+      "end": "2026-11-27T07:42:39.827287+01:00",
       "exit_code": 0,
       "stdout": "a30-matrix.log",
       "stderr": "a30-matrix.stderr.log",
-      "stdout_sha256": "7f78f9d8c0179d386550f04fdb3abfe0f76830acbf0fe1ed544fa2fd88ce8c47",
+      "stdout_sha256": "752038a11b801f6a8a5d0859113ae8757d502db2a2d15122ea0c36d9e5d1a11a",
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
@@ -28,16 +28,16 @@
         "C:/Python314/python.exe",
         "-B",
         "wp/tests/a30/style.py",
-        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-t03-20261127-final-0714\\a30-style"
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-reader-resceau-0743\\a30-style"
       ],
-      "start": "2026-11-27T07:17:54.770259+01:00",
-      "end": "2026-11-27T07:17:57.459084+01:00",
+      "start": "2026-11-27T07:39:39.011996+01:00",
+      "end": "2026-11-27T07:39:42.100358+01:00",
       "exit_code": 0,
       "stdout": "a30-style.log",
       "stderr": "a30-style.stderr.log",
-      "stdout_sha256": "e22e88256bd5e7c777e7ba2c6c777b79e1008b46f1ebe8268ce5dce6186b1f84",
+      "stdout_sha256": "9e4cf8df9ba8e98567e1b77ec4b7d686bd5664f54d6ade47926cd16a37b12b48",
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     }
   ],
-  "parent_gates": "BLOCKED_NO_PRET"
+  "parent_gates": "PENDING_NO_PRET"
 }

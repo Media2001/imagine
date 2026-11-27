@@ -16,7 +16,7 @@
       "console": "utf-8",
       "exit_code": 0,
       "log": "utf8/python-tests.log",
-      "log_sha256": "f84d3136bd6867900cf0e161e2404b2ecd6fd05918e5b905e9c43679abe69366",
+      "log_sha256": "17b8548800138c55755fedadfd215ed4f76aa4a423fbf2291144d2a1ee4fb632",
       "tests_run": 30,
       "all_pass": true
     },
@@ -25,12 +25,12 @@
         "C:\\Python314\\python.exe",
         "-B",
         "wp/tests/a26/run.py",
-        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\requal2127-t03-20261127\\a26-matrix\\utf8\\native"
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-reader-resceau-0743\\a26-matrix\\utf8\\native"
       ],
       "console": "utf-8",
       "exit_code": 0,
       "log": "utf8/runner-console.log",
-      "log_sha256": "bad62ddbcb1489ae1e3d70f87f14ac44a31d6907e23893a92c0b4c2008aca3fc"
+      "log_sha256": "3f629267dd681795932f8b2151122e8e942a107d27bf8efffff2b74b9727333b"
     },
     {
       "command": [
@@ -48,7 +48,7 @@
       "console": "cp1252",
       "exit_code": 0,
       "log": "cp1252/python-tests.log",
-      "log_sha256": "4767ec64cdc5ec93bbb71f1a0bd4b57f85887758239e4e42cbb4cb339dbfe866",
+      "log_sha256": "97c6554db67635520661479b58032d18bba6526a8172415accec17f028d6eba8",
       "tests_run": 30,
       "all_pass": true
     },
@@ -57,24 +57,24 @@
         "C:\\Python314\\python.exe",
         "-B",
         "wp/tests/a26/run.py",
-        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\requal2127-t03-20261127\\a26-matrix\\cp1252\\native"
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-reader-resceau-0743\\a26-matrix\\cp1252\\native"
       ],
       "console": "cp1252",
       "exit_code": 0,
       "log": "cp1252/runner-console.log",
-      "log_sha256": "d2dad5727d9cfd8abc4579ec18ca63aa32541d131371874fc60c044244dfe57c"
+      "log_sha256": "deb7758eb709616668f4980a50b2fa16c447585fe060590d3bc29c7d0c4b07e7"
     },
     {
       "command": [
         "C:\\Python314\\python.exe",
         "-B",
         "wp/tests/a26/style.py",
-        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\requal2127-t03-20261127\\a26-matrix\\style"
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-reader-resceau-0743\\a26-matrix\\style"
       ],
       "console": "utf-8",
       "exit_code": 0,
       "log": "style-console.log",
-      "log_sha256": "b0287597eb13781376fa157301f3e0571b2bd7b2596aa0251d2c6c668cfb6789"
+      "log_sha256": "90eabd8805b84a8e96bcf42b38283e15d2fb841a524872f85412b20ce3ce4d03"
     }
   ],
   "native_executed": true,

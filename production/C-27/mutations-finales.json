@@ -1,0 +1,101 @@
+{
+  "scope": "imagine-test-demo",
+  "sources": {
+    "wp/outils/demo/c27-finaliser.py": "c4a65dee585f9d418f4b7bc8c1785cdf2cdfa50d5251f3c8e3cd5fbbe70fef6d",
+    "wp/outils/demo/c27-gates.py": "133be5259e45e69015ad6152a927dcc2b151391afef7f35915d3832f59f0fe29",
+    "wp/outils/demo/c27-mutations.py": "692b477028259526b3501f45d8c29274aef0eaffb1bf4e46684ca3e9b0e7e65c",
+    "wp/outils/demo/c27-native.py": "7628a5701924cdce7335413ae3dfb2d8e8c6fcef14338ca8ed5798484c5c5e41",
+    "wp/outils/demo/c27-readback.py": "0885269bc21093a84f95fd38d716fb6f607f2d4f23838b627585e15a05e38213",
+    "wp/outils/demo/c27-recette.py": "00816adf4f0754567c368ca1c32dede30205ef9f1973c62f564e056f846f2669",
+    "wp/outils/demo/c27-seed.py": "266487290c52eb43c45651defbb16e564f9221c934da242647c6ed46bf8c4b24",
+    "wp/outils/demo/c27.py": "fe9d07a3df4629fb6241c7f8fdff39ddde1726270fd3527af309039cb0b43dd2",
+    "wp/plugins/imagine-site/Acquisition.php": "21e5e0cdfae8ee2adf056777299bd8aab9ad911f65a5b365788b6c0b7cfe7a05",
+    "wp/plugins/imagine-site/AcquisitionAdmin.php": "0f9b70bdc8eed7591a6c42fa17a0b7f33283d7b50d66c2f267cd3283ff960a4c",
+    "wp/plugins/imagine-site/AcquisitionConfidentialite.php": "c7cbb30510ff33ddf94387572c84d4ce70f9b0665dde287b14a8d823ba391563",
+    "wp/plugins/imagine-site/AcquisitionReglages.php": "225937e1971f220a0ada69b0c1389bf4fbebddca47387b5ca4a7ff317cb224bc",
+    "wp/plugins/imagine-site/AcquisitionRegles.php": "388b89cd261f73c30ea1e2564b84aab778feb481e5f098795f4b30eca9ba8f93",
+    "wp/plugins/imagine-site/tests/AcquisitionAdapterTest.php": "cb67d35e36f815b186525c76a176dc93b86b5d84382fd2b981442b63ba2c40ca",
+    "wp/plugins/imagine-site/tests/AcquisitionReglesTest.php": "37e4c918a775f62b126a421167dc6f3c731be6c0ac7ee569d19c7e24a8e38ab5",
+    "wp/plugins/imagine-site/tests/AcquisitionWPStubs.php": "5e765feeb5c1b44157f2fb54b4c1ddf9097b505109f223746ab4a264fcb7ebc1",
+    "wp/tests/demo/c27-horslive.php": "76b719c2f0aa47de56ab25086ec76bbb916666aa8d52cc9b25322e139e3f68fa",
+    "wp/tests/demo/c27-observer.php": "d6d3c1456f9ff62f8a86bf3c9eac6c924870005cc69934cff70215988d150f68",
+    "wp/tests/demo/c27-runtime.php": "0fb01d5987c0cc190fc3ca4db7e0060271c52ab28bcac4e79b8bb4ec97fff7f8",
+    "wp/tests/demo/c27-verifier-tests.py": "8f9d6cf25f0e02f67959912a08cd2affdd0ff0cd25feb96727ff6ee4b04e2a47"
+  },
+  "mutations": [
+    {
+      "mutation": "avant-paiement",
+      "exit": 1,
+      "detected": true,
+      "tests": 7,
+      "failures": 2,
+      "log": "mutations-finales-avant-paiement.log",
+      "sha256": "f22a10ec2de9c061e6973592d476298876e8217f74b8ef678bbe0c33e97dc6cf"
+    },
+    {
+      "mutation": "tiers",
+      "exit": 1,
+      "detected": true,
+      "tests": 7,
+      "failures": 2,
+      "log": "mutations-finales-tiers.log",
+      "sha256": "31c1e30fb300b3d9b31c7bf2133371e7b82d67d568c875142bc4618f4076114b"
+    },
+    {
+      "mutation": "operateur",
+      "exit": 1,
+      "detected": true,
+      "tests": 7,
+      "failures": 2,
+      "log": "mutations-finales-operateur.log",
+      "sha256": "11e8269728831f1d5798e0e8edcdf0452ca8f5930e4e9bad6dda05de94270e31"
+    },
+    {
+      "mutation": "source-ecrasee",
+      "exit": 1,
+      "detected": true,
+      "tests": 7,
+      "failures": 1,
+      "log": "mutations-finales-source-ecrasee.log",
+      "sha256": "3f9817121f091a8159574d0bef010136db7228326240191aec3e2cdc6e05a762"
+    },
+    {
+      "mutation": "export",
+      "exit": 1,
+      "detected": true,
+      "tests": 7,
+      "failures": 1,
+      "log": "mutations-finales-export.log",
+      "sha256": "4f223a2432a3867ed99cb95f0ff5d17f0d468da52620c56d6dac7815e7a4f54d"
+    },
+    {
+      "mutation": "effacement",
+      "exit": 1,
+      "detected": true,
+      "tests": 7,
+      "failures": 1,
+      "log": "mutations-finales-effacement.log",
+      "sha256": "5bd246eaadd24576e5fb076ce4f52d373c942882b1b9f4cd73527447eefef1ec"
+    },
+    {
+      "mutation": "export-tiers",
+      "exit": 1,
+      "detected": true,
+      "tests": 7,
+      "failures": 1,
+      "log": "mutations-finales-export-tiers.log",
+      "sha256": "7e324ce16f321c8662ab02d75fbb62d3f4268f5c1746e66cbe0e7815b9280b18"
+    },
+    {
+      "mutation": "reglage-invalide",
+      "exit": 1,
+      "detected": true,
+      "tests": 7,
+      "failures": 1,
+      "log": "mutations-finales-reglage-invalide.log",
+      "sha256": "fd4a138ffc7f463ce58918fa1ba3927380d807e9bcf133a845a15bf8c2b659f0"
+    }
+  ],
+  "count": 8,
+  "detected": 8
+}

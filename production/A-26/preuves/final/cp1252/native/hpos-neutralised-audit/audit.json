@@ -1,6 +1,6 @@
 {
     "schema": "imagine-a02-audit-v1",
-    "generated_at_utc": "2026-11-27T03:54:41+00:00",
+    "generated_at_utc": "2026-11-27T06:46:16+00:00",
     "read_only": true,
     "privacy": "structural_identifiers_versions_numeric_counts_only; no_titles_contacts_settings_arguments_or_raw_logs",
     "sections": {
@@ -322,8 +322,8 @@
                 }
             ],
             "update_source": "local_cache_only_not_a_live_check",
-            "plugin_cache_checked_epoch": 1795751649,
-            "theme_cache_checked_epoch": 1795751649
+            "plugin_cache_checked_epoch": 1795761943,
+            "theme_cache_checked_epoch": 1795761943
         },
         "commerce": {
             "order_storage": "hpos",

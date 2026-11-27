@@ -20,7 +20,7 @@
       "console": "utf-8",
       "exit_code": 0,
       "log": "utf8/python-tests.log",
-      "log_sha256": "b5bf6f23a53689e64b7d739867308819d6e2644ce3518c13a351010811955263",
+      "log_sha256": "7adf07b812e7021319489a8159d7d7ef53d989f978010cad1ea29b1bd2da0b2b",
       "tests_run": 41,
       "all_pass": true
     },
@@ -31,12 +31,12 @@
         "-B",
         "wp/tests/a27/run.py",
         "--parent-serialized",
-        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\requal2127-t03-20261127\\a27-matrix\\utf8\\native"
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-reader-resceau-0743\\a27-matrix\\utf8\\native"
       ],
       "console": "utf-8",
       "exit_code": 0,
       "log": "utf8/runner-console.log",
-      "log_sha256": "375895bc2b64ccf4398529dcd3eca641ba1dffc23100e8b43d9c0efdd3054009"
+      "log_sha256": "1105f977b86cad80155853d52ceecfa38158bddc85137be68aff4b441a323dbf"
     },
     {
       "kind": "python",
@@ -55,7 +55,7 @@
       "console": "cp1252",
       "exit_code": 0,
       "log": "cp1252/python-tests.log",
-      "log_sha256": "268b83440e565ef1d5076c9ab2365ec2a5bd8815a640b292c7485c555be26650",
+      "log_sha256": "3c061962a4c6a9c825a2d641fe824a3de4b9b5e3e70b009d464bd705648a4b38",
       "tests_run": 41,
       "all_pass": true
     },
@@ -66,12 +66,12 @@
         "-B",
         "wp/tests/a27/run.py",
         "--parent-serialized",
-        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\requal2127-t03-20261127\\a27-matrix\\cp1252\\native"
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-reader-resceau-0743\\a27-matrix\\cp1252\\native"
       ],
       "console": "cp1252",
       "exit_code": 0,
       "log": "cp1252/runner-console.log",
-      "log_sha256": "48a0b6a61f1d1e6bfdba09c06ac573c7e207ee7b2ecc1da079a76b7eb4fbc882"
+      "log_sha256": "91445d5457b2f9b5186263584b17c5b0497475bd2ec94fb6fd17b8baed6a2e72"
     },
     {
       "kind": "style",
@@ -80,12 +80,12 @@
         "-B",
         "wp/tests/a27/style.py",
         "--parent-serialized",
-        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\requal2127-t03-20261127\\a27-matrix\\style"
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-reader-resceau-0743\\a27-matrix\\style"
       ],
       "console": "utf-8",
       "exit_code": 0,
       "log": "style-console.log",
-      "log_sha256": "cdb910748dbe5c4b84b2e09125ce8f758f9e3b49741322930db77b5cd3ed6caf"
+      "log_sha256": "439ae7354d5d1322fc3d4cb746820727a9fed7f45cb74f0cc97b0f7d8abf930d"
     }
   ],
   "exit_code": 0

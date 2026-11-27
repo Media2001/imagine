@@ -1,5 +1,6 @@
 {
   "schema": "a30-clean-windows-v1",
+  "repository_root_windows": "C:\\Users\\Ced\\imagine",
   "rows": [
     {
       "console": "utf-8",
@@ -16,17 +17,17 @@
         "-v"
       ],
       "exit_code": 0,
-      "tests_run": 34,
-      "suite_discovered": 34,
+      "tests_run": 38,
+      "suite_discovered": 38,
       "failures": 0,
       "errors": 0,
       "skipped": 0,
       "all_pass": true,
       "TMPDIR_present": false,
-      "environment_sha256": "70b690fb931c536fed23176aace38cf9b2b0fee03c12f17e37100cd908372a50",
+      "environment_sha256": "e4f3a656b4670d0c357a7b99dca76ae6fdfec6e6027bd593534c41e2d43c7db9",
       "log_encoding": "utf-8",
       "subprocess_decode_encoding": "utf-8",
-      "log_sha256": "0a358f541d8e9b848ed7bc1739ecfc3ca55a2a0bc693903205fda66e365d6094"
+      "log_sha256": "eab62fb92062abad7f64e4c8180697fb5aa3da22ee52b12b4317f141ba77c332"
     },
     {
       "console": "utf-8",
@@ -34,7 +35,7 @@
         "C:\\Python314\\python.exe",
         "-B",
         "C:\\Users\\Ced\\imagine\\wp\\tests\\a30\\run.py",
-        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-t03-20261127-final-0714\\a30-matrix\\utf8\\native"
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-reader-resceau-0743\\a30-matrix\\utf8\\native"
       ],
       "exit_code": 0,
       "kind": "native",
@@ -55,17 +56,17 @@
         "-v"
       ],
       "exit_code": 0,
-      "tests_run": 34,
-      "suite_discovered": 34,
+      "tests_run": 38,
+      "suite_discovered": 38,
       "failures": 0,
       "errors": 0,
       "skipped": 0,
       "all_pass": true,
       "TMPDIR_present": false,
-      "environment_sha256": "1ff722f38d15e2e04ac653f60cc8ccf59194bbab4d30d1eeb54adc2a27f6d407",
+      "environment_sha256": "9bd97e08a444714bfb16f1a4e89beb67f9ab9109b98c17c80f1b7db0d0b555b2",
       "log_encoding": "utf-8",
       "subprocess_decode_encoding": "cp1252",
-      "log_sha256": "1aa19126beaa862fb84294a01c29c4565655cbf532af5b2638f3ab22ec2d2500"
+      "log_sha256": "f22fdd74b1bc2a4089fd7270ab88497f2bb5e8c3fbdcd5d40ac51e32a84b9c95"
     },
     {
       "console": "cp1252",
@@ -73,7 +74,7 @@
         "C:\\Python314\\python.exe",
         "-B",
         "C:\\Users\\Ced\\imagine\\wp\\tests\\a30\\run.py",
-        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-t03-20261127-final-0714\\a30-matrix\\cp1252\\native"
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-reader-resceau-0743\\a30-matrix\\cp1252\\native"
       ],
       "exit_code": 0,
       "kind": "native",

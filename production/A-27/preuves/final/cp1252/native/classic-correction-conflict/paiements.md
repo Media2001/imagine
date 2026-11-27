@@ -40,6 +40,6 @@ Comptes seulement ; aucune garantie de renouvellement.
         }
     },
     "as_of_utc": "2026-11-26T12:00:00+00:00",
-    "audit_sha256": "d83d4d179c53b0e759d1c349377aea25cb3beac1a5f01414bd3644f35678bdf8"
+    "audit_sha256": "18f5fc20988ff24b4190dfb3cc25278dfd4cfbf5f43944bbad9d9d8005551b96"
 }
 ```

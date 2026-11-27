@@ -22,7 +22,7 @@
         "-B",
         "wp/tests/a22/run.py",
         "--lot=A20",
-        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a22-corrections-1753\\a20-matrix-final-02\\utf8\\native"
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-reader-resceau-0743\\a20-matrix\\utf8\\native"
       ],
       "console": "utf-8",
       "exit_code": 0
@@ -49,7 +49,7 @@
         "-B",
         "wp/tests/a22/run.py",
         "--lot=A20",
-        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a22-corrections-1753\\a20-matrix-final-02\\cp1252\\native"
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-reader-resceau-0743\\a20-matrix\\cp1252\\native"
       ],
       "console": "cp1252",
       "exit_code": 0
@@ -59,7 +59,7 @@
         "C:\\Python314\\python.exe",
         "-B",
         "wp/tests/a20/style.py",
-        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a22-corrections-1753\\a20-matrix-final-02\\style"
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-reader-resceau-0743\\a20-matrix\\style"
       ],
       "console": "utf-8",
       "exit_code": 0

@@ -3,10 +3,6 @@
   "entrypoint": "verify.py",
   "requires": [],
   "logs": [
-    "production/A-30/preuves/final/a30-matrix.log",
-    "production/A-30/preuves/final/a30-matrix.stderr.log",
-    "production/A-30/preuves/final/a30-style.log",
-    "production/A-30/preuves/final/a30-style.stderr.log",
     "production/A-30/preuves/final/cp1252/native/classic-seed-command.log",
     "production/A-30/preuves/final/cp1252/native/hpos-seed-command.log",
     "production/A-30/preuves/final/cp1252/native/lint-Analysis.php.log",
@@ -32,8 +28,8 @@
     "production/A-30/preuves/final/utf8/runner-console.log"
   ],
   "controls": [
+    "NATIVE_PACKET_INVALID",
     "NO_ARGUMENTS",
-    "PACKAGE_DRIFT",
-    "NATIVE_PACKET_INVALID"
+    "PACKAGE_DRIFT"
   ]
 }
