@@ -33,17 +33,21 @@ try {
         throw new \RuntimeException('A30_INPUT_INVALID');
     }
     $input = json_decode($raw, true, 64, JSON_THROW_ON_ERROR);
-    if (!is_array($input) || array_keys($input) !== ['a13_code', 'rows']
-        || !in_array($input['a13_code'], [0, 1], true) || !is_array($input['rows'])) {
+    if (
+        !is_array($input) || array_keys($input) !== ['a13_code', 'rows']
+        || !in_array($input['a13_code'], [0, 1], true) || !is_array($input['rows'])
+    ) {
         throw new \RuntimeException('A30_INPUT_INVALID');
     }
     $last = 1;
     foreach ($input['rows'] as $row) {
-        if (!is_array($row) || array_keys($row) !== ['line', 'rejected', 'email', 'product', 'payment']
+        if (
+            !is_array($row) || array_keys($row) !== ['line', 'rejected', 'email', 'product', 'payment']
             || !is_int($row['line']) || $row['line'] <= $last || !is_bool($row['rejected'])
             || !is_string($row['email']) || strlen($row['email']) > 254
             || ($row['product'] !== null && (!is_int($row['product']) || $row['product'] < 1))
-            || !in_array($row['payment'], ['virement', 'domiciliation_papier', 'autre'], true)) {
+            || !in_array($row['payment'], ['virement', 'domiciliation_papier', 'autre'], true)
+        ) {
             throw new \RuntimeException('A30_INPUT_INVALID');
         }
         $last = $row['line'];

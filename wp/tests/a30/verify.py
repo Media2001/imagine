@@ -43,8 +43,12 @@ def verify(packet=PACKET):
         runner = importlib.util.module_from_spec(spec); spec.loader.exec_module(runner)
         check('current_owned_sources', read(packet / 'sources.json') == runner.manifest(runner.OWN))
         check('parent_shared_two_lines', shared_contract(
-            (ROOT / 'wp/outils/bascule/README.md').read_bytes(),
+            (ROOT / 'wp/tests/a02-audit/README.md').read_bytes(),
             (ROOT / 'production/A-30/README-AJOUT-2-LIGNES.txt').read_bytes()))
+        style = read(packet / 'style/style.json')
+        check('strict_PSR12', receipt_valid(style) and style['phpcs_exit'] == 0
+              and style['totals']['errors'] == style['totals']['warnings'] == 0
+              and style['sources'] == runner.manifest(runner.OWN))
         matrix = read(packet / 'windows-matrix.json')
         check('python_matrix_exit', matrix['exit_code'] == 0)
         for label, encoding, mode in [('utf8', 'utf-8', 1), ('cp1252', 'cp1252', 0)]:

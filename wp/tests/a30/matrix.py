@@ -54,6 +54,7 @@ def main():
         if args.with_native:
             command = [sys.executable, '-B', str(HERE / 'run.py'), '--output=' + str(folder / 'native')]
             p = subprocess.run(command, cwd=ROOT, env=env, capture_output=True, timeout=1800)
+            (folder / 'runner-console.log').write_bytes(p.stdout + p.stderr)
             rows.append({'console': encoding, 'command': command, 'exit_code': p.returncode,
                          'kind': 'native', 'executed': True})
     spec = importlib.util.spec_from_file_location('a30_runner_manifest', HERE / 'run.py')

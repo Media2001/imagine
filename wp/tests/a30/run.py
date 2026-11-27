@@ -21,7 +21,7 @@ BASCULE_DEPS = ['audit', 'a11', 'a12', 'stream_guard.py', 'stream_refusals.json'
 A02_FILES = ['run.py', 'inside.py', 'seed.php', 'fingerprint.php', 'unit.php', 'readonly-probe.php']
 FIXTURES = ['a13-export-propre-fictif.csv', 'a13-export-defauts-fictif.csv', 'a13-export-iban-fictif.csv']
 DEPS = ['wp/outils/bascule/' + f for f in BASCULE_DEPS] + ['wp/outils/staging'] + [
-    'wp/tests/a02-audit/' + f for f in A02_FILES] + ['wp/tests/fixtures/' + f for f in FIXTURES]
+    'wp/tests/a02-audit/' + f for f in A02_FILES] + ['wp/tests/fixtures/' + f for f in FIXTURES] + ['wp/tests/a20/style.py']
 
 
 def manifest(roots):
@@ -82,8 +82,11 @@ def main():
             for filename in b.LICENSED:
                 b.call(['cp', '/home/ced/staging-wp/plugins/' + filename, name + ':/opt/a02/' + filename])
         # Syntax and pure tests are prepared; these execute only on the parent's GO.
-        for path in sorted((ROOT / 'wp/outils/bascule/a30').glob('*.php')):
-            p = b.call(['exec', name, 'php', '-l', '/subject/a30/' + path.name], check=False)
+        php_files = [(p, '/subject/a30/') for p in sorted((ROOT / 'wp/outils/bascule/a30').glob('*.php'))]
+        php_files += [(p, '/opt/a30/') for p in sorted(HERE.glob('*.php'))]
+        for path, prefix in php_files:
+            p = b.call(['exec', name, 'php', '-l', prefix + path.name], check=False)
+            (out / ('lint-' + path.name + '.log')).write_text(p.stdout + p.stderr, encoding='utf-8')
             check('lint:' + path.name, p.returncode == 0)
         unit = b.call(['exec', name, 'php', '/opt/a30/unit.php'], check=False)
         check('unit_return', unit.returncode == 0 and unit.stdout == unit.stderr == '')

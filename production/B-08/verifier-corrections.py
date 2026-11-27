@@ -41,7 +41,7 @@ def main():
     assert result['tools']['failures'] == 0 and result['tools']['excluded'] == []
     xml = re.search(r'B08 JUNIT BEGIN\s*(.*?)B08 JUNIT END', (PROOF / 'corrections-final-local.log').read_text(encoding='utf-8'), re.S).group(1)
     unit = ET.fromstring(xml).find('testsuite').attrib
-    assert {k: int(unit[k]) for k in ['tests', 'assertions', 'errors', 'failures', 'skipped']} == {'tests': 8, 'assertions': 193, 'errors': 0, 'failures': 0, 'skipped': 0}
+    assert {k: int(unit[k]) for k in ['tests', 'assertions', 'errors', 'failures', 'skipped']} == {'tests': 8, 'assertions': 194, 'errors': 0, 'failures': 0, 'skipped': 0}
     mutants = load('corrections-final-mutations')
     assert {r['mutation'] for r in mutants['results']} == {'slash', 'https', 'don', 'parts', 'consentement', 'mail', 'http', 'prive', 'rest', 'public', 'export', 'effacement', 'lecture', 'nonce'}
     assert len(mutants['results']) == 14
@@ -73,7 +73,7 @@ def main():
     for lot, expected in final['readme_sections'].items():
         section = re.search(r'^## ' + lot + r' — .*?(?=^## |\Z)', readme, re.M | re.S).group(0)
         assert hashlib.sha256(section.encode()).hexdigest() == expected
-    print('B08 PASS : 8 tests / 193 assertions ; 14 mutations PHP + 2 mutations seed détectées ; 35 contrôles HTTP + 22 contrôles seed ; restauration exacte ; suite globale ' + str(result['tests']) + ' tests / ' + str(result['assertions']) + ' assertions ; ' + str(result['tools']['checks']) + ' contrôles outils ; 10 pages / 15 items ; nettoyage vérifié.')
+    print('B08 PASS : 8 tests / 194 assertions ; 14 mutations PHP + 2 mutations seed détectées ; 35 contrôles HTTP + 22 contrôles seed ; restauration exacte ; suite globale ' + str(result['tests']) + ' tests / ' + str(result['assertions']) + ' assertions ; ' + str(result['tools']['checks']) + ' contrôles outils ; 10 pages / 15 items ; nettoyage vérifié.')
 
 
 if __name__ == '__main__':

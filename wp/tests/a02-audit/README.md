@@ -101,3 +101,5 @@ A-27 : compter les références de paiement enregistrées via wp/outils/bascule/
 Sur copie neutralisée, tous ces comptes sont « inconnu après neutralisation » ; réception native et portes parent : production/A-27/RECEPTION-PARENT.md.
 A-29 : compter les tâches planifiées via wp/outils/bascule/a29/confine.py ; mode d'emploi dans wp/outils/bascule/a29/README.md.
 Sur copie neutralisée, tous ces comptes sont « inconnu après neutralisation » ; réception et limites : production/A-29/RECEPTION-PARENT.md.
+A30 : passage à blanc hors ligne en lecture seule — `a30/README.md` ; aucune création ni import, configuration des types entièrement fictive.
+Sur copie neutralisée, le rapprochement des comptes vaut « inconnu après neutralisation », jamais zéro ; numéros de lignes conservés uniquement à côté de l'entrée hors dépôt.

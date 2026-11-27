@@ -68,6 +68,7 @@ final class SujetAdapterTest extends TestCase
         self::assertStringContainsString(nl2br(esc_html($texte)), $detail);
         self::assertStringContainsString(esc_html($nom), $detail);
         $export = SujetConfidentialite::exporter('slash@example.org');
+        self::assertCount(1, $export['data'], 'Export positif avant lecture du texte');
         self::assertSame($texte, array_column($export['data'][0]['data'], 'value', 'name')['Sujet']);
         self::assertSame($nom, array_column($export['data'][0]['data'], 'value', 'name')['Nom']);
         self::assertSame(['mail' => 0, 'http' => 0], $GLOBALS['b08_calls']);

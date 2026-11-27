@@ -1,5 +1,48 @@
 # B-08 — Livraison et rejeu
 
+## Corrections du 27 novembre 2026 — paquet courant
+
+Le paquet initial ci-dessous est **historique**, ses comptes ne qualifient pas les corrections. Le paquet courant est `corrections-final.json`, contrôlé par `python -B production/B-08/verifier.py` (sans argument, Python 3.11). Le PRET initial a été retiré et conservé dans `PRET-avant-corrections-20261127` ; le nouveau PRET n’est posé qu’après ce contrôle et la préparation d’image réelle.
+
+- Bouchon corrigé **avant** le code : `wp_insert_post` déséchappe récursivement les valeurs de `meta_input`, comme `update_metadata`. `corrections-red-slash.log` constate le refus du POST pourtant valide. Le correctif ne touche que la frontière d’écriture (`wp_slash($meta)`), les valeurs propres restent utilisées pour la relecture stricte. Le cas conserve aussi le nom à antislash, l’apostrophe et le saut de ligne.
+- Le menu est identifié dès `wp_create_nav_menu`, les items dès `wp_add_nav_menu_item`, avec relecture du témoin et option progressive. Reprise démontrée à la troisième création, après sauvegarde complète **et avant rattachement natif** d’un item. Un menu étranger, un marqueur retiré, un item ajouté sans témoin, une référence détournée ou un item rattaché ailleurs sont refusés. Les tests réels sont dans une transaction InnoDB rollbackée ; utilisateurs, commandes classiques/HPOS, navigation et options métier sont relus après chaque scénario.
+- Une URL de parts `http` est refusée aussi en lecture d’une ancienne option invalide. Le seed ne lit de permalink que pour une page publiée existante ; il ne pose un lien d’archive que pour un type enregistré doté d’une archive. Repli explicite pour une cible absente : URL custom **vide**. La page de compte n’utilise plus le repli Woo vers l’accueil.
+- README complété pour B-06/B-07/B-08, par sections contrôlées et non par gel de tout le fichier partagé. Colonne de confort admin optionnelle **non ajoutée**, aucune fonction nouvelle.
+- La vraie recette HTTP existante est étendue : POST anonyme, sujet et nom à antislash, détail admin exact et callback natif d’export C-21/WordPress exact. Les réglages don/parts reviennent à leur absence/valeur initiale, les deux propositions sont retirées, l’observateur et les scripts temporaires aussi. Aucun appel à CoopHub, aucun don ni paiement.
+
+### Commandes de qualification (depuis la racine)
+
+Toutes les commandes Python utilisent `PYTHONIOENCODING=utf-8` dans le shell Bash, et `-B` (aucun cache dans le dépôt). Sous PowerShell, les deux scripts canoniques sans argument s’exécutent tels quels.
+
+```text
+python -B wp/outils/demo/b08-local.py corrections-final-local
+python -B wp/outils/demo/b08-mutations.py corrections-final-mutations
+python -B wp/outils/demo/b08-corrections.py runtime corrections-final-reprise
+python -B wp/outils/demo/b08-corrections.py runtime corrections-final-cibles cibles
+python -B wp/outils/demo/b08-corrections.py runtime corrections-final-collisions collisions
+python -B wp/outils/demo/b08-corrections.py runtime corrections-final-mutant-item collisions item-etranger
+python -B wp/outils/demo/b08-corrections.py runtime corrections-final-mutant-cible cibles cible-absente
+python -B wp/outils/demo/b08-corrections.py deploy corrections-final-deploiement
+python -B wp/outils/demo/b08.py seed corrections-final-pages-menu
+python -B wp/outils/demo/b08-recette.py corrections-final-http
+python -B wp/outils/demo/b08-gates.py prepare corrections-final-preparation
+python -B wp/outils/demo/b08-gates.py regression corrections-final-canonique
+python -B wp/outils/demo/b08-corrections-finaliser.py
+python -B production/B-08/verifier.py
+```
+
+Les deux commandes `mutant-*` doivent sortir **1**, avec un contrôle métier rouge et une restauration verte ; jamais assimilées à une recette verte. Les wrappers `prepare`/`regression` exécutent et enregistrent respectivement les commandes exactes :
+
+```text
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/preparer-image.ps1
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/rejouer.ps1
+```
+
+Sources et reçus sont liés aux octets courants par le sceau corrigé ; les rouges et les reçus initiaux restent historiques. Les scripts de qualification ne gèrent ni Git, ni file, ni verrou. Validation visuelle de Ced toujours attendue. C-26 est repris séparément par le parent, aucun de ses critères n’est revendiqué ici.
+
+## Livraison initiale — historique
+
+
 ## Standard d’abord — cinq lignes
 
 1. Les pages et relations parent/enfant WordPress suffisent aux sept pages éditoriales vides ; `wp_insert_post()` crée les seules pages absentes.

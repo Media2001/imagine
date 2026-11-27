@@ -1,6 +1,6 @@
 # A30 — passage à blanc des abonnés hors ligne
 
-**Candidat, pas de PRET.** Le PHP pur et le banc natif sont préparés ; leur exécution revient au parent après gel de l'import A28. Aucun import réel n'est autorisé par cet outil.
+**Simulation uniquement.** Le PHP pur et le banc natif se rejouent dans les conteneurs fictifs déconnectés, sur l'import A28 gelé. Le paquet courant et les gates réellement acquis sont décrits dans `production/A-30/RECEPTION-PARENT.md`. Aucun import réel n'est autorisé par cet outil.
 
 ## Le standard d'abord — cinq lignes
 
@@ -24,7 +24,7 @@ python3 wp/outils/bascule/a30/confine.py --wp-path=/copie-verifiee --fichier=/ho
 
 Le lanceur est Python ; il passe les seuls champs nécessaires au PHP par stdin, sous `stream_guard.supervise` d'A22, inchangé. A12 apporte Landlock ; il exige Linux déconnecté. Les identités brutes ne vont dans aucun fichier intermédiaire. PHP ne peut écrire que dans un répertoire privé adjacent au CSV, supprimé après contrôle. La transaction SQL en lecture seule, le lecteur de configuration A11 sans exécution de wp-config, les interdictions de mail/HTTP/cron/Action Scheduler et les fonctions système désactivées sont réemployés. L'affichage normal est absorbé ; flux directs, arrêts et sorties tardives sont refusés. Le digest du résultat privé est lié au succès avant shutdown ; les fichiers et leur schéma fermé sont revérifiés **après** terminaison et EOF des deux flux. A22 n'est ni copié ni modifié.
 
-Windows peut rejouer toute la suite Python et les refus A13 ; il refuse volontairement le chemin PHP (`A30_CONFINEMENT_REQUIRED`). Ne pas chercher de PHP Windows, WSL ou conteneur depuis le worker A30.
+Windows peut rejouer toute la suite Python et les refus A13 ; il refuse volontairement le chemin PHP (`A30_CONFINEMENT_REQUIRED`). Le banc parent passe par Docker/WSL, jamais par PHP Windows ; il n'accepte aucun chemin de compte, site ou archive existant.
 
 ## Configuration entièrement fictive
 
@@ -61,8 +61,9 @@ Les trois axes comptent les **lignes du fichier contrôlé**, rejets compris, pa
 
 ```sh
 PYTHONDONTWRITEBYTECODE=1 PYTHONIOENCODING=utf-8 C:/Python314/python.exe -m unittest discover -s wp/tests/a30 -p 'test_*.py' -v
-C:/Python314/python.exe -B wp/tests/a30/matrix.py
-C:/Python314/python.exe -B wp/tests/a30/verify.py
+C:/Python314/python.exe -B wp/tests/a30/matrix.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a30-matrice-neuve --with-native
+C:/Python314/python.exe -B wp/tests/a30/style.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a30-style-neuf
+C:/Python314/python.exe -B production/A-30/verify.py
 ```
 
-La matrice par défaut ne lance **que Python**, en UTF-8 puis cp1252 réels avec `PYTHONUTF8=0` pour ce dernier. Le vérificateur **sans argument** refuse ce paquet incomplet tant que PHP pur/classique/HPOS n'ont pas réellement été exécutés. Commande parent unique pour remplacer le candidat Python seul et effectuer le natif après A28 : `C:/Python314/python.exe -B wp/tests/a30/matrix.py --refresh-python --with-native`. Elle utilise le transport isolé A02 existant ; aucun téléchargement ni site réel. Le parent doit ensuite lancer son image et ses gates communs avant tout PRET ; voir `production/A-30/RECEPTION-PARENT.md`.
+Chaque sortie de banc doit être neuve. Sans `--with-native`, la matrice ne lance **que Python** ; avec lui, elle joue aussi classique et HPOS dans chaque contexte Windows UTF-8/cp1252 (`PYTHONUTF8=0` pour cp1252). Le style strict réemploie le banc A20 inchangé, sur les seuls PHP d'A30. Les anciens paquets restent hors dépôt ; ne pas effacer leurs preuves pour les remplacer. Le parent installe le seul paquet vert dans `production/A-30/preuves/final/`, avec son sous-dossier `style/`, et scelle après la déclaration `rejeu.json`. Le lecteur **sans argument** `production/A-30/verify.py` vérifie l'inventaire puis appelle `wp/tests/a30/verify.py` sans argument ; il ne lance ni PHP ni Docker et refuse un paquet incomplet. Image commune et gates globaux sont obligatoires avant tout PRET. Le complément de deux lignes est dans le vrai mode d'emploi de l'audit `wp/tests/a02-audit/README.md`, contrôlé par ces deux lignes exactes seulement.
