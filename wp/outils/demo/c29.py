@@ -31,6 +31,8 @@ def native(label):
     identity = b11.guard()
     before = b11.state()
     source = (ROOT/'wp/tests/demo/c29-runtime.php').read_text(encoding='utf-8').split('<?php',1)[1]
+    expected = (ROOT/'wp/tests/demo/c29-attendus.php').read_text(encoding='utf-8').split('<?php',1)[1]
+    source = source.replace("require __DIR__ . '/c29-attendus.php'", 'eval('+b11.php(expected)+')')
     code = 'global $wpdb;$wpdb->query("START TRANSACTION");try{eval('+b11.php(source)+');}finally{$wpdb->query("ROLLBACK");wp_cache_flush();}'
     r = b11.b10.b09.b08.c25.b06.profils.b00.wp('eval',code,check=False)
     restored = b11.state() == before
