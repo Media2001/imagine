@@ -1,0 +1,76 @@
+{
+  "scope": "imagine-test-demo",
+  "status": "PASS",
+  "bootstrap_current": "e27ee706324066048c5610730c7b945b945a7b55e66200325147d0b8dcf00780",
+  "bootstrap_without_only_C29": "9530b50879a99f44284019ee481a1bd191e1b35a71a61b9a6310da7c1d7a6eb8",
+  "exact_owned_block": "// C29 — projection en lecture seule, aucun connecteur.\nrequire_once __DIR__ . '/ContactBrevoRegles.php';\nrequire_once __DIR__ . '/ContactBrevo.php';\nContactBrevo::register();\n\n",
+  "all_other_component_bytes_exact": true,
+  "unrelated_bootstrap_tamper_rejected": true,
+  "historical_receipts_and_PRET_unchanged": {
+    "production/C-27/correction-final-V2.json": "2d775ec72978c78a5bec8770b2aa9d87a4af64121aa31f5b5d2c3612e063405b",
+    "production/C-28/reception-corrections.json": "49bf954f01eb8cf6226b90144cf38945d65463a750de057b8a8ea6c7eb5f96ea",
+    "production/B-11/reception-politique1330-V2.json": "ae0ae99ce4a9c53f573fa77d390d7ae93faa3ab269879580a95b5c93f0c0ce4a",
+    "production/B-12/reception-V2.json": "b67ab9be94b7c97a881860c772ea5c53e57e46dc7579196e45baea212e9cc2b6",
+    "production/B-12/reception-complement-voisins-V2.json": "7db78fcaa447423706e34835f1e26b89dac40f822765244b0554daa67a6f7a96",
+    "production/C-27/PRET": "400709893951c99a146c2167f41bb65b37f5a1ce00674a9cb2dad3babd64cd51",
+    "production/C-28/PRET": "e89f4f9db978a28be0a4613b418a884ca0fc74a9f57b43e504f3a079f5a93419",
+    "production/B-11/PRET": "46edd767c2ad649369dd0fde90da3a23016d8dac6b54e1321c74b60cfbf0980d",
+    "production/B-12/PRET": "7460d5695b1274690c1e25c53abc8058ed0e4a0dbb62f875cee55fe0d5682b53"
+  },
+  "checks": {
+    "C27": 628,
+    "B11_offline": 32,
+    "B11_live": 35,
+    "C28_offline": 31,
+    "C28_live": 37,
+    "B12_offline": {
+      "B12": "PASS",
+      "mode": "offline",
+      "native_checks": 56,
+      "mutation_checks": 15,
+      "mutation_attempts": 6,
+      "attempts_with_lock": 0,
+      "phpunit_tests": 5,
+      "phpunit_assertions": 37,
+      "global_tests": 1200,
+      "global_assertions": 36610,
+      "foreign_packet_failures": [
+        {
+          "lot": "A-31",
+          "control": "A31_PARTIAL_EVIDENCE"
+        },
+        {
+          "lot": "A-32",
+          "control": "A32_PACKAGE_DRIFT"
+        }
+      ]
+    },
+    "B12_live": {
+      "B12": "PASS",
+      "mode": "live-readonly",
+      "native_checks": 56,
+      "mutation_checks": 15,
+      "mutation_attempts": 6,
+      "attempts_with_lock": 0,
+      "phpunit_tests": 5,
+      "phpunit_assertions": 37,
+      "global_tests": 1200,
+      "global_assertions": 36610,
+      "foreign_packet_failures": [
+        {
+          "lot": "A-31",
+          "control": "A31_PARTIAL_EVIDENCE"
+        },
+        {
+          "lot": "A-32",
+          "control": "A32_PACKAGE_DRIFT"
+        }
+      ]
+    }
+  },
+  "business_preserved": true,
+  "mode": "offline-and-live-readonly",
+  "log": "reception-complement-voisins-V2.log",
+  "UI_save_verified": false,
+  "boundary": "Existing independent packet readers and their live exact-source checks; no replay of mutating neighbor recipes, no historical reseal."
+}

@@ -1,0 +1,10 @@
+{
+  "date": "2026-11-27",
+  "scope": "Documentation publique uniquement, jamais chargée par imagine-test-demo",
+  "sources": [
+    {"url": "https://wordpress.org/plugins/mailin/", "author": "Brevo", "title": "Brevo – Email, SMS, Web Push, Chat, and more.", "retrieval": "Navigateur réel, notice publique de l’éditeur dans le répertoire officiel WordPress", "excerpt": "Connect your free Brevo account using your Brevo API key.", "supports": "Formulaires, double opt-in, listes et champs personnalisés, SMTP, connexion à un compte requise."},
+    {"url": "https://wordpress.org/plugins/woocommerce-sendinblue-newsletter-subscription/", "author": "Brevo", "title": "Brevo for WooCommerce", "retrieval": "Navigateur réel, notice publique de l’éditeur dans le répertoire officiel WordPress", "excerpt": "Sync your customers and new subscribers to grow your list", "supports": "Synchronisation clients et nouveaux inscrits, historique et nouvelles commandes, données transactionnelles, opt-in/opt-out/double opt-in."}
+  ],
+  "blocked_source": {"url": "https://help.brevo.com/hc/en-us/articles/209577625-WordPress-Installation-and-setup-of-the-Brevo-plugin", "result": "Cloudflare : vérification de sécurité, non utilisée comme preuve de contenu"},
+  "decision": "Aucune installation, activation, clé, création de compte ou synchronisation Brevo. Les règles Imagine et le consentement distinct C24 sont locaux."
+}

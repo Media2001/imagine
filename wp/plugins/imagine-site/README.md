@@ -555,6 +555,41 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/rejouer.ps1
 
 Les deux premières commandes vérifient le paquet et, avec `--live`, relisent seulement le site fictif. PHPUnit C28 inclut les doubles persistés de `candidat`/`payer`/`instantanes` et des gardes panier ; les cinq canaris de source rouges puis verts sont rejouables hors réseau dans une copie jetable. Le banc natif prouve aussi la panne **après** paiement persisté, le rechargement, l'édition du pack et la sauvegarde tardive fermée/signalée. La recette navigateur est temporairement mutante : formulaire produit natif, panier réel, paiement/remboursements natifs **sans passerelle ni transfert**, GET articles/PDF et compte pour acheteur/tiers/anonyme ; ajout du quatrième et retrait du premier sans changer le passé. Les 32 témoins C26 sont réutilisés sans changer sa matrice. Snapshot privé avant la recette, retour relu des profils, commandes, réglages, sessions et actions métier ; aucune réinitialisation C09. Fixture laissée : seul produit pack fictif, liste de trois numéros et option de déclaration, pas de nouvel achat permanent. Preuves, commandes exactes et limites : `production/C-28/{NOTE.md,A-VOIR.md,reception-corrections.json}` ; `reception.json` est historique. PRET signifie prêt à relire, ni clôture, ni validation visuelle, ni GO sur le réel.
 
+## C-29 — la fiche du contact pour Brevo, sans Brevo
+
+### Le standard d'abord — cinq lignes
+
+1. L’[extension WordPress officielle de Brevo](https://wordpress.org/plugins/mailin/), publiée par Brevo, fournit formulaires, listes, champs personnalisés, consentement/double opt-in et SMTP après connexion au compte.
+2. [Brevo for WooCommerce](https://wordpress.org/plugins/woocommerce-sendinblue-newsletter-subscription/), du même éditeur, synchronise clients et nouveaux inscrits ainsi que les données historiques et nouvelles de commandes.
+3. Elle permet notamment opt-in, opt-out, double opt-in et segmentation par achats ; cela ne définit pas le statut métier Imagine d’un bénéficiaire, d’un coopérateur ou d’un tarif.
+4. Rien n’est installé ni activé ici : aucun compte, aucune clé, aucun traceur, aucun envoi et aucune synchronisation ; notices publiques vérifiées dans `production/C-29/sources-officielles-V2.json`.
+5. Le seul complément C29 est une projection locale des sources du site et un aperçu administratif ; les noms Brevo et le branchement restent à définir.
+
+`ContactBrevoRegles::fiche(array $source)` est l’unique calcul pur. Une newsletter du catalogue choisie avec `origine=lecteur` et un email recevable donnent une fiche ; sans choix ou sans email, fiche absente avec raison. Un retrait explicite de tout donne uniquement `{"statut":"a_retirer"}`, sans identité, tarif ni attribut personnel. Les anciens choix de listes supprimées ne sont pas inventés comme choix actifs ou désinscriptions.
+
+`ContactBrevo::fiche($id)` lit le statut CRUD WCS **active seulement**, pas le droit numérique C06 : grâce, pending-cancel, achat d’un numéro, adhésion manuelle ou rôle d’équipe ne deviennent pas « abonné ». Les bénéficiaires identifiés par le contrat de lecture `EnvoiRelations::beneficiaires` restent `inconnu`, tarif compris. Aucun rapprochement par email, nom ou login ; les profils C09 offerts/groupés sans lien natif ne sont pas prétendus reliés. Les tests ajoutent des liens natifs temporaires puis les retirent par rollback. Le coopérateur vient de l’attribut B06, sans ouvrir de droit.
+
+La personnalisation est **directement** la valeur de `Personnalisation::attributsConnecteur($id)`. Aucune copie de sa règle du consentement distinct, aucune lecture des réponses brutes dans le code C29. Les clés internes sont `email`, `statut`, `cooperateur`, `tarif`, `newsletters`, `personnalisation` ; les codes de statut sont `abonne|non_abonne|inconnu|a_retirer`.
+
+**Imagine → Ce qui partirait vers Brevo** réutilise exactement `TableauBordAdmin::autorise()` : administrateur ou les deux droits C19 existants, sans modifier rôle/capacité. Identifiant de compte saisi par GET ; fiche/raison et totaux sur tous les comptes, une seule fiche par compte. HEAD admis, autre méthode 405 pour le lecteur autorisé, 403 sans droit. Privé/no-store, aucune sauvegarde, option, méta, cache persistant, payload stocké, export de fichier, journal, écouteur métier, file, tâche ou transport. Une source native remontant une exception donne « indisponible », sans faux zéro ; aucune promesse sur une erreur SQL absorbée par Woo en liste vide.
+
+**Réglages → Tarifs de la fiche Brevo** est une configuration distincte, réservée à `manage_options`, par le groupe Settings API autonome `imagine_brevo_tarifs` (jamais le groupe C10). La correspondance JSON fermée est `ID natif produit/variation → clé interne de tarif` ; défaut vide, toute configuration invalide ferme la liste. Seules les lignes de l’abonnement actif sont lues. Produit non listé, ligne manquante, plusieurs tarifs contradictoires ou aucun abonnement actif : `inconnu`. Aucune somme ni grille de prix calculée. La démo reçoit les six correspondances fictives des produits C09 existants, par `c29.py seed`, sans changer les profils ; aucun tarif Imagine présumé. L’écran de consultation n’enregistre jamais ce réglage.
+
+```text
+python -B production/C-29/verifier.py
+python -B production/C-29/verifier.py --live
+python -B wp/outils/demo/c29.py pure NOM-NEUF
+python -B wp/outils/demo/c29.py native NOM-NEUF
+python -B wp/outils/demo/c29-http.py NOM-NEUF
+python -B wp/outils/demo/c29-neighbors.py NOM-NEUF
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/preparer-image.ps1
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/rejouer.ps1
+```
+
+Le premier lecteur est hors réseau, sans site ; `--live` ne fait que relire la démo gardée. Les recettes native/HTTP mutent temporairement **le seul imagine-test-demo**, restaurent profils/options/actions et sessions de leur départ, puis vérifient ; jamais un reset global. Tableau attendu indépendant des 27 comptes dans `wp/tests/demo/c29-attendus.php`, tests purs découverts par le paquet racine existant. Preuve positive de personnalisation, retrait du consentement distinct puis mutant lisant les réponses brutes détecté. SQL, HTTP et mail interceptés pendant le vrai calcul/rendu, avec témoins positifs ; vrai parcours administratif GET, refus et capture. Les caches d’amorçage du cœur restent distincts du zéro écriture/appel de C29 ; détails et incidents de banc réparés dans NOTE.
+
+Bootstrap partagé : ajout du seul bloc C29. La réception complémentaire courante est dans `production/C-29/reception-complement-voisins-V2.json` ; les historiques C27/C28/B11/B12 et le complément B12 restent intacts. Aucun changement de bibliothèque close, de prix, d’accès, de paiement ou d’Odoo. PRET technique ne vaut ni clôture, ni validation visuelle, ni GO sur le réel.
+
 ## B-12 — aucun appel sortant depuis le corps
 WordPress traite URL seule, bloc `core/embed` et `[embed]` via `WP_Embed` ; un handler natif prioritaire rend les seules URL externes en liens, avant tout cache/lecteur.
 L'affichage et le cache post-enregistrement (`cache_oembed`, AJAX natif) sont verrouillés ; `pre_oembed_result` couvre la résolution directe, `pre_render_block` les anciens HTML embarqués.
