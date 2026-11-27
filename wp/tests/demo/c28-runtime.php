@@ -88,4 +88,43 @@ update_option(AchatsNumeros::REMBOURSEMENT, 'ligne');
 $check('C14_ligne_non_ventile_conserve_pack', count(AchatsNumeros::droits($buyer)) === 3);
 $refund2 = wc_create_refund(['order_id' => $order->get_id(), 'amount' => '1', 'line_items' => [$itemId => ['qty' => 0, 'refund_total' => 1, 'refund_tax' => []]], 'refund_payment' => false, 'restock_items' => false]);
 $check('C14_ligne_pack_remboursee_ferme_tous_ses_numeros', $refund2 instanceof WC_Order_Refund && AchatsNumeros::droits($buyer) === []);
+$refund3 = wc_create_refund(['order_id' => $order->get_id(), 'amount' => '1.28', 'refund_payment' => false, 'restock_items' => false]);
+foreach (['commande', 'ligne'] as $policy) {
+    update_option(AchatsNumeros::REMBOURSEMENT, $policy);
+    $check('C14_total_ferme_' . $policy, $refund3 instanceof WC_Order_Refund && AchatsNumeros::droits($buyer) === []);
+}
+$make = static function () use ($buyer, $product): WC_Order {
+    $o = wc_create_order(['customer_id' => $buyer, 'status' => 'pending', 'created_via' => 'admin']);
+    $o->add_product(wc_get_product($product->get_id()), 1);
+    $o->calculate_totals(false);
+    $o->save();
+    return $o;
+};
+$legacy = $make();
+$lines = $legacy->get_items();
+$line = reset($lines);
+$line->delete_meta_data(Packs::CANDIDAT);
+$line->save();
+$legacy->payment_complete();
+$check('ancienne_ligne_sans_marque_aucun_retrooctroi', AchatsNumeros::droits($buyer) === []);
+$empty = $make();
+$product->delete_meta_data(Packs::PRODUIT);
+$product->save();
+$empty->payment_complete();
+$product->update_meta_data(Packs::PRODUIT, [11, 18, 25]);
+$product->save();
+$empty->save();
+$check('pack_retire_au_paiement_vide_fige_sans_retrooctroi', AchatsNumeros::droits($buyer) === []);
+$owner = (int) get_option('imagine_c09_fixture')['users']['P-NUMERO'];
+$already = wc_create_order(['customer_id' => $owner, 'status' => 'pending', 'created_via' => 'admin']);
+$already->add_product(wc_get_product($product->get_id()), 1);
+$already->calculate_totals(false);
+$already->save();
+$check('numero_deja_possede_aucune_remise', $already->get_total() === '3.28'
+    && in_array('11', array_column(AchatsNumeros::droits($owner), 'numero'), true));
+$already->payment_complete();
+$check('numero_deja_possede_pack_vendable', count(AchatsNumeros::droits($owner)) === 4);
+$source = wc_get_product($product->get_id());
+$source->delete(true);
+$check('produit_supprime_acquisitions_conservees', count(AchatsNumeros::droits($owner)) === 4);
 echo wp_json_encode(['checks' => $checks, 'total' => count($checks), 'failures' => count(array_filter($checks, static fn ($v) => !$v))]);
