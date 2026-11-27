@@ -1,0 +1,83 @@
+{
+  "native": {
+    "boundary": "native API under rollback, NOT delivered editor",
+    "checks": {
+      "changed_inputs_11": true,
+      "native_changed_11": true,
+      "native_clear_11": true,
+      "real_no_persist_detected_11": true,
+      "changed_inputs_3454": true,
+      "native_changed_3454": true,
+      "native_clear_3454": true,
+      "real_no_persist_detected_3454": true
+    },
+    "mutations": [
+      {
+        "id": 11,
+        "attempted": [
+          "https://video-fictive.example.invalid/B11_WRITE_WITNESS?post=11",
+          "https://podcast-fictif.example.invalid/B11_WRITE_WITNESS?post=11"
+        ],
+        "actual": [
+          "",
+          ""
+        ],
+        "returned": false
+      },
+      {
+        "id": 3454,
+        "attempted": [
+          "https://video-fictive.example.invalid/B11_WRITE_WITNESS?post=3454",
+          "https://podcast-fictif.example.invalid/B11_WRITE_WITNESS?post=3454"
+        ],
+        "actual": [
+          "",
+          ""
+        ],
+        "returned": false
+      }
+    ]
+  },
+  "business_exactly_restored": true,
+  "sources": {
+    "wp/outils/demo/b11-diagnostic.py": "9dca0d9fb03426247d85faf6320ebd349907d0c14896bdfd8bddeb63436e8392",
+    "wp/outils/demo/b11-drift.py": "c6cdc5d78e6a66cdc5cce68fe54b1b042bf2393bedd0dc1350554722d6f1c39b",
+    "wp/outils/demo/b11-finaliser.py": "fb82a22670f787d2a2dc25a61bc174795f757b76f8aff48bec1dae02a641a264",
+    "wp/outils/demo/b11-gates.py": "9d6fccb63abe21bb552427af2aa7fd7fa60e664fc5a5bd0957bf7b5eb3841257",
+    "wp/outils/demo/b11-local.py": "6e83b95ffca944b5467fad664550ff99dc2906a2649148af707e91f53f690051",
+    "wp/outils/demo/b11-receive-corrections.py": "2f5cf9c6f4b7297d687b7a7afa4f4f8bdc4ff417a84d476bdef4cd28e9e6432d",
+    "wp/outils/demo/b11-receive1330.py": "0adb0d2de97647949efe9a2d22f9e57ff727dbb3b1b9842e255044471683955a",
+    "wp/outils/demo/b11-recette.py": "f2b1142b17a83489a2243c53ea946b1530c181bb5d48b09156c0f764596e5999",
+    "wp/outils/demo/b11-recovery.py": "42970ff3ba3aaa136f629362dc839628c286bfb9a6ceb0c32dfbc29adb7e6c79",
+    "wp/outils/demo/b11-restore-proof.py": "5df9f3b77748a6aadc6a78fa9ab5913ae6f7e1f569763b68d704ac31948ae6e8",
+    "wp/outils/demo/b11-seed.php": "59702f660561af6e573e0c1d1b6094f128d66005c874d3216a9cba0c7794dda1",
+    "wp/outils/demo/b11-write-witness.py": "2da0578b99199b2e7bcdb76fd0f8087e1257644de78d6a2aaf33d3e6ad3d46e6",
+    "wp/outils/demo/b11.py": "e566ce4db07823692f02212e9d8530fcb8bad85913a3b6ba5ca016a113e5109f",
+    "wp/plugins/imagine-site/AchatsNumeros.php": "013b3ba9e9a91f68cfdd6a0bede670a94b30bbb72e28c4dcaa4cdb7033434b70",
+    "wp/plugins/imagine-site/Acquisition.php": "689447e6cd2b06fb8554ca208730b53a5979217bfa99af73179a920be77bfbf5",
+    "wp/plugins/imagine-site/AcquisitionConfidentialite.php": "e2891a523b9f28104999ceca33030fdbb07c5365f6e6917501c590bbec81bbae",
+    "wp/plugins/imagine-site/AudioNumero.php": "0cd603323234f1c56de2d3ef0a3d2c3b20a6c3b379ca8b4ae53d21b64545c3a4",
+    "wp/plugins/imagine-site/Decouverte.php": "cef466294643cdb01b354770ed3a730e4a876a0ce29c7ad4bb258d2c43a9e231",
+    "wp/plugins/imagine-site/DecouverteReglages.php": "5adf72fbe0c14cb36dbb37fa8febfa92e71e27569bccbe688cfd066c21fd8406",
+    "wp/plugins/imagine-site/imagine-site.php": "084a83833c81f81fff8da28395e93bd1c7216a0506109d9b1a0c862a6ae1aaa4",
+    "wp/plugins/imagine-site/JustificatifsReglages.php": "112891b7711f1e3a7f0382ed5ee6cf96bc9a4d09872fc591767b593c6b2feee0",
+    "wp/plugins/imagine-site/Medias.php": "f10574b8ae775b30e9a7a25f0639d1c2ce1bef373878ac534e529af0611e793a",
+    "wp/plugins/imagine-site/MediasRegles.php": "85179039a7c2221ed6cf41fe144a1b9960818ca3586696035178875d7b8f917f",
+    "wp/plugins/imagine-site/Newsletters.php": "4ad7646c5c8d529c99558541cee2ff4ee29f500d3a9346222a937645d6458b2a",
+    "wp/plugins/imagine-site/PacksThematiques.php": "70e5d519d20491f3aa97a9ae79622adce2cf144e6b02648cca8705dc9e7febee",
+    "wp/plugins/imagine-site/Retractation.php": "61ab822800af0ff950fdcb2ef4b48d7c0465df73c62b6eb035ac729bbf602045",
+    "wp/plugins/imagine-site/tests/MediasB11Test.php": "47014deb4ca094333494c92948c149ad4864470a97d3f271354f872abc1471ed",
+    "wp/tests/demo/b11-editor-audit.php": "b4141db3b3627c387435542ecb7fec6b634c73dff7896e480c40ee2fa45698e3",
+    "wp/tests/demo/b11-horslive.php": "1a17c1a6d3ba996fbcc20ce93903acd127a98b761ab7ab4bce794958ddbc6e9b",
+    "wp/tests/demo/b11-no-persist.php": "f2e6b1467cfc43e69b38729537acfe989d0e24dcb5614b7b50f38e00a6b8f209",
+    "wp/tests/demo/b11-observer.php": "9a547a3ce03fa9833d195234713ae99361ac90a73ff731b745168621eb7e76fb",
+    "wp/tests/demo/b11-option-snapshot.php": "2774b8315ba5a115c84ecc99f43c9794d77ebc0efa5e62e508b0d7edbd2dcfea",
+    "wp/tests/demo/b11-proof-tests.py": "ab81713554c25e4ae3b7b66d364af3e538cf42c11bda227034d52738d77be2a2",
+    "wp/tests/demo/b11-runtime.php": "398598604d01c808e1a800e864054a544c5d3847b5898d42948e9db2f07bf348",
+    "wp/tests/demo/b11-verifier.py": "68abaa797e29408f2cc326f8a916fc77bb4cb0795f92acec635934d4b61776e3",
+    "wp/tests/demo/b11-verifier1330.py": "7246b7bc648e5a117ff6f25f0c5cc6dd2bde88c7338a16d33cd043bbedc44308",
+    "wp/tests/demo/b11-write-witness.php": "6ce210dc7f7624725051ab93a4ba576277302545bd25910062bd4898fb74434f",
+    "wp/themes/imagine/single-imagine_numero.php": "701a14b4dcf8f04182af4d4f0729cb696fc475d9096dcba9e4ba19d4f2d8fef8",
+    "wp/themes/imagine/single.php": "71b98dcdd3f3a9f537224f8e6c574dc5754760795de78369f7a526a46af0bfad"
+  }
+}

@@ -1,31 +1,39 @@
 # B-11 — à ouvrir et à rejouer
 
-## Réception courante du 27 novembre 2026 — BLOQUÉ, sans PRET
+1. **Ouvrir** l'article `http://192.168.129.32:8085/wp-admin/post.php?post=3454&action=edit` puis le numéro `http://192.168.129.32:8085/wp-admin/post.php?post=11&action=edit` ; déplier « Boîtes méta » puis « Vidéo et podcast ».
+2. **Saisir** `https://video-fictive.example.invalid/TEST_CED` et `https://podcast-fictif.example.invalid/TEST_CED`, puis **Enregistrer** dans chaque éditeur.
+3. **Recharger**, vérifier les deux champs, puis rétablir la vidéo `https://video-fictive.example.invalid/B11_VIDEO_FICTIVE?a=1&b=2` et le podcast `https://podcast-fictif.example.invalid/B11_PODCAST_FICTIF`, enregistrer et recharger.
 
-**Preuve courante : `reception-corrections-V2.json`.** L'ancien `reception.json` et tous ses reçus restent historiques, intacts. Le marqueur antérieur est conservé sous `PRET-historique-avant-corrections-V2.txt` ; aucun PRET courant n'est déposé.
+## Réception courante du 27 novembre 2026 — politique 13h30, PRET technique
+
+**Preuve courante : `reception-politique1330-V2.json`.** Limite admise : aucun parcours de saisie/enregistrement/rechargement UI automatisé n'est prétendu ; les trois lignes ci-dessus sont pour Ced. La boîte est réellement proposée par le code de l'éditeur blocs livré pour les deux objets : déclaration `advanced/default`, compatibilité blocs native par défaut, registre filtré et champs rendus. **Pas de défaut de déclaration : aucun code fonctionnel corrigé.** La preuve de persistance est backend, pas UI.
 
 Depuis `C:\Users\Ced\imagine`, commandes exactes du parent :
 ```powershell
 python -B wp/tests/demo/b11-verifier.py
 python -B wp/tests/demo/b11-verifier.py --live
 ```
-**Sortie attendue : `BLOCKED`, code 1**, et non PASS. La seconde commande relit seulement le site fictif, les sources et l'absence des sondes. Les empreintes de la réception complémentaire sont vérifiées dans les deux modes. Ne pas relancer `b11-finaliser.py`, outil de la réception historique.
+**Sortie attendue : `PASS`, code 0.** La seconde commande ajoute uniquement des lectures du site fictif. Les sources actuelles, preuves neuves et reçus historiques sont contrôlés. Ne pas relancer les deux anciens outils `b11-finaliser.py` / `b11-receive-corrections.py` : leurs réceptions sont historiques.
 
-### Établi sur l'arbre après stabilisation C28
-- Image reconstruite : `corrections-image-V2.*`, sortie 0.
-- Vrai rejeu général : **1 189 tests, 36 512 assertions, 0 échec/erreur/ignoré**, PASS ; **22 outils, 720 contrôles, 0 échec**. Les paquets sont un bilan distinct : **12 vérifiés, 2 échecs A31_PACKAGE_DRIFT / A32_PACKAGE_DRIFT**, hors B11, sans resceau ni correction ici.
-- PHPUnit B11 : **4 tests / 34 assertions** ; natif transactionnel : **23/23** ; assertions locales de preuve : **7 tests**, verts.
-- Vrai backend d'écriture transactionnel : **8/8**, dont deux mutations actives qui court-circuitent les écritures vidéo/podcast, une par objet, détectées ; changement puis effacement relus. **Ce témoin API ne vaut PAS validation des éditeurs.** Reçu `corrections-ecritures-V2.json`.
-- Témoin Gravatar réellement déclenché depuis la page publique identifiée : rouge au contrôle zéro tiers, route interrompue avant transport ; contexte/origine conservés dans `corrections-final-V2.json`. L'exception est désormais réservée au contexte admin ET à une origine `/wp-admin/`, jamais à un public visité par l'admin.
+### Résultats réels et limites
+- Atteignabilité par lecture du code WordPress installé et rendu natif des deux champs : **11/11**, `politique1330-editeurs-final-V2.json`. Aucun filtre d'éditeur ni correction de la boîte.
+- Vrai formulaire `options.php`, **16 options**, observateur passif : OFF → ON → OFF. Valeurs effectives strictement conservées pour les autres options ; les cinq absentes devenues explicites à leur défaut exact sont nommées et détaillées dans `NOTE.md`, le reçu et `politique1330-final-V2-details.json`. Aucun préremplissage, aucune différence réelle masquée.
+- Recette adaptée **102/102** ; changement/effacement et refus d'hôte par vrai hook serveur `save_post` avec nonce/capacité, non par l'éditeur navigateur. Backend transactionnel distinct après code final **8/8**, deux mutations no-persist détectées, état restauré : `politique1330-ecritures-V2.json`.
+- **32 sorties étanches non vides**, 32 témoins C26 inchangés ; deux mutations réelles des gardes et 36 injections de réponse détectées (nombres distincts). Gravatar public réellement déclenché et bloqué avant transport, contrôle rouge ; jamais excepté au titre de l'admin.
+- Aucun tiers public dans OFF/ON, aucun HTTP/oEmbed/mail B11. Tentatives ambiantes bloquées : 54 Novamira, 2 dispatchs locaux Action Scheduler identifiés par chemin et pile, 6 autres observations HTTP ; 9 Gravatar admin bloqués. Le GIF tiers des anciens essais éditeur reste un tiers, pas une exception nouvelle. Reçus rouges de qualification réseau conservés sous `avant-qualification-*`.
+- **16 restaurations relues** : lignes, métas, options et absences SQL, sessions/préférences, styles, sources, état métier ; sondes absentes. Pas de nouveau compte/profil/droit/achat permanent.
+- PHPUnit B11 **4/34**, natif **23/23**, preuves **9 tests**. `politique1330-image-V2.*` sortie 0 ; `politique1330-rejeu-V2.*` : **1 195 tests / 36 573 assertions**, **22 outils / 720 contrôles**, verts. Bilan distinct : 12 paquets, 2 rouges hors B11 (`A31_PARTIAL_EVIDENCE`, `A32_PACKAGE_DRIFT`), non réparés ni rescellés.
+- Complément sur voisins non clos C27/C28 après actualisation de la seule section B11 du README partagé : `politique1330-voisins-V2.json`. Historiques `reception.json`, `reception-corrections-V2.json` et documents bloqués de 12h58 conservés. B12 non implémenté, `catch` Paywall intact ; limite URL collée dans le corps reportée selon la nouvelle file.
 
-### Critères non franchis — ne pas déclarer validés
-1. Vrai formulaire complet, **16 options**, sans réduction d'`allowed_options` : cinq autres options auparavant absentes sont créées par le POST natif. Le contrôle strict de conservation rougit. Noms et empreintes dans `corrections-final-V2-details.json` ; leurs valeurs ne sont pas forcées pour verdir.
-2. Les vrais éditeurs blocs des numéros/article sont atteints, sans filtre d'éditeur, mais leurs contrôles B11 restent inaccessibles : métabox masquée au numéro 11, panneau intercepté par le séparateur de redimensionnement à l'article 3454. Captures `corrections-final-V2-editor-*.png` et erreurs exactes dans le reçu de détails. **Aucune persistance/effacement/reload par ces éditeurs n'est revendiquée.**
-3. Recette UI finale : **14 contrôles, 4 rouges**, code 1 ; OFF seulement atteint. ON, refus d'hôte via ces éditeurs, zéro appel sur le parcours complet, mutation no-persist UI et étanchéité intégrale nouvelle ne sont pas terminés. Le GIF d'accueil admin `s.w.org` est aussi observé et bloqué, sans le ranger dans l'exception Gravatar.
-
-Les **16 contrôles de restauration** de ce passage sont vrais : lignes article/numéro/révisions, métas, préférences admin, sessions, styles créés, options et état métier, sources et sondes absentes, tous relus. Les essais de nettoyage interrompus ont une inverse reprise seule (`corrections-01/02-V2-recovery.json`) ; ils ne sont pas effacés ni promus en succès.
-
-Rejeu UI mutant, seulement hors toute autre recette sur `imagine-test-demo`, avec LABEL neuf : `python -B wp/outils/demo/b11-recette.py LABEL-NEUF`. Il conserve sa préimage privée et échoue tant que les critères précédents ne passent pas. Pas de nouveau choix d'éditeur, réglage, profil, droit ou paiement pour contourner les rouges.
+Rejeux indépendants (étiquettes réellement neuves, jamais en parallèle d'une autre recette du site fictif) :
+```powershell
+python -B wp/outils/demo/b11-local.py parent-B11-unitaire-NEUF
+python -B wp/outils/demo/b11.py runtime parent-B11-natif-NEUF
+python -B wp/outils/demo/b11-write-witness.py parent-B11-ecritures-NEUF
+python -B wp/outils/demo/b11-recette.py parent-B11-recette-NEUF --policy-1330
+python -B wp/tests/demo/b11-proof-tests.py
+```
+La recette est temporairement mutante sur **imagine-test-demo seulement**, garde B00 conservée, préimage privée durable et restauration/readback dans `finally`. Elle ne visite pas les éditeurs, ne touche ni droits ni paiements. Ne pas employer le mode historique sans `--policy-1330` comme critère actuel. `b11-receive1330.py` a servi une fois à produire la réception neuve et PRET, refuse de les écraser ; les deux commandes du début vérifient sans réécriture.
 
 <details>
 <summary>Dossier historique avant corrections — résultats et commandes non actuels, ne fondent plus PRET</summary>

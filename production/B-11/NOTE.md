@@ -1,24 +1,37 @@
 # B-11 — vidéos, podcasts et sommaire audio
 
-## État courant après corrections du 27 novembre 2026
+## Réception courante — politique du 27 novembre 2026, 13h30
 
-**BLOQUÉ, sans PRET.** Le code fonctionnel B11 n'a pas changé. Réception complémentaire : `reception-corrections-V2.json` ; commandes parent et résultats réels : `A-VOIR.md`. Ancienne réception et reçus conservés, pas de remplacement d'empreinte sur parole.
+**PRET technique selon les critères adaptés de 13h30. Limite : aucune saisie/enregistrement/rechargement UI automatisé des deux éditeurs n'est revendiqué.** Le parcours de trois lignes pour Ced est en tête d'`A-VOIR.md`. Atteignabilité établie d'abord par lecture du code natif installé et enregistrement/rendu réels de la boîte ; persistance prouvée sur le vrai backend WordPress. Réception neuve : `reception-politique1330-V2.json`, et non les réceptions historiques. Ni validation visuelle, ni clôture, ni GO réel.
 
-L'observateur est désormais passif : aucun `use_block_editor_for_post`, aucun `allowed_options`. La recette vise les deux vrais éditeurs et prépare des adresses vidéo ET podcast différentes de la préimage pour article ET numéro ; elle exige ensuite des relectures après reload et des effacements, avec témoin actif no-persist. **Ces écritures UI n'ont pas été exécutées avec succès dans ce passage.** Elle ne publie pas de réussite lorsque ces opérations ne sont pas atteintes. Sur ce site, les métaboxes/panneaux ne sont pas accessibles par le parcours livré : recette finale rouge, aucune validation UI revendiquée.
+### Champ atteignable : aucune correction de déclaration nécessaire
+`Medias::register()` déclare `imagine-medias` pour `post` et `imagine_numero`, contexte natif par défaut `advanced`, callback `champs`, arguments `null`. Dans le WordPress installé, `the_block_editor_meta_boxes()` (`wp-admin/includes/post.php:2376–2546`) propose les trois emplacements, dont `advanced`, à `setAvailableMetaBoxesPerLocation`. `do_meta_boxes()` (`template.php:1304–1469`) est compatible blocs par défaut ; seule une déclaration back-compat/incompatible peut l'écarter. Aucun de ces drapeaux ici. Le vrai registre filtré et le rendu natif contiennent les deux champs et le nonce pour 11 et 3454 : **11 contrôles verts**, `politique1330-editeurs-final-V2.json`. Les blocages de clic historiques ne prouvaient donc pas une boîte non proposée. Aucun changement fonctionnel de B11, aucun filtre d'éditeur ajouté, aucune nouvelle lutte UI.
 
-Le vrai formulaire de réglages conserve ses 16 options et son action native. Le contrôle strict découvre cinq options non-B11 créées depuis une absence initiale ; elles sont restaurées ensuite, pas préremplies ni retirées du formulaire pour fabriquer un vert. Découverte, relecture, solidaire, création newsletter et rétractation : détail des noms/empreintes dans `corrections-final-V2-details.json`. Qualification de leurs valeurs par défaut à arbitrer hors de cette correction de preuves.
+### Vrai formulaire passif : 16 valeurs effectives, OFF → ON → OFF
+`politique1330-final-V2-details.json` conserve les **16 options avant/après chacun des trois vrais POST** `options.php`, leurs valeurs effectives, présence SQL, défauts et empreintes PHP strictes (types compris). Aucun préremplissage d'autres options, aucun `allowed_options` réduit. Une ligne déjà présente est comparée telle quelle, sans assainissement de relecture qui cacherait une différence. Un écart réel reste rouge et attribuable au propriétaire, jamais réparé par B11.
 
-La surveillance réseau conserve contexte ET page d'origine ; Gravatar n'est excepté que pour une page admin dans le contexte admin, tout tiers étant coupé avant transport. Le témoin Gravatar public est réellement rouge. Le GIF d'accueil de l'éditeur est un tiers admin supplémentaire observé, non excepté. Les observations serveur du parcours atteint sont conservées ; elles ne valent pas zéro appel sur le parcours UI complet non terminé.
+Absente → explicite au **défaut exact**, acceptées et listées dans le reçu :
+- `imagine_decouverte_reglages` (C12) : `ouverture=fermee`, `forme=articles`, `jours=7`, `nombre=2`, `numeros=[]` ;
+- `imagine_decouverte_relecture` (C12) : `fermee` ;
+- `imagine_solidaire_categories` (C17) : `["à préciser"]` ;
+- `imagine_newsletters_creation` (C22) : `non` ;
+- `imagine_retractation_reglages` (C25) : `jours=14`, `origine=paiement`.
 
-La reconstruction d'image et le vrai rejeu racine sont verts pour les tests (1 189 / 36 512 ; outils 22 / 720), pas pour tous les paquets : A31 et A32 sont en dérive hors lot. PHPUnit B11 4/34, natif 23/23, unités de preuve 7 tests. Témoin backend WordPress réel 8/8 : valeurs changées, effacées, deux mutations d'écriture détectées, rollback et état métier relus. Ce résultat backend n'est jamais substitué à la recette d'éditeur manquante.
+Précision : ces cinq défauts sont enregistrés dans les **appels `get_option` du code propriétaire**, pas dans l'argument `default` de Settings API. La sonde relit ces mêmes valeurs, ancre de code vérifiée ; elle n'enregistre/injecte aucun défaut nouveau. Les défauts réellement déclarés à Settings API sont lus dans `get_registered_settings()`. Les cinq valeurs devenues explicites sont strictement identiques aux défauts effectifs ; **aucune différence métier**.
 
-Remise en état du passage final : 16 contrôles verts, dont préimage des lignes possédées, options, sessions, préférences, styles et état métier, absence relue des deux sondes. Deux interruptions initiales de nettoyage ont été reprises par l'inverse seule ; reçus de reprise conservés. Aucun compte/profil/droit/paiement nouveau, aucune extension de C26, aucun resceau d'un autre lot.
+### Preuve réellement rejouée sur C28/C27 stabilisés
+- Recette adaptée : **102/102**, zéro erreur, **32 sorties étanches non vides**, 32 témoins C26 inchangés ; 36 injections de réponse détectées, distinctes des deux mutations réelles des gardes article/audio.
+- Changement et effacement des deux champs/deux objets dans OFF et ON : vrai hook `save_post`, nonce/capacité natifs, readback neuf ; ce n'est pas un POST navigateur de l'éditeur. Témoin API transactionnel distinct après code final : **8/8**, deux courts-circuits d'écriture détectés, rollback et état métier relus (`politique1330-ecritures-V2.json`). Hôte interdit et antislash refusés sans perte.
+- Gravatar public : requête réellement déclenchée depuis la page publique identifiée, contrôle rouge, coupée avant transport ; exception toujours bornée au contexte admin **et** à son origine `/wp-admin/`. OFF/ON : aucun tiers public, aucun HTTP/oEmbed/mail B11.
+- **54** tentatives Novamira, **2** dispatchs locaux Action Scheduler et **6** observations HTTP ambiantes : tous bloqués par B00. Les deux dispatchs sont qualifiés par hôte local exact, chemin `/wp-admin/admin-ajax.php` et les deux méthodes natives de leur pile ; aucun joker sur les requêtes locales. **9** Gravatar admin coupés. Le premier passage avait rougi sur ces dispatchs non encore qualifiés ; reçus bruts conservés sous `avant-qualification-loopback-*` et `avant-qualification-AS-*`, tests rouges puis verts. Le GIF tiers de l'ancien parcours éditeur n'est pas excepté : les éditeurs ne sont simplement plus visités dans cette recette adaptée.
+- PHPUnit B11 **4 tests / 34 assertions**, natif **23/23**, **9 tests** d'assertions (dont contre-exemples des défauts et de la qualification réseau). Image reconstruite après ajout des tests ; vrai rejeu **1 195 tests / 36 573 assertions**, outils **22 / 720**, verts. Bilan distinct : 12 paquets, 2 rouges hors lot (`A31_PARTIAL_EVIDENCE`, `A32_PACKAGE_DRIFT`), laissés intacts.
+- **16 restaurations relues** : lignes possédées, métas, options avec retour à l'absence, préférences, sessions, styles, sources et état métier ; deux sondes absentes. Aucun nouveau compte, profil, droit, achat ou paiement permanent.
 
-### Limites et signalements à Claude
-- L'URL vidéo collée dans le **corps** réactive potentiellement l'oEmbed natif : B11 ne le verrouille pas, consigne opérationnelle uniquement, arbitrage Ced inchangé.
-- Le `catch (Throwable)` de Paywall masque une erreur de programmation en refus d'accès : hors B11/C06, laissé intact.
-- C28 a modifié le bootstrap partagé après le scellé B11 ; l'ancien reçu est historique, le nouvel arbre a réellement été rejoué après le stub B04 déjà livré par le parent. À reporter par **Claude** dans `docs/ecarts.md` selon l'instruction 6 ; ce fichier interdit n'a pas été écrit.
-- Les validations visuelles et questions de consentement ne sont pas transformées en GO.
+### Historique et voisins
+`reception.json`, `reception-corrections-V2.json`, leurs reçus et les documents de blocage `*-historique-bloque-1258-V2.md` restent conservés. Les anciens hashes ne sont pas remplacés par ceux de l'arbre courant. Seule la section B11 du README partagé est actualisée ; C27/C28 non clos sont vérifiés en complément dans `politique1330-voisins-V2.json`, sans réécriture de leurs paquets.
+
+### Limites reportées, sans fonction nouvelle
+L'oEmbed natif si l'URL est collée dans le corps relève du **futur B12**, non implémenté ici ; le `catch (Throwable)` de Paywall reste intact. L'écart partagé C28→B11 et ces deux limites sont déjà reportés par Claude selon la nouvelle file ; aucun écrit dans `docs/ecarts.md`. Consentement/fournisseur non choisis ; lecteur intégré absent ; validation visuelle de Ced toujours attendue.
 
 <details>
 <summary>Note historique avant corrections — provenance conservée, ne fonde plus PRET</summary>
@@ -63,5 +76,5 @@ Rejouer l'observation serveur/navigateur avant et après accord/retrait : aucun 
 4. Pas de choix de consentement, de fournisseur réel, de téléchargement tiers, de diffusion CDN, d'upload audio dans les médias, ni de prise en charge Range ajoutée (même service complet que C11). WAV seulement sur ce squelette. Pas de style ou design nouveau ; validation visuelle de Ced attendue.
 5. La suite générale peut afficher un paquet tiers rouge (A32 partiel connu), indépendamment de son verdict de tests ; B11 n'en corrige ni ne rescelle aucun.
 
-Les résultats ci-dessus appartiennent à `reception.json`, historique. L'état courant BLOQUÉ et la réception complémentaire figurent en tête de ce document et dans `A-VOIR.md` ; aucun PRET courant.
+Les résultats de cette section appartiennent à `reception.json`, historique. La réception adaptée courante et sa limite UI figurent en tête de ce document et dans `A-VOIR.md`.
 </details>
