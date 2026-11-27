@@ -153,19 +153,26 @@ final class PointsVente
             return ['pris' => count($created), 'refus' => $result['refus']]
                 + ($clean ? [] : ['remplace' => true, 'nettoyage_complet' => false]);
         } finally {
-            if (!$switched) {
-                // Une suppression de préparation peut elle aussi échouer : conserver sa reprise.
-                self::retenirNettoyage($created);
-                foreach ($created as $id) {
-                    wp_delete_post($id, true);
+            try {
+                if (!$switched && $created !== []) {
+                    // La libération de l'import reste indépendante d'un refus de reprise.
+                    try {
+                        self::retenirNettoyage($created);
+                    } finally {
+                        foreach ($created as $id) {
+                            wp_delete_post($id, true);
+                        }
+                    }
                 }
+            } finally {
+                delete_option('imagine_vente_import_en_cours');
             }
-            delete_option('imagine_vente_import_en_cours');
         }
     }
 
     public static function afficher(string $query): string
     {
+        $config = self::configuration();
         $html = '<form method="get"><label for="imagine-localite">' . esc_html__('Localité ou code postal exact', 'imagine-site')
             . '</label> <input id="imagine-localite" name="localite" value="' . esc_attr($query) . '"> <button type="submit">'
             . esc_html__('Rechercher', 'imagine-site') . '</button></form>';
@@ -177,7 +184,7 @@ final class PointsVente
                 $html .= '<li><strong>' . esc_html($row['nom']) . '</strong><br>' . esc_html($row['adresse']) . '<br>'
                     . esc_html($row['postal'] . ' ' . $row['localite']);
                 foreach (['personne' => __('Contact', 'imagine-site'), 'telephone' => __('Téléphone', 'imagine-site')] as $key => $label) {
-                    if (array_key_exists($key, self::configuration()['mapping']) && isset($row[$key]) && $row[$key] !== '') {
+                    if (array_key_exists($key, $config['mapping']) && isset($row[$key]) && $row[$key] !== '') {
                         $html .= '<br>' . esc_html($label . ' : ' . $row[$key]);
                     }
                 }
@@ -187,11 +194,21 @@ final class PointsVente
         } catch (Throwable $e) {
             $html .= '<p role="status">' . esc_html__('Liste temporairement indisponible.', 'imagine-site') . '</p>';
         }
-        if (self::configuration()['carte'] === '1') {
+        if ($config['carte'] === '1') {
             $html .= '<div id="imagine-carte-emplacement" role="region" aria-label="' . esc_attr__('Emplacement de la carte', 'imagine-site')
                 . '"><p>' . esc_html__('Carte non raccordée — aucun fournisseur choisi.', 'imagine-site') . '</p></div>';
         }
         return $html;
+    }
+
+    public static function messageNettoyage(array $result): string
+    {
+        if (($result['nettoyage_complet'] ?? true) === true) {
+            return '';
+        }
+        return ($result['remplace'] ?? false)
+            ? __('Liste remplacée ; nettoyage incomplet. Recharger le même CSV pour reprendre le nettoyage.', 'imagine-site')
+            : __('Liste inchangée ; nettoyage incomplet. Recharger le même CSV pour reprendre le nettoyage.', 'imagine-site');
     }
 
     public static function libelleRefus(string $code): string
@@ -249,6 +266,9 @@ final class PointsVente
                         throw new RuntimeException('lecture');
                     }
                     $result = self::importer($csv, $config['mapping'], $config['separateur']);
+                    if (self::messageNettoyage($result) !== '') {
+                        echo '<p role="status">' . esc_html(self::messageNettoyage($result)) . '</p>';
+                    }
                     echo '<p role="status">' . esc_html(sprintf(__('%1$d lignes prises ; %2$d refusées.', 'imagine-site'), $result['pris'], count($result['refus']))) . '</p><ul>';
                     foreach ($result['refus'] as $refusal) {
                         echo '<li>' . esc_html(sprintf(__('Ligne %1$d : %2$s', 'imagine-site'), $refusal['ligne'], self::libelleRefus($refusal['motif']))) . '</li>';

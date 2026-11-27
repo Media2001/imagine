@@ -26,6 +26,56 @@ final class PointsVenteAdapterTest extends TestCase
         $GLOBALS['pv_next'] = 0;
     }
 
+    public function testRepriseNonPersistableRefuseAvantBasculeEtLibereImport(): void
+    {
+        PointsVente::importer($this->csv, $this->mapping, ';');
+        $ids = $GLOBALS['pv_options'][PointsVente::ACTIFS];
+        $GLOBALS['pv_option_failure'] = PointsVente::NETTOYAGE;
+        try {
+            PointsVente::importer(str_replace('Commerce', 'Autre', $this->csv), $this->mapping, ';');
+            self::fail('Une reprise non persistable doit refuser la bascule.');
+        } catch (\RuntimeException $e) {
+            self::assertSame('reprise_refusee', $e->getMessage());
+        }
+        self::assertSame($ids, $GLOBALS['pv_options'][PointsVente::ACTIFS]);
+        self::assertArrayNotHasKey('imagine_vente_import_en_cours', $GLOBALS['pv_options']);
+        self::assertSame($ids, array_keys($GLOBALS['pv_posts']));
+    }
+
+    public function testRepriseNeSupprimeNiActifNiPostEtranger(): void
+    {
+        PointsVente::importer($this->csv, $this->mapping, ';');
+        $ids = $GLOBALS['pv_options'][PointsVente::ACTIFS];
+        $GLOBALS['pv_posts'][99] = (object) ['ID' => 99, 'post_type' => 'page'];
+        $GLOBALS['pv_options'][PointsVente::NETTOYAGE] = [$ids[0], 99, 100];
+        $r = PointsVente::importer($this->csv, $this->mapping, ';');
+        self::assertFalse($r['remplace']);
+        self::assertFalse($r['nettoyage_complet']);
+        self::assertSame([99], $GLOBALS['pv_options'][PointsVente::NETTOYAGE]);
+        self::assertSame([], $GLOBALS['pv_deleted']);
+        self::assertArrayHasKey(99, $GLOBALS['pv_posts']);
+        self::assertSame($ids, $GLOBALS['pv_options'][PointsVente::ACTIFS]);
+    }
+
+    public function testEtatNettoyageDistingueBasculeEtRejeu(): void
+    {
+        self::assertTrue(is_callable([PointsVente::class, 'messageNettoyage']));
+        self::assertSame('', PointsVente::messageNettoyage(['pris' => 1, 'refus' => []]));
+        self::assertSame('Liste remplacée ; nettoyage incomplet. Recharger le même CSV pour reprendre le nettoyage.',
+            PointsVente::messageNettoyage(['remplace' => true, 'nettoyage_complet' => false]));
+        self::assertSame('Liste inchangée ; nettoyage incomplet. Recharger le même CSV pour reprendre le nettoyage.',
+            PointsVente::messageNettoyage(['remplace' => false, 'nettoyage_complet' => false]));
+    }
+
+    public function testConfigurationLueUneSeuleFoisPourLeRendu(): void
+    {
+        PointsVente::importer($this->csv . "Autre fictif;Rue fictive;Ville fictive;00001\n", $this->mapping, ';');
+        $GLOBALS['pv_reads'] = [];
+        $html = PointsVente::afficher('');
+        self::assertStringContainsString('2 points de vente', $html);
+        self::assertSame(1, $GLOBALS['pv_reads'][PointsVente::CONFIG]);
+    }
+
     public function testMotifsFrancaisTraduitsSansRecopie(): void
     {
         self::assertTrue(is_callable([PointsVente::class, 'libelleRefus']));

@@ -16,6 +16,8 @@ $expect = static function (string $name, bool $ok) use (&$checks): void {
     }
 };
 $mapping = ['nom' => 'enseigne', 'adresse' => 'rue', 'localite' => 'ville', 'postal' => 'cp'];
+$expect('unicode_natif_nfc_nfd_ligatures', Imagine\Site\PointsVenteRegles::cle('Ḉœur-Æther-Fictif') === 'coeur-aether-fictif'
+    && Imagine\Site\PointsVenteRegles::cle("C\u{0327}\u{0301}œur-Æther-Fictif") === 'coeur-aether-fictif');
 $csv = "enseigne;rue;ville;cp;personne\nCommerce fictif \\ A;1 rue inventée;Étoile-Fictive;00001;SECRET\n";
 $first = PointsVente::importer($csv, $mapping, ';');
 $ids = get_option(PointsVente::ACTIFS);
