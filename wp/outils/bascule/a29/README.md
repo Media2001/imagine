@@ -63,6 +63,8 @@ Ces transformations faussent **tous les six comptes** : `pending`, `overdue`, `f
 
 ## Tests et réception
 
+Les audits A-02 bruts sont des **entrées privées**, pas des sorties A-29 : ils peuvent porter les hooks-canaris réellement semés. Le banc conserve ces valeurs pour toutes les épreuves natives, contrôle `complete_report` contre les vrais octets de l'audit puis efface ces deux fichiers d'entrée avant capture, y compris en échec. Les paquets ne retiennent que leur SHA-256/date/magasin et les liaisons natives observées dans `binding.json`. La relecture hors conteneur applique le même schéma fermé et le même rendu canonique contre cette liaison ; elle exige l'effacement et refuse tout canari dans l'ensemble capturé, sans exemption. Aucun audit privé n'est maquillé en nouvel audit ni recopié dans les preuves publiées.
+
 ```sh
 C:/Python314/python.exe -B -m unittest discover -s wp/tests/a29 -p "test_*.py" -v
 C:/Python314/python.exe -B wp/tests/a29/matrix.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a29-python-neuf

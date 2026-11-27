@@ -80,6 +80,36 @@ def expected_counts(repeats):
             'other_tasks': 11, 'other_active_extensions': 'attribution indéterminée'}
 
 
+def bound_report(output, binding, report):
+    """Same closed/canonical projection, bound to observed native private-input metadata."""
+    try:
+        receipt = read(binding)
+        expected = {'scope', 'audit_sha256', 'as_of_utc', 'storage', 'native_audit_exit_code',
+                    'raw_input_erased', 'private_canary_present', 'native_complete_reports', 'exit_code'}
+        if (set(receipt) != expected or receipt['scope'] != 'native_private_audit_binding'
+                or type(receipt['exit_code']) is not int or receipt['exit_code'] != 0
+                or type(receipt['native_audit_exit_code']) is not int or receipt['native_audit_exit_code'] != 0
+                or receipt['raw_input_erased'] is not True or type(receipt['private_canary_present']) is not bool
+                or not re.fullmatch('[a-f0-9]{64}', receipt['audit_sha256'])
+                or type(receipt['native_complete_reports']) is not dict
+                or receipt['native_complete_reports'].get(output.name) is not True
+                or not all(value is True for value in receipt['native_complete_reports'].values())
+                or any((binding.parent / name).exists() for name in ('audit.json', 'audit.md'))):
+            return False
+        if (output.is_symlink() or not output.is_dir()
+                or {p.name for p in output.iterdir()} != {'taches.json', 'taches.md'}
+                or any(p.is_symlink() or not p.is_file() or not 0 < p.stat().st_size <= 1048576 for p in output.iterdir())):
+            return False
+        raw = (output / 'taches.json').read_bytes()
+        data = report.read(raw)
+        return (report.projection(data, receipt['audit_sha256'], receipt['as_of_utc'])
+                and data['storage'] == receipt['storage']
+                and raw == (json.dumps(data, ensure_ascii=False, indent=4, allow_nan=False) + '\n').encode('utf-8')
+                and (output / 'taches.md').read_bytes() == report.MARKDOWN.encode('utf-8') + raw + b'```\n')
+    except (OSError, ValueError, KeyError, TypeError, UnicodeError):
+        return False
+
+
 def verify(packet, python_only=False):
     runner = load('a29_runner_verify', ROOT / 'wp/tests/a29/run.py')
     report = load('a29_report_verify', ROOT / 'wp/outils/bascule/a29/report.py')
@@ -178,6 +208,7 @@ def verify(packet, python_only=False):
             mandatory += ['audit_refusal_' + key for key in ('schema', 'clock', 'storage')]
             mandatory += [kind + '_' + key for key in CHANNELS for kind in ('closed_channel', 'discarded_channel')]
             mandatory += ['shutdown_mutation_still_valid_json_markdown']
+            mandatory += ['private_audit_inputs_erased_before_capture', 'all_captured_files_clean_without_exemptions']
             mandatory += ['mutation_witness_' + key for key in WITNESSES]
             check(prefix + ':required_native_cases', all(storage + ':' + key in actual for key in mandatory))
             for repeats in (1, 5):
@@ -200,8 +231,8 @@ def verify(packet, python_only=False):
                 check(prefix + variant + ':all_site_files_immutable', files['before'] == files['after'])
             for variant, audit_variant in [('tasks', 'audit'), ('repeat', 'audit'), ('documented', 'audit'),
                                            ('neutral', 'neutral-audit'), ('five', 'five-audit')]:
-                check(prefix + ':' + variant + '_valid_projection', report.complete_report(
-                    native / (storage + '-' + variant), native / (storage + '-' + audit_variant) / 'audit.json'))
+                check(prefix + ':' + variant + '_valid_projection', bound_report(
+                    native / (storage + '-' + variant), native / (storage + '-' + audit_variant) / 'binding.json', report))
             nominal = native / (storage + '-tasks/taches.json')
             check(prefix + ':exact_base_counts', read(nominal)['counts'] == expected_counts(1))
             check(prefix + ':five_exact_counts', read(native / (storage + '-five/taches.json'))['counts'] == expected_counts(5))

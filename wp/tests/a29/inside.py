@@ -19,6 +19,12 @@ OUT = Path('/report')
 SUCCESS = 'A29_OK taches.json taches.md\n'
 UNKNOWN = 'inconnu après neutralisation'
 CLOCK = '2026-11-26T12:00:00+00:00'
+AUDITS = {}
+
+
+def clean_public_artifacts():
+    private_inputs = {folder / name for folder in AUDITS for name in ('audit.json', 'audit.md')}
+    return not any(b'CANARY' in p.read_bytes() for p in OUT.rglob('*') if p.is_file() and p not in private_inputs)
 
 
 def cmd(args, check=True, env=None, data=None, timeout=240):
@@ -59,11 +65,17 @@ def inventory(site, output, audit, *extra):
 
 
 def audit_at(site, output):
+    # Native A02 input can contain private hook labels; never publish that input.
+    AUDITS[output] = None
     b.check(output.name + ':audit', b.audit(site, output).returncode == 0)
     audit = output / 'audit.json'
     d = json.loads(audit.read_text(encoding='utf-8'))
     d['generated_at_utc'] = CLOCK  # Explicit synthetic audit-clock oracle, not a live-time assertion.
     audit.write_text(json.dumps(d, ensure_ascii=False, indent=4) + '\n', encoding='utf-8')
+    AUDITS[output] = {'audit_sha256': hashlib.sha256(audit.read_bytes()).hexdigest(),
+                     'as_of_utc': d['generated_at_utc'], 'storage': d['sections']['commerce']['order_storage'],
+                     'private_canary_present': any(b'CANARY' in (output / name).read_bytes()
+                                                   for name in ('audit.json', 'audit.md'))}
     return audit
 
 
@@ -255,7 +267,7 @@ if (getenv('A29_CONFINED') === '1') {
             p = inventory(site, out, audit)
             b.check(storage + ':closed_channel_' + label, (p.returncode, p.stdout, p.stderr) == (1, '', want + '\n') and not out.exists())
             b.check(storage + ':discarded_channel_' + label, not list(OUT.glob('.a29-private-*'))
-                    and not any(b'CANARY' in f.read_bytes() for f in OUT.rglob('*') if f.is_file()))
+                    and clean_public_artifacts())
             if label in witnesses:
                 # Deliberately omit the stream/publication guardian only in this
                 # disposable fixture. Observe raw evidence in RAM, then destroy it.
@@ -352,9 +364,46 @@ if (getenv('A29_CONFINED') === '1') {
     for suffix, value in [('before', five_before), ('after', five_after)]:
         (OUT / (storage + '-five-db-' + suffix + '.json')).write_text(json.dumps(value), encoding='utf-8')
     b.check(storage + ':five_db_files_unchanged', five_before == five_after and five_files == b.files(site))
-    b.check(storage + ':all_retained_files_clean', not any(b'CANARY' in f.read_bytes() for f in OUT.rglob('*') if f.is_file()))
+    b.check(storage + ':all_retained_files_clean', clean_public_artifacts())
 
 
-b.run_storage = run_storage
+def run_storage_with_private_input_cleanup(storage):
+    try:
+        run_storage(storage)
+    finally:
+        schema_spec = importlib.util.spec_from_file_location('a29_native_private_audit_schema', '/subject/a29/report.py')
+        schema = importlib.util.module_from_spec(schema_spec)
+        schema_spec.loader.exec_module(schema)
+        erased = True
+        for folder, metadata in AUDITS.items():
+            if not folder.name.startswith(storage + '-'):
+                continue
+            audit = folder / 'audit.json'
+            receipt = {'scope': 'native_private_audit_binding', 'exit_code': 1, 'raw_input_erased': False}
+            try:
+                if metadata is not None:
+                    stable = audit.is_file() and hashlib.sha256(audit.read_bytes()).hexdigest() == metadata['audit_sha256']
+                    variants = ['-neutral'] if folder.name.endswith('-neutral-audit') else (
+                        ['-five'] if folder.name.endswith('-five-audit') else ['-tasks', '-repeat', '-documented'])
+                    bindings = {storage + variant: schema.complete_report(OUT / (storage + variant), audit)
+                                for variant in variants}
+                    receipt = {'scope': 'native_private_audit_binding', **metadata, 'native_audit_exit_code': 0,
+                               'native_complete_reports': bindings, 'raw_input_erased': False,
+                               'exit_code': int(not stable or not all(bindings.values()))}
+            finally:
+                for name in ('audit.json', 'audit.md'):
+                    path = folder / name
+                    if path.is_file() or path.is_symlink():
+                        path.unlink()
+                receipt['raw_input_erased'] = not any((folder / name).exists() for name in ('audit.json', 'audit.md'))
+                erased = erased and receipt['raw_input_erased']
+                folder.mkdir(exist_ok=True)
+                (folder / 'binding.json').write_text(json.dumps(receipt, indent=2) + '\n', encoding='utf-8')
+        b.check(storage + ':private_audit_inputs_erased_before_capture', erased)
+        b.check(storage + ':all_captured_files_clean_without_exemptions',
+                not any(b'CANARY' in p.read_bytes() for p in OUT.rglob('*') if p.is_file()))
+
+
+b.run_storage = run_storage_with_private_input_cleanup
 if __name__ == '__main__':
     sys.exit(b.main())
