@@ -1,0 +1,565 @@
+{
+  "suite": "A02-real-commercial-fixture",
+  "checks": [
+    {
+      "check": "lint:audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:seed.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:fingerprint.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:unit.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:readonly-probe.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:commercial_fixture",
+      "status": "PASS",
+      "detail": {
+        "versions": {
+          "wordpress": "7.0.9",
+          "woocommerce": "11.1.1",
+          "subscriptions": "9.4.1",
+          "memberships": "1.30.3"
+        },
+        "hpos": false,
+        "subscriptions": 3,
+        "rules": 2,
+        "restriction_real": true
+      }
+    },
+    {
+      "check": "classic:native_editorial_seed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:fixture_absolute_attachments_normalized_before_freeze",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:audit_ready",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:documented_command_exact_complete",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "rows": [
+          {
+            "outil": "A10",
+            "statut": "r\u00e9ussi",
+            "rapport": "/report/classic-complete-a10"
+          },
+          {
+            "outil": "A11",
+            "statut": "r\u00e9ussi",
+            "rapport": "/report/classic-complete-a11"
+          },
+          {
+            "outil": "A12",
+            "statut": "r\u00e9ussi",
+            "rapport": "/report/classic-complete-a12"
+          },
+          {
+            "outil": "A15",
+            "statut": "r\u00e9ussi",
+            "rapport": "/report/classic-complete-a15"
+          },
+          {
+            "outil": "A16",
+            "statut": "r\u00e9ussi",
+            "rapport": "/report/classic-complete-a16"
+          },
+          {
+            "outil": "A17",
+            "statut": "r\u00e9ussi",
+            "rapport": "/report/classic-complete-a17"
+          },
+          {
+            "outil": "A18",
+            "statut": "r\u00e9ussi",
+            "rapport": "/report/classic-complete-a18"
+          },
+          {
+            "outil": "A19",
+            "statut": "r\u00e9ussi",
+            "rapport": "/report/classic-complete-a19"
+          },
+          {
+            "outil": "A20",
+            "statut": "r\u00e9ussi",
+            "rapport": "/report/classic-complete-a20"
+          },
+          {
+            "outil": "A21",
+            "statut": "r\u00e9ussi",
+            "rapport": "/report/classic-complete-a21"
+          },
+          {
+            "outil": "A23",
+            "statut": "r\u00e9ussi",
+            "rapport": "/report/classic-complete-a23"
+          },
+          {
+            "outil": "A24",
+            "statut": "r\u00e9ussi",
+            "rapport": "/report/classic-complete-a24"
+          },
+          {
+            "outil": "A25",
+            "statut": "r\u00e9ussi",
+            "rapport": "/report/classic-complete-a25"
+          }
+        ]
+      }
+    },
+    {
+      "check": "classic:whole_nominal_db_files_immutable",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:named_doubles_continue_every_remaining_real_tool",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:whole_tour_channel:stdout",
+      "status": "PASS",
+      "detail": {
+        "closed": true,
+        "no_canary_retained": true,
+        "db_files_immutable": true
+      }
+    },
+    {
+      "check": "classic:whole_tour_channel:stderr",
+      "status": "PASS",
+      "detail": {
+        "closed": true,
+        "no_canary_retained": true,
+        "db_files_immutable": true
+      }
+    },
+    {
+      "check": "classic:whole_tour_channel:early_exit",
+      "status": "PASS",
+      "detail": {
+        "closed": true,
+        "no_canary_retained": true,
+        "db_files_immutable": true
+      }
+    },
+    {
+      "check": "classic:whole_tour_channel:silent_exit",
+      "status": "PASS",
+      "detail": {
+        "closed": true,
+        "no_canary_retained": true,
+        "db_files_immutable": true
+      }
+    },
+    {
+      "check": "classic:whole_tour_channel:shutdown_stdout",
+      "status": "PASS",
+      "detail": {
+        "closed": true,
+        "no_canary_retained": true,
+        "db_files_immutable": true
+      }
+    },
+    {
+      "check": "classic:whole_tour_channel:shutdown_stderr",
+      "status": "PASS",
+      "detail": {
+        "closed": true,
+        "no_canary_retained": true,
+        "db_files_immutable": true
+      }
+    },
+    {
+      "check": "classic:whole_tour_channel:report",
+      "status": "PASS",
+      "detail": {
+        "closed": true,
+        "no_canary_retained": true,
+        "db_files_immutable": true
+      }
+    },
+    {
+      "check": "classic:every_tool_checks_site",
+      "status": "FAIL",
+      "detail": [
+        {
+          "outil": "A10",
+          "statut": "r\u00e9ussi",
+          "rapport": "/report/classic-unverified-a10"
+        },
+        {
+          "outil": "A11",
+          "statut": "r\u00e9ussi",
+          "rapport": "/report/classic-unverified-a11"
+        },
+        {
+          "outil": "A12",
+          "statut": "r\u00e9ussi",
+          "rapport": "/report/classic-unverified-a12"
+        },
+        {
+          "outil": "A15",
+          "statut": "r\u00e9ussi",
+          "rapport": "/report/classic-unverified-a15"
+        },
+        {
+          "outil": "A16",
+          "statut": "r\u00e9ussi",
+          "rapport": "/report/classic-unverified-a16"
+        },
+        {
+          "outil": "A17",
+          "statut": "r\u00e9ussi",
+          "rapport": "/report/classic-unverified-a17"
+        },
+        {
+          "outil": "A18",
+          "statut": "r\u00e9ussi",
+          "rapport": "/report/classic-unverified-a18"
+        },
+        {
+          "outil": "A19",
+          "statut": "r\u00e9ussi",
+          "rapport": "/report/classic-unverified-a19"
+        },
+        {
+          "outil": "A20",
+          "statut": "r\u00e9ussi",
+          "rapport": "/report/classic-unverified-a20"
+        },
+        {
+          "outil": "A21",
+          "statut": "r\u00e9ussi",
+          "rapport": "/report/classic-unverified-a21"
+        },
+        {
+          "outil": "A23",
+          "statut": "r\u00e9ussi",
+          "rapport": "/report/classic-unverified-a23"
+        },
+        {
+          "outil": "A24",
+          "statut": "r\u00e9ussi",
+          "rapport": "/report/classic-unverified-a24"
+        },
+        {
+          "outil": "A25",
+          "statut": "r\u00e9ussi",
+          "rapport": "/report/classic-unverified-a25"
+        }
+      ]
+    },
+    {
+      "check": "classic:exception",
+      "status": "FAIL",
+      "detail": {
+        "class": "AssertionError",
+        "code": "classic:every_tool_checks_site"
+      }
+    },
+    {
+      "check": "hpos:commercial_fixture",
+      "status": "PASS",
+      "detail": {
+        "versions": {
+          "wordpress": "7.0.9",
+          "woocommerce": "11.1.1",
+          "subscriptions": "9.4.1",
+          "memberships": "1.30.3"
+        },
+        "hpos": true,
+        "subscriptions": 3,
+        "rules": 2,
+        "restriction_real": true
+      }
+    },
+    {
+      "check": "hpos:native_editorial_seed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:fixture_absolute_attachments_normalized_before_freeze",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:audit_ready",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:documented_command_exact_complete",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "rows": [
+          {
+            "outil": "A10",
+            "statut": "r\u00e9ussi",
+            "rapport": "/report/hpos-complete-a10"
+          },
+          {
+            "outil": "A11",
+            "statut": "r\u00e9ussi",
+            "rapport": "/report/hpos-complete-a11"
+          },
+          {
+            "outil": "A12",
+            "statut": "r\u00e9ussi",
+            "rapport": "/report/hpos-complete-a12"
+          },
+          {
+            "outil": "A15",
+            "statut": "r\u00e9ussi",
+            "rapport": "/report/hpos-complete-a15"
+          },
+          {
+            "outil": "A16",
+            "statut": "r\u00e9ussi",
+            "rapport": "/report/hpos-complete-a16"
+          },
+          {
+            "outil": "A17",
+            "statut": "r\u00e9ussi",
+            "rapport": "/report/hpos-complete-a17"
+          },
+          {
+            "outil": "A18",
+            "statut": "r\u00e9ussi",
+            "rapport": "/report/hpos-complete-a18"
+          },
+          {
+            "outil": "A19",
+            "statut": "r\u00e9ussi",
+            "rapport": "/report/hpos-complete-a19"
+          },
+          {
+            "outil": "A20",
+            "statut": "r\u00e9ussi",
+            "rapport": "/report/hpos-complete-a20"
+          },
+          {
+            "outil": "A21",
+            "statut": "r\u00e9ussi",
+            "rapport": "/report/hpos-complete-a21"
+          },
+          {
+            "outil": "A23",
+            "statut": "r\u00e9ussi",
+            "rapport": "/report/hpos-complete-a23"
+          },
+          {
+            "outil": "A24",
+            "statut": "r\u00e9ussi",
+            "rapport": "/report/hpos-complete-a24"
+          },
+          {
+            "outil": "A25",
+            "statut": "r\u00e9ussi",
+            "rapport": "/report/hpos-complete-a25"
+          }
+        ]
+      }
+    },
+    {
+      "check": "hpos:whole_nominal_db_files_immutable",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:named_doubles_continue_every_remaining_real_tool",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:whole_tour_channel:stdout",
+      "status": "PASS",
+      "detail": {
+        "closed": true,
+        "no_canary_retained": true,
+        "db_files_immutable": true
+      }
+    },
+    {
+      "check": "hpos:whole_tour_channel:stderr",
+      "status": "PASS",
+      "detail": {
+        "closed": true,
+        "no_canary_retained": true,
+        "db_files_immutable": true
+      }
+    },
+    {
+      "check": "hpos:whole_tour_channel:early_exit",
+      "status": "PASS",
+      "detail": {
+        "closed": true,
+        "no_canary_retained": true,
+        "db_files_immutable": true
+      }
+    },
+    {
+      "check": "hpos:whole_tour_channel:silent_exit",
+      "status": "PASS",
+      "detail": {
+        "closed": true,
+        "no_canary_retained": true,
+        "db_files_immutable": true
+      }
+    },
+    {
+      "check": "hpos:whole_tour_channel:shutdown_stdout",
+      "status": "PASS",
+      "detail": {
+        "closed": true,
+        "no_canary_retained": true,
+        "db_files_immutable": true
+      }
+    },
+    {
+      "check": "hpos:whole_tour_channel:shutdown_stderr",
+      "status": "PASS",
+      "detail": {
+        "closed": true,
+        "no_canary_retained": true,
+        "db_files_immutable": true
+      }
+    },
+    {
+      "check": "hpos:whole_tour_channel:report",
+      "status": "PASS",
+      "detail": {
+        "closed": true,
+        "no_canary_retained": true,
+        "db_files_immutable": true
+      }
+    },
+    {
+      "check": "hpos:every_tool_checks_site",
+      "status": "FAIL",
+      "detail": [
+        {
+          "outil": "A10",
+          "statut": "r\u00e9ussi",
+          "rapport": "/report/hpos-unverified-a10"
+        },
+        {
+          "outil": "A11",
+          "statut": "r\u00e9ussi",
+          "rapport": "/report/hpos-unverified-a11"
+        },
+        {
+          "outil": "A12",
+          "statut": "r\u00e9ussi",
+          "rapport": "/report/hpos-unverified-a12"
+        },
+        {
+          "outil": "A15",
+          "statut": "r\u00e9ussi",
+          "rapport": "/report/hpos-unverified-a15"
+        },
+        {
+          "outil": "A16",
+          "statut": "r\u00e9ussi",
+          "rapport": "/report/hpos-unverified-a16"
+        },
+        {
+          "outil": "A17",
+          "statut": "r\u00e9ussi",
+          "rapport": "/report/hpos-unverified-a17"
+        },
+        {
+          "outil": "A18",
+          "statut": "r\u00e9ussi",
+          "rapport": "/report/hpos-unverified-a18"
+        },
+        {
+          "outil": "A19",
+          "statut": "r\u00e9ussi",
+          "rapport": "/report/hpos-unverified-a19"
+        },
+        {
+          "outil": "A20",
+          "statut": "r\u00e9ussi",
+          "rapport": "/report/hpos-unverified-a20"
+        },
+        {
+          "outil": "A21",
+          "statut": "r\u00e9ussi",
+          "rapport": "/report/hpos-unverified-a21"
+        },
+        {
+          "outil": "A23",
+          "statut": "r\u00e9ussi",
+          "rapport": "/report/hpos-unverified-a23"
+        },
+        {
+          "outil": "A24",
+          "statut": "r\u00e9ussi",
+          "rapport": "/report/hpos-unverified-a24"
+        },
+        {
+          "outil": "A25",
+          "statut": "r\u00e9ussi",
+          "rapport": "/report/hpos-unverified-a25"
+        }
+      ]
+    },
+    {
+      "check": "hpos:exception",
+      "status": "FAIL",
+      "detail": {
+        "class": "AssertionError",
+        "code": "hpos:every_tool_checks_site"
+      }
+    },
+    {
+      "check": "network_interfaces",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "no_listener:tcp",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "no_listener:tcp6",
+      "status": "PASS",
+      "detail": null
+    }
+  ],
+  "exit_code": 1,
+  "licensed_sha256": {
+    "woocommerce-subscriptions.zip": "ed8c529d1382e2d06fa6e605e799c9db5607d8459806c229e74a20571f871083",
+    "woocommerce-memberships.zip": "d3a858a8d6ebc7153248a10d665c6752948ea4fa8a1836d6bdd8a8f267ee3285"
+  },
+  "no_real_site": true
+}

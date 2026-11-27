@@ -44,7 +44,7 @@ function update_option(string $k, mixed $v, bool $autoload = false): bool { $GLO
 function delete_option(string $k): bool { unset($GLOBALS['b09_options'][$k]); return true; }
 function home_url(string $path = ''): string { return 'https://demo.example.org' . $path; }
 function get_permalink(int $id): string { return 'https://demo.example.org/page/' . $id; }
-function get_page_by_path(string $path): object { return (object)['ID' => $path === 'espace-cooperateurs' ? 90 : 91]; }
+function get_page_by_path(string $path): object { return (object) ['ID' => $path === 'espace-cooperateurs' ? 90 : 91]; }
 function admin_url(string $path = ''): string { return 'https://demo.example.org/wp-admin/' . $path; }
 function wp_nonce_field(string $a, string $n): void { echo '<input name="' . $n . '" value="nonce">'; }
 function wp_verify_nonce(string $n, string $a): bool { return $n === 'nonce'; }
@@ -59,7 +59,7 @@ function wp_insert_post(array $row, bool $errors = false): int|WP_Error
 {
     if ($GLOBALS['b09_fail_insert'] ?? false) { return new WP_Error('write'); }
     $id = count($GLOBALS['b09_posts']) + 100;
-    $GLOBALS['b09_posts'][$id] = (object)(['ID' => $id] + $row);
+    $GLOBALS['b09_posts'][$id] = (object) (['ID' => $id] + $row);
     // update_metadata() déséchappe les valeurs reçues de meta_input.
     $GLOBALS['b09_meta'][$id] = ($GLOBALS['b09_fail_meta'] ?? false) ? [] : wp_unslash($row['meta_input']);
     return $id;

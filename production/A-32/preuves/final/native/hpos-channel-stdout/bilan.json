@@ -1,0 +1,82 @@
+{
+  "tournee": "compl\u00e8te",
+  "outils": [
+    {
+      "outil": "A10",
+      "statut": "r\u00e9ussi",
+      "rapport": "/report/hpos-channel-stdout-a10"
+    },
+    {
+      "outil": "A11",
+      "statut": "en \u00e9chec",
+      "sortie": 1,
+      "rapport": "/report/hpos-channel-stdout-a11"
+    },
+    {
+      "outil": "A12",
+      "statut": "en \u00e9chec",
+      "sortie": 1,
+      "rapport": "/report/hpos-channel-stdout-a12"
+    },
+    {
+      "outil": "A15",
+      "statut": "en \u00e9chec",
+      "sortie": 1,
+      "rapport": "/report/hpos-channel-stdout-a15"
+    },
+    {
+      "outil": "A16",
+      "statut": "en \u00e9chec",
+      "sortie": 1,
+      "rapport": "/report/hpos-channel-stdout-a16"
+    },
+    {
+      "outil": "A17",
+      "statut": "en \u00e9chec",
+      "sortie": 1,
+      "rapport": "/report/hpos-channel-stdout-a17"
+    },
+    {
+      "outil": "A18",
+      "statut": "en \u00e9chec",
+      "sortie": 1,
+      "rapport": "/report/hpos-channel-stdout-a18"
+    },
+    {
+      "outil": "A19",
+      "statut": "en \u00e9chec",
+      "sortie": 1,
+      "rapport": "/report/hpos-channel-stdout-a19"
+    },
+    {
+      "outil": "A20",
+      "statut": "refus\u00e9",
+      "code": "A20_PROCESS_OUTPUT_INVALID",
+      "rapport": "/report/hpos-channel-stdout-a20"
+    },
+    {
+      "outil": "A21",
+      "statut": "refus\u00e9",
+      "code": "A21_UNEXPECTED_OUTPUT",
+      "rapport": "/report/hpos-channel-stdout-a21"
+    },
+    {
+      "outil": "A23",
+      "statut": "refus\u00e9",
+      "code": "A23_PROCESS_OUTPUT_INVALID",
+      "rapport": "/report/hpos-channel-stdout-a23"
+    },
+    {
+      "outil": "A24",
+      "statut": "refus\u00e9",
+      "code": "A24_PROCESS_OUTPUT_INVALID",
+      "rapport": "/report/hpos-channel-stdout-a24"
+    },
+    {
+      "outil": "A25",
+      "statut": "refus\u00e9",
+      "code": "A25_PROCESS_OUTPUT_INVALID",
+      "rapport": "/report/hpos-channel-stdout-a25"
+    }
+  ]
+}

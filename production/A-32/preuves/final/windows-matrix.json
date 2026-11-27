@@ -1,0 +1,56 @@
+[
+  {
+    "command": [
+      "C:\\Python314\\python.exe",
+      "-B",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "wp/tests/a32",
+      "-p",
+      "test_*.py",
+      "-v"
+    ],
+    "encoding": "utf-8",
+    "exit_code": 0,
+    "tmpdir_present": false,
+    "temp_is_scratch": true,
+    "probe": {
+      "python": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+      "executable": "C:\\Python314\\python.exe",
+      "encoding": "utf-8",
+      "tmpdir_present": false,
+      "temp": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a32-final-blocked-0838\\utf8-temp"
+    },
+    "log": "utf8/python-tests.log",
+    "sha256": "2f630398152ddd91c849c58dd2799b3d07b88ab58f8ba22834042dd67d026f36"
+  },
+  {
+    "command": [
+      "C:\\Python314\\python.exe",
+      "-B",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "wp/tests/a32",
+      "-p",
+      "test_*.py",
+      "-v"
+    ],
+    "encoding": "cp1252",
+    "exit_code": 0,
+    "tmpdir_present": false,
+    "temp_is_scratch": true,
+    "probe": {
+      "python": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+      "executable": "C:\\Python314\\python.exe",
+      "encoding": "cp1252",
+      "tmpdir_present": false,
+      "temp": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a32-final-blocked-0838\\cp1252-temp"
+    },
+    "log": "cp1252/python-tests.log",
+    "sha256": "599f28eec75cf2b38257164e98980681addd2146806e9aabecf081906d042f42"
+  }
+]
