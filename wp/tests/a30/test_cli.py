@@ -4,7 +4,7 @@ import os
 from pathlib import Path
 import subprocess
 import sys
-import tempfile
+from temp_support import temporary_directory
 import unittest
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -15,7 +15,7 @@ FIX = ROOT / 'wp/tests/fixtures'
 
 class CliTests(unittest.TestCase):
     def setUp(self):
-        self.tmp = tempfile.TemporaryDirectory(prefix='a30-cli-', dir=os.environ['TMPDIR'])
+        self.tmp = temporary_directory('a30-cli-')
         self.addCleanup(self.tmp.cleanup)
         self.work = Path(self.tmp.name)
 

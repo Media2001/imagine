@@ -99,6 +99,16 @@ foreach ($prior['items'] ?? [] as $key => $id) {
 $items = [];
 $order = 0;
 foreach ($definitions as $key => [$slug, $title]) {
+    $position = ++$order;
+    $existing = isset($owned[$key]) ? wp_setup_nav_menu_item(get_post($owned[$key])) : null;
+    if ($existing && $existing->post_status === 'publish' && $existing->title === $title
+        && $existing->type === 'post_type' && $existing->object === 'page'
+        && (int) $existing->object_id === $pages[$key] && $existing->url === get_permalink($pages[$key])
+        && (int) $existing->menu_order === $position && (int) $existing->menu_item_parent === 0
+        && wp_get_object_terms($existing->ID, 'nav_menu', ['fields' => 'ids']) === [(int) $menuId]) {
+        $items[$key] = $existing->ID;
+        continue;
+    }
     $rememberItem = static function (int $menu, int $item) use ($key, $menuId, &$prior): void {
         if ($menu !== (int) $menuId) {
             throw new RuntimeException('Item étranger B09');
@@ -116,7 +126,7 @@ foreach ($definitions as $key => [$slug, $title]) {
         $id = wp_update_nav_menu_item((int) $menuId, (int) ($owned[$key] ?? 0), [
             'menu-item-title' => $title, 'menu-item-type' => 'post_type', 'menu-item-object' => 'page',
             'menu-item-object-id' => $pages[$key], 'menu-item-url' => get_permalink($pages[$key]),
-            'menu-item-status' => 'publish', 'menu-item-position' => ++$order, 'menu-item-parent-id' => 0,
+            'menu-item-status' => 'publish', 'menu-item-position' => $position, 'menu-item-parent-id' => 0,
         ]);
     } finally {
         remove_action('wp_add_nav_menu_item', $rememberItem, 10);

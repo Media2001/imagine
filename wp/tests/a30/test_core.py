@@ -7,7 +7,7 @@ import json
 import os
 from pathlib import Path
 import sys
-import tempfile
+from temp_support import temporary_directory
 import unittest
 
 sys.dont_write_bytecode = True
@@ -29,7 +29,7 @@ def load_core():
 
 class CoreTests(unittest.TestCase):
     def setUp(self):
-        self.tmp = tempfile.TemporaryDirectory(prefix='a30-python-', dir=os.environ['TMPDIR'])
+        self.tmp = temporary_directory('a30-python-')
         self.addCleanup(self.tmp.cleanup)
         self.work = Path(self.tmp.name)
         self.core = load_core()

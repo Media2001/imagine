@@ -5,7 +5,7 @@ import json
 import os
 from pathlib import Path
 import sys
-import tempfile
+from temp_support import temporary_directory
 import unittest
 
 sys.dont_write_bytecode = True
@@ -16,7 +16,7 @@ import core
 
 class BoundaryTests(unittest.TestCase):
     def setUp(self):
-        self.tmp = tempfile.TemporaryDirectory(prefix='a30-boundary-', dir=os.environ['TMPDIR'])
+        self.tmp = temporary_directory('a30-boundary-')
         self.addCleanup(self.tmp.cleanup)
         self.work = Path(self.tmp.name)
         self.prepared = {'a13_code': 0, 'rows': [

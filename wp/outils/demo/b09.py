@@ -145,6 +145,7 @@ def reseed(label):
         exact={k:before[k]==after[k] for k in ['users','usermeta','posts','postmeta','navigation']}
         state_equal=business==b08.c25.b06.state()
         save(label,{'identity':identity,'private_snapshot':durable,'fixture':first,'idempotent':first==second if first else False,'unchanged_existing_fixture':exact,'business_preserved':state_equal,'runner_removed':True})
+    assert all(exact.values()) and state_equal, 'Dérive du seed stable'
     print('Seed rejoué deux fois, readback identique')
 
 

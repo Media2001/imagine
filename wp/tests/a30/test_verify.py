@@ -4,7 +4,7 @@ import json
 import os
 from pathlib import Path
 import sys
-import tempfile
+from temp_support import temporary_directory
 import unittest
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -16,7 +16,7 @@ class VerifierTests(unittest.TestCase):
         self.assertTrue(VERIFY.is_file(), 'A30 no-argument package verifier missing')
         spec = importlib.util.spec_from_file_location('a30_verify', VERIFY)
         v = importlib.util.module_from_spec(spec); spec.loader.exec_module(v)
-        with tempfile.TemporaryDirectory(prefix='a30-verify-', dir=os.environ['TMPDIR']) as temp:
+        with temporary_directory('a30-verify-') as temp:
             result = v.verify(Path(temp))
             self.assertEqual(1, result['exit_code'])
             self.assertFalse(result['native_proven'])

@@ -2,6 +2,11 @@
 
 declare(strict_types=1);
 
+// One monotonic envelope starts before discovery/copy/tests/tools. Keep the
+// external 600-second timeout unchanged; packets must leave time to publish.
+$t01Deadline = hrtime(true) / 1e9 + 600.0;
+$t01PacketMargin = 5.0;
+
 // This process only runs in the disposable, disconnected PHP container.
 $totals = ['tests' => 0, 'assertions' => 0, 'failures' => 0, 'errors' => 0, 'skipped' => 0];
 $pass = true;
