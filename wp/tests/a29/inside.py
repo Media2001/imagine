@@ -337,6 +337,13 @@ if (getenv('A29_CONFINED') === '1') {
         n_audit = audit_at(site, OUT / (storage + '-neutral-audit'))
         out = OUT / (storage + '-neutral')
         p = inventory(site, out, n_audit)
+        if (p.returncode, p.stdout, p.stderr) != (0, SUCCESS, ''):
+            allowed = set(json.loads(Path('/subject/a29/refusals.json').read_bytes()))
+            code = p.stderr[:-1] if p.stderr.endswith('\n') and p.stderr[:-1] in allowed else 'UNCLASSIFIED_CLOSED_DIAGNOSTIC'
+            (OUT / (storage + '-neutral-protocol-failure.json')).write_text(json.dumps({
+                'scope': 'closed_native_failure_diagnostic', 'observed_exit': p.returncode,
+                'stdout_empty': p.stdout == '', 'success_protocol': p.stdout == SUCCESS,
+                'stderr_closed_code': code, 'stderr_sha256': hashlib.sha256(p.stderr.encode('utf-8')).hexdigest()}), encoding='utf-8')
         b.check(storage + ':neutral_success', (p.returncode, p.stdout, p.stderr) == (0, SUCCESS, ''))
         data = json.loads((out / 'taches.json').read_text(encoding='utf-8'))
         b.check(storage + ':neutral_all_unknown_no_useful_number', data['neutralisation'] == UNKNOWN
