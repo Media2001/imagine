@@ -52,6 +52,10 @@ def allowed_messages():
     guard = load('a32_guard_codes', HERE.parent / 'stream_guard.py')
     messages = set(guard.allowed_messages())
     messages.update(json.loads((HERE / 'refusals.json').read_text(encoding='utf-8')))
+    # A22 public_error emits these dynamically, outside its static JSON list.
+    messages.update(lot + '_' + suffix
+                    for lot in ('A11', 'A12', 'A15', 'A16', 'A17', 'A18', 'A19')
+                    for suffix in ('PROCESS_OUTPUT_INVALID', 'PROCESS_TIMEOUT', 'SUCCESS_INCOMPLETE'))
     return messages
 
 
@@ -89,12 +93,8 @@ def verified_site(site):
                 or marker.get('offline_verified') is not True or marker.get('runtime_probe_passed') is not True):
             raise ValueError('marker')
         config = read('wp-config.php')
-        # Drop PHP comments without dropping quoted strings. No config is executed.
-        config = re.sub(r"'(?:\\.|[^'\\])*'|\"(?:\\.|[^\"\\])*\"|/\*.*?\*/|//[^\r\n]*|\#[^\r\n]*",
-                        lambda match: '' if match[0].startswith(('/*', '//', '#')) else match[0], config, flags=re.S)
-        declarations = re.findall(r"\bdefine\s*\(\s*(['\"])WP_ENVIRONMENT_TYPE\1\s*,\s*(['\"])([^'\"]*)\2\s*\)\s*;", config, re.I)
-        if (len(declarations) != 1 or declarations[0][2] != 'staging'
-                or config.count('WP_ENVIRONMENT_TYPE') != 1
+        lexer = load('a32_php_config', HERE / 'php_config.py')
+        if (not lexer.staging_declaration(config)
                 or os.environ.get('WP_ENVIRONMENT_TYPE', 'staging') != 'staging'
                 or marker.get('environment', 'staging') != 'staging'):
             raise ValueError('environment')

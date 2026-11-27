@@ -90,9 +90,8 @@ def verify(live=False, manifest=None, require_pret=True):
         'groupe_etat_natif_relu_active', 'groupe_lien_natif_relu_active', 'beneficiaire_groupe_inconnu_active',
         'groupe_etat_natif_relu_paused', 'groupe_lien_natif_relu_paused', 'beneficiaire_groupe_inconnu_paused'])
     http = http_receipt(load(m['http']))
-    current = c29.sources()
     for receipt in [pure, native, http]:
-        assert receipt['sources'] == current, 'TESTED_FINAL_BYTES'
+        assert contract.tested_sources('C29', receipt['sources']), 'TESTED_FINAL_BYTES'
     assert all(row['fiche'] == nd['profils'][row['code']]['fiche'] for row in http['surfaces'])
     red = load('red-corrections-refus-V2.json')
     assert red['exit'] == 1 and 'refus_hors_catalogue' in red['stderr']

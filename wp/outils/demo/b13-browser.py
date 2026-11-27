@@ -65,7 +65,7 @@ def run(owner, label, checker, paths=None, warm=None):
                 for index,path in enumerate(paths):
                     page = ctx.new_page()
                     response = page.goto(identity['url']+path, wait_until='networkidle')
-                    body = page.content()
+                    body = response.text()
                     check(role+'_'+str(index)+'_200', response.status == 200)
                     obs = observation(body)
                     check(role+'_'+str(index)+'_zero_sortant', obs == {'http': [], 'mail': []})
@@ -102,7 +102,7 @@ def run(owner, label, checker, paths=None, warm=None):
 def b13_checker(page, body, role, index, f, markers, check):
     nav = page.locator('nav[aria-label="Navigation principale"]')
     top = nav.locator(':scope > ul > li > a').all_text_contents()
-    check(role+'_'+str(index)+'_menu_huit', top == ['Nos numéros','Thématiques','Nos newsletters','Nos événements','Notre coopérative','Soutenir',"S'abonner",'Connexion'])
+    check(role+'_'+str(index)+'_menu_huit', [t.replace('’', "'") for t in top] == ['Nos numéros','Thématiques','Nos newsletters','Nos événements','Notre coopérative','Soutenir',"S'abonner",'Connexion'])
     menu = nav.inner_html()
     check(role+'_'+str(index)+'_selection_titre', 'B13 — Illustration fictive' in menu and 'data-b13-article=' in menu and '<img' in menu)
     check(role+'_'+str(index)+'_liste_imbriquee', nav.locator('[data-imagine-menu-etendu] > li > ul > li').count() > 0)

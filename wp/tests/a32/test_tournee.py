@@ -78,6 +78,39 @@ class TourneeTests(unittest.TestCase):
                     self.assertEqual(called, [])
                     self.assertFalse((reports / 'production').exists())
 
+    def test_php_strings_comments_and_opaque_declarations_fail_closed(self):
+        m = load()
+        scratch = Path.home() / 'AppData/Local/hermes/cache/scratch'
+        with tempfile.TemporaryDirectory(dir=scratch, prefix='a32-tokens-') as tmp:
+            site = Path(tmp)
+            (site / '.imagine-staging-verified.json').write_text(json.dumps({'status': 'verified', 'offline_verified': True, 'runtime_probe_passed': True}), encoding='utf-8')
+            config = site / 'wp-config.php'
+            bad = [
+                '''<?php $note = "define('WP_ENVIRONMENT_TYPE', 'staging');";''',
+                '''<?php $note = 'define("WP_ENVIRONMENT_TYPE", "staging");';''',
+                '''<?php /* define('WP_ENVIRONMENT_TYPE', 'staging'); */''',
+                '''<?php // define('WP_ENVIRONMENT_TYPE', 'staging');''',
+                '''<?php # define('WP_ENVIRONMENT_TYPE', 'staging');''',
+                '''<?php $note = "escaped \\" define('WP_ENVIRONMENT_TYPE', 'staging');";''',
+                '''<?php $note = <<<TXT\ndefine('WP_ENVIRONMENT_TYPE', 'staging');\nTXT;''',
+                '''<?php if (false) { define('WP_ENVIRONMENT_TYPE', 'staging'); }''',
+                '''<?php $x->define('WP_ENVIRONMENT_TYPE', 'staging');''',
+                '''<?php define('WP_ENVIRONMENT_TYPE', 'staging'); /* unfinished''',
+                '''<?php define('WP_ENVIRONMENT_TYPE', 'staging'); define('WP_ENVIRONMENT_TYPE', 'production');''',
+            ]
+            for text in bad:
+                with self.subTest(text=text):
+                    config.write_text(text, encoding='utf-8')
+                    with self.assertRaisesRegex(RuntimeError, '^A32_NOT_VERIFIED$'):
+                        m.verified_site(site)
+            for text in [
+                '''<?php define('WP_ENVIRONMENT_TYPE', 'staging');''',
+                '''<?php $url = "https://example.org/#comment"; /* ignored */ define /* x */ ('WP_ENVIRONMENT_TYPE', "staging");''',
+                '''<?php $note = "define('NOT_ENVIRONMENT', 'production');"; define('WP_ENVIRONMENT_TYPE', 'staging');''',
+            ]:
+                config.write_text(text, encoding='utf-8')
+                self.assertEqual(m.verified_site(site), site.resolve())
+
     def test_cli_refusal_never_echoes_site_or_marker(self):
         import subprocess
         import hashlib
@@ -117,6 +150,21 @@ class TourneeTests(unittest.TestCase):
                     row = m.classify(entry, 1, b'', (code + '\n').encode('ascii'), Path('/absent'))
                     self.assertEqual(row['statut'], 'refusé')
                     self.assertEqual(row['code'], code)
+
+    def test_dynamic_supervision_codes_are_closed_refusals(self):
+        m = load()
+        for lot in ('A11', 'A12', 'A15', 'A16', 'A17', 'A18', 'A19'):
+            entry = next(e for e in m.entries() if e['lot'] == lot)
+            for suffix in ('PROCESS_OUTPUT_INVALID', 'PROCESS_TIMEOUT', 'SUCCESS_INCOMPLETE'):
+                code = lot + '_' + suffix
+                with self.subTest(code=code):
+                    row = m.classify(entry, 1, b'', (code + '\n').encode(), Path('/absent'))
+                    self.assertEqual((row['statut'], row.get('code')), ('refusé', code))
+                    for err in ((code + ' PRIVATE_CANARY\n').encode(), (code + '\nPRIVATE_CANARY').encode(), b'A15_UNKNOWN\n'):
+                        rejected = m.classify(entry, 1, b'', err, Path('/absent'))
+                        self.assertEqual(rejected['statut'], 'en échec')
+                        self.assertNotIn('PRIVATE_CANARY', json.dumps(rejected))
+        self.assertNotIn('A29_PROCESS_TIMEOUT', m.allowed_messages())
 
     def test_refusal_allowlist_and_no_site_value(self):
         m = load()
