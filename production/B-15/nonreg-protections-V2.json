@@ -1,0 +1,12 @@
+{
+  "EnvoiRelations_unchanged": true,
+  "contract_core_unchanged": true,
+  "ready_markers": {
+    "C-29": true,
+    "B-13": true,
+    "B-14": true,
+    "B-15": false
+  },
+  "stage": "avant PRET B-15",
+  "scope": "imagine-test-demo"
+}
