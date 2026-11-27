@@ -26,10 +26,9 @@ function Invoke-CopyReplay {
     $markers = @($lines | Where-Object { $_ -match '^T01_RESULT ' })
     if ($markers.Count -ne 1) { throw 'PACKET_MARKER' }
     $packets = ($markers[0].Substring(11) | ConvertFrom-Json).packets
-    $expectedLots = @('A-21', 'A-22', 'A-23', 'A-24', 'A-25', 'A-26', 'A-27', 'A-28', 'A-30', 'A-31')
+    $expectedLots = @('A-20', 'A-21', 'A-22', 'A-23', 'A-24', 'A-25', 'A-26', 'A-27', 'A-28', 'A-30', 'A-31', 'A-32')
     if (($packets.lots -join ',') -cne ($expectedLots -join ',') -or $packets.verified -ne $expectedLots.Count) { throw 'EXPECTED_CURRENT_PACKETS_NOT_REPLAYED' }
-    $a20 = @($packets.excluded | Where-Object { $_.lot -eq 'A-20' -and $_.reason -eq 'declaration absente' })
-    if ($a20.Count -ne 1 -or (Test-Path -LiteralPath (Join-Path $copy 'production/A-20/rejeu.json'))) { throw 'A20_MUST_REMAIN_OUTSIDE_REPLAY' }
+    if (@($packets.excluded).Count -ne 0 -or -not (Test-Path -LiteralPath (Join-Path $copy 'production/A-20/rejeu.json'))) { throw 'A20_MUST_BE_REPLAYED' }
     if (@($lines | Where-Object { $_ -match '^PAQUETS : ' }).Count -ne 1) { throw 'PACKET_LINE_COUNT' }
     return @{ last = $lines[-1]; packets = $packets; summary = @($lines | Where-Object { $_ -match '^PAQUETS : ' })[0] }
 }
@@ -56,7 +55,7 @@ try {
     $red = Invoke-CopyReplay 'one-byte'
     if ($green.last -cne $red.last -or $green.packets.verified -ne $red.packets.verified -or (($green.packets.lots -join ',') -cne ($red.packets.lots -join ','))) { throw 'TEST_TOTALS_OR_PACKET_SELECTION_CHANGED' }
     if (@($red.packets.failures).Count -ne 1 -or $red.packets.failures[0].lot -ne 'A-28' -or $red.packets.failures[0].control -ne 'PACKAGE_DRIFT' -or $red.summary -notmatch '; A-28 PACKAGE_DRIFT$') { throw 'ONE_BYTE_RED_NOT_NAMED' }
-    $proof.checks += @{ check = 'real_green_A21_to_A28_and_A30_A20_excluded'; status = 'PASS' }
+    $proof.checks += @{ check = 'real_green_A20_to_A28_and_A30_A31_A32'; status = 'PASS' }
     $proof.checks += @{ check = 'one_changed_byte_named_PACKAGE_DRIFT'; status = 'PASS' }
     $proof.checks += @{ check = 'identical_REJEU_PASS_and_test_counts'; status = 'PASS' }
     $proof.checks += @{ check = 'both_owned_containers_absence_read_back'; status = 'PASS' }

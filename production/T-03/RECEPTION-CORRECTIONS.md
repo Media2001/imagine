@@ -1,6 +1,8 @@
 # Réception des corrections T-03 — 27 novembre 2026
 
-**Candidat de corrections seulement. Aucun PRET, aucun GO.** Le parent reprend les dernières gates, les gels dépendants et la preuve nominale/un octet après A-30. Aucun paquet voisin n'est rescellé par cette intervention.
+**Candidat courant sans PRET, gates globales bloquées. Aucun GO.** L'ancien marqueur de 8 h 14 et tout son paquet ont été archivés hors dépôt avant correction dans `C:/Users/Ced/AppData/Local/hermes/cache/scratch/t03-cloture-20261127-1829/historique-T03/`. Un seul paquet courant reste dans `preuves/final/`. Le parent reprend A-32, puis les gates A-31/T-03 et la preuve nominale/un octet. Aucun paquet voisin n'est rescellé ici.
+
+**Contrat choisi : `verify-corrections.py` ne vaut qu'avant le dépôt de PRET**, pas pour lire l'état final. Après PRET, son refus est intentionnel ; la vérification finale est le rejeu indépendant et les gates du parent. `sceller-candidat.py` reconstruit l'inventaire et appelle tous les contrôles de ce lecteur ; une erreur restaure le manifeste précédent. Aucun remplacement manuel d'empreinte, aucun PRET produit par le sceau candidat. Toute nouvelle écriture de document/source T-03 exige une nouvelle qualification.
 
 ## 1. Six instructions appliquées
 
