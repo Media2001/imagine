@@ -115,3 +115,20 @@ Toute demande hors cahier des charges, toute contradiction interne au cahier des
 - **A-30 · sur une copie neutralisée, on ne sait pas dire « à créer » ou « existant ».** Les adresses sont anonymisées par l'import : le rapprochement vaut « inconnu ». Le nombre utile demandera le fichier d'Imagine et une lecture sur la source, par Ced : rien n'est lancé.
 - **C-26 · étanchéité des sorties nouvelles non prouvée.** Le test contrôlait Soutenir, la coopérative et l'agenda contre une liste de témoins incomplète, et ne visitait pas la page `/evenements/`. Aucune fuite constatée ; six corrections de fond.
 - **Voie 2 · aucun travail depuis 0 h 33**, file pleine. Blocage hors du dépôt (session arrêtée ou non réveillée) : à Ced.
+
+## 27 novembre 2026, 7 h — lots A-26, A-27, T-03, A-30, A-31, B-07, B-09, C-23
+
+- **A-26, A-27, A-31 · paquets périmés par un changement du lanceur de rejeu.** Les corrections de T-03 ont modifié six fichiers de `wp/tests/t01/` que ces paquets gèlent. À refaire une fois ; le lanceur est gelé comme l'import.
+- **T-03 · A-20 hors du rejeu des paquets.** Le brief prévoyait A-20 à A-25 ; A-20 est sorti « déclaration absente ». Rattrapé par une consigne, sans changer ses contrôles.
+- **T-03 · les tests de contrat du lanceur ne sont pas joués par la commande des relecteurs.** Leur vert est relu, pas rejoué par eux.
+- **A-30 · un sceau vert masquait une suite non rejouable.** La suite Python dépendait d'une variable d'environnement du poste d'Hermès. Corrigé ; règle ajoutée (session Windows propre).
+- **A-30 · sources officielles citées non vérifiables par les relecteurs.** Deux captures datées gardées hors dépôt ; deux anciennes adresses restent en « doute ».
+- **A-30 · la neutralisation se reconnaît à un seul marqueur** (`imagine_staging_disabled_plugins`). Documenté : si le moteur de l'import change ce marqueur, A-30 est à reprendre.
+- **A-31 · sur une copie neutralisée, la nature des commandes vaut « inconnu ».** Années, états, liens cassés et remboursements restent lisibles.
+- **C-23 · paquet devenu historique.** C-26 a modifié deux de ses sources de test sans le resceller. Le test d'étanchéité à jour est celui de C-26.
+- **C-26 · suite Python non rejouée par les relecteurs.** Le lancement leur est refusé ; la preuve repose sur les reçus, huit mutations et la relecture du code. À rejouer par Ced s'il le souhaite (`production/C-26/A-VOIR.md`).
+- **B-08, B-09 · deux types de contenu que l'import ne connaît pas.** Les propositions de sujet et les messages de contact (`imagine_contact`, cinq clés) sont des messages de visiteurs. L'import, gelé, ne les viderait pas sur une copie du nouveau site. Sans effet aujourd'hui (l'archive est celle du site actuel) ; à ajouter à la liste fermée le jour où l'import sera rouvert.
+- **B-09 · ni durée de conservation ni antispam sur le formulaire de contact.** À arrêter avant l'ouverture au public ; question rangée pour Imagine.
+- **B-09 · pages hors de la matrice d'étanchéité.** Elles ne portent aucun contenu réservé ; extension de la matrice en une fois, plus tard.
+- **B-07 · échappement d'un champ de texte de l'agenda à vérifier.** Signalé par Hermès, non reproduit ; complément demandé.
+- **Voie 2 · arrêt de 0 h 33 à 5 h 01, cause non établie.** La session a retiré seule un verrou de plus de quatre heures.

@@ -88,6 +88,9 @@ Issues des lots, au 26/11 à 10 h (chacune est un réglage au défaut prudent, a
 | Import des abonnés hors ligne : un abonné dont l'échéance est déjà passée dans le fichier est-il importé ? | Non décidé : l'import à blanc le compte à part et n'en fait rien | Option de la configuration, fermée ; « oui » est refusé tant qu'aucune règle n'est écrite (A-30) |
 | Import des abonnés hors ligne : quand une ligne du fichier tombe sur un compte qui existe déjà à la même adresse, rattache-t-on l'abonnement à ce compte, ou la ligne revient-elle à l'administration ? | Rien n'est rattaché : la ligne est comptée « compte existant » | Option de la configuration, fermée (A-30) |
 | Import des abonnés hors ligne : la prochaine échéance est-elle reprise telle quelle du fichier, ou recalculée d'après les numéros dus et le calendrier de parution (§3.5) ? | Aucune échéance n'est calculée | Option de la configuration, fermée (A-30) |
+| Combien de temps le site garde-t-il un message envoyé par le formulaire de contact ? | Aucune suppression automatique : le message reste jusqu'à ce que l'administration l'efface ou que la personne demande l'effacement de ses données | Pas de réglage pour l'instant ; à arrêter avant l'ouverture au public (B-09) |
+| Le sommaire audio d'un numéro (§3.3) est-il réservé à ceux qui ont droit au numéro, ou ouvert à tous ? | Réservé, comme le PDF du numéro | Pas de réglage : il suit la décision d'accès du numéro (B-11) |
+| Pack thématique (§3.3) : si la rédaction ajoute ou retire un numéro après un achat, que garde l'acheteur ? | Les numéros que le pack contenait au moment du paiement, ni plus ni moins | Pas de réglage : règle de l'achat (C-28) |
 
 Rappel de règle, sans question : un abonnement actif dans l'administration mais **sans paiement validé** ne figure pas dans la liste d'envoi.
 

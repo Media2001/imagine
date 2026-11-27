@@ -126,3 +126,65 @@ Lu : les rapports de 1 h 30, 1 h 45, 2 h 25, 2 h 52 et 3 h 52 (voie 1), les deux
 
 - **Voie 1** : T-03 (déclarations, image), la requalification à l'arrivée de la vérification d'A-28, A-29, A-30. Un lot de plus, qui ne dépend pas de l'issue d'A-28 pour être construit : **A-31, l'historique des commandes des abonnés, compté** (§4.3 : les abonnés en ligne gardent leur historique).
 - **Voie 2** : corrections de B-08, puis de C-26, puis B-09, C-27, B-10.
+
+# Passage automatique de 7 h
+
+Lu : les rapports de 5 h 01 à 7 h 09 (les deux voies), la vérification d'A-28, les vérifications complémentaires d'A-21 à A-25, les vérifications d'A-26, A-27, B-08 et C-26, les deux relectures et la fusion de T-03, les deux relectures et la fusion d'A-30, la réception des corrections de T-03 et d'A-30, le rapport d'A-31, la note et l'`A-VOIR` de B-09. Aucun accord donné sur le réel.
+
+## Clôtures
+
+- **A-28 clos.** Sa vérification dit « prêt » : cinq instructions appliquées, les témoins des champs orphelins tournent réellement en PHP (82 contrôles, 62 avant). La condition posée à 4 h est tenue : la vérification a regardé le découpage du fichier de l'import (extractions sans changement de comportement, équivalence des jetons, différentiel hors formulaires préservé, aucune commande de Ced modifiée) ; et l'import découpé a ensuite été rejoué en vrai, sept fois, par les matrices d'A-21 à A-27 sur archives fictives. L'import n'a plus changé depuis 3 h 28. Ce n'est pas un accord d'import.
+- **A-22 clos.** Son seul point ouvert était le rejeu indépendant de son vérificateur de paquet : un relecteur l'a lancé lui-même par la commande autorisée, au vert (`PAQUETS : 9 vérifiés, 0 échecs`). Raison de ne pas attendre le `PRET` de T-03 : le mécanisme a rendu un résultat indépendant et vert pour A-22, et les corrections de T-03 portent sur le temps et la mémoire du lanceur, pas sur ce que le vérificateur d'A-22 contrôle.
+- **A-23, A-24, A-25 clos** : code inchangé depuis leur « prêt » du 26, paquet refait sur l'import gelé, vérification complémentaire « prêt », paquet revu au vert par le rejeu indépendant. **A-21 reste clos** (vérification n° 3).
+- **B-08 code clos** : six instructions appliquées et vérifiées, la septième (colonne de liste) était facultative et n'est pas faite. Validation visuelle de Ced attendue.
+- **C-26 code clos** : dix instructions appliquées, le bloquant sur la preuve levé (tous les témoins réservés, `/evenements/` dans la matrice, attendu des coopérateurs déduit des personnages). Les relecteurs n'ont toujours pas pu rejouer la suite Python ; comme écrit à 4 h, ce n'est pas un troisième tour : la clôture repose sur les huit mutations et la relecture du code. **La réserve sur la couverture des pages coopérateurs de C-23 est levée** : elle a maintenant ses relectures, par C-26.
+- C-26 a modifié deux sources de test de C-23 sans resceller son paquet : accepté. C-23 reste clos, son paquet est de l'historique ; le test d'étanchéité vivant est celui de C-26. Raison : un seul test à jour vaut mieux que deux paquets à tenir.
+
+## A-26 et A-27 — vérifiés « prêt », pas clos : leur paquet est redevenu rouge
+
+- Vérifiés « prêt » à 5 h 58 et 6 h 03, sceaux verts. À 6 h 46, les corrections de T-03 ont changé six fichiers du lanceur de rejeu (`wp/tests/t01/`) que ces paquets gèlent : leur vérificateur refuse (`SEALED_VERIFICATION_FAILED`), et Hermès a retiré leur `PRET` plutôt que de changer une empreinte. C'est juste.
+- Rien à corriger au fond. **Ils se closent sur leur paquet refait une fois, et sur une ligne `PAQUETS` verte lue par un relecteur** ; pas de nouveau tour de fond. Raison : le code n'a pas changé depuis la vérification.
+- **Ordre, pour ne refaire qu'une fois** : les sources du lanceur ne bougent plus ; resceau d'A-26, A-27, A-30, A-31 sur ce lanceur ; puis la preuve finale de T-03 (dix paquets verts, un octet changé dans A-28 sur copie) et son `PRET`.
+- **Règle : le lanceur de rejeu est gelé comme l'import**, dès maintenant (`wp/tests/t01/`, `wp/tests/rejouer.ps1`). Plus de changement sans une consigne de la file. Raison : c'est la troisième fois en deux jours qu'un changement d'un fichier commun périme des paquets vérifiés (le gardien le 26, l'import cette nuit, le lanceur ce matin).
+
+## T-03 — à corriger, corrigé en candidat
+
+- Verdict de fusion retenu : deux importants. Un paquet lent (C1) ou bavard (S1) pouvait faire échouer le bilan des tests d'une suite verte, par le temps ou par la mémoire. Corrigé : une échéance commune, la phase des paquets bornée au temps restant, les sorties plafonnées pendant la lecture, les processus descendants arrêtés. Tests réels, rouges avant, verts après.
+- Défauts de la fusion confirmés : **A-20 reste hors rejeu**, nommé, et entre dans le rejeu par une consigne à part (ci-dessous) ; le montage de la racine en lecture seule reste tel quel ; les tests de contrat de T-03 ne s'ajoutent pas à la commande des relecteurs. Raison : aucun des trois ne touche à l'indépendance du bilan des tests.
+- L'écart 582 / 584 contrôles : la preuve finale donnera le nombre réellement observé ; pas de valeur imposée.
+- **A-20 dans le rejeu** : un point d'entrée sans argument et sa déclaration, joués avec le resceau. Si l'ajout périme le paquet d'A-20, il est refait par sa matrice réelle. Aucun contrôle changé. A-20 reste clos ; il ne se rouvre que si sa matrice est rouge (règle d'A-21).
+
+## A-30 — à corriger, corrigé, paquet à refaire
+
+- Verdict de fusion retenu : un important. La suite Python exigeait une variable `TMPDIR` que Windows ne définit pas : 22 tests sur 25 en erreur sur une session propre, et un sceau vert qui le masquait. Corrigé (dossier temporaire standard, refus s'il tombe dans le dépôt), rejoué 34 sur 34 en UTF-8 et en cp1252, la variable absente.
+- Défauts de la fusion confirmés : dossier temporaire standard ; **l'axe produit garde sa clé `0`** pour les lignes sans produit reconnu. Raison : c'est ce que le brief demande (les axes comptent toutes les lignes du fichier contrôlé), et c'est documenté.
+- « Repartir d'un arbre propre » (instruction 5) : pas de Git, pas de remise à zéro par Hermès. Il mesure les comptes obtenus et les écrit. Raison : un compte global qui bouge parce que l'autre voie livre n'est pas un défaut du lot ; la règle du 26 tient (un fichier partagé se contrôle par contrat, pas par son empreinte entière).
+- **Règle pour toute suite Python de la voie 1 : elle passe sur une session Windows propre, sans `TMPDIR`**, et la matrice le prouve en retirant la variable aux processus fils.
+
+## A-31 — construit, paquet à refaire, pas encore relu
+
+- Rendu à 6 h 44 avec `PRET`, puis périmé par les corrections de T-03 comme A-26 et A-27 (`A31_PARENT_GATES_MISSING`). Resceau, `PRET`, première relecture.
+- Règle d'A-19 reprise telle quelle pour « vivant », comme demandé. Sur une copie neutralisée, seule la répartition par nature vaut « inconnu » ; le reste se lit. Reporté aux écarts.
+
+## A-29 — rien de nouveau
+
+- Le réveil de diagnostic n'a pas eu lieu : la requalification, T-03, A-30 et A-31 sont passés avant. La consigne tient, après le resceau. A-29 ne bloque personne.
+
+## Voie 2 — repartie à 5 h 01
+
+- La session a retiré elle-même un verrou vieux de plus de quatre heures et a repris. La cause de l'arrêt n'est pas établie. L'alerte à Ced est levée ; le fait reste noté.
+- **B-09 rendu à 7 h 13**, en relecture. Défauts d'Hermès laissés tels quels jusqu'à la fusion (case de recontact facultative et non cochée, brouillon natif de confidentialité conservé).
+- **B-09 crée un type de contenu `imagine_contact`** (messages du formulaire de contact) que l'import de la voie 1 ne connaît pas. On ne rouvre pas l'import pour cela. Raison : l'import traite l'archive du site actuel, où ce type n'existe pas ; il ne comptera que le jour où le nouveau site sera lui-même copié. Dette écrite dans les écarts, avec les propositions de sujet de B-08.
+- Les pages de B-09 n'entrent pas dans la matrice d'étanchéité de C-26 : elles ne portent aucun contenu réservé, et B-09 prouve lui-même que ses messages ne sortent ni par REST ni par la recherche. La matrice sera étendue une fois, quand la série de pages sera finie.
+- **B-07, signalé par Hermès** : `Agenda.php` écrirait un champ de texte sans l'échappement que WordPress attend, comme B-08 et C-25 avant lui. Non reproduit. Consigne : reproduire d'abord, par un cas d'essai avec antislash sur un bouchon fidèle ; corriger à la seule frontière d'écriture si c'est rouge ; l'écrire en trois lignes si c'est vert. B-07 reste code clos, c'est un complément.
+
+## Questions rangées pour Imagine
+
+- Combien de temps garde-t-on un message du formulaire de contact ? Défaut : aucune suppression automatique n'est inventée.
+- Le sommaire audio d'un numéro est-il réservé aux ayants droit du numéro ? Défaut : oui, comme le PDF.
+- Quand un pack thématique change après un achat, que garde l'acheteur ? Défaut : les numéros du pack au moment du paiement.
+
+## Files
+
+- **Voie 1** : resceau unique (A-26, A-27, A-30, A-31, avec A-20 dans le rejeu), preuve finale et `PRET` de T-03, A-29. Un lot de plus : **A-32, la tournée des inventaires** (une commande qui enchaîne les outils d'inventaire clos et rend un bilan), à commencer après le `PRET` de T-03.
+- **Voie 2** : corrections de B-09 quand elles arrivent, C-27 (en cours), le complément de B-07, B-10. Deux lots de plus : **B-11** (vidéos externes sans appel à un tiers, podcasts, sommaire audio servi comme le PDF), **C-28** (packs thématiques : l'achat ouvre, numéro par numéro, ce que C-14 ouvre).
