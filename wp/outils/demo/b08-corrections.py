@@ -55,7 +55,7 @@ def deploy(label):
     baseline = json.loads((b08.PROOF / 'deploiement.json').read_text(encoding='utf-8'))['readback']
     assert all(old[n] in [baseline[n], hashlib.sha256((b08.ROOT / 'wp' / n).read_bytes()).hexdigest()] for n in names), 'Dérive distante'
     before = b08.c25.b06.state()
-    durable = b08.c25.private(label, {'files': b08.wp('$v=[];foreach(' + b08.php(names) + ' as $n){$v[$n]=file_get_contents(WP_CONTENT_DIR."/".$n);}echo wp_json_encode($v);'), 'database': b08.snapshot()})
+    durable = b08.c25.private(label, {'files': b08.wp('$v=[];foreach(' + b08.php(names) + ' as $n){$v[$n]=file_get_contents(WP_CONTENT_DIR."/".$n);}echo wp_json_encode($v);'), 'database': b08.snapshot(), 'business': before})
     boot = b08.c25.b06.hashes(['plugins/imagine-site/imagine-site.php'])
     for n in names:
         b08.c25.b06.profils.b00.upload(n, (b08.ROOT / 'wp' / n).read_bytes())

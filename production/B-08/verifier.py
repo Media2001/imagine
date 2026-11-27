@@ -14,6 +14,11 @@ def digest(path):
 
 
 def main():
+    # Le sceau initial reste historique ; les corrections ont leur paquet propre.
+    if (PROOF / 'corrections-final.json').is_file():
+        import runpy
+        runpy.run_path(str(PROOF / 'verifier-corrections.py'), run_name='__main__')
+        return
     final = json.loads((PROOF / 'final.json').read_text(encoding='utf-8'))
     for name, expected in final['manifest'].items():
         assert name.startswith(('wp/plugins/imagine-site/', 'wp/outils/demo/b08', 'wp/tests/demo/b08', 'wp/themes/imagine/header.php', 'production/B-08/'))

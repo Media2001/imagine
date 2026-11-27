@@ -13,6 +13,8 @@ foreach (discoverT01Packages('/repo/wp')['packages'] as $package) {
     copyTree('/opt/t01/' . $package['cacheKey'] . '/vendor', $dest . '/vendor');
     $mutation = $argv[1] ?? '';
     $mutants = [
+        'slash' => ['Sujet.php', "'meta_input' => wp_slash(\$meta)", "'meta_input' => \$meta"],
+        'https' => ['Soutenir.php', "parse_url(\$url, PHP_URL_SCHEME) === 'https'", "in_array(parse_url(\$url, PHP_URL_SCHEME), ['https', 'http'], true)"],
         'don' => ['Soutenir.php', "if (\$config['don']) {", 'if (true) {'],
         'parts' => ['Soutenir.php', 'rel="sponsored"', 'rel="nofollow"'],
         'consentement' => ['Sujet.php', 'type="checkbox" name="consentement"', 'type="checkbox" checked name="consentement"'],

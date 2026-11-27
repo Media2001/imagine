@@ -55,6 +55,7 @@ def run_storage(storage):
     cfg = (site / 'wp-config.php').read_text(encoding='utf-8')
     writable = cfg.replace("define('DB_USER', 'a02_" + storage + "')", "define('DB_USER', 'root')").split(
         "\nfile_put_contents('/scratch/a02-bootstrap-trap'")[0]
+    writable = writable.replace("define('ABSPATH', __DIR__.'/');", "if (!defined('ABSPATH')) { define('ABSPATH', __DIR__.'/'); }")
     (site / 'wp-config.php').write_text(writable, encoding='utf-8')
     try:
         seed = b.wp(site, ['eval-file', '/opt/a30/seed.php', '--use-include'])
@@ -103,7 +104,8 @@ if (getenv('A30_CONFINED') === '1') {
     (OUT / (storage + '-db-before.json')).write_text(json.dumps(before), encoding='utf-8')
     source = work / 'five.csv'; source.write_bytes(five)
     p = invoke(site, source, types, audit / 'audit.json')
-    b.check(storage + ':confined_success', (p.returncode, p.stdout, p.stderr) == (1, 'A30_OK\n', ''))
+    b.check(storage + ':confined_success', (p.returncode, p.stdout, p.stderr) == (1, 'A30_OK\n', ''),
+            {'exit': p.returncode, 'stdout': p.stdout, 'stderr': p.stderr})
     summary, lines = [json.loads(path.read_text(encoding='utf-8')) for path in outputs(source)]
     b.check(storage + ':five_issues_exact_lines', lines['issues'] == EXPECTED_LINES and lines['rapprochement_inconnu'] == [])
     b.check(storage + ':counts_k5', summary['total'] == 25 and summary['storage'] == storage

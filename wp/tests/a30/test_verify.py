@@ -21,6 +21,17 @@ class VerifierTests(unittest.TestCase):
             self.assertEqual(1, result['exit_code'])
             self.assertFalse(result['native_proven'])
 
+    def test_production_reader_exists_and_refuses_arguments(self):
+        import subprocess
+        entry = ROOT / 'production/A-30/verify.py'
+        self.assertTrue(entry.is_file(), 'A30 production no-argument reader missing')
+        p = subprocess.run([sys.executable, '-B', str(entry), '--unexpected'],
+                           cwd=ROOT, capture_output=True,
+                           env={**os.environ, 'PYTHONIOENCODING': 'utf-8'}, timeout=20)
+        self.assertEqual(1, p.returncode)
+        self.assertEqual(b'', p.stderr)
+        self.assertEqual('NO_ARGUMENTS', json.loads(p.stdout)['code'])
+
     def test_shared_readme_contract_is_only_two_exact_lines(self):
         self.assertTrue(VERIFY.is_file())
         spec = importlib.util.spec_from_file_location('a30_verify', VERIFY)

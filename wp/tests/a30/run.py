@@ -63,14 +63,17 @@ def main():
         created = True
         check('isolation_before', True, b.validate(json.loads(b.call(['inspect', name]).stdout)[0], name))
         b.call(['start', name])
-        b.call(['exec', name, 'mkdir', '-p', '/subject/a30', '/opt/a30/fixtures', '/opt/a02', '/report'])
-        for source, dest in [(HERE, '/opt/a30'), (ROOT / 'wp/outils/bascule/a30', '/subject/a30')]:
+        b.call(['exec', name, 'mkdir', '-p', '/subject/repo/wp/outils/bascule', '/opt/a30/fixtures', '/opt/a02', '/report'])
+        b.call(['exec', name, 'ln', '-s', '/subject/repo/wp/outils/bascule/a30', '/subject/a30'])
+        for source, dest in [(HERE, '/opt/a30'), (ROOT / 'wp/outils/bascule/a30', '/subject/repo/wp/outils/bascule/a30')]:
+            b.call(['exec', name, 'mkdir', '-p', dest])
             for path in sorted(source.iterdir()):
                 if path.is_file():
                     b.call(['cp', b.local(path), name + ':' + dest + '/' + path.name])
         if not args.unit_only:
             for key in BASCULE_DEPS:
-                b.call(['cp', b.local(ROOT / 'wp/outils/bascule' / key), name + ':/subject/' + key])
+                b.call(['cp', b.local(ROOT / 'wp/outils/bascule' / key), name + ':/subject/repo/wp/outils/bascule/' + key])
+                b.call(['exec', name, 'ln', '-s', '/subject/repo/wp/outils/bascule/' + key, '/subject/' + key])
             b.call(['cp', b.local(ROOT / 'wp/outils/staging'), name + ':/subject/staging'])
             for filename in A02_FILES:
                 b.call(['cp', b.local(ROOT / 'wp/tests/a02-audit' / filename), name + ':/opt/a02/' + filename])
@@ -91,6 +94,7 @@ def main():
         check('pure_no_extensions_no_writes', (pure.returncode, pure.stdout, pure.stderr) == (0, 'A30_PURE_OK 7\n', ''))
         if not args.unit_only and unit.returncode == 0:
             native = b.call(['exec', name, 'python3', '/opt/a30/inside.py'], check=False, timeout=1500)
+            (out / 'native.log').write_text(native.stdout + native.stderr, encoding='utf-8')
             check('native_return', native.returncode == 0)
             b.call(['cp', name + ':/report/.', b.local(out)])
         check('isolation_after', True, b.validate(json.loads(b.call(['inspect', name]).stdout)[0], name))
