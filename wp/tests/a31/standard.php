@@ -12,6 +12,8 @@ $paths = [
     'classic' => $woo . '/includes/data-stores/abstract-wc-order-data-store-cpt.php',
     'hpos' => $woo . '/src/Internal/DataStores/Orders/OrdersTableDataStore.php',
     'refund' => $woo . '/includes/class-wc-order-refund.php',
+    'statuses' => $woo . '/src/Enums/OrderStatus.php',
+    'internal_statuses' => $woo . '/src/Enums/OrderInternalStatus.php',
 ];
 $sources = [];
 $hashes = [];
@@ -24,11 +26,23 @@ $checks = [
     'native_order_get_date' => str_contains($sources['order'], 'function get_date_created('),
     'native_order_get_customer' => str_contains($sources['customer'], 'function get_customer_id('),
     'native_closed_statuses' => str_contains($sources['functions'], 'function wc_get_order_statuses(')
-        && str_contains($sources['functions'], 'wc-refunded'),
+        && str_contains($sources['functions'], 'OrderInternalStatus::REFUNDED')
+        && str_contains($sources['internal_statuses'], "public const REFUNDED = 'wc-refunded';"),
     'native_classic_reader' => str_contains($sources['classic'], 'function read('),
     'native_hpos_reader' => str_contains($sources['hpos'], 'wc_orders_meta'),
     'native_refund_type' => str_contains($sources['refund'], 'shop_order_refund'),
 ];
+$statusMap = ['PENDING' => 'pending', 'PROCESSING' => 'processing', 'ON_HOLD' => 'on-hold',
+    'COMPLETED' => 'completed', 'CANCELLED' => 'cancelled', 'REFUNDED' => 'refunded', 'FAILED' => 'failed'];
+foreach ($statusMap as $constant => $value) {
+    $checks['native_status_' . $value] = str_contains($sources['functions'], 'OrderInternalStatus::' . $constant)
+        && str_contains($sources['internal_statuses'], "public const {$constant} = 'wc-{$value}';")
+        && str_contains($sources['statuses'], "public const {$constant} = '{$value}';");
+}
+$checks['native_status_checkout_draft'] = str_contains(
+    $sources['statuses'],
+    "public const CHECKOUT_DRAFT = 'checkout-draft';"
+);
 $found = ['native_wcs_subscription_getter' => false, 'native_wcs_uncached_related_reader' => false,
     'native_wcs_default_types' => false, 'native_wcs_parent_field' => false];
 $wcs = $site . '/wp-content/plugins/woocommerce-subscriptions';

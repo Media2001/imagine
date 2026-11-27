@@ -1,42 +1,42 @@
 # C-26 — À voir et à relire
 
-**Cible unique : `imagine-test-demo`, entièrement fictive.** Extension de tests uniquement : aucun plugin, paywall, thème, réglage de découverte ni bibliothèque close modifié. Les preuves C-23 scellées ne sont pas réécrites.
+**Cible unique : `imagine-test-demo`, entièrement fictive.** Les dix instructions du 27 novembre sont appliquées après B-08 corrigé. Aucun changement durable du plugin, paywall, thème, réglage de découverte ni bibliothèque close. Deux sources de test C23 sont adaptées minimalement, pas ses preuves historiques. PRET n'est ni clôture Claude ni validation visuelle Ced.
 
 ## Adresses à ouvrir sur la seule démonstration
 
-Base : `http://192.168.129.32:8085`. Ouvrir `/notre-cooperative/`, `/soutenir/`, `/proposer-un-sujet/` et `/evenements/` : pages publiques fictives, aucun texte d'article réservé ni donnée de témoin. Ouvrir `/espace-cooperateurs/` sans statut : refus ; avec P-COOP : espace autorisé. Le compte natif est `/my-account/`, et non `/mon-compte/`. Les fixtures C26 temporaires ont été retirées : les demandes/propositions témoins ne doivent pas rester visibles dans l'administration. Les 131 adresses exactes et les 35 B06 sont dans `INVENTAIRE.md`.
+Base : `http://192.168.129.32:8085`. Ouvrir `/notre-cooperative/`, `/soutenir/`, `/proposer-un-sujet/` et `/evenements/` : pages publiques fictives, aucun texte d'article réservé ni donnée de témoin. L'archive exige titre Agenda, deux groupes natifs, chaque ID et lien événement inventorié. Ouvrir `/espace-cooperateurs/` sans statut : refus ; avec P-COOP : espace autorisé. Le compte natif est `/my-account/`. Les fixtures C26 temporaires ont été retirées : les demandes/propositions témoins ne doivent pas rester visibles dans l'administration. Les 132 adresses exactes et les 35 B06 sont dans `INVENTAIRE.md`.
 
 ## Commandes de réception
 
-Depuis `C:/Users/Ced/imagine`, bash Windows, sans `TMPDIR` nécessaire :
+Depuis `C:/Users/Ced/imagine`, bash Windows. Interpréteur exact vérifié : **Python 3.11.15**. `py -3.11` n'est pas enregistré sur ce poste. Commandes sans argument applicatif, sans `TMPDIR` nécessaire :
 
 ```bash
-env -u TMPDIR PYTHONIOENCODING=utf-8 python -B wp/tests/demo/c26-tests.py
-env -u TMPDIR PYTHONIOENCODING=cp1252 PYTHONUTF8=0 python -B wp/tests/demo/c26-tests.py
-PYTHONIOENCODING=utf-8 python -B wp/tests/demo/c26-verifier.py
-PYTHONIOENCODING=utf-8 python -B wp/tests/demo/c26-paquet-tests.py
+env -u TMPDIR PYTHONIOENCODING=utf-8 'C:/Users/Ced/AppData/Local/hermes/hermes-agent/venv/Scripts/python.exe' -B wp/tests/demo/c26-tests.py
+env -u TMPDIR PYTHONIOENCODING=cp1252 PYTHONUTF8=0 'C:/Users/Ced/AppData/Local/hermes/hermes-agent/venv/Scripts/python.exe' -B wp/tests/demo/c26-tests.py
+env -u TMPDIR PYTHONIOENCODING=utf-8 'C:/Users/Ced/AppData/Local/hermes/hermes-agent/venv/Scripts/python.exe' -B wp/tests/demo/c26-verifier.py
+env -u TMPDIR PYTHONIOENCODING=utf-8 'C:/Users/Ced/AppData/Local/hermes/hermes-agent/venv/Scripts/python.exe' -B wp/tests/demo/c26-paquet-tests.py
 ```
 
 Rejeu réel, avec **un nom de reçu neuf** :
 
 ```bash
-PYTHONIOENCODING=utf-8 python -B wp/outils/demo/c26-preparer.py --label livraison-nouvelle
-PYTHONIOENCODING=utf-8 python -B wp/outils/demo/c26-preparer.py --label mutations-nouvelles --mutations
+TMPDIR='C:/Users/Ced/AppData/Local/hermes/cache/scratch' PYTHONIOENCODING=utf-8 'C:/Users/Ced/AppData/Local/hermes/hermes-agent/venv/Scripts/python.exe' -B wp/outils/demo/c26-preparer.py --label livraison-nouvelle
+TMPDIR='C:/Users/Ced/AppData/Local/hermes/cache/scratch' PYTHONIOENCODING=utf-8 'C:/Users/Ced/AppData/Local/hermes/hermes-agent/venv/Scripts/python.exe' -B wp/outils/demo/c26-preparer.py --label mutations-nouvelles --mutations
 ```
 
-Le lanceur garde la cible, photographie durablement l'état dans le scratch privé Hermes **avant toute fixture ou session**, prépare les données fictives puis les sessions natives et lance `c26.py <label>` avec le contexte secret en mémoire sur stdin. `c26.py` réemploie **la commande GET C-23 inchangée**, puis son catalogue supplémentaire. Il ne crée aucune session et ne fait aucun POST, export HTTP, envoi ou appel extérieur. Les exports privacy passent séparément par les callbacks natifs enregistrés, en lecture seule et pour des emails `@example.org` seulement ; aucune demande privacy/email n'est créée.
+Le lanceur garde la cible, photographie durablement l'état dans le scratch privé Hermes **avant toute fixture ou session**, prépare les données fictives puis les sessions natives et lance `c26.py <label>` avec le contexte secret en mémoire sur stdin. `c26.py` réemploie la commande GET C-23 (extraction minimale de l'oracle historique dans `reserved_witnesses()`), puis son catalogue supplémentaire. Il ne crée aucune session et ne fait aucun POST, export HTTP, envoi ou appel extérieur. Les exports privacy passent séparément par les callbacks natifs enregistrés, en lecture seule et pour des emails `@example.org` seulement ; aucune demande privacy/email n'est créée.
 
 ## Gates du paquet courant
 
-- `livraison-finale-c23.json` : **1 922 contrôles verts**, 136 voies × 14 publics plus identités/inverses, les cinq pages B06 comprises.
-- `livraison-finale.json` et `.md` : **1 965 contrôles verts**, 131 voies nouvelles ou communes réinspectées × 15 publics. L'abonné actif est aussi un tiers pour les données du propriétaire témoin.
-- `livraison-finale-privacy.json` : **64 contrôles verts**, quatre callbacks × (15 tiers + le propriétaire positif). Les données privées existent vraiment et sortent pour leur propriétaire, jamais pour les tiers.
-- `mutations-livraison-mutation-*.json` : **six familles rouges détectées**, puis restauration. Le même passage complet est ensuite vert ; le rejeu normal `livraison-finale` a encore été fait après sa restauration.
-- `tests.json`, `tests-{utf8,cp1252}.log` : **42 tests**, dont les 31 tests C23, dans chaque encodage ; Python réel **3.11.15**, `TMPDIR` absent, réseau interdit dans la suite.
+- `correction-livraison-V2-c23.json` : **1 922 contrôles verts**, 136 voies × 14 publics plus **18 identités/inverses/faux Bing**, les cinq pages B06 comprises.
+- `correction-livraison-V2.json` et `.md` : **1 980 contrôles verts**, 132 voies nouvelles ou communes réinspectées × 15 publics. L'abonné actif est aussi un tiers pour les données du propriétaire témoin.
+- `correction-livraison-V2-privacy.json` : **64 contrôles verts**, quatre callbacks × (15 tiers + le propriétaire positif). Les données privées existent vraiment et sortent pour leur propriétaire, jamais pour les tiers. Total : **3 966 contrôles par passage**.
+- `correction-mutations-V2-mutation-*.json` : **huit familles rouges détectées**, puis restauration. Même passage complet ensuite vert ; rejeu normal `correction-livraison-V2` exécuté après restauration. Anciens labels historiques seulement, non rescellés.
+- `tests.json`, `tests-{utf8,cp1252}.log` : **52 tests** (42 antérieurs conservés + 10 régressions), dont les 31 tests C23, dans chaque encodage ; Python réel **3.11.15**, `TMPDIR` absent, réseau interdit dans la suite.
 - `image.json`, `image.log` : `wp/tests/preparer-image.ps1` exécuté après les nouveaux tests, code **0**, `T01 IMAGE READY`.
-- `manifest.json` : sources C26, correctif C23 autorisé et seuls documents/reçus C26 courants. **`verification-finale.json` : 46/46 contrôles, code 0.** Le vérificateur recalcule les totaux, cases, inverses, SHA, restaurations et résultats de mutation ; JSON stdout seulement. **`qualification-finale.json` : aucune écriture dans production, réseau bloqué, 9/9 falsifications refusées**, dont huit reçus rescellés avant contrôle (la neuvième altère la source déclarée). `c26-paquet-tests.py` exerce réellement ces garde-fous sur des copies scratch. La préparation d'image autorisée est distincte de ces commandes offline et peut consulter les seules dépendances publiques dans Docker.
+- `manifest.json` : sources C26 et dépendances C23 minimales, seuls documents/reçus courants. `verification-finale.json` : contrôles exacts du paquet ; `qualification-finale.json` : falsifications refusées, réseau bloqué et aucune écriture production. Totaux, cases, **toutes les lignes C23, identités et inverses exacts et uniques**, SHA et restaurations recalculés ; attente privacy déduite du public, jamais du champ `positive` déclaré. La qualification inclut suppression des contrôles supplémentaires, inverse vide redéclaré faux, faux tiers positif, identité dupliquée, échec caché hors grille et mutations blanchies. Reçus falsifiés rescellés avant refus. Préparation d'image distincte : dépendances publiques seules dans Docker.
 
-Inventaire **une ligne par sortie** : `INVENTAIRE.md`. Catalogue machine et toutes les observations élémentaires : `livraison-finale.json`, `livraison-finale-inventaire.json`, `livraison-finale-privacy.json`. Aucun total de cas synthétiques n'est crédité comme parcours réel.
+Inventaire **une ligne par sortie** : `INVENTAIRE.md`. Catalogue machine et observations : `correction-livraison-V2.json`, `correction-livraison-V2-inventaire.json`, `correction-livraison-V2-privacy.json`. Oracle complet CONTENU_FICTIF_RESERVE, phrases C08/C10/C12 et B06 ; chaque corps réservé sans témoin reconnu est refusé même pour un lecteur autorisé. Droits C14 et B06 séparés : abonnement/achat ne donne pas B06, P-COOP ne donne pas les articles. Aucun cas synthétique n'est crédité comme parcours réel.
 
 ## Mutations : ce qui est réellement joué
 

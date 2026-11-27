@@ -1,12 +1,5 @@
 {
-  "scope": "imagine-test-demo",
-  "command": [
-    "powershell.exe",
-    "-NoProfile",
-    "-ExecutionPolicy",
-    "Bypass",
-    "-File",
-    "wp/tests/preparer-image.ps1"
-  ],
-  "exit": 0
+  "exit": 0,
+  "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/preparer-image.ps1",
+  "ready": true
 }

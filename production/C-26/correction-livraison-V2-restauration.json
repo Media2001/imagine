@@ -1,0 +1,56 @@
+{
+  "scope": "imagine-test-demo",
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "private_snapshot": {
+    "file": "c23-private-jypwqe61/snapshot.json",
+    "sha256": "3b4e016dd4dcad49ce317c5412c0efda67615175568dd98a2c9d37299603cee7",
+    "private": true
+  },
+  "command_exit": 0,
+  "privacy_green": true,
+  "business_unchanged_during_GETs": true,
+  "restoration_steps": {
+    "cleanup": {
+      "attempted": true,
+      "ok": true
+    },
+    "b06": {
+      "attempted": true,
+      "ok": true
+    },
+    "usermeta": {
+      "attempted": true,
+      "ok": true
+    }
+  },
+  "exact_restoration": {
+    "users": true,
+    "usermeta": true,
+    "posts": true,
+    "postmeta": true,
+    "comments": true,
+    "commentmeta": true,
+    "wc_orders": true,
+    "wc_orders_meta": true,
+    "wc_order_addresses": true,
+    "wc_order_operational_data": true,
+    "woocommerce_order_items": true,
+    "woocommerce_order_itemmeta": true,
+    "navigation": true,
+    "business_options": true
+  },
+  "business_preserved": true,
+  "live_sources_preserved": true,
+  "before_sha256": "6ee4c107a4e7b170cc78f87b583b30e82917f0d50b5fbca6a6eaacc646db75bb",
+  "after_sha256": "6ee4c107a4e7b170cc78f87b583b30e82917f0d50b5fbca6a6eaacc646db75bb",
+  "restoration_errors": []
+}
