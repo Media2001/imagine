@@ -1,6 +1,6 @@
 # A-31 — Réception des corrections du 27 novembre 2026
 
-**Candidat vérifié, livraison bloquée : aucun PRET, aucun manifeste.** Les tests propres à A-31 passent ; les gates globales refusent la dérive d'A-32. Le `pass=true` du lanceur ne suffit pas : ses deux reçus contiennent `packets.failures=[{"lot":"A-32","control":"A32_PACKAGE_DRIFT"}]`. Aucune correction hors A-31 ni réécriture du lanceur n'a été faite.
+**Matrice complète vérifiée, blocage initial résolu par le parent.** Les résultats ci-dessous décrivent la qualification initiale et son refus authentique, pas un blocage courant. Après correction autorisée A-32, les deux collecteurs de gates ont réellement rendu exit 0, sources stables, sans assouplissement ni réécriture du lanceur. Les gates neuves remplacent les anciennes dans le seul paquet final. Le scellement est produit par reseal.py ; PRET exige ensuite un rejeu indépendant où A-31 et A-32 sont effectivement vérifiés. Le reçu post-sceau reste hors paquet dans files/rapports/.
 
 ## Les six instructions
 
@@ -43,6 +43,6 @@ La première doit passer les 324 contrôles ; la seconde doit refuser la livrais
 
 Essais et ancien paquet : `C:/Users/Ced/AppData/Local/hermes/cache/scratch/a31-correction-20261127-1738/`. Un premier foreground a été interrompu par le watchdog hôte ; son conteneur exact a été retiré puis son absence vérifiée. Un deuxième essai a été arrêté pour corriger deux avertissements PSR-12 ; même nettoyage exact. Aucun reçu de ces essais n'est présenté comme final ; le dernier rejeu complet est suivi comme processus de fond jusqu'à sa sortie réelle.
 
-## Reprise réservée au parent
+## Procédure parent d'installation et de réception
 
-Résoudre A-32 dans son périmètre autorisé, rejouer les gates sous un nom scratch neuf, et conserver les sources A-31 telles que gelées si la matrice est réutilisée. Retirer ce candidat de `preuves/final/` vers le scratch avant `reseal.py`, qui refuse un répertoire existant. Ne jamais remplacer les empreintes à la main. Puis lecteur sans argument vert, rejeu canonique post-sceau avec A-31 dans `packets.lots` et aucun échec, et seulement alors PRET. Aucune clôture indépendante ni aucun GO réel n'est prétendu.
+Le parent a traité A-32 dans son périmètre puis retiré sans perte le candidat A-31 et ses gates rouges vers le scratch a31-a32-joint-final. Les collecteurs a31/gates.py et a32/gates.py y ont rendu PASS. Cette préparation exclut honnêtement les paquets non installés, sans les prétendre vérifiés. Les sources A-31 n'ont pas changé. Installation exclusivement par reseal.py, sans empreinte changée à la main ; puis lecteur sans argument vert, rejeu canonique post-sceau avec A-31 et A-32 dans packets.lots et aucun échec, et seulement alors PRET. Le rapport parent hors paquet contient le résultat réellement observé de cette dernière étape. Aucune clôture indépendante ni aucun GO réel n'est prétendu.

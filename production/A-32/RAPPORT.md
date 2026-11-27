@@ -1,10 +1,10 @@
 # A-32 — Réception locale du 27 novembre 2026
 
 **Fait :** tournée de quinze inventaires, garde initiale A-05 recopiée, matrice locale complète réellement verte.
-**Prêt à relire :** code et preuves locales ; cette tranche ne dépose aucun PRET.
+**Prêt à relire :** code, matrice locale complète et gates parent vertes ; PRET est conditionné à la réception indépendante post-sceau consignée hors paquet.
 **À arbitrer par Ced :** aucune règle métier nouvelle ; un outil seul reste sa décision.
-**Bloqué :** réception conjointe A-31/A-32 : les gates canoniques voient `A31_PARTIAL_EVIDENCE`.
-**Ensuite :** finalisation sérialisée du parent dans `FINALISATION.md` ; A-33 non commencé.
+**Bloqué :** blocage initial A31_PARTIAL_EVIDENCE levé par la préparation conjointe du parent, sans changement de lecteur ; les deux collecteurs de gates ont rendu exit 0, sources stables.
+**Ensuite :** scellement par seal.py puis réception indépendante avec A-31/A-32 effectivement vérifiés, sans exclusion ; PRET seulement après. Rapport de réception hors paquet dans files/rapports/ ; A-33 garde ses prérequis.
 
 ## Standard et périmètre
 
@@ -26,9 +26,9 @@ Sur chaque magasin/console : commande du mode d'emploi copiée avec ses seuls ar
 
 `wp/tests/a32/verify.py --evidence=.../matrix-final-v2` : **exit 0, A32_LOCAL_MATRIX PASS**, sans prétention de réception finale. Qualification sur copies des vraies preuves : **9/9 PASS**, dont huit falsifications refusées (preuve Python seule, cas négatif manquant, processus lancé, base modifiée, A-27 absent, faux OK re-haché, source changée, clé JSON dupliquée).
 
-## Gates et sceau
+## Gates initiales et sceau final
 
 `wp/tests/a32/gates.py --output=.../a32-active-20261127/gates-current` : **exit 1, refus conservé**. Préparation d'image exit 0 après ajout des tests ; chacun des deux rejeux exécute réellement **1 204 tests / 36 667 assertions**, zéro échec/erreur/ignoré, et **22 outils / 791 contrôles** verts. Les vérificateurs A-20/A-21/A-22/A-28 sortent 0. Mais PAQUETS nomme **A-31 `A31_PARTIAL_EVIDENCE`** (manifeste absent), A-32 étant honnêtement hors rejeu pour journaux finaux de gates absents. Le `pass=true` de la suite ne transforme pas ce rouge de paquet en vert : la gate A-32 reste FAIL.
 
-Un seul paquet neuf est installé dans `preuves/final/`, l'ancien et les essais intermédiaires conservés hors dépôt. `seal.py` vérifie la matrice et calcule son propre sceau `complete=false` tant que les gates finales manquent ; aucun hash remplacé à la main, aucun faux PRET. Les gates rouges sont conservées sous `qualification/gates-blocked`, pas dans le dossier final `gates`. Le vérificateur sans argument doit donc refuser `A32_GATES_MISSING` après validation locale, jusqu'à la réception conjointe du parent. `FINALISATION.md` donne les commandes minimales A-31/A-32 et exige ensuite un rejeu indépendant où les deux paquets sont effectivement vérifiés, non exclus, avant PRET. A-31/T-03 ne sont pas modifiés par cette tranche.
+Un seul paquet neuf dans preuves/final/, ancien et essais hors dépôt. Les refus précédents sont historiques et conservés sous qualification/gates-blocked. Le parent a suivi FINALISATION.md : candidat A-31 sorti sans perte, gates neuves A-31 et A-32 réellement vertes dans le scratch a31-a32-joint-final, aucun lecteur assoupli. Installation par les commandes propres, jamais par remplacement manuel de hash. seal.py joint les seules gates valides et calcule complete=true. Cette préparation exclut honnêtement les paquets non encore installés ; elle ne remplace pas leur réception. Un rejeu indépendant où A-31/A-32 sont effectivement vérifiés, non exclus, est exigé avant PRET ; son reçu est conservé hors des paquets scellés dans files/rapports/.
 
