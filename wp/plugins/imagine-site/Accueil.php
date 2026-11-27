@@ -33,6 +33,7 @@ final class Accueil
         $id = match ($key) {
             'thematiques' => 'imagine-thematiques',
             'conversion' => 'imagine-abonnement',
+            'evenements' => 'imagine-agenda',
             default => '',
         };
         echo '<section' . ($id !== '' ? ' id="' . esc_attr($id) . '"' : '')

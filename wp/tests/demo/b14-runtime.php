@@ -16,8 +16,31 @@ $check = static function (string $name, bool $ok) use (&$checks): void {
 };
 $issue = Accueil::numero();
 $check('numero_regle_b04', $issue && $issue->ID === Imagine\Theme\imagine_issue_query(1)->posts[0]->ID);
+$check('helper_libre_b04_b14_present', function_exists('Imagine\\Theme\\imagine_issue_free_article'));
 $free = Accueil::libre($issue);
 $check('reportage_designe_b04', $free && Imagine\Theme\imagine_access_status(Imagine\Site\Paywall::decisionListe($free))['code'] === 'libre');
+$check('b04_appelle_helper_unique', substr_count(file_get_contents(get_template_directory() . '/single-imagine_numero.php'), 'imagine_issue_free_article($issue)') === 1);
+$oldOrder = $free->menu_order;
+wp_update_post(['ID' => $free->ID, 'menu_order' => 99]);
+$two = [];
+foreach ([20, 10] as $order) {
+    $id = wp_insert_post(wp_slash([
+        'post_type' => 'post', 'post_status' => 'publish', 'post_title' => 'FICTIF B14 — libre ordre ' . $order,
+        'post_content' => 'CONTENU_FICTIF_OUVERT_B14_' . $order, 'menu_order' => $order,
+        'meta_input' => ['imagine_numero_id' => $issue->ID, 'imagine_reserve' => '0'],
+    ]), true);
+    $two[] = $id;
+}
+Imagine\Site\Paywall::invalidate();
+$check('deux_libres_ordre_distinct_identite_b04', Imagine\Theme\imagine_issue_free_article($issue)->ID === $two[1] && Accueil::libre($issue)->ID === $two[1]);
+wp_update_post(['ID' => $two[0], 'menu_order' => 10]);
+Imagine\Site\Paywall::invalidate();
+$check('deux_libres_departage_id_identite_b04', $two[0] < $two[1] && Imagine\Theme\imagine_issue_free_article($issue)->ID === $two[0] && Accueil::libre($issue)->ID === $two[0]);
+foreach ($two as $id) {
+    wp_update_post(['ID' => $id, 'post_status' => 'draft']);
+}
+wp_update_post(['ID' => $free->ID, 'menu_order' => $oldOrder]);
+Imagine\Site\Paywall::invalidate();
 if (Imagine\Theme\imagine_issue_product($issue->ID) === '') {
     $temporary = new WC_Product_Simple();
     $temporary->set_name('FICTIF B14 — produit de réception transactionnel');
