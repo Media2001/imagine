@@ -269,7 +269,7 @@ if (getenv('A25_CONFINED') === '1') {
     provenance = json.loads(phase.stdout)
     (OUT / (storage + '-neutralisation.json')).write_text(json.dumps(provenance, indent=2) + '\n', encoding='utf-8')
     b.check(storage + ':actual_import_comments_anonymised',
-            provenance['neutraliser_and_anonymiser_executed'] is True and provenance['marker_count'] == 1
+            not phase.stderr and provenance['neutraliser_and_anonymiser_executed'] is True and provenance['marker_count'] == 1
             and provenance['comments_before'] == provenance['comments_after'] == 3
             and provenance['emails_before'] == 2 and provenance['emails_after'] == 3
             and provenance['ip_before'] == 2 and provenance['ip_after'] == 0

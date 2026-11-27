@@ -255,7 +255,7 @@ if (getenv('A29_CONFINED') === '1') {
     q = cmd(['php', '/opt/a29/neutralise.php'], env={'A29_DB': clone})
     provenance = json.loads(q.stdout)
     (OUT / (storage + '-neutralisation.json')).write_text(json.dumps(provenance, indent=2) + '\n', encoding='utf-8')
-    b.check(storage + ':actual_import_erases_cron_cancels_pending_deletes_failed', provenance == {
+    b.check(storage + ':actual_import_erases_cron_cancels_pending_deletes_failed', not q.stderr and provenance == {
             'neutraliser_and_anonymiser_executed': True, 'before': {'cron': 3, 'pending': 12, 'failed': 1},
             'after': {'cron': 0, 'pending': 0, 'failed': 0, 'canceled': 12}, 'marker_count': 1})
     b.sql('mysql', "GRANT SELECT ON " + clone + ".* TO 'a02_" + storage + "'@'localhost'")
