@@ -74,6 +74,21 @@ if ($mutant) {
     $check('zero_tentative_save_render_preview', $events === []);
     foreach (['0', '1'] as $setting) {
         update_option(Medias::OPTION, ['hosts' => [], 'integration' => $setting], false);
+        foreach ($ids as $i => $id) {
+            $GLOBALS['post'] = get_post($id);
+            $phase = 'matrix_save_' . $setting . '_' . $i;
+            wp_update_post(wp_slash(['ID' => $id, 'post_content' => $body[$i]]));
+            $wp_embed->cache_oembed($id);
+            $check('matrix_corps_exact_' . $setting . '_' . $i, get_post($id)->post_content === $body[$i]);
+            $phase = 'matrix_render_' . $setting . '_' . $i;
+            $html = apply_filters('the_content', $body[$i]);
+            $check('matrix_rendu_lien_' . $setting . '_' . $i, str_contains($html, '<a href=') && !preg_match('/<(iframe|script|img)\\b/i', $html));
+            $phase = 'matrix_preview_' . $setting . '_' . $i;
+            $request = new WP_REST_Request('GET', '/oembed/1.0/proxy');
+            $request->set_param('url', $url . '&setting=' . $setting . '&i=' . $i);
+            $data = (array) rest_do_request($request)->get_data();
+            $check('matrix_apercu_lien_' . $setting . '_' . $i, isset($data['html']) && str_contains($data['html'], '<a href=') && !isset($data['thumbnail_url']) && !preg_match('/<(iframe|script|img)\\b/i', $data['html']));
+        }
         foreach ([$url, 'https://vimeo.com/123456789012', 'https://tiers-fictif.example.invalid/B12', 'https://example.invalid/fictif.mp4'] as $external) {
             $phase = 'shortcode_' . $setting;
             $GLOBALS['post'] = get_post($ids[0]);
