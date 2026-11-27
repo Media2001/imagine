@@ -52,8 +52,11 @@ foreach (['pending', 'on-hold', 'pending-cancel', 'cancelled', 'expired', 'switc
 $d = Analysis::analyse([$order('none', 2019), ...array_fill(0, 5, $order('none', 2020))], [], []);
 $check('oldest_not_next_visible_year', $d['oldest_year'] === 'fusionne');
 $d = Analysis::analyse([], [], array_fill(0, 5, ['year' => 2021]));
-$check('refund_objects_separate', $d['refunds'] === ['total' => 5, 'groups' => [['year' => 2021, 'count' => 5]], 'autres' => 0]
-    && $d['oldest_year'] === null && $d['years'] === ['groups' => [], 'autres' => 0]);
+$check(
+    'refund_objects_separate',
+    $d['refunds'] === ['total' => 5, 'groups' => [['year' => 2021, 'count' => 5]], 'autres' => 0]
+    && $d['oldest_year'] === null && $d['years'] === ['groups' => [], 'autres' => 0]
+);
 $badDate = $order('none');
 $badDate['year'] = '2020-01-01';
 $d = Analysis::analyse([$badDate], [], []);
@@ -88,8 +91,10 @@ foreach ($metrics as $metric) {
             }
             $result = Analysis::analyse($orders, $subs, []);
             foreach ($expectedLinks as $key => $value) {
-                $check('scalar_' . $metric . '_' . $count . '_' . ($mixed ? 'mixed' : 'alone') . '_' . $key,
-                    ($result[$key] ?? null) === $value);
+                $check(
+                    'scalar_' . $metric . '_' . $count . '_' . ($mixed ? 'mixed' : 'alone') . '_' . $key,
+                    ($result[$key] ?? null) === $value
+                );
             }
         }
     }

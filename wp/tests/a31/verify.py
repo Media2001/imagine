@@ -85,7 +85,7 @@ def verify(packet, python_only=False):
         base = packet / console
         env = read(base / 'environment.json')
         check(console + ':real_windows_console', env['platform'] == 'win32' and env['stdout'] == env['stderr'] == encoding
-              and env['utf8_mode'] == int(console == 'utf8'))
+              and env['utf8_mode'] == int(console == 'utf8') and env.get('tmpdir', 'missing') is None)
         total, good = log_summary((base / 'python-tests.log').read_text(encoding='utf-8'))
         counts[console + ':python'] = total
         pyrows = [row for row in rows if row['kind'] == 'python' and row['console'] == encoding]
@@ -101,6 +101,10 @@ def verify(packet, python_only=False):
         red = read(native / 'red-unit.json')
         check(console + ':targeted_k5_red', red['exit_code'] == 1 and any(
             c['check'] == 'renewal_five' and c['status'] == 'FAIL' for c in red['checks']))
+        scalar_red = read(native / 'red-scalar-unit.json')
+        check(console + ':targeted_rare_scalar_red', scalar_red['exit_code'] == 1 and any(
+            c['check'] == 'scalar_orphan_renewals_1_alone_orphan_renewals' and c['status'] == 'FAIL'
+            for c in scalar_red['checks']))
         check(console + ':executed_sources', read(native / 'sources.json') == source)
         check(console + ':executed_dependencies', read(native / 'dependencies.json') == runner.manifest(runner.DEPS))
         check(console + ':pure_no_extensions_no_writes', (native / 'pure.log').read_text(encoding='utf-8')
@@ -111,7 +115,7 @@ def verify(packet, python_only=False):
             check(console + ':isolated_' + phase, isolation['network'] == 'none' and isolation['mounts'] == []
                   and isolation['ports'] == [] and isolation['privileged'] is False and isolation['cap_drop'] == ['ALL']
                   and isolation['no_new_privileges'] is True)
-        check(console + ':runner_required', {'red_mutation_k5_caught', 'unit_green', 'adapter_native_relation_boundary_green',
+        check(console + ':runner_required', {'red_mutation_k5_caught', 'red_scalar_rare_pool_caught', 'unit_green', 'adapter_native_relation_boundary_green',
               'pure_no_extensions_no_writes', 'native_green', 'cleanup_exact_owned_container',
               'owned_sources_stable', 'dependencies_stable'}.issubset(outer))
         actual = {c['check'] for c in receipts['result']['checks']}
@@ -123,6 +127,10 @@ def verify(packet, python_only=False):
                          'invalid_date_oldest_illisible', 'missing_account_separate_from_guest',
                          'renewal_orphans_count_orders_not_links'}
         unit_required |= {'nature_' + n for n in report.NATURES}
+        unit_required |= {'scalar_' + metric + '_' + str(n) + '_' + mixed + '_' + key
+                          for metric in report.LINKS for n in (0, 1, 4, 5)
+                          for mixed in ('alone', 'mixed') for key in report.LINKS}
+        unit_required |= {'refund_' + kind + '_' + str(n) for kind in ('exact_total', 'rare_year') for n in (0, 1, 4, 5)}
         check(console + ':required_pure_cases', unit_required.issubset(units))
         adapter = {c['check'] for c in receipts['adapter-unit']['checks']}
         check(console + ':required_adapter_cases', {'parent_native_relation', 'renewal_missing_native_subscription',
@@ -141,12 +149,28 @@ def verify(packet, python_only=False):
                          'all_tables_scheduler_unchanged', 'site_files_unchanged', 'config_never_executed',
                          'actual_import_changes_extension_not_structure', 'neutral_success', 'neutral_exact_partial_unknown',
                          'neutral_db_files_unchanged', 'native_seed_5', 'five_success',
-                         'five_exact_year_status_nature_relations', 'five_db_files_unchanged', 'all_retained_files_clean']
+                         'five_exact_year_status_nature_relations', 'five_db_files_unchanged', 'all_retained_files_clean',
+                         'trash_subscription_exists_not_living_not_orphan', 'utc_boundary_both_directions_oldest']
             mandatory += ['guard_' + key for key in ('exists', 'site', 'repo', 'ancestor', 'root')]
             mandatory += ['audit_refusal_' + key for key in ('schema', 'storage')]
             mandatory += [kind + '_' + key for key in CHANNELS for kind in ('closed_channel', 'discarded_channel')]
             mandatory += ['mutation_witness_' + key for key in WITNESSES]
             check(prefix + ':required_native_cases', all(storage + ':' + key in actual for key in mandatory))
+            scalar_rows = read(native / (storage + '-scalar-matrix.json'))
+            scalar_cases = [metric + ':' + str(n) + ':' + mixed for metric in report.LINKS
+                            for n in (0, 1, 4, 5) for mixed in ('alone', 'mixed')]
+            check(prefix + ':exact_scalar_matrix_complete', [row['case'] for row in scalar_rows] == scalar_cases)
+            for row in scalar_rows:
+                metric, raw_n, mixed = row['case'].split(':')
+                expected_links = {key: int(raw_n) if key == metric else (4 if mixed == 'mixed' else 0) for key in report.LINKS}
+                slug = row['case'].replace(':', '_')
+                directory = native / (storage + '-scalar-' + slug)
+                check(prefix + ':scalar_' + slug,
+                      row['expected'] == expected_links and row['db_before'] == row['db_after']
+                      and row['files_before'] == row['files_after']
+                      and report.complete_report(directory, native / (storage + '-audit/audit.json'))
+                      and {key: read(directory / 'commandes.json')['counts'][key] for key in report.LINKS} == expected_links
+                      and all(storage + ':scalar_' + stage + '_' + slug in actual for stage in ('seed', 'success', 'exact', 'immutable')))
             for variant in ('', '-neutral', '-five'):
                 stem = storage + variant
                 before = read(native / (stem + '-db-before.json'))
@@ -172,8 +196,8 @@ def verify(packet, python_only=False):
             provenance = read(native / (storage + '-neutralisation.json'))
             check(prefix + ':actual_import_provenance', provenance['neutraliser_and_anonymiser_executed'] is True
                   and provenance['extension_relation_before'] == 1 and provenance['extension_relation_after'] == 0
-                  and provenance['renewal_relation_before'] == provenance['renewal_relation_after'] == 2
-                  and provenance['renewal_rows_before'] == provenance['renewal_rows_after'] == 3
+                  and provenance['renewal_relation_before'] == provenance['renewal_relation_after'] == 3
+                  and provenance['renewal_rows_before'] == provenance['renewal_rows_after'] == 4
                   and provenance['opaque_renewal_before'] == provenance['opaque_renewal_after'] == 1
                   and provenance['structure_before_sha256'] == provenance['structure_after_sha256']
                   and provenance['marker_count'] == 1)

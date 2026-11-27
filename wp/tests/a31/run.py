@@ -98,7 +98,13 @@ def main():
         red_data = json.loads((out / 'red-unit.json').read_text(encoding='utf-8'))
         check('red_mutation_k5_caught', red.returncode == 1 and any(
             x['check'] == 'renewal_five' and x['status'] == 'FAIL' for x in red_data['checks']))
-        scalar_mutation = "from pathlib import Path;p=Path('/subject/a31/Analysis.php');s=p.read_text(encoding='utf-8');p.with_suffix('.original').write_text(s,encoding='utf-8');old='$result = $links;';assert s.count(old)==1;p.write_text(s.replace(old,\"$result = array_map(static fn ($v) => ['groups' => [], 'autres' => $v], $links);\"),encoding='utf-8')"
+        needle = '$result = $links;'
+        replacement = "$result = array_map(static fn ($v) => ['groups' => [], 'autres' => $v], $links);"
+        scalar_mutation = ("from pathlib import Path;p=Path('/subject/a31/Analysis.php');s=p.read_text(encoding='utf-8');"
+                           "p.with_suffix('.original').write_text(s,encoding='utf-8');"
+                           "old=bytes.fromhex('" + needle.encode().hex() + "').decode();"
+                           "new=bytes.fromhex('" + replacement.encode().hex() + "').decode();"
+                           "assert s.count(old)==1;p.write_text(s.replace(old,new),encoding='utf-8')")
         b.call(['exec', name, 'python3', '-c', scalar_mutation])
         scalar_red = b.call(['exec', name, 'php', '/opt/a31/unit.php'], check=False)
         b.call(['cp', name + ':/report/unit.json', b.local(out / 'red-scalar-unit.json')])

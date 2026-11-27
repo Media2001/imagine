@@ -59,8 +59,10 @@ $metrics = ['orphan_renewals', 'living_without_parent', 'orders_missing_account'
 $case = getenv('A31_SCALAR_CASE');
 if (is_string($case) && $case !== '') {
     $parts = explode(':', $case);
-    if (count($parts) !== 3 || !in_array($parts[0], $metrics, true)
-        || !in_array($parts[1], ['0', '1', '4', '5'], true) || !in_array($parts[2], ['alone', 'mixed'], true)) {
+    if (
+        count($parts) !== 3 || !in_array($parts[0], $metrics, true)
+        || !in_array($parts[1], ['0', '1', '4', '5'], true) || !in_array($parts[2], ['alone', 'mixed'], true)
+    ) {
         throw new RuntimeException('A31_SEED_SCALAR_CASE');
     }
     foreach ($metrics as $metric) {
