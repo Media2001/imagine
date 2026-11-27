@@ -1,0 +1,28 @@
+{
+  "scope": "imagine-test-demo",
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "before": {
+    "plugins/imagine-site/PageArticle.php": null,
+    "themes/imagine/single.php": "71b98dcdd3f3a9f537224f8e6c574dc5754760795de78369f7a526a46af0bfad",
+    "plugins/imagine-site/imagine-site.php": "9cb5f023fdc334af13e276e70e9352265eac1e78c8691292b9d2218cc6da2cd5"
+  },
+  "readback": {
+    "plugins/imagine-site/PageArticle.php": "4cf2c687659f507f1e638b48a76a8a9092f75746bbadfd35cf0737e29709270e",
+    "themes/imagine/single.php": "f1aca18f048180ff00b47f1607f3187c6d18213066c9fa2788b7592c356a3b4d",
+    "plugins/imagine-site/imagine-site.php": "6fc6b40a3ab8414070b39618be383e146db3044dc31f74c37b7577feb47f59ba"
+  },
+  "private_snapshot": {
+    "file": "C:\\Users\\Ced\\AppData\\Local\\Temp\\b11-private-lts468cp\\snapshot.json",
+    "sha256": "b5f98cc0c4c195c34ce4e9a6c22be343d17b042af78984f60404eafb45baa977",
+    "private": true
+  }
+}

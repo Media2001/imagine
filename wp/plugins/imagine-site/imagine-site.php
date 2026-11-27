@@ -192,6 +192,10 @@ Accueil::register();
 require_once __DIR__ . '/PiedPage.php';
 PiedPage::register();
 
+// B16 — enveloppe éditoriale publique, corps C08 inchangé.
+require_once __DIR__ . '/PageArticle.php';
+PageArticle::register();
+
 // C28 — instantané du pack au paiement, décision et remboursements C14 inchangés.
 require_once __DIR__ . '/PacksRegles.php';
 require_once __DIR__ . '/PacksThematiques.php';

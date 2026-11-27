@@ -7,7 +7,7 @@ OUT = ROOT/'production/B-16'
 FILES = ['plugins/imagine-site/PageArticle.php', 'themes/imagine/single.php']
 BLOCK = "// B16 — enveloppe éditoriale publique, corps C08 inchangé.\nrequire_once __DIR__ . '/PageArticle.php';\nPageArticle::register();\n\n"
 HEADING = '## B-16 — enveloppe de la page article'
-PREIMAGES = {}
+PREIMAGES = {'themes/imagine/single.php':'71b98dcdd3f3a9f537224f8e6c574dc5754760795de78369f7a526a46af0bfad'}
 sources, wp, php, guard = b13.sources, b13.wp, b13.php, b13.guard
 if __name__ == '__main__':
     owner = sys.modules[__name__]

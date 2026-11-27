@@ -1,5 +1,17 @@
 # Imagine — site (B-00, modèle provisoire)
 
+## B-16 — enveloppe de la page article
+
+Résumé : `post_excerpt` natif saisi, lu brut, jamais `get_the_excerpt()` ni génération depuis le corps ; vide, omis.
+Mots-clés : étiquettes natives `post_tag`, noms publics sans lien imposé. Thématiques : liens natifs existants.
+Signature : `imagine_signature`, nom éditorial dans une boîte native sécurisée (nonce/capacité), pas l'auteur technique du compte.
+Numéro : relation B00 existante, uniquement si numéro publié ; aucun lien pour une relation absente/invalide.
+WordPress fournit extrait/étiquettes/auteur ; l'auteur du compte ne garantit pas le journaliste signé, d'où le seul champ ajouté.
+
+`PageArticle` ne lit pas `post_content`. Corps C08, JSON-LD/descriptions et assets B03 inchangés. Le même marqueur B03 `data-imagine-distraction` masque l'en-tête et l'appel final hors du flux du texte. L'appel réutilise la décision C08 déjà mémorisée, uniquement complet sans adhésion active connue (abonnement/offert/groupe). Cette projection ne donne aucun droit ; dépendance Memberships indisponible : appel masqué. Lien unique `Navigation::abonnementUrl()`.
+
+Tests : `python -B wp/outils/demo/b16.py native native-final-V2`, navigateur et réception dans `production/B-16/`. Données fictives temporaires restaurées, C26 utilisé sans modification. Aucun style ajouté.
+
 ## B-04 — catalogue : corrections techniques du 25 novembre
 
 `Paywall::decisionListe()` prédit la lecture d'un article sans activer le contexte de lecture et sans écrire l'ouverture ou le quota découverte. Il utilise le même raccord `Decouverte::decider()` et le moteur C06 ; les décisions de liste et de lecture ont des clés mémoire distinctes. L'état figé, le périmètre courant, la vérification du compte, la relecture et les deux formes découverte restent communs.

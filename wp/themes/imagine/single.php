@@ -53,6 +53,7 @@ while (have_posts()) : the_post();
         <?php echo $articleBody; // Sortie HTML autorisée et filtrée par imagine_article_body(). ?>
         <?php echo class_exists('Imagine\\Site\\Medias') ? \Imagine\Site\Medias::rendre(get_post()) : ''; ?>
     </div>
+    <?php if (class_exists('Imagine\\Site\\PageArticle')) { \Imagine\Site\PageArticle::fin(get_post()); } ?>
 </article>
 <?php endwhile; ?>
 <?php get_footer(); ?>
