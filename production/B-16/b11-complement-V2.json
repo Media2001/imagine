@@ -1,0 +1,25 @@
+{
+  "scope": "imagine-test-demo",
+  "native": {
+    "code": 0,
+    "stdout": "{\"checks\":{\"adaptateurs_charges\":true,\"saisie_valide\":true,\"readback_metadonnees\":true,\"mauvais_hote_refuse\":true,\"refus_preserve\":true,\"antislash_refuse_sans_perte\":true,\"temoin_ayant_droit\":true,\"anonyme_ni_lien_ni_adresse\":true,\"connecte_sans_droit_ferme\":true,\"integration_0\":true,\"integration_1\":true,\"reglage_inconnu_ferme\":true,\"liste_hotes_invalide_conserve\":true,\"audio_acheteur_numero\":true,\"audio_abonne_actif_numero_couvert\":true,\"audio_anterieur_ferme_par_C06\":true,\"audio_hors_webroot\":true,\"silence_wave_3_secondes\":true,\"audio_anonyme_sans_adresse\":true,\"source_publique_refusee_avant_lecture\":true,\"reference_traversal_refusee\":true,\"blob_absent_refuse\":true,\"blob_positif_retabli\":true},\"total\":23}",
+    "stderr": ""
+  },
+  "restored": true,
+  "sources": {
+    "production/B-16/verifier.py": "5f291e7e6bf75b0a3f61d2a7fedcd5e265c5eddb9877c175258fc2b9764e60cc",
+    "wp/outils/demo/b13-browser.py": "02a69cab956e503b2a79625df2b084858df9e6b417af638fa503240ebc0d3de0",
+    "wp/outils/demo/b13.py": "3960057fde352c412024678a14d06a7ed6dec04c8d1bff378f7e5305420a5357",
+    "wp/outils/demo/b16-browser.py": "acf04af7e57cbd873aea721138dfa217025da6d38cbb2764dce29cab6f9d632d",
+    "wp/outils/demo/b16-inspect.py": "2a1063bde14cfbaaa20e3beafe6194cc4cc3c7f691069b2d8aa1a284a12c182b",
+    "wp/outils/demo/b16-neighbor.py": "a7792dc739e71d5e67bf0cf0eb9b92c9dbad1cf9234ce8a147d2661f046776ff",
+    "wp/outils/demo/b16-recover.py": "ad6589ff72e8d3e4eecd569303c53ecc45e197aa04fed68c1125f40379083966",
+    "wp/outils/demo/b16.py": "0149e75e554fc4035d3a9bbcf111129f907e8e7a9d410c31f52f6120f9fb2414",
+    "wp/plugins/imagine-site/PageArticle.php": "d5e57aed64a1434b72f80588191d6ff1ebd80270c8da824f9c0d254355a0ee87",
+    "wp/plugins/imagine-site/tests/PageArticleB16Test.php": "dcb1188b4313dbf84520519db77262bc04de25e7b09269d129a1d3f8a5adb0d4",
+    "wp/tests/demo/b13-contract.py": "ebdb04de4f948ec77ec5214bdf7c17f03c0366a02ad97722cfef9c6b1d9ebe63",
+    "wp/tests/demo/b13-observer.php": "72d46a7ab527893be8d4e7aa8a0e04073bcd9f0c38c655620a1e603290a6c03f",
+    "wp/tests/demo/b16-runtime.php": "dc000353b94859a73e70adb5075a731a5d113d4458b22aece835114ca44931f3",
+    "wp/themes/imagine/single.php": "f1aca18f048180ff00b47f1607f3187c6d18213066c9fa2788b7592c356a3b4d"
+  }
+}
