@@ -1,0 +1,15 @@
+{
+  "command": [
+    "powershell.exe",
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "wp/tests/rejouer.ps1"
+  ],
+  "start": "2026-11-27T05:43:24.637345+01:00",
+  "end": "2026-11-27T05:44:36.191453+01:00",
+  "exit_code": 0,
+  "stdout_sha256": "865250f00d012dcbcbfa3e8da516a2d5cc70ed168390a26148bbd933672800d8",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

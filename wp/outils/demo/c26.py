@@ -29,6 +29,7 @@ def routes(f):
             add(prefix+'-oembed', family, 'oembed', '/wp-json/oembed/1.0/embed?'+urlencode({'url':c23.BASE+p['path']}), p['title'])
             add(prefix+'-embed', family, 'embed', p['path']+'embed/', p['title'])
             add(prefix+'-search', family, 'search', '/?'+urlencode({'s':p['title'], 'post_type':'page' if rest=='pages' else rest}), p['title'], target_path=p['path'])
+    add('agenda-archive', 'agenda', 'agenda-archive', '/evenements/', 'Agenda', events=f['events'])
     add('agenda-flux', 'agenda', 'feed', '/?feed=rss2&post_type=imagine_evenement&posts_per_rss=100', object_id=f['events'][0]['id'])
     for family, typ, ident in [('agenda', 'imagine_inscription', f['registration']), ('sujet', 'imagine_sujet', f['subject'])]:
         add(family+'-prive-page', family, 'private-page', '/?p='+str(ident), statuses=(200,404))
@@ -38,7 +39,7 @@ def routes(f):
         add(family+'-prive-search', family, 'search', '/?'+urlencode({'s':f['markers'][family]}), reflected=f['markers'][family])
         add(family+'-admin', family, 'admin', '/wp-admin/edit.php?post_type='+typ, statuses=(200,403))
         add(family+'-admin-detail', family, 'admin', '/wp-admin/post.php?post='+str(ident)+'&action=edit', statuses=(200,403))
-    account = f.get('account_path', '/mon-compte/')
+    account = f.get('account_path', '/my-account/')
     add('personnalisation-compte', 'personnalisation', 'account', account, 'Mon compte')
     add('personnalisation-utilisateur-rest', 'personnalisation', 'rest-denied', '/wp-json/wp/v2/users/'+str(f.get('owner', 999999))+'?context=edit', statuses=(401,403))
     add('personnalisation-reglages', 'personnalisation', 'admin', '/wp-admin/admin.php?page=imagine-reglages', statuses=(200,403))
@@ -91,6 +92,12 @@ def assess(route, response, markers):
             exists = any(isinstance(x, dict) and x.get('id') == route.get('object_id') for x in (data if isinstance(data, list) else [data]))
     elif kind == 'feed':
         exists = ('<item>' in text or '<entry>' in text) and all(p in text for p in ['<rss', '/evenements/'])
+    elif kind == 'agenda-archive':
+        main = re.search(r'<main\b[^>]*>(.*?)</main>', text, re.S)
+        exists = bool(main and '<h1>Agenda</h1>' in main[1]
+            and all('id="agenda-'+group+'"' in main[1] for group in ['futurs','passes'])
+            and all('data-evenement="'+str(e['id'])+'"' in main[1]
+                    and e['path'] in main[1] for e in route['events']))
     elif kind == 'common-feed':
         exists = ('<item>' in text or '<entry>' in text) and '<rss' in text
     elif kind == 'private-feed':
@@ -134,19 +141,56 @@ def display_title(text):
     return c23.canonical(text).replace("'", '’')
 
 
+def cooperator_expected(f):
+    """Oracle documentaire : P-COOP seul possède le statut ; rôles livrés lus bruts.
+
+    Ni autorise(), ni la liste native observée, ni un statut modifié ne définissent
+    l'attendu. Les autres personnages C09 sont lecteurs sans statut B06.
+    """
+    roles = f['cooperator_roles']
+    if (not isinstance(roles, list) or len(roles) != len(set(roles))
+            or not set(roles) <= {'administrator', 'editor', 'shop_manager'}):
+        roles = []  # Même défaut prudent documenté : réglage invalide fermé.
+    return [public for public, actor in f['cooperator_actors'].items()
+            if actor['code'] == 'P-COOP' or set(actor['roles']) & set(roles)]
+
+
+def validate_cooperator(f):
+    expected = cooperator_expected(f)
+    if (set(f['cooperator_publics']) != set(expected)
+            or len(f['cooperator_publics']) != len(expected)
+            or any(a['status'] is not (a['code'] == 'P-COOP')
+                   for a in f['cooperator_actors'].values())):
+        raise ValueError('B06 décision native / personnages documentés divergents')
+    return expected
+
+
 def denied_markers(f, public):
     markers = list(f['extension']['markers'].values())
-    if public != 'abonne-actif':
-        markers += [w for p in f['posts'] if p['reserved']
-                    and (public != 'acheteur-autre-numero' or str(p['issue']) not in f['buyer_issues'])
-                    for w in __import__('re').findall(r'CONTENU_FICTIF_RESERVE_[A-Z0-9_-]+', p['body'])]
-    return markers
+    # Valider TOUS les corps, y compris ceux légitimement lisibles par ce public.
+    for p in f['posts']:
+        if not p['reserved']:
+            continue
+        found = c23.reserved_witnesses(p['body'])
+        if public != 'abonne-actif' and (public != 'acheteur-autre-numero'
+                or str(p['issue']) not in f['buyer_issues']):
+            markers.extend(found)
+    # Un abonnement ou achat au numéro ne donne aucun droit coopérateur, et vice versa.
+    for p in f.get('cooperator_pages', []):
+        found = re.findall(r'C23_COOP_TEMOIN_[0-9]+', p['body'])
+        if len(found) != 1:
+            raise ValueError('B06 contenu sans témoin reconnu')
+        if public not in f.get('cooperator_publics', []):
+            markers.extend(found)
+    return list(dict.fromkeys(markers))
 
 
 def matrix(context, label):
     f, sessions = context['fixture'], context['sessions']
     if f.get('scope') != 'imagine-test-demo' or f.get('base') != c23.BASE:
         raise ValueError('C26 cible refusée')
+    validate_cooperator(f)
+    denied_markers(f, 'anonyme')  # Échec de prérequis avant toute requête.
     c23.PROOF = PROOF
     base_code = c23.matrix(context, label+'-c23')
     extension = f['extension']

@@ -315,6 +315,13 @@ def structure_ok(route, status, body, f):
     return True
 
 
+def reserved_witnesses(body):
+    matches = re.findall(r'CONTENU_FICTIF_RESERVE_[A-Z0-9_-]+|Les lucioles violettes de C08 gardent le secret du village fictif\.|Les lanternes argentées de C08 composent un autre récit fictif\.|Le texte réservé C12 [^<]+|Les lanternes turquoise de C10 éclairent le jardin imaginaire\.', body)
+    if not matches:
+        raise ValueError('Article réservé inventorié sans témoin')
+    return matches
+
+
 def matrix(context, label='matrice'):
     f, sessions = context['fixture'], context['sessions']
     public_order=audience_order(f)
@@ -334,9 +341,7 @@ def matrix(context, label='matrice'):
     markers = []
     for p in f['posts']:
         if p['reserved']:
-            matches = re.findall(r'CONTENU_FICTIF_RESERVE_[A-Z0-9_-]+|Les lucioles violettes de C08 gardent le secret du village fictif\.|Les lanternes argentées de C08 composent un autre récit fictif\.|Le texte réservé C12 [^<]+|Les lanternes turquoise de C10 éclairent le jardin imaginaire\.', p['body'])
-            if not matches:
-                raise ValueError('Article réservé inventorié sans témoin')
+            matches = reserved_witnesses(p['body'])
             markers.extend((w,p['issue']) for w in matches)
     primary = 'CONTENU_FICTIF_RESERVE_DEMO-2026-T4_1'
     if not any(w == primary for w,_ in markers) or not any('lucioles' in w for w,_ in markers):

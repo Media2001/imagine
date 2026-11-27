@@ -1,0 +1,68 @@
+{
+  "exit_code": 0,
+  "at": "2026-11-27T05:45:37.168308+01:00",
+  "proof": "production/A-30/preuves/final/parent/result.json",
+  "real_commands": 3,
+  "replays": [
+    {
+      "console_environment": "utf-8",
+      "packets": {
+        "verified": 9,
+        "lots": [
+          "A-21",
+          "A-22",
+          "A-23",
+          "A-24",
+          "A-25",
+          "A-26",
+          "A-27",
+          "A-28",
+          "A-30"
+        ],
+        "failures": [],
+        "excluded": [
+          {
+            "lot": "A-20",
+            "reason": "declaration absente"
+          },
+          {
+            "lot": "A-31",
+            "reason": "journaux absents"
+          }
+        ]
+      },
+      "last": "REJEU : 1153 tests, 36075 assertions, 0 \u00e9checs, 0 erreurs, 0 ignor\u00e9s \u2014 PASS"
+    },
+    {
+      "console_environment": "cp1252",
+      "packets": {
+        "verified": 9,
+        "lots": [
+          "A-21",
+          "A-22",
+          "A-23",
+          "A-24",
+          "A-25",
+          "A-26",
+          "A-27",
+          "A-28",
+          "A-30"
+        ],
+        "failures": [],
+        "excluded": [
+          {
+            "lot": "A-20",
+            "reason": "declaration absente"
+          },
+          {
+            "lot": "A-31",
+            "reason": "journaux absents"
+          }
+        ]
+      },
+      "last": "REJEU : 1153 tests, 36075 assertions, 0 \u00e9checs, 0 erreurs, 0 ignor\u00e9s \u2014 PASS"
+    }
+  ],
+  "historical_failure_outside_repository": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-t03-20261127\\global-final-utf8.json",
+  "reason": "T01 runner vanished while independent scripts/relire.ps1 replay was active; preserved genuine failure; no controls relaxed"
+}

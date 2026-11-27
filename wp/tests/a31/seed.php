@@ -10,8 +10,10 @@ add_filter('wc_order_statuses', static fn (array $s): array => $s + ['wc-a31cana
 global $wpdb;
 $hpos = Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled();
 $rows = $wpdb->get_results($hpos
-    ? "SELECT id AS object_id FROM {$wpdb->prefix}wc_orders WHERE type IN ('shop_order','shop_subscription','shop_order_refund')"
-    : "SELECT ID AS object_id FROM {$wpdb->posts} WHERE post_type IN ('shop_order','shop_subscription','shop_order_refund')");
+    ? "SELECT id AS object_id FROM {$wpdb->prefix}wc_orders"
+        . " WHERE type IN ('shop_order','shop_subscription','shop_order_refund')"
+    : "SELECT ID AS object_id FROM {$wpdb->posts}"
+        . " WHERE post_type IN ('shop_order','shop_subscription','shop_order_refund')");
 foreach ($rows as $row) {
     $object = wc_get_order((int) $row->object_id);
     if ($object) {

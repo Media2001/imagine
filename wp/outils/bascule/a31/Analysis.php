@@ -31,9 +31,16 @@ final class Analysis
         return ['groups' => $groups, 'autres' => $other];
     }
 
-    public static function analyse(array $orders, array $subscriptions, array $refunds, bool $neutralised = false): array
-    {
-        $buckets = array_fill_keys(['years', 'statuses', 'natures', 'orphan_renewals', 'structural_links', 'refunds'], []);
+    public static function analyse(
+        array $orders,
+        array $subscriptions,
+        array $refunds,
+        bool $neutralised = false
+    ): array {
+        $buckets = array_fill_keys(
+            ['years', 'statuses', 'natures', 'orphan_renewals', 'structural_links', 'refunds'],
+            []
+        );
         $add = static function (string $kind, array $fields) use (&$buckets): void {
             $key = implode(':', array_map('strval', array_values($fields)));
             $buckets[$kind][$key] ??= $fields + ['count' => 0];
@@ -69,7 +76,7 @@ final class Analysis
         }
         $result = [];
         foreach ($buckets as $key => $rows) {
-            $result[$key] = $neutralised && in_array($key, ['natures', 'orphan_renewals'], true)
+            $result[$key] = $neutralised && $key === 'natures'
                 ? self::UNKNOWN : self::pool($rows);
         }
         $oldest = null;

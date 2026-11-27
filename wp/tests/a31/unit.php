@@ -35,7 +35,11 @@ $check('unknown_nature_not_none', $d['natures']['groups'] === [['nature' => 'ill
 $broken = $order('renewal');
 $broken['orphan_renewal'] = true;
 $broken['account_missing'] = true;
-$d = Analysis::analyse(array_fill(0, 5, $broken), array_fill(0, 5, ['status' => 'active', 'parent_exists' => false]), []);
+$d = Analysis::analyse(
+    array_fill(0, 5, $broken),
+    array_fill(0, 5, ['status' => 'active', 'parent_exists' => false]),
+    []
+);
 $check('renewal_orphans_count_orders_not_links', $d['orphan_renewals']['groups'] === [
     ['metric' => 'renewals_missing_subscription', 'count' => 5],
 ]);
@@ -57,12 +61,17 @@ $d = Analysis::analyse([$badDate], [], []);
 $check('invalid_date_oldest_illisible', $d['oldest_year'] === 'illisible');
 $neutral = Analysis::analyse(array_fill(0, 5, $broken), [], [], true);
 $check('neutral_natures_unknown', $neutral['natures'] === Analysis::UNKNOWN);
-$check('neutral_orphan_unknown', $neutral['orphan_renewals'] === Analysis::UNKNOWN);
+$check('neutral_orphan_readable', $neutral['orphan_renewals'] === [
+    'groups' => [['metric' => 'renewals_missing_subscription', 'count' => 5]], 'autres' => 0,
+]);
 $check('neutral_years_preserved', $neutral['years'] === $five['years'] && $neutral['oldest_year'] === 2020);
 $check('empty_not_unknown', Analysis::analyse([], [], [])['oldest_year'] === null);
 $code = (int) in_array('FAIL', array_column($checks, 'status'), true);
 if (!defined('A31_PURE_PROBE')) {
-    file_put_contents('/report/unit.json', json_encode(['checks' => $checks, 'exit_code' => $code], JSON_PRETTY_PRINT) . "\n");
+    file_put_contents(
+        '/report/unit.json',
+        json_encode(['checks' => $checks, 'exit_code' => $code], JSON_PRETTY_PRINT) . "\n"
+    );
 }
 if ($code !== 0) {
     exit($code);

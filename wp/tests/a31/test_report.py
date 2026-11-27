@@ -78,6 +78,12 @@ class ReportTests(unittest.TestCase):
             bad['counts'][key] = r.UNKNOWN
             self.assertFalse(r.projection(bad, '0' * 64))
 
+    def test_neutral_native_renewal_ids_remain_readable(self):
+        d = fixture()
+        d['neutralisation'] = 'inconnu après neutralisation'
+        d['counts']['natures'] = 'inconnu après neutralisation'
+        self.assertTrue(r.projection(d, '0' * 64), 'import preserves standard numeric renewal links; do not hide them')
+
     def test_numeric_strict_and_sorted_unique(self):
         for value in (-1, 2**53, True, 1.5, '5', None):
             d = fixture()

@@ -84,8 +84,12 @@ if (count($out['cooperator_pages']) !== 5) { throw new RuntimeException('C23 B06
 $mapping = ['connecte-sans-abonnement' => 'V-INSCRIT', 'decouverte-epuisee' => 'V-DEC-FIN',
     'acheteur-autre-numero' => 'P-NUMERO', 'abonne-actif' => 'A-CARTE'] + $out['additional_publics'];
 $out['cooperator_publics'] = [];
+$out['cooperator_roles'] = get_option('imagine_cooperateurs_roles_lecture', ['administrator']);
+$out['cooperator_actors'] = [];
 foreach ($mapping as $public => $code) {
     wp_set_current_user($out['users'][$code]);
+    $out['cooperator_actors'][$public] = ['code' => $code, 'roles' => array_values(wp_get_current_user()->roles),
+        'status' => (get_user_meta($out['users'][$code], 'imagine_cooperateur', true)['cooperateur'] ?? false) === true];
     if (Imagine\Site\Cooperateurs::autorise()) { $out['cooperator_publics'][] = $public; }
 }
 if (!in_array('profil-p-coop', $out['cooperator_publics'], true)) { throw new RuntimeException('C23 B06 coopérateur témoin absent.'); }

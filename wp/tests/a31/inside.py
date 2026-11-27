@@ -245,7 +245,7 @@ if (getenv('A31_CONFINED') === '1') {
         b.check(storage + ':neutral_success', (p.returncode, p.stdout, p.stderr) == (0, SUCCESS, ''))
         data = json.loads((out / 'commandes.json').read_text(encoding='utf-8'))
         neutral_expected = expected(1)
-        neutral_expected.update(dict.fromkeys(['natures', 'orphan_renewals'], UNKNOWN))
+        neutral_expected.update(dict.fromkeys(['natures'], UNKNOWN))
         b.check(storage + ':neutral_exact_partial_unknown', data['neutralisation'] == UNKNOWN
                 and data['counts'] == neutral_expected)
         n_after = b.fingerprint(clone)

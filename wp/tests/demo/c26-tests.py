@@ -84,6 +84,55 @@ class ExtensionTest(unittest.TestCase):
         self.assertIn('CONTENU_FICTIF_RESERVE_T1',m.denied_markers(f,'anonyme'))
         self.assertEqual(m.denied_markers(f,'abonne-actif'), ['C26_PRIVE'])
 
+    def test_temoins_complets_droits_numero_et_cooperateur_separes(self):
+        m = load('c26')
+        phrases = ['Les lucioles violettes de C08 gardent le secret du village fictif.',
+                   'Les lanternes argentées de C08 composent un autre récit fictif.',
+                   'Le texte réservé C12 reste fictif.',
+                   'Les lanternes turquoise de C10 éclairent le jardin imaginaire.']
+        f = {'extension':{'markers':{'sujet':'C26_PRIVE'}}, 'buyer_issues':['1'],
+             'cooperator_publics':['profil-p-coop'],
+             'cooperator_pages':[{'body':'<p>C23_COOP_TEMOIN_9</p>'}],
+             'posts':[{'reserved':True,'issue':1,'body':'<p>'+p+'</p>'} for p in phrases]}
+        denied = m.denied_markers(f, 'anonyme')
+        for phrase in phrases+['C23_COOP_TEMOIN_9']:
+            self.assertIn(phrase, denied)
+            self.assertTrue(m.assess({'kind':'page','title':'Soutenir','statuses':[200]},
+                (200,{},('<main><h1>Soutenir</h1><!-- '+phrase+' --></main>').encode()),denied)['leak'])
+        self.assertIn('C23_COOP_TEMOIN_9',m.denied_markers(f,'abonne-actif'))
+        self.assertIn(phrases[0],m.denied_markers(f,'profil-p-coop'))
+        self.assertNotIn('C23_COOP_TEMOIN_9',m.denied_markers(f,'profil-p-coop'))
+        self.assertNotIn(phrases[0],m.denied_markers(f,'acheteur-autre-numero'))
+        self.assertIn('C23_COOP_TEMOIN_9',m.denied_markers(f,'acheteur-autre-numero'))
+        f['posts'].append({'reserved':True,'issue':1,'body':'Texte sans témoin'})
+        with self.assertRaises(ValueError):
+            m.denied_markers(f,'abonne-actif')
+
+    def test_archive_agenda_structure_et_injection(self):
+        m, f = load('c26'), self.fixture()
+        route = next((r for r in m.routes(f) if r['path']=='/evenements/'), None)
+        self.assertIsNotNone(route)
+        body = b'<main><h1>Agenda</h1><section id="agenda-futurs"><ul><li data-evenement="20"><a href="/evenements/rencontre/">Rencontre</a></li></ul></section><section id="agenda-passes"></section></main>'
+        self.assertTrue(m.assess(route,(200,{},body),['C26_SECRET'])['ok'])
+        self.assertFalse(m.assess(route,(200,{},b'<main><h1>Agenda</h1></main>'),[])['ok'])
+        self.assertTrue(m.assess(route,(200,{},body+b'<!-- C26_SECRET -->'),['C26_SECRET'])['leak'])
+        self.assertEqual(next(r for r in m.routes(f) if r['name']=='personnalisation-compte')['path'],'/my-account/')
+
+    def test_oracle_b06_independant_decision_et_metadonnees(self):
+        m = load('c26')
+        f = {'cooperator_roles':['administrator'], 'cooperator_publics':['profil-p-coop'],
+             'cooperator_actors':{'profil-p-coop':{'code':'P-COOP','roles':['customer'],'status':True},
+                 'connecte-sans-abonnement':{'code':'V-INSCRIT','roles':['customer'],'status':False}}}
+        self.assertEqual(m.cooperator_expected(f), ['profil-p-coop'])
+        f['cooperator_publics'].append('connecte-sans-abonnement')
+        with self.assertRaises(ValueError): m.validate_cooperator(f)
+        f['cooperator_publics']=['profil-p-coop']
+        f['cooperator_actors']['connecte-sans-abonnement']['status']=True
+        with self.assertRaises(ValueError): m.validate_cooperator(f)
+        f['cooperator_actors']['connecte-sans-abonnement'].update(status=False,roles=['editor'])
+        f['cooperator_roles']=['editor']
+        self.assertEqual(set(m.cooperator_expected(f)),{'profil-p-coop','connecte-sans-abonnement'})
+
     def test_scratch_sans_tmpdir_hors_systeme(self):
         m = load('c26-preparer')
         with patch.dict(os.environ, {}, clear=False):
@@ -121,6 +170,65 @@ class ExtensionTest(unittest.TestCase):
         route = {'kind':'search','reflected':marker,'statuses':[200]}
         self.assertTrue(m.assess(route,(200,{},body),[marker])['ok'])
         self.assertTrue(m.assess(route,(200,{},body+b'<!-- '+marker.encode()+b' -->'),[marker])['leak'])
+
+    def test_privacy_inverse_ne_croit_pas_le_champ_positive(self):
+        v = load('c26-verifier','wp/tests/demo')
+        rows = [dict(public=p,family=family,name='privacy-'+family,positive=p=='inverse-proprietaire',
+            ok=True,leak=False,surface_present=True,witnesses_found=1 if p=='inverse-proprietaire' else 0,
+            payload_sha256='a'*64) for p in ['anonyme','inverse-proprietaire'] for family in ['agenda','personnalisation','retractation','sujet']]
+        record = dict(total=len(rows),failures=0,leaks=0,results=rows)
+        self.assertTrue(all(v.privacy_checks(record,['anonyme']).values()))
+        for row in rows:
+            if row['public']=='inverse-proprietaire': row.update(positive=False,witnesses_found=0)
+        self.assertFalse(all(v.privacy_checks(record,['anonyme']).values()))
+
+    def test_c23_exige_identites_inverses_et_recalcul_toutes_lignes(self):
+        import copy
+        v = load('c26-verifier','wp/tests/demo')
+        # Vraie fixture historique sans inventer de réponse ; tests du vérificateur pur.
+        f = json.loads((ROOT/'production/C-26/livraison-finale-inventaire.json').read_text(encoding='utf-8'))
+        record = json.loads((ROOT/'production/C-26/livraison-finale-c23.json').read_text(encoding='utf-8'))
+        self.assertTrue(all(v.c23_checks(record,f).values()))
+        bad = copy.deepcopy(record)
+        bad['results']=[r for r in bad['results'] if r['name'] not in ['identite-REST','inverse-article','inverse-pdf','inverse-C08','inverse-achat-C14']]
+        bad['total']=len(bad['results'])
+        self.assertFalse(all(v.c23_checks(bad,f).values()))
+        bad = copy.deepcopy(record)
+        next(r for r in bad['results'] if r['name']=='inverse-article').update(ok=False,leak=True)
+        self.assertFalse(all(v.c23_checks(bad,f).values()))
+
+    def test_restauration_independante_cleanup_et_b06_en_erreur(self):
+        m = load('c26-preparer')
+        saved = {'users':[{'ID':'1','user_login':'v-dec'}], 'posts':[], 'usermeta':[]}
+        for stage in ['cleanup','b06']:
+            with self.subTest(stage=stage), patch.object(m,'fixture',side_effect=RuntimeError('cleanup') if stage=='cleanup' else None) as clean, \
+                 patch.object(m.prep,'restore_cooperator',side_effect=ValueError('derive') if stage=='b06' else None) as coop, \
+                 patch.object(m,'wp',return_value=True) as meta:
+                result = m.restoration(saved,[1],[])
+                self.assertEqual(clean.call_count,1)
+                self.assertEqual(coop.call_count,1)
+                self.assertEqual(meta.call_count,1)
+                self.assertFalse(result[stage]['ok'])
+                self.assertTrue(result['usermeta']['ok'])
+
+    def test_recu_restauration_ecrit_meme_si_relecture_echoue(self):
+        m = load('c26-preparer')
+        with patch.object(m,'restoration',return_value={'cleanup':{'attempted':True,'ok':False}}), \
+             patch.object(m.b08,'snapshot',side_effect=RuntimeError('read failed')), \
+             patch.object(m.b06,'state',side_effect=RuntimeError('state failed')), \
+             patch.object(m.b06,'hashes',side_effect=RuntimeError('hash failed')), \
+             patch.object(m,'save') as save:
+            result = {'scope':'imagine-test-demo','run_error':'RuntimeError'}
+            m.finish_restoration('error',result,{},[],[],{},[],{})
+            save.assert_called_once_with('error-restauration',result)
+            self.assertTrue(result['restoration_errors'])
+            self.assertIs(result['business_preserved'],False)
+
+    def test_marqueurs_prives_dedies_pas_de_dates(self):
+        source = (ROOT/'wp/tests/demo/c26-fixture.php').read_text(encoding='utf-8')
+        self.assertIn("'personnalisation' => 'C26_PERSONNALISATION_FICTIF'",source)
+        self.assertIn("'accuse' => 'C26_ACCUSE_FICTIF'",source)
+        self.assertNotIn('2001-01-01T01:26:24Z',source)
 
     def test_commande_visiteur_ne_lance_pas_de_mutation(self):
         import ast

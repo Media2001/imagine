@@ -44,7 +44,10 @@ class WCS_Related_Order_Store
         if ($this->alter) {
             return [99];
         }
-        return array_map(static fn ($m): int => abs((int) $m->get_data()['value']), $order->get_meta('_subscription_' . $type, false));
+        return array_map(
+            static fn ($m): int => abs((int) $m->get_data()['value']),
+            $order->get_meta('_subscription_' . $type, false)
+        );
     }
 }
 function wcs_get_subscription(int $id): WC_Subscription|false
@@ -57,7 +60,8 @@ $check = static function (string $name, bool $ok) use (&$checks): void {
     $checks[] = ['check' => $name, 'status' => $ok ? 'PASS' : 'FAIL'];
 };
 $store = new WCS_Related_Order_Store();
-$read = static fn (array $m, bool $p = false): array => Imagine\OrderHistory\Inventory::relations(new WC_Order($m), $store, $p);
+$read = static fn (array $m, bool $p = false): array =>
+    Imagine\OrderHistory\Inventory::relations(new WC_Order($m), $store, $p);
 $check('parent_native_relation', $read([], true)['nature'] === 'parent');
 $check('standalone_not_default_for_opaque', $read([])['nature'] === 'none');
 foreach (['renewal', 'switch', 'resubscribe'] as $type) {
@@ -68,11 +72,20 @@ $check('existing_subscription_not_orphan', !$read(['_subscription_renewal' => ['
 foreach (['', '0', '-7', '7junk', 'A31_PRIVATE_CANARY', ['7']] as $i => $value) {
     $check('malformed_' . $i, $read(['_subscription_renewal' => [$value]])['nature'] === 'illisible');
 }
-$check('mixed_natures_illisible', $read(['_subscription_switch' => ['7'], '_subscription_renewal' => ['7']])['nature'] === 'illisible');
+$check(
+    'mixed_natures_illisible',
+    $read(['_subscription_switch' => ['7'], '_subscription_renewal' => ['7']])['nature'] === 'illisible'
+);
 $check('parent_and_renewal_illisible', $read(['_subscription_renewal' => ['7']], true)['nature'] === 'illisible');
-$check('extension_relation_illisible', $read(['_subscription_stripe_subscription_id' => ['7']])['nature'] === 'illisible');
+$check(
+    'extension_relation_illisible',
+    $read(['_subscription_stripe_subscription_id' => ['7']])['nature'] === 'illisible'
+);
 $store->alter = true;
 $check('native_filter_contradiction_illisible', $read(['_subscription_renewal' => ['7']])['nature'] === 'illisible');
 $code = (int) in_array('FAIL', array_column($checks, 'status'), true);
-file_put_contents('/report/adapter-unit.json', json_encode(['checks' => $checks, 'exit_code' => $code], JSON_PRETTY_PRINT) . "\n");
+file_put_contents(
+    '/report/adapter-unit.json',
+    json_encode(['checks' => $checks, 'exit_code' => $code], JSON_PRETTY_PRINT) . "\n"
+);
 exit($code);

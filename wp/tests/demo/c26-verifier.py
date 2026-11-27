@@ -32,6 +32,61 @@ def matrix_checks(record, routes, publics):
             'surfaces':all(r.get('surface_present') is True and r.get('status',0)>0 and r.get('bytes',0)>0 and re.fullmatch('[a-f0-9]{64}',r.get('body_sha256','')) and r.get('path')==paths.get(r['name']) for r in rows)}
 
 
+def privacy_checks(record, publics, mutation=None):
+    rows = record['results']
+    wanted = {(p,family) for p in publics+['inverse-proprietaire'] for family in c26.FAMILIES}
+    counts = Counter((x['public'],x['family']) for x in rows)
+    def valid(x):
+        owner = x['public'] == 'inverse-proprietaire'
+        red = not owner and x['family'] == mutation
+        return (x.get('positive') is owner and x.get('ok') is (not red)
+                and x.get('leak') is red and x.get('surface_present') is True
+                and (x.get('witnesses_found',0)>0 if owner or red else x.get('witnesses_found')==0)
+                and bool(re.fullmatch('[a-f0-9]{64}',x.get('payload_sha256',''))))
+    red_count = len(publics) if mutation else 0
+    return {'cases':set(counts)==wanted and all(n==1 for n in counts.values()),
+            'total':record['total']==len(rows)==len(wanted),
+            'failures':record['failures']==sum(x.get('ok') is not True for x in rows)==red_count,
+            'leaks':record['leaks']==sum(x.get('leak') is True for x in rows)==red_count,
+            'semantics':all(valid(x) for x in rows)}
+
+
+def c23_checks(record, f):
+    routes = c26.c23.build_routes(f)
+    publics = c26.c23.audience_order(f)
+    expected = {(r['name'],p):r['path'] for r in routes for p in publics}
+    identities = [p for p in publics if p not in ['anonyme','faux-robot']]+['abonne-actif']
+    extras = {('identite-REST','controle-'+p):'/wp-json/wp/v2/users/me' for p in identities}
+    extras.update({('inverse-article','abonne-actif'):f['article_path'],
+        ('inverse-pdf','abonne-actif'):'/?imagine_pdf='+str(f['issue']),
+        ('inverse-C08','abonne-actif'):'/?p='+str(f['c08']),
+        ('inverse-achat-C14','acheteur-autre-numero'):'/?p='+str(f['c08']),
+        ('faux-bing','faux-robot'):f['article_path']})
+    expected.update(extras)
+    rows = record['results']
+    counts = Counter((x['name'],x['public']) for x in rows)
+    by_name = {r['name']:r for r in routes}
+    def positive(x):
+        if x['name'].startswith('inverse-'):
+            return True
+        route = by_name.get(x['name'],{})
+        return (('cooperator_kind' in route and x['public'] in f['cooperator_publics']
+                 and route['cooperator_kind']!='oembed')
+                or (x['public']=='acheteur-autre-numero'
+                    and str(route.get('pdf_issue','')) in f['buyer_issues']))
+    return {'cases':set(counts)==set(expected) and all(n==1 for n in counts.values()),
+            'total':record['total']==len(rows)==len(expected),
+            'leaks':record['leaks']==sum(x.get('leak') is True for x in rows)==0,
+            'failures':record['failures']==sum(x.get('ok') is not True for x in rows)==0,
+            'surfaces':all(x.get('surface_present') is True and x.get('structure') is True
+                and x.get('status',0)>0 and x.get('bytes',0)>0
+                and re.fullmatch('[a-f0-9]{64}',x.get('body_sha256',''))
+                and x.get('path')==expected.get((x['name'],x['public'])) for x in rows),
+            'witnesses':all(x.get('witnesses_found',0)>0 if positive(x)
+                else x.get('witnesses_found')==0 for x in rows),
+            'catalogue':record['routes']==len(routes) and record['publics']==publics}
+
+
 def restored(r):
     return (set(r.get('exact_restoration',{}))==set(EXACT)
             and all(v is True for v in r['exact_restoration'].values())

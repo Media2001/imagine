@@ -5,8 +5,8 @@ import json
 UNKNOWN = 'inconnu après neutralisation'
 STATUSES = ('pending', 'processing', 'on-hold', 'completed', 'cancelled', 'refunded', 'failed', 'checkout-draft', 'autre')
 NATURES = ('parent', 'renewal', 'switch', 'resubscribe', 'none', 'illisible')
-UNREADABLE_AFTER_IMPORT = ('natures', 'orphan_renewals')
-READABLE_AFTER_IMPORT = ('years', 'statuses', 'structural_links', 'refunds', 'oldest_year')
+UNREADABLE_AFTER_IMPORT = ('natures',)
+READABLE_AFTER_IMPORT = ('years', 'statuses', 'orphan_renewals', 'structural_links', 'refunds', 'oldest_year')
 COUNTS = READABLE_AFTER_IMPORT + UNREADABLE_AFTER_IMPORT
 MARKDOWN = '# Historique des commandes — lecture seule\n\nNombres seulement ; aucune réparation.\n\n```json\n'
 

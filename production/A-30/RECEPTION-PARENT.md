@@ -20,7 +20,10 @@ Les **deux lignes exactes** de `README-AJOUT-2-LIGNES.txt` sont intégrées dans
 
 ## Portes parent
 
-À cette première installation : native et style verts ; préparation d'image et gates globaux encore à exécuter avant PRET. Leur reçu neuf sera ajouté aux métadonnées puis le paquet rescelle sans changer une source exécutée. Aucun PRET tant que ces portes ne sont pas effectivement vertes. Les champs pending de `candidate.json` décrivent l'instant historique de la matrice, pas une preuve de gates.
+Préparation d'image réellement rejouée et deux gates globales PASS après arrêt du rejeu extérieur concurrent ; les vérificateurs A21–A28 et A30 sont tous relus à 0 sans aucune écriture dans leurs paquets voisins. Logs complets et codes réels dans `preuves/final/parent/`, synthèse `parent-gates.json`. T03 y vérifie A21–A28 et A30 ; A20 est hors rejeu « declaration absente ». Première gate interrompue par disparition du conteneur, conservée hors dépôt et jamais renommée verte. Les champs pending de `candidate.json` restent le constat historique exact de la matrice.
+
+Contexte utf-8 : REJEU : 1153 tests, 36075 assertions, 0 échecs, 0 erreurs, 0 ignorés — PASS
+Contexte cp1252 : REJEU : 1153 tests, 36075 assertions, 0 échecs, 0 erreurs, 0 ignorés — PASS
 
 ## Limites
 

@@ -119,7 +119,7 @@ def verify(packet, python_only=False):
         units = {c['check'] for c in receipts['unit']['checks']}
         unit_required = {'renewal_five', 'oldest_rare_suppressed', 'oldest_five_exact', 'oldest_not_next_visible_year',
                          'closed_unknown_status', 'unknown_nature_not_none', 'neutral_natures_unknown',
-                         'neutral_orphan_unknown', 'neutral_years_preserved', 'refund_objects_separate',
+                         'neutral_orphan_readable', 'neutral_years_preserved', 'refund_objects_separate',
                          'invalid_date_oldest_illisible', 'missing_account_separate_from_guest',
                          'renewal_orphans_count_orders_not_links'}
         unit_required |= {'nature_' + n for n in report.NATURES}
