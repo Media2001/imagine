@@ -25,6 +25,16 @@ def cmd(args, check=True, env=None, data=None, timeout=240):
                        timeout=timeout, env={**os.environ, 'PYTHONIOENCODING': 'utf-8', 'PYTHONUTF8': '1',
                                              'PYTHONDONTWRITEBYTECODE': '1', **(env or {})})
     if check and p.returncode:
+        known = ('A29_SEED_REPETITIONS', 'A29_SEED_CUSTOMER', 'A29_SEED_SUBSCRIPTION',
+                 'A29_SEED_STORE', 'A29_SEED_ACTION', 'A29_SEED_NATIVE_READBACK',
+                 'A29_SEED_COUNTS', 'A29_SEED_SQL_COUNTS')
+        payload = p.stdout + p.stderr
+        diagnostic = {'scope': 'closed_fictitious_setup_failure_not_acceptance', 'exit_code': p.returncode,
+                      'stage': 'seed' if '/opt/a29/seed.php' in args else 'other_setup',
+                      'known_codes': [key for key in known if key in payload]}
+        index = len(list(OUT.glob('closed-setup-error-*.json')))
+        (OUT / ('closed-setup-error-' + str(index) + '.json')).write_text(
+            json.dumps(diagnostic, indent=2) + '\n', encoding='utf-8')
         raise RuntimeError('A29_FIXTURE_COMMAND_FAILED')
     return p
 

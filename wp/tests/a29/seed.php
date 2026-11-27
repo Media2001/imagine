@@ -60,6 +60,15 @@ for ($n = 0; $n < $repetitions; $n++) {
             $store->get_status($id) !== $status || $native->get_hook() !== $hook
             || $date->getTimestamp() !== $time || $native->get_args() !== $args
         ) {
+            $storage = Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled()
+                ? 'hpos' : 'classic';
+            $diagnostic = ['scope' => 'closed_native_seed_readback_failure_only',
+                'status_equal' => $store->get_status($id) === $status,
+                'hook_equal' => $native->get_hook() === $hook,
+                'date_equal' => $date->getTimestamp() === $time,
+                'args_exact' => $native->get_args() === $args,
+                'args_positional_equal' => $native->get_args() === array_values($args)];
+            file_put_contents('/report/closed-seed-readback-' . $storage . '.json', json_encode($diagnostic));
             throw new RuntimeException('A29_SEED_NATIVE_READBACK');
         }
         $expected[$status] = ($expected[$status] ?? 0) + 1;
