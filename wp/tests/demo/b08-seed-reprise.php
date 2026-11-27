@@ -56,6 +56,29 @@ try {
         $checks['reprise_sans_doublon'] = false;
         $checks['erreur_reprise'] = $error->getMessage();
     }
+    $old = wp_get_nav_menu_object('imagine-b08-principal');
+    wp_delete_nav_menu($old->term_id);
+    delete_option('imagine_b08_menu');
+    $early = static function (): void {
+        static $count = 0;
+        if (++$count === 3) {
+            throw new RuntimeException('Interruption précoce B08');
+        }
+    };
+    add_action('wp_add_nav_menu_item', $early, 99);
+    try {
+        $execute();
+    } catch (RuntimeException $error) {
+        $checks['interruption_creation_item'] = $error->getMessage() === 'Interruption précoce B08';
+    } finally {
+        remove_action('wp_add_nav_menu_item', $early, 99);
+    }
+    try {
+        $first = $execute();
+        $checks['reprise_item_inacheve'] = $first === $execute() && count(wp_get_nav_menu_items($first['menu'])) === 15;
+    } catch (RuntimeException $error) {
+        $checks['reprise_item_inacheve'] = false;
+    }
 } finally {
     $wpdb->query('ROLLBACK');
     wp_cache_flush();

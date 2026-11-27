@@ -1,0 +1,89 @@
+{
+    "status":  "PASS",
+    "native_executed":  true,
+    "readiness_claimed":  false,
+    "receipt":  "production/A-28/preuves/final/before/native.json",
+    "checks":  [
+                   {
+                       "status":  "PASS",
+                       "check":  "real_green_A22_A28"
+                   },
+                   {
+                       "status":  "PASS",
+                       "check":  "one_changed_byte_named_PACKAGE_DRIFT"
+                   },
+                   {
+                       "status":  "PASS",
+                       "check":  "identical_REJEU_PASS_and_test_counts"
+                   },
+                   {
+                       "status":  "PASS",
+                       "check":  "both_owned_containers_absence_read_back"
+                   }
+               ],
+    "commands":  [
+                     {
+                         "name":  "green",
+                         "log":  "green.log",
+                         "exit_code":  0
+                     },
+                     {
+                         "name":  "one-byte",
+                         "log":  "one-byte.log",
+                         "exit_code":  0
+                     }
+                 ],
+    "copy_absent":  true,
+    "green":  {
+                  "summary":  "PAQUETS : 9 vérifiés, 0 échecs ; hors rejeu : aucun",
+                  "last":  "REJEU : 1153 tests, 36074 assertions, 0 échecs, 0 erreurs, 0 ignorés — PASS",
+                  "packets":  {
+                                  "verified":  9,
+                                  "lots":  [
+                                               "A-20",
+                                               "A-21",
+                                               "A-22",
+                                               "A-23",
+                                               "A-24",
+                                               "A-25",
+                                               "A-26",
+                                               "A-27",
+                                               "A-28"
+                                           ],
+                                  "failures":  [
+
+                                               ],
+                                  "excluded":  [
+
+                                               ]
+                              }
+              },
+    "mutant":  {
+                   "summary":  "PAQUETS : 9 vérifiés, 1 échecs ; hors rejeu : aucun ; A-28 PACKAGE_DRIFT",
+                   "last":  "REJEU : 1153 tests, 36074 assertions, 0 échecs, 0 erreurs, 0 ignorés — PASS",
+                   "packets":  {
+                                   "verified":  9,
+                                   "lots":  [
+                                                "A-20",
+                                                "A-21",
+                                                "A-22",
+                                                "A-23",
+                                                "A-24",
+                                                "A-25",
+                                                "A-26",
+                                                "A-27",
+                                                "A-28"
+                                            ],
+                                   "failures":  [
+                                                    {
+                                                        "lot":  "A-28",
+                                                        "control":  "PACKAGE_DRIFT"
+                                                    }
+                                                ],
+                                   "excluded":  [
+
+                                                ]
+                               }
+               },
+    "original_receipt_unchanged":  true
+}

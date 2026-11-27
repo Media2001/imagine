@@ -1,0 +1,21 @@
+{
+  "name": "prepare-image-gates",
+  "command": [
+    "powershell.exe",
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "wp/tests/preparer-image.ps1"
+  ],
+  "start": "2026-11-27T05:02:24.988127+01:00",
+  "end": "2026-11-27T05:02:28.850361+01:00",
+  "exit_code": 0,
+  "python_encoding_environment": "utf-8",
+  "log": "prepare-image-gates.log",
+  "stderr": "prepare-image-gates.stderr",
+  "log_sha256": "0d93d9c73579785e32d452c4fe2ba2606c4d70b47dfcbffd1e6727407c111801",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "sources_stable": true,
+  "frozen_at": "2026-11-27T04:05:13.105973+01:00"
+}

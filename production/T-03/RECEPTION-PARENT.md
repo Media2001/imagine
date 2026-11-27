@@ -1,58 +1,25 @@
-# T-03 — reception par le parent (pas de PRET)
+# T03 — réception native achevée
 
-**Candidat non natif.** Aucun Docker/WSL ni PHP Windows lance par ce worker ; aucun paquet externe, import ou gardien modifie par lui. **Surveillance : `wp/outils/staging/lib.php` a change concurremment depuis le snapshot d'entree ; les fichiers du gardien commun n'ont pas change.** Ce delta observe est conserve dans le recu local, sans l'attribuer a une execution T-03 ni le resceller. La chaine reelle attend le proprietaire Docker A-28 puis l'integration du parent. Les tests locaux sont uniquement des contrats Python, parseurs PowerShell et doubles explicites de frontiere, **jamais** des recus natifs.
+Fait : communs T01/T03 intégrés (second montage RO, collecteur Python) ; image préparée réellement, wrappers20–25 et déclarations20–28 ajoutés, aucun contrôle import/gardien modifié.
+Prêt à relire : T03 ; 9 paquets vérifiés, 0 échec ; hors rejeu : aucun.
+À arbitrer : A22 toujours NON CLOS ; ce rejeu auteur permet la relecture indépendante mais ne la remplace pas. Aucun GO réel.
+Bloqué : aucun pour T03 ; mutant +1 octet A28 donne uniquement PACKAGE_DRIFT, REJEU PASS et compteurs inchangés ; copie et runners supprimés, absences prouvées.
+Ensuite : parent verify ; REJEU : 1153 tests, 36074 assertions, 0 échecs, 0 erreurs, 0 ignorés — PASS ; reçus exacts dans production/T-03/preuves/final ; verrou conservé.
 
-## Ce qui est livre
+Commandes réellement exécutées depuis `C:/Users/Ced/imagine`, sorties/exits complets dans `preuves/final/native/` :
 
-- Decouverte `production/<lot>/verify.py` avec declaration fermee `rejeu.json` (contrat complet : `CONVENTION.md`). Processus Python sans argument dans le meme conteneur, stdout/stderr du verificateur retenus, premiere erreur declaree nommee, journal declare absent = hors rejeu.
-- Une ligne `PAQUETS` independante, avant `OUTILS` ; derniere ligne `REJEU`, compteurs PHP/outils et code retour non modifies par un rouge de paquet. L'ancien montage `/repo/wp:ro` est conserve ; ajout strictement inspecte de la racine du depot a `/packet-repo:ro`. Tous les autres drapeaux et le nettoyage de proprietaire sont conserves.
-- Python standard ajoute **uniquement** au Dockerfile deja utilise par `preparer-image.ps1` ; sonde hors reseau dans `verifier-image.php`. Le preparateur lui-meme est inchange. Bornes : 90 s par verificateur, budget collectif 120 s, enveloppe du collecteur 150 s ; timeout global T-01 de 600 s inchange.
-- Exactement trois lignes ajoutees au vrai mode d'emploi T-01, `production/T-01/notes.md` (c'est le fichier prescrit au brief T-01 ; pas de README racine modifie). Contrat sur ces trois lignes seulement, dans `readme-ajout.txt`.
-- `wp/tests/t01/test-paquets-native.ps1` prepare la vraie preuve : copie scratch complete des arbres wp/production/files, rejeu vert avec A-22 ET A-28, changement d'un seul octet de `production/A-28/preuves/final/before/native.json`, second rejeu exigeant uniquement A-28 PACKAGE_DRIFT et une derniere ligne REJEU PASS identique, lecture des deux nettoyages verifies, destruction de la copie et empreinte du recu original inchangee. **Ce script n'a pas ete execute ici.**
-
-Les matrices natives classique/HPOS et commerciales restent hors du rejeu T-01 : verifier leurs recus ne les relance pas.
-
-## Integrer d'abord les lots 20–29, sans rescellement artificiel
-
-Le worker n'a ecrit ni entree ni declaration dans un autre lot. Au premier examen, seuls `production/A-26/verify.py`, `A-27/verify.py` et `A-28/verify.py` existaient ; aucune declaration `rejeu.json` n'etait presente. Les verificateurs A-21/A-22 lus sont `wp/tests/a21/verify.py` et `wp/tests/a22/verify.py`, avec argument de paquet obligatoire. Les wrappers de production 21/22 annonces dans le contexte ne se trouvaient donc pas a l'emplacement de decouverte lors de cet examen ; le parent doit confirmer leur emplacement/arrivee avant le gel, pas supposer leur presence.
-
-Le parent integre, **lot par lot**, une entree sans argument pour les anciens paquets A-20 a A-25 (reutiliser un wrapper deja livre s'il existe). Cette entree selectionne le paquet unique explicitement et appelle le verificateur existant sans changer un controle. A-26/A-27/A-28 et A-29 s'il livre une entree utilisent leur contrat courant ; aucune adaptation forcee d'un besoin Docker/reseau/ecriture/argument. Documenter pour chaque ancien lot quel fichier existant est appele et quel paquet unique est choisi.
-
-Chaque lot rejouable recoit sa declaration avant le gel/rescellement du parent :
-
-1. `schema:1`, `entrypoint:"verify.py"`, `requires:[]` pour une entree effectivement pure et sans argument ; sinon exigence fermee et hors rejeu.
-2. `controls` = liste fermee de **tous** les codes/noms de controles possibles du verificateur courant (verts et rouges). Les sorties candidates A-21/A-22 ne deviennent pas pour autant une preuve des gates parent.
-3. `logs` = liste exhaustive des journaux requis, tiree des manifestes et references, **meme absents**. Inclure ceux de `files/rapports/` pour les enveloppes A-26/A-27. Ne pas construire cette liste par le seul glob des fichiers presents : les `.log` absents d'une copie Git sont hors rejeu, pas echec ni faux fichier reconstitue.
-
-**Risque d'integration :** les inventaires A-26/A-27/A-28 couvrent leur dossier production ; ajouter `rejeu.json`/un wrapper APRES un gel peut perimer le paquet. Integrer ces entrees avant les nouvelles matrices et sceaux, selon la file 1 h 30 et la fusion A-28. Ne rien changer aux controles des verificateurs, au gardien ou a l'import pour rendre la ligne verte. T-02 scelle l'ancien runner : ses empreintes peuvent devenir historiques avec T-03 ; cela n'est pas une autorisation de resceller T-02 ou les autres lots par ce worker.
-
-## Gates exactes — depuis C:\Users\Ced\imagine
-
-Contrats locaux autorises, sans Docker/WSL reel :
-
-```powershell
-$env:PYTHONDONTWRITEBYTECODE='1'
-$env:PYTHONIOENCODING='utf-8'; $env:PYTHONUTF8='1'
-C:/Python314/python.exe -B -m unittest discover -s wp/tests/t01 -p test_paquets.py -v
-C:/Python314/python.exe -B -m unittest discover -s wp/tests/t01 -p test_t03_integration.py -v
-$env:PYTHONIOENCODING='cp1252'; $env:PYTHONUTF8='0'
-C:/Python314/python.exe -B -m unittest discover -s wp/tests/t01 -p test_paquets.py -v
-C:/Python314/python.exe -B -m unittest discover -s wp/tests/t01 -p test_t03_integration.py -v
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/t01/test-rejeu.ps1
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/t01/test-tools-summary.ps1
-```
-
-Les deux derniers scripts n'appellent que leur double fonctionnel de la frontiere WSL/Docker ; ils ne sont pas des preuves PHP. Leurs donnees synthetiques sont identifiees dans les scripts et sorties.
-
-**Uniquement apres liberation Docker par A-28 et integration des paquets/declarations finaux :**
-
-```powershell
+```text
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/preparer-image.ps1
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/rejouer.ps1
-$N = 'C:/Users/Ced/AppData/Local/hermes/cache/scratch/t03-native-final-' + [guid]::NewGuid().ToString('N')
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/t01/test-paquets-native.ps1 -Output $N
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/t01/test-paquets-native.ps1 -Output C:\Users\Ced\AppData\Local\hermes\cache\scratch\requal2127-t03-20261127\t03-native-copy-proof-02
 ```
 
-Preparation : exiger le vrai `T03 IMAGE PYTHON ... PASS`, le succes de la preparation et la nouvelle image. Rejeu : conserver stdout complet, dernier REJEU PASS, meme nombre de tests PHP que le rejeu du parent avant T-03 sur les memes autres sources. La preuve sur copie doit produire `$N/result.json` status PASS, native_executed=true, quatre controles PASS, copy_absent=true, original_receipt_unchanged=true, A-22/A-28 dans les deux listes `lots` et une seule erreur nommee A-28 PACKAGE_DRIFT au mutant. Les journaux `green.log` et `one-byte.log` contiennent les sorties completes et les absences de conteneurs relues par le runner. Les autres paquets perimes doivent etre regles par leur proprietaire avant cette preuve strictement verte ; ils ne changent cependant jamais le REJEU d'un voisin.
+Toutes exit0. La préparation contient `T03 IMAGE PYTHON : offline standard-library probe PASS`. Deux montages bind exactement, `/repo/wp:ro` et `/packet-repo:ro`, racine vérifiée ; réseau none, rootfs RO, 65534, cap-drop ALL, no-new-privileges, limites inchangées et tmpfs seul. Les inspections avant/après sont obligatoires dans le vrai runner ; la preuve ne les remplace pas par une simulation. La copie jetable altère exactement un octet de before/native.json ; les deux sorties complètes green.log/one-byte.log prouvent le même REJEU, la seule erreur A28 PACKAGE_DRIFT et deux nettoyages vérifiés.
 
-Copier ensuite seulement cette preuve native finale et les contrats locaux finaux dans le paquet T-03, annoncer le nombre **mesure** de paquets verifies et la liste hors rejeu, puis le parent decide de PRET. Ici : aucun nombre de paquets natifs verifies n'est revendique, aucun conteneur cree, aucun PRET. Les preuves locales finales sont `preuves/local/result.json` et leurs fichiers `.txt` ; les RED restent exclusivement dans le scratch Hermes.
+Entrées sans argument ajoutées : A20/A21/A22 appellent leurs `wp/tests/aNN/verify.py production/A-NN/preuves/final` ; A23/A25 appellent le vérificateur existant avec `--require-shared-doc`, A24 avec `--require-shared`. Aucun contrôle réécrit. A26/A27 gardent leur enveloppe scellée actuelle, A28 son vérificateur actuel. `rejeu.json` liste les contrôles fermés et tous les journaux requis dérivés des inventaires/références, y compris les gates externes26/27 ; l’absence d’un journal reste hors rejeu, jamais reconstituée. Détail relu par lot dans integration-readback.json. Les trois lignes exactes T01 sont conservées uniques, `scripts/relire.ps1` inchangé.
+
+Contrats locaux réellement rejoués : 15 collecteur + 9 intégration, chacun UTF-8 et cp1252 sous Windows Python3.14.6 ; deux scripts historiques de doubles PowerShell verts. Ces doubles ne sont pas les preuves natives. Les matrices natives classique/HPOS/commerciales restent hors de T01 : vérifier leurs reçus ne les rejoue pas. Aucun paquet A29/A30 intégré de force ; A29 reste bloqué neutral_success exit255/refus, pas de PRET29. La liste hors rejeu ci-dessus est celle réellement mesurée, pas un inventaire de tous les lots sans entrée.
+
+Évolution observée hors gel de propriétaires : le premier rejeu réel avait 1151 tests / 36062 assertions PASS ; la première copie a exécuté 1152 tests avec un échec SujetAdapterTest::testAntislashDuPostAuDetailAdminEtExport (paquet imagine-site, hors périmètre). Cet essai a été conservé intact en scratch, copie détruite ; il ne prouve pas la mutation un octet. Un seul rejeu de contrôle réel a ensuite mesuré 1153 tests / 36074 assertions PASS. La nouvelle preuve utilise cette référence actuelle : ses deux passages ont exactement cette même dernière ligne PASS. Aucun inventaire d’empreintes, gel ou changement de source de la voie2 par cette phase ; les sources des propriétaires A21–27/T03 restent exactement les 397 empreintes gelées. Les gates communes de qualification à 1151 restent leurs vrais résultats antérieurs, jamais réécrits comme 1153. Les anciens logs restent hors dépôt, aucune ancienne course rouge renommée verte.
+
+Ancien candidat T03 et ses reçus locaux intacts : `C:/Users/Ced/AppData/Local/hermes/cache/scratch/requal2127-t03-20261127/T03-ancestor`. Sept lots requalifiés : `files/rapports/2026-11-27-05h03-qualification-A21-A27` ; leurs PRET relus verts après ce T03. Source gelée par propriétaires explicites, jamais inventaire voie2. A28 : seul ajout rejeu.json et metadata manifest actualisée, verify28 vert avant/après ; tous les reçus natifs inchangés. Gardien, import, Git, réel, compte/site/Novamira, voie2, cron, scripts/relire intacts. Verrou rafraîchi, non libéré.

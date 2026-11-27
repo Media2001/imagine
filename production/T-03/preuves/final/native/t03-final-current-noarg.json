@@ -1,0 +1,21 @@
+{
+  "name": "t03-final-current-noarg",
+  "command": [
+    "powershell.exe",
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "wp/tests/rejouer.ps1"
+  ],
+  "start": "2026-11-27T05:08:55.105941+01:00",
+  "end": "2026-11-27T05:10:09.833732+01:00",
+  "exit_code": 0,
+  "python_encoding_environment": "utf-8",
+  "log": "t03-final-current-noarg.log",
+  "stderr": "t03-final-current-noarg.stderr",
+  "log_sha256": "99837ce30c50318be9b81f53935ae3d613eda25633d26cf1edd37abda1ec62bd",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "sources_stable": true,
+  "frozen_at": "2026-11-27T04:05:13.105973+01:00"
+}

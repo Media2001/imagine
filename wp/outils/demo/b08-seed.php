@@ -54,15 +54,24 @@ try {
 if (is_wp_error($menuId)) {
     throw new RuntimeException('Menu refusé');
 }
+$pageUrl = static function ($page): string {
+    $post = $page ? get_post($page) : null;
+    return $post && $post->post_type === 'page' && $post->post_status === 'publish'
+        ? (string)get_permalink($post) : '';
+};
+$archiveUrl = static function (string $type): string {
+    $object = get_post_type_object($type);
+    return $object && $object->has_archive ? (string)get_post_type_archive_link($type) : '';
+};
 $entries = [
-    'kiosque' => ['Nos numéros', get_post_type_archive_link('imagine_numero'), 0],
+    'kiosque' => ['Nos numéros', $archiveUrl('imagine_numero'), 0],
     'thematiques' => ['Thématiques', home_url('/#imagine-thematiques'), 0],
-    'newsletters' => ['Nos newsletters', get_permalink(get_page_by_path('nos-newsletters')), 0],
-    'agenda' => ['Nos événements', get_post_type_archive_link('imagine_evenement'), 0],
+    'newsletters' => ['Nos newsletters', $pageUrl(get_page_by_path('nos-newsletters')), 0],
+    'agenda' => ['Nos événements', $archiveUrl('imagine_evenement'), 0],
     'cooperative' => ['Notre coopérative', get_permalink($map['cooperative']), $map['cooperative']],
     'soutenir' => ['Soutenir', get_permalink($map['soutenir']), $map['soutenir']],
     'abonnement' => ["S'abonner", home_url('/#imagine-abonnement'), 0],
-    'compte' => ['Connexion', wc_get_page_permalink('myaccount'), 0],
+    'compte' => ['Connexion', function_exists('wc_get_page_id') ? $pageUrl(wc_get_page_id('myaccount')) : '', 0],
 ];
 $items = [];
 $owned = [];
@@ -76,7 +85,17 @@ foreach (wp_get_nav_menu_items((int)$menuId, ['post_status' => 'any']) as $item)
     $owned[$key] = $item->ID;
 }
 foreach ($prior['items'] ?? [] as $key => $id) {
-    if (($owned[$key] ?? 0) !== (int)$id) {
+    if (!isset($owned[$key])) {
+        $post = get_post((int)$id);
+        $menus = wp_get_object_terms((int)$id, 'nav_menu', ['fields' => 'ids']);
+        if (!in_array($key, $keys, true) || !$post || $post->post_type !== 'nav_menu_item'
+            || get_post_meta((int)$id, 'imagine_b08_menu_item', true) !== $key || $menus !== []) {
+            throw new RuntimeException('Item étranger');
+        }
+        // Le hook de création a marqué cet item avant son rattachement natif.
+        $owned[$key] = (int)$id;
+    }
+    if ($owned[$key] !== (int)$id) {
         throw new RuntimeException('Item étranger');
     }
 }

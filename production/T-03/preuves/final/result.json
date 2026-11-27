@@ -1,0 +1,29 @@
+{
+  "status": "PASS",
+  "exit_code": 0,
+  "at": "2026-11-27T05:14:32.790577+01:00",
+  "verified": 9,
+  "lots": [
+    "A-20",
+    "A-21",
+    "A-22",
+    "A-23",
+    "A-24",
+    "A-25",
+    "A-26",
+    "A-27",
+    "A-28"
+  ],
+  "excluded": [],
+  "last": "REJEU : 1153 tests, 36074 assertions, 0 \u00e9checs, 0 erreurs, 0 ignor\u00e9s \u2014 PASS",
+  "checks": {
+    "native_executed": true,
+    "seven_final_wrappers_green": true,
+    "A28_native_receipts_unchanged": true,
+    "ancestors_exact": true,
+    "sources_frozen": true,
+    "A22_closed": false,
+    "copy_deleted": true,
+    "runners_absence_proved": true
+  }
+}
