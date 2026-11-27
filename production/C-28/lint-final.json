@@ -1,5 +1,5 @@
 {
-  "command": [
+  "command_base": [
     "wsl.exe",
     "-d",
     "Ubuntu",
@@ -22,12 +22,10 @@
     "type=bind,source=/mnt/c/Users/Ced/imagine/wp,target=/repo/wp,readonly",
     "--entrypoint",
     "php",
-    "imagine-tests-t01:1",
-    "-r",
-    "foreach(json_decode($argv[1],true) as $p){token_get_all(file_get_contents(\"/repo/\".$p),TOKEN_PARSE);echo $p.\" OK\n\";}",
-    "[\"wp/outils/demo/c28-demo.php\", \"wp/outils/demo/c28-seed.php\", \"wp/plugins/imagine-site/AchatNumero.php\", \"wp/plugins/imagine-site/AchatsNumeros.php\", \"wp/plugins/imagine-site/imagine-site.php\", \"wp/plugins/imagine-site/MonCompte.php\", \"wp/plugins/imagine-site/PacksRegles.php\", \"wp/plugins/imagine-site/PacksThematiques.php\", \"wp/plugins/imagine-site/Paywall.php\", \"wp/plugins/imagine-site/PdfNumero.php\", \"wp/plugins/imagine-site/tests/b04-adapter-fixture.php\", \"wp/plugins/imagine-site/tests/PacksC28Test.php\", \"wp/tests/demo/c28-horslive.php\", \"wp/tests/demo/c28-observer.php\", \"wp/tests/demo/c28-runtime.php\", \"wp/themes/imagine/single-product.php\"]"
+    "imagine-tests-t01:1"
   ],
-  "exit": 255,
+  "mode": "php -l /repo/PATH for each file",
+  "exit": 0,
   "files": [
     "wp/outils/demo/c28-demo.php",
     "wp/outils/demo/c28-seed.php",
@@ -46,6 +44,6 @@
     "wp/tests/demo/c28-runtime.php",
     "wp/themes/imagine/single-product.php"
   ],
-  "stdout": "\nParse error: syntax error, unexpected token \")\" in Command line code on line 1\n",
+  "stdout": "No syntax errors detected in /repo/wp/outils/demo/c28-demo.php\nNo syntax errors detected in /repo/wp/outils/demo/c28-seed.php\nNo syntax errors detected in /repo/wp/plugins/imagine-site/AchatNumero.php\nNo syntax errors detected in /repo/wp/plugins/imagine-site/AchatsNumeros.php\nNo syntax errors detected in /repo/wp/plugins/imagine-site/imagine-site.php\nNo syntax errors detected in /repo/wp/plugins/imagine-site/MonCompte.php\nNo syntax errors detected in /repo/wp/plugins/imagine-site/PacksRegles.php\nNo syntax errors detected in /repo/wp/plugins/imagine-site/PacksThematiques.php\nNo syntax errors detected in /repo/wp/plugins/imagine-site/Paywall.php\nNo syntax errors detected in /repo/wp/plugins/imagine-site/PdfNumero.php\nNo syntax errors detected in /repo/wp/plugins/imagine-site/tests/b04-adapter-fixture.php\nNo syntax errors detected in /repo/wp/plugins/imagine-site/tests/PacksC28Test.php\nNo syntax errors detected in /repo/wp/tests/demo/c28-horslive.php\nNo syntax errors detected in /repo/wp/tests/demo/c28-observer.php\nNo syntax errors detected in /repo/wp/tests/demo/c28-runtime.php\nNo syntax errors detected in /repo/wp/themes/imagine/single-product.php\n",
   "stderr": ""
 }
