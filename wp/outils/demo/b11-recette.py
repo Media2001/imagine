@@ -4,6 +4,7 @@ sys.dont_write_bytecode=True
 import hashlib
 import json
 import re
+import time
 from urllib.parse import urlsplit, urlencode
 from playwright.sync_api import sync_playwright
 import b11
@@ -60,17 +61,15 @@ def run(label):
                 page.locator('[name="imagine_medias[hosts]"]').fill('video-fictive.example.invalid')
                 page.locator('[name="imagine_medias[integration]"]').select_option(value)
                 form=page.locator('form').filter(has=page.locator('#imagine-medias-reglages'))
-                form.evaluate("e=>e.action+='?b11_observe=settings-save'")
-                print('SETTING_READBACK',value,b11.wp('echo wp_json_encode(get_option("imagine_medias"));'),page.locator('body').inner_text()[-500:])
+                form.evaluate("e=>e.setAttribute('action','options.php?b11_observe=settings-save')")
                 page.locator('#submit').click();page.wait_for_load_state('networkidle')
-                print('SETTING_AFTER',value,b11.wp('echo wp_json_encode(get_option("imagine_medias"));'),page.url,page.locator('body').inner_text()[-700:])
                 check('reglage_'+value+'_readback',b11.wp('echo wp_json_encode(Imagine\\Site\\Medias::configuration());')=={'hosts':['video-fictive.example.invalid'],'integration':value})
             def edit(ident,video=VIDEO,podcast=PODCAST,phase='save'):
                 page.goto(identity['url']+'/wp-admin/post.php?post='+str(ident)+'&action=edit');page.wait_for_load_state('networkidle')
                 # Le formulaire classique natif et son nonce, sans fabriquer une saisie par WP-CLI.
                 check('metabox_'+str(ident),page.locator('#b11-video').count()==1 and page.locator('#b11-podcast').count()==1)
                 page.locator('#b11-video').fill(video);page.locator('#b11-podcast').fill(podcast)
-                form=page.locator('#post');form.evaluate('(e,q)=>e.action=q',identity['url']+'/wp-admin/post.php?b11_observe='+phase)
+                form=page.locator('#post');form.evaluate("(e,q)=>e.setAttribute('action',q)",identity['url']+'/wp-admin/post.php?b11_observe='+phase)
                 page.locator('#publish').click();page.wait_for_load_state('networkidle')
                 return page.content()
             for value in ['0','1']:
@@ -123,23 +122,23 @@ def run(label):
             token=b"&& !Paywall::decision($post)['complet']"
             assert original.count(token)==1
             try:
-                b11.upload(name,original.replace(token,b'&& false'))
+                b11.upload(name,original.replace(token,b'&& false'));time.sleep(3)
                 r=get('anon','/b11-article-medias-fictifs/')
                 verdict=c26.c23.assess_response(r,[VIDEO,PODCAST])
                 mutations['garde_article']={'status':r[0],**verdict}
                 check('mutation_garde_article_tuee',verdict['leak'] and not verdict['ok'])
             finally:
-                b11.upload(name,original);assert b11.b10.b09.b08.c25.b06.hashes([name])[name]==hashlib.sha256(original).hexdigest()
+                b11.upload(name,original);time.sleep(3);assert b11.b10.b09.b08.c25.b06.hashes([name])[name]==hashlib.sha256(original).hexdigest()
             check('garde_article_revenue',c26.c23.assess_response(get('anon','/b11-article-medias-fictifs/'),[VIDEO,PODCAST])['ok'])
             name='plugins/imagine-site/AudioNumero.php';original=(b11.ROOT/'wp'/name).read_bytes();token=b"if (Paywall::decisionPdf($issue)['complet'])"
             assert original.count(token)==1
             try:
-                b11.upload(name,original.replace(token,b'if (true)'))
+                b11.upload(name,original.replace(token,b'if (true)'));time.sleep(3)
                 r=get('anon','/?imagine_audio='+str(fixture['issue']))
                 mutations['garde_audio']={'status':r[0],'bytes':len(r[2]),'binary_sha256':hashlib.sha256(r[2]).hexdigest()}
                 check('mutation_garde_audio_tuee',r[0]==200 and hashlib.sha256(r[2]).hexdigest()==fixture['silence_sha256'])
             finally:
-                b11.upload(name,original);assert b11.b10.b09.b08.c25.b06.hashes([name])[name]==hashlib.sha256(original).hexdigest()
+                b11.upload(name,original);time.sleep(3);assert b11.b10.b09.b08.c25.b06.hashes([name])[name]==hashlib.sha256(original).hexdigest()
             check('garde_audio_revenue',get('anon','/?imagine_audio='+str(fixture['issue']))[0]==302)
             # Chaque témoin C26 est détecté dans la réponse B11 brute, commentaires compris.
             actual=get('anon','/b11-article-medias-fictifs/')
