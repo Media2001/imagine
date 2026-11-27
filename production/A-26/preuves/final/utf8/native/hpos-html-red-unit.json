@@ -1,0 +1,38 @@
+{
+  "suite": "A26-native-HTML",
+  "checks": [
+    {
+      "check": "html_resources_not_ordinary_links",
+      "status": "PASS"
+    },
+    {
+      "check": "plain_oembed_line",
+      "status": "PASS"
+    },
+    {
+      "check": "code_and_comments_not_resources",
+      "status": "PASS"
+    },
+    {
+      "check": "html_quoted_gt_real_youtube",
+      "status": "FAIL"
+    },
+    {
+      "check": "html_title_src_no_phantom_vimeo",
+      "status": "FAIL"
+    },
+    {
+      "check": "ordinary_url_anchor_text_not_autoembed",
+      "status": "PASS"
+    },
+    {
+      "check": "literal_standalone_urls_not_autoembeds",
+      "status": "PASS"
+    },
+    {
+      "check": "raw_script_text_not_parsed_as_resource",
+      "status": "FAIL"
+    }
+  ],
+  "exit_code": 1
+}

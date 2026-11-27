@@ -1,5 +1,6 @@
 {
     "source_sha256": {
+        "html": "c5cc1d4597559e82d698a61594a5f10f8410fe845a591e0cac89e4926188e0a8",
         "parser": "fb7f9daf804867fe2d58212498754454a77021a40b68a3458886e146befe2cf0",
         "shortcodes": "5f72df2c1d86e2e9c36f2f727a61c15c27a0b77bc2303d8b0de53197bc9de582",
         "plugins": "9b5af52f5e1e36bb4a13cb14c9c548bbb8941a55244306c6c9829be032bdedcc",
@@ -9,6 +10,10 @@
         "scheduler": "54d690d01e46065e1083519a2368579f7a69ea3852c34a99988cb700462b21b6"
     },
     "checks": [
+        {
+            "check": "native_html_tag_processor",
+            "status": "PASS"
+        },
         {
             "check": "native_default_block_parser",
             "status": "PASS"

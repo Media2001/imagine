@@ -428,6 +428,126 @@
       "detail": null
     },
     {
+      "check": "classic:correction_seed_opaque",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic-correction-opaque-audit:audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:correction_success_opaque",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:correction_exact_five_opaque",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:correction_db_files_unchanged_opaque",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:correction_private_values_absent_opaque",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:correction_seed_conflict",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic-correction-conflict-audit:audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:correction_success_conflict",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:correction_exact_five_conflict",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:correction_db_files_unchanged_conflict",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:correction_private_values_absent_conflict",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:correction_seed_reference-only",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic-correction-reference-only-audit:audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:correction_success_reference-only",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:correction_exact_five_reference-only",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:correction_db_files_unchanged_reference-only",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:correction_private_values_absent_reference-only",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:correction_seed_unique",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic-correction-unique-audit:audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:correction_success_unique",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:correction_exact_five_unique",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:correction_db_files_unchanged_unique",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:correction_private_values_absent_unique",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "classic:all_retained_files_clean",
       "status": "PASS",
       "detail": null
@@ -830,6 +950,126 @@
     },
     {
       "check": "hpos:five_db_files_unchanged",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:correction_seed_opaque",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos-correction-opaque-audit:audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:correction_success_opaque",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:correction_exact_five_opaque",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:correction_db_files_unchanged_opaque",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:correction_private_values_absent_opaque",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:correction_seed_conflict",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos-correction-conflict-audit:audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:correction_success_conflict",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:correction_exact_five_conflict",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:correction_db_files_unchanged_conflict",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:correction_private_values_absent_conflict",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:correction_seed_reference-only",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos-correction-reference-only-audit:audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:correction_success_reference-only",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:correction_exact_five_reference-only",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:correction_db_files_unchanged_reference-only",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:correction_private_values_absent_reference-only",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:correction_seed_unique",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos-correction-unique-audit:audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:correction_success_unique",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:correction_exact_five_unique",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:correction_db_files_unchanged_unique",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:correction_private_values_absent_unique",
       "status": "PASS",
       "detail": null
     },

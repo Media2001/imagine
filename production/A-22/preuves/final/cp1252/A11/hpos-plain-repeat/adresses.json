@@ -98,7 +98,7 @@
             "nature": "pièce jointe",
             "type_contenu": "attachment",
             "etat_publication": "inherit",
-            "derniere_modification_utc": "2026-11-27T00:18:31Z",
+            "derniere_modification_utc": "2026-11-27T03:30:43Z",
             "contextes": [
                 {
                     "nature": "pièce jointe",
@@ -111,7 +111,7 @@
             "nature": "pièce jointe",
             "type_contenu": "attachment",
             "etat_publication": "inherit",
-            "derniere_modification_utc": "2026-11-27T00:18:31Z",
+            "derniere_modification_utc": "2026-11-27T03:30:43Z",
             "contextes": [
                 {
                     "nature": "pièce jointe",
@@ -124,7 +124,7 @@
             "nature": "pièce jointe",
             "type_contenu": "attachment",
             "etat_publication": "inherit",
-            "derniere_modification_utc": "2026-11-27T00:18:31Z",
+            "derniere_modification_utc": "2026-11-27T03:30:43Z",
             "contextes": [
                 {
                     "nature": "pièce jointe",
@@ -293,7 +293,7 @@
             "nature": "produit",
             "type_contenu": "product",
             "etat_publication": "publish",
-            "derniere_modification_utc": "2026-11-27T00:18:31Z",
+            "derniere_modification_utc": "2026-11-27T03:30:43Z",
             "contextes": [
                 {
                     "nature": "produit",
@@ -380,5 +380,5 @@
             ]
         }
     ],
-    "audit_sha256": "172a4191631c1cfc02d70e8af7f5e63852ecd32f9865406b7ff58c0d7ceae3d7"
+    "audit_sha256": "41fb317d371abcf4429788ba5fd751c6020a5433bb5bed330429266cf5b8ae03"
 }

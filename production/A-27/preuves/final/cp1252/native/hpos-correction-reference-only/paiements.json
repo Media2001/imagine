@@ -1,0 +1,34 @@
+{
+    "schema": "imagine-a27-saved-payments-v1",
+    "read_only": true,
+    "storage": "hpos",
+    "neutralisation": "observe",
+    "counts": {
+        "automatic": {
+            "groups": [
+                {
+                    "gateway": "stripe_sepa",
+                    "type": "mandat_sepa",
+                    "count": 5
+                }
+            ],
+            "autres": 0
+        },
+        "cards": {
+            "groups": [],
+            "autres": 0
+        },
+        "relations": {
+            "groups": [
+                {
+                    "gateway": "stripe_sepa",
+                    "metric": "subscriptions_unlinked",
+                    "count": 5
+                }
+            ],
+            "autres": 0
+        }
+    },
+    "as_of_utc": "2026-11-26T12:00:00+00:00",
+    "audit_sha256": "1ff5b316e8d1e966dbd4d1da751c154d3392d2da793695286e33a318ea2a71f7"
+}

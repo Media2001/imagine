@@ -81,5 +81,5 @@
     "payment_reference_basis": "Reference Woo liee ou champs du schema natif de passerelle ; sinon inconnu.",
     "mode_basis": "Drapeau manuel enregistre, pas bascule manuelle effective du staging.",
     "scope": "Magasin natif faisant autorite ; liens explicites ; aucun rapprochement par identite.",
-    "audit_sha256": "d299cda31e5ee5e1a32d61b18fcaf7abbfe4b7bb22a1ac80fd8c6850d0f92f45"
+    "audit_sha256": "1ccef12007abeef2b7d650657743c90ecc4fda7d83d8ff17311e9441b74b136d"
 }

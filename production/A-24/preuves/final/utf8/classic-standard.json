@@ -66,7 +66,7 @@
         "woocommerce\/packages\/action-scheduler\/functions.php": "54d690d01e46065e1083519a2368579f7a69ea3852c34a99988cb700462b21b6",
         "woocommerce-subscriptions\/includes\/core\/wcs-functions.php": "70f61d3049628023a027b099065034abefae18be4408014e3c824ceebff450ca",
         "woocommerce-subscriptions\/includes\/core\/class-wc-subscription.php": "50436292cbd84a9c6f1fa0830eb350616389888d8ed836caeebd29a72789ef93",
-        "staging\/lib.php": "2e87ce99a1d8321109be7ecbc0c0c4e6a3a3d4bd6c1db7136124e9052c0ea6bb",
+        "staging\/lib.php": "c6ebdbb9ad3568f64069bc80d92acc22a01f234dbc9ab7012ac0cedf8d9b1953",
         "staging\/pdo-store.php": "13bbd64697114071eda76b84438a6a1c9adf6135a8a5a92de0b70aa7930cd8d1"
     },
     "checks": [

@@ -48,7 +48,22 @@
       "detail": null
     },
     {
+      "check": "classic:html_two_counterexamples_red",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:html_native_bank_green",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "classic:audit_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:html_report_two_counterexamples_red",
       "status": "PASS",
       "detail": null
     },
@@ -69,6 +84,16 @@
     },
     {
       "check": "classic:exact_content_per_service_once",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:html_quoted_gt_report_count",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:html_title_src_no_phantom_report_count",
       "status": "PASS",
       "detail": null
     },
@@ -98,12 +123,27 @@
       "detail": null
     },
     {
+      "check": "classic:html_last_ten_two_counterexamples_red:postmeta",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "classic:a16_mapping_success:postmeta",
       "status": "PASS",
       "detail": null
     },
     {
       "check": "classic:last_ten_exact_no_oldest_no_orphans:postmeta",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:html_last_ten_quoted_gt_and_no_phantom:postmeta",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:html_last_ten_two_counterexamples_red:post_parent",
       "status": "PASS",
       "detail": null
     },
@@ -118,12 +158,32 @@
       "detail": null
     },
     {
+      "check": "classic:html_last_ten_quoted_gt_and_no_phantom:post_parent",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:html_last_ten_two_counterexamples_red:taxonomy",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "classic:a16_mapping_success:taxonomy",
       "status": "PASS",
       "detail": null
     },
     {
       "check": "classic:last_ten_exact_no_oldest_no_orphans:taxonomy",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:html_last_ten_quoted_gt_and_no_phantom:taxonomy",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:html_source_restored_exactly",
       "status": "PASS",
       "detail": null
     },
@@ -509,7 +569,22 @@
       "detail": null
     },
     {
+      "check": "hpos:html_two_counterexamples_red",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:html_native_bank_green",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "hpos:audit_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:html_report_two_counterexamples_red",
       "status": "PASS",
       "detail": null
     },
@@ -530,6 +605,16 @@
     },
     {
       "check": "hpos:exact_content_per_service_once",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:html_quoted_gt_report_count",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:html_title_src_no_phantom_report_count",
       "status": "PASS",
       "detail": null
     },
@@ -559,12 +644,27 @@
       "detail": null
     },
     {
+      "check": "hpos:html_last_ten_two_counterexamples_red:postmeta",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "hpos:a16_mapping_success:postmeta",
       "status": "PASS",
       "detail": null
     },
     {
       "check": "hpos:last_ten_exact_no_oldest_no_orphans:postmeta",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:html_last_ten_quoted_gt_and_no_phantom:postmeta",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:html_last_ten_two_counterexamples_red:post_parent",
       "status": "PASS",
       "detail": null
     },
@@ -579,12 +679,32 @@
       "detail": null
     },
     {
+      "check": "hpos:html_last_ten_quoted_gt_and_no_phantom:post_parent",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:html_last_ten_two_counterexamples_red:taxonomy",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "hpos:a16_mapping_success:taxonomy",
       "status": "PASS",
       "detail": null
     },
     {
       "check": "hpos:last_ten_exact_no_oldest_no_orphans:taxonomy",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:html_last_ten_quoted_gt_and_no_phantom:taxonomy",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:html_source_restored_exactly",
       "status": "PASS",
       "detail": null
     },

@@ -1,7 +1,7 @@
 {
   "suite": "A27-owned-runner",
-  "container": "imagine-a27-payments-9549deb30901",
-  "at": "2026-11-26T22:32:03.490203+00:00",
+  "container": "imagine-a27-payments-3a0dc5c14d7c",
+  "at": "2026-11-27T03:54:51.077522+00:00",
   "checks": [
     {
       "check": "isolation_before",
@@ -40,6 +40,16 @@
     },
     {
       "check": "red_mutation_cc_caught",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "red_r2_r3_witnesses",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "adapter_actual_a19_boundary_green",
       "status": "PASS",
       "detail": null
     },

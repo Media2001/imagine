@@ -1,0 +1,86 @@
+{
+  "suite": "A27-adapter-pure",
+  "checks": [
+    {
+      "check": "opaque_actual_a19_boundary",
+      "status": "PASS"
+    },
+    {
+      "check": "opaque_adapted_presence",
+      "status": "FAIL"
+    },
+    {
+      "check": "opaque_one_schema_evaluation",
+      "status": "PASS"
+    },
+    {
+      "check": "opaque_observer_removed",
+      "status": "PASS"
+    },
+    {
+      "check": "opaque_five_automatic_illisible",
+      "status": "FAIL"
+    },
+    {
+      "check": "opaque_five_relation_unknown",
+      "status": "FAIL"
+    },
+    {
+      "check": "null_actual_a19_boundary",
+      "status": "PASS"
+    },
+    {
+      "check": "null_adapted_presence",
+      "status": "FAIL"
+    },
+    {
+      "check": "null_one_schema_evaluation",
+      "status": "PASS"
+    },
+    {
+      "check": "null_observer_removed",
+      "status": "PASS"
+    },
+    {
+      "check": "empty_actual_a19_boundary",
+      "status": "PASS"
+    },
+    {
+      "check": "empty_adapted_presence",
+      "status": "PASS"
+    },
+    {
+      "check": "empty_one_schema_evaluation",
+      "status": "PASS"
+    },
+    {
+      "check": "empty_observer_removed",
+      "status": "PASS"
+    },
+    {
+      "check": "scalar_actual_a19_boundary",
+      "status": "PASS"
+    },
+    {
+      "check": "scalar_adapted_presence",
+      "status": "PASS"
+    },
+    {
+      "check": "scalar_one_schema_evaluation",
+      "status": "PASS"
+    },
+    {
+      "check": "scalar_observer_removed",
+      "status": "PASS"
+    },
+    {
+      "check": "schema_exception_propagated",
+      "status": "PASS"
+    },
+    {
+      "check": "observer_removed_after_exception",
+      "status": "PASS"
+    }
+  ],
+  "exit_code": 1
+}

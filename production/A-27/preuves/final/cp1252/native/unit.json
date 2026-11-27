@@ -126,6 +126,38 @@
             "status": "PASS"
         },
         {
+            "check": "explicit_contradiction_stripe_sepa",
+            "status": "PASS"
+        },
+        {
+            "check": "explicit_unresolved_stripe_sepa",
+            "status": "PASS"
+        },
+        {
+            "check": "reference_only_fallback_stripe_sepa",
+            "status": "PASS"
+        },
+        {
+            "check": "explicit_unique_match_stripe_sepa",
+            "status": "PASS"
+        },
+        {
+            "check": "explicit_contradiction_paypal",
+            "status": "PASS"
+        },
+        {
+            "check": "explicit_unresolved_paypal",
+            "status": "PASS"
+        },
+        {
+            "check": "reference_only_fallback_paypal",
+            "status": "PASS"
+        },
+        {
+            "check": "explicit_unique_match_paypal",
+            "status": "PASS"
+        },
+        {
             "check": "multiple_no_default_guessed",
             "status": "PASS"
         },

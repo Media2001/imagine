@@ -7,7 +7,7 @@ Comptes seulement ; aucune révocation ni décision.
     "schema": "imagine-a21-external-doors-v1",
     "read_only": true,
     "storage": "hpos",
-    "as_of_utc": "2026-11-26T23:58:33Z",
+    "as_of_utc": "2026-11-27T03:09:44Z",
     "api_keys": {
         "status": "connu",
         "counts": {
@@ -61,6 +61,6 @@ Comptes seulement ; aucune révocation ni décision.
         "topics": "Identifiants standard fermés ; sujets libres et actions personnalisées regroupés sous unknown.",
         "store": "Déclaration locale auth.access_token ; aucune vérification distante."
     },
-    "audit_sha256": "c58222d82e8403b6c3fe43d891441b321afe951820ae6f1974c4dee9840225ec"
+    "audit_sha256": "6f69b5ab3c54ef3ef4ffa013486ac73a2b24f675bd61dd3528b93cee5180ee9f"
 }
 ```

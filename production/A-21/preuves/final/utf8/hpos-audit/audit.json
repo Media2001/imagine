@@ -1,6 +1,6 @@
 {
     "schema": "imagine-a02-audit-v1",
-    "generated_at_utc": "2026-11-27T00:00:18+00:00",
+    "generated_at_utc": "2026-11-27T03:11:28+00:00",
     "read_only": true,
     "privacy": "structural_identifiers_versions_numeric_counts_only; no_titles_contacts_settings_arguments_or_raw_logs",
     "sections": {
@@ -182,8 +182,8 @@
                 }
             ],
             "update_source": "local_cache_only_not_a_live_check",
-            "plugin_cache_checked_epoch": 1795737616,
-            "theme_cache_checked_epoch": 1795737616
+            "plugin_cache_checked_epoch": 1795749087,
+            "theme_cache_checked_epoch": 1795749087
         },
         "commerce": {
             "order_storage": "hpos",
@@ -1074,7 +1074,7 @@
                 },
                 {
                     "name": "cron",
-                    "bytes": 2216
+                    "bytes": 2197
                 },
                 {
                     "name": "widget_block",
@@ -1233,43 +1233,43 @@
                     "hook": "a02_fixture_cron",
                     "schedule": "daily",
                     "count": 1,
-                    "next_epoch": 1795741216
+                    "next_epoch": 1795752687
                 },
                 {
                     "hook": "action_scheduler_run_queue",
                     "schedule": "every_minute",
                     "count": 1,
-                    "next_epoch": 1795737607
+                    "next_epoch": 1795749077
                 },
                 {
                     "hook": "do_pings",
                     "schedule": "single",
                     "count": 1,
-                    "next_epoch": 1795737615
+                    "next_epoch": 1795749085
                 },
                 {
                     "hook": "jetpack_clean_nonces",
                     "schedule": "hourly",
                     "count": 1,
-                    "next_epoch": 1795737610
+                    "next_epoch": 1795749081
                 },
                 {
                     "hook": "jetpack_v2_heartbeat",
                     "schedule": "daily",
                     "count": 1,
-                    "next_epoch": 1795737610
+                    "next_epoch": 1795749081
                 },
                 {
                     "hook": "recovery_mode_clean_expired_keys",
                     "schedule": "daily",
                     "count": 1,
-                    "next_epoch": 1795737606
+                    "next_epoch": 1795749077
                 },
                 {
                     "hook": "wc_admin_process_orders_milestone",
                     "schedule": "hourly",
                     "count": 1,
-                    "next_epoch": 1795737610
+                    "next_epoch": 1795749081
                 },
                 {
                     "hook": "wc_memberships_jobs_cleanup",
@@ -1281,31 +1281,31 @@
                     "hook": "wp_privacy_delete_old_export_files",
                     "schedule": "hourly",
                     "count": 1,
-                    "next_epoch": 1795737606
+                    "next_epoch": 1795749077
                 },
                 {
                     "hook": "wp_site_health_scheduled_check",
                     "schedule": "weekly",
                     "count": 1,
-                    "next_epoch": 1795824006
+                    "next_epoch": 1795835477
                 },
                 {
                     "hook": "wp_update_plugins",
                     "schedule": "twicedaily",
                     "count": 1,
-                    "next_epoch": 1795743006
+                    "next_epoch": 1795754476
                 },
                 {
                     "hook": "wp_update_themes",
                     "schedule": "twicedaily",
                     "count": 1,
-                    "next_epoch": 1795744806
+                    "next_epoch": 1795756276
                 },
                 {
                     "hook": "wp_version_check",
                     "schedule": "twicedaily",
                     "count": 1,
-                    "next_epoch": 1795741206
+                    "next_epoch": 1795752676
                 }
             ],
             "arguments_excluded": true

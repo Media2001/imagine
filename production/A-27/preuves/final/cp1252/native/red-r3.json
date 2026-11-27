@@ -1,0 +1,139 @@
+{
+  "suite": "A27-pure",
+  "checks": [
+    {
+      "check": "cc_native_type",
+      "status": "PASS"
+    },
+    {
+      "check": "sepa_native_type",
+      "status": "PASS"
+    },
+    {
+      "check": "echeck_not_automatically_sepa",
+      "status": "PASS"
+    },
+    {
+      "check": "echeck_stripe_sepa",
+      "status": "PASS"
+    },
+    {
+      "check": "unknown_native_type_not_absent",
+      "status": "PASS"
+    },
+    {
+      "check": "arbitrary_native_type_closed",
+      "status": "PASS"
+    },
+    {
+      "check": "gateway_canary_closed",
+      "status": "PASS"
+    },
+    {
+      "check": "gateway_empty_closed",
+      "status": "PASS"
+    },
+    {
+      "check": "past_card",
+      "status": "PASS"
+    },
+    {
+      "check": "current_month_not_expired",
+      "status": "PASS"
+    },
+    {
+      "check": "fifth_month",
+      "status": "PASS"
+    },
+    {
+      "check": "sixth_month_end_after_exact_window",
+      "status": "PASS"
+    },
+    {
+      "check": "later_card",
+      "status": "PASS"
+    },
+    {
+      "check": "six_months_end_of_month_clamp",
+      "status": "PASS"
+    },
+    {
+      "check": "utc_end_second_valid",
+      "status": "PASS"
+    },
+    {
+      "check": "utc_next_second_expired",
+      "status": "PASS"
+    },
+    {
+      "check": "expiry_unreadable_0",
+      "status": "PASS"
+    },
+    {
+      "check": "expiry_unreadable_1",
+      "status": "PASS"
+    },
+    {
+      "check": "expiry_unreadable_2",
+      "status": "PASS"
+    },
+    {
+      "check": "expiry_unreadable_3",
+      "status": "PASS"
+    },
+    {
+      "check": "clock_closed_0",
+      "status": "PASS"
+    },
+    {
+      "check": "clock_closed_1",
+      "status": "PASS"
+    },
+    {
+      "check": "clock_closed_2",
+      "status": "PASS"
+    },
+    {
+      "check": "own_linked_card",
+      "status": "PASS"
+    },
+    {
+      "check": "foreign_account_not_linked",
+      "status": "PASS"
+    },
+    {
+      "check": "foreign_gateway_not_linked",
+      "status": "PASS"
+    },
+    {
+      "check": "guest_not_linked",
+      "status": "PASS"
+    },
+    {
+      "check": "native_metadata_matched_without_order_token_id",
+      "status": "PASS"
+    },
+    {
+      "check": "unmatched_stripe_type_unreadable_not_invented_card",
+      "status": "PASS"
+    },
+    {
+      "check": "paypal_native_reference_without_token",
+      "status": "PASS"
+    },
+    {
+      "check": "sepa_native_source_without_token",
+      "status": "PASS"
+    },
+    {
+      "check": "explicit_contradiction_stripe_sepa",
+      "status": "FAIL"
+    },
+    {
+      "check": "exception",
+      "status": "FAIL",
+      "detail": "RuntimeException"
+    }
+  ],
+  "exit_code": 1
+}

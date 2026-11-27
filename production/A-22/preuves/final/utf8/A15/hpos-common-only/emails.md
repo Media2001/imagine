@@ -728,6 +728,6 @@ Gabarits surcharges distincts : 3
         },
         "overridden_template_files": 3
     },
-    "audit_sha256": "724ecb847f9ac111563ce92e9ddbf6bfb87324204838da6cccc7fe508c4b8f27"
+    "audit_sha256": "3bb41c64ccfb506d372ce3045b61b6d760069d7e779d2b47ba29c70955ceb42e"
 }
 ```

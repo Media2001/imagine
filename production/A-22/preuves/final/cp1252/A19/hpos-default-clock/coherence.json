@@ -2,7 +2,7 @@
     "schema": "imagine-a19-coherence-v1",
     "read_only": true,
     "storage": "hpos",
-    "as_of_utc": "2026-11-27T00:27:46Z",
+    "as_of_utc": "2026-11-27T03:39:21Z",
     "counts": {
         "cross": [
             {
@@ -81,5 +81,5 @@
     "payment_reference_basis": "Reference Woo liee ou champs du schema natif de passerelle ; sinon inconnu.",
     "mode_basis": "Drapeau manuel enregistre, pas bascule manuelle effective du staging.",
     "scope": "Magasin natif faisant autorite ; liens explicites ; aucun rapprochement par identite.",
-    "audit_sha256": "dbf5f8701eadf4a7fe3e8872263f1c6ba0a3598d05158d0da8c968c9a24aec62"
+    "audit_sha256": "39b6ff12a938ae0b8c63a632549a299897e197b9fde3a3a80da82bd787d3738e"
 }

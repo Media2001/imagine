@@ -102,18 +102,6 @@
             "status": "PASS"
         },
         {
-            "check": "html_resources_not_ordinary_links",
-            "status": "PASS"
-        },
-        {
-            "check": "plain_oembed_line",
-            "status": "PASS"
-        },
-        {
-            "check": "code_and_comments_not_resources",
-            "status": "PASS"
-        },
-        {
             "check": "content_service_deduplicated",
             "status": "PASS"
         },

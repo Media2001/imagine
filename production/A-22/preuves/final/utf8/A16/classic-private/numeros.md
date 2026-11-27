@@ -86,7 +86,7 @@ Comptes et identifiants uniquement ; aucun rattachement choisi.
             "articles": 1
         }
     ],
-    "audit_sha256": "df2f6a73a71719b9f4c612151f89b4004146d755cb5ed0e4c6a08415e288b459",
+    "audit_sha256": "055f999dc0a38e719934c5f3e74c982f9fce1d4a0467bac21e27dd98043c60da",
     "mapping_sha256": "8343490b961faba53f00f593d6dc6f8b083acd453c2804e0ddaf82ada04ed9de"
 }
 ```

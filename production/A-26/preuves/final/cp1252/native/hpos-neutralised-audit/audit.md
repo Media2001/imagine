@@ -323,8 +323,8 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         }
     ],
     "update_source": "local_cache_only_not_a_live_check",
-    "plugin_cache_checked_epoch": 1795732011,
-    "theme_cache_checked_epoch": 1795732011
+    "plugin_cache_checked_epoch": 1795751649,
+    "theme_cache_checked_epoch": 1795751649
 }
 ```
 
@@ -674,7 +674,7 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         },
         {
             "name": "post",
-            "count": 7
+            "count": 9
         },
         {
             "name": "product",
@@ -682,7 +682,7 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         },
         {
             "name": "revision",
-            "count": 3
+            "count": 5
         },
         {
             "name": "shop_order_placehold",
@@ -742,11 +742,15 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
     "custom_fields": [
         {
             "name": "_encloseme",
-            "count": 9
+            "count": 11
         },
         {
             "name": "_pingme",
-            "count": 9
+            "count": 11
+        },
+        {
+            "name": "imagine_numero_id",
+            "count": 5
         },
         {
             "name": "_end_date",
@@ -758,10 +762,6 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         },
         {
             "name": "a02_editorial_field",
-            "count": 3
-        },
-        {
-            "name": "imagine_numero_id",
             "count": 3
         },
         {
@@ -894,7 +894,7 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         },
         {
             "year": 2026,
-            "count": 3
+            "count": 5
         }
     ],
     "page_builders": [],
@@ -953,7 +953,7 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         {
             "name": "wp_options",
             "bytes": 360448,
-            "rows": 409,
+            "rows": 411,
             "ownership": "wordpress"
         },
         {
@@ -965,13 +965,13 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         {
             "name": "wp_postmeta",
             "bytes": 49152,
-            "rows": 59,
+            "rows": 65,
             "ownership": "wordpress"
         },
         {
             "name": "wp_posts",
             "bytes": 98304,
-            "rows": 34,
+            "rows": 38,
             "ownership": "wordpress"
         },
         {
@@ -989,7 +989,7 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         {
             "name": "wp_term_relationships",
             "bytes": 32768,
-            "rows": 16,
+            "rows": 20,
             "ownership": "wordpress"
         },
         {

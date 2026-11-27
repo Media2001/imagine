@@ -20,8 +20,8 @@
       "console": "utf-8",
       "exit_code": 0,
       "log": "utf8/python-tests.log",
-      "log_sha256": "ab9ce14b1e69f93131188258cd133a5f0bd457a24fc089b33413396cb99e3377",
-      "tests_run": 38,
+      "log_sha256": "b5bf6f23a53689e64b7d739867308819d6e2644ce3518c13a351010811955263",
+      "tests_run": 41,
       "all_pass": true
     },
     {
@@ -31,12 +31,12 @@
         "-B",
         "wp/tests/a27/run.py",
         "--parent-serialized",
-        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2627-parent-20261126\\final-run2\\a27\\utf8\\native"
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\requal2127-t03-20261127\\a27-matrix\\utf8\\native"
       ],
       "console": "utf-8",
       "exit_code": 0,
       "log": "utf8/runner-console.log",
-      "log_sha256": "2211e9e7bc1eea028fa1cbcefa09c7824f0ddad29fe893b9a1717a0adcda5956"
+      "log_sha256": "375895bc2b64ccf4398529dcd3eca641ba1dffc23100e8b43d9c0efdd3054009"
     },
     {
       "kind": "python",
@@ -55,8 +55,8 @@
       "console": "cp1252",
       "exit_code": 0,
       "log": "cp1252/python-tests.log",
-      "log_sha256": "0c28b9e02ce3a9f2674304602c7d9b1c50d9175bc0d63ef1aa36107b3b52a6b9",
-      "tests_run": 38,
+      "log_sha256": "268b83440e565ef1d5076c9ab2365ec2a5bd8815a640b292c7485c555be26650",
+      "tests_run": 41,
       "all_pass": true
     },
     {
@@ -66,12 +66,12 @@
         "-B",
         "wp/tests/a27/run.py",
         "--parent-serialized",
-        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2627-parent-20261126\\final-run2\\a27\\cp1252\\native"
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\requal2127-t03-20261127\\a27-matrix\\cp1252\\native"
       ],
       "console": "cp1252",
       "exit_code": 0,
       "log": "cp1252/runner-console.log",
-      "log_sha256": "f169e210b08fc312e39e965dc403dccb2548a141b057b7337683302c5e89d35d"
+      "log_sha256": "48a0b6a61f1d1e6bfdba09c06ac573c7e207ee7b2ecc1da079a76b7eb4fbc882"
     },
     {
       "kind": "style",
@@ -80,12 +80,12 @@
         "-B",
         "wp/tests/a27/style.py",
         "--parent-serialized",
-        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2627-parent-20261126\\final-run2\\a27\\style"
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\requal2127-t03-20261127\\a27-matrix\\style"
       ],
       "console": "utf-8",
       "exit_code": 0,
       "log": "style-console.log",
-      "log_sha256": "31bbf537148731e676cdfc61ed275754c055b4a4a77c822c1294e3c0d892002c"
+      "log_sha256": "cdb910748dbe5c4b84b2e09125ce8f758f9e3b49741322930db77b5cd3ed6caf"
     }
   ],
   "exit_code": 0

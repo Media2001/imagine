@@ -125,6 +125,6 @@ Comptes par role, jamais identites.
         "xmlrpc_authenticated_methods": true,
         "application_passwords_available": true
     },
-    "audit_sha256": "0796646c4cdb72d17397484ca624523561c0403ee04fb3d21ecb97b6c726702d"
+    "audit_sha256": "5c6f9d6ec476681d56570b16521b76f794161f362472669d5c0429ab5aa2ea20"
 }
 ```

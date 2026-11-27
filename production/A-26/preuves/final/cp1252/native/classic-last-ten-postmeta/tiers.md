@@ -52,7 +52,7 @@ Déclarations et intégrations statiques ; ni requêtes observées ni conformit�
     },
     "content": {
         "all": {
-            "youtube": 3,
+            "youtube": 4,
             "vimeo": 1,
             "dailymotion": 0,
             "soundcloud": 0,
@@ -70,7 +70,7 @@ Déclarations et intégrations statiques ; ni requêtes observées ni conformit�
             "mode": "dix_derniers",
             "years": [],
             "last_ten": {
-                "youtube": 1,
+                "youtube": 2,
                 "vimeo": 0,
                 "dailymotion": 0,
                 "soundcloud": 0,
@@ -86,6 +86,6 @@ Déclarations et intégrations statiques ; ni requêtes observées ni conformit�
             }
         }
     },
-    "audit_sha256": "33475089197f8436045df2cbdad260e5e0b544272362c7a031fc739e703a70e7"
+    "audit_sha256": "dbc2be1fe69ef61e65d789cffb6c1c0c72211cf9988d8807a9609761c66fb3ed"
 }
 ```

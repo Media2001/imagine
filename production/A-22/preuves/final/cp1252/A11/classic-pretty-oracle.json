@@ -182,19 +182,19 @@
     },
     "/boutique/a11-product_cat/a11-product/": {
       "etat_publication": "publish",
-      "derniere_modification_utc": "2026-11-27T00:17:38Z"
+      "derniere_modification_utc": "2026-11-27T03:29:54Z"
     },
     "/a11-category/a11-article/attachment/a11-attachment/": {
       "etat_publication": "inherit",
-      "derniere_modification_utc": "2026-11-27T00:17:38Z"
+      "derniere_modification_utc": "2026-11-27T03:29:54Z"
     },
     "/a11-unattached/": {
       "etat_publication": "inherit",
-      "derniere_modification_utc": "2026-11-27T00:17:38Z"
+      "derniere_modification_utc": "2026-11-27T03:29:54Z"
     },
     "/?attachment_id=37": {
       "etat_publication": "inherit",
-      "derniere_modification_utc": "2026-11-27T00:17:38Z"
+      "derniere_modification_utc": "2026-11-27T03:29:54Z"
     },
     "/rubriques/a11-empty-category/": {
       "etat_publication": "public",

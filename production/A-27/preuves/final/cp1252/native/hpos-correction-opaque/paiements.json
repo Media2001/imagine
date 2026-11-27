@@ -1,0 +1,34 @@
+{
+    "schema": "imagine-a27-saved-payments-v1",
+    "read_only": true,
+    "storage": "hpos",
+    "neutralisation": "observe",
+    "counts": {
+        "automatic": {
+            "groups": [
+                {
+                    "gateway": "ppcp-gateway",
+                    "type": "illisible",
+                    "count": 5
+                }
+            ],
+            "autres": 0
+        },
+        "cards": {
+            "groups": [],
+            "autres": 0
+        },
+        "relations": {
+            "groups": [
+                {
+                    "gateway": "ppcp-gateway",
+                    "metric": "subscriptions_link_unknown",
+                    "count": 5
+                }
+            ],
+            "autres": 0
+        }
+    },
+    "as_of_utc": "2026-11-26T12:00:00+00:00",
+    "audit_sha256": "fb70a8a59787428f1bfd4904687bdb6c1ce5398fc2b9cea8c4a0332adeffb37a"
+}

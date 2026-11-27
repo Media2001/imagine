@@ -424,8 +424,8 @@
       "check": "classic:database_identical_all_tables",
       "status": "PASS",
       "detail": {
-        "before": "70e8ee9f0141de1e305abf03c306620f8f7b33d033082f845677939ef8ea2bba",
-        "after": "70e8ee9f0141de1e305abf03c306620f8f7b33d033082f845677939ef8ea2bba",
+        "before": "01aadceff2825e3cb37381fbd9e7df46633edb7813deec92ed4e91347b6758db",
+        "after": "01aadceff2825e3cb37381fbd9e7df46633edb7813deec92ed4e91347b6758db",
         "tables": 55
       }
     },
@@ -872,8 +872,8 @@
       "check": "hpos:database_identical_all_tables",
       "status": "PASS",
       "detail": {
-        "before": "c784e4f4bc00121bdc748cfdd5c7e636b78936d6efac284dc39b74adf8a889e6",
-        "after": "c784e4f4bc00121bdc748cfdd5c7e636b78936d6efac284dc39b74adf8a889e6",
+        "before": "b6856819a47e952c230662c07272c776ebac3b4d42acbf4cd8fe46a347378537",
+        "after": "b6856819a47e952c230662c07272c776ebac3b4d42acbf4cd8fe46a347378537",
         "tables": 55
       }
     },

@@ -1,6 +1,6 @@
 {
     "schema": "imagine-a02-audit-v1",
-    "generated_at_utc": "2026-11-27T00:01:39+00:00",
+    "generated_at_utc": "2026-11-27T03:12:46+00:00",
     "read_only": true,
     "privacy": "structural_identifiers_versions_numeric_counts_only; no_titles_contacts_settings_arguments_or_raw_logs",
     "sections": {
@@ -182,8 +182,8 @@
                 }
             ],
             "update_source": "local_cache_only_not_a_live_check",
-            "plugin_cache_checked_epoch": 1795737697,
-            "theme_cache_checked_epoch": 1795737697
+            "plugin_cache_checked_epoch": 1795749164,
+            "theme_cache_checked_epoch": 1795749164
         },
         "commerce": {
             "order_storage": "hpos",
@@ -771,7 +771,7 @@
                 },
                 {
                     "name": "wp_options",
-                    "bytes": 49152,
+                    "bytes": 1261568,
                     "rows": 403,
                     "ownership": "wordpress"
                 },
@@ -789,7 +789,7 @@
                 },
                 {
                     "name": "wp_posts",
-                    "bytes": 98304,
+                    "bytes": 147456,
                     "rows": 23,
                     "ownership": "wordpress"
                 },
@@ -1058,7 +1058,7 @@
                     "ownership": "active_woocommerce"
                 }
             ],
-            "total_bytes": 3014656,
+            "total_bytes": 4276224,
             "largest_autoload": [
                 {
                     "name": "a02_heavy_secret_setting",
@@ -1074,7 +1074,7 @@
                 },
                 {
                     "name": "cron",
-                    "bytes": 2197
+                    "bytes": 2235
                 },
                 {
                     "name": "widget_block",
@@ -1233,43 +1233,43 @@
                     "hook": "a02_fixture_cron",
                     "schedule": "daily",
                     "count": 1,
-                    "next_epoch": 1795741297
+                    "next_epoch": 1795752764
                 },
                 {
                     "hook": "action_scheduler_run_queue",
                     "schedule": "every_minute",
                     "count": 1,
-                    "next_epoch": 1795737687
+                    "next_epoch": 1795749155
                 },
                 {
                     "hook": "do_pings",
                     "schedule": "single",
                     "count": 1,
-                    "next_epoch": 1795737695
+                    "next_epoch": 1795749163
                 },
                 {
                     "hook": "jetpack_clean_nonces",
                     "schedule": "hourly",
                     "count": 1,
-                    "next_epoch": 1795737691
+                    "next_epoch": 1795749158
                 },
                 {
                     "hook": "jetpack_v2_heartbeat",
                     "schedule": "daily",
                     "count": 1,
-                    "next_epoch": 1795737691
+                    "next_epoch": 1795749158
                 },
                 {
                     "hook": "recovery_mode_clean_expired_keys",
                     "schedule": "daily",
                     "count": 1,
-                    "next_epoch": 1795737687
+                    "next_epoch": 1795749154
                 },
                 {
                     "hook": "wc_admin_process_orders_milestone",
                     "schedule": "hourly",
                     "count": 1,
-                    "next_epoch": 1795737691
+                    "next_epoch": 1795749159
                 },
                 {
                     "hook": "wc_memberships_jobs_cleanup",
@@ -1281,31 +1281,31 @@
                     "hook": "wp_privacy_delete_old_export_files",
                     "schedule": "hourly",
                     "count": 1,
-                    "next_epoch": 1795737687
+                    "next_epoch": 1795749154
                 },
                 {
                     "hook": "wp_site_health_scheduled_check",
                     "schedule": "weekly",
                     "count": 1,
-                    "next_epoch": 1795824087
+                    "next_epoch": 1795835554
                 },
                 {
                     "hook": "wp_update_plugins",
                     "schedule": "twicedaily",
                     "count": 1,
-                    "next_epoch": 1795743086
+                    "next_epoch": 1795754554
                 },
                 {
                     "hook": "wp_update_themes",
                     "schedule": "twicedaily",
                     "count": 1,
-                    "next_epoch": 1795744886
+                    "next_epoch": 1795756354
                 },
                 {
                     "hook": "wp_version_check",
                     "schedule": "twicedaily",
                     "count": 1,
-                    "next_epoch": 1795741286
+                    "next_epoch": 1795752754
                 }
             ],
             "arguments_excluded": true

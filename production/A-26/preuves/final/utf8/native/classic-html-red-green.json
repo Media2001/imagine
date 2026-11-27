@@ -1,0 +1,354 @@
+{
+  "suite": "A26-native-HTML-reports",
+  "storage": "classic",
+  "red_reports": [
+    {
+      "mode": "annee",
+      "content": {
+        "all": {
+          "youtube": 3,
+          "vimeo": 2,
+          "dailymotion": 0,
+          "soundcloud": 0,
+          "spotify": 1,
+          "mixcloud": 0,
+          "google_maps": 0,
+          "openstreetmap": 0,
+          "facebook": 0,
+          "instagram": 0,
+          "twitter": 0,
+          "tiktok": 0,
+          "autre": 1
+        },
+        "selection": {
+          "mode": "annee",
+          "years": [
+            {
+              "year": 2022,
+              "counts": {
+                "youtube": 1,
+                "vimeo": 0,
+                "dailymotion": 0,
+                "soundcloud": 0,
+                "spotify": 0,
+                "mixcloud": 0,
+                "google_maps": 0,
+                "openstreetmap": 0,
+                "facebook": 0,
+                "instagram": 0,
+                "twitter": 0,
+                "tiktok": 0,
+                "autre": 0
+              }
+            },
+            {
+              "year": 2023,
+              "counts": {
+                "youtube": 0,
+                "vimeo": 1,
+                "dailymotion": 0,
+                "soundcloud": 0,
+                "spotify": 1,
+                "mixcloud": 0,
+                "google_maps": 0,
+                "openstreetmap": 0,
+                "facebook": 0,
+                "instagram": 0,
+                "twitter": 0,
+                "tiktok": 0,
+                "autre": 0
+              }
+            },
+            {
+              "year": 2024,
+              "counts": {
+                "youtube": 1,
+                "vimeo": 0,
+                "dailymotion": 0,
+                "soundcloud": 0,
+                "spotify": 0,
+                "mixcloud": 0,
+                "google_maps": 0,
+                "openstreetmap": 0,
+                "facebook": 0,
+                "instagram": 0,
+                "twitter": 0,
+                "tiktok": 0,
+                "autre": 0
+              }
+            },
+            {
+              "year": 2025,
+              "counts": {
+                "youtube": 0,
+                "vimeo": 0,
+                "dailymotion": 0,
+                "soundcloud": 0,
+                "spotify": 0,
+                "mixcloud": 0,
+                "google_maps": 0,
+                "openstreetmap": 0,
+                "facebook": 0,
+                "instagram": 0,
+                "twitter": 0,
+                "tiktok": 0,
+                "autre": 0
+              }
+            },
+            {
+              "year": 2026,
+              "counts": {
+                "youtube": 1,
+                "vimeo": 1,
+                "dailymotion": 0,
+                "soundcloud": 0,
+                "spotify": 0,
+                "mixcloud": 0,
+                "google_maps": 0,
+                "openstreetmap": 0,
+                "facebook": 0,
+                "instagram": 0,
+                "twitter": 0,
+                "tiktok": 0,
+                "autre": 1
+              }
+            }
+          ],
+          "last_ten": null
+        }
+      }
+    },
+    {
+      "mode": "postmeta",
+      "content": {
+        "all": {
+          "youtube": 3,
+          "vimeo": 2,
+          "dailymotion": 0,
+          "soundcloud": 0,
+          "spotify": 1,
+          "mixcloud": 0,
+          "google_maps": 0,
+          "openstreetmap": 0,
+          "facebook": 0,
+          "instagram": 0,
+          "twitter": 0,
+          "tiktok": 0,
+          "autre": 1
+        },
+        "selection": {
+          "mode": "dix_derniers",
+          "years": [],
+          "last_ten": {
+            "youtube": 1,
+            "vimeo": 1,
+            "dailymotion": 0,
+            "soundcloud": 0,
+            "spotify": 0,
+            "mixcloud": 0,
+            "google_maps": 0,
+            "openstreetmap": 0,
+            "facebook": 0,
+            "instagram": 0,
+            "twitter": 0,
+            "tiktok": 0,
+            "autre": 1
+          }
+        }
+      }
+    },
+    {
+      "mode": "post_parent",
+      "content": {
+        "all": {
+          "youtube": 3,
+          "vimeo": 2,
+          "dailymotion": 0,
+          "soundcloud": 0,
+          "spotify": 1,
+          "mixcloud": 0,
+          "google_maps": 0,
+          "openstreetmap": 0,
+          "facebook": 0,
+          "instagram": 0,
+          "twitter": 0,
+          "tiktok": 0,
+          "autre": 1
+        },
+        "selection": {
+          "mode": "dix_derniers",
+          "years": [],
+          "last_ten": {
+            "youtube": 1,
+            "vimeo": 1,
+            "dailymotion": 0,
+            "soundcloud": 0,
+            "spotify": 0,
+            "mixcloud": 0,
+            "google_maps": 0,
+            "openstreetmap": 0,
+            "facebook": 0,
+            "instagram": 0,
+            "twitter": 0,
+            "tiktok": 0,
+            "autre": 1
+          }
+        }
+      }
+    },
+    {
+      "mode": "taxonomy",
+      "content": {
+        "all": {
+          "youtube": 3,
+          "vimeo": 2,
+          "dailymotion": 0,
+          "soundcloud": 0,
+          "spotify": 1,
+          "mixcloud": 0,
+          "google_maps": 0,
+          "openstreetmap": 0,
+          "facebook": 0,
+          "instagram": 0,
+          "twitter": 0,
+          "tiktok": 0,
+          "autre": 1
+        },
+        "selection": {
+          "mode": "dix_derniers",
+          "years": [],
+          "last_ten": {
+            "youtube": 1,
+            "vimeo": 1,
+            "dailymotion": 0,
+            "soundcloud": 0,
+            "spotify": 0,
+            "mixcloud": 0,
+            "google_maps": 0,
+            "openstreetmap": 0,
+            "facebook": 0,
+            "instagram": 0,
+            "twitter": 0,
+            "tiktok": 0,
+            "autre": 1
+          }
+        }
+      }
+    }
+  ],
+  "source_sha256": "2e84745812d214c65e1e526523706795fe918ab33cd932d51749c80a98089592",
+  "green_content": {
+    "all": {
+      "youtube": 4,
+      "vimeo": 1,
+      "dailymotion": 0,
+      "soundcloud": 0,
+      "spotify": 1,
+      "mixcloud": 0,
+      "google_maps": 0,
+      "openstreetmap": 0,
+      "facebook": 0,
+      "instagram": 0,
+      "twitter": 0,
+      "tiktok": 0,
+      "autre": 1
+    },
+    "selection": {
+      "mode": "annee",
+      "years": [
+        {
+          "year": 2022,
+          "counts": {
+            "youtube": 1,
+            "vimeo": 0,
+            "dailymotion": 0,
+            "soundcloud": 0,
+            "spotify": 0,
+            "mixcloud": 0,
+            "google_maps": 0,
+            "openstreetmap": 0,
+            "facebook": 0,
+            "instagram": 0,
+            "twitter": 0,
+            "tiktok": 0,
+            "autre": 0
+          }
+        },
+        {
+          "year": 2023,
+          "counts": {
+            "youtube": 0,
+            "vimeo": 1,
+            "dailymotion": 0,
+            "soundcloud": 0,
+            "spotify": 1,
+            "mixcloud": 0,
+            "google_maps": 0,
+            "openstreetmap": 0,
+            "facebook": 0,
+            "instagram": 0,
+            "twitter": 0,
+            "tiktok": 0,
+            "autre": 0
+          }
+        },
+        {
+          "year": 2024,
+          "counts": {
+            "youtube": 1,
+            "vimeo": 0,
+            "dailymotion": 0,
+            "soundcloud": 0,
+            "spotify": 0,
+            "mixcloud": 0,
+            "google_maps": 0,
+            "openstreetmap": 0,
+            "facebook": 0,
+            "instagram": 0,
+            "twitter": 0,
+            "tiktok": 0,
+            "autre": 0
+          }
+        },
+        {
+          "year": 2025,
+          "counts": {
+            "youtube": 0,
+            "vimeo": 0,
+            "dailymotion": 0,
+            "soundcloud": 0,
+            "spotify": 0,
+            "mixcloud": 0,
+            "google_maps": 0,
+            "openstreetmap": 0,
+            "facebook": 0,
+            "instagram": 0,
+            "twitter": 0,
+            "tiktok": 0,
+            "autre": 0
+          }
+        },
+        {
+          "year": 2026,
+          "counts": {
+            "youtube": 2,
+            "vimeo": 0,
+            "dailymotion": 0,
+            "soundcloud": 0,
+            "spotify": 0,
+            "mixcloud": 0,
+            "google_maps": 0,
+            "openstreetmap": 0,
+            "facebook": 0,
+            "instagram": 0,
+            "twitter": 0,
+            "tiktok": 0,
+            "autre": 1
+          }
+        }
+      ],
+      "last_ten": null
+    }
+  },
+  "source_restored_exactly": true
+}

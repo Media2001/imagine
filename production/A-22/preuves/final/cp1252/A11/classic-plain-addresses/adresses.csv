@@ -3,9 +3,9 @@
 /?a11_story=a11-story&edition=a%2fb+z&host=a02.synthetic.test&ssl=yes;article;a11_story;publish;2025-02-03T12:00:00Z;
 /?a11_topic=a11-a11_topic;"terme de taxonomie";a11_topic;public;;
 /?a11_topic=a11-empty-a11_topic;"terme de taxonomie";a11_topic;public;;
-/?attachment_id=34;"pièce jointe";attachment;inherit;2026-11-27T00:17:38Z;
-/?attachment_id=36;"pièce jointe";attachment;inherit;2026-11-27T00:17:38Z;
-/?attachment_id=37;"pièce jointe";attachment;inherit;2026-11-27T00:17:38Z;
+/?attachment_id=34;"pièce jointe";attachment;inherit;2026-11-27T03:29:54Z;
+/?attachment_id=36;"pièce jointe";attachment;inherit;2026-11-27T03:29:54Z;
+/?attachment_id=37;"pièce jointe";attachment;inherit;2026-11-27T03:29:54Z;
 /?author=5;"archive d'auteur";author;public;;
 /?author=8;"archive d'auteur";author;public;;
 /?cat=1;"terme de taxonomie";category;public;;
@@ -18,7 +18,7 @@
 /?page_id=32;page;page;publish;2025-02-03T12:00:00Z;
 /?post_type=a11_story;"archive de type de contenu";a11_story;public;;
 /?post_type=product;"archive de type de contenu";product;public;;
-/?product=a11-product;produit;product;publish;2026-11-27T00:17:38Z;
+/?product=a11-product;produit;product;publish;2026-11-27T03:29:54Z;
 /?product_cat=a11-empty-product_cat;"terme de taxonomie";product_cat;public;;
 /?product_cat=a11-product_cat;"terme de taxonomie";product_cat;public;;
 /?product_tag=a11-empty-product_tag;"terme de taxonomie";product_tag;public;;

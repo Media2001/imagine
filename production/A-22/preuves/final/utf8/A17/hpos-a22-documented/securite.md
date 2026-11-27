@@ -7,8 +7,8 @@ Comptes par role, jamais identites.
     "schema": "imagine-a17-security-v1",
     "read_only": true,
     "storage": "hpos",
-    "as_of_utc": "2026-11-27T00:11:21Z",
-    "cutoff_utc": "2025-11-27T00:11:21Z",
+    "as_of_utc": "2026-11-27T03:25:32Z",
+    "cutoff_utc": "2025-11-27T03:25:32Z",
     "unique_management_accounts": 10,
     "roles": [
         {
@@ -125,6 +125,6 @@ Comptes par role, jamais identites.
         "xmlrpc_authenticated_methods": true,
         "application_passwords_available": true
     },
-    "audit_sha256": "fd3b710922d2cf3f6046579a8d3d744819b2c4b751a01993943c323b68a0934e"
+    "audit_sha256": "f64b4eb6b67e46378210d6c1a63b82de26fa34997e516e701f4196675fdacd98"
 }
 ```

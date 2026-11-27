@@ -1,7 +1,7 @@
 {
   "suite": "A26-owned-runner",
-  "container": "imagine-a26-tiers-ae48e7939ffe",
-  "at": "2026-11-26T22:23:57.732692+00:00",
+  "container": "imagine-a26-tiers-1b4ea1e70c53",
+  "at": "2026-11-27T03:51:10.010267+00:00",
   "checks": [
     {
       "check": "isolation_before",
@@ -35,6 +35,11 @@
     },
     {
       "check": "lint:Issues.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:html-unit.php",
       "status": "PASS",
       "detail": null
     },

@@ -160,6 +160,6 @@ Comptes uniquement ; aucune valeur ni decision de suppression.
     "count_basis": "Valeurs physiquement conservees dans les deux magasins presents, actif ou inactif ; une ligne compte au plus une fois par forme, separee par portee, magasin et cle. storage indique seulement le magasin actif ; store=commun pour comptes et options.",
     "server_rules": "Presence observee par nom technique ferme ; lecture effectivement interdite inconnue sans ouvrir les fichiers ni lire la configuration serveur.",
     "token_basis": "References par passerelle et type ; jamais des numeros de carte ou IBAN.",
-    "audit_sha256": "7d2720c2c3e4154a97859bb6670647f7f7ee4fd8535165d20c3a51beae941ee9"
+    "audit_sha256": "998934ed9a5baa4785c4f71f54d7e7fa54b3cd462c3f29525fa47e078784fa4b"
 }
 ```

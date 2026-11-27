@@ -64,6 +64,6 @@ Comptes seulement ; aucune suppression ni durée de conservation.
         "clear_messages_after_import": true,
         "clear_messages_after_import_label": "avertissement éditorial permanent, non mesuré sur la copie inspectée"
     },
-    "audit_sha256": "622b522ea84b1ba78db0fd4d0c62b9570cf2bd3dae0c704883907d124fd14c16"
+    "audit_sha256": "e8f826228a15c6fdc57c6a4685788fff9f1583153cdd6d6d70462ba1658688a2"
 }
 ```
