@@ -338,6 +338,29 @@ if (getenv('A29_CONFINED') === '1') {
         out = OUT / (storage + '-neutral')
         p = inventory(site, out, n_audit)
         if (p.returncode, p.stdout, p.stderr) != (0, SUCCESS, ''):
+            fence_spec = importlib.util.spec_from_file_location('a29_neutral_failure_fence', '/subject/a12/confine.py')
+            native_fence = importlib.util.module_from_spec(fence_spec); fence_spec.loader.exec_module(native_fence)
+            guard_spec = importlib.util.spec_from_file_location('a29_neutral_failure_guard', '/subject/stream_guard.py')
+            native_guard = importlib.util.module_from_spec(guard_spec); guard_spec.loader.exec_module(native_guard)
+            with tempfile.TemporaryDirectory(prefix='a29-neutral-diagnostic-', dir='/scratch') as temporary:
+                stage = Path(temporary); (stage / 'audit').mkdir()
+                shutil.copyfile(n_audit, stage / 'audit/audit.json')
+                command = ['php', '-d', 'display_errors=0', '-d', 'log_errors=1', '-d', 'error_log=' + str(stage / 'native.log'), '-d',
+                           'disable_functions=mail,exec,shell_exec,system,passthru,popen,proc_open,pcntl_exec',
+                           '/subject/a29/inventorier-taches', '--wp-path=' + str(site),
+                           '--audit=' + str(stage / 'audit/audit.json'), '--output=' + str(stage / 'result')]
+                rc, raw_stdout, raw_stderr = native_guard.supervise(command, {**os.environ, 'A29_CONFINED': '1'}, stage, native_fence)
+                text = ''
+                if (stage / 'native.log').is_file():
+                    with (stage / 'native.log').open('rb') as log: text = log.read(131072).decode('utf-8', errors='replace')
+                phrases = ('WCS_Batch_Processing_Controller', 'remove_or_retry_failed_processors', 'mysqli_sql_exception',
+                           'TypeError', 'Fatal error', 'Call to undefined', 'read only', 'READ ONLY', 'command denied',
+                           'A29_EARLY_GUARD_PRIVATE_CANARY', 'A29_AS_PRIVATE_CANARY')
+                closed = {'scope': 'diagnostic_only_logging_enabled_same_kernel_and_sql_fences_not_acceptance',
+                          'observed_exit': rc, 'stdout_has_success': raw_stdout.startswith(SUCCESS.encode()),
+                          'stdout_has_final_binding': b'A29_FINAL ' in raw_stdout, 'stderr_empty': raw_stderr == b'',
+                          'closed_native_error_flags': {str(i): phrase in text for i, phrase in enumerate(phrases)}}
+                (OUT / (storage + '-neutral-closed-native-error.json')).write_text(json.dumps(closed), encoding='utf-8')
             allowed = set(json.loads(Path('/subject/a29/refusals.json').read_bytes()))
             code = p.stderr[:-1] if p.stderr.endswith('\n') and p.stderr[:-1] in allowed else 'UNCLASSIFIED_CLOSED_DIAGNOSTIC'
             (OUT / (storage + '-neutral-protocol-failure.json')).write_text(json.dumps({
