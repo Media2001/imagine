@@ -1,0 +1,42 @@
+{
+  "scope": "imagine-test-demo",
+  "sources": {
+    "wp/outils/demo/c27.py": "fe9d07a3df4629fb6241c7f8fdff39ddde1726270fd3527af309039cb0b43dd2",
+    "wp/plugins/imagine-site/Acquisition.php": "9cf87761593af5cce5ccb2f67a75386f202865a1ff260ab28c8060e985438525",
+    "wp/plugins/imagine-site/AcquisitionRegles.php": "3d07436425edf3279a93993b93fc80f1ce54921f0bcc951c02a678bf0e196f7e",
+    "wp/plugins/imagine-site/tests/AcquisitionReglesTest.php": "37e4c918a775f62b126a421167dc6f3c731be6c0ac7ee569d19c7e24a8e38ab5",
+    "wp/tests/demo/c27-horslive.php": "96771cd4c74ec2d64235ae0b9395c20f48ddc3d242f5fcc7d9b862969b442d1f",
+    "wp/tests/demo/c27-runtime.php": "0fb01d5987c0cc190fc3ca4db7e0060271c52ab28bcac4e79b8bb4ec97fff7f8"
+  },
+  "command": [
+    "wsl.exe",
+    "-d",
+    "Ubuntu",
+    "--",
+    "docker",
+    "run",
+    "--rm",
+    "--pull",
+    "never",
+    "--network",
+    "none",
+    "--read-only",
+    "--user",
+    "65534:65534",
+    "--cap-drop",
+    "ALL",
+    "--security-opt",
+    "no-new-privileges",
+    "--mount",
+    "type=bind,source=/mnt/c/Users/Ced/imagine/wp,target=/repo/wp,readonly",
+    "--tmpfs",
+    "/tmp:rw,nosuid,nodev,size=512m,mode=1777",
+    "--entrypoint",
+    "php",
+    "imagine-tests-t01:1",
+    "/repo/wp/tests/demo/c27-horslive.php"
+  ],
+  "exit": 0,
+  "log": "06-vert-regles.log",
+  "log_sha256": "ba892ff9d279ba6a4335e3995a977a7e12502b5c36891019994cb4e60dc080f2"
+}
