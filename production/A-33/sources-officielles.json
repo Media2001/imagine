@@ -1,0 +1,17 @@
+[
+  {
+    "url": "https://developer.wordpress.org/reference/functions/get_attached_file/",
+    "http": 200,
+    "sha256": "ecf5345ce8c97e7c0b953d1a578cc0bce4caaa54c24e11c2f10798509b60f6ac"
+  },
+  {
+    "url": "https://developer.wordpress.org/reference/functions/get_attached_media/",
+    "http": 200,
+    "sha256": "4ceaafbf112b25ab323fb29faeea6fe083f2b2da29037c175f02d5801ed5709a"
+  },
+  {
+    "url": "https://www.php.net/manual/en/function.filesize.php",
+    "http": 200,
+    "sha256": "9aa7cfe15c15d0d94efb8ec4d3c3972e45bfad44c3ae17f1c39ffd60dbb00d5e"
+  }
+]

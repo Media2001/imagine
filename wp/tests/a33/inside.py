@@ -121,7 +121,8 @@ if (getenv('A33_CONFINED') === '1') {
     check('files_identical_nominal', files == b.files(site))
     repeat, rout = inventory('repeat')
     check('deterministic_replay', repeat.returncode == 0 and {f.name: f.read_bytes() for f in out.iterdir()} == {f.name: f.read_bytes() for f in rout.iterdir()})
-    line = next(x for x in Path('/subject/a33/README.md').read_text(encoding='utf-8').splitlines() if x.startswith('python3 '))
+    line = next(x for x in Path('/subject/README.md').read_text(encoding='utf-8').splitlines() if x.startswith('python3 wp/outils/bascule/a33/'))
+    check('common_and_owned_readme_commands_identical', line in Path('/subject/a33/README.md').read_text(encoding='utf-8').splitlines())
     documented = shlex.split(line)
     docout = OUT / 'documented'
     replacements = {'wp/outils/bascule/a33/confine.py': '/subject/a33/confine.py', '/copie-verifiee': str(site), '/hors-web/audit-date/audit.json': str(audit / 'audit.json'), '/hors-web/correspondance.json': str(mapping), '/hors-web/archives-date': str(docout)}

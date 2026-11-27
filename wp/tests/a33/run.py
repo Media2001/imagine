@@ -14,7 +14,7 @@ spec = importlib.util.spec_from_file_location('a02runner', ROOT / 'wp/tests/a02-
 b = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(b)
 b.LABEL = 'org.imagine.a33-archives'
-OWN = ['wp/outils/bascule/a33', 'wp/tests/a33', 'production/A-33/verify.py', 'production/A-33/rejeu.json', 'production/A-33/readme-ajout.txt', 'production/A-33/STANDARD.md', 'production/A-33/LIVRAISON.md']
+OWN = ['wp/outils/bascule/a33', 'wp/tests/a33']
 SHARED = ['audit', 'a11', 'a12', 'a16', 'stream_guard.py', 'stream_refusals.json']
 DEPS = ['wp/outils/bascule/' + f for f in SHARED] + ['wp/outils/staging', 'wp/outils/staging-court', 'wp/tests/t01', 'wp/tests/rejouer.ps1', 'wp/tests/preparer-image.ps1', 'wp/tests/a02-audit']
 
@@ -61,6 +61,7 @@ def main():
             for p in sorted(source.iterdir()):
                 if p.is_file():
                     b.call(['cp', b.local(p), name + ':' + dest + '/' + p.name])
+        b.call(['cp', b.local(ROOT / 'wp/outils/bascule/README.md'), name + ':/subject/README.md'])
         for key in SHARED:
             b.call(['cp', b.local(ROOT / 'wp/outils/bascule' / key), name + ':/subject/' + key])
         unit = b.call(['exec', name, 'php', '/opt/a33/unit.php'], check=False)

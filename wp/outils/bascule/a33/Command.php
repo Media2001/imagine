@@ -10,7 +10,10 @@ final class Command
     {
         $options = [];
         foreach (array_slice($arguments, 1) as $argument) {
-            if (!preg_match('/\A--(wp-path|audit|output|correspondance)=(.+)\z/D', $argument, $m) || isset($options[$m[1]])) {
+            if (
+                !preg_match('/\A--(wp-path|audit|output|correspondance)=(.+)\z/D', $argument, $m)
+                || isset($options[$m[1]])
+            ) {
                 throw new \RuntimeException('A33_USAGE');
             }
             $options[$m[1]] = $m[2];

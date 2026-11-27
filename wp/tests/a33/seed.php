@@ -35,11 +35,14 @@ for ($i = 0; $i < 12; $i++) {
 $post = wp_insert_post(['post_type' => 'post', 'post_status' => 'publish', 'post_title' => 'A33_POST_CANARY',
     'post_date' => '2022-01-01 12:00:00', 'post_date_gmt' => '2022-01-01 12:00:00']);
 wp_insert_post(['post_type' => 'PRIVATE_TYPE_CANARY', 'post_status' => 'publish',
-    'post_title' => 'A33_OTHER_CANARY', 'post_date' => '2023-01-01 12:00:00', 'post_date_gmt' => '2023-01-01 12:00:00']);
+    'post_title' => 'A33_OTHER_CANARY', 'post_date' => '2023-01-01 12:00:00',
+    'post_date_gmt' => '2023-01-01 12:00:00']);
 $draft = wp_insert_post(['post_type' => 'page', 'post_status' => 'draft']);
 $media = [];
-foreach ([[$issues[0], 7], [$articles[0], 11], [$articles[0], null], [$articles[1], 13],
-    [$issues[11], 17], [$articles[11], 19], [0, 23], [999999, 29], [$draft, 31], [$post, 0]] as $i => [$parent, $size]) {
+foreach (
+    [[$issues[0], 7], [$articles[0], 11], [$articles[0], null], [$articles[1], 13],
+    [$issues[11], 17], [$articles[11], 19], [0, 23], [999999, 29], [$draft, 31], [$post, 0]] as $i => [$parent, $size]
+) {
     $relative = 'A33_FILE_CANARY_' . $i . '.bin';
     if ($size !== null) {
         file_put_contents($root . '/' . $relative, str_repeat('x', $size));
@@ -49,4 +52,7 @@ foreach ([[$issues[0], 7], [$articles[0], 11], [$articles[0], null], [$articles[
     update_post_meta($id, '_wp_attached_file', $relative);
     $media[] = $id;
 }
-echo 'A33_JSON=' . json_encode(['issues' => $issues, 'articles' => $articles, 'media' => $media], JSON_THROW_ON_ERROR) . "\n";
+echo 'A33_JSON=' . json_encode(
+    ['issues' => $issues, 'articles' => $articles, 'media' => $media],
+    JSON_THROW_ON_ERROR
+) . "\n";
