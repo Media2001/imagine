@@ -35,6 +35,8 @@ def verify(live=False):
     check('etat_avant_fixture_sauf_produit_declare', bool(p['checks']) and all(p['checks'].values()) and p['initial_before_fixture'] == p['projected_without_only_owned_product'])
     check('sources_apres_derniere_ecriture', all(x['sources'] == c28.sources() for x in [r,n,p,c14]))
     unit = (c28.OUT/'unitaire-final.log').read_text(encoding='utf-8')
+    lint = load('lint-final')
+    check('syntaxe_sources_PHP', lint['exit'] == 0 and lint['files'] and len(lint['files']) == len(lint['stdout'].splitlines()) and not lint['stderr'])
     check('PHPUnit_2_18', bool(re.search(r'OK \(2 tests, 18 assertions\)', unit)))
     image = load('preparation-image')
     check('image_reconstruite', image['exit'] == 0 and 'image verifiee sha256:' in (c28.OUT/image['log']).read_text(encoding='utf-8'))
