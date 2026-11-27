@@ -104,6 +104,7 @@ final class AcquisitionAdapterTest extends TestCase
         self::assertTrue($erase['items_removed']);
         self::assertFalse($erase['items_retained']);
         self::assertTrue($erase['done']);
+        self::assertSame(['commande' => 1, 'etat' => 'effacee'], $GLOBALS['c27_options'][Acquisition::REPONSE . '1']);
         self::assertSame($third, $GLOBALS['c27_options'][Acquisition::REPONSE . '3']);
         self::assertSame(['data' => [], 'done' => true], AcquisitionConfidentialite::exporter('lecteur@example.org'));
         self::assertInstanceOf(\WP_Error::class, Acquisition::repondre(1, 28, 'mars'));

@@ -183,7 +183,7 @@ def run(label):
         after_export=c27.wp('echo wp_json_encode(Imagine\\Site\\AcquisitionConfidentialite::exporter(get_userdata(28)->user_email));')
         checks['effacement_natif_C21_source_reponses_et_propositions']=erased['done'] and erased['items_removed'] and not erased['items_retained'] and after_export=={'data':[],'done':True} and c27.wp('echo wp_json_encode(get_user_meta(28,Imagine\\Site\\Acquisition::SOURCE,true));')==''
         checks['effacement_preserve_tiers']=record(third)==foreign_record
-        checks['trace_depersonnalisee_pas_de_nouvelle_reponse']=record(paid)=={'commande':paid['id'],'date':first['date'],'etat':'effacee'} and post(paid,'mars',signed=signed)[0]==403
+        checks['trace_depersonnalisee_pas_de_nouvelle_reponse']=record(paid)=={'commande':paid['id'],'etat':'effacee'} and post(paid,'mars',signed=signed)[0]==403
         _,erasedbody,_=http('/wp-admin/admin.php?page=imagine-acquisition&du=2026-01-01&au=2026-12-31',role='admin')
         erased_table=erasedbody.split('id="imagine-acquisition-nombres"',1)[1].split('</table>',1)[0]
         checks['chiffres_recalcules_apres_effacement']=dict(re.findall(r'data-acquisition="([^"]+)">(\d+)</td>',erased_table))=={'mars':'1'}

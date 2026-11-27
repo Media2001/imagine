@@ -49,9 +49,8 @@ final class AcquisitionConfidentialite
         foreach ($rows as $row) {
             $data = maybe_unserialize($row['option_value']);
             if (
-                !is_array($data) || !isset($data['commande'], $data['date']) || !is_int($data['commande'])
+                !is_array($data) || !isset($data['commande']) || !is_int($data['commande'])
                 || $data['commande'] < 1 || $row['option_name'] !== $prefix . $data['commande']
-                || !is_string($data['date']) || !preg_match('/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/D', $data['date'])
             ) {
                 return new \WP_Error('imagine_acquisition_format', __('Déclaration illisible : lecture incomplète.', 'imagine-site'));
             }
@@ -59,7 +58,8 @@ final class AcquisitionConfidentialite
                 continue;
             }
             if (
-                !isset($data['compte']) || !is_int($data['compte']) || $data['compte'] < 1
+                !isset($data['date'], $data['compte']) || !is_int($data['compte']) || $data['compte'] < 1
+                || !is_string($data['date']) || !preg_match('/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/D', $data['date'])
                 || (!$seen && (!isset($data['choix'], $data['libelle'])
                     || AcquisitionRegles::liste([$data['choix'] => $data['libelle']]) === null))
             ) {
@@ -151,7 +151,7 @@ final class AcquisitionConfidentialite
             }
             foreach ($keys as $key => $row) {
                 // La commande ne pourra pas être interrogée à nouveau ; plus de réponse ni de compte.
-                $tombstone = ['commande' => $row['commande'], 'date' => $row['date'], 'etat' => 'effacee'];
+                $tombstone = ['commande' => $row['commande'], 'etat' => 'effacee'];
                 update_option($key, $tombstone, false);
                 if (get_option($key) !== $tombstone) {
                     throw new \RuntimeException('Déclaration non effacée');

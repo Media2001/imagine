@@ -451,4 +451,35 @@ python -B wp/outils/demo/b09-readback.py parent-readback-NOM-NEUF
 
 `seed` est la recette de première création/interruption déjà jouée, pas une commande à relancer sur le squelette complet. `reseed` relit deux rejeux sur le squelette livré. Adresses, preuves finales et limites : `production/B-09/{A-VOIR.md,NOTE.md,final-V2.json}`. PRET technique du squelette ne vaut ni validation visuelle ni conformité juridique, ni accord sur le réel. Les paquets clos C-23/C-26 et les autres sections de ce README restent inchangés.
 
+## C-27 — Comment nous avez-vous connus ?
+
+### Le standard d'abord — cinq lignes
+
+1. WooCommerce propose déjà l’attribution d’origine d’une commande à partir du référent, des UTM et de cookies de session ([documentation officielle](https://woocommerce.com/document/order-attribution-tracking/)).
+2. Cette origine de navigation n’est pas une réponse volontaire du lecteur ; C27 ne la remplace pas et n’active aucun traceur.
+3. Le hook natif `woocommerce_thankyou` reçoit la commande sur la confirmation classique et dans le bloc Woo « informations supplémentaires » ; C27 recontrôle propriétaire, paiement daté et clé de commande.
+4. Les commandes sont lues par `wc_get_order` et les getters CRUD, compatibles HPOS ([contrat Woo officiel](https://developer.woocommerce.com/docs/best-practices/data-management/crud-objects/)).
+5. Le petit complément déclaratif est enregistré localement et déclaré aux [exporteurs](https://developer.wordpress.org/plugins/privacy/adding-the-personal-data-exporter-to-your-plugin/) et [effaceurs WordPress](https://developer.wordpress.org/plugins/privacy/adding-the-personal-data-eraser-to-your-plugin/), sans Odoo ni newsletter.
+
+**Après paiement uniquement**, le titulaire connecté voit une liste fermée facultative sur sa confirmation. Jamais de champ de profil dans le tunnel ni dans C16. `is_paid()` et `date_paid` sont obligatoires ; `created_via=imagine-c16` reste refusé même payé. Les invités et autres comptes sont refusés, sans rapprochement par email. Une seule proposition est mémorisée à l’affichage ; rafraîchir ou ignorer ne relance pas la question. « Continuer sans répondre » et la réponse vide ne bloquent rien.
+
+Réglage **C10**, `imagine_acquisition_choix` : une ligne `identifiant|libellé`, maximum 20 choix ; identifiants minuscules de 1–40 caractères, libellés de 80 caractères maximum. Liste absente, vide ou invalide : question fermée. La démonstration reçoit seulement « Radio fictive \\ lune » et « Journal martien fictif ». La section reste sous le bouton, comme C22/C24/C25 ; aucune retouche de C10 ou de ses autres sections. Journal C10 avant/après/auteur/date UTC ; panne du journal : préimage exacte relue et réglage refusé.
+
+Stockage non autoloadé : `imagine_acquisition_vue_ID` (proposition, compte, date UTC) et `imagine_acquisition_reponse_ID` (commande, compte, date UTC, choix, libellé figé). L’unicité SQL de l’option et un verrou utilisateur ferment les doubles envois et les courses de première source. Aucune interface d’édition, aucune métadonnée ajoutée au payload de commande Woo. `imagine_source_acquisition` sur le compte est initialisé **seulement si vide**, avec `wp_slash` à la frontière `update_user_meta` ; aucun autre profil n’est réécrit.
+
+**Imagine → Acquisition déclarée**, mêmes droits que C19, GET/HEAD seulement : nombres par réponse et période civile UTC inclusive. Aucun nom, compte ou numéro de commande dans le tableau. Un libellé historique reste distinct après changement de la liste ; l’effacement retire ses déclarations du compte. Une lecture impossible n’est pas remplacée par zéro.
+
+Les callbacks natifs `imagine-acquisition` de C21 exportent réponses, propositions et source de compte ; l’effacement retire ces données personnelles et laisse seulement commande/état effacé pour interdire un redépôt, sans date ni source ni compte. Cette opération de confidentialité est la seule exception à l’immutabilité. Tiers préservés ; panne de lecture ou d’écriture signalée comme incomplète, suppression du compte refusée si le nettoyage échoue. Aucun événement d’export commercial, email, appel HTTP, tâche planifiée ou consentement newsletter ajouté.
+
+```text
+python -B production/C-27/verifier.py
+python -B wp/outils/demo/c27.py local parent-unitaire-NOM-NEUF
+python -B wp/outils/demo/c27-mutations.py parent-mutations-NOM-NEUF
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/preparer-image.ps1
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/rejouer.ps1
+```
+
+Le vérificateur sans argument est local, hors réseau, Python 3.11 standard. Les sept tests PHPUnit sont découverts par le paquet racine existant. Recettes réellement mutantes sur le seul site fictif gardé : `python -B wp/outils/demo/c27-native.py LABEL-NEUF` puis `python -B wp/outils/demo/c27-recette.py LABEL-NEUF`. Préimages privées durables, sept commandes fictives jetables dont un vrai brouillon C16, profils/commandes/options/actions natifs restaurés exactement et relus. La boutique de démo reste nativement « À venir » : la recette emploie le filtre Woo de prévisualisation uniquement pour ses requêtes marquées et retire son observateur, sans ouvrir la boutique ni changer ses réglages. Adresses, commandes parent et limites : `production/C-27/{A-VOIR.md,NOTE.md,final-V2.json}`. Aucun paiement réel ni email ; PRET technique n’est pas validation visuelle ou GO sur le réel.
+
+
 
