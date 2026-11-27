@@ -1,0 +1,45 @@
+{
+  "scope": "imagine-test-demo",
+  "ready": true,
+  "contract_version": 1,
+  "sources": {
+    "production/B-15/verifier.py": "5a466f13dfa8fdc39592b157d063c3e817d940e3706b8773ff3f6ed496d3ca17",
+    "wp/outils/demo/b13-browser.py": "02a69cab956e503b2a79625df2b084858df9e6b417af638fa503240ebc0d3de0",
+    "wp/outils/demo/b13.py": "3960057fde352c412024678a14d06a7ed6dec04c8d1bff378f7e5305420a5357",
+    "wp/outils/demo/b15-browser.py": "9ec3d0199a9a7ee999ef10421517a31114101fa9e38254384abe4e3499129f34",
+    "wp/outils/demo/b15.py": "99ff721494d4be66003a1be31774f51d6298f2acbe2bd8dcc6c975df199282a8",
+    "wp/plugins/imagine-site/PiedPage.php": "832715b9f273334c5926078d5bdbc3501227978c2e938d959f0d53340cd3900f",
+    "wp/plugins/imagine-site/tests/PiedPageB15Fixture.php": "b97e62a2717a8bfca02eadd38655095eaf0fa6264cf6d4670461d8ac5993f139",
+    "wp/plugins/imagine-site/tests/PiedPageB15Test.php": "213d5cfaa33ced74c002a0519460343fe5ebf8b3deeb99bc2557b91861ecf939",
+    "wp/tests/demo/b13-contract.py": "ebdb04de4f948ec77ec5214bdf7c17f03c0366a02ad97722cfef9c6b1d9ebe63",
+    "wp/tests/demo/b13-observer.php": "72d46a7ab527893be8d4e7aa8a0e04073bcd9f0c38c655620a1e603290a6c03f",
+    "wp/tests/demo/b15-pure.php": "1be0bd410a4fb3fdd71f23c1ad5ce407607afd47871f6f1d5dafdd7efef25cad",
+    "wp/tests/demo/b15-runtime.php": "6c3517e570a26a9b959ec43b006d250ced64036848b413ce5e83ad7633eb56b1",
+    "wp/themes/imagine/footer.php": "8fa3c78ac8d3abe1ccbc5e40f2a9bcb0024bc895e92314f553fc29d76f5a141b"
+  },
+  "bootstrap_contract": {
+    "block": "// B15 — pied de page identique, sans géolocalisation.\nrequire_once __DIR__ . '/PiedPage.php';\nPiedPage::register();\n\n",
+    "sha256": "43ed6f9b3e0d6fb863a9282a92ce5410e7f29fffe1b99415a0aa42d787611447",
+    "occurrences": 1
+  },
+  "readme_section": "e2090025cfe6af8870e5df93be75706c8ffb33c1675747e805598aa597e76d2a",
+  "evidence": {
+    "A-VOIR.md": "e837d0679ae84fa46873b46fe3de9c0b96128db131f545ed3a3ba2b0d9e9e896",
+    "browser-corrections-final-V2.png": "4ee609462e6b3eb7884fd91dec0efbe3de5894a1310c3dd10fb68f9788d8c050",
+    "pure-corrections-final-V2.json": "95e51279a5ed98c4f8292bb48cfb0c90ca3c08bd3189c6a0794b5cdff93cf2f9",
+    "native-corrections-final-V2.json": "0c5a4f2bd1def770fc817ae3bc8a4234819f57148ff9676336ccdc92bf068f99",
+    "browser-corrections-final-V2.json": "f3ce99749175d958b9b7404558ba1be5e8e9aeb3770605dd820f1fcfb65a3c28",
+    "image-corrections-final-V2.json": "0e159fd027918f8ed5b99af67e593cb3f1dbad51ca6eacfe672f257988ea7d3b",
+    "image-corrections-final-V2.log": "27e9d3036b4457b09551d0513dd52db2aec284b3f0a4d98d404d529ab2a6d366",
+    "replay-corrections-final-V2.json": "a3d3537df66b39db7bad5ad0931bbd8496e5d603882ac19a8dbcf4ea72f374cd",
+    "replay-corrections-final-V2.log": "8b35ded7dae8d33632387411c9e3ec8b72f4d2aedd40ba6b69654579fa1809e0"
+  },
+  "historical_files": {
+    "red-V2.json": "50ff77589727ddd687fdf544f07e442dbc1831c93eced885d6fd2539c230dc3d",
+    "red-contexte-V2.json": "73e057a2e7026a52448b5d8e76f58f308568c218d9d26401b72296d3c529324b",
+    "reception-V2.json": "6090fb248fc7da3156bde51c3e30af09c8490cca9836470b2398c200468fcf04",
+    "A-VOIR-avant-corrections-V2.md": "ee19fde82be484f24f55a8fbb6efc97e8653904b7029c46123acc2e512f32774",
+    "verifier-avant-corrections-V2.py": "17594e40f13f25d71731a15eaf2b837eba9cabc300f877507a05394c588b5579",
+    "PRET-avant-correction-V2.txt": "cb5450f6aa751613dd617993ab6ecac8721a6ad4c2230e60a7cdc6c4e8452a06"
+  }
+}
