@@ -1,0 +1,65 @@
+{
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "checks": {
+    "observateur_relu": true,
+    "observateur_positif_mail_HTTP_oembed": true,
+    "section_reglages_natifs": true,
+    "reglage_0_readback": true
+  },
+  "total": 4,
+  "failures": 0,
+  "error": "TimeoutError: Timeout 30000ms exceeded.",
+  "network": {},
+  "server_observations": {},
+  "C26_witness_inventory": {
+    "file": "production\\C-26\\correction-livraison-V2-inventaire.json",
+    "sha256": "f9370b6dcd848001fc89e454856d4e40dfcced30d863b1ac78c71f0610c128de",
+    "count": 32
+  },
+  "surfaces": [],
+  "mutations": {},
+  "cleanup": {
+    "observer_removed": true,
+    "settings_restored": true,
+    "session_1": true,
+    "session_9": true,
+    "session_28": true,
+    "session_8": true,
+    "session_16": true,
+    "session_15": true,
+    "observer_absent_readback": true,
+    "sources_restored": true,
+    "business_preserved": false
+  },
+  "sources": {
+    "wp/outils/demo/b11-diagnostic.py": "9dca0d9fb03426247d85faf6320ebd349907d0c14896bdfd8bddeb63436e8392",
+    "wp/outils/demo/b11-local.py": "6e83b95ffca944b5467fad664550ff99dc2906a2649148af707e91f53f690051",
+    "wp/outils/demo/b11-recette.py": "2a22133ae49789f528e0debbf95de185c02751831464349f41a506977c7250a2",
+    "wp/outils/demo/b11-seed.php": "59702f660561af6e573e0c1d1b6094f128d66005c874d3216a9cba0c7794dda1",
+    "wp/outils/demo/b11.py": "60827017da5856f8eedd21bbd06899524e3ad1e86cc058242b1906411059765b",
+    "wp/plugins/imagine-site/AudioNumero.php": "0cd603323234f1c56de2d3ef0a3d2c3b20a6c3b379ca8b4ae53d21b64545c3a4",
+    "wp/plugins/imagine-site/imagine-site.php": "d21ac8e9360faab640fef5fe94a5076ed4e677c78521170f90310d8e5daac204",
+    "wp/plugins/imagine-site/Medias.php": "f10574b8ae775b30e9a7a25f0639d1c2ce1bef373878ac534e529af0611e793a",
+    "wp/plugins/imagine-site/MediasRegles.php": "85179039a7c2221ed6cf41fe144a1b9960818ca3586696035178875d7b8f917f",
+    "wp/plugins/imagine-site/tests/MediasB11Test.php": "c164164f6d409119e17631eadbe5beec5ab7ce579adb26b5fcef11f00fd12a35",
+    "wp/tests/demo/b11-horslive.php": "1a17c1a6d3ba996fbcc20ce93903acd127a98b761ab7ab4bce794958ddbc6e9b",
+    "wp/tests/demo/b11-observer.php": "27e2dbfafcd3308f34bc5d9a8c4cd621a41c0c1b1fe7d60f7890595a028b61bd",
+    "wp/tests/demo/b11-runtime.php": "e2cf6dc5b30f87286a4e1c67cb65032de8d9bfea9d4a0886be6def84a1bdc888",
+    "wp/themes/imagine/single-imagine_numero.php": "701a14b4dcf8f04182af4d4f0729cb696fc475d9096dcba9e4ba19d4f2d8fef8",
+    "wp/themes/imagine/single.php": "71b98dcdd3f3a9f537224f8e6c574dc5754760795de78369f7a526a46af0bfad"
+  },
+  "private_snapshot": {
+    "file": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\b11-private-onih9e1v\\snapshot.json",
+    "sha256": "f6ef40dd1f3fd10ab28bb85c419ebf451f9be5414c1ef85629ffa3d5535edef2",
+    "private": true
+  }
+}
