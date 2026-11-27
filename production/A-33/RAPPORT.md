@@ -1,5 +1,5 @@
 Fait : A-33 construit, matrice propre verte en UTF-8/cp1252 sans TMPDIR ; 30 tests Python, 23 contrôles purs et 52 natifs par console, PSR-12 propre.
-Prêt à relire : code et paquet de preuves A-33 disponibles ; aucun PRET, le portail reste rouge.
-À arbitrer : autoriser le propriétaire d'A-32 à refaire sa photographie qui englobe automatiquement les huit fichiers nouveaux d'A-33 ; voir BLOCAGE.md.
-Bloqué : avant enregistrement, PAQUETS = 12 vérifiés, 1 échec A-32 ; après enregistrement, 13 vérifiés, deux refus A-32/A-33, aucune exclusion ; suite générale et 23 outils/852 contrôles verts.
-Ensuite : arrêt sur A-33, sans finaliser T-03 ni commencer d'autre lot ; commandes parent sans argument dans BLOCAGE.md.
+Prêt à relire : matrice complète et preuves disponibles ; la réception suit les deux étapes documentées de LIVRAISON.md, avant puis après enregistrement du lecteur.
+À arbitrer : rien de nouveau ; le parent a requalifié A-32 sur les sources finales et appliqué sa fusion sans modifier un outil clos, le gardien ou le lanceur.
+Bloqué : les refus initiaux décrits dans BLOCAGE.md sont historiques. A-32 a été rescellé par sa commande propre et lu PASS. Le candidat A-33 initial jamais qualifié a été archivé sans perte pour reprendre son installation documentée en deux temps ; aucun lecteur n'est assoupli.
+Ensuite : installation A-33 avec gates vertes sur les douze paquets antérieurs, puis rejeu réellement inclus dans les treize, nouveau sceau par seal.py et PRET seulement après les contrôles. La réception post-sceau est enregistrée hors paquet dans files/rapports/.

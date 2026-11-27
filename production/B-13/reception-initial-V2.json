@@ -1,0 +1,48 @@
+{
+  "scope": "imagine-test-demo",
+  "ready": true,
+  "contract_version": 1,
+  "sources": {
+    "production/B-13/verifier.py": "d1ed6f564eb335a3aa111b97df4fe545122605f2096ac2fe7069555026b775bb",
+    "wp/outils/demo/b13-browser.py": "02a69cab956e503b2a79625df2b084858df9e6b417af638fa503240ebc0d3de0",
+    "wp/outils/demo/b13-seed.php": "4ee8447da9d9e7227e4223e306d07d22811024b998d24b3949f2c9a55d528e56",
+    "wp/outils/demo/b13.py": "3960057fde352c412024678a14d06a7ed6dec04c8d1bff378f7e5305420a5357",
+    "wp/plugins/imagine-site/Navigation.php": "71b89021fa2ae693916fc0ba0a96013208089a75275438de31540500c148dab9",
+    "wp/plugins/imagine-site/tests/NavigationB13Test.php": "40aa2edc001ecad126aeb3dc0b38750ad781fa4ef1738051463bbb73bdae791a",
+    "wp/tests/demo/b13-contract.py": "ebdb04de4f948ec77ec5214bdf7c17f03c0366a02ad97722cfef9c6b1d9ebe63",
+    "wp/tests/demo/b13-observer.php": "72d46a7ab527893be8d4e7aa8a0e04073bcd9f0c38c655620a1e603290a6c03f",
+    "wp/tests/demo/b13-runtime.php": "df19ae51c24e80f91fcb14a294b62734b63a556b3183ee4bba4600045b06e8be"
+  },
+  "bootstrap_contract": {
+    "block": "// B13 — menu natif enrichi sans corps d’article.\nrequire_once __DIR__ . '/Navigation.php';\nNavigation::register();\n\n",
+    "sha256": "fbef8aefb2be196445551b4b62fb863b14c617dba45176bbe91550c0d7671660",
+    "occurrences": 1
+  },
+  "readme_section": "a19bb552b12d4c66d66ce33ecce794299b8d23baab94b585ba8c8fb92e02f14b",
+  "evidence": {
+    "A-VOIR.md": "c6d1f477fdf885834dce38c6649898058dff0b8428cd557ce70ffc36fdb91422",
+    "browser-final-V2.json": "05ba73428a16252fa44d2794f20bb8ab6af810fef5023f0c446308094e19d56a",
+    "browser-final-V2.png": "72ed8103703480b4170e203273ea3964ab5fef3ed69f1c92240ef749ad9c549e",
+    "browser-green-V2.json": "7b0ce9b24a181329e1352d1649af62471f862f8ac522a1db5252a25e14b8ba2b",
+    "browser-green-V2.png": "72ed8103703480b4170e203273ea3964ab5fef3ed69f1c92240ef749ad9c549e",
+    "browser-second-V2.json": "c66c142d12e94ac0214cda0ea313d16e197d7cdd453f12048de4b5bbc67ec486",
+    "browser-third-V2.json": "bd30b4f41baa60b296a4b01db11679a73c9a1db39acbe696d4976de0a48758f8",
+    "code-demo-V2.json": "575c1e5a0029a6c1a76fedd11766061af60954f21b4a21d514ba6cdd4447747e",
+    "fixture-V2.json": "db7382bf1ced1dcc8d17165fc77f874d6c046fde68c89579cb4288b0dee9cd8e",
+    "green-V2.json": "0337403e5cb52f9c16e07b053b84a2c27b946f62a4138e494161c3f9132e4797",
+    "image-V2.json": "c98f4016752cfcd3f20c43dc6542e24fe336f9f741703075634852d502fc6126",
+    "image-V2.log": "5061a36e83df3eabb9469b49c4907464868203818dd815424177e6ae90750b03",
+    "native-final-V2.json": "ff01fc9adf7b8bb66795050b51241d4b882d9596f26d1503225e5f11274aa40b",
+    "paquets-etrangers-V2.json": "817ebfc7042dd650f22170b4e0f972518e21125fa5fcaa093664cd8ca337fcc5",
+    "qualifier.py": "fdf29d06ac963e35ff4d4df5b35b836dfd9915c2f7f25fb1444f60058547c283",
+    "red-V2.json": "64a71523e849053dcbc52c166a3e0b945eb12cbb9a01816f7a668e1176f8addb",
+    "replay-V2.json": "244833e185f2ea3ab8d46fdb596395430a82beceef592f655cc9a6cc49b76a37",
+    "replay-V2.log": "39c99adbfd509a0586c25cf5a0964c79665d24143805f21740251048f67870ab",
+    "sceller.py": "1f4aa12b688618c6f6440e301d5ba62d1c1e6d1dd43b3aef90aa09116ef30b24",
+    "sources-officielles-V2.json": "8ebd313ac7ce71a14197196a864c01c0cc029fe0610435eafa24a1b2f55cba9d",
+    "verifier.py": "d1ed6f564eb335a3aa111b97df4fe545122605f2096ac2fe7069555026b775bb"
+  },
+  "historical_files": {
+    "red-V2.json": "64a71523e849053dcbc52c166a3e0b945eb12cbb9a01816f7a668e1176f8addb"
+  }
+}

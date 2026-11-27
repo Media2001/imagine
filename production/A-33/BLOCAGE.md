@@ -1,4 +1,6 @@
-# A-33 — Blocage vérifié, aucun PRET
+# A-33 — Historique du blocage initial
+
+Les constats ci-dessous sont les refus authentiques du premier candidat, pas l'état de livraison courant. Le parent a ensuite appliqué la fusion A-32 et requalifié sa photographie, puis rescellé et lu A-32 PASS. Le premier candidat A-33 jamais qualifié a été sorti sans perte vers le scratch a32-a33-final-2226 pour reprendre l'installation documentée de LIVRAISON.md, sans modifier aucun lecteur. La réception finale post-enregistrement, dont dépend PRET, reste extérieure au paquet dans files/rapports/.
 
 L'outil A-33 et sa matrice propre sont terminés : 30 tests Python dans chacune des deux consoles Windows, 23 contrôles PHP purs et 52 contrôles natifs par console, PSR-12 sans erreur ni avertissement. Windows mesuré : Python **3.11.15**, UTF-8 / cp1252, TMPDIR absent. Bases et fichiers du semis identiques avant/après ; les sept canaux et les deux types inconnus distincts sont couverts. L'image a été repréparée après le dernier changement de tests.
 
