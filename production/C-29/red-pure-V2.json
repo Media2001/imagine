@@ -1,0 +1,30 @@
+{
+  "command": [
+    "wsl.exe",
+    "-d",
+    "Ubuntu",
+    "--",
+    "docker",
+    "run",
+    "--rm",
+    "--pull",
+    "never",
+    "--network",
+    "none",
+    "--read-only",
+    "--mount",
+    "type=bind,source=/mnt/c/Users/Ced/imagine/wp,target=/repo/wp,readonly",
+    "--entrypoint",
+    "php",
+    "imagine-tests-t01:1",
+    "/repo/wp/plugins/imagine-site/vendor/bin/phpunit",
+    "-c",
+    "/repo/wp/plugins/imagine-site/phpunit.xml",
+    "--filter",
+    "ContactBrevoC29Test",
+    "--do-not-cache-result"
+  ],
+  "exit": 1,
+  "stdout": "Could not open input file: /repo/wp/plugins/imagine-site/vendor/bin/phpunit\n",
+  "stderr": ""
+}
