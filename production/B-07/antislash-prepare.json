@@ -1,0 +1,20 @@
+{
+  "command": [
+    "powershell.exe",
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "wp/tests/preparer-image.ps1"
+  ],
+  "stdin": null,
+  "exit": 0,
+  "log": "antislash-prepare.log",
+  "log_sha256": "63361fae6e664ac0320ee17efe21a0cb3a0926701d7fb68ae14c670cec48c698",
+  "sources": {
+    "wp/plugins/imagine-site/Agenda.php": "88c3fadd074d8d7eac0d27ee61c490e3f138225dfa1e9ca8690ebf0c2c443482",
+    "wp/plugins/imagine-site/tests/AgendaAdapterTest.php": "c2e7445ff9617319b9148dd02479711ac2eff06f3d6634580c7a7fe2fb13befb",
+    "wp/plugins/imagine-site/tests/AgendaWPStubs.php": "131a0f50e1f5ec5d36341df50a00a7745c680ef7a6f170d70c756c9835ce2840",
+    "wp/outils/demo/b07-antislash-gates.py": "59a6566eb4fb680d3c5ab7a1c7a899438f6eb68e89c0e56af84ce354eb550c40"
+  }
+}
