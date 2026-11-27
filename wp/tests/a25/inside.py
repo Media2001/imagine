@@ -256,6 +256,15 @@ if (getenv('A25_CONFINED') === '1') {
     b.sql('mysql', 'CREATE DATABASE ' + clone)
     dump = cmd(['mariadb-dump', '--socket=' + b.SOCKET, '-uroot', db]).stdout
     cmd(['mariadb', '--socket=' + b.SOCKET, '-uroot', clone], data=dump)
+    red_before = b.fingerprint(clone)
+    red_keep = cmd(['php', '/opt/a25/neutralise-keep-red.php'], check=False, env={'A25_DB': clone})
+    b.check(storage + ':actual_old_keep_refused_red',
+            (red_keep.returncode, red_keep.stdout, red_keep.stderr) == (1, 'A25_OLD_KEEP_REFUSED\n', ''))
+    b.check(storage + ':old_keep_refusal_database_unchanged', red_before == b.fingerprint(clone))
+    (OUT / (storage + '-old-keep-red.json')).write_text(json.dumps({
+        'scope': 'disposable_old_keep_request_against_current_import', 'exit_code': red_keep.returncode,
+        'closed_refusal': red_keep.stdout == 'A25_OLD_KEEP_REFUSED\n' and not red_keep.stderr,
+        'database_unchanged': red_before == b.fingerprint(clone)}), encoding='utf-8')
     phase = cmd(['php', '/opt/a25/neutralise.php'], env={'A25_DB': clone})
     provenance = json.loads(phase.stdout)
     (OUT / (storage + '-neutralisation.json')).write_text(json.dumps(provenance, indent=2) + '\n', encoding='utf-8')

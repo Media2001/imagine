@@ -98,6 +98,7 @@ def verify(packet, sealed=True, require_shared=False):
                 'replay_identical', 'documented_only_given_arguments', 'unconfined_php_refused',
                 'transaction_readonly_even_root', 'audit_guard:schema', 'audit_guard:storage',
                 'all_tables_and_scheduler_identical', 'site_files_identical', 'config_never_executed',
+                'actual_old_keep_refused_red', 'old_keep_refusal_database_unchanged',
                 'actual_import_comments_anonymised', 'actual_import_known_forms_purged',
                 'actual_import_unknown_forms_kept_separately', 'neutralised_audit', 'neutralised_success',
                 'neutral_unknown_never_zero', 'unchanged_native_counts_after_import',
@@ -148,6 +149,9 @@ def verify(packet, sealed=True, require_shared=False):
             prefix = console + ':' + storage
             check(prefix + ':mandatory_cases', all(storage + ':' + key in native for key in required))
             check(prefix + ':actual_purge_provenance', import_purge_valid(read(folder / (storage + '-neutralisation.json'))))
+            check(prefix + ':genuine_old_keep_red', read(folder / (storage + '-old-keep-red.json')) == {
+                'scope': 'disposable_old_keep_request_against_current_import', 'exit_code': 1,
+                'closed_refusal': True, 'database_unchanged': True})
             before = read(folder / (storage + '-db-before.json'))
             check(prefix + ':all_tables_identical', before == read(folder / (storage + '-db-after.json'))
                   and {'wp_comments', 'wp_fluentform_submissions', 'wp_a25_unknown_entries',

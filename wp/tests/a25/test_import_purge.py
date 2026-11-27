@@ -22,6 +22,11 @@ class ImportPurgeContract(unittest.TestCase):
     def test_unknown_erasure_is_red(self):
         d=self.data();d['unknown_message_preserved']=False
         self.assertFalse(v.import_purge_valid(d))
+    def test_native_red_keep_refusal_and_rollback_are_required(self):
+        self.assertTrue((HERE/'neutralise-keep-red.php').is_file())
+        for name in ('actual_old_keep_refused_red','old_keep_refusal_database_unchanged'):
+            self.assertIn(name,(HERE/'inside.py').read_text(encoding='utf-8'))
+            self.assertIn(name,(HERE/'verify.py').read_text(encoding='utf-8'))
     def test_fixture_must_not_request_known_keep(self):
         text=(HERE/'neutralise.php').read_text(encoding='utf-8')
         self.assertNotIn("'wp_fluentform_submissions' => ['action' => 'garder']",text)
