@@ -70,7 +70,7 @@ final class ContactAdapterTest extends TestCase
         self::assertStringContainsString(esc_html($nom), $detail);
         $export = ContactConfidentialite::exporter('slash@example.org');
         self::assertCount(1, $export['data'], 'Export positif avant lecture du texte');
-        self::assertSame($texte, array_column($export['data'][0]['data'], 'value', 'name')['Contact']);
+        self::assertSame($texte, array_column($export['data'][0]['data'], 'value', 'name')['Message']);
         self::assertSame($nom, array_column($export['data'][0]['data'], 'value', 'name')['Nom']);
         self::assertSame(['mail' => 0, 'http' => 0], $GLOBALS['b09_calls']);
     }

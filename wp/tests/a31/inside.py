@@ -227,6 +227,8 @@ if (getenv('A31_CONFINED') === '1') {
             provenance['neutraliser_and_anonymiser_executed'] is True
             and provenance['extension_relation_before'] == 1 and provenance['extension_relation_after'] == 0
             and provenance['renewal_relation_before'] == provenance['renewal_relation_after'] == 2
+            and provenance['renewal_rows_before'] == provenance['renewal_rows_after'] == 3
+            and provenance['opaque_renewal_before'] == provenance['opaque_renewal_after'] == 1
             and provenance['structure_before_sha256'] == provenance['structure_after_sha256']
             and provenance['marker_count'] == 1)
     b.sql('mysql', "GRANT SELECT ON " + clone + ".* TO 'a02_" + storage + "'@'localhost'")

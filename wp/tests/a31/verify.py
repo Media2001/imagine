@@ -127,7 +127,8 @@ def verify(packet, python_only=False):
         adapter = {c['check'] for c in receipts['adapter-unit']['checks']}
         check(console + ':required_adapter_cases', {'parent_native_relation', 'renewal_missing_native_subscription',
               'existing_subscription_not_orphan', 'mixed_natures_illisible', 'parent_and_renewal_illisible',
-              'extension_relation_illisible', 'native_filter_contradiction_illisible'}.issubset(adapter))
+              'extension_relation_illisible', 'native_filter_contradiction_illisible',
+              'missing_reference_never_resolved_by_logging_getter'}.issubset(adapter))
         for storage in ('classic', 'hpos'):
             prefix = console + ':' + storage
             standard = receipts[storage + '-standard']
@@ -172,6 +173,8 @@ def verify(packet, python_only=False):
             check(prefix + ':actual_import_provenance', provenance['neutraliser_and_anonymiser_executed'] is True
                   and provenance['extension_relation_before'] == 1 and provenance['extension_relation_after'] == 0
                   and provenance['renewal_relation_before'] == provenance['renewal_relation_after'] == 2
+                  and provenance['renewal_rows_before'] == provenance['renewal_rows_after'] == 3
+                  and provenance['opaque_renewal_before'] == provenance['opaque_renewal_after'] == 1
                   and provenance['structure_before_sha256'] == provenance['structure_after_sha256']
                   and provenance['marker_count'] == 1)
     if not python_only:

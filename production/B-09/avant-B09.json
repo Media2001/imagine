@@ -1,0 +1,175 @@
+{
+  "scope": "imagine-test-demo",
+  "sources": {
+    "wp/outils/demo/b09-local.py": "725cc7310b0cf99b0d4fa2888f20a15215e6301b36a41f4742db78800a4e7eb3",
+    "wp/outils/demo/b09-sources.py": "171650085e4a4337dfc5deb018bd317eb916a2b604a8a1c1112fb2b1b09262fd",
+    "wp/outils/demo/b09.py": "a3340822b6be615440c25417a8b8f29fc58c3d1f9f58457babac4b8d31b5954e",
+    "wp/plugins/imagine-site/Contact.php": "1acd062a6a2db0d0e0f4c011221d267f8efa408f80da9de0f0663859bb277776",
+    "wp/plugins/imagine-site/ContactConfidentialite.php": "340accc22c180a0a38a63545419f231c84e6bc36d5f7d23788a14df6aba6943d",
+    "wp/plugins/imagine-site/tests/ContactAdapterTest.php": "2eee0206a259f5197933e9bf2dc7d0f946573e859ea9156f0ddb76a973450267",
+    "wp/plugins/imagine-site/tests/ContactWPStubs.php": "a13b7eb42e3190f8511f9de4f93c2ddb23906f48501ceb8dbf41be974a7a5bcd",
+    "wp/tests/demo/b09-ecrire-contact.py": "22b7a90b0ecc14e023c8ccaa4ba7d8c1f4cb3f113ad4f2d0785aaf620284ad25",
+    "wp/tests/demo/b09-ecrire-tests.py": "808fc09bab0273990ddc0533bfd9c8d6eb17c56f6b1735841d4877f14b3a561c",
+    "wp/tests/demo/b09-horslive.php": "916a2298c88b0242cc6c0404577db64b4a1464c7b08ac8dab7e0bcdf6ae3eef9",
+    "wp/tests/demo/b09-structure.php": "400c2da4a0a70c7a100fef7981e08d19292f0a5de754a8cc751e7f4281da4585",
+    "wp/themes/imagine/footer.php": "2e9d86e5c6dbdc839447d45d0e6c9b02b3f436ce8417c70f8041c28d6727979d"
+  },
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "structure": {
+    "privacy": "3",
+    "pages": [
+      {
+        "id": 3115,
+        "slug": "notre-cooperative",
+        "title": "Notre coopérative",
+        "status": "publish",
+        "empty": true
+      },
+      {
+        "id": 3116,
+        "slug": "soutenir",
+        "title": "Soutenir",
+        "status": "publish",
+        "empty": true
+      },
+      {
+        "id": 3117,
+        "slug": "proposer-un-sujet",
+        "title": "Proposer un sujet",
+        "status": "publish",
+        "empty": true
+      },
+      {
+        "id": 3118,
+        "slug": "projet-editorial-et-manifeste",
+        "title": "projet éditorial et manifeste",
+        "status": "publish",
+        "empty": true
+      },
+      {
+        "id": 3119,
+        "slug": "charte-independance",
+        "title": "charte d'indépendance",
+        "status": "publish",
+        "empty": true
+      },
+      {
+        "id": 3120,
+        "slug": "charte-ia",
+        "title": "charte IA",
+        "status": "publish",
+        "empty": true
+      },
+      {
+        "id": 3121,
+        "slug": "barometre-egalite-diversite",
+        "title": "baromètre égalité-diversité",
+        "status": "publish",
+        "empty": true
+      },
+      {
+        "id": 3122,
+        "slug": "equipe",
+        "title": "équipe",
+        "status": "publish",
+        "empty": true
+      },
+      {
+        "id": 3123,
+        "slug": "gouvernance",
+        "title": "gouvernance",
+        "status": "publish",
+        "empty": true
+      },
+      {
+        "id": 3124,
+        "slug": "imagine-coop",
+        "title": "Imagine COOP",
+        "status": "publish",
+        "empty": true
+      },
+      {
+        "id": 2758,
+        "slug": "nos-newsletters",
+        "title": "Nos newsletters",
+        "status": "publish",
+        "empty": false
+      },
+      {
+        "id": 74,
+        "slug": "content-restricted",
+        "title": "Content restricted",
+        "status": "publish",
+        "empty": false
+      },
+      {
+        "id": 6,
+        "slug": "shop",
+        "title": "Shop",
+        "status": "publish",
+        "empty": true
+      },
+      {
+        "id": 7,
+        "slug": "cart",
+        "title": "Cart",
+        "status": "publish",
+        "empty": false
+      },
+      {
+        "id": 8,
+        "slug": "checkout",
+        "title": "Checkout",
+        "status": "publish",
+        "empty": false
+      },
+      {
+        "id": 9,
+        "slug": "my-account",
+        "title": "My account",
+        "status": "publish",
+        "empty": false
+      },
+      {
+        "id": 10,
+        "slug": "refund_returns",
+        "title": "Refund and Returns Policy",
+        "status": "draft",
+        "empty": false
+      },
+      {
+        "id": 3,
+        "slug": "privacy-policy",
+        "title": "Privacy Policy",
+        "status": "draft",
+        "empty": false
+      },
+      {
+        "id": 50,
+        "slug": "calendrier-fictif",
+        "title": "Calendrier de parution fictif — 2026 à 2028",
+        "status": "publish",
+        "empty": false
+      },
+      {
+        "id": 51,
+        "slug": "accueil-fictif",
+        "title": "Imagine — site de démonstration fictif",
+        "status": "publish",
+        "empty": false
+      }
+    ],
+    "locations": {
+      "imagine-principal": 22
+    }
+  }
+}
