@@ -97,6 +97,7 @@ class FormPolicy(unittest.TestCase):
         self.assertEqual(1, len(calls))
         self.assertNotIn(b'postmeta', calls[0])
         self.assertNotIn(b'post_content', calls[0])
+        self.assertEqual(2, calls[0].count(b'BINARY post_type'))
         module.command = lambda *a, **kw: SimpleNamespace(stdout=b'99\t88\n')
         self.assertEqual([], module.form_post_provenance('wp_'))
         module.command = lambda *a, **kw: SimpleNamespace(stdout=b'-1\n')

@@ -9,7 +9,7 @@ import sys
 import uuid
 ROOT = Path(__file__).resolve().parents[3]
 FILES = ['wp/outils/staging/' + n for n in ('lib.php', 'engine.php', 'store.php', 'guard.php', 'form-decision-refused.php')]
-FILES += ['wp/tests/a28/unit.php']
+FILES += ['wp/tests/a28/unit.php', 'wp/tests/a28/seed.php']
 DOCKER = ['wsl.exe', '-d', 'Ubuntu', '--', 'docker'] if os.name == 'nt' else ['docker']
 LABEL = 'org.imagine.a28-style'
 

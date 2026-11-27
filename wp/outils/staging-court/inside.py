@@ -232,9 +232,9 @@ def form_post_provenance(prefix):
     if (not types or not all(isinstance(t, str) and t.isascii() and t.replace('_', '').isalnum()
                              for t in types)):
         raise Refusal('TABLE_POLICY_REFUSED')
-    sql = ("SELECT ID FROM `" + prefix + "posts` WHERE post_type IN ("
+    sql = ("SELECT ID FROM `" + prefix + "posts` WHERE BINARY post_type IN ("
            + ','.join("'" + t + "'" for t in types) + ");"
-           + "SELECT ID,post_parent FROM `" + prefix + "posts` WHERE post_type='revision';")
+           + "SELECT ID,post_parent FROM `" + prefix + "posts` WHERE BINARY post_type='revision';")
     raw = command(['mariadb', '--socket=' + SOCKET, '--user=root', '--batch', '--skip-column-names', DB],
                   data=sql.encode(), stage='form_provenance').stdout
     ids, revisions = set(), []

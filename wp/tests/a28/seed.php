@@ -17,13 +17,18 @@ foreach ($tables as $kind) {
     $wpdb->insert($table, ['id' => 1, 'payload' => 'A28_FICTIVE_' . $kind]);
 }
 $ids = [];
-foreach (['flamingo_inbound', 'flamingo_contact', 'fiction_magazine'] as $type) {
+foreach (['flamingo_inbound', 'flamingo_contact', 'fiction_magazine', 'Flamingo_Inbound'] as $type) {
     $id = wp_insert_post([
         'post_type' => $type, 'post_status' => 'publish',
         'post_title' => 'A28_FICTIVE_' . $type, 'post_content' => 'A28_FICTIVE_' . $type,
     ], true);
     if (is_wp_error($id)) {
         throw new RuntimeException('A28_SEED_FAILED');
+    }
+    // Keep this unknown case variant exact even if a native post filter normalizes it.
+    $wpdb->update($wpdb->posts, ['post_type' => $type], ['ID' => $id]);
+    if ($wpdb->get_var($wpdb->prepare("SELECT post_type FROM {$wpdb->posts} WHERE ID=%d", $id)) !== $type) {
+        throw new RuntimeException('A28_SEED_TYPE_FAILED');
     }
     $ids[$type] = $id;
     update_post_meta($id, '_a28_message', 'A28_FICTIVE_META_' . $type);

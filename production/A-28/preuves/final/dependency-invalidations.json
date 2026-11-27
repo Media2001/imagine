@@ -20,7 +20,7 @@
     "wp/outils/staging-court/database_only.py": "4b0345664ca4825e3627bc70af69b7f167f130a1378d4581583a5052d015832d",
     "wp/outils/staging-court/diagnosis.py": "17530f6ac02e0dd4536bfddc86390b44c130169f41bba0e705ffbfad43a7f927",
     "wp/outils/staging-court/diagnostics.py": "32522f9d8f0e8461ffe774b7a97fd0ea9e908c4c6dc52eb43f31fd3a71ea9d28",
-    "wp/outils/staging-court/inside.py": "f7fb25ef8407cbcebc68420aeb10b1b63889b70a27828f5a8846044174142dae",
+    "wp/outils/staging-court/inside.py": "8ed5bc0305a5ad0ab62729ab8e00ebaefdab20c0aa976cedc6ef653aa85b99cc",
     "wp/outils/staging-court/politique-tables.json": "66a15c7c0c8711a20af83ac234fc4f402e170e1e12c1d8d5a93a9e1433ea8b4b",
     "wp/outils/staging-court/publication.py": "ac8031f2e9352e694d03a07226fa19e3982f75a696107d9ff6ae41d914a1f244",
     "wp/outils/staging-court/publication_preflight.py": "cd4dfeb3ef170ea83ba503c3e2b193e4f3dbc11ee8a1053c01d2efc122fee313",
@@ -44,5 +44,5 @@
   ],
   "A29": "parent-owned; import dependency changed; no execution or qualification by A28",
   "decision": "Import frozen after A28. Parent owns all other native replays and reseals.",
-  "frozen_utc": "2026-11-27T02:15:52.214783+00:00"
+  "frozen_utc": "2026-11-27T02:27:55.365898+00:00"
 }

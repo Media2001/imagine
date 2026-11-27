@@ -37,20 +37,20 @@ def query(sql):
 
 def oracle():
     counts = {t: int(query('SELECT COUNT(*) FROM `wp_' + t + '`')) for t in TABLES + ['fiction_messages']}
-    counts.update({t: int(query("SELECT COUNT(*) FROM wp_posts WHERE post_type='" + t + "'"))
+    counts.update({t: int(query("SELECT COUNT(*) FROM wp_posts WHERE BINARY post_type='" + t + "'"))
                    for t in TYPES + ['fiction_magazine']})
-    counts['known_meta'] = int(query("SELECT COUNT(*) FROM wp_postmeta WHERE meta_value LIKE 'A28_FICTIVE%flamingo%';"))
-    counts['known_revisions'] = int(query("SELECT COUNT(*) FROM wp_posts WHERE post_type='revision' AND post_content LIKE 'A28_FICTIVE%flamingo%';"))
+    counts['known_meta'] = int(query("SELECT COUNT(*) FROM wp_postmeta WHERE meta_value LIKE BINARY 'A28_FICTIVE%flamingo%';"))
+    counts['known_revisions'] = int(query("SELECT COUNT(*) FROM wp_posts WHERE post_type='revision' AND post_content LIKE BINARY 'A28_FICTIVE%flamingo%';"))
     # Inspect real restored values, but never put canaries into the receipt.
     counts['canary_rows'] = {t: int(query("SELECT COUNT(*) FROM `wp_" + t + "` WHERE payload LIKE 'A28_FICTIVE%';"))
                              for t in TABLES + ['fiction_messages']}
-    counts['post_canary_rows'] = {t: int(query("SELECT COUNT(*) FROM wp_posts WHERE post_type='" + t
+    counts['post_canary_rows'] = {t: int(query("SELECT COUNT(*) FROM wp_posts WHERE BINARY post_type='" + t
         + "' AND post_content LIKE 'A28_FICTIVE%';")) for t in TYPES + ['fiction_magazine']}
     return counts
 
 
 def protected(database):
-    condition = "post_type IN ('fiction_magazine','wpcf7_contact_form') OR (post_type='revision' AND post_parent IN (SELECT ID FROM wp_posts WHERE post_type='fiction_magazine'))"
+    condition = "BINARY post_type IN ('fiction_magazine','Flamingo_Inbound','wpcf7_contact_form') OR (BINARY post_type='revision' AND post_parent IN (SELECT ID FROM wp_posts WHERE BINARY post_type IN ('fiction_magazine','Flamingo_Inbound')))"
     sql = 'SELECT * FROM wp_posts WHERE ' + condition + ' ORDER BY ID;'
     sql += 'SELECT m.* FROM wp_postmeta m JOIN wp_posts p ON p.ID=m.post_id WHERE p.ID IN (SELECT ID FROM wp_posts WHERE ' + condition + ') ORDER BY m.meta_id;'
     raw = subject.command(['mariadb', '--socket=/scratch/mariadb.sock', '--user=root', '--batch',
