@@ -1,5 +1,5 @@
-Fait : corrections T-03 C1/S1 appliquées ; échéance PHP commune, deux flux bornés en lecture et groupes descendants arrêtés ; six instructions tracées dans RECEPTION-CORRECTIONS.md.
-Prêt à recevoir par le parent, pas PRET : RED réels conservés en Scratch, GREEN conteneur et consoles UTF-8/cp1252 à relire avec le paquet candidat courant.
-À arbitrer : aucun GO ; A-20 reste hors rejeu, declaration absente ; requalification sans argument reportée sans changer ses contrôles ni reçus natifs.
-Bloqué pour clôture : dernières gates et preuve nominale/un octet attendues du parent après A-30 ; aucun rescellage d'A-26/A-27/A-30/A-31 par cet auteur.
-Ensuite : commandes dans RECEPTION-CORRECTIONS.md ; timeout extérieur 600, montages et limites intacts ; import/gardien gelés ; verrou conservé, aucun Git/site/compte/réel/A29/voie2.
+Fait : documents T-03 alignés sur l'état courant unique ; A-20 inclus par consigne postérieure de 7 h 30, banc propriétaire ajusté, contrat lecteur avant PRET seulement, sceau candidat par ses propres contrôles.
+Prêt à relire : candidat de corrections seulement ; ancien PRET de 8 h 14 et paquet archivés hors dépôt avant correction, aucun PRET courant justifié.
+À arbitrer : aucune question métier ou réel ; choix simple du lecteur avant PRET, aucun fichier commun gelé modifié.
+Bloqué : reprise 12 paquets, A-31 A31_PARTIAL_EVIDENCE et A-32 A32_PACKAGE_DRIFT ; REJEU 1204 tests / 36667 assertions PASS, OUTILS 22 / 791 verts. Preuves courantes dans preuves/final, historiques en Scratch.
+Ensuite : parent reprend A-32 puis gates A-31/T-03, preuve nominale/un octet, documents et sceau finaux, PRET seulement justifié puis rejeu indépendant ; aucun changement t01/rejouer/import/gardien/outils clos/A32/voie2, aucun Git ni GO réel.
