@@ -25,12 +25,32 @@ def forbidden_external(event):
                 and urlsplit(event['url']).netloc=='secure.gravatar.com')
 
 
+def remove_probes(names):
+    assert set(names)<= {'mu-plugins/b11-observer.php','mu-plugins/b11-no-persist.php'}
+    assert b11.wp('$ok=true;foreach('+b11.php(names)+' as $n){$p=WP_CONTENT_DIR."/".$n;if(file_exists($p)){unlink($p);}$ok=$ok&&!file_exists($p);}echo wp_json_encode($ok);')
+
+
+def restore_options(rows):
+    def fingerprint():
+        return b11.wp('''global $wpdb;$o=[];foreach($wpdb->get_results("SELECT * FROM {$wpdb->options} WHERE option_name LIKE 'imagine_%' ORDER BY option_id",ARRAY_A) as $r){$r['option_value']=hash('sha256',$r['option_value']);$o[$r['option_name']]=$r;}echo wp_json_encode($o);''')
+    expected={r['option_name']:{**r,'option_value':hashlib.sha256(r['option_value'].encode()).hexdigest()} for r in rows}
+    actual=fingerprint()
+    for name in set(actual)-set(expected):
+        b11.wp('delete_option('+b11.php(name)+');echo wp_json_encode(true);')
+    for r in rows:
+        if actual.get(r['option_name'])!=expected[r['option_name']]:
+            b11.wp('global $wpdb;$r='+b11.php(r)+';$wpdb->replace($wpdb->options,$r);wp_cache_flush();echo wp_json_encode(true);')
+    return fingerprint()==expected
+
+
 def run(label):
     assert not (b11.OUT/(label+'.json')).exists()
     identity=b11.guard();business=b11.state();fixture=b11.wp('echo wp_json_encode(get_option("imagine_b11_fixture"));')
     settings0=b11.wp('echo wp_json_encode(get_option("imagine_medias",null));')
     observer='mu-plugins/b11-observer.php'
+    mutant='mu-plugins/b11-no-persist.php'
     assert b11.wp('echo wp_json_encode(file_exists(WP_CONTENT_DIR."/'+observer+'"));') is False
+    assert b11.wp('echo wp_json_encode(file_exists(WP_CONTENT_DIR."/'+mutant+'"));') is False
     saved=b11.wp('''global $wpdb;$users=get_option('imagine_c09_fixture')['users'];$out=[];foreach(['admin'=>get_users(['role'=>'administrator','number'=>1])[0]->ID,'active'=>$users['A-CARTE'],'buyer'=>$users['P-NUMERO'],'reader'=>$users['V-INSCRIT'],'expired'=>$users['A-EXPIRE'],'suspended'=>$users['A-SUSP']] as $key=>$id){$u=get_userdata($id);if(!$u||!str_ends_with($u->user_email,'@example.org')){throw new RuntimeException('Fictif requis');}$out[$key]=['id'=>$id,'rows'=>$wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->usermeta} WHERE user_id=%d AND meta_key='session_tokens'",$id),ARRAY_A)];}echo wp_json_encode($out);''')
     owned=b11.wp('''global $wpdb;$ids=['''+str(fixture['issue'])+','+str(fixture['article'])+'''];$where=implode(',',array_map('intval',$ids));$posts=$wpdb->get_results("SELECT * FROM {$wpdb->posts} WHERE ID IN ($where) OR (post_type='revision' AND post_parent IN ($where)) ORDER BY ID",ARRAY_A);$all=implode(',',array_map('intval',array_column($posts,'ID')));echo wp_json_encode(['posts'=>$posts,'meta'=>$wpdb->get_results("SELECT * FROM {$wpdb->postmeta} WHERE post_id IN ($all) ORDER BY meta_id",ARRAY_A),'admin'=>$wpdb->get_results("SELECT * FROM {$wpdb->usermeta} WHERE user_id=1 ORDER BY umeta_id",ARRAY_A)]);''')
     durable=b11.private(label,{'sessions':saved,'settings':settings0,'business':business,'owned':owned})
@@ -135,6 +155,22 @@ def run(label):
                         check('lecteur_natif_decode_3_secondes_'+value,duration==3 and audio.get_attribute('controls') is not None and audio.get_attribute('preload')=='none')
                 network[value]={'browser_requests':requests[seen:],'external':[e for e in external[start:] if forbidden_external(e)],'all_external_attempts':external[start:]}
                 check('navigateur_'+value+'_zero_tiers',not network[value]['external'] and bool(network[value]['browser_requests']))
+            try:
+                b11.upload(mutant,(b11.ROOT/'wp/tests/demo/b11-no-persist.php').read_bytes())
+                check('mutant_non_persistance_relu',b11.b10.b09.b08.c25.b06.hashes([mutant])[mutant]==hashlib.sha256((b11.ROOT/'wp/tests/demo/b11-no-persist.php').read_bytes()).hexdigest())
+                admin.set_extra_http_headers({'X-Imagine-B11-Mutation':'no-persist'})
+                before=metas()
+                for ident in [fixture['issue'],fixture['article']]:
+                    attempted=[VIDEO+'&no-persist='+str(ident),PODCAST+'?no-persist='+str(ident)]
+                    edit(ident,*attempted,phase='mutation-no-persist')
+                    actual=metas()
+                    expected={**before,str(ident):attempted}
+                    mutations['no_persist_'+str(ident)]={'attempted':attempted,'actual':actual[str(ident)],'persistence_control_failed':not persisted(actual,expected),'reload':editors[str(ident)]['reload_values']}
+                    check('mutation_non_persistance_'+str(ident)+'_rougit',not persisted(actual,expected) and actual==before and editors[str(ident)]['reload_values']==before[str(ident)])
+            finally:
+                admin.set_extra_http_headers({})
+                remove_probes([mutant])
+                check('mutant_non_persistance_absent',b11.wp('echo wp_json_encode(!file_exists(WP_CONTENT_DIR."/'+mutant+'"));'))
             invalid=edit(fixture['article'],'https://evil.invalid/INTERDIT',phase='bad-host-save')
             check('mauvais_host_POST_natif_refuse','Médias refusés' in invalid and b11.wp('echo wp_json_encode(get_post_meta('+str(fixture['article'])+',Imagine\\Site\\Medias::VIDEO,true));')==VIDEO)
             badslash=edit(fixture['article'],VIDEO+'\\bad',phase='backslash-save')
@@ -221,7 +257,7 @@ def run(label):
         error=type(exc).__name__+': '+str(exc)
     finally:
         # Les inverses sont indépendantes ; aucune session ni nonce dans les reçus publics.
-        b11.b10.b09.remove_remote([observer]);cleanup['observer_removed']=True
+        remove_probes([observer,mutant]);cleanup['observer_removed']=True
         b11.wp('delete_option("imagine_b11_observations");update_option("imagine_medias",'+b11.php(settings0)+',false);echo wp_json_encode(true);')
         cleanup['settings_restored']=b11.wp('echo wp_json_encode(get_option("imagine_medias",null));')==settings0
         for session in saved.values():
@@ -231,8 +267,14 @@ def run(label):
             cleanup['session_'+str(uid)]=actual==rows
         cleanup['owned_restored']=b11.wp('''global $wpdb;$old='''+b11.php(owned)+''';$ids=['''+str(fixture['issue'])+','+str(fixture['article'])+'''];$where=implode(',',array_map('intval',$ids));$all=$wpdb->get_col("SELECT ID FROM {$wpdb->posts} WHERE ID IN ($where) OR (post_type='revision' AND post_parent IN ($where))");$allSql=implode(',',array_map('intval',$all));$wpdb->query('START TRANSACTION');try{$wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE post_id IN ($allSql)");$oldIds=array_column($old['posts'],'ID');foreach($all as $id){if(!in_array($id,$oldIds,true)){$wpdb->delete($wpdb->posts,['ID'=>$id]);}}foreach($old['posts'] as $r){$id=$r['ID'];unset($r['ID']);$wpdb->update($wpdb->posts,$r,['ID'=>$id]);}foreach($old['meta'] as $r){$wpdb->insert($wpdb->postmeta,$r);}$wpdb->delete($wpdb->usermeta,['user_id'=>1]);foreach($old['admin'] as $r){$wpdb->insert($wpdb->usermeta,$r);}$wpdb->query('COMMIT');}catch(Throwable $e){$wpdb->query('ROLLBACK');throw $e;}foreach($all as $id){clean_post_cache((int)$id);}clean_user_cache(1);echo wp_json_encode(true);''')
         cleanup['observer_absent_readback']=b11.wp('echo wp_json_encode(!file_exists(WP_CONTENT_DIR."/'+observer+'")&&get_option("imagine_b11_observations",null)===null);')
+        cleanup['owned_exact_readback']=b11.wp('''global $wpdb;$ids=['''+str(fixture['issue'])+','+str(fixture['article'])+'''];$where=implode(',',array_map('intval',$ids));$posts=$wpdb->get_results("SELECT * FROM {$wpdb->posts} WHERE ID IN ($where) OR (post_type='revision' AND post_parent IN ($where)) ORDER BY ID",ARRAY_A);$all=implode(',',array_map('intval',array_column($posts,'ID')));echo wp_json_encode(['posts'=>$posts,'meta'=>$wpdb->get_results("SELECT * FROM {$wpdb->postmeta} WHERE post_id IN ($all) ORDER BY meta_id",ARRAY_A),'admin'=>$wpdb->get_results("SELECT * FROM {$wpdb->usermeta} WHERE user_id=1 ORDER BY umeta_id",ARRAY_A)]);''')==owned
+        cleanup['global_styles_restored']=b11.wp('''global $wpdb;$old='''+b11.php(ancillary['styles'])+''';$ids=array_column($old,'ID');foreach($wpdb->get_results("SELECT * FROM {$wpdb->posts} WHERE post_type='wp_global_styles'",ARRAY_A) as $r){if(!in_array($r['ID'],$ids,true)){if($r['post_name']!=='wp-global-styles-imagine'){throw new RuntimeException('Style tiers inattendu');}wp_delete_post((int)$r['ID'],true);}}echo wp_json_encode($wpdb->get_results("SELECT * FROM {$wpdb->posts} WHERE post_type='wp_global_styles' ORDER BY ID",ARRAY_A)===$old);''')
+        # Exactes lignes des options du groupe livré, même en cas de normalisation hors B11.
+        cleanup['options_restored']=restore_options(ancillary['options'])
+        cleanup['mutant_absent_readback']=b11.wp('echo wp_json_encode(!file_exists(WP_CONTENT_DIR."/'+mutant+'"));')
         cleanup['sources_restored']=b11.b10.b09.b08.c25.b06.hashes(b11.FILES)==hashes
         cleanup['business_preserved']=b11.state()==business
+        b11.save(label+'-details',{'editors':editors,'settings_evidence':settings_evidence,'external_attempts':external})
         b11.save(label+'-nettoyage',cleanup)
         b11.save(label,{'identity':identity,'checks':checks,'total':len(checks),'failures':sum(not v for v in checks.values()),'error':error,'network':network,'server_observations':observations,'C26_witness_inventory':{'file':str(c26path.relative_to(b11.ROOT)),'sha256':hashlib.sha256(c26path.read_bytes()).hexdigest(),'count':len(witnesses)},'surfaces':surface_rows,'mutations':mutations,'cleanup':cleanup,'sources':b11.sources(),'private_snapshot':durable})
     print(json.dumps({'total':len(checks),'failures':sum(not v for v in checks.values()),'error':error,'cleanup':cleanup},ensure_ascii=False))
