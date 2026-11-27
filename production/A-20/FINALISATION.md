@@ -1,3 +1,9 @@
+# Correction de métadonnées T03 — 27 novembre 2026
+
+A20 reste clos selon la file de 4 h 30. Sa déclaration `rejeu.json`, ajoutée à tort après clôture, est retirée : T03 doit annoncer « A-20 (declaration absente) ». Le lecteur sans argument `verify.py` est conservé, appelle exactement le vérificateur existant, et entre désormais explicitement dans cet inventaire de livraison. Aucun contrôle, source applicative, paquet natif ou journal d’exécution n’est modifié ni rejoué comme une preuve neuve. Les constats ci-dessous sont historiques.
+
+---
+
 # Finalisation parent du 2026-11-26T19:21:25.123860+01:00
 
 **Prêt à relire, non clos.** Préparation commune réellement relancée, rejeu global UTF-8/cp1252 vert : **1 126 tests, 35 550 assertions ; 16 outils, 311 contrôles ; zéro échec, erreur ou ignoré**. Le dernier arbre inclut les changements concurrents de la voie 2, sans modification de notre part.

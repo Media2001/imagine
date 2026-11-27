@@ -85,9 +85,9 @@ final class Inventory
         // Enumerate the authoritative store, including unregistered states; do NOT union backup rows.
         $rows = $storage === 'hpos'
             ? self::select("SELECT id AS object_id,type AS object_type FROM `{$prefix}wc_orders`"
-                . " WHERE type IN ('shop_order','shop_order_refund','shop_subscription') ORDER BY id")
+                . " WHERE type IN ('shop_order','shop_order_refund','shop_subscription') AND status <> 'trash' ORDER BY id")
             : self::select("SELECT ID AS object_id,post_type AS object_type FROM `{$prefix}posts`"
-                . " WHERE post_type IN ('shop_order','shop_order_refund','shop_subscription') ORDER BY ID");
+                . " WHERE post_type IN ('shop_order','shop_order_refund','shop_subscription') AND post_status <> 'trash' ORDER BY ID");
         $neutralised = (bool) self::select("SELECT option_id FROM `{$prefix}options`"
             . " WHERE option_name='imagine_staging_disabled_plugins'");
         $objects = [];

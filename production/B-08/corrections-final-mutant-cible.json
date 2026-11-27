@@ -1,0 +1,62 @@
+{
+  "scope": "imagine-test-demo",
+  "sources": {
+    "wp/outils/demo/b08-corrections-finaliser.py": "dd9a4d77b433ec7c5eab2217248757858ce54586a684e661753d5c13aa4770e5",
+    "wp/outils/demo/b08-corrections.py": "793d14eabedd8de6592df401eefd06695d84107e97ce204bf497946797f4e52c",
+    "wp/outils/demo/b08-finaliser.py": "862ead323966db08cc65ca8afc5b765d64f8019fa4e6abc8df330ad258bc16d0",
+    "wp/outils/demo/b08-gates.py": "39bc0217f69392ff132217ac7a72bc466010bc1d4723251ca8b5887407c6c282",
+    "wp/outils/demo/b08-local.py": "8a6ed7d262964841f8bb7805269d78e13c1bbff297a5f6652c66bca47d93a11c",
+    "wp/outils/demo/b08-mutations.py": "fcf6eccd2b60a707993008d2ff729fb0379e22c157afb6d4d452f346bbe6cc07",
+    "wp/outils/demo/b08-recette.py": "48e2a606626006e3601439e1cdcf2e2072441ae5259a86fb67e012a88240e2af",
+    "wp/outils/demo/b08-seed.php": "df4d95f963188c6a93f49cfcab40813751b5fe934a204225a3a9d76424185a41",
+    "wp/outils/demo/b08.py": "521b252f0534ca18d70c3b7c83c2480895581ea24256720eaa3f173aebcceb9c",
+    "wp/plugins/imagine-site/Cooperative.php": "866cc38d9cba7229039bace5d8184979a311b5a7c1a4068823171f6a26a2be03",
+    "wp/plugins/imagine-site/CooperativeRegles.php": "0d2f77d409c3513f4f2132ee6c5e580a32d15d30ea1fad94324efd6f18d5c35d",
+    "wp/plugins/imagine-site/Soutenir.php": "00e5628df1e2298ce2038b1a387ab16b381fdcc4c41f7c7b4efc10bd9a2dbe2c",
+    "wp/plugins/imagine-site/Sujet.php": "6003985f4b03dc4dd8b65c8f19739769393cc90c9396f1a9af6452282957db3f",
+    "wp/plugins/imagine-site/SujetConfidentialite.php": "c1c13411a654312f8d2578d5bbd5fa527356d937eb1c001d41a351236056a423",
+    "wp/plugins/imagine-site/SujetRegles.php": "99cd84ea2bb7a0979624cf5b2fd4c0c4e46feb3f1148050df73da3cb83ba8639",
+    "wp/plugins/imagine-site/tests/CooperativeReglesTest.php": "aae4f085a850e41bb8fcc08987aa5ad035d146cc56238e91714536f9873dd6fb",
+    "wp/plugins/imagine-site/tests/SoutenirAdapterTest.php": "478fbb8cdf04e3d8bb4b8059c1f39c00d794f2accbe1f3b1e39036bb354036e2",
+    "wp/plugins/imagine-site/tests/SujetAdapterTest.php": "5b8845cdf564ca9b2ebb6cdfb40bba4fe8188cf37f10772190805a21d59ea810",
+    "wp/plugins/imagine-site/tests/SujetWPStubs.php": "fb89bcb27ae0fe34ea1de8d741d214b34ff9db382e37e991e6a18f909e0fa9d5",
+    "wp/tests/demo/b08-horslive.php": "2298245281534a7a4a0710c29e628fd32154b7b1b73cc8848bed3a043b5e1bbb",
+    "wp/tests/demo/b08-observer.php": "9fc8c5788994fa2267d36a058f608697074f6daa9fbb088220baae306f0683e4",
+    "wp/tests/demo/b08-seed-cibles.php": "c3c03a091083dcc898e68a8b6db60c078e9aeabe6cc93406e45d5c60ec4c948e",
+    "wp/tests/demo/b08-seed-collisions.php": "48268cec6dc9dcd73bb0930623417f62da6ee13abce9f17ec24f85f1e137573d",
+    "wp/tests/demo/b08-seed-reprise.php": "37eb204c742712c4b5e1b639f1bb2812725f25a08ee3ad115859c039d5ac0351",
+    "wp/themes/imagine/header.php": "3320a7b7b958dfffb223e88913733e95c051ea40902d350f7116b5b58cdaba4a"
+  },
+  "checks": {
+    "cibles_presentes_avant_absence": true,
+    "kiosque_sans_url_si_cible_absente": true,
+    "agenda_sans_url_si_cible_absente": true,
+    "newsletters_sans_url_si_cible_absente": true,
+    "compte_sans_url_si_cible_absente": false,
+    "cooperative_cible_existante": true,
+    "soutenir_cible_existante": true
+  },
+  "mutation": "cible-absente",
+  "private_snapshot": {
+    "file": "c25-private-zt_89i1d/snapshot.json",
+    "sha256": "31ee1673ee350dc7c82132506f40e159228eeba1c0ec4268271b67c98994ae91",
+    "private": true
+  },
+  "exact_restoration": {
+    "users": true,
+    "usermeta": true,
+    "posts": true,
+    "postmeta": true,
+    "comments": true,
+    "commentmeta": true,
+    "wc_orders": true,
+    "wc_order_addresses": true,
+    "wc_orders_meta": true,
+    "wc_order_operational_data": true,
+    "woocommerce_order_items": true,
+    "woocommerce_order_itemmeta": true,
+    "navigation": true,
+    "options_metier": true
+  },
+  "business_preserved": true
+}
