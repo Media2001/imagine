@@ -1,0 +1,19 @@
+{
+  "before_tests": 1206,
+  "after_tests": 1208,
+  "added": [
+    {
+      "class": "Imagine\\Site\\Tests\\PiedPageB15Test",
+      "test": "testOrdreDesCinqZonesEstUtiliseParLeRendu",
+      "assertions": 1
+    },
+    {
+      "class": "Imagine\\Site\\Tests\\PiedPageB15Test",
+      "test": "testContexteDeNavigationNeutraliseSeulementPourLePied",
+      "assertions": 4
+    }
+  ],
+  "removed": [],
+  "added_assertions": 5,
+  "source": "actual JUnit in own B14/B13 replay logs; no V1 source opened"
+}
