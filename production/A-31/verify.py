@@ -46,8 +46,12 @@ def main():
     except Exception:
         code = 'A31_PACKET_INVALID'
     exit_code = int(code != 'A31_PACKAGE_PASS')
-    print(json.dumps({'lot': 'A-31', 'exit_code': exit_code, 'code': code, 'readiness_claimed': False,
-                      'checks': [{'check': code, 'status': 'FAIL' if exit_code else 'PASS'}]}))
+    verdict = {'lot': 'A-31', 'exit_code': exit_code, 'readiness_claimed': False,
+               'checks': [{'check': code, 'status': 'FAIL' if exit_code else 'PASS'}]}
+    # T03 treats a top-level code as a refusal. Success is a named PASS check only.
+    if exit_code:
+        verdict['code'] = code
+    print(json.dumps(verdict))
     return exit_code
 
 

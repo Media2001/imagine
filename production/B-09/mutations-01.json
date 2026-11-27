@@ -1,0 +1,188 @@
+{
+  "scope": "imagine-test-demo",
+  "sources": {
+    "wp/outils/demo/b09-local.py": "725cc7310b0cf99b0d4fa2888f20a15215e6301b36a41f4742db78800a4e7eb3",
+    "wp/outils/demo/b09-mutations.py": "9f28b75dc234311a56ff6be786437ffd3a19b57c4017b8b6e0a5ff788f17a230",
+    "wp/outils/demo/b09-recette.py": "ff1aac115a03a3f0045d5268ff285473ca5441201fe19f9959c1fb46cfb07cc1",
+    "wp/outils/demo/b09-seed.php": "7dac91f834b774a16cf55648f6de2f26aa269a28603447aa9c8961c9fc746afd",
+    "wp/outils/demo/b09-sources.py": "171650085e4a4337dfc5deb018bd317eb916a2b604a8a1c1112fb2b1b09262fd",
+    "wp/outils/demo/b09.py": "89470e8814a4c6993c9856b1ba55f0f50f5417a3924f62d25db4aa47a497e313",
+    "wp/plugins/imagine-site/AutresPages.php": "ceed48252b70041d8f966beb0140a83d8fe147663ecae5340feb91f498839b0e",
+    "wp/plugins/imagine-site/Contact.php": "1f6ac635a0461ceeb8ac8326354b9a0d5a887093e4d7e29e979fca1162cee8cf",
+    "wp/plugins/imagine-site/ContactConfidentialite.php": "6ccaad031dc0b483cec90d81f903476c53e65cd3ebb4a00c08848eaa54fb3828",
+    "wp/plugins/imagine-site/tests/ContactAdapterTest.php": "2eee0206a259f5197933e9bf2dc7d0f946573e859ea9156f0ddb76a973450267",
+    "wp/plugins/imagine-site/tests/ContactWPStubs.php": "a13b7eb42e3190f8511f9de4f93c2ddb23906f48501ceb8dbf41be974a7a5bcd",
+    "wp/tests/demo/b09-ecrire-contact.py": "22b7a90b0ecc14e023c8ccaa4ba7d8c1f4cb3f113ad4f2d0785aaf620284ad25",
+    "wp/tests/demo/b09-ecrire-tests.py": "808fc09bab0273990ddc0533bfd9c8d6eb17c56f6b1735841d4877f14b3a561c",
+    "wp/tests/demo/b09-horslive.php": "916a2298c88b0242cc6c0404577db64b4a1464c7b08ac8dab7e0bcdf6ae3eef9",
+    "wp/tests/demo/b09-mutation-prive.php": "3e7722257c0b0c15e4ecf464498b6e5a21f42d5998201d2ec192e2ab9632b54f",
+    "wp/tests/demo/b09-observer.php": "162135100f71b3b3d31e0ef294c8a49e00856a20bb29daf79b051e6084068d7d",
+    "wp/tests/demo/b09-structure.php": "400c2da4a0a70c7a100fef7981e08d19292f0a5de754a8cc751e7f4281da4585",
+    "wp/tests/demo/b09-style.php": "e8af1c0a162b81edeb9d4135b268a80dd039a71786f32f5e0571f3a68fef1514",
+    "wp/themes/imagine/footer.php": "33c8f45ac3c8b199b84b2f83c2fddcccbb401ab18faa57d683ed81e2fea8cbc9"
+  },
+  "mutations": [
+    {
+      "mutation": "slash",
+      "exit": 1,
+      "detected": true,
+      "junit": {
+        "name": "/tmp/t01/plugins/imagine-site/phpunit.xml",
+        "tests": "4",
+        "assertions": "150",
+        "errors": "0",
+        "failures": "1",
+        "skipped": "0",
+        "time": "0.014048"
+      },
+      "log": "mutations-01-slash.log",
+      "sha256": "8ec23ef2cae4d3adf4bea0e8fbffccf0a9cd4a74c9fe9d16d66972508df313e5"
+    },
+    {
+      "mutation": "consentement",
+      "exit": 1,
+      "detected": true,
+      "junit": {
+        "name": "/tmp/t01/plugins/imagine-site/phpunit.xml",
+        "tests": "4",
+        "assertions": "143",
+        "errors": "0",
+        "failures": "1",
+        "skipped": "0",
+        "time": "0.015631"
+      },
+      "log": "mutations-01-consentement.log",
+      "sha256": "b6b9ae554ee2e3d915f1a5c5aeac42f3b7171ad10f64859218e19d031f93ce71"
+    },
+    {
+      "mutation": "mail",
+      "exit": 1,
+      "detected": true,
+      "junit": {
+        "name": "/tmp/t01/plugins/imagine-site/phpunit.xml",
+        "tests": "4",
+        "assertions": "152",
+        "errors": "0",
+        "failures": "2",
+        "skipped": "0",
+        "time": "0.020879"
+      },
+      "log": "mutations-01-mail.log",
+      "sha256": "76153639f1ca7fb9fc87aa37cc1c8d696299c1eca70433f9ff04b20ece6dd4ec"
+    },
+    {
+      "mutation": "http",
+      "exit": 1,
+      "detected": true,
+      "junit": {
+        "name": "/tmp/t01/plugins/imagine-site/phpunit.xml",
+        "tests": "4",
+        "assertions": "152",
+        "errors": "0",
+        "failures": "2",
+        "skipped": "0",
+        "time": "0.021020"
+      },
+      "log": "mutations-01-http.log",
+      "sha256": "bb78361412e2247b9924f855ca25e688daf56b82a01ea6e240e4d4462d89c930"
+    },
+    {
+      "mutation": "prive",
+      "exit": 1,
+      "detected": true,
+      "junit": {
+        "name": "/tmp/t01/plugins/imagine-site/phpunit.xml",
+        "tests": "4",
+        "assertions": "148",
+        "errors": "0",
+        "failures": "1",
+        "skipped": "0",
+        "time": "0.015367"
+      },
+      "log": "mutations-01-prive.log",
+      "sha256": "b03b885cbe58cbbe306d89777e7e8dca323adddaf7a08b90ee320d217bc5d692"
+    },
+    {
+      "mutation": "rest",
+      "exit": 1,
+      "detected": true,
+      "junit": {
+        "name": "/tmp/t01/plugins/imagine-site/phpunit.xml",
+        "tests": "4",
+        "assertions": "158",
+        "errors": "0",
+        "failures": "1",
+        "skipped": "0",
+        "time": "0.014504"
+      },
+      "log": "mutations-01-rest.log",
+      "sha256": "1ac2d9cf3e93033ea004fe1c225c506b2b8cd6d75a407ec7411c8a5fe4982119"
+    },
+    {
+      "mutation": "export",
+      "exit": 1,
+      "detected": true,
+      "junit": {
+        "name": "/tmp/t01/plugins/imagine-site/phpunit.xml",
+        "tests": "4",
+        "assertions": "140",
+        "errors": "0",
+        "failures": "2",
+        "skipped": "0",
+        "time": "0.018042"
+      },
+      "log": "mutations-01-export.log",
+      "sha256": "d8b0f573a9fc0624ed3a5b97db2c7dd8eaa309e1b685b1ed6ec411c8478f77db"
+    },
+    {
+      "mutation": "effacement",
+      "exit": 1,
+      "detected": true,
+      "junit": {
+        "name": "/tmp/t01/plugins/imagine-site/phpunit.xml",
+        "tests": "4",
+        "assertions": "156",
+        "errors": "0",
+        "failures": "1",
+        "skipped": "0",
+        "time": "0.013567"
+      },
+      "log": "mutations-01-effacement.log",
+      "sha256": "e0667603bab202a441cfc84f80a42fd61d4a4fd148433b21ca81287070477063"
+    },
+    {
+      "mutation": "lecture",
+      "exit": 1,
+      "detected": true,
+      "junit": {
+        "name": "/tmp/t01/plugins/imagine-site/phpunit.xml",
+        "tests": "4",
+        "assertions": "153",
+        "errors": "0",
+        "failures": "1",
+        "skipped": "0",
+        "time": "0.014921"
+      },
+      "log": "mutations-01-lecture.log",
+      "sha256": "ae45e98d5582fabace40e3ae3271e4cd18ceb12454a6ad248aecf8f391e83d8b"
+    },
+    {
+      "mutation": "nonce",
+      "exit": 1,
+      "detected": true,
+      "junit": {
+        "name": "/tmp/t01/plugins/imagine-site/phpunit.xml",
+        "tests": "4",
+        "assertions": "153",
+        "errors": "0",
+        "failures": "1",
+        "skipped": "0",
+        "time": "0.013694"
+      },
+      "log": "mutations-01-nonce.log",
+      "sha256": "b3e7bc7231a647e77ce650aae34885359c9de2c568b7e411201cc8d3678bf3bb"
+    }
+  ],
+  "count": 10,
+  "detected": 10
+}

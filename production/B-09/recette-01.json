@@ -1,0 +1,109 @@
+{
+  "scope": "imagine-test-demo",
+  "sources": {
+    "wp/outils/demo/b09-local.py": "725cc7310b0cf99b0d4fa2888f20a15215e6301b36a41f4742db78800a4e7eb3",
+    "wp/outils/demo/b09-mutations.py": "9f28b75dc234311a56ff6be786437ffd3a19b57c4017b8b6e0a5ff788f17a230",
+    "wp/outils/demo/b09-recette.py": "ff1aac115a03a3f0045d5268ff285473ca5441201fe19f9959c1fb46cfb07cc1",
+    "wp/outils/demo/b09-seed.php": "7dac91f834b774a16cf55648f6de2f26aa269a28603447aa9c8961c9fc746afd",
+    "wp/outils/demo/b09-sources.py": "171650085e4a4337dfc5deb018bd317eb916a2b604a8a1c1112fb2b1b09262fd",
+    "wp/outils/demo/b09.py": "89470e8814a4c6993c9856b1ba55f0f50f5417a3924f62d25db4aa47a497e313",
+    "wp/plugins/imagine-site/AutresPages.php": "ceed48252b70041d8f966beb0140a83d8fe147663ecae5340feb91f498839b0e",
+    "wp/plugins/imagine-site/Contact.php": "1f6ac635a0461ceeb8ac8326354b9a0d5a887093e4d7e29e979fca1162cee8cf",
+    "wp/plugins/imagine-site/ContactConfidentialite.php": "6ccaad031dc0b483cec90d81f903476c53e65cd3ebb4a00c08848eaa54fb3828",
+    "wp/plugins/imagine-site/tests/ContactAdapterTest.php": "2eee0206a259f5197933e9bf2dc7d0f946573e859ea9156f0ddb76a973450267",
+    "wp/plugins/imagine-site/tests/ContactWPStubs.php": "a13b7eb42e3190f8511f9de4f93c2ddb23906f48501ceb8dbf41be974a7a5bcd",
+    "wp/tests/demo/b09-ecrire-contact.py": "22b7a90b0ecc14e023c8ccaa4ba7d8c1f4cb3f113ad4f2d0785aaf620284ad25",
+    "wp/tests/demo/b09-ecrire-tests.py": "808fc09bab0273990ddc0533bfd9c8d6eb17c56f6b1735841d4877f14b3a561c",
+    "wp/tests/demo/b09-horslive.php": "916a2298c88b0242cc6c0404577db64b4a1464c7b08ac8dab7e0bcdf6ae3eef9",
+    "wp/tests/demo/b09-mutation-prive.php": "3e7722257c0b0c15e4ecf464498b6e5a21f42d5998201d2ec192e2ab9632b54f",
+    "wp/tests/demo/b09-observer.php": "162135100f71b3b3d31e0ef294c8a49e00856a20bb29daf79b051e6084068d7d",
+    "wp/tests/demo/b09-structure.php": "400c2da4a0a70c7a100fef7981e08d19292f0a5de754a8cc751e7f4281da4585",
+    "wp/tests/demo/b09-style.php": "e8af1c0a162b81edeb9d4135b268a80dd039a71786f32f5e0571f3a68fef1514",
+    "wp/themes/imagine/footer.php": "33c8f45ac3c8b199b84b2f83c2fddcccbb401ab18faa57d683ed81e2fea8cbc9"
+  },
+  "checks": {
+    "observateurs_positifs": true,
+    "footer_natif_present": true,
+    "footer_cinq_pages_natives": true,
+    "principal_sans_entree_B09": true,
+    "page_publique_faq": true,
+    "FAQ_quatre_rubriques_sans_question": true,
+    "page_publique_cgv": true,
+    "page_legale_vide_cgv": true,
+    "page_publique_confidentialite": true,
+    "page_legale_vide_confidentialite": true,
+    "page_publique_cookies": true,
+    "page_legale_vide_cookies": true,
+    "page_publique_contact": true,
+    "privacy_declaree_native": true,
+    "consentement_initial_non_coche": true,
+    "POST_reel_pas_enumeration_compte": true,
+    "stockage_prive_local": true,
+    "nonce_refuse_sans_insertion": true,
+    "admin_liste_detail_positifs": true,
+    "antislash_detail_exact": true,
+    "detail_admin_seul": true,
+    "declaration_outils_C21_natifs": true,
+    "export_adresse_antislash_exact_sans_tiers": true,
+    "REST_temoin_public_positif": true,
+    "recherche_temoin_public_positif": true,
+    "absence_REST_recherche": true,
+    "mutation_reelle_REST_recherche_detectee": true,
+    "isolation_revenue_apres_mutation": true,
+    "effacement_natif_cible_tiers_preserve": true,
+    "effacement_postmeta_relu": true,
+    "aucun_email_HTTP_du_contact": true
+  },
+  "cleanup": {
+    "contacts_et_observations_retires": true,
+    "usermeta_admin_restaure": true,
+    "usermeta_lecteur_restaure": true,
+    "observateur_et_mutation_retires": true
+  },
+  "restoration": {
+    "users": true,
+    "usermeta": true,
+    "posts": true,
+    "postmeta": true,
+    "comments": true,
+    "commentmeta": true,
+    "navigation": true,
+    "wc_orders": true,
+    "wc_orders_meta": true,
+    "wc_order_addresses": true,
+    "wc_order_operational_data": true,
+    "woocommerce_order_items": true,
+    "woocommerce_order_itemmeta": true,
+    "options_metier": true
+  },
+  "business_preserved": true,
+  "private_snapshot": {
+    "file": "c25-private-mdkje8hi/snapshot.json",
+    "sha256": "9170d2f7836069e0811e2dc7004d9c463c8e878d261ba0ee787b6972151fcccf",
+    "private": true
+  },
+  "error": null,
+  "baseline_isolation": {
+    "route_rest_fermee": true,
+    "REST_aucun_message": true,
+    "recherche_aucun_message": true
+  },
+  "mutation_isolation": {
+    "route_rest_fermee": false,
+    "REST_aucun_message": false,
+    "recherche_aucun_message": false
+  },
+  "after_mutation_isolation": {
+    "route_rest_fermee": true,
+    "REST_aucun_message": true,
+    "recherche_aucun_message": true
+  },
+  "observations": {
+    "ambiance_http": 15
+  },
+  "native_privacy": {
+    "id": 3298,
+    "expected": 3298,
+    "url": "http://192.168.129.32:8085/politique-de-confidentialite/"
+  }
+}

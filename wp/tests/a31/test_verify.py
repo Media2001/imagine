@@ -1,11 +1,14 @@
 """Production entrypoint must honestly refuse incomplete/no native evidence."""
+import contextlib
 import importlib.util
+import io
 import json
 import os
 from pathlib import Path
 import subprocess
 import sys
 import unittest
+from unittest import mock
 ROOT = Path(__file__).resolve().parents[3]
 SCRIPT = ROOT / 'production/A-31/verify.py'
 
@@ -52,6 +55,29 @@ class VerifyTests(unittest.TestCase):
             self.assertNotIn('..', Path(value).parts)
         for code in data['controls']:
             self.assertRegex(code, r'^[A-Za-z][A-Za-z0-9_:.-]{0,159}$')
+
+    def emitted_verdict(self, code):
+        # Rendering/collector boundary unit test only, not fabricated native evidence.
+        spec = importlib.util.spec_from_file_location('a31_emitted_production', SCRIPT)
+        production = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(production)
+        output = io.StringIO()
+        with mock.patch.object(production, 'verify', return_value=code), contextlib.redirect_stdout(output):
+            exit_code = production.main()
+        spec = importlib.util.spec_from_file_location('a31_real_t03_parser', ROOT / 'wp/tests/t01/paquets.py')
+        collector = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(collector)
+        process = subprocess.CompletedProcess(['verify.py'], exit_code, output.getvalue().encode('utf-8'), b'')
+        return collector.parse_verdict(process, production.CODES)
+
+    def test_real_t03_parser_accepts_success_envelope(self):
+        self.assertIsNone(self.emitted_verdict('A31_PACKAGE_PASS'))
+
+    def test_real_t03_parser_preserves_all_closed_refusals(self):
+        for code in ('A31_ARGUMENTS_REFUSED', 'A31_PARTIAL_EVIDENCE', 'A31_PACKAGE_DRIFT',
+                     'A31_PARENT_GATES_MISSING', 'A31_NATIVE_PACKET_INVALID', 'A31_PACKET_INVALID'):
+            with self.subTest(code=code):
+                self.assertEqual(self.emitted_verdict(code), code)
 
     def test_receipt_rejects_boolean_exit_or_empty_checks(self):
         spec = importlib.util.spec_from_file_location('a31_test_verifier', ROOT / 'wp/tests/a31/verify.py')

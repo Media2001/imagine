@@ -22,6 +22,7 @@ SHARED = ['audit', 'a11', 'a12', 'stream_guard.py', 'stream_refusals.json']
 DEPS = ['wp/outils/bascule/' + f for f in SHARED] + [
     'wp/tests/a02-audit/' + f for f in ['run.py', 'inside.py', 'seed.php', 'fingerprint.php', 'unit.php', 'readonly-probe.php']
 ] + ['wp/outils/staging', 'wp/outils/staging-court', 'wp/outils/bascule/a19/Analysis.php',
+     'wp/tests/t01/paquets.py',
      'production/A-28/preuves/final/dependency-invalidations.json']
 
 
