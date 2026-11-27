@@ -11,6 +11,19 @@ require_once __DIR__ . '/../PointsVenteRegles.php';
 
 final class PointsVenteReglesTest extends TestCase
 {
+    public function testCompositionUnicodeEtLigatures(): void
+    {
+        foreach (['ḉ' => "c\u{0327}\u{0301}", 'ǵ' => "g\u{0301}", 'ǘ' => "u\u{0308}\u{0301}"] as $nfc => $nfd) {
+            $plain = ['ḉ' => 'c', 'ǵ' => 'g', 'ǘ' => 'u'][$nfc];
+            self::assertSame($plain, PointsVenteRegles::cle($nfc));
+            self::assertSame($plain, PointsVenteRegles::cle($nfd));
+            self::assertSame(PointsVenteRegles::cle($nfc), PointsVenteRegles::cle($nfd));
+        }
+        self::assertSame('oeuf-aether-fictif', PointsVenteRegles::cle('Œuf-Æther-Fictif'));
+        $rows = [['nom' => 'Fictif', 'localite' => 'Ḉœur-Æther-Fictif', 'postal' => '00000']];
+        self::assertSame($rows, PointsVenteRegles::rechercher($rows, 'coeur-aether-fictif'));
+    }
+
     public function testToutesLignesRefuseesGardentLeursNumeros(): void
     {
         $r = PointsVenteRegles::charger("n;a;v;p\nsecret;incomplet\n", ['nom' => 'n', 'adresse' => 'a', 'localite' => 'v', 'postal' => 'p'], ';');
