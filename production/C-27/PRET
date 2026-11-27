@@ -1,15 +1,18 @@
-PRET TECHNIQUE — C-27 — 27 novembre 2026, 08 h 21 (Europe/Paris)
+PRET TECHNIQUE CORRECTIF — C-27 — 27 novembre 2026, 14 h 07 (Europe/Paris)
 
-Périmètre : unique démonstration fictive imagine-test-demo, question facultative après paiement, sans opérateur C16 ni transmission.
-Paquet : production/C-27/final-V2.json
-SHA-256 : 27f6ec588ceadd8a2e29d9e8e29877fd482696ffcd663b604c599ea4270d9e2e
+Cinq instructions de corrections/C-27.md appliquées. Unique démonstration fictive imagine-test-demo ; aucun paiement/service réel, email ni transmission effective.
+Paquet courant : production/C-27/correction-final-V2.json
+SHA-256 : 2d775ec72978c78a5bec8770b2aa9d87a4af64121aa31f5b5d2c3612e063405b
+Historique préservé : final-V2.json, verifier-historique-avant-fusion.py, PRET-historique-avant-fusion.
 
-Vérificateur sans argument exécuté : python -B production/C-27/verifier.py
-Résultat : C27 PASS, 487 portes ; 7 tests / 55 assertions ; 47 contrôles natifs/HTTP ; 8 mutants de source et 2 témoins natifs.
-Contre-exemples du vérificateur : 10 tests verts (verification-verificateur.log).
-Image reconstruite : preparation-finale.json ; replay : regression-reprise-finale.json — 1166 tests / 36318 assertions, 584 contrôles d'outils, 11 paquets annexes verts.
-Readback : readback-livraison.json ; 18 ensembles restaurés exactement, aucun résidu de recette.
-B09 préservé : son vérificateur existant repasse 463 portes, sans changement du paquet.
+Vérificateur parent réellement exécuté : python -B production/C-27/verifier.py
+Résultat : C27 PASS, 628 portes ; 12 tests / 80 assertions ; 56 contrôles natifs/HTTP ; 11 mutants de source et 5 témoins mutants réels détectés.
+Contre-exemples du vérificateur : 14 tests verts, correction-verification-verificateur.*.
+Régressions I1/I2/M1 d'abord rouges, puis vertes ; vraies pannes SQL firstfail, suppression refusée/cache empoisonné, panne de relecture finale, vieux POST d'une VUE effacée sans réponse.
+Image reconstruite : correction-image.* ; rejeu : correction-regression.* — 1195 tests / 36573 assertions et 720 contrôles d'outils PASS.
+ATTENTION : 12 paquets annexes, 2 échecs hors périmètre : A-31 A31_PARTIAL_EVIDENCE / A-32 A32_PACKAGE_DRIFT. Aucun ouvert, réparé ni rescellé ici.
+Readback : correction-readback.json ; chaque recette restaure exactement 18 ensembles, profils/commandes/options/actions compris ; aucun résidu de recette.
 
-Limites : boutique Woo « À venir » conservée, confirmation client exercée en prévisualisation native temporaire ; callbacks natifs de confidentialité exécutés sans email ni archive ZIP ; visuel et place C10 encore à valider. Détails dans NOTE.md et A-VOIR.md.
-Ni clôture du code, ni validation visuelle, ni GO sur du réel.
+Deux adaptateurs C27 et tests propres corrigés ; seule section C27 du README partagé modifiée. Bootstrap partagé, C10 et lots voisins non modifiés par C27.
+Limites : boutique Woo À venir conservée ; prévisualisation native temporaire retirée ; callbacks de confidentialité exercés sans email/ZIP natif. Pas de nouvel entrelacement simultané effacement/réponse revendiqué. Visuel et place C10 à valider. Lanceurs non rejoués en première relecture explicités dans A-VOIR.md.
+Détails : NOTE.md et A-VOIR.md. Ni clôture du code, ni validation visuelle, ni GO réel.

@@ -1,0 +1,75 @@
+{
+  "scope": "imagine-test-demo",
+  "sources": {
+    "wp/outils/demo/c27-corrections.py": "c88510ceae91ba12bc7fa8c7b81ed9f41993d2e03c2c1e96d7b8411f218e8b79",
+    "wp/outils/demo/c27-finaliser.py": "a109bc5f583399789fc9d1b863cdad3fc455e13bbaca7f39507a787479de878a",
+    "wp/outils/demo/c27-gates.py": "133be5259e45e69015ad6152a927dcc2b151391afef7f35915d3832f59f0fe29",
+    "wp/outils/demo/c27-mutations.py": "660745c5bd0ac486d1bc6bd786a194959264dd319cda0ee3a04d67cbb9c89c01",
+    "wp/outils/demo/c27-native.py": "7628a5701924cdce7335413ae3dfb2d8e8c6fcef14338ca8ed5798484c5c5e41",
+    "wp/outils/demo/c27-readback.py": "f293adf098427824fe561ad94f44c16b9b3627f751e785c0be997edf256f8392",
+    "wp/outils/demo/c27-recette.py": "a509d6e4dc1201fd7f2701422132ce92a21a1cce65caa78406045ad6154967f9",
+    "wp/outils/demo/c27-seed.py": "a32a9978b17a5f3f1d77deea0ac651ac7a493b673762c8b894b332c29506bd85",
+    "wp/outils/demo/c27.py": "bbb033617f73d63b30f50bf27637c72f9b30c150e5ee38432d3a783fe7d70f81",
+    "wp/plugins/imagine-site/Acquisition.php": "689447e6cd2b06fb8554ca208730b53a5979217bfa99af73179a920be77bfbf5",
+    "wp/plugins/imagine-site/AcquisitionAdmin.php": "0f9b70bdc8eed7591a6c42fa17a0b7f33283d7b50d66c2f267cd3283ff960a4c",
+    "wp/plugins/imagine-site/AcquisitionConfidentialite.php": "e2891a523b9f28104999ceca33030fdbb07c5365f6e6917501c590bbec81bbae",
+    "wp/plugins/imagine-site/AcquisitionReglages.php": "225937e1971f220a0ada69b0c1389bf4fbebddca47387b5ca4a7ff317cb224bc",
+    "wp/plugins/imagine-site/AcquisitionRegles.php": "388b89cd261f73c30ea1e2564b84aab778feb481e5f098795f4b30eca9ba8f93",
+    "wp/plugins/imagine-site/tests/AcquisitionAdapterTest.php": "6b147650497a99cb1f7e60ede6e54d906ca13bd8921390205089b09a83adc1e1",
+    "wp/plugins/imagine-site/tests/AcquisitionReglesTest.php": "37e4c918a775f62b126a421167dc6f3c731be6c0ac7ee569d19c7e24a8e38ab5",
+    "wp/plugins/imagine-site/tests/AcquisitionWPStubs.php": "7562d02f63264d39b2ee69b8b69db630af86c5f8c11ada0261684bde0f5980c5",
+    "wp/tests/demo/c27-corrections-runtime.php": "2663b33fd6b2f34d70b27db41caec046007301e33aa7c2c085ed2b20e4ca2579",
+    "wp/tests/demo/c27-horslive.php": "55596ab36296a0974e8df05718d65e1075f6c9d4007dad40e77f16c3addfc938",
+    "wp/tests/demo/c27-observer.php": "d6d3c1456f9ff62f8a86bf3c9eac6c924870005cc69934cff70215988d150f68",
+    "wp/tests/demo/c27-runtime.php": "0fb01d5987c0cc190fc3ca4db7e0060271c52ab28bcac4e79b8bb4ec97fff7f8",
+    "wp/tests/demo/c27-verifier-tests.py": "2284b934a6c8e96d3d7d24e683f3e8fae6369b44fa3388234cc07409c1c572ce"
+  },
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "remote_hashes": {
+    "plugins/imagine-site/AcquisitionRegles.php": "388b89cd261f73c30ea1e2564b84aab778feb481e5f098795f4b30eca9ba8f93",
+    "plugins/imagine-site/Acquisition.php": "689447e6cd2b06fb8554ca208730b53a5979217bfa99af73179a920be77bfbf5",
+    "plugins/imagine-site/AcquisitionReglages.php": "225937e1971f220a0ada69b0c1389bf4fbebddca47387b5ca4a7ff317cb224bc",
+    "plugins/imagine-site/AcquisitionConfidentialite.php": "e2891a523b9f28104999ceca33030fdbb07c5365f6e6917501c590bbec81bbae",
+    "plugins/imagine-site/AcquisitionAdmin.php": "0f9b70bdc8eed7591a6c42fa17a0b7f33283d7b50d66c2f267cd3283ff960a4c"
+  },
+  "preserved_rows": {
+    "users": true,
+    "usermeta": true,
+    "posts": true,
+    "postmeta": true,
+    "comments": true,
+    "commentmeta": true,
+    "navigation": true,
+    "wc_orders": true,
+    "wc_orders_meta": true,
+    "wc_order_addresses": true,
+    "wc_order_operational_data": true,
+    "woocommerce_order_items": true,
+    "woocommerce_order_itemmeta": true,
+    "actionscheduler_actions": true,
+    "actionscheduler_logs": true,
+    "actionscheduler_groups": true,
+    "actionscheduler_claims": true
+  },
+  "baseline_receipt": "correction-HTTP.json",
+  "configuration": {
+    "lune": "Radio fictive \\ lune",
+    "mars": "Journal martien fictif"
+  },
+  "answers": [],
+  "seen": [],
+  "temporary_files": {
+    "mu-plugins/c27-observer.php": false,
+    "imagine-demo-build/c27-runtime.php": false,
+    "imagine-demo-build/c27-corrections-runtime.php": false
+  }
+}

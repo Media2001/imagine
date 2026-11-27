@@ -2,6 +2,10 @@
 
 **Site unique : `imagine-test-demo`, entièrement fictif.** Aucun paiement ou email réel. Squelette sans style ajouté ; validation visuelle de Ced encore attendue.
 
+**Réception corrective du 27 novembre :** les cinq instructions sont couvertes par `correction-final-V2.json`, lié au reçu initial `final-V2.json` désormais historique. Pas de clôture ni GO réel. Les paquets annexes A-31 (`A31_PARTIAL_EVIDENCE`) et A-32 (`A32_PACKAGE_DRIFT`) restent rouges dans le rejeu général ; ils ne sont ni ouverts ni réparés ici.
+
+**Lanceurs non rejoués en première relecture :** recettes mutantes Python non rejouées par Claude **et** Codex ; PHPUnit non rejoué par Codex (`Wsl/Service/E_ACCESSDENIED`). La livraison corrective les a exécutés réellement ; aucun nouveau rejeu des relecteurs n’est revendiqué.
+
 ## Adresses
 
 Avec le personnage administrateur fictif déjà fourni par B00/C09 (aucun identifiant dans ce paquet) :
@@ -33,7 +37,7 @@ Interpréteur effectivement utilisé ici (Python **3.11.15**) si `python` ne dé
 C:/Users/Ced/AppData/Local/hermes/hermes-agent/venv/Scripts/python.exe -B production/C-27/verifier.py
 ```
 
-Le contrôle lit le paquet scellé `final-V2.json`, vérifie ses sources et preuves, les ensembles **exacts** des contrôles/restaurations, les deux mutants natifs et les huit mutants de source, et recalcule les totaux de JUnit. Il ne fait aucun accès au site, à Docker ou au réseau.
+Le contrôle lit `correction-final-V2.json`, vérifie sources et preuves, les ensembles **exacts** de contrôles/restaurations, cinq témoins mutants réels et onze mutants de source, les trois rouges TDD et les cinq nouvelles régressions découvertes dans le JUnit global. Il exige les véritables contre-exemples I1/I2/M1, pas seulement un drapeau de réussite. Aucun accès au site, à Docker ou au réseau. L’ancien paquet et `verifier-historique-avant-fusion.py` ne sont pas une réception des sources actuelles.
 
 Contre-exemples du vérificateur (copies jetables dans le scratch Hermes) :
 
@@ -57,12 +61,13 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/rejouer.ps1
 ```text
 python -B wp/outils/demo/c27-native.py parent-natif-NOM-NEUF
 python -B wp/outils/demo/c27-recette.py parent-HTTP-NOM-NEUF
+python -B wp/outils/demo/c27-corrections.py parent-fusion-NOM-NEUF
 ```
 
-Préimages privées durables avant mutation ; restauration exacte des profils, commandes, adresses, brouillon C16, options métier, actions et journaux, puis relecture. Le contrôle de refus avant paiement est testé d’abord rouge/vert, puis le retrait de la garde est réellement injecté sur une commande fictive : le POST impayé devient accepté, la garde remise le refuse. Aucun paiement, email ou tiers n’est nécessaire.
+Préimages privées durables avant mutation ; restauration exacte des profils, commandes, adresses, brouillon C16, options métier, actions et journaux, puis relecture. Le dernier lanceur fabrique huit commandes fictives puis les supprime. I1/I2 injectent une seule vraie erreur SQL SOURCE sous verrou ; le mutant I1 écrase réellement la source antérieure, le mutant I2 annonce réellement terminé avec SOURCE encore en base. Le vieux POST d’une proposition effacée sans réponse reçoit 403 ; sans sa garde, il recrée effectivement réponse/source (200). Cache empoisonné/suppression refusée et panne de relecture finale refusent `done`. Aucun paiement, email ou tiers nécessaire. Ce n’est pas un nouveau test d’entrelacement simultané effacement/réponse : la symétrie du verrou et le cache périmé sont vérifiés ; les deux POST concurrents nominaux restent exercés.
 
 ## Résultats et limites
 
-7 tests/55 assertions ciblés ; 47 contrôles natifs/HTTP ; huit mutants de source et deux témoins natifs détectés ; image reconstruite. Dernier replay : **1 166 tests / 36 318 assertions**, **584 contrôles d’outils** et **11 paquets annexes** verts. Les paquets voie 1 n’ont pas été ouverts ou modifiés par ce lot ; l’état vert courant vient du lanceur partagé, pas d’un rescèlement par C27.
+**12 tests/80 assertions** ciblés ; **56 contrôles natifs/HTTP** ; **11 mutants de source**, **5 témoins mutants réels** détectés ; image reconstruite (`correction-image.*`). Dernier rejeu : **1 195 tests / 36 573 assertions**, 0 échec/erreur/ignoré ; **720 contrôles d’outils**, 0 échec. **12 paquets annexes, 2 échecs** A-31/A-32 signalés en tête, pas masqués. Les paquets voie 1 n’ont pas été ouverts, modifiés ou rescellés par ce lot. PSR-12 : zéro erreur, 32 avertissements de longueur conservés, pas de reformatage global.
 
 Détails, inventaire des données personnelles et incidents intermédiaires conservés : `NOTE.md`. Le code est prêt techniquement sur le périmètre prouvé ; le visuel et l’emplacement C10 restent à valider, sans GO sur du réel.

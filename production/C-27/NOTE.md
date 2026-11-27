@@ -1,4 +1,55 @@
-# C-27 — note de livraison
+# C-27 — réception corrective du 27 novembre 2026
+
+**Reçu courant : `correction-final-V2.json`, lié à `final-V2.json` conservé comme historique.** Le code C27 corrige les cinq instructions de `corrections/C-27.md`. Le corps ancien ci-dessous est explicitement historique et ne décrit pas les sources actuelles.
+
+**Limites :** PRET technique de la seule démo fictive, ni clôture ni GO réel. Rejeu général PASS pour tests/outils, mais paquets annexes **A-31 `A31_PARTIAL_EVIDENCE` / A-32 `A32_PACKAGE_DRIFT` rouges**, signalés sans intervention. Boutique Woo « À venir » conservée ; visuel et place C10 toujours à Ced.
+
+## Les cinq instructions appliquées
+
+1. **I1 :** sous verrou et transaction, lecture SQL directe SOURCE avec invalidation `user_meta`, contrôle de `last_error` et du résultat. Absence = aucune ligne ; erreur = rollback de la déclaration, source antérieure intacte. Une ligne existante, même vide, est conservée (défaut prudent).
+2. **I2 :** même lecture fiable avant suppression, vérification SQL de disparition avant commit, puis relecture finale SOURCE après commit. Cache vide périmé, lecture défaillante ou suppression refusée ne donnent jamais `done=true` : `items_retained=true`. Une incertitude après commit reste incomplète même si l’effacement a déjà eu lieu.
+3. **M1 :** VUE invalidée et tombstone `etat=effacee` contrôlé sous le même verrou, même sans REPONSE. Un vieux POST de proposition vue seule effacée est refusé. README corrigé ; SOURCE garde le tableau complet `commande`, `compte`, `date`, `choix`, `libelle`.
+4. **Tests :** cinq nouvelles régressions, rouges avant correctif puis vertes : première lecture SOURCE à l’écriture et à l’effacement, cache empoisonné avec suppression refusée, relecture finale en échec, ancien formulaire après proposition vue seule effacée. Les doubles propres C27 reproduisent cache/erreur et déséchappement WordPress ; aucun bootstrap partagé modifié.
+5. **Relecteurs :** recettes mutantes Python non rejouées des deux côtés ; PHPUnit non rejoué côté Codex (`Wsl/Service/E_ACCESSDENIED`) lors du premier tour. Limite conservée dans `A-VOIR.md`. La livraison corrective a réellement lancé ces preuves, sans attribuer ce rejeu aux relecteurs.
+
+## Réception actuelle vérifiée
+
+- **12 tests / 80 assertions** ciblés ; journaux TDD rouges `correction-I1-rouge.log`, `correction-I2-rouge.log`, `correction-M1-rouge.log` : respectivement 1, 3, 1 échecs d’assertion sans erreur PHP ; verts intermédiaires conservés.
+- **11 mutants de source** détectés hors réseau, chacun sortie 1 et échecs d’assertion, sans erreur PHP.
+- **56 contrôles natifs/HTTP** : 7 natifs, 40 HTTP nominaux, 9 correctifs. **5 témoins mutants réels** : paiement/transmission, plus I1/I2/M1 correctifs.
+- Vraies erreurs SQL d’une seule lecture avec écritures ensuite fonctionnelles. I1 mutant écrase réellement la source et valide la réponse ; corrigé, refus/rollback. I2 mutant annonce réellement `done=true` avec SOURCE toujours présente SQL ; corrigé, incomplet. Suppression refusée sur cache vide et troisième lecture défaillante couvertes.
+- M1 utilise le nonce du vrai formulaire Woo, efface VUE sans réponse, puis soumet le vieux POST : **403**, aucune donnée recréée ; garde retirée : **200**, réponse/source réellement créées. Octets corrigés restaurés aussitôt.
+- Chaque recette restaure et relit **18 ensembles**, profils, commandes classiques/HPOS, options métier, adresses, items, notes, navigation et quatre tables Action Scheduler. Huit commandes correctives supprimées ; les commandes HTTP et brouillon C16 aussi. Readback final : code distant exact, aucune réponse/proposition de recette, trois fichiers temporaires absents. Aucune transmission réelle, email ou paiement bancaire/service.
+- Image reconstruite/sondée `correction-image.*`. Rejeu courant : **1 195 tests / 36 573 assertions**, 0 échec/erreur/ignoré ; **720 contrôles d’outils**, 0 échec ; **12 paquets annexes, 2 échecs** nommés en tête, jamais présentés comme verts.
+- PHPCS des cinq classes : **0 erreur / 32 avertissements de longueur** ; sa sortie 1 est conservée dans `correction-style-command.json`, pas assimilée à un succès strict sans avertissement.
+
+Commandes réellement exécutées depuis `C:\Users\Ced\imagine`, Python 3.11.15 / PHP 8.2.33 :
+
+```text
+python -B wp/outils/demo/c27.py local correction-unitaire-final
+python -B wp/outils/demo/c27-mutations.py correction-mutants-horslive
+python -B wp/outils/demo/c27.py deploy deploy-correction
+python -B wp/outils/demo/c27-corrections.py correction-recette-fusion-exacte
+python -B wp/outils/demo/c27-native.py correction-native
+python -B wp/outils/demo/c27-recette.py correction-HTTP
+python -B wp/outils/demo/c27-gates.py prepare correction-image
+python -B wp/outils/demo/c27-gates.py regression correction-regression
+python -B wp/outils/demo/c27-readback.py correction-readback correction-HTTP
+```
+
+Les portes appellent réellement `wp/tests/preparer-image.ps1` et `wp/tests/rejouer.ps1`, inchangés. Commandes parent dans `A-VOIR.md`.
+
+**Partage :** seuls les deux adaptateurs C27, ses tests/doubles et lanceurs propres changent. Dans le README partagé, seule la section C27 change. **Ni `imagine-site.php`, ni bootstrap partagé, ni C10, ni bibliothèque close, ni code voisin modifié par C27.** Pas de réception voisine à refaire pour un bootstrap qui n’a pas changé. L’ancien paquet C27 et son vérificateur (`verifier-historique-avant-fusion.py`) restent historiques, sans substitution d’empreintes.
+
+**Incidents de banc conservés :** premier essai trop large (lectures usermeta avant verrou) et concaténation PHP sans espace ; second essai I2 rouge mais sans présence de SOURCE. Le banc final cible sous verrou et exige la vraie présence SQL de SOURCE du mutant. Ces essais ont restauré exactement leur état ; ils ne servent pas de réception finale. Aucun changement métier supplémentaire.
+
+Pas de nouveau test d’entrelacement simultané effacement/réponse revendiqué : verrou symétrique et cache périmé couverts, deux POST concurrents nominaux toujours exercés. Pas d’email/ZIP natif, de second parcours classique, de qualification réelle ni de validation visuelle. Aucun style ou déplacement C10.
+
+---
+
+# Historique de la livraison initiale — non applicable aux sources corrigées
+
+Ancien reçu `final-V2.json`, ancien `PRET` préservé dans `PRET-historique-avant-fusion`. Les comptes, promesses et incidents qui suivent appartiennent à cette livraison antérieure à la fusion.
 
 ## Résultat
 
