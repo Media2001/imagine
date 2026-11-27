@@ -24,7 +24,7 @@ class TourneeTests(unittest.TestCase):
         self.assertTrue((ROOT / 'wp/outils/bascule/tournee/tournee.py').is_file(), 'A32 implementation absent')
         m = load()
         entries = m.entries()
-        self.assertEqual([e['lot'] for e in entries], ['A10', 'A11', 'A12', 'A15', 'A16', 'A17', 'A18', 'A19', 'A20', 'A21', 'A23', 'A24', 'A25'])
+        self.assertEqual([e['lot'] for e in entries], ['A10', 'A11', 'A12', 'A15', 'A16', 'A17', 'A18', 'A19', 'A20', 'A21', 'A23', 'A24', 'A25', 'A26', 'A27'])
         for entry in entries:
             self.assertIn(entry['command'], m.documented_commands(ROOT / entry['readme']))
             argv = m.command(entry, Path('/operator/site'), Path('/operator/report/audit/audit.json'), Path('/operator/map.json'), Path('/operator/report/out'))
@@ -96,6 +96,8 @@ class TourneeTests(unittest.TestCase):
             root = Path(tmp)
             site = root / 'site'
             site.mkdir()
+            (site / 'wp-config.php').write_text("<?php define('WP_ENVIRONMENT_TYPE', 'staging');", encoding='utf-8')
+            (site / '.imagine-staging-verified.json').write_text(json.dumps({'status': 'verified', 'offline_verified': True, 'runtime_probe_passed': True}), encoding='utf-8')
             reports = root / 'reports'
             reports.mkdir()
             audit = reports / 'audit'
@@ -122,7 +124,7 @@ class TourneeTests(unittest.TestCase):
             self.assertEqual(m.run(site, audit / 'audit.json', mapping, target, execute), 1)
             self.assertEqual(len(called), len(m.entries()))
             data = json.loads((target / 'bilan.json').read_text())
-            self.assertEqual(data['tournee'], 'complète')
+            self.assertEqual(data['tournee'], 'partielle')
             self.assertEqual([r['statut'] for r in data['outils'][:2]], ['refusé', 'en échec'])
             self.assertNotIn('PRIVATE_CANARY', (target / 'bilan.json').read_text())
             self.assertNotIn('987654321', (target / 'bilan.md').read_text())

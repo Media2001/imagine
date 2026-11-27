@@ -36,7 +36,7 @@ b.audit = lambda site, out: b.cmd(['php', str(BASE / 'audit'), '--wp-path=' + st
 
 
 def tour(site, audit, mapping, out):
-    line = next(x for x in (BASE / 'README.md').read_text(encoding='utf-8').splitlines()
+    line = next(x for x in (BASE / 'tournee/README.md').read_text(encoding='utf-8').splitlines()
                 if x.startswith('python3 wp/outils/bascule/tournee/tournee.py '))
     args = shlex.split(line)
     replacements = {'wp/outils/bascule/tournee/tournee.py': str(BASE / 'tournee/tournee.py'),
@@ -68,6 +68,9 @@ def run_storage(storage):
     audit = OUT / (storage + '-audit')
     check(storage + ':audit_ready', b.audit(site, audit).returncode == 0)
     mapping = BASE / 'a16/correspondance.exemple.json'
+    marker = site / '.imagine-staging-verified.json'
+    marker.write_text(json.dumps({'status': 'verified', 'offline_verified': True, 'runtime_probe_passed': True}), encoding='utf-8')
+    marker_bytes = marker.read_bytes()
     before, files_before = b.fingerprint(db), b.files(site)
     private_before = b.files(Path('/scratch/a16-private'))
     dest = OUT / (storage + '-complete')
@@ -118,8 +121,8 @@ def run_storage(storage):
             target = OUT / (storage + '-channel-' + label)
             q, _ = tour(site, audit / 'audit.json', mapping, target)
             data = json.loads((target / 'bilan.json').read_text())
-            good = (q.returncode == 1 and q.stdout == b'A32_COMPLETE bilan.json bilan.md\n' and not q.stderr
-                    and data['tournee'] == 'complète' and data['outils'][0]['statut'] == 'réussi'
+            good = (q.returncode == 1 and q.stdout == b'A32_PARTIAL bilan.json bilan.md\n' and not q.stderr
+                    and data['tournee'] == 'partielle' and data['outils'][0]['statut'] == 'réussi'
                     and all(r['statut'] != 'réussi' for r in data['outils'][1:]))
             clean = not any(b'A32_' + suffix in f.read_bytes() for suffix in (b'STREAM_PRIVATE_CANARY', b'REPORT_PRIVATE_CANARY', b'DOUBLE_PRIVATE_CANARY')
                             for f in OUT.rglob('*') if f.is_file())
@@ -129,24 +132,38 @@ def run_storage(storage):
             channel_rows.append({'channel': label, 'per_tool': data['outils'], 'exit_code': q.returncode, 'clean': clean, 'immutable': immutable})
     finally:
         hostile.unlink(missing_ok=True)
-    # Each tool's own staging check, no tour-side replacement or bypass.
-    (site / 'wp-config.php').write_text(cfg.replace("'staging'", "'production'"))
-    try:
-        unverified_before, unverified_files = b.fingerprint(db), b.files(site)
-        target = OUT / (storage + '-unverified')
-        q, _ = tour(site, audit / 'audit.json', mapping, target)
-        d = json.loads((target / 'bilan.json').read_text())
-        negative = {'marker_exists': (site / '.imagine-staging-verified.json').exists(),
-                    'declared_environment': 'production', 'exit_code': q.returncode,
-                    'commands': [m.command(e, site, audit / 'audit.json', mapping, Path(r['rapport'])) for e, r in zip(m.entries(), d['outils'])],
-                    'rows': d['outils'], 'database_before': unverified_before, 'database_after': b.fingerprint(db),
-                    'files_before': unverified_files, 'files_after': b.files(site)}
-        (OUT / (storage + '-unverified-proof.json')).write_text(json.dumps(negative, indent=2) + '\n')
-        check(storage + ':every_tool_checks_site', q.returncode == 1 and len(d['outils']) == len(m.entries())
-              and all(r['statut'] != 'réussi' for r in d['outils'])
-              and unverified_before == b.fingerprint(db) and unverified_files == b.files(site), d['outils'])
-    finally:
-        (site / 'wp-config.php').write_text(cfg)
+    # Amended AFAIRE: one tour-side refusal before ANY child, no consumer edits.
+    negatives = [('absent', None, cfg), ('invalid', b'[]', cfg),
+                 ('fields', b'{"status":"verified","offline_verified":true,"runtime_probe_passed":false}', cfg),
+                 ('production', marker_bytes, cfg.replace("'staging'", "'production'"))]
+    for label, payload, config in negatives:
+        try:
+            marker.unlink(missing_ok=True)
+            if payload is not None:
+                marker.write_bytes(payload)
+            (site / 'wp-config.php').write_text(config)
+            unverified_before, unverified_files = b.fingerprint(db), b.files(site)
+            target = OUT / (storage + '-unverified-' + label)
+            calls = []
+            try:
+                m.run(site, audit / 'audit.json', mapping, target, lambda command: calls.append(command))
+                refused = False
+            except RuntimeError as error:
+                refused = str(error) == 'A32_NOT_VERIFIED'
+            q, argv = tour(site, audit / 'audit.json', mapping, target)
+            negative = {'case': label, 'marker_exists': marker.exists(), 'exit_code': q.returncode,
+                        'stdout_empty': q.stdout == b'', 'stderr': q.stderr.decode('ascii'),
+                        'command': argv, 'tools_launched': len(calls), 'commands': calls,
+                        'output_absent': not target.exists() and not list(OUT.glob(target.name + '-*')),
+                        'database_before': unverified_before, 'database_after': b.fingerprint(db),
+                        'files_before': unverified_files, 'files_after': b.files(site)}
+            (OUT / (storage + '-unverified-' + label + '-proof.json')).write_text(json.dumps(negative, indent=2) + '\n')
+            check(storage + ':tour_guard_zero_tools:' + label, refused and not calls and q.returncode == 1
+                  and q.stdout == b'' and q.stderr == b'A32_NOT_VERIFIED\n' and negative['output_absent']
+                  and unverified_before == negative['database_after'] and unverified_files == negative['files_after'])
+        finally:
+            marker.write_bytes(marker_bytes)
+            (site / 'wp-config.php').write_text(cfg)
     after, files_after = b.fingerprint(db), b.files(site)
     check(storage + ':whole_tour_all_tables_scheduler_files_immutable', before == after and files_before == files_after
           and private_before == b.files(Path('/scratch/a16-private')))

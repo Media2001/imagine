@@ -146,8 +146,9 @@ def run(site, audit, mapping, output, executor=None):
             row = {'outil': entry['lot'], 'statut': 'en échec', 'sortie': 1, 'rapport': str(target)}
         rows.append(row)
         publish(False)
-    publish(True)
-    return int(any(row['statut'] != 'réussi' for row in rows))
+    failed = any(row['statut'] != 'réussi' for row in rows)
+    publish(not failed)
+    return int(failed)
 
 
 def main():
@@ -161,10 +162,10 @@ def main():
         if len(options) != 4:
             raise RuntimeError('A32_USAGE')
         code = run(*(options[k] for k in ('--wp-path', '--audit', '--correspondance', '--output')))
-        print('A32_COMPLETE bilan.json bilan.md')
+        print('A32_PARTIAL bilan.json bilan.md' if code else 'A32_COMPLETE bilan.json bilan.md')
         return code
     except Exception as error:
-        known = {'A32_USAGE', 'A32_LIST_INVALID', 'A32_DOCUMENTED_COMMAND_DRIFT', 'A32_OUTPUT_UNSAFE', 'A32_OUTPUT_EXISTS'}
+        known = {'A32_USAGE', 'A32_NOT_VERIFIED', 'A32_LIST_INVALID', 'A32_DOCUMENTED_COMMAND_DRIFT', 'A32_OUTPUT_UNSAFE', 'A32_OUTPUT_EXISTS'}
         print(str(error) if isinstance(error, RuntimeError) and str(error) in known else 'A32_FAILED', file=sys.stderr)
         return 1
 
