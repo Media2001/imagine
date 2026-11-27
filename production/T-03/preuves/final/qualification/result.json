@@ -1,24 +1,27 @@
 {
-  "at": "2026-11-27T18:38:48.773952+01:00",
+  "at": "2026-11-27T19:47:20.169949+01:00",
   "status": "PASS",
   "expected_command_count": 14,
   "completed_command_count": 14,
   "qualification": "CORRECTION_TESTS_ONLY_NOT_PARENT_FINAL",
   "source_unchanged": true,
   "source_sha256": {
-    "production/T-03/CONVENTION.md": "05113bdb3aff9bdad68d5e623ffe3cbf59ac9885850450320f2463afeb32251c",
-    "production/T-03/FINALISATION.md": "95cf0bf2055f6893cf2d9eef693545369bdb7a420575c8dd376d45262810ff67",
-    "production/T-03/RAPPORT.md": "d3a33573719dd0f346d423a0bf34c98237ab2225882f098342184d53eb4d33b6",
-    "production/T-03/RECEPTION-CORRECTIONS.md": "6580bcc4d632ade7fd3fced8e90daa06d00fa30185893b73de26146889639574",
-    "production/T-03/RECEPTION-PARENT.md": "7223db4458f990fba795c2af3d124f4877bd47bd53c3f1bb01fccbb826c640e1",
+    "production/T-03/CONVENTION.md": "68a5dd2372a26872c07f8ce84472766162842bfd19d3c86c4b9a8b89c2a5847b",
+    "production/T-03/FINALISATION.md": "ac183f681c22293c6ed6a67bf23ed49c1e0dd03cf89d6d9e82f72f88cb595b20",
+    "production/T-03/RAPPORT.md": "88e6ecd4d2ac229ac1579d4d7761a5abbcf0545d92be1becbf6ff13d47c05725",
+    "production/T-03/RECEPTION-CORRECTIONS.md": "5bedfab653ef6ddc71293017430de82a045730e50f731e1879c667ee9360f3f9",
+    "production/T-03/RECEPTION-PARENT.md": "4a512e99ec453e613d3126942036cc498198f6c025f33ecc55fafbd037dd349b",
+    "production/T-03/finaliser.py": "aa859e1913365e210aab26f5e593fa36d39b1e632684d96713e2e8931edd41d4",
     "production/T-03/native-copy-proof.ps1": "72f3aa91a6725382b34b212d62060d0b5395714167ec2f6cad97ef06fa3acd4a",
     "production/T-03/qualifier-corrections.py": "43d0e44eb76ee9487b1a58aa4cc19ccfc063a876bd8e6f5ea9b5bbae8f02c6c0",
     "production/T-03/readme-ajout.txt": "b01124e112e2984e1ecb555f60319ae52a46d0167f413e6e102ef2b21e709bb5",
     "production/T-03/sceller-candidat.py": "b0f36e2da441f5e3e90274140176ac8ce33d75303ed07557b759186e7f96211e",
     "production/T-03/test-cloture.py": "5a914c60a4f686b1dc426e52386d3bce1957cfe06dd9d554442ed2532a10af77",
     "production/T-03/test-corrections.py": "4e2118699849d74540a880f25cbe5884cf101e48ad89aff0446e01b3edf31c66",
+    "production/T-03/test-finalisation.py": "f5b64e47c60d5ad6117509e65edeb1abb3de117129780002e8339a372178fe52",
     "production/T-03/test-streams-native.ps1": "4df28a1610b768e80b5a14215a383415a017e8492bfdc6795d36b8ede31e4348",
-    "production/T-03/verify-corrections.py": "c3fa920c319905971a6c530df9820fed808643d7eacb0aee59bfa86d0a2ad79d",
+    "production/T-03/verify-corrections.py": "179dde1f42b26575e47a481a489b244ab65b6f5bb0472354aebac707ca75d5e1",
+    "production/T-03/verify-final.py": "2ce8d5f7d31f5d298cc37524583806e1058b8eed89c9bf71f738128b87f49b32",
     "wp/tests/rejouer.ps1": "d7638371544622637fb6945dcb00d02d51029d153a3568a27ea7ef7cb59eda40",
     "wp/tests/t01/Dockerfile": "4251390be103b7473674b5125f61bafab0fff95424f875d2bc7872b8405ac5ea",
     "wp/tests/t01/commun.ps1": "fad6b5e92268dceb951e6fce37151868c76e54a7a7df4d838bf0ae4a56490331",
@@ -47,7 +50,7 @@
         "import json,locale,os,sys;print(json.dumps({'executable':sys.executable,'version':sys.version,'stdout':sys.stdout.encoding,'stderr':sys.stderr.encoding,'locale':locale.getencoding(),'preferred':locale.getpreferredencoding(False),'utf8_mode':sys.flags.utf8_mode,'tmpdir_present':'TMPDIR' in os.environ}))"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 0.04439690010622144,
+      "elapsed_seconds": 0.04076509992592037,
       "stdout_sha256": "96adb27c947e84d5f89b70368413cf5491f8d7e1e7b59d7e93790024c019d986",
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
@@ -59,9 +62,9 @@
         "C:\\Users\\Ced\\imagine\\wp\\tests\\t01\\test_paquets.py"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 0.47069420001935214,
+      "elapsed_seconds": 0.8336988999508321,
       "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "stderr_sha256": "3f42e3b208279d38b2ff7e226a3335f3d4cb357e4d5fc187659612f091e5de13"
+      "stderr_sha256": "ac381808a3b73bb3726412b8ab0dee6dd02ef28cdf56551e7ba9bb1162f1f69c"
     },
     {
       "name": "utf8-test_t03_integration",
@@ -71,9 +74,9 @@
         "C:\\Users\\Ced\\imagine\\wp\\tests\\t01\\test_t03_integration.py"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 2.3173231999389827,
+      "elapsed_seconds": 2.4244928000262007,
       "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "stderr_sha256": "88624fe12f36c812eee427a97f3cde1c369a67e490d03c0070a5c10e9f0a9fbc"
+      "stderr_sha256": "ca101e3c80155233468a9cb29f19d290dc5896368bab8dc2e64f922547ab4297"
     },
     {
       "name": "utf8-real-corrections",
@@ -82,11 +85,11 @@
         "-B",
         "C:\\Users\\Ced\\imagine\\production\\T-03\\test-corrections.py",
         "--output",
-        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\t03-cloture-20261127-1829\\qualification-python314\\utf8-real-fixtures"
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\t03-final-20261127-execution\\qualification\\utf8-real-fixtures"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 12.756159399985336,
-      "stdout_sha256": "413fc3b03bc23373a8145f115341821d4f8407ecaca8b22af307fc5e8deff1e2",
+      "elapsed_seconds": 14.145025899983011,
+      "stdout_sha256": "43e66e035c87c0db6a79745af9fb7608d14c378e19e6b9164e8176cb80bff1b2",
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
@@ -97,7 +100,7 @@
         "import json,locale,os,sys;print(json.dumps({'executable':sys.executable,'version':sys.version,'stdout':sys.stdout.encoding,'stderr':sys.stderr.encoding,'locale':locale.getencoding(),'preferred':locale.getpreferredencoding(False),'utf8_mode':sys.flags.utf8_mode,'tmpdir_present':'TMPDIR' in os.environ}))"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 0.03719470009673387,
+      "elapsed_seconds": 0.04424790001939982,
       "stdout_sha256": "170135fdfd0c0130ccd0cd41990fb5c13c604813996cc05203069f35f41d1431",
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
@@ -109,9 +112,9 @@
         "C:\\Users\\Ced\\imagine\\wp\\tests\\t01\\test_paquets.py"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 0.34477920003701,
+      "elapsed_seconds": 0.36074399994686246,
       "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "stderr_sha256": "bff7f0568eb823041a960bcff9bd3315169627aa8c6b987985efca550020d981"
+      "stderr_sha256": "6a68e82eab97a7b3379586c0262b5e9c159245f0e4de04df2ec5cd26c94e9b00"
     },
     {
       "name": "cp1252-test_t03_integration",
@@ -121,9 +124,9 @@
         "C:\\Users\\Ced\\imagine\\wp\\tests\\t01\\test_t03_integration.py"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 2.238112600054592,
+      "elapsed_seconds": 2.369724199990742,
       "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "stderr_sha256": "45c429ccba8c2e017c6dc4d25c567afad24819cd25b957a06770e79aab272354"
+      "stderr_sha256": "de9dd668d6f282548cc486bd285f1b8173d451d58cec219cab8ca320e0aabe68"
     },
     {
       "name": "cp1252-real-corrections",
@@ -132,11 +135,11 @@
         "-B",
         "C:\\Users\\Ced\\imagine\\production\\T-03\\test-corrections.py",
         "--output",
-        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\t03-cloture-20261127-1829\\qualification-python314\\cp1252-real-fixtures"
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\t03-final-20261127-execution\\qualification\\cp1252-real-fixtures"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 13.187290599918924,
-      "stdout_sha256": "a09eb58ce96f4bb6584ffbf490f2be7bce4f30452258dc9c33273987501bc36e",
+      "elapsed_seconds": 12.961668500094675,
+      "stdout_sha256": "69bbea9e000c5a84fc57ab001d20c31b2f956c92ddb60027a830b043350bab08",
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
@@ -150,8 +153,8 @@
         "production/T-03/test-streams-native.ps1"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 2.5903867000015453,
-      "stdout_sha256": "5992e06412fad6521653df3a49aafebaac686993201e73fb29c7b7c0626bdd76",
+      "elapsed_seconds": 2.805775700020604,
+      "stdout_sha256": "26ee6ae2617f4daf262476f5cfe24025071d1cdece93577a07f14fd3e55233b9",
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
@@ -165,8 +168,8 @@
         "wp/tests/t01/test-php-corrections.ps1"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 4.54258160002064,
-      "stdout_sha256": "21d932d7a2c7e32bd5048a65df4da2b5de3fbe8a5608162b7698ad6bf652bd10",
+      "elapsed_seconds": 5.186532199964859,
+      "stdout_sha256": "66ce9f0de9ad324f708bd2e4129965c15edbe474f25f3e81df762bb5db411c22",
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
@@ -180,8 +183,8 @@
         "wp/tests/t01/test-tools.ps1"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 2.963663100032136,
-      "stdout_sha256": "9da3a0a6d5e1d1a053a541a258097bf7b6d13c69ce36984156f2b3c2db5721a2",
+      "elapsed_seconds": 3.134461700101383,
+      "stdout_sha256": "69f773bccf0f6c07a469ea7a884a12e274808bc8d8264d3922bfe18138c75c03",
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
@@ -195,7 +198,7 @@
         "wp/tests/t01/test-rejeu.ps1"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 6.9815868000732735,
+      "elapsed_seconds": 7.109066099976189,
       "stdout_sha256": "f698574beb695708d3fd1d5f1c9ae46b421e27a71a386e5d3d54b3c0d0ac2282",
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
@@ -210,7 +213,7 @@
         "wp/tests/t01/test-tools-summary.ps1"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 3.0629158000228927,
+      "elapsed_seconds": 3.135598300024867,
       "stdout_sha256": "5930daae1975f52f2ce6318be8572cf09e39c60e110c4c31dd36755ca3cc1417",
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
@@ -225,12 +228,12 @@
         "wp/tests/rejouer.ps1"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 76.37181040004361,
-      "stdout_sha256": "d2357dd69c16401e3601a20d61791991471a7b785a288ff810a72da9892be7c5",
+      "elapsed_seconds": 123.72299410006963,
+      "stdout_sha256": "86873a012b8f9e395a8a2256d539a6566235e1da629be6112998c461d60eec0a",
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "summaries": [
-        "T01 CLEANUP : absence verifiee de imagine-t01-4ef8aba333a543eb91e091e3fba2bbfa",
-        "PAQUETS : 12 v\u00e9rifi\u00e9s, 2 \u00e9checs ; hors rejeu : aucun ; A-31 A31_PARTIAL_EVIDENCE, A-32 A32_PACKAGE_DRIFT",
+        "T01 CLEANUP : absence verifiee de imagine-t01-1ebd40924074408682d8c52c5fc46984",
+        "PAQUETS : 12 v\u00e9rifi\u00e9s, 0 \u00e9checs ; hors rejeu : aucun",
         "OUTILS : 22 outils, 791 contr\u00f4les, 0 \u00e9checs ; hors rejeu : aucun",
         "REJEU : 1204 tests, 36667 assertions, 0 \u00e9checs, 0 erreurs, 0 ignor\u00e9s \u2014 PASS"
       ],
@@ -262,16 +265,7 @@
             "A-31",
             "A-32"
           ],
-          "failures": [
-            {
-              "lot": "A-31",
-              "control": "A31_PARTIAL_EVIDENCE"
-            },
-            {
-              "lot": "A-32",
-              "control": "A32_PACKAGE_DRIFT"
-            }
-          ],
+          "failures": [],
           "excluded": []
         },
         "pass": true
