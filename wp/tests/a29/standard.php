@@ -16,6 +16,8 @@ $files = [
     'as_functions' => $woo . '/packages/action-scheduler/functions.php',
     'email' => $woo . '/includes/class-wc-background-emailer.php',
     'background' => $woo . '/includes/abstracts/class-wc-background-process.php',
+    'native_process' => $woo . '/includes/libraries/wp-background-process.php',
+    'native_async' => $woo . '/includes/libraries/wp-async-request.php',
 ];
 $sources = [];
 $hashes = [];
@@ -26,6 +28,8 @@ foreach ($files as $key => $file) {
     $sources[$key] = file_get_contents($file);
     $hashes[$key] = hash('sha256', $sources[$key]);
 }
+$async = preg_replace('/\s+/', ' ', $sources['native_async']);
+$process = preg_replace('/\s+/', ' ', $sources['native_process']);
 $checks = [
     'native_cron_option_version' => str_contains($sources['wp_cron'], 'function _get_cron_array(')
         && str_contains($sources['wp_cron'], "'cron'") && str_contains($sources['wp_cron'], "'version'"),
@@ -35,7 +39,10 @@ $checks = [
         && str_contains($sources['as_store'], 'function mark_failure('),
     'native_email_queue_hook_composition' => str_contains($sources['email'], "'wc_emailer'")
         && str_contains($sources['email'], 'get_current_blog_id()')
-        && str_contains($sources['background'], "'_cron'"),
+        && str_contains($sources['background'], 'extends WP_Background_Process')
+        && str_contains($sources['native_process'], 'extends WP_Async_Request')
+        && str_contains($async, "\$this->identifier = \$this->prefix . '_' . \$this->action;")
+        && str_contains($process, "\$this->cron_hook_identifier = \$this->identifier . '_cron';"),
 ];
 $apis = ['enqueue_async_action', 'schedule_single_action', 'schedule_recurring_action', 'schedule_cron_action'];
 foreach ($apis as $api) {

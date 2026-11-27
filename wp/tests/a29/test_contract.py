@@ -75,6 +75,13 @@ class ContractTests(unittest.TestCase):
         self.assertIn("required=True)", runner)
         self.assertIn("'preparation'", (folder / 'gates.py').read_text(encoding='utf-8'))
 
+    def test_email_native_gate_reads_real_parent_chain(self):
+        source = (ROOT / 'wp/tests/a29/standard.php').read_text(encoding='utf-8')
+        for key, path in [('native_process', '/includes/libraries/wp-background-process.php'),
+                          ('native_async', '/includes/libraries/wp-async-request.php')]:
+            self.assertIn("'" + key + "' => $woo . '" + path + "'", source)
+            self.assertIn("$sources['" + key + "']", source)
+
     def test_owned_native_refusal_vocabulary(self):
         native = (ROOT / 'wp/tests/a29/inside.py').read_text(encoding='utf-8')
         pattern = re.search(r"re.fullmatch\(r'([^']+)', p.stderr\)", native).group(1)
