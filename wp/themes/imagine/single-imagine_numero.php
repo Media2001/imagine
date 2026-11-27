@@ -41,6 +41,7 @@ while (have_posts()) :
     <div class="imagine-cover"><?php echo get_the_post_thumbnail($issue->ID, 'medium'); ?></div>
     <?php imagine_date('imagine_sortie'); ?>
     <p class="imagine-issue-presentation"><?php echo esc_html($issue->post_excerpt); ?></p>
+    <?php echo class_exists('Imagine\\Site\\Medias') ? \Imagine\Site\Medias::rendre($issue) : ''; ?>
     <?php if ($free) : ?>
     <section aria-labelledby="imagine-free-article" data-imagine-free-article="<?php echo esc_attr((string) $free->ID); ?>">
         <h2 id="imagine-free-article"><?php esc_html_e('À lire en accès libre', 'imagine'); ?></h2>
@@ -53,7 +54,7 @@ while (have_posts()) :
     </section>
     <section aria-labelledby="imagine-audio-contents">
         <h2 id="imagine-audio-contents"><?php esc_html_e('Sommaire audio', 'imagine'); ?></h2>
-        <p><?php esc_html_e('Emplacement du sommaire audio — aucun enregistrement fourni.', 'imagine'); ?></p>
+        <?php echo class_exists('Imagine\\Site\\AudioNumero') ? \Imagine\Site\AudioNumero::lecteur($issue) : ''; ?>
     </section>
     <?php if ($productUrl !== '') : ?>
     <p><a data-imagine-buy href="<?php echo esc_url($productUrl); ?>"><?php esc_html_e('Acheter ce numéro', 'imagine'); ?></a></p>

@@ -164,6 +164,13 @@ require_once __DIR__ . '/PointsVenteRegles.php';
 require_once __DIR__ . '/PointsVente.php';
 PointsVente::register();
 
+// B11 — liens sans oEmbed et audio privé réutilisant C11/C06.
+require_once __DIR__ . '/MediasRegles.php';
+require_once __DIR__ . '/Medias.php';
+require_once __DIR__ . '/AudioNumero.php';
+Medias::register();
+AudioNumero::register();
+
 add_action('init', static function (): void {
     foreach ([
         'imagine_numero' => [__('Numéros fictifs', 'imagine-site'), 'numeros'],

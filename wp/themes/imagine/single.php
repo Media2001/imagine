@@ -57,6 +57,7 @@ while (have_posts()) : the_post();
     </header>
     <div class="imagine-article-body" data-imagine-body="article">
         <?php echo $articleBody; // Sortie HTML autorisée et filtrée par imagine_article_body(). ?>
+        <?php echo class_exists('Imagine\\Site\\Medias') ? \Imagine\Site\Medias::rendre(get_post()) : ''; ?>
     </div>
 </article>
 <?php endwhile; ?>
