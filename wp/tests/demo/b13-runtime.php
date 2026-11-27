@@ -62,7 +62,54 @@ $check('affectation_invalide', get_transient(Navigation::CACHE) === false);
 $check('affectation_retire_selection', !str_contains(Navigation::thematiques(), 'data-b13-article="' . $article . '"'));
 update_option(Navigation::NOMBRE, 1, false);
 $check('reglage_invalide', get_transient(Navigation::CACHE) === false);
-$small = Navigation::thematiques();
-$check('reglage_nombre_applique', substr_count($small, 'data-b13-article=') <= count($terms));
+$directTerm = wp_insert_term('B13 — retrait direct temporaire', 'imagine_thematique');
+$direct = wp_insert_post(wp_slash([
+    'post_type' => 'post', 'post_status' => 'publish', 'post_title' => 'FICTIF B13 — récent sans image',
+    'post_content' => 'CONTENU_FICTIF_RESERVE_B13_DIRECT', 'meta_input' => ['imagine_reserve' => '1'],
+]), true);
+wp_set_object_terms($direct, [(int)$directTerm['term_id']], 'imagine_thematique');
+$directHtml = Navigation::thematiques();
+$directDoc = new DOMDocument();
+@$directDoc->loadHTML('<?xml encoding="utf-8" ?>' . $directHtml);
+$directXPath = new DOMXPath($directDoc);
+$check('recent_sans_image_garde_sans_placeholder', $directXPath->query('//li[@data-b13-article="' . $direct . '"]')->length === 1
+    && $directXPath->query('//li[@data-b13-article="' . $direct . '"]//img')->length === 0);
+$check('retrait_direct_precondition_cache', is_string(get_transient(Navigation::CACHE)));
+wp_remove_object_terms($direct, [(int)$directTerm['term_id']], 'imagine_thematique');
+$check('retrait_direct_invalide_cache', get_transient(Navigation::CACHE) === false);
+$afterDirect = Navigation::thematiques();
+$check('retrait_direct_article_absent_terme_vide_conserve', !str_contains($afterDirect, 'data-b13-article="' . $direct . '"')
+    && str_contains($afterDirect, 'data-b13-theme="' . $directTerm['term_id'] . '"'));
+$matrix = [];
+foreach (['A', 'B'] as $group) {
+    $term = wp_insert_term('B13 — matrice temporaire ' . $group, 'imagine_thematique');
+    $rows = [];
+    for ($i = 0; $i < 12; $i++) {
+        $date = '2026-11-' . sprintf('%02d', 1 + ($i % 4)) . ' 10:00:00';
+        $id = wp_insert_post(wp_slash([
+            'post_type' => 'post', 'post_status' => 'publish', 'post_title' => 'FICTIF B13 matrice ' . $group . ' ' . $i,
+            'post_date' => $date, 'post_date_gmt' => $date, 'post_content' => 'CONTENU_FICTIF_RESERVE_B13_MATRIX_' . $group . '_' . $i,
+            'meta_input' => ['imagine_reserve' => '1'],
+        ]), true);
+        wp_set_object_terms($id, [(int)$term['term_id']], 'imagine_thematique');
+        $rows[] = ['id' => $id, 'date' => $date];
+    }
+    usort($rows, static fn (array $a, array $b): int => strcmp($b['date'], $a['date']) ?: $b['id'] <=> $a['id']);
+    $matrix[(int)$term['term_id']] = array_column($rows, 'id');
+}
+foreach ([1, 3, 10] as $number) {
+    update_option(Navigation::NOMBRE, $number, false);
+    Navigation::invalider();
+    $doc = new DOMDocument();
+    @$doc->loadHTML('<?xml encoding="utf-8" ?>' . Navigation::thematiques());
+    $xpath = new DOMXPath($doc);
+    foreach ($matrix as $termId => $ranked) {
+        $found = [];
+        foreach ($xpath->query('//li[@data-b13-theme="' . $termId . '"]//li[@data-b13-article]') as $node) {
+            $found[] = (int)$node->getAttribute('data-b13-article');
+        }
+        $check('selection_exacte_' . $number . '_terme_' . $termId, $found === array_slice($ranked, 0, $number));
+    }
+}
 $check('reglage_defaut_et_bornes', Navigation::nombre('bad') === 3 && Navigation::nombre(0) === 1 && Navigation::nombre(99) === 10);
 echo wp_json_encode(['checks' => $checks, 'total' => count($checks)]);

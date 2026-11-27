@@ -13,7 +13,7 @@ final class Navigation
     public static function register(): void
     {
         add_filter('walker_nav_menu_start_el', [self::class, 'enrichir'], 10, 4);
-        foreach (['save_post', 'deleted_post', 'set_object_terms', 'created_term', 'edited_term', 'delete_term'] as $hook) {
+        foreach (['save_post', 'deleted_post', 'set_object_terms', 'deleted_term_relationships', 'created_term', 'edited_term', 'delete_term'] as $hook) {
             add_action($hook, [self::class, 'invalider']);
         }
         foreach (['added_post_meta', 'updated_post_meta', 'deleted_post_meta'] as $hook) {

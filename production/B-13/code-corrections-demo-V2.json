@@ -1,0 +1,6 @@
+{
+  "scope": "imagine-test-demo",
+  "readback": {
+    "plugins/imagine-site/Navigation.php": "8f5cccb040402de88c44a54165ded51bf51139586bd3176d15701b246262eeb0"
+  }
+}
