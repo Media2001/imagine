@@ -1,0 +1,16 @@
+{
+  "scope": "imagine-test-demo",
+  "consulted": "2026-11-27",
+  "official_sources": [
+    {
+      "url": "https://developer.wordpress.org/reference/classes/wp_rest_server/match_request_to_handler/",
+      "observed": "Native matcher uses an insensitive regular expression; this private core ordering is not a public compatibility contract."
+    },
+    {
+      "url": "https://developer.wordpress.org/reference/classes/wp_oembed_controller/get_proxy_item/",
+      "observed": "Native proxy builds transient key from serialized request parameters excluding _wpnonce, then reads cached data before resolution."
+    }
+  ],
+  "implementation": "Only the existing B12 proxy route comparison changes to strcasecmp; native permission and error guards remain untouched.",
+  "acceptance": "Actual installed WordPress 7.0.9 matcher, canonical matched route, consumed stale transient positive witnesses and native permission refusals; never claim a stub establishes this pipeline."
+}

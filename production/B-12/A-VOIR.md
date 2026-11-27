@@ -18,6 +18,7 @@ Lecture seule, sans argument puis lecture du site gardé :
 python -B wp/tests/demo/b12-verifier.py
 python -B wp/tests/demo/b12-verifier.py --live
 python -B wp/tests/demo/b12-proof-tests.py
+python -B wp/tests/demo/b12-correction-proof-tests.py
 ```
 
 Rejouer la preuve native en créant/supprimant seulement les deux essais fictifs, sous transaction (utiliser des labels **neufs**, les reçus existants ne sont jamais remplacés) :
@@ -35,7 +36,7 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/preparer-image.
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/rejouer.ps1
 ```
 
-Résultats reçus : mutation **6 tentatives / 0 transport**, verrou **56 contrôles / 0 tentative** ; B12 PHPUnit **5 tests / 37 assertions** ; lecteur de preuves **6 tests** ; rejeu **1 200 tests / 36 610 assertions**, 22 outils / 720 contrôles, zéro échec/erreur de suite. Paquets A31/A32 rouges hors lot, codes exacts dans `NOTE.md` et réception.
+Résultats **frais après correction** : mutation du verrou **6 tentatives / 0 transport** ; matrice générale **56 contrôles / 0 tentative** ; routes canonique/MAJ/mixed × cache absent/ancien **52 contrôles / 6 cas / 0 tentative**, liens seuls, ni iframe ni vignette, permissions refusées sans `edit_posts`. Rouge avant correction et mutation de la vraie source sensible à la casse : 2 tentatives B00 et anciens iframe/vignette détectés ; source et essais restaurés. B12 PHPUnit **6 tests / 47 assertions** ; lecteurs **6 historiques + 11 nouveaux tests** ; rejeu frais **1 204 tests / 36 667 assertions**, 22 outils / 720 contrôles, zéro échec/erreur/ignoré de suite. Paquets A31/A32 rouges hors lot, codes exacts dans `NOTE.md` et réception.
 
 **Fichier partagé changé :** bootstrap `imagine-site.php`. Complément voisin dans `reception-complement-voisins-V2.json/.log` : B11 32/35, C28 31/37, C27 628 ; natifs B11 23 et C28 25. Historiques intacts, empreinte historique de la portion hors ajout B12 contrôlée ; les vérificateurs bruts B11/C28 gardent leur refus de l'empreinte entière changée.
 
