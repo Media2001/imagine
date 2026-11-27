@@ -13,9 +13,11 @@ final class AcquisitionRegles
             return null;
         }
         foreach ($value as $key => $label) {
-            if (!is_string($key) || !preg_match('/^[a-z][a-z0-9_-]{0,39}$/D', $key)
+            if (
+                !is_string($key) || !preg_match('/^[a-z][a-z0-9_-]{0,39}$/D', $key)
                 || !is_string($label) || trim($label) !== $label || $label === ''
-                || mb_strlen($label, 'UTF-8') > 80 || preg_match('/[<>\x00-\x1f\x7f]/u', $label)) {
+                || mb_strlen($label, 'UTF-8') > 80 || preg_match('/[<>\x00-\x1f\x7f]/u', $label)
+            ) {
                 return null;
             }
         }
@@ -39,10 +41,12 @@ final class AcquisitionRegles
             if (($row['etat'] ?? '') === 'effacee') {
                 continue;
             }
-            if (!isset($row['date'], $row['choix'], $row['libelle']) || !is_string($row['date'])
+            if (
+                !isset($row['date'], $row['choix'], $row['libelle']) || !is_string($row['date'])
                 || !preg_match('/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/D', $row['date'])
                 || !self::jour(substr($row['date'], 0, 10))
-                || self::liste([$row['choix'] => $row['libelle']]) === null) {
+                || self::liste([$row['choix'] => $row['libelle']]) === null
+            ) {
                 throw new \RuntimeException('Déclaration illisible');
             }
             if ($row['date'] < $from . 'T00:00:00Z' || $row['date'] > $until . 'T23:59:59Z') {

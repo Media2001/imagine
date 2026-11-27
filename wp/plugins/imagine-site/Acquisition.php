@@ -41,9 +41,11 @@ final class Acquisition
         $order = wc_get_order($id);
         $choices = self::configuration();
         $key = $_GET['key'] ?? null;
-        if (!is_order_received_page() || !self::eligible($order, get_current_user_id()) || !$choices
+        if (
+            !is_order_received_page() || !self::eligible($order, get_current_user_id()) || !$choices
             || !is_string($key) || !hash_equals($order->get_order_key(), wp_unslash($key))
-            || get_option(self::REPONSE . $id, null) !== null) {
+            || get_option(self::REPONSE . $id, null) !== null
+        ) {
             return;
         }
         // Une seule proposition, même sans réponse : aucun rappel, popup, cookie ni script.
@@ -74,10 +76,12 @@ final class Acquisition
         $id = $_POST['commande'] ?? null;
         $choice = $_POST['choix'] ?? null;
         $nonce = $_POST['_c27'] ?? null;
-        if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST' || !is_string($id) || !preg_match('/^[1-9][0-9]*$/D', $id)
+        if (
+            ($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST' || !is_string($id) || !preg_match('/^[1-9][0-9]*$/D', $id)
             || !is_string($choice) || !is_string($nonce)
             || !wp_verify_nonce(wp_unslash($nonce), 'imagine_acquisition:' . $id)
-            || !self::eligible(wc_get_order((int) $id), get_current_user_id())) {
+            || !self::eligible(wc_get_order((int) $id), get_current_user_id())
+        ) {
             wp_die(esc_html__('Réponse refusée.', 'imagine-site'), '', ['response' => 403]);
         }
         if ($choice !== '' && is_wp_error(self::repondre((int) $id, get_current_user_id(), wp_unslash($choice)))) {

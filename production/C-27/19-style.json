@@ -1,0 +1,12 @@
+
+Notice: tempnam(): file created in the system's temporary directory in /opt/t01/imagine-site/vendor/squizlabs/php_codesniffer/src/Reporter.php on line 159
+
+Fatal error: Uncaught ValueError: Path cannot be empty in /opt/t01/imagine-site/vendor/squizlabs/php_codesniffer/src/Reporter.php:160
+Stack trace:
+#0 /opt/t01/imagine-site/vendor/squizlabs/php_codesniffer/src/Reporter.php(160): file_put_contents('', '')
+#1 /opt/t01/imagine-site/vendor/squizlabs/php_codesniffer/src/Runner.php(372): PHP_CodeSniffer\Reporter->__construct(Object(PHP_CodeSniffer\Config))
+#2 /opt/t01/imagine-site/vendor/squizlabs/php_codesniffer/src/Runner.php(120): PHP_CodeSniffer\Runner->run()
+#3 /opt/t01/imagine-site/vendor/squizlabs/php_codesniffer/bin/phpcs(14): PHP_CodeSniffer\Runner->runPHPCS()
+#4 /opt/t01/imagine-site/vendor/bin/phpcs(119): include('/opt/t01/imagin...')
+#5 {main}
+  thrown in /opt/t01/imagine-site/vendor/squizlabs/php_codesniffer/src/Reporter.php on line 160

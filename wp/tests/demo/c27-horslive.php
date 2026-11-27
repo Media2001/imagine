@@ -15,6 +15,13 @@ foreach (discoverT01Packages('/repo/wp')['packages'] as $package) {
     if ($mutation !== '') {
         $mutants = [
             'avant-paiement' => ['AcquisitionRegles.php', '$paid && $dated', 'true'],
+            'tiers' => ['AcquisitionRegles.php', '$actor === $owner', 'true'],
+            'operateur' => ['AcquisitionRegles.php', "\$via !== 'imagine-c16'", 'true'],
+            'source-ecrasee' => ['Acquisition.php', "get_user_meta(\$actor, self::SOURCE, true) === ''", 'true'],
+            'export' => ['AcquisitionConfidentialite.php', "'data' => array_slice(\$data, (max(1, \$page) - 1) * 50, 50)", "'data' => []"],
+            'effacement' => ['AcquisitionConfidentialite.php', 'update_option($key, $tombstone, false);', '// effacement retiré'],
+            'export-tiers' => ['AcquisitionConfidentialite.php', '$owner === null || $data[\'compte\'] === $owner', 'true'],
+            'reglage-invalide' => ['AcquisitionReglages.php', 'return Acquisition::configuration();', 'return [];'],
         ];
         if (!isset($mutants[$mutation])) {
             throw new RuntimeException('Mutation inconnue');

@@ -48,17 +48,21 @@ final class AcquisitionConfidentialite
         $out = [];
         foreach ($rows as $row) {
             $data = maybe_unserialize($row['option_value']);
-            if (!is_array($data) || !isset($data['commande'], $data['date']) || !is_int($data['commande'])
+            if (
+                !is_array($data) || !isset($data['commande'], $data['date']) || !is_int($data['commande'])
                 || $data['commande'] < 1 || $row['option_name'] !== $prefix . $data['commande']
-                || !is_string($data['date']) || !preg_match('/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/D', $data['date'])) {
+                || !is_string($data['date']) || !preg_match('/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/D', $data['date'])
+            ) {
                 return new \WP_Error('imagine_acquisition_format', __('Déclaration illisible : lecture incomplète.', 'imagine-site'));
             }
             if (($data['etat'] ?? '') === 'effacee') {
                 continue;
             }
-            if (!isset($data['compte']) || !is_int($data['compte']) || $data['compte'] < 1
+            if (
+                !isset($data['compte']) || !is_int($data['compte']) || $data['compte'] < 1
                 || (!$seen && (!isset($data['choix'], $data['libelle'])
-                    || AcquisitionRegles::liste([$data['choix'] => $data['libelle']]) === null))) {
+                    || AcquisitionRegles::liste([$data['choix'] => $data['libelle']]) === null))
+            ) {
                 return new \WP_Error('imagine_acquisition_format', __('Déclaration illisible : lecture incomplète.', 'imagine-site'));
             }
             if ($owner === null || $data['compte'] === $owner) {

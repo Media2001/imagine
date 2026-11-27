@@ -13,8 +13,14 @@ final class AcquisitionAdmin
     {
         add_action('admin_menu', static function (): void {
             if (TableauBordAdmin::autorise()) {
-                add_submenu_page('imagine', __('Acquisition déclarée', 'imagine-site'), __('Acquisition déclarée', 'imagine-site'),
-                    current_user_can('manage_options') ? 'manage_options' : TableauBordAdmin::CAP, self::PAGE, [self::class, 'page']);
+                add_submenu_page(
+                    'imagine',
+                    __('Acquisition déclarée', 'imagine-site'),
+                    __('Acquisition déclarée', 'imagine-site'),
+                    current_user_can('manage_options') ? 'manage_options' : TableauBordAdmin::CAP,
+                    self::PAGE,
+                    [self::class, 'page']
+                );
             }
         }, 125);
         add_filter('woocommerce_prevent_admin_access', static function (bool $prevent): bool {
