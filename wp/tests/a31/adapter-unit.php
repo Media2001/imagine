@@ -3,6 +3,10 @@
 declare(strict_types=1);
 
 // Test doubles only; separate installed-source/native gate remains mandatory.
+// Native Woo/WCS boundary names must match the installed API, not PSR class/method spelling.
+// phpcs:disable PSR1.Files.SideEffects.FoundWithSymbols, PSR1.Classes.ClassDeclaration.MissingNamespace
+// phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses, Squiz.Classes.ValidClassName.NotCamelCaps
+// phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
 class WC_Meta_Data
 {
     public function __construct(private string $key, private mixed $value)
@@ -54,6 +58,7 @@ function wcs_get_subscription(int $id): WC_Subscription|false
 {
     return $id === 7 ? new WC_Subscription([]) : false;
 }
+// phpcs:enable PSR1.Classes.ClassDeclaration, Squiz.Classes.ValidClassName, PSR1.Methods.CamelCapsMethodName
 require '/subject/a31/Inventory.php';
 $checks = [];
 $check = static function (string $name, bool $ok) use (&$checks): void {

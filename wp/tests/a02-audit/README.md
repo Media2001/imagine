@@ -103,3 +103,5 @@ A-29 : compter les tâches planifiées via wp/outils/bascule/a29/confine.py ; mo
 Sur copie neutralisée, tous ces comptes sont « inconnu après neutralisation » ; réception et limites : production/A-29/RECEPTION-PARENT.md.
 A30 : passage à blanc hors ligne en lecture seule — `a30/README.md` ; aucune création ni import, configuration des types entièrement fictive.
 Sur copie neutralisée, le rapprochement des comptes vaut « inconnu après neutralisation », jamais zéro ; numéros de lignes conservés uniquement à côté de l'entrée hors dépôt.
+A-31 — Historique des commandes : `python3 wp/outils/bascule/a31/confine.py --wp-path=/copie-verifiee --audit=/hors-web/audit-date/audit.json --output=/hors-web/commandes-date` ; nombres seuls, K=5, aucun montant ni identifiant.
+Mode d'emploi et limites de neutralisation : `wp/outils/bascule/a31/README.md` ; réception et preuves : `production/A-31/RECEPTION-PARENT.md` ; aucun GO sur le réel.
