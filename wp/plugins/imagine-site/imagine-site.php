@@ -188,6 +188,10 @@ Navigation::register();
 require_once __DIR__ . '/Accueil.php';
 Accueil::register();
 
+// B15 — pied de page identique, sans géolocalisation.
+require_once __DIR__ . '/PiedPage.php';
+PiedPage::register();
+
 // C28 — instantané du pack au paiement, décision et remboursements C14 inchangés.
 require_once __DIR__ . '/PacksRegles.php';
 require_once __DIR__ . '/PacksThematiques.php';
