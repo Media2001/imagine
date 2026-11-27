@@ -1,0 +1,71 @@
+{
+  "sources": [
+    {
+      "url": "https://developer.wordpress.org/reference/functions/wp_embed_register_handler/",
+      "status": 200,
+      "title": "wp_embed_register_handler() – Function | Developer.WordPress.org",
+      "page_sha256": "c6cc80a6fce75aa2cae8432c60232e32187a1b42fea81ebb2dd9417a54b0fbfb",
+      "excerpts": [
+        "uted Notes Copy page View as Markdown Back to top Registers an embed handler. Description Should probably only be used for sites that do not support oEmbed. Parameters $id string required An internal ID/name for the handler. Needs to be unique. $regex string required The regex that will be used to see if this handler should be used for a URL. $callback callable required The callback function that will be called if the regex is matched. $priority int optional Used to specify the order in which the registered handlers will be tested. Default: 10 Source function wp_embed_register_handler( $id, $regex, $callback, $priority = 10 ) { global $wp_emb"
+      ]
+    },
+    {
+      "url": "https://developer.wordpress.org/reference/classes/wp_embed/shortcode/",
+      "status": 200,
+      "title": "WP_Embed::shortcode() – Method | Developer.WordPress.org",
+      "page_sha256": "391ae2c4b078b96df8aefa6002cb92f0bba23bb40303525297ff1275b7e1038e",
+      "excerpts": [
+        "Description Parameters Return Source Hooks Related Copy page View as Markdown Back to top The do_shortcode() callback function. Description Attempts to convert a URL into embed HTML. Starts by checking the URL against the regex of the registered embed handlers. If none of the regex matches and it’s enabled, then the URL will be given to the WP_oEmbed class. Parameters $attr array required Shortcode attributes. Optional. width int Width of the embed in pixels. height int Height of the embed in pixels. $url string optional The URL attempting to be embedded. Default: '' Return string|false The embed HTML on success, otherwise the original URL. ->maybe_make_link() can return false on failure. So"
+      ]
+    },
+    {
+      "url": "https://developer.wordpress.org/reference/classes/wp_embed/cache_oembed/",
+      "status": 200,
+      "title": "WP_Embed::cache_oembed() – Method | Developer.WordPress.org",
+      "page_sha256": "48863abbbd8881021eb28eb74cb1bbc116029216815e1b1c4b648f340fe8e296",
+      "excerpts": [
+        "ks Related Copy page View as Markdown Back to top Triggers a caching of all oEmbed results. Parameters $post_id int required Post ID to do the caching for. Source public function cache_oembed( $post_id ) { $post = get_post( $post_id ); $post_types = get_post_types( array( 'show_ui' => true ) ); /** * Filters the array of post types to cache oEmbed results for. * * @since 2.9.0 * * @param string[] $post_types Array of post type names to cache oEmbed results for. Defaults to post types with `show_ui` set to true. */ $cache_oembed_types = apply_filters( 'embed_cache_oembed_types', $post_types ); if ( empty( $post->ID ) || ! in_array( $post->post"
+      ]
+    },
+    {
+      "url": "https://developer.wordpress.org/reference/hooks/pre_oembed_result/",
+      "status": 200,
+      "title": "pre_oembed_result – Hook | Developer.WordPress.org",
+      "page_sha256": "06eadf69f3adb525b7942a2dca94f7f09b4879f1e2ef1576dacb1be6ad443cc4",
+      "excerpts": [
+        "requests are made. Description This allows one to short-circuit the default logic, perhaps by replacing it with a routine that is more optimal for your setup. Returning a non-null value from the filter will effectively short-circuit retrieval and return the passed value instead. Parameters $result null|string The UNSANITIZED (and potentially unsafe) HTML that should be used to embed. Default null to continue retrieving the result. $url string The URL to the content that should be attempted to be embedded. $args string|array Additional arguments for retrieving embed HTML. See wp_oembed_get() for accepted arguments. Default empty. More Argument"
+      ]
+    },
+    {
+      "url": "https://developer.wordpress.org/reference/hooks/pre_render_block/",
+      "status": 200,
+      "title": "pre_render_block – Hook | Developer.WordPress.org",
+      "page_sha256": "e27da8266d7f31e61fa68cf493985716f15545698537614b8f1debd5b4e6badc",
+      "excerpts": [
+        " Markdown Back to top Allows render_block() to be short-circuited, by returning a non-null value. Parameters $pre_render string|null The pre-rendered content. Default null. $parsed_block array An associative array of the block being rendered. See WP_Block_Parser_Block . blockName string|null Name of block. attrs array Attributes from block comment delimiters. innerBlocks array[] List of inner blocks. An array of arrays that have the same structure as this one. innerHTML string HTML from inside block comment delimiters. innerContent array List of string fragments and null markers where inner blocks were found. $parent_block WP_Block |null If t",
+        " Changelog Copy page View as Markdown Back to top Allows render_block() to be short-circuited, by returning a non-null value. Parameters $pre_render string|null The pre-rendered content. Default null. $parsed_block array An associative array of the block being rendered. See WP_Block_Parser_Block . blockName string|null Name of block. attrs array Attributes from block comment delimiters. innerBlocks array[] List of inner blocks. An array of arrays that have the same structure as this one. innerHTML string HTML from inside block comment delimiters. innerContent array List of string fragments and null markers where inner blocks were found. $pare"
+      ]
+    },
+    {
+      "url": "https://developer.wordpress.org/reference/hooks/rest_dispatch_request/",
+      "status": 200,
+      "title": "rest_dispatch_request – Hook | Developer.WordPress.org",
+      "page_sha256": "1d267d99c0350d7f37c6b6f9c824facf8ea9d9a7bbd4bc226277f7c343b5e15c",
+      "excerpts": [
+        " Changelog Copy page View as Markdown Back to top Filters the REST API dispatch request result. Description Allow plugins to override dispatching the request. Parameters $dispatch_result mixed Dispatch result, will be used if not empty. $request WP_REST_Request Request used to generate the response. $route string Route matched for the request. $handler array Route handler used for the request. Source $dispatch_result = apply_filters( 'rest_dispatch_request', null, $request, $route, $handler ); View all references View on Trac View on GitHub Related Used by Description WP_REST_Server::respond_to_request() wp-includes/rest-api/class-wp-rest-ser",
+        "the REST API dispatch request result. Description Allow plugins to override dispatching the request. Parameters $dispatch_result mixed Dispatch result, will be used if not empty. $request WP_REST_Request Request used to generate the response. $route string Route matched for the request. $handler array Route handler used for the request. Source $dispatch_result = apply_filters( 'rest_dispatch_request', null, $request, $route, $handler ); View all references View on Trac View on GitHub Related Used by Description WP_REST_Server::respond_to_request() wp-includes/rest-api/class-wp-rest-server.php Dispatches the request to the callback handler. Ch"
+      ]
+    },
+    {
+      "url": "https://developer.wordpress.org/reference/classes/wp_oembed_controller/get_proxy_item/",
+      "status": 200,
+      "title": "WP_oEmbed_Controller::get_proxy_item() – Method | Developer.WordPress.org",
+      "page_sha256": "6f6e52fef5e94a16257290c75c002c751eafb80ec8728d7eaca5ba272e460c24",
+      "excerpts": [
+        ", $wp_scripts; $args = $request->get_params(); // Serve oEmbed data from cache if set. unset( $args['_wpnonce'] ); $cache_key = 'oembed_' . md5( serialize( $args ) ); $data = get_transient( $cache_key ); if ( ! empty( $data ) ) { return $data; } $url = $request['url']; unset( $args['url'] ); // Copy maxwidth/maxheight to width/height since WP_oEmbed::fetch() uses these arg names. if ( isset( $args['maxwidth'] ) ) { $args['width'] = $args['maxwidth']; } if ( isset( $args['maxheight'] ) ) { $args['height'] = $args['maxheight']; } // Short-circuit process for URLs belonging to the current site. $data = get_oembed_response_data_for_url( $url, $ar",
+        " ) ) { $args['height'] = $args['maxheight']; } // Short-circuit process for URLs belonging to the current site. $data = get_oembed_response_data_for_url( $url, $args ); if ( $data ) { return $data; } $data = _wp_oembed_get_object()->get_data( $url, $args ); if ( false === $data ) { // Try using a classic embed, instead. /* @var WP_Embed $wp_embed */ $html = $wp_embed->get_embed_handler_html( $args, $url ); if ( $html ) { // Check if any scripts were enqueued by the shortcode, and include them in the response. $enqueued_scripts = array(); foreach ( $wp_scripts->queue as $script ) { $enqueued_scripts[] = $wp_scripts->registered[ $script ]->src;"
+      ]
+    }
+  ],
+  "runtime_also_inspected": "WordPress 7.0.9 class-wp-embed.php, class-wp-oembed-controller.php, class-wp-rest-server.php"
+}
