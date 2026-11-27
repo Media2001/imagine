@@ -25,8 +25,14 @@ final class CodesSuivisConfidentialite
             return [];
         }
         $user = get_user_by('email', $email);
-        return wc_get_orders(['type' => 'shop_order', 'customer_id' => $user ? $user->ID : 0,
-            'billing_email' => $email, 'limit' => 50, 'page' => max(1, $page), 'orderby' => 'ID', 'order' => 'ASC']);
+        $args = ['type' => 'shop_order', 'customer_id' => $user ? $user->ID : 0,
+            'limit' => 50, 'page' => max(1, $page), 'orderby' => 'ID', 'order' => 'ASC'];
+        if (!$user) { $args['billing_email'] = $email; }
+        global $wpdb;
+        $wpdb->last_error = '';
+        $orders = wc_get_orders($args);
+        if ($wpdb->last_error !== '' || !is_array($orders)) { throw new \RuntimeException('Lecture impossible'); }
+        return $orders;
     }
 
     public static function exporter(string $email, int $page = 1): array|\WP_Error

@@ -118,7 +118,10 @@ final class CodesSuivis
         $counts = [];
         try {
             for ($page = 1; ; $page++) {
+                global $wpdb;
+                $wpdb->last_error = '';
                 $orders = wc_get_orders(['type' => 'shop_order', 'status' => ['processing', 'completed'], 'limit' => 50, 'page' => $page, 'orderby' => 'ID', 'order' => 'ASC']);
+                if ($wpdb->last_error !== '' || !is_array($orders)) { throw new \RuntimeException('Lecture impossible'); }
                 foreach ($orders as $order) {
                     $date = $order->get_date_paid();
                     $value = $order->get_meta(self::META);

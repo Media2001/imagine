@@ -29,7 +29,7 @@ $make = static function (string $via = 'checkout') use ($user) {
     $o = wc_create_order(['status' => 'pending', 'customer_id' => $user, 'created_via' => $via]);
     $o->set_billing_email(get_userdata($user)->user_email);
     $o->set_total('12.34');
-    CodesSuivis::candidat($o, []);
+    do_action('woocommerce_checkout_create_order', $o, []);
     $o->save();
     return $o;
 };
@@ -58,4 +58,18 @@ $check('effacement_relu', $erase['done'] && $erase['items_removed'] && !$erase['
 CodesSuivis::payer($paid->get_id());
 $check('effacement_non_recree', wc_get_order($paid->get_id())->get_meta(CodesSuivis::META) === '');
 $check('source_c27_inchangee', get_user_meta($user, Imagine\Site\Acquisition::SOURCE, true) === '');
+$check('dates_invalides_refusees', is_wp_error(CodesSuivis::compter('2026-02-30', '2026-03-01')));
+$check('reglage_antislash', Imagine\Site\CodesSuivisAdmin::nettoyer("fictif-test|FICTIF \\ Test") === ['fictif-test' => 'FICTIF \\ Test']);
+$check('export_antislash', str_contains(wp_json_encode(CodesSuivis::configuration()), 'FICTIF Affiche'));
+global $wpdb;
+$journalBefore = (int)$wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->options} WHERE option_name LIKE 'imagine_reglages_journal_%'");
+update_option(CodesSuivis::OPTION, ['fictif-journal' => 'FICTIF Journal'], false);
+$check('journal_ecrit', (int)$wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->options} WHERE option_name LIKE 'imagine_reglages_journal_%'") === $journalBefore + 1);
+$blockJournal = static function (string $sql): string {
+    return str_starts_with($sql, 'INSERT') && str_contains($sql, 'imagine_reglages_journal_') ? 'SELECT 1' : $sql;
+};
+add_filter('query', $blockJournal);
+try { update_option(CodesSuivis::OPTION, ['fictif-refus' => 'FICTIF Refus'], false); }
+finally { remove_filter('query', $blockJournal); }
+$check('journal_echec_restaure_liste', CodesSuivis::configuration() === ['fictif-journal' => 'FICTIF Journal']);
 echo wp_json_encode(['checks' => $checks, 'total' => count($checks)]);

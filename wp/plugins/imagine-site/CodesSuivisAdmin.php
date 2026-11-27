@@ -55,7 +55,9 @@ final class CodesSuivisAdmin
         $user = wp_get_current_user();
         $name = 'imagine_reglages_journal_' . str_replace('-', '', wp_generate_uuid4());
         $event = ['quand_utc' => gmdate('Y-m-d\TH:i:s\Z'), 'qui_id' => $user->ID, 'qui_login' => $user->ID ? $user->user_login : 'systeme', 'option' => $key, 'avant' => $old, 'apres' => $new];
-        if (add_option($name, $event, '', false) && get_option($name) === $event) { return; }
+        $written = add_option($name, $event, '', false);
+        wp_cache_delete($name, 'options');
+        if ($written && get_option($name) === $event) { return; }
         self::$restoring = true;
         try {
             $old === null ? delete_option($key) : update_option($key, $old, false);

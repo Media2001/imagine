@@ -1,0 +1,13 @@
+{
+  "scope": "imagine-test-demo",
+  "seed": {
+    "id": 4163,
+    "url": "http://192.168.129.32:8085/bienvenue/",
+    "codes": {
+      "fictif-affiche": "FICTIF Affiche",
+      "fictif-magazine": "FICTIF Magazine",
+      "fictif-evenement": "FICTIF Événement"
+    }
+  },
+  "idempotent": true
+}
