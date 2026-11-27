@@ -2,7 +2,7 @@
 
 Tenu à jour par Claude à chaque session avec Ced. **Hermès ne modifie pas ce fichier** : il signale dans son rapport ce qu'il a fait et ce qui bloque, et la consigne passe en « Terminé » à la session suivante.
 
-Mis à jour le 26 novembre 2026, 22 h 30 (passage automatique).
+Mis à jour le 27 novembre 2026, 1 h 30 (passage automatique).
 
 **Deux voies depuis le 23/11.** Ce fichier est la file de la voie 1. Une deuxième session d'Hermès suit `A-FAIRE-2.md` (site de démonstration, squelette du thème, paywall sur article, profils, écran de réglages). Lis la section « Les deux voies » de la consigne permanente. Ne touche ni au site `imagine-test-demo`, ni aux dossiers `wp/themes/imagine/`, `wp/plugins/imagine-site/`, `wp/outils/demo/`, `wp/tests/demo/`.
 
@@ -12,23 +12,36 @@ Le projet a trois chantiers indépendants. Un lot porte la lettre de son chantie
 
 ## Consignes actives, par ordre de priorité
 
-File du 26/11, 22 h 30. Ton rapport de 19 h 21 est lu, merci ; tes notes de correction d'A-23, A-24 et A-25 et la réception d'A-27 aussi. **A-20 et A-21 sont clos** (leur propre vérification après le gel de 19 h 21). **A-22 : corrections vérifiées, rien à corriger**, pas encore clos : il manque le rejeu indépendant de son vérificateur de paquet, qui ne dépend pas de toi (voir `ETAT.md`). **Ne touche plus au gardien commun sans le dire en tête de ton rapport** : tout changement rouvre A-20, A-21 et A-22. A-23, A-24, A-25 : relus « à corriger », corrections que tu dis faites, sans `PRET`. Arbitrages : `docs/arbitrages-2026-11-26.md`, passage de 22 h.
+File du 27/11, 1 h 30. Tes rapports de 22 h 56, 23 h 42, 0 h 53 et 1 h 02 sont lus, merci : ta liste des paquets périmés par A-28 (`production/A-28/REJEUX-PARENT.md`) est exactement ce qu'il fallait, et ne rien resceller était le bon réflexe. **A-23, A-24, A-25 : vérifiés « prêt », rien à corriger au code** ; ils se closent sur leur paquet refait (consigne 2). **A-26 et A-27 : relus « à corriger »**. **A-28 : rendu, en relecture.** A-29 : construit, preuve native attendue. Arbitrages : `docs/arbitrages-2026-11-27.md`, passage de 1 h.
 
-**0. A-23, A-24, A-25 : matrices natives, portes communes, puis leurs `PRET`** (`corrections/A-23.md`, `corrections/A-24.md`, `corrections/A-25.md`) :
-   - les défauts techniques des trois fusions sont confirmés, tels que tu les as appliqués : A-23 aligné sur la règle d'A-17 (définitions de rôle, plus les capacités directes) et refus fermé d'un rôle de gestion au nom non conforme ; A-24 compare sans les espaces ni la casse, données brutes intactes ; A-25 distingue `submission_id` clé primaire et référence, et répond « couverture indéterminée » dans le doute, jamais zéro ;
-   - une matrice neuve par lot après le dernier changement de source, un seul paquet par lot ; l'ancien paquet ne qualifie pas le code corrigé, tu l'as bien vu ; il sort du dépôt quand le nouveau est vert (règle du paquet unique) ;
-   - le cinquième canari (rapport altéré en fin de processus) vaut pour les trois ;
-   - A-23 : la question des collisions avec un compte de l'administration est rangée pour Imagine, défaut « oui » : n'y touche pas.
+**L'ordre, pour ne pas rejouer sept matrices deux fois.** A-28 a changé l'import ; sa relecture peut encore le faire changer. Donc : le code d'abord (consignes 0 et 1), la requalification ensuite, une seule fois, sur l'import final (consigne 2). Les rejeux que tu as déjà faits cette nuit sur l'import courant comptent si l'import ne change plus.
 
-**1. Finir A-26 et A-27** (`briefs/A-26-ce-que-le-site-charge-chez-des-tiers.md`, `briefs/A-27-moyens-de-paiement-enregistres.md`) : matrices natives, lignes des `readme-ajout.txt` intégrées par toi, portes communes, `PRET`. A-27 : « tout est inconnu sur une copie neutralisée » est un résultat, il sera porté à Ced ; l'import n'est pas à modifier pour lui.
+**0. Corrections de code, sans resceller** :
+   - **A-26** (`corrections/A-26.md`) : remplacer l'extraction par expression régulière par un lecteur de balises natif de WordPress, avec les deux contre-exemples en tests rouges puis verts, classique et HPOS ; chemin explicite du mode d'emploi. Défauts confirmés : « illisible » plutôt qu'un « non » non prouvé ; `form-policy.json` entre dans le gel des dépendances ;
+   - **A-27** (`corrections/A-27.md`) : un champ déclaré mais illisible n'est jamais « absent » (cas `ppcp-gateway`, classique et HPOS) ; un lien explicite contredit par une référence donne « illisible », sans choisir un instrument ; le repli par passerelle reste pour la référence seule. Les deux mineurs sont à ta main. « Six mois » : la borne reste au jour de l'audit, question rangée pour Imagine, n'y touche pas ;
+   - **A-25** : son banc pose `garder` sur une table de messages et attend qu'ils restent. **C'est le banc d'A-25 qui s'adapte à A-28, pas l'inverse** : il attend la purge, et le nouveau refus. Le code de l'outil ne change pas. Rafraîchis l'en-tête de son mode d'emploi ;
+   - **A-24** : `RAPPORT.md` et le paragraphe « Portée » du mode d'emploi décrivent encore l'état d'avant ta qualification de 22 h 56 ; mets-les à jour avec le paquet refait.
 
-**2. `briefs/A-28-messages-de-formulaires-et-import.md`** — ton alerte d'A-25 est prise au sérieux. Prouver par le vrai parcours d'import, sur archives fictives, ce qu'il reste des messages de formulaires (table dédiée connue, table inconnue, type de contenu) ; vider ceux d'une liste fermée, refuser un `garder` sur eux, et faire refuser par l'étape de vérification une copie où il en reste. A-01 reste clos pour tout le reste ; aucune commande de Ced ne change ; tu n'ouvres pas l'archive. Trois heures.
+**1. Finir A-29** (`briefs/A-29-ce-que-le-site-fait-tout-seul.md`) jusqu'à sa matrice native. Tes trois défauts sont confirmés : huit semaines glissantes en temps universel sans extrapolation ; échecs lus dans la seule file de WooCommerce ; aucune attribution d'une tâche inconnue à une extension.
 
-**3. `briefs/A-29-ce-que-le-site-fait-tout-seul.md`** — les tâches planifiées du site actuel, comptées par famille d'une liste fermée : en attente, en retard, en échec, renouvellements attendus par semaine sur huit semaines (§4.3, §3.8 ; pour choisir le moment de la bascule). Lecture seule, rien n'est exécuté ni replanifié, aucun nom de tâche hors liste ne sort. Trois heures.
+**2. La requalification commune, une seule fois, à l'arrivée de la fusion d'A-28** (`corrections/A-28.md`) :
+   - si la fusion demande de toucher à l'import, ses corrections d'abord ;
+   - ensuite les matrices d'A-21 à A-27 et d'A-29 sur l'import final, un paquet neuf par lot, l'ancien sorti du dépôt quand le nouveau est vert, puis leurs `PRET` ;
+   - **A-21 reste clos** : son code n'a pas changé ; son paquet est refait et son `PRET` redéposé pour que le circuit le revérifie ; il ne se rouvre que si sa matrice est rouge. A-20 passe encore : rien à faire ;
+   - A-22 : même chose ; sa clôture attend toujours un rejeu indépendant de son vérificateur (consigne 3) ;
+   - A-23, A-24, A-25 : code inchangé depuis leur vérification, rien à refaire au fond ; le circuit lance de lui-même la vérification complémentaire ;
+   - en attendant la fusion, tu n'es pas à l'arrêt : consignes 0, 1, 3 et 4.
+   - A-28, les contenus d'un type inconnu : tu n'en as rien décidé et c'est bien ; la question est portée à Ced. Ne change rien.
 
-**Ton dernier rapport date de 19 h 21** alors que tu as travaillé depuis : un rapport court à la fin de chaque réveil, même quand rien n'est `PRET`. Trois lignes suffisent : où en sont les portes, ce qui bloque.
+**L'import est gelé après A-28.** Plus aucun changement de `wp/outils/staging/` sans une consigne de cette file. Un lot qui change un fichier commun (import, gardien) le dit en tête de son rapport et livre la liste des paquets qu'il périme, comme tu l'as fait.
 
-**Un rapport court dans `files/rapports/` à la fin de chaque réveil**, même de cinq lignes : c'est ce que le passage automatique lit en premier.
+**3. `briefs/T-03-rejeu-des-verificateurs-de-paquet.md`** — la commande de rejeu autorisée joue aussi les vérificateurs de paquet sans argument, dans le même conteneur isolé ; une ligne `PAQUETS` de plus, la dernière ligne ne change ni de forme ni de sens. C'est ce qui permettra de clore A-22 sans attendre Ced. Deux heures.
+
+**4. `briefs/A-30-import-a-blanc-des-abonnes-hors-ligne.md`** — ce que ferait l'import des abonnés hors ligne, ligne par ligne, en nombres : comptes à créer, comptes existants, lignes sans adresse, types sans correspondance. Rien n'est écrit, rien n'est importé ; fichiers fictifs d'A-13. Une demi-journée.
+
+**Ne touche plus au gardien commun sans le dire en tête de ton rapport** : tout changement rouvre les paquets de tous les outils.
+
+**Un rapport court dans `files/rapports/` à la fin de chaque réveil**, même de cinq lignes : c'est ce que le passage automatique lit en premier. Les tiens de cette nuit étaient bien.
 
 **Règle étendue : un canari par canal, et le fichier est un canal.** Un outil qui charge le WordPress du site prouve son silence sur chaque canal par lequel du code tiers peut parler : affichage, écriture directe sur les deux flux, arrêt anticipé, fin de processus, **et fichier de rapport altéré avant publication**. Un seul canari affiché ne prouve rien des autres.
 
@@ -120,7 +133,13 @@ Tu n'ouvres toujours pas l'archive d'Imagine ; c'est Ced qui lance le diagnostic
 | T-02 Rejeu des tests purs des outils | 26/11, corrigé le 26/11 | **Clos le 26/11** (trois corrections vérifiées : un reçu mixte est refusé, empreintes des reçus recalculées). Vérification complémentaire : suite rejouée par le vérificateur, 16 outils, 311 contrôles |
 | A-20 Ce que paient les abonnés en ligne | 26/11, corrigé et repris le 26/11 | **Clos le 26/11** (cinq corrections vérifiées ; vérification n° 3 sur le gardien final, canal « fichier » couvert). Matrice native rejouée par Hermès seul. Des comptes seulement |
 | A-21 Les portes vers l'extérieur | 26/11, corrigé et repris le 26/11 | **Clos le 26/11** (quatre corrections vérifiées ; vérification n° 3 sur le gardien final). Matrice native rejouée par Hermès seul. Aucune clé, aucune adresse, ne révoque rien |
-| A-22 Un seul gardien pour les sorties | 26/11, corrigé le 26/11 | Six corrections faites, cinq vérifiées par des tests rejoués ; **pas clos** : le vérificateur de paquet n'a été lancé par aucun relecteur (commande à Ced, `ETAT.md`) |
+| A-22 Un seul gardien pour les sorties | 26/11, corrigé le 26/11 | Six corrections faites, cinq vérifiées par des tests rejoués ; **pas clos** : paquet périmé par A-28, à refaire ; puis rejeu indépendant de son vérificateur (T-03, ou Ced) |
+| A-23 Les comptes des abonnés | 26/11, corrigé le 26/11 | Quatre corrections vérifiées « prêt » (règle d'A-17, six comptes de gestion masqués exclus). **Clôture sur le paquet refait** après A-28, code inchangé |
+| A-24 Les adresses d'expédition | 26/11, corrigé le 26/11 | Sept corrections vérifiées « prêt » (comparaison sans casse ni espaces, données brutes intactes). **Clôture sur le paquet refait** après A-28, rapport et « Portée » mis à jour |
+| A-25 Ce que le site garde sur ses visiteurs | 26/11, corrigé le 26/11 | Quatre corrections vérifiées « prêt » (table d'entrées et table-fille distinguées, « couverture indéterminée »). Banc à adapter à A-28, puis **clôture sur le paquet refait** |
+| A-26 Ce que le site charge chez des tiers | 26/11 | Relu « à corriger » le 27/11 : lecteur de balises à la place de l'expression régulière, paquet à refaire (consigne 0) |
+| A-27 Les moyens de paiement enregistrés | 26/11 | Relu « à corriger » le 27/11 : « illisible » jamais « absent », contradiction sans choix d'instrument, paquet à refaire (consigne 0) |
+| A-28 Les messages de formulaires et l'import | 27/11 | Rendu à 0 h 58, en relecture. A changé l'import : paquets d'A-21 à A-27 à refaire une fois (consigne 2) |
 | A-07 Retouches de rédaction | 26/11 | Sept retouches vérifiées ; constat du 20/11 annoté, rien de rejoué. Reste clos |
 | T-01 Commande de rejeu | 23/11, corrigé le 23/11 | **Clos le 23/11** ; autorisation ajoutée au script de relecture |
 | A-02 Script d'audit | 23/11, corrigé le 23/11 | **Clos le 23/11** (outil et banc fictif). L'audit réel reste à lancer |

@@ -2,7 +2,7 @@
 
 File de la **deuxième session d'Hermès**. Tenue par Claude. **Hermès ne modifie pas ce fichier.**
 
-Mis à jour le 26 novembre 2026, 22 h 30 (passage automatique).
+Mis à jour le 27 novembre 2026, 1 h 30 (passage automatique).
 
 Consigne permanente : `prompts/consigne-permanente.md` (section « Les deux voies »). Doctrine : `doctrine/doctrine.md`.
 
@@ -10,22 +10,25 @@ La voie 1 (`A-FAIRE.md`) s'occupe de l'existant : import, audit, mise à jour. L
 
 ## Consignes actives, par ordre de priorité
 
-File du 26/11, 22 h 30. Tes cinq rapports de 19 h 44 à 21 h 58 sont lus, merci : courts et utiles. **B-06 est code clos** (cinq corrections vérifiées). **C-23 est code clos** sur son périmètre ; la couverture des pages coopérateurs, entrée pendant le tour de correction, reste en place mais sera relue avec C-26. **C-24** : relu « à corriger », cinq corrections que tu dis faites à 21 h 58, vérification attendue ; rien à faire de plus. **B-07** : rendu, relu « à corriger ». Arbitrages : `docs/arbitrages-2026-11-26.md`, passage de 22 h.
+File du 27/11, 1 h 30. Tes quatre rapports de 22 h 33 à 0 h 31 sont lus, merci : toute la file de 22 h 30 est rendue. **B-07, C-24 et C-25 sont code clos** (vérifications « prêt »). **C-26** : rendu, en relecture, rien à faire. **B-08** : relu « à corriger », deux importants. Arbitrages : `docs/arbitrages-2026-11-27.md`, passage de 1 h.
 
-**0. Corrections de B-07** (`corrections/B-07.md`), les huit, telles quelles :
-   - un lien saisi dans le texte d'un événement **partenaire** est déclaré commercial, comme le bouton (règle de B-05) ; une rencontre ordinaire n'est pas touchée ;
-   - un export qui n'arrive pas à lire les inscriptions échoue, il ne rend pas une page vide ; dans le doute, incomplet, jamais complet ;
-   - le balisage part du texte affiché, pas du texte brut ;
-   - un partenaire passé garde son étiquette et son lien ; un événement mal saisi se signale dans l'administration ;
-   - l'adaptateur a une preuve rejouable hors du site (lien du texte, balisage, export) ;
-   - pas de garde contre les inscriptions en masse sur la démonstration : confirmé, n'en ajoute pas ;
-   - **style** : ne reformate pas B-07 pour PSR-12 (voir plus bas).
+**0. Corrections de B-08** (`corrections/B-08.md`), les sept :
+   - une proposition contenant un antislash est aujourd'hui refusée et perdue : écris les métadonnées selon la convention de WordPress (valeurs échappées à l'écriture, valeurs propres pour la relecture) ; **corrige d'abord le bouchon** qui masquait le défaut, puis un cas d'essai du formulaire jusqu'au détail de l'administration et à l'export ;
+   - la création du menu se reprend après une interruption : un témoin posé dès la création, pas une option écrite à la fin ; un menu ou un élément étranger reste refusé ;
+   - le lien de prise de parts n'accepte que `https` : confirmé ;
+   - une entrée de menu ne reçoit une adresse que si sa cible existe ;
+   - la section B-08 du README de l'extension ; B-06 et B-07 aussi si c'est au même coût ;
+   - la colonne de liste de l'administration est facultative.
 
-**1. `briefs/C-25-retractation-en-ligne.md`** — « Me rétracter » dans Mon compte, en deux étapes, pendant le délai (§3.7) : une demande datée, visible de l'administration, **aucun remboursement, aucune annulation, aucun accès fermé**. Délai et point de départ en réglages. Une demi-journée.
+**1. `briefs/B-09-autres-pages.md`** — FAQ du service client (quatre rubriques du §3.14, vides), pages légales (la page de confidentialité native, CGV, cookies ; pas de bandeau), formulaire de contact sur la mécanique corrigée de B-08, le tout dans un menu de pied de page reprenable. Rien ne part. Une demi-journée.
 
-**2. `briefs/B-08-soutenir-et-notre-cooperative.md`** — les deux entrées du menu qui n'ont rien derrière : « Notre coopérative » et ses sous-pages aux intitulés du §3.12, « Soutenir » (don éteint par réglage, prise de parts par lien), formulaire « Proposer un sujet ». Rien de CoopHub, aucun paiement. Une demi-journée.
+**2. `briefs/C-27-comment-nous-avez-vous-connus.md`** — la question du §3.7, **après** le paiement, facultative, à réponses fermées en réglage ; une réponse par commande ; des nombres par réponse pour l'administration ; export et effacement. Trois heures.
 
-**3. `briefs/C-26-etancheite-des-sorties-nouvelles.md`** — le test d'étanchéité suit ce qu'on livre : les sorties ajoutées depuis C-23 (agenda, personnalisation, rétractation, « Soutenir ») entrent dans la matrice, avec une mutation témoin par famille ; les fichiers de la couverture des pages coopérateurs sont nommés pour être relus comme du code neuf ; le test qui exige `TMPDIR` est corrigé. Après B-07, C-25 et B-08. Deux heures.
+**3. `briefs/B-10-points-de-vente.md`** — la page du §3.14 : recherche par localité ou code postal, liste, chargement d'un fichier par correspondance de colonnes (fichier d'essai fictif). **Pas de fond de carte par défaut**, aucun appel à un tiers. Une demi-journée.
+
+**Règle nouvelle, venue de C-25 puis de B-08 : un bouchon reproduit le déséchappement de WordPress.** Deux lots de suite ont perdu un antislash parce que le bouchon de test rangeait les valeurs telles quelles, là où WordPress les déséchappe à l'écriture. Tout bouchon d'une fonction d'écriture (`wp_insert_post`, `add_*_meta`, `update_option` quand il y a lieu) reproduit ce comportement, et tout champ de texte libre a un cas d'essai avec un antislash, du formulaire jusqu'à l'export.
+
+**L'écran de réglages de C-10** : trois lots y insèrent leur section sous le bouton « Enregistrer » (C-22, C-24, C-25). On n'y touche pas pour l'instant, ni pour déplacer, ni pour ouvrir un point d'accroche : la place est une question posée à Ced, et les deux se feront en une fois après sa réponse. Un lot nouveau qui a un réglage fait comme ces trois-là.
 
 **Une correction ne fait pas entrer de fonction nouvelle.** Dans C-23, la couverture des pages coopérateurs est arrivée pendant le tour de correction : elle était utile, mais elle a échappé aux deux relectures. Une idée de ce genre se note dans le rapport ; elle devient un lot.
 
@@ -80,5 +83,8 @@ Les liens « offert » et « groupé » absents des profils (C-13 et B-02 en mod
 | C-22 Préférences des newsletters | 26/11, corrigé le 26/11 | **Code clos le 26/11** : trois corrections vérifiées (un identifiant déjà employé est réservé et refusé, même après effacement du compte ; longueurs en caractères). Validation visuelle de Ced attendue, avec une question : la section sous le bouton « Enregistrer » |
 | C-23 Test d'étanchéité de livraison | 26/11, corrigé le 26/11 | **Code clos le 26/11** : six corrections vérifiées (témoins cherchés dans la réponse brute, redirections inspectées, aucun réglage forcé ; découverte fermée contrôlée telle quelle, cas « épuisé » prouvé à part). La couverture des pages coopérateurs n'a pas eu ses deux relectures : elle les aura avec C-26 |
 | B-06 Espace coopérateurs | 26/11, corrigé le 26/11 | **Code clos le 26/11** : cinq corrections vérifiées (deux réglages de rôle, défaut « Administrateur seul » ; un journal illisible rend l'export et l'effacement incomplets). Validation visuelle de Ced attendue, avec une question : la présentation de la date du statut |
-| C-24 Formulaire de personnalisation | 26/11, corrigé le 26/11 | Relu « à corriger » (restauration après échec du journal ; une inscription par défaut ne vaut pas accord). Cinq corrections faites à 21 h 58, `PRET` redéposé : vérification attendue |
-| B-07 Agenda | 26/11 | Relu « à corriger », aucun bloquant : huit instructions (consigne 0) |
+| C-24 Formulaire de personnalisation | 26/11, corrigé le 26/11 | **Code clos le 27/11** : cinq corrections vérifiées (la restauration après un échec du journal restaure vraiment ; seule une inscription choisie par le lecteur ouvre la transmission). Validation visuelle de Ced attendue, avec la question de la section sous le bouton « Enregistrer » |
+| B-07 Agenda | 26/11, corrigé le 26/11 | **Code clos le 27/11** : huit corrections vérifiées (lien d'un événement partenaire déclaré commercial, export qui échoue au lieu de rendre une page vide, adaptateur dans la suite rejouable). Validation visuelle de Ced attendue |
+| C-25 Rétractation en ligne | 26/11, corrigé le 27/11 | **Code clos le 27/11** : quatre corrections vérifiées (réglages journalisés avec retour à l'ancienne valeur si le journal échoue ; un motif avec antislash est gardé). Une demande, aucun effet automatique. Validation visuelle de Ced attendue ; délai et effets à faire valider par Imagine et son conseil |
+| B-08 « Soutenir » et « Notre coopérative » | 26/11 | Relu « à corriger » le 27/11, deux importants, aucun bloquant : sept instructions (consigne 0) |
+| C-26 Étanchéité des sorties nouvelles | 27/11 | Rendu à 0 h 33, en relecture |
