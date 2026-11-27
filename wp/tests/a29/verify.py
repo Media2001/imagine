@@ -174,6 +174,7 @@ def verify(packet, python_only=False):
             mandatory += ['guard_' + key for key in ('exists', 'site', 'repo', 'ancestor', 'root')]
             mandatory += ['audit_refusal_' + key for key in ('schema', 'clock', 'storage')]
             mandatory += [kind + '_' + key for key in CHANNELS for kind in ('closed_channel', 'discarded_channel')]
+            mandatory += ['shutdown_mutation_still_valid_json_markdown']
             mandatory += ['mutation_witness_' + key for key in WITNESSES]
             check(prefix + ':required_native_cases', all(storage + ':' + key in actual for key in mandatory))
             for variant in ('', '-neutral', '-five'):

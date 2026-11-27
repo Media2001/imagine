@@ -216,7 +216,12 @@ if (getenv('A29_CONFINED') === '1') {
                     observed = b'CANARY' in witness.stdout + witness.stderr or any(
                         b'CANARY' in f.read_bytes() for f in (stage / 'result').rglob('*') if f.is_file())
                     if label == 'shutdown_valid_counts_and_markdown':
-                        observed = json.loads((stage / 'result/taches.json').read_bytes())['counts']['pending']['autres'] == 7
+                        schema_spec = importlib.util.spec_from_file_location('a29_native_witness_schema', '/subject/a29/report.py')
+                        schema = importlib.util.module_from_spec(schema_spec)
+                        schema_spec.loader.exec_module(schema)
+                        observed = (json.loads((stage / 'result/taches.json').read_bytes())['counts']['pending']['autres'] == 7
+                                    and schema.complete_report(stage / 'result', stage / 'audit/audit.json'))
+                        b.check(storage + ':shutdown_mutation_still_valid_json_markdown', observed)
                     b.check(storage + ':mutation_witness_' + label, observed)
     finally:
         mu.write_text(base_mu, encoding='utf-8')
