@@ -118,13 +118,20 @@ try {
     remove_filter('pre_http_request', $http, PHP_INT_MAX);
     remove_filter('pre_wp_mail', $mail, PHP_INT_MAX);
 }
-// Mise en place transactionnelle sur le magasin CPT constaté de la seule démo ;
-// pas de save WCS : son cache de rapports se programme au shutdown, hors transaction.
+// Relations temporaires directement dans le magasin natif constaté, sans hook
+// d'enregistrement WCS (son invalidation de rapport s'exécute après ROLLBACK).
+global $wpdb;
 $giftSub = (int)$fixture['subscriptions']['A-CARTE'];
-$check('magasin_CPT_fixture', get_post_type($giftSub) === 'shop_subscription');
-update_post_meta($giftSub, '_recipient_user', (string)$users['P-OFFERT']);
+$hpos = \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled();
+$table = $hpos ? $wpdb->prefix . 'wc_orders_meta' : $wpdb->postmeta;
+$ownerKey = $hpos ? 'order_id' : 'post_id';
+$check('relation_gift_initialement_absente', !wcs_get_subscription($giftSub)->meta_exists('_recipient_user'));
+$wpdb->insert($table, [$ownerKey => $giftSub, 'meta_key' => '_recipient_user', 'meta_value' => (string)$users['P-OFFERT']]);
+wp_cache_flush();
+$check('relation_native_gift_relue', (string)wcs_get_subscription($giftSub)->get_meta('_recipient_user') === (string)$users['P-OFFERT']);
 $check('beneficiaire_offert_inconnu', ContactBrevo::fiche((int)$users['P-OFFERT'])['fiche']['statut'] === 'inconnu');
-delete_post_meta($giftSub, '_recipient_user');
+$wpdb->delete($table, [$ownerKey => $giftSub, 'meta_key' => '_recipient_user']);
+wp_cache_flush();
 update_option('imagine_acces_plans', [$fixture['plan'] => 'groupe'], false);
 $membership = (int)$fixture['memberships']['P-SOL-OK'];
 global $wpdb;
@@ -135,4 +142,4 @@ $check('beneficiaire_groupe_inconnu', ContactBrevo::fiche((int)$users['P-BENEF']
 $check('payeur_pas_beneficiaire_deduit', ContactBrevo::fiche((int)$users['A-PAPIER'])['fiche']['statut'] === 'abonne');
 wp_set_current_user(0);
 echo wp_json_encode(['checks' => $checks, 'total' => count($checks), 'profils' => $actual, 'writes' => $writes, 'outgoing' => $outgoing,
-    'mutation' => ['positive' => $actual['A-CARTE']['fiche']['personnalisation'], 'negative' => $negative['fiche']['personnalisation'], 'leak_mutant' => $leak['fiche']['personnalisation']], 'membership_removed_by_rollback' => $membership]);
+    'mutation' => ['positive' => $actual['A-CARTE']['fiche']['personnalisation'], 'negative' => $negative['fiche']['personnalisation'], 'leak_mutant' => $leak['fiche']['personnalisation']], 'membership_restored_by_rollback' => $membership]);
