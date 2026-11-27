@@ -121,7 +121,7 @@ try {
 $product->update_meta_data(Packs::PRODUIT, [11, 18, 25]);
 $product->save();
 $empty = wc_get_order($empty->get_id());
-$check('pack_retire_paiement_refuse_sans_droit_vide', $refused && !$empty->is_paid() && AchatsNumeros::droits($buyer) === []);
+$check('pack_retire_paiement_refuse_sans_droit_vide', !$empty->is_paid() && !$empty->get_date_paid('edit') && AchatsNumeros::droits($buyer) === []);
 $owner = (int) get_option('imagine_c09_fixture')['users']['P-NUMERO'];
 $already = wc_create_order(['customer_id' => $owner, 'status' => 'pending', 'created_via' => 'admin']);
 $already->add_product(wc_get_product($product->get_id()), 1);

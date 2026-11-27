@@ -124,7 +124,7 @@ final class PacksThematiques
             }
             $snapshot = $item->get_meta(self::LIGNE, true, 'edit');
             if ((PacksRegles::instantane($snapshot) === []
-                || ($snapshot['produit'] ?? null) !== (int) $item->get_product_id()
+                || ((int) $item->get_product_id() > 0 && ($snapshot['produit'] ?? null) !== (int) $item->get_product_id())
                 || ($snapshot['paye_le'] ?? null) !== $order->get_date_paid('edit')->getTimestamp())
                 && !$item->meta_exists(self::ANOMALIE)) {
                 // Visible dans la ligne d'administration ; aucune réparation automatique.
@@ -145,7 +145,7 @@ final class PacksThematiques
             return [];
         }
         $snapshot = $item->get_meta(self::LIGNE, true, 'edit');
-        if (($snapshot['produit'] ?? null) !== (int) $item->get_product_id()) {
+        if ((int) $item->get_product_id() > 0 && ($snapshot['produit'] ?? null) !== (int) $item->get_product_id()) {
             return [];
         }
         $order = $item->get_order();

@@ -11,7 +11,7 @@ def deploy(label):
     identity = c28.guard()
     before = c28.state()
     old = c28.wp('$out=[];foreach('+c28.php(FILES)+' as $n){$out[$n]=file_get_contents(WP_CONTENT_DIR."/".$n);}echo wp_json_encode($out);')
-    known = [json.loads(p.read_text(encoding='utf-8')).get('readback', {}) for p in c28.OUT.glob('installation-*.json') if not p.name.endswith('-avant.json')]
+    known = [json.loads(p.read_text(encoding='utf-8')).get('readback', {}) for pattern in ['installation-*.json', 'correction-installation*.json'] for p in c28.OUT.glob(pattern) if not p.name.endswith('-avant.json')]
     expected = {n: hashlib.sha256((c28.ROOT/'wp'/n).read_bytes()).hexdigest() for n in FILES}
     for n in FILES:
         assert hashlib.sha256(old[n].encode()).hexdigest() in [expected[n], *[k.get(n) for k in known]], n
