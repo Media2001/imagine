@@ -1,0 +1,12 @@
+{
+  "at": "2026-11-27T07:32:11.150339+01:00",
+  "status": "BLOCKED",
+  "exit_code": 1,
+  "scope": "PARENT_FINAL_GATES",
+  "no_PRET": true,
+  "new_one_byte_proof_executed": false,
+  "native_A26_A27_unchanged": true,
+  "native_A31_replayed_due_executed_dependency": "wp/tests/t01/paquets.py",
+  "native_A30_fresh_matrix_green_Windows_only_reader_qualification": true,
+  "blocker": "A30 Windows path attestation interpreted with Linux Path.resolve inside repository; no controls modified"
+}

@@ -3,7 +3,7 @@
   "status": "CORRECTIONS_TESTEES_GATES_PARENT_EN_ATTENTE",
   "readiness_claimed": false,
   "parent_final_gates_pending": true,
-  "at": "2026-11-27T07:12:00.966814+01:00",
+  "at": "2026-11-27T07:32:11.219453+01:00",
   "files": {
     "production/T-03/CONVENTION.md": "a831a09967966ea9d03909f91939dd2b83ab562a0dae8fd658fa0f838e38b1f7",
     "production/T-03/FINALISATION.md": "25092f40f06de5b105ba0c8484a30d350325ff6025bec1fbc1e1ac4640c4a112",
@@ -11,6 +11,23 @@
     "production/T-03/RECEPTION-CORRECTIONS.md": "ae0966c31d9b7d0b7dada4a95009d611aa2a4d4b29f7146c11580a00355201b9",
     "production/T-03/RECEPTION-PARENT.md": "0be97cac9c40534f69b36491d128fc0018bd8a6a82b43e6b41184e07c962d519",
     "production/T-03/native-copy-proof.ps1": "9f32424dbb84dc55404676ff2e7e6578d4bdbb5b728682ef00749cd30862d4f9",
+    "production/T-03/preuves/final/parent-blocked/VECTEURS.md": "8fcf0b8e4aea4c57cd3fec38cee85d0f2beafca34ba6e6234ef4459ae0ef2b2b",
+    "production/T-03/preuves/final/parent-blocked/a30-linux-native-reader.json": "89d62ba166696446444ccc81b473db893c9ee79614f3daac06acbb65d40ec69f",
+    "production/T-03/preuves/final/parent-blocked/a30-linux-native-reader.log": "b84055eea66e1a1eeb78d090f6df4980b190e0521c2281faaeb68f6f4802348e",
+    "production/T-03/preuves/final/parent-blocked/a30-linux-native-reader.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "production/T-03/preuves/final/parent-blocked/a30-linux-path-diagnosis.json": "1aabfd5b7aee93b1d1dacff39e212dcd0f98e289e0fba56366677131732c3fb2",
+    "production/T-03/preuves/final/parent-blocked/a30-linux-path-diagnosis.log": "cd4b6c6dc7b55547f41548451d63d63061331481388291b86a76a753a6271246",
+    "production/T-03/preuves/final/parent-blocked/a30-linux-path-diagnosis.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "production/T-03/preuves/final/parent-blocked/global-cp1252.json": "ae9e1bca85f1385693583815179ea8a49006f53f85cecc2f1ce989f87a692afb",
+    "production/T-03/preuves/final/parent-blocked/global-cp1252.log": "3de8ef4f9c7a82e3c6fcadcf71dabde2afa0438286e002980e142a4de13b934d",
+    "production/T-03/preuves/final/parent-blocked/global-cp1252.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "production/T-03/preuves/final/parent-blocked/global-utf8.json": "acf66315635fabeab7e58b201d69ce3aa883264784ac5fe8639f054879b19bf3",
+    "production/T-03/preuves/final/parent-blocked/global-utf8.log": "1be39ffdd5c97d0d834e4ab5946c4295356a2022ba90948d1b5c9f4439a6f061",
+    "production/T-03/preuves/final/parent-blocked/global-utf8.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "production/T-03/preuves/final/parent-blocked/prepare-image-final.json": "774dd012b776193325b3f72bde90457fd4aba61b92c30e7430465f57313324dc",
+    "production/T-03/preuves/final/parent-blocked/prepare-image-final.log": "4f10b148bf50a26c816c7298463a94227434d86721199a2c77e32a67f53a97fd",
+    "production/T-03/preuves/final/parent-blocked/prepare-image-final.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "production/T-03/preuves/final/parent-blocked/status.json": "b5c19cee4a2b6092d25f0fa6fb1020c666c59235bb4ff78dd46a73138058d08c",
     "production/T-03/preuves/final/protected-readback.json": "ce1f9fa23ea5fb6554bf0b939096f8a5e8fc6d2dc5e015e84ca5cae319e58c68",
     "production/T-03/preuves/final/qualification/cp1252-python-context.log": "e376ff459711e887a9a324e195fa545ebb91571b90af96bcffa5bbc60a128eb2",
     "production/T-03/preuves/final/qualification/cp1252-python-context.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -73,5 +90,5 @@
     "wp/tests/t01/test_t03_streams_native.py": "018c987d057bc803e35f41173f5324fa49abf11d5b4c546e06dcb3236a4521cf",
     "wp/tests/t01/tools-contract.php": "83dcc494137dbf1ff715af661a54e8d14190d253f5c2b5c22ad5430a05351d68"
   },
-  "file_count": 67
+  "file_count": 84
 }

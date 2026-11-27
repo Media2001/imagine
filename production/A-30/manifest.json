@@ -1,12 +1,12 @@
 {
   "lot": "A-30",
   "packet": "production/A-30/preuves/final",
-  "status": "PARENT_REFRESH_PENDING_NO_PRET",
+  "status": "BLOCKED_LINUX_READER_NO_PRET",
   "files": {
     "production/A-30/README-AJOUT-2-LIGNES.txt": "684e9f7a24976e72baf279877823323a8133cc1b898684ea8ec2fc9e51739c93",
-    "production/A-30/RECEPTION-PARENT.md": "b5bca9d144cbfcd4f3e2750f8ca453818b50a66752f51d54d1c0ab15ce296d17",
+    "production/A-30/RECEPTION-PARENT.md": "0fdaba612ab70914e4bb5262cb04bd341e3e25c9c52bbe614f433e744691eea9",
     "production/A-30/corrections-06h39.md": "3ebcdbd5b6b9a4f0b73760acde50fbca5a45ff75dbefd02c5cf755bb96b7435c",
-    "production/A-30/parent-gates.json": "f0c1f5b899aa1e027da10d2df59e7f26048d9f44c17384623df9cdc926b2f759",
+    "production/A-30/parent-gates.json": "a55a30a36fd45dda25ac83951b622c68ec499cdd41df849164e4635c553da4b0",
     "production/A-30/preuves/final/a30-matrix.json": "e8c4245c27ad293d7217a3ad56eddcd00766ae08cdd01e632a23f776de8c8d9b",
     "production/A-30/preuves/final/a30-matrix.log": "7f78f9d8c0179d386550f04fdb3abfe0f76830acbf0fe1ed544fa2fd88ce8c47",
     "production/A-30/preuves/final/a30-matrix.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -110,7 +110,7 @@
     "production/A-30/preuves/final/utf8/runner-console.log": "fb328db83e98530edc12216deb3731c728d3c60aabd1587c527d2b347d1f9d3d",
     "production/A-30/preuves/final/windows-matrix.json": "cfccb90c1d78f9ba24be6bd1764be309e4e80f6f6f19786c803b22ecdc057463",
     "production/A-30/rejeu.json": "b717091931c1c9a126c2d01c0b95379d3563b76df6b4f6fa32ab637f7a9b5dbb",
-    "production/A-30/seal-order.json": "61cf08b91e892f6bdf5d0ee2c3214145ed163a519ebbe01f68b4ca9b40d37330",
+    "production/A-30/seal-order.json": "3202f6113f983bdf5ffa6596a9e980ebcb6760afafa3d53b6d7c41c123702991",
     "production/A-30/verify.py": "37b556f8d7fd4fa3092b515266c86eb28038cd91f36535db6c522894c55db1e8",
     "wp/outils/bascule/a30/Analysis.php": "f62377e65d85039428e93c6f7402ed7c5380a7cb2ea7f875da6f7db459944e8c",
     "wp/outils/bascule/a30/Inventory.php": "539cfed8a52e49f3039100ad5ef28107655a3639cb2f6670d6ef99ea79304b34",
@@ -137,5 +137,5 @@
     "wp/tests/a30/verify.py": "f67c754f886321a5b88cb39c4741926559ac88246e5a54d44d876b3dd7dd2ea0"
   },
   "file_count": 132,
-  "sealed_at": "2026-11-27T07:25:25.801632+01:00"
+  "sealed_at": "2026-11-27T07:32:11.142683+01:00"
 }

@@ -86,8 +86,8 @@ def run(label):
             owned.append(row['id']);c27.private('c27-'+label+'-objets',{'ids':owned})
             return row
         pending=create('pending');paid=create();second=create();third=create(uid=29);skip=create();empty=create()
-        def record(row):return c27.wp('echo wp_json_encode(get_option(Imagine\\Site\\Acquisition::REPONSE.'+str(row['id'])+',null));')
-        def seen(row):return c27.wp('echo wp_json_encode(get_option(Imagine\\Site\\Acquisition::VUE.'+str(row['id'])+',null));')
+        def record(row):return c27.wp('echo wp_json_encode(get_option(Imagine\\Site\\Acquisition::REPONSE . '+str(row['id'])+',null));')
+        def seen(row):return c27.wp('echo wp_json_encode(get_option(Imagine\\Site\\Acquisition::VUE . '+str(row['id'])+',null));')
         def post(row,choice,role='lecteur',signed=None):return http('/wp-admin/admin-post.php',{'action':'imagine_acquisition','commande':str(row['id']),'choix':choice,'_c27':signed if signed is not None else nonce(row['id'],role)},role)
         _,checkout,_=http('/checkout/',role='lecteur')
         checks['tunnel_avant_paiement_sans_question']='id="imagine-acquisition"' not in checkout and 'woocommerce' in checkout
@@ -106,7 +106,7 @@ def run(label):
             evidence['mutation_pas_avant_paiement']={'expected_baseline':{'form_present':False,'post_status':403,'response_written':False},'mutant_observed':mutation}
         finally:
             c27.upload(remote_regles,regles)
-            c27.wp('foreach([Imagine\\Site\\Acquisition::VUE,Imagine\\Site\\Acquisition::REPONSE] as $p){delete_option($p.'+str(pending['id'])+');}delete_user_meta(28,Imagine\\Site\\Acquisition::SOURCE);'+('update_user_meta(28,Imagine\\Site\\Acquisition::SOURCE,wp_slash('+c27.php(original_source)+'));' if original_source!='' else '')+'echo wp_json_encode(true);')
+            c27.wp('foreach([Imagine\\Site\\Acquisition::VUE,Imagine\\Site\\Acquisition::REPONSE] as $p){delete_option($p . '+str(pending['id'])+');}delete_user_meta(28,Imagine\\Site\\Acquisition::SOURCE);'+('update_user_meta(28,Imagine\\Site\\Acquisition::SOURCE,wp_slash('+c27.php(original_source)+'));' if original_source!='' else '')+'echo wp_json_encode(true);')
         _,body,_=http(pending['url'],role='lecteur')
         checks['garde_revenue_apres_mutation']='id="imagine-acquisition"' not in body and post(pending,'lune')[0]==403 and seen(pending) is None and record(pending) is None
         _,anon,_=http(paid['url']);_,foreign,_=http(paid['url'],role='tiers')
