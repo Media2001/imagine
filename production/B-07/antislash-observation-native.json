@@ -1,0 +1,81 @@
+{
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "private_snapshot": {
+    "file": "c25-private-gqujyi8r/snapshot.json",
+    "sha256": "e6e1cbc8d3b5b31621750173af8d779a779ae5e13e68f6ecea182d9ac6ac64a0",
+    "private": true
+  },
+  "sources": {
+    "wp/outils/demo/b07-antislash-observations.py": "15f8255d579df03c34d0b7351ca9ad4989d06fbaa85c8d32f376e84da0a6e88a"
+  },
+  "prior_native_receipt_sha256": "9769a067568a2510f6678fb03244e62de3ba2e04a2b824d58a9ab7550e18ca32",
+  "post_codes": [
+    303,
+    303
+  ],
+  "unique_registration": true,
+  "observations": {
+    "rows": [
+      {
+        "mail": 0,
+        "http": 0,
+        "transport_mail": 0,
+        "transport_http": 0
+      },
+      {
+        "mail": 0,
+        "http": 3,
+        "transport_mail": 0,
+        "transport_http": 0
+      },
+      {
+        "mail": 0,
+        "http": 1,
+        "transport_mail": 0,
+        "transport_http": 0
+      },
+      {
+        "mail": 0,
+        "http": 0,
+        "transport_mail": 0,
+        "transport_http": 0
+      }
+    ],
+    "requests": 4
+  },
+  "restoration": {
+    "users": true,
+    "usermeta": true,
+    "posts": true,
+    "postmeta": true,
+    "comments": true,
+    "commentmeta": true,
+    "wc_orders": true,
+    "wc_order_addresses": true,
+    "wc_orders_meta": true,
+    "wc_order_operational_data": true,
+    "woocommerce_order_items": true,
+    "woocommerce_order_itemmeta": true,
+    "actionscheduler_actions": true,
+    "actionscheduler_logs": true,
+    "actionscheduler_groups": true,
+    "actionscheduler_claims": true,
+    "navigation": true,
+    "options_metier": true
+  },
+  "business_preserved": true,
+  "temporary_files_absent": [
+    true,
+    true
+  ],
+  "registrations_removed": true
+}
