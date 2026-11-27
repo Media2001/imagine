@@ -75,7 +75,42 @@ def deploy(label):
     save(label,{'identity':identity,'before':old,'readback':actual,'business_preserved':True})
     print('C29 readback exact',len(actual))
 
+def sources():
+    paths=[ROOT/'wp'/n for n in FILES]
+    paths += [ROOT/'wp/plugins/imagine-site'/n for n in ['Newsletters.php','NewslettersRegles.php','Personnalisation.php','PersonnalisationRegles.php','Cooperateurs.php','EnvoiRelations.php','TableauBordAdmin.php','SansEmail.php']]
+    for pattern in ['wp/outils/demo/c29*.py','wp/tests/demo/c29*','wp/plugins/imagine-site/tests/ContactBrevoC29Test.php','wp/plugins/imagine-site/tests/fixtures/c29-cases.php']:
+        paths += [p for p in ROOT.glob(pattern) if p.is_file()]
+    return {p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(set(paths))}
+
+def seed(label):
+    import b11
+    identity=b11.guard(); before=state()
+    f=b11.wp('echo wp_json_encode(get_option("imagine_c09_fixture"));')
+    mapping={str(v):k for k,v in f['tariffs'].items()}
+    old=b11.wp('echo wp_json_encode(get_option(Imagine\\Site\\ContactBrevo::TARIFS,null));')
+    assert old in [None,mapping], 'Configuration existante differente : pas de remplacement'
+    actual=b11.wp('update_option(Imagine\\Site\\ContactBrevo::TARIFS,'+b11.php(mapping)+',false);echo wp_json_encode(get_option(Imagine\\Site\\ContactBrevo::TARIFS));')
+    assert actual==mapping
+    after=state()
+    for k in before:
+        if k not in ['all_options_fingerprint','option_fingerprints']:assert before[k]==after[k],k
+    delta={k for k in before['option_fingerprints'].keys()|after['option_fingerprints'].keys() if before['option_fingerprints'].get(k)!=after['option_fingerprints'].get(k)}
+    assert delta<= {'imagine_brevo_tarifs'}
+    save(label,{'identity':identity,'mapping':mapping,'exact_changed_option_names':sorted(delta),'profiles_roles_actions_unchanged':True,'idempotent':old==actual})
+    print('Tarifs fictifs C09 configures et relus, aucune fiche stockee')
+
+def gate(action,label):
+    scripts={'image':'preparer-image.ps1','replay':'rejouer.ps1'}
+    command=['powershell.exe','-NoProfile','-ExecutionPolicy','Bypass','-File',str(ROOT/'wp/tests'/scripts[action])]
+    with (OUT/(label+'.log')).open('xb') as stream:
+        r=subprocess.run(command,cwd=ROOT,stdout=stream,stderr=subprocess.STDOUT)
+    save(label,{'command':command,'exit':r.returncode,'log':label+'.log'})
+    print('\n'.join((OUT/(label+'.log')).read_text(encoding='utf-8',errors='replace').splitlines()[-18:]))
+    return r.returncode
+
 if __name__ == '__main__':
+    if sys.argv[1]=='seed': seed(sys.argv[2]); raise SystemExit(0)
+    if sys.argv[1] in ['image','replay']: raise SystemExit(gate(sys.argv[1],sys.argv[2]))
     if sys.argv[1]=='deploy': deploy(sys.argv[2]); raise SystemExit(0)
     if sys.argv[1]=='native': raise SystemExit(native(sys.argv[2]))
     if sys.argv[1]=='pure': raise SystemExit(pure(sys.argv[2]))

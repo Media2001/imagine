@@ -1,0 +1,12 @@
+{
+  "command": [
+    "powershell.exe",
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "C:\\Users\\Ced\\imagine\\wp\\tests\\preparer-image.ps1"
+  ],
+  "exit": 0,
+  "log": "image-rebuilt-V2.log"
+}

@@ -1,0 +1,25 @@
+{
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "mapping": {
+    "192": "normal-1",
+    "193": "normal-4",
+    "194": "solidaire-1",
+    "195": "solidaire-4",
+    "196": "soutien-1",
+    "197": "soutien-4"
+  },
+  "exact_changed_option_names": [
+    "imagine_brevo_tarifs"
+  ],
+  "profiles_roles_actions_unchanged": true,
+  "idempotent": false
+}
