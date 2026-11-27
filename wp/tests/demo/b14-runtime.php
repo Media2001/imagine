@@ -34,6 +34,8 @@ Accueil::rendre();
 $html = ob_get_clean();
 preg_match_all('/data-b14-section="([^"]+)"/', $html, $found);
 $check('ordre_huit_sections', $found[1] === ['numero', 'conversion', 'reportage', 'newsletter', 'thematiques', 'evenements', 'soutenir', 'cooperative']);
+$check('ancre_abonnement_paywall_contrat', substr_count($html, 'id="imagine-abonnement"') === 1
+    && preg_match('~<section id="imagine-abonnement"[^>]*>.*?<a href="' . preg_quote(Imagine\Site\Navigation::abonnementUrl(), '~') . '">S.abonner</a>.*?</section>~su', html_entity_decode($html, ENT_QUOTES | ENT_HTML5, 'UTF-8')) === 1);
 $check('ancre_thematiques_menu_conservee', str_contains($html, 'id="imagine-thematiques"'));
 $check('partenaire_apres_cooperative', strpos($html, 'data-imagine-partenaire-mois=') > strpos($html, 'data-b14-section="cooperative"'));
 $check('partenariat_conserve', str_contains($html, 'imagine-partnership-label') && str_contains($html, 'Partenariat'));

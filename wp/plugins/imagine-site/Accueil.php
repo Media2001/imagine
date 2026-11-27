@@ -20,23 +20,7 @@ final class Accueil
 
     public static function libre(\WP_Post $issue): ?\WP_Post
     {
-        $articles = get_posts(
-            [
-                'post_type' => 'post',
-                'post_status' => 'publish',
-                'numberposts' => -1,
-                'meta_key' => 'imagine_numero_id',
-                'meta_value' => $issue->ID,
-                'orderby' => ['menu_order' => 'ASC', 'ID' => 'ASC'],
-            ]
-        );
-        foreach ($articles as $article) {
-            $status = \Imagine\Theme\imagine_access_status(Paywall::decisionListe($article));
-            if ($status['code'] === 'libre') {
-                return $article;
-            }
-        }
-        return null;
+        return \Imagine\Theme\imagine_issue_free_article($issue);
     }
 
     public static function premiersEvenements(array $events): array
@@ -46,7 +30,12 @@ final class Accueil
 
     private static function ouvrir(string $key, string $title): void
     {
-        echo '<section' . ($key === 'thematiques' ? ' id="imagine-thematiques"' : '')
+        $id = match ($key) {
+            'thematiques' => 'imagine-thematiques',
+            'conversion' => 'imagine-abonnement',
+            default => '',
+        };
+        echo '<section' . ($id !== '' ? ' id="' . esc_attr($id) . '"' : '')
             . ' data-b14-section="' . esc_attr($key) . '" aria-labelledby="imagine-accueil-'
             . esc_attr($key) . '"><h2 id="imagine-accueil-' . esc_attr($key) . '">' . esc_html($title) . '</h2>';
     }

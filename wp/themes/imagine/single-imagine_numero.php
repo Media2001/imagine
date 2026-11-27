@@ -14,13 +14,11 @@ while (have_posts()) :
         'orderby' => ['menu_order' => 'ASC', 'ID' => 'ASC'], 'no_found_rows' => true,
     ]))->posts;
     $statuses = [];
-    $free = null;
+    $free = imagine_issue_free_article($issue);
     foreach ($articles as $article) {
         $statuses[$article->ID] = imagine_access_status(class_exists('Imagine\\Site\\Paywall')
             ? \Imagine\Site\Paywall::decisionListe($article) : []);
-        if ($free === null && $statuses[$article->ID]['code'] === 'libre') {
-            $free = $article;
-        }
+
     }
     $issueDecision = class_exists('Imagine\\Site\\Paywall') ? \Imagine\Site\Paywall::decisionPdf($issue) : [];
     $covered = class_exists('Imagine\\Site\\Paywall') && \Imagine\Site\Paywall::couvreNumero($issue);

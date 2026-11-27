@@ -47,6 +47,29 @@ function imagine_issue_product(int $issue): string
     return '';
 }
 
+/** Sélection publique unique B04/B14, sans consommer l'accès découverte. */
+function imagine_issue_free_article(\WP_Post $issue): ?\WP_Post
+{
+    $articles = get_posts(
+        [
+            'post_type' => 'post',
+            'post_status' => 'publish',
+            'numberposts' => -1,
+            'meta_key' => 'imagine_numero_id',
+            'meta_value' => $issue->ID,
+            'orderby' => ['menu_order' => 'ASC', 'ID' => 'ASC'],
+        ]
+    );
+    foreach ($articles as $article) {
+        $status = imagine_access_status(class_exists('Imagine\\Site\\Paywall')
+            ? \Imagine\Site\Paywall::decisionListe($article) : []);
+        if ($status['code'] === 'libre') {
+            return $article;
+        }
+    }
+    return null;
+}
+
 /** Public catalogue metadata only: never derive an excerpt from article content. */
 function imagine_catalogue_articles(array $articles, array $statuses = [], int $heading = 2, string $id = '', bool $showIssue = true): void
 {
