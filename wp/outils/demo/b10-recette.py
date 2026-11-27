@@ -14,6 +14,9 @@ def run(label):
     assert not (b10.OUT/(label+'.json')).exists()
     assert b10.wp('echo wp_json_encode(file_exists(WP_CONTENT_DIR."/'+observer+'"));') is False
     sessions=b10.wp('''global $wpdb;$out=[];foreach(['admin'=>get_users(['role'=>'administrator','number'=>1])[0]->ID,'lecteur'=>28] as $k=>$id){$u=get_userdata($id);if(!$u||!str_ends_with($u->user_email,'@example.org')){throw new RuntimeException('Compte fictif requis');}$out[$k]=['id'=>$id,'rows'=>$wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->usermeta} WHERE user_id=%d AND meta_key='session_tokens'",$id),ARRAY_A)];}echo wp_json_encode($out);''')
+    owned=b10.wp('echo wp_json_encode(["ids"=>get_option(Imagine\\Site\\PointsVente::ACTIFS),"rows"=>Imagine\\Site\\PointsVente::lignes(),"config"=>get_option(Imagine\\Site\\PointsVente::CONFIG),"pending"=>get_option(Imagine\\Site\\PointsVente::NETTOYAGE,null)]);')
+    assert b10.wp('echo wp_json_encode(get_option("imagine_b10_refus_suppression",null));') is None
+    durable=b10.b09.b08.c25.b06.private_snapshot(label, {'sessions':sessions,'owned':owned,'business':business})
     auth={}; checks={}; browser_requests=[]; outgoing=[]; maps={}; cleanup={}
     try:
         b10.upload(observer,(b10.ROOT/'wp/tests/demo/b10-observer.php').read_bytes())
@@ -55,16 +58,39 @@ def run(label):
                 page.locator('button[value=importer]').click();page.wait_for_load_state('networkidle')
                 return page.content()
             config('0')
+            # Commerce personnel fictif ciblé ; trois requêtes de recherche Unicode réelles.
+            fictive='enseigne;rue;ville;cp;personne\nCommerce fictif Unicode;Rue inventée;Ḉœur-Æther-Fictif;00000;PERSONNE_FICTIVE_A_EFFACER\n'
+            old=b10.wp('$m='+b10.php(mapping | {'personne':'personne'})+';Imagine\\Site\\PointsVente::importer('+b10.php(fictive)+',$m,";");echo wp_json_encode(get_option(Imagine\\Site\\PointsVente::ACTIFS)[0]);')
+            early=context();unicode_page=early.new_page();unicode_found=[]
+            for term in ['Ḉœur-Æther-Fictif','C\u0327\u0301œur-Æther-Fictif','coeur-aether-fictif']:
+                unicode_page.goto(identity['url']+'/points-de-vente/?localite='+__import__('urllib.parse',fromlist=['quote']).quote(term))
+                unicode_found.append(unicode_page.locator('#imagine-points-vente > li').all_inner_texts())
+            checks['recherche_nfc_nfd_hors_table_oe_ae_native']=all(len(v)==1 and v==unicode_found[0] for v in unicode_found)
+            b10.wp('update_option("imagine_b10_refus_suppression",'+str(old)+',false);echo wp_json_encode(get_option("imagine_b10_refus_suppression"));')
             first=upload()
             ids=b10.wp('echo wp_json_encode(get_option(Imagine\\Site\\PointsVente::ACTIFS));')
-            checks['CSV_multipart_30_et_ligne32_refusee']=len(ids)==30 and '30 lignes prises ; 1 refusées.' in first and 'Ligne 32 : nombre_colonnes' in first
+            residue=b10.wp('echo wp_json_encode([get_option(Imagine\\Site\\PointsVente::NETTOYAGE),get_post_meta('+str(old)+',"imagine_vente_ligne",true)]);')
+            checks['bascule_reussie_nettoyage_refuse_persistant']=len(ids)==30 and 'Liste remplacée ; nettoyage incomplet.' in first and 'Opération refusée' not in first and residue[0]==[old] and residue[1]['personne']=='PERSONNE_FICTIVE_A_EFFACER'
+            incomplete=upload()
+            checks['rejeu_identique_retente_sans_nouveaux_ids']='Liste inchangée ; nettoyage incomplet.' in incomplete and b10.wp('echo wp_json_encode(get_option(Imagine\\Site\\PointsVente::ACTIFS));')==ids
+            b10.wp('delete_option("imagine_b10_refus_suppression");echo wp_json_encode(get_option("imagine_b10_refus_suppression",null)===null);')
+            resumed=upload()
+            recovered=b10.wp('echo wp_json_encode([get_option(Imagine\\Site\\PointsVente::ACTIFS),get_option(Imagine\\Site\\PointsVente::NETTOYAGE),get_post('+str(old)+'),metadata_exists("post",'+str(old)+',"imagine_vente_ligne")]);')
+            checks['reprise_autre_requete_supprime_post_meta_ids_stables']=recovered==[ids,[],None,False] and 'nettoyage incomplet' not in resumed
+            # Une méta active cassée est réparée par le vrai formulaire de remplacement.
+            b10.wp('delete_post_meta('+str(ids[0])+',"imagine_vente_ligne");echo wp_json_encode(metadata_exists("post",'+str(ids[0])+',"imagine_vente_ligne"));')
+            repaired=upload()
+            repaired_ids=b10.wp('echo wp_json_encode(get_option(Imagine\\Site\\PointsVente::ACTIFS));')
+            checks['import_repare_liste_illisible']='Opération refusée' not in repaired and len(repaired_ids)==30 and repaired_ids!=ids
+            ids=repaired_ids
+            checks['CSV_multipart_30_et_ligne32_refusee']=len(ids)==30 and '30 lignes prises ; 1 refusées.' in first and 'Ligne 32 : Nombre de colonnes incorrect.' in first
             checks['refus_sans_recopie_donnee']='REFUS_DONNEE_NE_JAMAIS_AFFICHER' not in first
             second=upload()
             checks['rechargement_30_ids_identiques']=ids==b10.wp('echo wp_json_encode(get_option(Imagine\\Site\\PointsVente::ACTIFS));') and '30 lignes prises ; 1 refusées.' in second
             malformed=upload('colonne;inconnue\nseulement;fictif\n')
             checks['mauvaise_entete_conserve_liste']='Opération refusée' in malformed and ids==b10.wp('echo wp_json_encode(get_option(Imagine\\Site\\PointsVente::ACTIFS));')
             refused=upload('enseigne;rue;ville;cp;personne;telephone\nSECRET;incomplet\n')
-            checks['tous_refuses_comptes_numerotes_sans_remplacement']='0 lignes prises ; 1 refusées.' in refused and 'Ligne 2 : nombre_colonnes' in refused and 'SECRET' not in refused and ids==b10.wp('echo wp_json_encode(get_option(Imagine\\Site\\PointsVente::ACTIFS));')
+            checks['tous_refuses_comptes_numerotes_sans_remplacement']='0 lignes prises ; 1 refusées.' in refused and 'Ligne 2 : Nombre de colonnes incorrect.' in refused and 'SECRET' not in refused and ids==b10.wp('echo wp_json_encode(get_option(Imagine\\Site\\PointsVente::ACTIFS));')
             # Vrai POST avec nonce invalide, configuration inchangée.
             page.goto(settings)
             page.locator('form').filter(has=page.locator('textarea[name=mapping]')).locator('input[name=_b10]').evaluate("e=>e.value='invalide'")
@@ -109,6 +135,10 @@ def run(label):
         checks['navigateur_public_zero_tiers']=all(v['third_party']==[] and bool(v['requests']) for v in maps.values())
         checks['seuls_gravatars_admin_bloques']=all(urlsplit(u).netloc=='secure.gravatar.com' for u in outgoing)
     finally:
+        # L'inverse métier est indépendante du retrait de l'observateur et des sessions.
+        b10.wp('delete_option("imagine_b10_refus_suppression");Imagine\\Site\\PointsVente::importer('+b10.php((b10.OUT/'commerces-fictifs.csv').read_text(encoding='utf-8'))+','+b10.php(json.loads((b10.OUT/'mapping-exemple.json').read_text(encoding='utf-8')))+',";");update_option(Imagine\\Site\\PointsVente::CONFIG,'+b10.php({'mapping':json.loads((b10.OUT/'mapping-exemple.json').read_text(encoding='utf-8')),'separateur':';','carte':'0'})+',false);echo wp_json_encode(true);')
+        final_owned=b10.wp('echo wp_json_encode([count(Imagine\\Site\\PointsVente::lignes()),Imagine\\Site\\PointsVente::configuration()["carte"],get_option(Imagine\\Site\\PointsVente::NETTOYAGE),get_option("imagine_b10_refus_suppression",null)]);')
+        assert final_owned==[30,'0',[],None]
         b10.b09.remove_remote([observer])
         b10.wp('delete_option("imagine_b10_observations");echo wp_json_encode(true);')
         for session in sessions.values():
@@ -124,7 +154,7 @@ def run(label):
     if after_business!=business:
         # Résumé sans données : isoler le type de dérive, pas accepter un état inconnu.
         print('Business changed keys:',[k for k in business if business[k]!=after_business.get(k)])
-    b10.save(label,{'identity':identity,'checks':checks,'map_observations':maps,'server_observations':observations,'fixture_ids':ids,'browser_requests_count':len(browser_requests),'admin_gravatars_blocked':len(outgoing),'public_outgoing_third_party':[]})
+    b10.save(label,{'identity':identity,'private_snapshot':durable,'restored_30_carte_off':final_owned==[30,'0',[],None],'checks':checks,'map_observations':maps,'server_observations':observations,'fixture_ids':ids,'browser_requests_count':len(browser_requests),'admin_gravatars_blocked':len(outgoing),'public_outgoing_third_party':[]})
     print(json.dumps({'checks':checks,'total':len(checks)},ensure_ascii=False))
     assert all(checks.values())
 

@@ -1,0 +1,23 @@
+{
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "private_snapshot": {
+    "file": "b06-private-xbmmbq72/snapshot.json",
+    "sha256": "29e118eea759378ce846c5ebb2dff57d580113c823bb91c8530c33d574f0cc01",
+    "private": true
+  },
+  "readback": {
+    "plugins/imagine-site/PointsVenteRegles.php": "2c836c05815634e2720795b5775678731f8b660ad46f84dbfa761daed9a4a4eb",
+    "plugins/imagine-site/PointsVente.php": "f451357a4bc63b4087e745e8ffa36a3e4417e79f39625f2fc9081b4d747d6a31"
+  },
+  "business_preserved": true,
+  "bootstrap_unchanged": true
+}

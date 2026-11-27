@@ -3,7 +3,9 @@ import sys
 sys.dont_write_bytecode = True
 import json
 import hashlib
+import os
 from pathlib import Path
+os.environ.setdefault('TMPDIR', str(Path.home()/'AppData/Local/hermes/cache/scratch'))
 import b09
 ROOT=b09.ROOT
 OUT=ROOT/'production/B-10'
@@ -37,7 +39,7 @@ def deploy(label):
 
 def runtime(label):
     guard();name='imagine-demo-build/b10-runtime.php'
-    read='echo wp_json_encode([get_option("imagine_vente_actifs",null),get_option("imagine_vente_configuration",null),class_exists("Imagine\\\\Site\\\\PointsVente")?Imagine\\Site\\PointsVente::lignes():[]]);'
+    read='echo wp_json_encode([get_option("imagine_vente_actifs",null),get_option("imagine_vente_configuration",null),get_option("imagine_vente_nettoyage",null),class_exists("Imagine\\\\Site\\\\PointsVente")?Imagine\\Site\\PointsVente::lignes():[]]);'
     before=wp(read)
     assert wp('echo wp_json_encode(file_exists(WP_CONTENT_DIR."/'+name+'"));') is False
     result={}

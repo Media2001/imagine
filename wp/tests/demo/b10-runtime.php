@@ -51,4 +51,4 @@ $expect('reglage_deux_valeurs_ferme', PointsVente::carte('0') === '0' && PointsV
     && PointsVente::carte('autre') === '0' && PointsVente::carte(null) === '0');
 $type = get_post_type_object(PointsVente::TYPE);
 $expect('type_prive_sans_REST_recherche', $type && !$type->public && !$type->show_in_rest && $type->exclude_from_search);
-echo wp_json_encode(['checks' => $checks]);
+echo wp_json_encode(['checks' => $checks, 'normalizer_available' => class_exists('Normalizer')]);
