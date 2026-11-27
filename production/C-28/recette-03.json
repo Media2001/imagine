@@ -1,0 +1,70 @@
+{
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "checks": {
+    "observateur_relu": true,
+    "observateur_positif_mail_HTTP_bloques": true,
+    "champ_admin_natif_present": true,
+    "liste_admin_relue_11-18-25": true,
+    "page_pack_titre_liste_couvertures_dates_prix_bouton": true,
+    "prix_fictif_3_28": true,
+    "bouton_achat_francais": true,
+    "bouton_panier_natif": false
+  },
+  "total": 8,
+  "failures": 1,
+  "error": "AssertionError: bouton_panier_natif",
+  "cleanup": {
+    "observer_absent": true,
+    "commandes_ephemeres_supprimees": true,
+    "meta": true,
+    "posts": true,
+    "postmeta": true,
+    "policy": true,
+    "woo_sessions_restored": true,
+    "business_preserved": true
+  },
+  "surfaces": [],
+  "mutations": {},
+  "network_blocked": [
+    "https://secure.gravatar.com/avatar/d7c5125f16c5bb00456ad644b5581f52e93ce99e6ae6005cddd634cb613c420c?s=26&d=mm&r=g",
+    "https://secure.gravatar.com/avatar/d7c5125f16c5bb00456ad644b5581f52e93ce99e6ae6005cddd634cb613c420c?s=26&d=mm&r=g"
+  ],
+  "server_observations": {},
+  "C26": {
+    "file": "production\\C-26\\correction-livraison-V2-inventaire.json",
+    "sha256": "f9370b6dcd848001fc89e454856d4e40dfcced30d863b1ac78c71f0610c128de",
+    "witnesses": 32
+  },
+  "private_snapshot": {
+    "file": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\b11-private-iye_gvrc\\snapshot.json",
+    "sha256": "605c74fac9fb3fc11afbc7da139eb3df8115ffe646fd527167b5185e7f806972",
+    "private": true
+  },
+  "sources": {
+    "wp/outils/demo/c28-demo.php": "207cb6ff91ea6af285b7f83c7e42465f8948fd8da5dc1768ed3cdd31a68c5dfc",
+    "wp/outils/demo/c28-diagnostic.py": "afc27752253b20ed76b7649f4e6ee3722277f9498660e62916d9c35a5e6c587a",
+    "wp/outils/demo/c28-local.py": "1f91a4e6633f2e22bad076b8bbbb7ee6fa31f11a50eb1f7341c3663c179730aa",
+    "wp/outils/demo/c28-recette.py": "21425b35f2bb4751374a1042717ca9249e15dd5df001ab9998ebb26ca298adb0",
+    "wp/outils/demo/c28-recovery.py": "de934c36f27d93498a26dd15afb82925bb02218e3156ae46b68edcf0d459000a",
+    "wp/outils/demo/c28-seed.php": "0056c864cc05eabe7210b496ceb9d1a85578374c4783c00094af142112bb9424",
+    "wp/outils/demo/c28.py": "b32f420241a7790d750b96aad1e6ae0f6090542fcaca6ea0ff9496af5fbb5bca",
+    "wp/plugins/imagine-site/AchatsNumeros.php": "42cbe06e5035571e607d96e8ca3f0dd4c28fb1caaddbb1fe69bc01178a494615",
+    "wp/plugins/imagine-site/imagine-site.php": "084a83833c81f81fff8da28395e93bd1c7216a0506109d9b1a0c862a6ae1aaa4",
+    "wp/plugins/imagine-site/PacksRegles.php": "f6293429a31bce02f30c2b68072fe6e1274b49c5efde60edd126d73f7a5789cd",
+    "wp/plugins/imagine-site/PacksThematiques.php": "62d782aab772af2656883a6f81ddafa7cf1f8f9eb38a866d1a7c1a68b1f9f1f8",
+    "wp/plugins/imagine-site/tests/PacksC28Test.php": "f65026c24c26b5cbecca3320cf199461384846f8e38a48b265cedfa32d0651a6",
+    "wp/tests/demo/c28-horslive.php": "aea8609f8606c4e75153be8b6e59cf83a305fd635884d1b50066d03625fa8914",
+    "wp/tests/demo/c28-observer.php": "3cb0fb397d01a0a5c1991a133080a9307335aab758180a1f013d53a028b0edcd",
+    "wp/tests/demo/c28-runtime.php": "3d06a53bb9af5568a896949aa30869af55de3621725309f6238537bf856bbb11",
+    "wp/themes/imagine/single-product.php": "6a44efbbd3b37ef861a91f4830418e10a660386ca350c6345dc93ca018f78b5f"
+  }
+}

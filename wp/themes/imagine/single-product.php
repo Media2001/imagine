@@ -17,6 +17,7 @@ while (have_posts()) :
     }
     $GLOBALS['product'] = $product;
     $issues = \Imagine\Site\PacksThematiques::numeros($product);
+    woocommerce_output_all_notices();
     ?>
     <article class="imagine-article" data-imagine-pack="<?php echo esc_attr((string) $product->get_id()); ?>">
         <h1><?php the_title(); ?></h1>

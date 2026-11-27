@@ -15,6 +15,7 @@ def run(label):
     identity = c28.guard()
     fixture = c28.wp('echo wp_json_encode(get_option("imagine_c28_fixture"));')
     business = c28.state()
+    account_url = c28.wp('echo wp_json_encode(wc_get_page_permalink("myaccount"));')
     old = c28.wp('''global $wpdb;$f=get_option('imagine_c28_fixture');$users=get_option('imagine_c09_fixture')['users'];$ids=[1,$users['V-INSCRIT'],$users['V-DEC-FIN']];$p=$f['product'];echo wp_json_encode(['users'=>$ids,'meta'=>$wpdb->get_results('SELECT * FROM '.$wpdb->usermeta.' WHERE user_id IN ('.implode(',',$ids).') ORDER BY umeta_id',ARRAY_A),'posts'=>$wpdb->get_results("SELECT * FROM {$wpdb->posts} WHERE ID=$p OR (post_type='revision' AND post_parent=$p) ORDER BY ID",ARRAY_A),'postmeta'=>$wpdb->get_results("SELECT * FROM {$wpdb->postmeta} WHERE post_id=$p ORDER BY meta_id",ARRAY_A),'refund_policy'=>get_option(Imagine\\Site\\AchatsNumeros::REMBOURSEMENT,null),'actions'=>$wpdb->get_col('SELECT action_id FROM '.$wpdb->prefix.'actionscheduler_actions'),'woo_sessions'=>$wpdb->get_results("SELECT * FROM {$wpdb->prefix}woocommerce_sessions WHERE session_key='".(int)$users['V-INSCRIT']."'",ARRAY_A)]);''')
     snap = c28.private('C28-'+label, {'old':old, 'business':business})
     c26path = c28.ROOT/'production/C-26/correction-livraison-V2-inventaire.json'
@@ -93,8 +94,10 @@ def run(label):
                         pdf = get(role, '/?imagine_pdf='+str(issue))
                         valid = pdf[0] == 200 and hashlib.sha256(pdf[2]).hexdigest() == detail['pdf_sha256'] if permit else pdf[0] == 302 and not pdf[2].startswith(b'%PDF-')
                         check(name+'_PDF_'+role+'_'+str(issue), valid and 'no-store' in pdf[1].get('cache-control',''))
-                account = get('buyer','/mon-compte/')
-                check(name+'_compte_charge', account[0] == 200 and b'imagine-account' in account[2])
+                account = get('buyer', account_url)
+                check(name+'_compte_charge', account[0] == 200 and b'data-imagine-mon-compte' in account[2])
+                displayed = [int(x) for x in re.findall(rb'data-imagine-numero="([0-9]+)"', account[2])]
+                check(name+'_compte_HTTP_memes_numeros', sorted(displayed) == sorted(allowed))
                 native = c28.wp('wp_set_current_user('+str(roles['buyer'])+');echo wp_json_encode(array_column(Imagine\\Site\\MonCompte::donnees()["numeros"],"id"));')
                 check(name+'_compte_memes_numeros', sorted(native) == sorted(allowed))
             stage('avant', [])
