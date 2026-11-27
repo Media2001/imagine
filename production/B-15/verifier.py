@@ -20,17 +20,17 @@ def load(name): return json.loads((OUT/name).read_text(encoding='utf-8'))
 def verify(live=False, manifest=None, require_pret=True):
     m = manifest or load('reception-corrections-V2.json')
     c.integrity(owner, m)
-    pure = load('pure-corrections-V2.json')
+    pure = load('pure-corrections-final-V2.json')
     assert pure['exit'] == 0 and not pure['stderr'] and pure['sources'] == owner.sources(owner)
     pc = json.loads(pure['stdout'])['checks']
     assert len(pc) == 4 and all(pc.values())
-    native = load('native-corrections-V2.json')
+    native = load('native-corrections-final-V2.json')
     assert native['restored'] and native['before'] == native['after']
     assert native['sources'] == owner.sources(owner), 'TESTED_NATIVE_BYTES'
     assert native['native']['code'] == 0 and not native['native']['stderr']
     nd = json.loads(native['native']['stdout'])
     assert nd['total'] == len(nd['checks']) == 16 and all(nd['checks'].values())
-    browser = load('browser-corrections-V2.json')
+    browser = load('browser-corrections-final-V2.json')
     assert browser['total'] == len(browser['checks']) == 155 and all(browser['checks'].values())
     assert browser['sources'] == owner.sources(owner), 'TESTED_BROWSER_BYTES'
     assert browser['restored'] and browser['session_restored'] and browser['probe_removed'] and browser['error'] is None
@@ -42,9 +42,9 @@ def verify(live=False, manifest=None, require_pret=True):
     red = load('red-V2.json')
     assert red['restored'] and red['native']['code'] != 0 and 'B15 pied de page absent' in red['native']['stderr']
     assert load('red-contexte-V2.json')['exit'] == 1
-    image = load('image-corrections-V2.json')
+    image = load('image-corrections-final-V2.json')
     assert image['exit'] == 0 and 'image verifiee sha256:' in (OUT/image['log']).read_text(encoding='utf-8')
-    replay = load('replay-corrections-V2.json')
+    replay = load('replay-corrections-final-V2.json')
     text = (OUT/replay['log']).read_text(encoding='utf-8')
     result = json.loads(re.search(r'^T01_RESULT (.+)$', text, re.M)[1])
     assert result['pass'] and result['failures'] == result['errors'] == result['skipped'] == result['tools']['failures'] == 0

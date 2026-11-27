@@ -6,6 +6,8 @@ namespace Imagine\Site;
 
 const DAY_IN_SECONDS = 86400;
 function __(string $text, string $domain): string { return $text; }
+function esc_attr__(string $text, string $domain): string { return htmlspecialchars($text); }
+function has_nav_menu(string $location): bool { return true; }
 function esc_html__(string $text, string $domain): string { return $text; }
 function esc_attr(string $text): string { return htmlspecialchars($text); }
 function esc_url(string $text): string { return htmlspecialchars($text); }
