@@ -28,5 +28,84 @@
     "native/utf8/native.json",
     "native/cp1252/native.json"
   ],
-  "mutation": "omit_only_postmeta_purge; known parents/revisions gone; refusal/removal/restoration"
+  "mutation": "omit_only_postmeta_purge; known parents/revisions gone; refusal/removal/restoration",
+  "additional_historical_attempts": [
+    {
+      "handle": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a28-correction-20261127-0258\\pre-binary-final-attempt\\matrix.json",
+      "sha256": "f353de57a13f50c31b86856642ff0aabee253040092e5fcb6f5c7e7a11bfdb25",
+      "status": "FAIL",
+      "commands": [
+        {
+          "context": "utf8",
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "C:\\Users\\Ced\\imagine\\wp\\tests\\a28\\run.py",
+            "--output",
+            "C:\\Users\\Ced\\imagine\\production\\A-28\\preuves\\final\\native\\utf8"
+          ],
+          "exit": 0,
+          "sources_stable": true,
+          "stdout_sha256": "8898bf2340da36ce5d96dcdd995eb4417a31f334244436788796dc9e8547b74e",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "context": "cp1252",
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "C:\\Users\\Ced\\imagine\\wp\\tests\\a28\\run.py",
+            "--output",
+            "C:\\Users\\Ced\\imagine\\production\\A-28\\preuves\\final\\native\\cp1252"
+          ],
+          "exit": 1,
+          "sources_stable": false,
+          "stdout_sha256": "618579dffe6e9a772bf2d465f573206e2dd0d994b989c8bc9beab909d6e252ad",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "qualification": "historical development attempt, never resealed as current"
+    },
+    {
+      "handle": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a28-correction-20261127-0258\\pre-readme-contract-final-attempt\\matrix.json",
+      "sha256": "d95cdb43419117e590efc512de68a8d65db31ece1e72e293ca49cca3987e32cd",
+      "status": "FAIL",
+      "commands": [
+        {
+          "context": "utf8",
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "C:\\Users\\Ced\\imagine\\wp\\tests\\a28\\run.py",
+            "--output",
+            "C:\\Users\\Ced\\imagine\\production\\A-28\\preuves\\final\\native\\utf8"
+          ],
+          "exit": 0,
+          "sources_stable": true,
+          "stdout_sha256": "116bc75bd38794e2063e21ce0acb66d1bf1eaa064315da19d9d5a4f8fed7fee9",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "context": "cp1252",
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "C:\\Users\\Ced\\imagine\\wp\\tests\\a28\\run.py",
+            "--output",
+            "C:\\Users\\Ced\\imagine\\production\\A-28\\preuves\\final\\native\\cp1252"
+          ],
+          "exit": 1,
+          "sources_stable": false,
+          "stdout_sha256": "6ac6b3365e941847ca35b3198606dcda67c4ab47dc201b639595b4fae13e0548",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "qualification": "historical development attempt, never resealed as current"
+    }
+  ],
+  "binary_predicate_red": {
+    "handle": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a28-correction-20261127-0258\\red-binary.stderr.log",
+    "sha256": "875f2134ff516597aa7f47da88771b4cf04286f98933a51e0e315ceacb506dc7",
+    "observed_assertion_failure": true
+  }
 }

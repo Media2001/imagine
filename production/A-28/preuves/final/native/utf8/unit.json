@@ -1,0 +1,333 @@
+{
+    "checks": [
+        {
+            "check": "legacy_forced_empty_fluentform_submissions",
+            "status": "PASS"
+        },
+        {
+            "check": "absent_closed_refusal_garder_fluentform_submissions",
+            "status": "PASS"
+        },
+        {
+            "check": "closed_refusal_garder_fluentform_submissions",
+            "status": "PASS"
+        },
+        {
+            "check": "no_write_on_refusal_garder_fluentform_submissions",
+            "status": "PASS"
+        },
+        {
+            "check": "absent_closed_refusal_anonymiser_fluentform_submissions",
+            "status": "PASS"
+        },
+        {
+            "check": "closed_refusal_anonymiser_fluentform_submissions",
+            "status": "PASS"
+        },
+        {
+            "check": "no_write_on_refusal_anonymiser_fluentform_submissions",
+            "status": "PASS"
+        },
+        {
+            "check": "residue_numeric_fluentform_submissions",
+            "status": "PASS"
+        },
+        {
+            "check": "residue_no_bootstrap_fluentform_submissions",
+            "status": "PASS"
+        },
+        {
+            "check": "no_message_output_fluentform_submissions",
+            "status": "PASS"
+        },
+        {
+            "check": "legacy_forced_empty_fluentform_entry_details",
+            "status": "PASS"
+        },
+        {
+            "check": "absent_closed_refusal_garder_fluentform_entry_details",
+            "status": "PASS"
+        },
+        {
+            "check": "closed_refusal_garder_fluentform_entry_details",
+            "status": "PASS"
+        },
+        {
+            "check": "no_write_on_refusal_garder_fluentform_entry_details",
+            "status": "PASS"
+        },
+        {
+            "check": "absent_closed_refusal_anonymiser_fluentform_entry_details",
+            "status": "PASS"
+        },
+        {
+            "check": "closed_refusal_anonymiser_fluentform_entry_details",
+            "status": "PASS"
+        },
+        {
+            "check": "no_write_on_refusal_anonymiser_fluentform_entry_details",
+            "status": "PASS"
+        },
+        {
+            "check": "residue_numeric_fluentform_entry_details",
+            "status": "PASS"
+        },
+        {
+            "check": "residue_no_bootstrap_fluentform_entry_details",
+            "status": "PASS"
+        },
+        {
+            "check": "no_message_output_fluentform_entry_details",
+            "status": "PASS"
+        },
+        {
+            "check": "legacy_forced_empty_fluentform_submission_meta",
+            "status": "PASS"
+        },
+        {
+            "check": "absent_closed_refusal_garder_fluentform_submission_meta",
+            "status": "PASS"
+        },
+        {
+            "check": "closed_refusal_garder_fluentform_submission_meta",
+            "status": "PASS"
+        },
+        {
+            "check": "no_write_on_refusal_garder_fluentform_submission_meta",
+            "status": "PASS"
+        },
+        {
+            "check": "absent_closed_refusal_anonymiser_fluentform_submission_meta",
+            "status": "PASS"
+        },
+        {
+            "check": "closed_refusal_anonymiser_fluentform_submission_meta",
+            "status": "PASS"
+        },
+        {
+            "check": "no_write_on_refusal_anonymiser_fluentform_submission_meta",
+            "status": "PASS"
+        },
+        {
+            "check": "residue_numeric_fluentform_submission_meta",
+            "status": "PASS"
+        },
+        {
+            "check": "residue_no_bootstrap_fluentform_submission_meta",
+            "status": "PASS"
+        },
+        {
+            "check": "no_message_output_fluentform_submission_meta",
+            "status": "PASS"
+        },
+        {
+            "check": "legacy_forced_empty_fluentform_logs",
+            "status": "PASS"
+        },
+        {
+            "check": "absent_closed_refusal_garder_fluentform_logs",
+            "status": "PASS"
+        },
+        {
+            "check": "closed_refusal_garder_fluentform_logs",
+            "status": "PASS"
+        },
+        {
+            "check": "no_write_on_refusal_garder_fluentform_logs",
+            "status": "PASS"
+        },
+        {
+            "check": "absent_closed_refusal_anonymiser_fluentform_logs",
+            "status": "PASS"
+        },
+        {
+            "check": "closed_refusal_anonymiser_fluentform_logs",
+            "status": "PASS"
+        },
+        {
+            "check": "no_write_on_refusal_anonymiser_fluentform_logs",
+            "status": "PASS"
+        },
+        {
+            "check": "residue_numeric_fluentform_logs",
+            "status": "PASS"
+        },
+        {
+            "check": "residue_no_bootstrap_fluentform_logs",
+            "status": "PASS"
+        },
+        {
+            "check": "no_message_output_fluentform_logs",
+            "status": "PASS"
+        },
+        {
+            "check": "legacy_forced_empty_fluentform_draft_submissions",
+            "status": "PASS"
+        },
+        {
+            "check": "absent_closed_refusal_garder_fluentform_draft_submissions",
+            "status": "PASS"
+        },
+        {
+            "check": "closed_refusal_garder_fluentform_draft_submissions",
+            "status": "PASS"
+        },
+        {
+            "check": "no_write_on_refusal_garder_fluentform_draft_submissions",
+            "status": "PASS"
+        },
+        {
+            "check": "absent_closed_refusal_anonymiser_fluentform_draft_submissions",
+            "status": "PASS"
+        },
+        {
+            "check": "closed_refusal_anonymiser_fluentform_draft_submissions",
+            "status": "PASS"
+        },
+        {
+            "check": "no_write_on_refusal_anonymiser_fluentform_draft_submissions",
+            "status": "PASS"
+        },
+        {
+            "check": "residue_numeric_fluentform_draft_submissions",
+            "status": "PASS"
+        },
+        {
+            "check": "residue_no_bootstrap_fluentform_draft_submissions",
+            "status": "PASS"
+        },
+        {
+            "check": "no_message_output_fluentform_draft_submissions",
+            "status": "PASS"
+        },
+        {
+            "check": "legacy_forced_empty_ff_scheduled_actions",
+            "status": "PASS"
+        },
+        {
+            "check": "absent_closed_refusal_garder_ff_scheduled_actions",
+            "status": "PASS"
+        },
+        {
+            "check": "closed_refusal_garder_ff_scheduled_actions",
+            "status": "PASS"
+        },
+        {
+            "check": "no_write_on_refusal_garder_ff_scheduled_actions",
+            "status": "PASS"
+        },
+        {
+            "check": "absent_closed_refusal_anonymiser_ff_scheduled_actions",
+            "status": "PASS"
+        },
+        {
+            "check": "closed_refusal_anonymiser_ff_scheduled_actions",
+            "status": "PASS"
+        },
+        {
+            "check": "no_write_on_refusal_anonymiser_ff_scheduled_actions",
+            "status": "PASS"
+        },
+        {
+            "check": "residue_numeric_ff_scheduled_actions",
+            "status": "PASS"
+        },
+        {
+            "check": "residue_no_bootstrap_ff_scheduled_actions",
+            "status": "PASS"
+        },
+        {
+            "check": "no_message_output_ff_scheduled_actions",
+            "status": "PASS"
+        },
+        {
+            "check": "known_orphan_postmeta_counted",
+            "status": "PASS"
+        },
+        {
+            "check": "known_orphan_no_bootstrap",
+            "status": "PASS"
+        },
+        {
+            "check": "unknown_orphan_not_globally_purged",
+            "status": "PASS"
+        },
+        {
+            "check": "invalid_provenance_63",
+            "status": "PASS"
+        },
+        {
+            "check": "invalid_provenance_64",
+            "status": "PASS"
+        },
+        {
+            "check": "invalid_provenance_65",
+            "status": "PASS"
+        },
+        {
+            "check": "invalid_provenance_66",
+            "status": "PASS"
+        },
+        {
+            "check": "in_memory_provenance_survives_parent_and_revision_loss",
+            "status": "PASS"
+        },
+        {
+            "check": "post_residue_flamingo_inbound",
+            "status": "PASS"
+        },
+        {
+            "check": "known_posts_revisions_deleted_flamingo_inbound",
+            "status": "PASS"
+        },
+        {
+            "check": "known_postmeta_deleted_flamingo_inbound",
+            "status": "PASS"
+        },
+        {
+            "check": "idempotent_flamingo_inbound",
+            "status": "PASS"
+        },
+        {
+            "check": "unknown_type_remains_warning_flamingo_inbound",
+            "status": "PASS"
+        },
+        {
+            "check": "post_residue_flamingo_contact",
+            "status": "PASS"
+        },
+        {
+            "check": "known_posts_revisions_deleted_flamingo_contact",
+            "status": "PASS"
+        },
+        {
+            "check": "known_postmeta_deleted_flamingo_contact",
+            "status": "PASS"
+        },
+        {
+            "check": "idempotent_flamingo_contact",
+            "status": "PASS"
+        },
+        {
+            "check": "unknown_type_remains_warning_flamingo_contact",
+            "status": "PASS"
+        },
+        {
+            "check": "exact_suffix_only",
+            "status": "PASS"
+        },
+        {
+            "check": "read_only_residue_never_verified",
+            "status": "PASS"
+        },
+        {
+            "check": "residue_introduced_during_bootstrap_refused",
+            "status": "PASS"
+        },
+        {
+            "check": "non_form_numeric_decision_keeps_A01_code",
+            "status": "PASS"
+        }
+    ],
+    "exit_code": 0
+}
