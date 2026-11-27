@@ -37,6 +37,8 @@ final class C12Database
     }
 }
 function get_option($key, $default = false): mixed { return $GLOBALS['options'][$key] ?? $default; }
+// C28 : aucun filtre enregistré dans ce banc ; contrat natif WP, valeur inchangée.
+function apply_filters($hook, $value, ...$args): mixed { return $value; }
 function get_current_user_id(): int { return 7; }
 function get_current_blog_id(): int { return 1; }
 function get_userdata($id): object { return (object) ['first_name' => 'Fictif', 'last_name' => 'C12', 'user_email' => 'c12@example.org', 'roles' => []]; }

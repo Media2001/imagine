@@ -1,0 +1,32 @@
+{
+  "action": "replay",
+  "command": [
+    "powershell.exe",
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "C:\\Users\\Ced\\imagine\\wp\\tests\\rejouer.ps1"
+  ],
+  "exit": 1,
+  "log": "regression-generale.log",
+  "sources": {
+    "wp/outils/demo/c28-demo.php": "207cb6ff91ea6af285b7f83c7e42465f8948fd8da5dc1768ed3cdd31a68c5dfc",
+    "wp/outils/demo/c28-diagnostic.py": "afc27752253b20ed76b7649f4e6ee3722277f9498660e62916d9c35a5e6c587a",
+    "wp/outils/demo/c28-gates.py": "a07165e5af6eac96b57ef65965d2e77ab4f11e4c4ab3d4e20263887c659d61af",
+    "wp/outils/demo/c28-local.py": "1f91a4e6633f2e22bad076b8bbbb7ee6fa31f11a50eb1f7341c3663c179730aa",
+    "wp/outils/demo/c28-recette.py": "8fd58e2b3b98a0aa0ab7cd22b3782719e9eb688aea7e566c6f8ccee0e3588a9e",
+    "wp/outils/demo/c28-recovery.py": "de934c36f27d93498a26dd15afb82925bb02218e3156ae46b68edcf0d459000a",
+    "wp/outils/demo/c28-seed.php": "78699c80bf2951d2d63350b60121704b2bc26708ff46d3f0ef87b38feae5cbab",
+    "wp/outils/demo/c28.py": "4810a2cae426a5f5bdfc8f1bae747d808333db18b45ccf76eb998886b83dfc5e",
+    "wp/plugins/imagine-site/AchatsNumeros.php": "42cbe06e5035571e607d96e8ca3f0dd4c28fb1caaddbb1fe69bc01178a494615",
+    "wp/plugins/imagine-site/imagine-site.php": "084a83833c81f81fff8da28395e93bd1c7216a0506109d9b1a0c862a6ae1aaa4",
+    "wp/plugins/imagine-site/PacksRegles.php": "f6293429a31bce02f30c2b68072fe6e1274b49c5efde60edd126d73f7a5789cd",
+    "wp/plugins/imagine-site/PacksThematiques.php": "62d782aab772af2656883a6f81ddafa7cf1f8f9eb38a866d1a7c1a68b1f9f1f8",
+    "wp/plugins/imagine-site/tests/PacksC28Test.php": "f65026c24c26b5cbecca3320cf199461384846f8e38a48b265cedfa32d0651a6",
+    "wp/tests/demo/c28-horslive.php": "aea8609f8606c4e75153be8b6e59cf83a305fd635884d1b50066d03625fa8914",
+    "wp/tests/demo/c28-observer.php": "3cb0fb397d01a0a5c1991a133080a9307335aab758180a1f013d53a028b0edcd",
+    "wp/tests/demo/c28-runtime.php": "6bb1967ba188e573b4404f15d21126a6bfbaa07f95633573d91c63b0fd273fb2",
+    "wp/themes/imagine/single-product.php": "feb4a54ba915e32c34c11df89c97532224fd3134769bd998bae622b727c15e95"
+  }
+}
