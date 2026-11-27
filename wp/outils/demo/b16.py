@@ -1,6 +1,8 @@
 """B16 : enveloppe article, C08/B03 inchangés."""
 import sys
 sys.dont_write_bytecode = True
+import os
+os.environ['TMPDIR'] = 'C:/Users/Ced/AppData/Local/hermes/cache/scratch'
 import b13
 ROOT = b13.ROOT
 OUT = ROOT/'production/B-16'
