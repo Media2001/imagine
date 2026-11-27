@@ -67,9 +67,45 @@ def classify(entry, code, stdout, stderr, output):
     return {'outil': entry['lot'], 'statut': 'en échec', 'sortie': code if type(code) is int else 1, 'rapport': str(output)}
 
 
+def verified_site(site):
+    """Copy A05's A04 marker rule; no import of a mutating tool or PHP launch.
+
+    A05 clean.py:210-211 requires these three fields, without an extra schema.
+    A05 database.php reads the declared environment separately. Here the literal
+    declaration is checked in Python, before any child can be launched.
+    """
+    try:
+        site = Path(site)
+        if not site.is_dir() or any(p.is_symlink() for p in (site, *site.parents)):
+            raise ValueError('site')
+        site = site.resolve(strict=True)
+        def read(relative):
+            path = site / relative
+            if not path.is_file() or path.is_symlink() or path.stat().st_size > 16777216:
+                raise ValueError('file')
+            return path.read_text(encoding='utf-8')
+        marker = json.loads(read('.imagine-staging-verified.json'))
+        if (not isinstance(marker, dict) or marker.get('status') != 'verified'
+                or marker.get('offline_verified') is not True or marker.get('runtime_probe_passed') is not True):
+            raise ValueError('marker')
+        config = read('wp-config.php')
+        # Drop PHP comments without dropping quoted strings. No config is executed.
+        config = re.sub(r"'(?:\\.|[^'\\])*'|\"(?:\\.|[^\"\\])*\"|/\*.*?\*/|//[^\r\n]*|\#[^\r\n]*",
+                        lambda match: '' if match[0].startswith(('/*', '//', '#')) else match[0], config, flags=re.S)
+        declarations = re.findall(r"\bdefine\s*\(\s*(['\"])WP_ENVIRONMENT_TYPE\1\s*,\s*(['\"])([^'\"]*)\2\s*\)\s*;", config, re.I)
+        if (len(declarations) != 1 or declarations[0][2] != 'staging'
+                or config.count('WP_ENVIRONMENT_TYPE') != 1
+                or os.environ.get('WP_ENVIRONMENT_TYPE', 'staging') != 'staging'
+                or marker.get('environment', 'staging') != 'staging'):
+            raise ValueError('environment')
+        return site
+    except Exception:
+        raise RuntimeError('A32_NOT_VERIFIED') from None
+
+
 def run(site, audit, mapping, output, executor=None):
+    site = verified_site(site)
     listing = entries()
-    site = Path(site).resolve(strict=True)
     audit = Path(audit).resolve(strict=True)
     mapping = Path(mapping).resolve(strict=True)
     output = Path(output)

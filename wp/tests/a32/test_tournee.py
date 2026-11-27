@@ -33,6 +33,51 @@ class TourneeTests(unittest.TestCase):
             self.assertEqual(len(argv), len(documented))
             self.assertEqual([x.split('=')[0] for x in argv[2:]], [x.split('=')[0] for x in documented[2:]])
 
+    def test_verified_marker_required_before_any_tool_or_output(self):
+        m = load()
+        scratch = Path.home() / 'AppData/Local/hermes/cache/scratch'
+        with tempfile.TemporaryDirectory(dir=scratch, prefix='a32-guard-') as tmp:
+            root = Path(tmp)
+            site = root / 'PRIVATE_SITE_CANARY'
+            site.mkdir()
+            config = site / 'wp-config.php'
+            config.write_text("<?php define('WP_ENVIRONMENT_TYPE', 'staging');", encoding='utf-8')
+            marker = site / '.imagine-staging-verified.json'
+            valid = {'status': 'verified', 'offline_verified': True, 'runtime_probe_passed': True}
+            reports = root / 'reports'
+            reports.mkdir()
+            audit = reports / 'audit'
+            audit.mkdir()
+            (audit / 'audit.json').write_text('{}', encoding='utf-8')
+            mapping = root / 'map.json'
+            mapping.write_text('{}', encoding='utf-8')
+            invalid = [None, b'PRIVATE_MARKER_CANARY', b'[]', b'null', b'{}',
+                       json.dumps({**valid, 'status': 'production'}).encode(),
+                       json.dumps({**valid, 'offline_verified': 1}).encode(),
+                       json.dumps({**valid, 'runtime_probe_passed': False}).encode()]
+            called = []
+            for i, value in enumerate(invalid):
+                with self.subTest(marker=i):
+                    if value is not None:
+                        marker.write_bytes(value)
+                    else:
+                        marker.unlink(missing_ok=True)
+                    before = {p.relative_to(site).as_posix(): p.read_bytes() for p in site.rglob('*') if p.is_file()}
+                    target = reports / ('tour-' + str(i))
+                    with self.assertRaisesRegex(RuntimeError, '^A32_NOT_VERIFIED$'):
+                        m.run(site, audit / 'audit.json', mapping, target, lambda args: called.append(args))
+                    self.assertFalse(target.exists())
+                    self.assertEqual(called, [])
+                    self.assertEqual(before, {p.relative_to(site).as_posix(): p.read_bytes() for p in site.rglob('*') if p.is_file()})
+            marker.write_text(json.dumps(valid), encoding='utf-8')
+            for text in ["<?php define('WP_ENVIRONMENT_TYPE', 'production');", "<?php define('WP_ENVIRONMENT_TYPE', getenv('PRIVATE_CANARY'));", '<?php // no environment']:
+                config.write_text(text, encoding='utf-8')
+                with self.subTest(config=text):
+                    with self.assertRaisesRegex(RuntimeError, '^A32_NOT_VERIFIED$'):
+                        m.run(site, audit / 'audit.json', mapping, reports / 'production', lambda args: called.append(args))
+                    self.assertEqual(called, [])
+                    self.assertFalse((reports / 'production').exists())
+
     def test_refusal_allowlist_and_no_site_value(self):
         m = load()
         e = m.entries()[0]
