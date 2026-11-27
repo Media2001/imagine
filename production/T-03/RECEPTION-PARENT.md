@@ -1,25 +1,29 @@
-# T03 — réception native achevée
+# T03 — correction étroite et nouvelle preuve native
 
-Fait : communs T01/T03 intégrés (second montage RO, collecteur Python) ; image préparée réellement, wrappers20–25 et déclarations20–28 ajoutés, aucun contrôle import/gardien modifié.
-Prêt à relire : T03 ; 9 paquets vérifiés, 0 échec ; hors rejeu : aucun.
-À arbitrer : A22 toujours NON CLOS ; ce rejeu auteur permet la relecture indépendante mais ne la remplace pas. Aucun GO réel.
-Bloqué : aucun pour T03 ; mutant +1 octet A28 donne uniquement PACKAGE_DRIFT, REJEU PASS et compteurs inchangés ; copie et runners supprimés, absences prouvées.
-Ensuite : parent verify ; REJEU : 1153 tests, 36074 assertions, 0 échecs, 0 erreurs, 0 ignorés — PASS ; reçus exacts dans production/T-03/preuves/final ; verrou conservé.
+La file du 27 novembre, 4 h 30 est appliquée : **A20 n'a plus de déclaration `rejeu.json`**. Son lecteur sans argument est conservé, inscrit avec l'ajout T03 dans son manifeste de métadonnées ; ses sources, contrôles et tous ses reçus natifs sont identiques aux octets antérieurs. Vérificateur A20 réellement relu à 0 avant/après ; ce n'est ni une nouvelle matrice A20 ni une requalification de ses anciens reçus.
 
-Commandes réellement exécutées depuis `C:/Users/Ced/imagine`, sorties/exits complets dans `preuves/final/native/` :
+A21–A28 restent inchangés (PRET, manifestes, journaux et preuves inclus) : aucun simple remplacement d'empreintes pour les faire passer. Les 2 524 fichiers protégés et l'inventaire sont relus identiques ; gel des propriétaires de la qualification précédente également identique. Le gardien et l'import, style compris, sont intacts. Aucun inventaire de sources ni gel de la voie 2.
+
+## Résultat neuf, après les dernières métadonnées A20/A30
+
+**9 paquets vérifiés, 0 échec** : A-21, A-22, A-23, A-24, A-25, A-26, A-27, A-28, A-30. Hors rejeu : A-20 (declaration absente), A-31 (journaux absents).
+
+Commande réellement exécutée, sans modifier le collecteur ni son isolation :
 
 ```text
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/preparer-image.ps1
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/rejouer.ps1
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/t01/test-paquets-native.ps1 -Output C:\Users\Ced\AppData\Local\hermes\cache\scratch\requal2127-t03-20261127\t03-native-copy-proof-02
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File production/T-03/native-copy-proof.ps1 -Output C:\Users\Ced\AppData\Local\hermes\cache\scratch\a30-t03-20261127\t03-final-copy-proof02
 ```
 
-Toutes exit0. La préparation contient `T03 IMAGE PYTHON : offline standard-library probe PASS`. Deux montages bind exactement, `/repo/wp:ro` et `/packet-repo:ro`, racine vérifiée ; réseau none, rootfs RO, 65534, cap-drop ALL, no-new-privileges, limites inchangées et tmpfs seul. Les inspections avant/après sont obligatoires dans le vrai runner ; la preuve ne les remplace pas par une simulation. La copie jetable altère exactement un octet de before/native.json ; les deux sorties complètes green.log/one-byte.log prouvent le même REJEU, la seule erreur A28 PACKAGE_DRIFT et deux nettoyages vérifiés.
+Cette copie du banc de preuve appartient à T03 ; seul le calcul de sa racine et les assertions de sélection sont adaptés. Le script commun `wp/tests/t01/test-paquets-native.ps1` reste exactement à son empreinte précédente pour ne pas périmer les lots voisins. Aucun contrôle de collecteur, test métier, compteur ou drapeau d’isolation n’a changé.
 
-Entrées sans argument ajoutées : A20/A21/A22 appellent leurs `wp/tests/aNN/verify.py production/A-NN/preuves/final` ; A23/A25 appellent le vérificateur existant avec `--require-shared-doc`, A24 avec `--require-shared`. Aucun contrôle réécrit. A26/A27 gardent leur enveloppe scellée actuelle, A28 son vérificateur actuel. `rejeu.json` liste les contrôles fermés et tous les journaux requis dérivés des inventaires/références, y compris les gates externes26/27 ; l’absence d’un journal reste hors rejeu, jamais reconstituée. Détail relu par lot dans integration-readback.json. Les trois lignes exactes T01 sont conservées uniques, `scripts/relire.ps1` inchangé.
+Deux vrais passages de `wp/tests/rejouer.ps1` sur une copie jetable : vert avec A20 exclu, A21–A28 et A30 ; puis exactement un octet de `production/A-28/preuves/final/before/native.json` modifié. Le second annonce **un seul échec PAQUETS : A-28 PACKAGE_DRIFT**, tandis que la dernière ligne REJEU PASS et tous ses compteurs sont identiques. Les deux nettoyages exacts sont relus ; copie absente, reçu original A28 inchangé. Ce sont les logs complets `native/copy-proof/green.log` et `one-byte.log`, jamais des doubles.
 
-Contrats locaux réellement rejoués : 15 collecteur + 9 intégration, chacun UTF-8 et cp1252 sous Windows Python3.14.6 ; deux scripts historiques de doubles PowerShell verts. Ces doubles ne sont pas les preuves natives. Les matrices natives classique/HPOS/commerciales restent hors de T01 : vérifier leurs reçus ne les rejoue pas. Aucun paquet A29/A30 intégré de force ; A29 reste bloqué neutral_success exit255/refus, pas de PRET29. La liste hors rejeu ci-dessus est celle réellement mesurée, pas un inventaire de tous les lots sans entrée.
+REJEU : 1153 tests, 36075 assertions, 0 échecs, 0 erreurs, 0 ignorés — PASS
 
-Évolution observée hors gel de propriétaires : le premier rejeu réel avait 1151 tests / 36062 assertions PASS ; la première copie a exécuté 1152 tests avec un échec SujetAdapterTest::testAntislashDuPostAuDetailAdminEtExport (paquet imagine-site, hors périmètre). Cet essai a été conservé intact en scratch, copie détruite ; il ne prouve pas la mutation un octet. Un seul rejeu de contrôle réel a ensuite mesuré 1153 tests / 36074 assertions PASS. La nouvelle preuve utilise cette référence actuelle : ses deux passages ont exactement cette même dernière ligne PASS. Aucun inventaire d’empreintes, gel ou changement de source de la voie2 par cette phase ; les sources des propriétaires A21–27/T03 restent exactement les 397 empreintes gelées. Les gates communes de qualification à 1151 restent leurs vrais résultats antérieurs, jamais réécrits comme 1153. Les anciens logs restent hors dépôt, aucune ancienne course rouge renommée verte.
+Préparation d’image réellement exécutée et gates globales UTF-8/cp1252 à 0 ; nouveaux contrats Windows Python 3.14.6 : 15 collecteur + 9 intégration dans chaque contexte, deux scripts de doubles à 0. Ces contrats/doubles ne sont pas la preuve native ci-dessus. T01 conserve ses deux montages RO exacts, réseau none, rootfs RO, utilisateur 65534, cap-drop ALL, no-new-privileges et limites ; inspections avant/après et absence du runner par le vrai lanceur. Lire les paquets ne rejoue pas leurs matrices natives.
 
-Ancien candidat T03 et ses reçus locaux intacts : `C:/Users/Ced/AppData/Local/hermes/cache/scratch/requal2127-t03-20261127/T03-ancestor`. Sept lots requalifiés : `files/rapports/2026-11-27-05h03-qualification-A21-A27` ; leurs PRET relus verts après ce T03. Source gelée par propriétaires explicites, jamais inventaire voie2. A28 : seul ajout rejeu.json et metadata manifest actualisée, verify28 vert avant/après ; tous les reçus natifs inchangés. Gardien, import, Git, réel, compte/site/Novamira, voie2, cron, scripts/relire intacts. Verrou rafraîchi, non libéré.
+## Incidents et limites honnêtes
+
+Une gate initiale puis la première nouvelle copie ont réellement échoué après disparition du conteneur T01, pendant des rejeux indépendants de `scripts/relire.ps1`. Leurs logs restent intacts hors dépôt ; aucun script de relecture/processus tiers n’a été modifié ni arrêté. Après retour à un créneau libre, la nouvelle preuve ci-dessus est un vrai exit 0 (handle `proc_acdb95e08fb8`) ; l’ancienne copie rouge (`proc_fcb281563349`, exit 1) reste historique. Aucun résultat n’a été reconstruit.
+
+Un seul paquet T03 courant, les anciens retirés hors dépôt sous `C:/Users/Ced/AppData/Local/hermes/cache/scratch/a30-t03-20261127/`. A30 a son unique paquet final et son PRET, déclaré avant son premier sceau ; ses 25 tests par console, 122 contrôles natifs par contexte, sept contrôles purs, six lint et PSR-12 strict verts sont relus par son lecteur sans argument. Le second lot exclu éventuel reste celui réellement annoncé, sans intégration forcée. A22 n’est pas clos par cet auteur. Aucun GO réel, archive Imagine, site/compte, Git, diagnostic A29 ou modification de l’autre voie. Verrou rafraîchi, non libéré.

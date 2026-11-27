@@ -1,0 +1,17 @@
+{
+  "command": [
+    "powershell.exe",
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "production/T-03/native-copy-proof.ps1",
+    "-Output",
+    "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-t03-20261127\\t03-final-copy-proof02"
+  ],
+  "start": "2026-11-27T05:49:53.696006+01:00",
+  "end": "2026-11-27T05:52:55.079480+01:00",
+  "exit_code": 0,
+  "stdout_sha256": "b4af3c29120aa1991513604a59d5d32622e0335d6f54f20ac35790ee4952e3e9",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

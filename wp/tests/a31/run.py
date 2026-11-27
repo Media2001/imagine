@@ -21,7 +21,8 @@ OWN = ['wp/outils/bascule/a31', 'wp/tests/a31', 'production/A-31/verify.py',
 SHARED = ['audit', 'a11', 'a12', 'stream_guard.py', 'stream_refusals.json']
 DEPS = ['wp/outils/bascule/' + f for f in SHARED] + [
     'wp/tests/a02-audit/' + f for f in ['run.py', 'inside.py', 'seed.php', 'fingerprint.php', 'unit.php', 'readonly-probe.php']
-] + ['wp/outils/staging', 'wp/outils/staging-court', 'wp/outils/bascule/a19/Analysis.php']
+] + ['wp/outils/staging', 'wp/outils/staging-court', 'wp/outils/bascule/a19/Analysis.php',
+     'production/A-28/preuves/final/dependency-invalidations.json']
 
 
 def manifest(roots):

@@ -69,10 +69,6 @@ def seed(site, cfg, repeats=1):
         (site / 'wp-config.php').write_text(cfg, encoding='utf-8')
 
 
-def pool(n):
-    return {'groups': [], 'autres': n}
-
-
 def run_storage(storage):
     site, db, _ = b.install(storage)
     (OUT / (storage + '-seed.json')).unlink()
@@ -205,8 +201,6 @@ if (getenv('A31_CONFINED') === '1') {
         photo = json.loads(audit.read_text(encoding='utf-8'))
         if label == 'schema':
             photo['schema'] = 'A31_AUDIT_PRIVATE_CANARY'
-        elif label == 'clock':
-            photo['generated_at_utc'] = 'A31_CLOCK_PRIVATE_CANARY'
         else:
             photo['sections']['commerce']['order_storage'] = 'hpos' if storage == 'classic' else 'classic'
         (bad / 'audit.json').write_text(json.dumps(photo), encoding='utf-8')

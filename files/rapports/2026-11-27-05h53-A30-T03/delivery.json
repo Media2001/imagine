@@ -1,0 +1,49 @@
+{
+  "exit_code": 0,
+  "A30_PRET": true,
+  "T03_PRET": true,
+  "report": "files/rapports/2026-11-27-05h53-A30-T03.md",
+  "result": {
+    "exit_code": 0,
+    "status": "PASS",
+    "at": "2026-11-27T05:53:07.328309+01:00",
+    "verified": 9,
+    "lots": [
+      "A-21",
+      "A-22",
+      "A-23",
+      "A-24",
+      "A-25",
+      "A-26",
+      "A-27",
+      "A-28",
+      "A-30"
+    ],
+    "excluded": [
+      {
+        "lot": "A-20",
+        "reason": "declaration absente"
+      },
+      {
+        "lot": "A-31",
+        "reason": "journaux absents"
+      }
+    ],
+    "last": "REJEU : 1153 tests, 36075 assertions, 0 \u00e9checs, 0 erreurs, 0 ignor\u00e9s \u2014 PASS",
+    "native_executed": true,
+    "copy_absent": true,
+    "original_A28_receipt_unchanged": true,
+    "mutant_failures": [
+      {
+        "lot": "A-28",
+        "control": "PACKAGE_DRIFT"
+      }
+    ],
+    "handle": "proc_acdb95e08fb8",
+    "handle_exit_code": 0,
+    "A22_closed": false
+  },
+  "protected_equal_count": 2524,
+  "A20_native_unchanged": true,
+  "lock_kept": true
+}

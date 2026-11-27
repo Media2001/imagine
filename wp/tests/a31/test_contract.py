@@ -1,10 +1,17 @@
 """Owned PHP architecture contract only; not PHP execution evidence."""
 from pathlib import Path
+import hashlib
+import json
 import unittest
 ROOT = Path(__file__).resolve().parents[3]
 
 
 class ContractTests(unittest.TestCase):
+    def test_import_matches_unchanged_a28_frozen_sources(self):
+        sources = json.loads((ROOT / 'production/A-28/preuves/final/dependency-invalidations.json').read_bytes())['import_sources']
+        self.assertTrue(sources)
+        self.assertEqual({key: hashlib.sha256((ROOT / key).read_bytes()).hexdigest() for key in sources}, sources)
+
     def test_native_readers_and_pure_rules_present(self):
         base = ROOT / 'wp/outils/bascule/a31'
         for name in ('Analysis.php', 'Inventory.php', 'Command.php', 'inventorier-commandes'):

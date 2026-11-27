@@ -52,8 +52,10 @@ def restoration(saved, ids, pages):
             outcomes[name] = {'attempted':True, 'ok':True}
         except Exception as error:
             outcomes[name] = {'attempted':True, 'ok':False, 'error':type(error).__name__}
-    owner = next(int(r['ID']) for r in saved['users'] if r['user_login'] == 'v-dec')
-    attempt('cleanup', lambda: fixture('cleanup', {'owner':owner, 'old_private_ids':[int(p['ID']) for p in saved['posts'] if p['post_type'] in ['imagine_inscription','imagine_sujet']]}))
+    def cleanup():
+        owner = next(int(r['ID']) for r in saved['users'] if r['user_login'] == 'v-dec')
+        fixture('cleanup', {'owner':owner, 'old_private_ids':[int(p['ID']) for p in saved['posts'] if p['post_type'] in ['imagine_inscription','imagine_sujet']]})
+    attempt('cleanup', cleanup)
     attempt('b06', lambda: prep.restore_cooperator(pages))
     rows = [r for r in saved['usermeta'] if int(r['user_id']) in ids]
     attempt('usermeta', lambda: wp('''global $wpdb;$ids='''+php(ids)+''';$old='''+php(rows)+''';
@@ -236,7 +238,7 @@ def run(label, mutations=False):
                 save(label+'-mutation-cooperative', {'scope':'imagine-test-demo','total':1,'families':families,'results':[dict(name=route['name'],public='anonyme',status=response[0],bytes=len(response[2]),**verdict)],'persisted_fixture':True})
                 mutated.append('cooperative')
             finally:
-                restored_page = wp('''global $wpdb;$wpdb->update($wpdb->posts,['post_content'=>''],['ID'=>'''+str(public_page['id'])+''']);clean_post_cache('''+str(public_page['id'])+''');echo wp_json_encode($wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->posts} WHERE ID=%d",'''+str(public_page['id'])+'''),ARRAY_A));''')
+                restored_page = wp('''global $wpdb;$id='''+str(public_page['id'])+''';$original='''+php(original_page)+''';$current=$wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->posts} WHERE ID=%d",$id),ARRAY_A);$expected=$original;$expected['post_content']='''+php(injected)+''';if($current!==$original){if($current!==$expected){throw new RuntimeException('C26 page publique dérive concurrente');}if($wpdb->query($wpdb->prepare("UPDATE {$wpdb->posts} SET post_content=%s WHERE ID=%d AND BINARY post_content=%s",'',$id,'''+php(injected)+'''))!==1){throw new RuntimeException('C26 restauration publique refusée');}}clean_post_cache($id);echo wp_json_encode($wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->posts} WHERE ID=%d",$id),ARRAY_A));''')
                 assert restored_page == original_page, 'C26 page publique non restaurée'
             # Injection propre au rendu d'archive : vrai GET, pas une réponse falsifiée.
             name = 'themes/imagine/archive-imagine_evenement.php'

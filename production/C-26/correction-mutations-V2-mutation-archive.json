@@ -1,0 +1,22 @@
+{
+  "scope": "imagine-test-demo",
+  "source": "themes/imagine/archive-imagine_evenement.php",
+  "before_sha256": "e99387da9d90c2f258310502ec8f69f2651ffd0cc968d37b0769d7043b3628f1",
+  "mutated_sha256": "42662c525b0e311badda268f1a6a33ad6c67320b45db72e89198e2174bd2ff9e",
+  "restored_sha256": "e99387da9d90c2f258310502ec8f69f2651ffd0cc968d37b0769d7043b3628f1",
+  "source_restored": true,
+  "total": 1,
+  "results": [
+    {
+      "name": "agenda-archive",
+      "public": "anonyme",
+      "status": 200,
+      "bytes": 29654,
+      "ok": false,
+      "leak": true,
+      "witnesses_found": 1,
+      "surface_present": true,
+      "redirects_inspected": 0
+    }
+  ]
+}

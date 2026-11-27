@@ -1,0 +1,12 @@
+{
+  "command": [
+    "C:/Python314/python.exe",
+    "-B",
+    "production/A-30/verify.py"
+  ],
+  "start": "2026-11-27T05:53:06.774552+01:00",
+  "end": "2026-11-27T05:53:06.934906+01:00",
+  "exit_code": 0,
+  "stdout_sha256": "f61ae2d521abf7b5f8b80df87288e1d2cec6be9720e80cd7982efb185b1f1060",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

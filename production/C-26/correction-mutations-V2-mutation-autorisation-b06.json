@@ -1,0 +1,19 @@
+{
+  "scope": "imagine-test-demo",
+  "source": "plugins/imagine-site/Cooperateurs.php",
+  "before_sha256": "432d7e80200c4c3c83cd989542263ee6318bf8ef59be1d4288393906c6fbc23a",
+  "mutated_sha256": "b509388ae95d987b929ae65296bce108703597c42fbc12ab13519a3377592f84",
+  "restored_sha256": "432d7e80200c4c3c83cd989542263ee6318bf8ef59be1d4288393906c6fbc23a",
+  "source_restored": true,
+  "oracle_rejected": true,
+  "inventory_after_mutation": true,
+  "expected": [
+    "profil-p-coop"
+  ],
+  "observed": [
+    "connecte-sans-abonnement",
+    "profil-p-coop"
+  ],
+  "roles_unchanged": true,
+  "actors_unchanged": true
+}

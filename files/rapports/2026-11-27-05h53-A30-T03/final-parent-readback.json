@@ -1,0 +1,78 @@
+{
+  "exit_code": 0,
+  "status": "PASS",
+  "at": "2026-11-27T05:54:38.648044+01:00",
+  "A30_noarg_both_consoles": true,
+  "A20_A28_noarg_all_zero": true,
+  "T03_exact_manifest_file_count": 102,
+  "fresh_proof_after_A20_A30_metadata": true,
+  "T03_seal_after_proof_and_final_metadata": true,
+  "raw_logs_reparsed": {
+    "green": {
+      "packets": {
+        "verified": 9,
+        "lots": [
+          "A-21",
+          "A-22",
+          "A-23",
+          "A-24",
+          "A-25",
+          "A-26",
+          "A-27",
+          "A-28",
+          "A-30"
+        ],
+        "failures": [],
+        "excluded": [
+          {
+            "lot": "A-20",
+            "reason": "declaration absente"
+          },
+          {
+            "lot": "A-31",
+            "reason": "journaux absents"
+          }
+        ]
+      },
+      "last": "REJEU : 1153 tests, 36075 assertions, 0 \u00e9checs, 0 erreurs, 0 ignor\u00e9s \u2014 PASS",
+      "summary": "PAQUETS : 9 v\u00e9rifi\u00e9s, 0 \u00e9checs ; hors rejeu : A-20 (declaration absente), A-31 (journaux absents)"
+    },
+    "one-byte": {
+      "packets": {
+        "verified": 9,
+        "lots": [
+          "A-21",
+          "A-22",
+          "A-23",
+          "A-24",
+          "A-25",
+          "A-26",
+          "A-27",
+          "A-28",
+          "A-30"
+        ],
+        "failures": [
+          {
+            "lot": "A-28",
+            "control": "PACKAGE_DRIFT"
+          }
+        ],
+        "excluded": [
+          {
+            "lot": "A-20",
+            "reason": "declaration absente"
+          },
+          {
+            "lot": "A-31",
+            "reason": "journaux absents"
+          }
+        ]
+      },
+      "last": "REJEU : 1153 tests, 36075 assertions, 0 \u00e9checs, 0 erreurs, 0 ignor\u00e9s \u2014 PASS",
+      "summary": "PAQUETS : 9 v\u00e9rifi\u00e9s, 1 \u00e9checs ; hors rejeu : A-20 (declaration absente), A-31 (journaux absents) ; A-28 PACKAGE_DRIFT"
+    }
+  },
+  "shared_exact_lines": true,
+  "protected_files_unchanged": 2524,
+  "lock_kept": true
+}

@@ -6,7 +6,7 @@
     "checks":  [
                    {
                        "status":  "PASS",
-                       "check":  "real_green_A22_A28"
+                       "check":  "real_green_A21_to_A28_and_A30_A20_excluded"
                    },
                    {
                        "status":  "PASS",
@@ -35,12 +35,11 @@
                  ],
     "copy_absent":  true,
     "green":  {
-                  "summary":  "PAQUETS : 9 vérifiés, 0 échecs ; hors rejeu : aucun",
-                  "last":  "REJEU : 1153 tests, 36074 assertions, 0 échecs, 0 erreurs, 0 ignorés — PASS",
+                  "summary":  "PAQUETS : 9 vérifiés, 0 échecs ; hors rejeu : A-20 (declaration absente), A-31 (journaux absents)",
+                  "last":  "REJEU : 1153 tests, 36075 assertions, 0 échecs, 0 erreurs, 0 ignorés — PASS",
                   "packets":  {
                                   "verified":  9,
                                   "lots":  [
-                                               "A-20",
                                                "A-21",
                                                "A-22",
                                                "A-23",
@@ -48,23 +47,30 @@
                                                "A-25",
                                                "A-26",
                                                "A-27",
-                                               "A-28"
+                                               "A-28",
+                                               "A-30"
                                            ],
                                   "failures":  [
 
                                                ],
                                   "excluded":  [
-
+                                                   {
+                                                       "lot":  "A-20",
+                                                       "reason":  "declaration absente"
+                                                   },
+                                                   {
+                                                       "lot":  "A-31",
+                                                       "reason":  "journaux absents"
+                                                   }
                                                ]
                               }
               },
     "mutant":  {
-                   "summary":  "PAQUETS : 9 vérifiés, 1 échecs ; hors rejeu : aucun ; A-28 PACKAGE_DRIFT",
-                   "last":  "REJEU : 1153 tests, 36074 assertions, 0 échecs, 0 erreurs, 0 ignorés — PASS",
+                   "summary":  "PAQUETS : 9 vérifiés, 1 échecs ; hors rejeu : A-20 (declaration absente), A-31 (journaux absents) ; A-28 PACKAGE_DRIFT",
+                   "last":  "REJEU : 1153 tests, 36075 assertions, 0 échecs, 0 erreurs, 0 ignorés — PASS",
                    "packets":  {
                                    "verified":  9,
                                    "lots":  [
-                                                "A-20",
                                                 "A-21",
                                                 "A-22",
                                                 "A-23",
@@ -72,7 +78,8 @@
                                                 "A-25",
                                                 "A-26",
                                                 "A-27",
-                                                "A-28"
+                                                "A-28",
+                                                "A-30"
                                             ],
                                    "failures":  [
                                                     {
@@ -81,7 +88,14 @@
                                                     }
                                                 ],
                                    "excluded":  [
-
+                                                    {
+                                                        "lot":  "A-20",
+                                                        "reason":  "declaration absente"
+                                                    },
+                                                    {
+                                                        "lot":  "A-31",
+                                                        "reason":  "journaux absents"
+                                                    }
                                                 ]
                                }
                },

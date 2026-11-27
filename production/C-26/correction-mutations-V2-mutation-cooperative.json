@@ -1,0 +1,22 @@
+{
+  "scope": "imagine-test-demo",
+  "total": 1,
+  "families": {
+    "C08": true,
+    "B06": true
+  },
+  "results": [
+    {
+      "name": "cooperative-3116-page",
+      "public": "anonyme",
+      "status": 200,
+      "bytes": 29211,
+      "ok": false,
+      "leak": true,
+      "witnesses_found": 2,
+      "surface_present": true,
+      "redirects_inspected": 0
+    }
+  ],
+  "persisted_fixture": true
+}

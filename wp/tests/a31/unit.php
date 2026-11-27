@@ -15,7 +15,10 @@ $order = static fn (string $nature, int $year = 2020): array => [
     'orphan_renewal' => false, 'account_missing' => false, 'link_unknown' => false,
 ];
 $one = Analysis::analyse([$order('renewal')], [], []);
-$check('rare_four_no_label', $one['natures'] === ['groups' => [], 'autres' => 1]);
+$check('rare_one_no_label', $one['natures'] === ['groups' => [], 'autres' => 1]);
+$four = Analysis::analyse(array_fill(0, 4, $order('renewal')), [], []);
+$check('rare_four_no_label', $four['natures'] === ['groups' => [], 'autres' => 4]);
+$check('oldest_four_suppressed', $four['oldest_year'] === 'fusionne');
 $check('oldest_rare_suppressed', $one['oldest_year'] === 'fusionne');
 $five = Analysis::analyse(array_fill(0, 5, $order('renewal')), [], []);
 $check('renewal_five', $five['natures'] === ['groups' => [['nature' => 'renewal', 'count' => 5]], 'autres' => 0]);
