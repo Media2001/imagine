@@ -12,7 +12,7 @@ spec = importlib.util.spec_from_file_location('qualification_reader', ROOT/'prod
 v = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(v)
 owner = v.owner
-m = v.load('reception-V2.json')
+m = v.load(getattr(v, 'RECEIPT', 'reception-V2.json'))
 boot = ROOT/'wp/plugins/imagine-site/imagine-site.php'
 readme = ROOT/'wp/plugins/imagine-site/README.md'
 original_bytes = Path.read_bytes

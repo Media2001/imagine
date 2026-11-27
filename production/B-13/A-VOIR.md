@@ -1,5 +1,11 @@
 # B13 — à ouvrir sur la seule démonstration fictive
 
+## Réception corrigée après la relecture de 22h30
+
+Référence courante : `reception-corrections-V2.json`. Capture : `browser-corrections-final-V2.png`. **34 contrôles natifs, 123 navigateur**, dont chaque image des neuf articles sélectionnés sur chacune des six surfaces. Séquence B08 → B13 → B08 → B13 réellement jouée dans une transaction annulée, lien S'abonner réparé sans nouvel item. Retrait direct d'une relation couvert, et identifiants exacts comparés pour les limites 1, 3 et 10 sur deux thématiques temporaires de douze articles. Données, profils et sessions rendus à leur départ, copies de seeds retirées.
+
+Défaut technique appliqué : hors préparation de la démonstration, un récent sans image reste sélectionné sans image, jamais remplacé, exclu ou habillé d'un placeholder. La démonstration courante a bien neuf images synthétiques, une par article sélectionné. Alphabet conservé, sur-invalidation save_post laissée (sans risque), dépendance à la classe `imagine-nav-thematiques` documentée au README. Connexion inchangé. Les paragraphes ci-dessous décrivent la première livraison et ses preuves historiques ; les commandes natives/navigateur courantes sont celles de corrections.
+
 - Accueil : http://192.168.129.32:8085/
 - Article réservé : http://192.168.129.32:8085/demo-2026-t4-reserve-1/
 - Numéro : http://192.168.129.32:8085/numeros/demo-2026-t4/
@@ -14,8 +20,8 @@ Capture : `browser-final-V2.png`, navigateur réel sans JavaScript, anonyme ; le
 python -B production/B-13/verifier.py
 python -B production/B-13/verifier.py --live
 python -B production/B-13/qualifier.py
-python -B wp/outils/demo/b13.py native ETIQUETTE_NEUVE
-python -B wp/outils/demo/b13-browser.py ETIQUETTE_NEUVE
+python -B wp/outils/demo/b13-corrections.py native ETIQUETTE_NEUVE
+python -B wp/outils/demo/b13-corrections.py browser ETIQUETTE_NEUVE
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/preparer-image.ps1
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/rejouer.ps1
 ```

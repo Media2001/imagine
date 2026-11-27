@@ -616,6 +616,16 @@ Menu B08 conservé, mêmes identifiants : huit entrées dans l'ordre du §3.1. C
 
 Réglages → Menu principal : 1 à 10 articles récents par thématique, défaut 3. Les thématiques vides sont conservées. Cache du seul fragment public indépendant du lecteur, images différées et non prioritaires ; aucun nouveau contenu de visiteur collecté. Réception : `production/B-13/reception-V2.json`, `A-VOIR.md` ; `python -B production/B-13/verifier.py` et `--live`. Socle `lot_reception_contract.py` inchangé, adapté localement par injection temporaire de paramètres : fichiers propres, bloc B13 exact/unique et section README bornée, aucune empreinte globale ni disponibilité de voisin. Tests natifs transactionnels, vrai navigateur sans JS et témoins existants de C26, matrice C26 non étendue. Ni habillage, validation visuelle ni GO réel.
 
+### Corrections B13-01 à B13-04 — réception courante
+
+Réception courante `production/B-13/reception-corrections-V2.json`, anciens reçus et PRET conservés. Les neuf articles récents de la sélection fictive reçoivent individuellement une couverture synthétique existante comme image à la une si manquante, sans remplacer un récent par un ancien ; chaque article est contrôlé sur les six surfaces. **Hors cette préparation de démonstration, un article récent sans image reste sélectionné sans image, sans placeholder ni exclusion** : défaut technique retenu, aucun habillage inventé.
+
+Le seed contrôle et rétablit le lien S'abonner détenu vers la page d'attente **avant son retour sur fixture existante**. La séquence native réelle B08 → B13 → B08 → B13 est testée en transaction, IDs et nombre d'entrées conservés. Invalidation ajoutée pour `deleted_term_relationships` : retrait direct par `wp_remove_object_terms`, cache d'abord présent, reconstruction sans l'article et thématique devenue vide conservée. Pour les limites 1, 3 et 10 : identifiants exacts comparés par thématique sur deux thématiques temporaires de douze articles, dates décroissantes puis ID décroissant ; oracle indépendant de la requête du composant.
+
+L'ordre alphabétique des thématiques est conservé. La sur-invalidation `save_post` est laissée telle quelle (cache public reconstructible, sans risque métier). Le menu étendu dépend de la classe native `imagine-nav-thematiques` de l'entrée B08 : la retirer le fait disparaître silencieusement ; fragilité héritée documentée, pas de nouvelle fonction en correction. Libellé Connexion inchangé.
+
+Commandes courantes : `python -B wp/outils/demo/b13-corrections.py native NOM-NEUF`, `... browser NOM-NEUF`, et `python -B production/B-13/verifier.py` (`--live` lecture seule). Le banc partagé B13, utilisé par B14/B15, et le socle commun sont inchangés ; les copies de seeds utilisées pour la séquence sont temporaires, ciblées et supprimées après vérification.
+
 ## B-14 — accueil dans l’ordre du cahier des charges
 
 ### Le standard d'abord — cinq lignes
