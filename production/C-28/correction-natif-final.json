@@ -1,0 +1,37 @@
+{
+  "native": {
+    "code": 0,
+    "stdout": "{\"checks\":{\"adaptateur_pack_present\":true,\"pas_instantane_avant_paiement\":true,\"C14_pas_droit_avant_paiement\":true,\"paiement_non_persiste_pas_instantane\":true,\"instantane_AU_paiement_pas_au_panier\":true,\"date_instantane_date_paiement\":true,\"trois_achats_via_C14\":true,\"C06_numero_achete_11\":true,\"C06_numero_achete_18\":true,\"C06_numero_achete_32\":true,\"ajout_retrait_sans_retrooctroi\":true,\"instantane_immuable_apres_resauvegarde\":true,\"anonyme_pas_droit\":true,\"tiers_pas_droit\":true,\"remboursement_natif_sans_passerelle\":true,\"C14_commande_partiel_ferme_pack\":true,\"C14_ligne_non_ventile_conserve_pack\":true,\"C14_ligne_pack_remboursee_ferme_tous_ses_numeros\":true,\"C14_total_ferme_commande\":true,\"C14_total_ferme_ligne\":true,\"ancienne_ligne_sans_marque_aucun_retrooctroi\":true,\"pack_retire_paiement_refuse_sans_droit_vide\":true,\"numero_deja_possede_aucune_remise\":true,\"numero_deja_possede_pack_vendable\":true,\"produit_supprime_acquisitions_conservees\":true},\"total\":25,\"failures\":0}",
+    "stderr": ""
+  },
+  "business_preserved": true,
+  "sources": {
+    "wp/outils/demo/c28-corrections.py": "66b94dec0b66a59c701ced29100d83dcff20c2e119a55c5c35a70592f64bb77c",
+    "wp/outils/demo/c28-demo.php": "207cb6ff91ea6af285b7f83c7e42465f8948fd8da5dc1768ed3cdd31a68c5dfc",
+    "wp/outils/demo/c28-finaliser.py": "a86a93ca65db88e3ae9c7e234502b0e46d7b30c71be943b5bdf419b1c664f051",
+    "wp/outils/demo/c28-gates.py": "a07165e5af6eac96b57ef65965d2e77ab4f11e4c4ab3d4e20263887c659d61af",
+    "wp/outils/demo/c28-local.py": "1f91a4e6633f2e22bad076b8bbbb7ee6fa31f11a50eb1f7341c3663c179730aa",
+    "wp/outils/demo/c28-recette.py": "8fd58e2b3b98a0aa0ab7cd22b3782719e9eb688aea7e566c6f8ccee0e3588a9e",
+    "wp/outils/demo/c28-seed.php": "78699c80bf2951d2d63350b60121704b2bc26708ff46d3f0ef87b38feae5cbab",
+    "wp/outils/demo/c28.py": "aed8a9a5e3652571da40b7622bfe229ec9dd3cc5ac80aae9e78afc066d683f8f",
+    "wp/plugins/imagine-site/AchatNumero.php": "a771d362e11b7620a66d5813e8bfcc38395bb5469961a25e9f4ecf0a9e8fc65d",
+    "wp/plugins/imagine-site/AchatsNumeros.php": "013b3ba9e9a91f68cfdd6a0bede670a94b30bbb72e28c4dcaa4cdb7033434b70",
+    "wp/plugins/imagine-site/imagine-site.php": "084a83833c81f81fff8da28395e93bd1c7216a0506109d9b1a0c862a6ae1aaa4",
+    "wp/plugins/imagine-site/MonCompte.php": "8ebf22bb6b809d8efcbf47d39fab0bbf4058f0f338704459ef4bf294563ee2ae",
+    "wp/plugins/imagine-site/PacksRegles.php": "f6293429a31bce02f30c2b68072fe6e1274b49c5efde60edd126d73f7a5789cd",
+    "wp/plugins/imagine-site/PacksThematiques.php": "70e5d519d20491f3aa97a9ae79622adce2cf144e6b02648cca8705dc9e7febee",
+    "wp/plugins/imagine-site/Paywall.php": "36cd92a29c942a4f210b6fad36eb75b5604e72dd69dcee115fac4ef2220c3d6f",
+    "wp/plugins/imagine-site/PdfNumero.php": "dbb32496968b9e93c1ed90678ddf477b80bebd703019abff92149b327d2e0d49",
+    "wp/plugins/imagine-site/tests/b04-adapter-fixture.php": "361cddba8c482b8d13f1e8cf7e2633f6e0d112de24ee4305b2a86289934d2d69",
+    "wp/plugins/imagine-site/tests/fixtures/c28-adapter.php": "1b16d50ef8a14ec0c740ad3ffb894733333117079040b2c8d50c9f3221a54edf",
+    "wp/plugins/imagine-site/tests/PacksC28AdapterTest.php": "195db8da2b84eaddfc7e3ad0b261e772534d4283cab502dc4b0b855a70ef1a13",
+    "wp/plugins/imagine-site/tests/PacksC28Test.php": "f65026c24c26b5cbecca3320cf199461384846f8e38a48b265cedfa32d0651a6",
+    "wp/tests/demo/c28-canaris.py": "b9c907a243cdddd27cd7f0905c3a4894f237c0245e25a5a9a3138261880b3f3d",
+    "wp/tests/demo/c28-corrections-runtime.php": "123f04d5833f1c2cb32debc1c5caf502795fc8a35b9d65abfde67ac18b5ae188",
+    "wp/tests/demo/c28-horslive.php": "aea8609f8606c4e75153be8b6e59cf83a305fd635884d1b50066d03625fa8914",
+    "wp/tests/demo/c28-observer.php": "3cb0fb397d01a0a5c1991a133080a9307335aab758180a1f013d53a028b0edcd",
+    "wp/tests/demo/c28-runtime.php": "1e59bfa126a024c64b10119129d4358a40be551b33b685303069357810d2d5a4",
+    "wp/tests/demo/c28-verifier.py": "4bc449aea256596737a3bb34e05ef1e03ce0d6e5b942caa6664ab4a63d117350",
+    "wp/themes/imagine/single-product.php": "feb4a54ba915e32c34c11df89c97532224fd3134769bd998bae622b727c15e95"
+  }
+}
