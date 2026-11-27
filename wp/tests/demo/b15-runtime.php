@@ -34,8 +34,12 @@ wp_set_current_user((int)get_option('imagine_c09_fixture')['users']['A-PAPIER'])
 ob_start();
 PiedPage::rendre();
 $reader = ob_get_clean();
-$check('html_identique_anonyme_papier', $reader === $anon);
-$check('menu_natif_b09_identifiants_inchanges', $idsBefore === array_map(static fn ($p): int => $p->ID, wp_get_nav_menu_items($menu['menu'])) && count($idsBefore) === 5);
+// WordPress déduplique les IDs du menu quand il est rendu deux fois dans la même
+// requête. La preuve HTTP compare, elle, le footer entier octet pour octet.
+$withoutRepeatedIds = static fn (string $html): string => preg_replace('/ id="(?:menu-imagine-b09-footer(?:-[0-9]+)?|menu-item-[0-9]+)"/', '', $html);
+$check('contenu_identique_hors_ids_natifs_repetes', $withoutRepeatedIds($reader) === $withoutRepeatedIds($anon));
+$check('menu_natif_b09_identifiants_inchanges', $idsBefore === array_map(static fn ($p): int => $p->ID, wp_get_nav_menu_items($menu['menu']))
+    && count($menu['items']) === 5 && array_diff(array_values($menu['items']), $idsBefore) === []);
 $new = wp_insert_post(wp_slash([
     'post_type' => 'imagine_numero', 'post_status' => 'publish',
     'post_title' => 'FICTIF B15 — numéro temporaire plus récent', 'post_content' => '', 'post_excerpt' => 'FICTIF',

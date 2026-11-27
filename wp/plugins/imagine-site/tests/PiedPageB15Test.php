@@ -16,7 +16,7 @@ final class PiedPageB15Test extends TestCase
 
     public function testContexteDeNavigationNeutraliseSeulementPourLePied(): void
     {
-        $classes = ['menu-item', 'current-menu-item', 'current_page_parent', 'menu-item-15'];
+        $classes = ['menu-item', 'current-menu-item', 'current_page_parent', 'page_item', 'page-item-15', 'menu-item-15'];
         $attributes = ['href' => '/mentions/', 'aria-current' => 'page'];
         $item = new \stdClass();
         $footer = (object)['theme_location' => 'imagine-footer'];
