@@ -58,7 +58,7 @@ class MutationTests(unittest.TestCase):
             protocol = b'A31_OK commandes.json commandes.md\nA31_FINAL ' + json.dumps(
                 {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in out.iterdir()}).encode('ascii') + b'\n'
             data = json.loads((out / 'commandes.json').read_bytes())
-            data['counts']['natures']['autres'] = 7
+            data['counts']['orphan_renewals'] = 7
             raw = (json.dumps(data, ensure_ascii=False, indent=4) + '\n').encode('utf-8')
             (out / 'commandes.json').write_bytes(raw)
             (out / 'commandes.md').write_bytes(r.MARKDOWN.encode('utf-8') + raw + b'```\n')

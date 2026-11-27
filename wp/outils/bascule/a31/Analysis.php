@@ -80,8 +80,10 @@ final class Analysis
         }
         $result = $links;
         foreach ($buckets as $key => $rows) {
+            ksort($rows, SORT_STRING);
             $result[$key] = $neutralised && $key === 'natures'
-                ? self::UNKNOWN : self::pool($rows);
+                ? self::UNKNOWN : (in_array($key, ['years', 'statuses'], true)
+                    ? self::pool($rows) : ['groups' => array_values($rows), 'autres' => 0]);
         }
         $result['refunds'] = ['total' => count($refunds)] + $result['refunds'];
         $oldest = null;

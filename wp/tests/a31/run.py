@@ -97,7 +97,7 @@ def main():
         b.call(['exec', name, 'python3', '-c', "from pathlib import Path;p=Path('/subject/a31/Analysis.php');q=p.with_suffix('.original');p.write_bytes(q.read_bytes());q.unlink()"])
         red_data = json.loads((out / 'red-unit.json').read_text(encoding='utf-8'))
         check('red_mutation_k5_caught', red.returncode == 1 and any(
-            x['check'] == 'renewal_five' and x['status'] == 'FAIL' for x in red_data['checks']))
+            x['check'] == 'year_five_k5' and x['status'] == 'FAIL' for x in red_data['checks']))
         needle = '$result = $links;'
         replacement = "$result = array_map(static fn ($v) => ['groups' => [], 'autres' => $v], $links);"
         scalar_mutation = ("from pathlib import Path;p=Path('/subject/a31/Analysis.php');s=p.read_text(encoding='utf-8');"

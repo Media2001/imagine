@@ -142,7 +142,7 @@ if (getenv('A31_CONFINED') === '1') {
                '--audit=' + str(audit), '--output=/report/raw-' + storage], check=False)
     b.check(storage + ':unconfined_php_refused', (raw.returncode, raw.stdout, raw.stderr) == (1, '', 'A31_CONFINEMENT_REQUIRED\n'))
     target = "foreach ($_SERVER['argv'] as $arg) { if (str_starts_with($arg,'--output=')) { $dir=substr($arg,9); } }"
-    coherent = "$p=$dir.'/commandes.json';$d=json_decode(file_get_contents($p),true);$d['counts']['natures']['autres']=7;$j=json_encode($d,JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES).\"\\n\";file_put_contents($p,$j);$m=file_get_contents($dir.'/commandes.md');$pos=strpos($m,'```json');file_put_contents($dir.'/commandes.md',substr($m,0,$pos).'```json'.\"\\n\".$j.\"```\\n\");"
+    coherent = "$p=$dir.'/commandes.json';$d=json_decode(file_get_contents($p),true);$d['counts']['natures']['groups'][0]['count']=7;$j=json_encode($d,JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES).\"\\n\";file_put_contents($p,$j);$m=file_get_contents($dir.'/commandes.md');$pos=strpos($m,'```json');file_put_contents($dir.'/commandes.md',substr($m,0,$pos).'```json'.\"\\n\".$j.\"```\\n\");"
     cases = [
         ('direct_stdout', "fwrite(STDOUT,'A31_STDOUT_PRIVATE_CANARY');", 'A31_PROCESS_OUTPUT_INVALID'),
         ('direct_stderr', "fwrite(STDERR,'A31_STDERR_PRIVATE_CANARY');", 'A31_PROCESS_OUTPUT_INVALID'),
@@ -193,7 +193,7 @@ if (getenv('A31_CONFINED') === '1') {
                     observed = b'CANARY' in witness.stdout + witness.stderr or any(
                         b'CANARY' in f.read_bytes() for f in (stage / 'result').rglob('*') if f.is_file())
                     if label == 'shutdown_valid_counts_and_markdown':
-                        observed = json.loads((stage / 'result/commandes.json').read_bytes())['counts']['natures']['autres'] == 7
+                        observed = json.loads((stage / 'result/commandes.json').read_bytes())['counts']['natures']['groups'][0]['count'] == 7
                     b.check(storage + ':mutation_witness_' + label, observed)
     finally:
         mu.write_text(base_mu, encoding='utf-8')
@@ -303,7 +303,7 @@ if (getenv('A31_CONFINED') === '1') {
     rows = []
     try:
         for metric in metrics:
-            for n in (0, 1, 4, 5):
+            for n in range(6):
                 for mix in ('alone', 'mixed'):
                     case = metric + ':' + str(n) + ':' + mix
                     slug = case.replace(':', '_')

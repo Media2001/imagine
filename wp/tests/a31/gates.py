@@ -45,6 +45,7 @@ def main():
     rows = []
     for name, command, encoding, mode in commands:
         env = {**os.environ, 'PYTHONIOENCODING': encoding, 'PYTHONUTF8': mode, 'PYTHONDONTWRITEBYTECODE': '1'}
+        env.pop('TMPDIR', None)
         try:
             p = subprocess.run(command, cwd=ROOT, env=env, capture_output=True, timeout=1800)
             # The canonical PowerShell runner emits UTF-8 bytes; Python children use their explicitly set encoding.

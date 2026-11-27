@@ -20,12 +20,14 @@ def year(value):
     return type(value) is int and 1000 <= value <= 9999 or value == 'illisible'
 
 
-def pool_valid(pool, fields):
+def pool_valid(pool, fields, minimum=5):
     if type(pool) is not dict or set(pool) != {'groups', 'autres'} or not number(pool['autres']) or type(pool['groups']) is not list:
+        return False
+    if minimum == 1 and pool['autres'] != 0:
         return False
     keys = []
     for row in pool['groups']:
-        if type(row) is not dict or set(row) != set(fields) | {'count'} or not number(row['count']) or row['count'] < 5:
+        if type(row) is not dict or set(row) != set(fields) | {'count'} or not number(row['count']) or row['count'] < minimum:
             return False
         if any(not predicate(row[key]) for key, predicate in fields.items()):
             return False
@@ -48,7 +50,7 @@ def projection(data, audit_hash):
     refunds = counts['refunds']
     if (type(refunds) is not dict or set(refunds) != {'total', 'groups', 'autres'}
             or not number(refunds['total'])
-            or not pool_valid({k: refunds[k] for k in ('groups', 'autres')}, {'year': year})
+            or not pool_valid({k: refunds[k] for k in ('groups', 'autres')}, {'year': year}, minimum=1)
             or refunds['total'] != refunds['autres'] + sum(row['count'] for row in refunds['groups'])):
         return False
     schemas = {'years': {'year': year}, 'statuses': {'year': year, 'status': lambda v: v in STATUSES},
@@ -57,7 +59,7 @@ def projection(data, audit_hash):
         if data['neutralisation'] == UNKNOWN and key in UNREADABLE_AFTER_IMPORT:
             if counts[key] != UNKNOWN:
                 return False
-        elif not pool_valid(counts[key], fields):
+        elif not pool_valid(counts[key], fields, minimum=1 if key == 'natures' else 5):
             return False
     oldest = counts['oldest_year']
     years = counts['years']

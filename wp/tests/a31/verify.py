@@ -100,7 +100,7 @@ def verify(packet, python_only=False):
             check(console + ':' + name + '_pass', receipt_valid(receipts[name]))
         red = read(native / 'red-unit.json')
         check(console + ':targeted_k5_red', red['exit_code'] == 1 and any(
-            c['check'] == 'renewal_five' and c['status'] == 'FAIL' for c in red['checks']))
+            c['check'] == 'year_five_k5' and c['status'] == 'FAIL' for c in red['checks']))
         scalar_red = read(native / 'red-scalar-unit.json')
         check(console + ':targeted_rare_scalar_red', scalar_red['exit_code'] == 1 and any(
             c['check'] == 'scalar_orphan_renewals_1_alone_orphan_renewals' and c['status'] == 'FAIL'
@@ -121,16 +121,16 @@ def verify(packet, python_only=False):
         actual = {c['check'] for c in receipts['result']['checks']}
         check(console + ':network_no_listener', {'network_interfaces', 'no_listener:tcp', 'no_listener:tcp6'}.issubset(actual))
         units = {c['check'] for c in receipts['unit']['checks']}
-        unit_required = {'renewal_five', 'oldest_rare_suppressed', 'oldest_five_exact', 'oldest_not_next_visible_year',
+        unit_required = {'renewal_five', 'year_five_k5', 'rare_nature_one_exact', 'rare_nature_four_exact', 'oldest_rare_suppressed', 'oldest_five_exact', 'oldest_not_next_visible_year',
                          'closed_unknown_status', 'unknown_nature_not_none', 'neutral_natures_unknown',
                          'neutral_orphan_readable', 'neutral_years_preserved', 'refund_objects_separate',
                          'invalid_date_oldest_illisible', 'missing_account_separate_from_guest',
                          'renewal_orphans_count_orders_not_links'}
         unit_required |= {'nature_' + n for n in report.NATURES}
         unit_required |= {'scalar_' + metric + '_' + str(n) + '_' + mixed + '_' + key
-                          for metric in report.LINKS for n in (0, 1, 4, 5)
+                          for metric in report.LINKS for n in range(6)
                           for mixed in ('alone', 'mixed') for key in report.LINKS}
-        unit_required |= {'refund_' + kind + '_' + str(n) for kind in ('exact_total', 'rare_year') for n in (0, 1, 4, 5)}
+        unit_required |= {'refund_' + kind + '_' + str(n) for kind in ('exact_total', 'exact_year') for n in range(6)}
         check(console + ':required_pure_cases', unit_required.issubset(units))
         adapter = {c['check'] for c in receipts['adapter-unit']['checks']}
         check(console + ':required_adapter_cases', {'parent_native_relation', 'renewal_missing_native_subscription',
@@ -158,7 +158,7 @@ def verify(packet, python_only=False):
             check(prefix + ':required_native_cases', all(storage + ':' + key in actual for key in mandatory))
             scalar_rows = read(native / (storage + '-scalar-matrix.json'))
             scalar_cases = [metric + ':' + str(n) + ':' + mixed for metric in report.LINKS
-                            for n in (0, 1, 4, 5) for mixed in ('alone', 'mixed')]
+                            for n in range(6) for mixed in ('alone', 'mixed')]
             check(prefix + ':exact_scalar_matrix_complete', [row['case'] for row in scalar_rows] == scalar_cases)
             for row in scalar_rows:
                 metric, raw_n, mixed = row['case'].split(':')
