@@ -295,7 +295,7 @@ if (getenv('A31_CONFINED') === '1') {
         $hpos = Automattic\\WooCommerce\\Utilities\\OrderUtil::custom_orders_table_usage_is_enabled();
         $table = $wpdb->prefix . ($hpos ? 'wc_orders_meta' : 'postmeta');
         $column = $hpos ? 'order_id' : 'post_id';
-        $found = $wpdb->get_var($wpdb->prepare("SELECT meta_id FROM $table WHERE $column=%d AND meta_key='_a31_fixture_unreadable'", $id));
+        $found = $wpdb->get_var($wpdb->prepare("SELECT 1 FROM $table WHERE $column=%d AND meta_key='_a31_fixture_unreadable'", $id));
         return $found ? false : $class;
     }, PHP_INT_MAX, 3);
 }

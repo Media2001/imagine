@@ -1,0 +1,22 @@
+{
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "private_snapshot": {
+    "file": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\b11-private-bgbqt4i6\\snapshot.json",
+    "sha256": "cde3e453e9d3a74cf0b4365aaf63032ea33f20a0af9bcfd3e317e02d415ae7eb",
+    "private": true
+  },
+  "readback": {
+    "plugins/imagine-site/PacksThematiques.php": "380dee20ccd6363c0b93597a92b0b334f30d02f63902f0419976df5ecbe41b4c",
+    "plugins/imagine-site/AchatsNumeros.php": "013b3ba9e9a91f68cfdd6a0bede670a94b30bbb72e28c4dcaa4cdb7033434b70"
+  },
+  "business_preserved": true
+}

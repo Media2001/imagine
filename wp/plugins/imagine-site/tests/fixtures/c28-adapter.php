@@ -89,6 +89,12 @@ $GLOBALS['wc'] = (object) ['cart' => new class($p) {
 }];
 $GLOBALS['notices'] = []; do_action('woocommerce_check_cart_items');
 $check('existing_cart_checkout_refused', count($GLOBALS['notices']) > 0);
+$invalid = new WC_Order(90); $invalidLine = new WC_Order_Item_Product(0, 42, 90); $invalidLine->save();
+$invalid->items = [101 => $invalidLine]; $invalid->save();
+$invalid->paid = true; $invalid->date = new DateTimeImmutable('@1234567880');
+$refused = false;
+try { $invalid->save(); } catch (RuntimeException $e) { $refused = str_contains($e->getMessage(), 'pack indisponible'); }
+$check('invalid_payment_persistence_refused', $refused && !(new WC_Order(90))->is_paid());
 $check('upstream_refusal_preserved', apply_filters('woocommerce_add_to_cart_validation', false, 42, 1) === false);
 $GLOBALS['posts'][18]->post_status = 'publish';
 $check('valid_direct_add_allowed', apply_filters('woocommerce_add_to_cart_validation', true, 42, 1) === true);
@@ -120,8 +126,10 @@ $check('late_missing_stays_closed', P::instantanes([0], $o2->items[101]) === [])
 $check('late_missing_not_rebuilt', !$o2->items[101]->meta_exists(P::LIGNE));
 $check('late_missing_signalled', $o2->items[101]->meta_exists('imagine_pack_anomalie'));
 // Malformed and mismatched paid envelopes cannot be repaired or expanded.
-foreach ([['broken'], ['numeros' => [32], 'paye_le' => 1234567890, 'produit' => 999]] as $bad) {
-    $i = $o->items[101]; $i->update_meta_data(P::LIGNE, $bad); $i->save(); $o = new WC_Order(); $o->save(); $o = new WC_Order();
+foreach ([['broken'], ['numeros' => [32], 'paye_le' => 1234567890, 'produit' => 999], ['numeros' => [32], 'paye_le' => 1234567899, 'produit' => 42]] as $bad) {
+    $i = $o->items[101]; $i->delete_meta_data(P::ANOMALIE); $i->update_meta_data(P::LIGNE, $bad); $i->save(); $o = new WC_Order();
+    $check('unreliable_closed_before_save_' . count($checks), P::instantanes([0], $o->items[101]) === []);
+    $o->save(); $o = new WC_Order();
     $check('unreliable_' . count($checks), P::instantanes([0], $o->items[101]) === [] && $o->items[101]->meta_exists('imagine_pack_anomalie'));
 }
 $_POST = [A::PRODUIT => '11']; $p->update_meta_data(P::PRODUIT, [11, 18]); A::enregistrer($p);

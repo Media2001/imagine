@@ -26,6 +26,7 @@ def sources():
     paths += [ROOT/'wp'/n for n in ['plugins/imagine-site/tests/b04-adapter-fixture.php', 'plugins/imagine-site/AchatNumero.php', 'plugins/imagine-site/Paywall.php', 'plugins/imagine-site/PdfNumero.php', 'plugins/imagine-site/MonCompte.php']]
     for pattern in ['wp/outils/demo/c28*', 'wp/tests/demo/c28*', 'wp/plugins/imagine-site/tests/PacksC28*']:
         paths.extend(p for p in ROOT.glob(pattern) if p.is_file())
+    paths.append(ROOT/'wp/plugins/imagine-site/tests/fixtures/c28-adapter.php')
     return {p.relative_to(ROOT).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(set(paths)) if p.is_file()}
 
 
