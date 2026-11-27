@@ -26,7 +26,7 @@ function Invoke-CopyReplay {
     $markers = @($lines | Where-Object { $_ -match '^T01_RESULT ' })
     if ($markers.Count -ne 1) { throw 'PACKET_MARKER' }
     $packets = ($markers[0].Substring(11) | ConvertFrom-Json).packets
-    $expectedLots = @('A-21', 'A-22', 'A-23', 'A-24', 'A-25', 'A-26', 'A-27', 'A-28', 'A-30')
+    $expectedLots = @('A-21', 'A-22', 'A-23', 'A-24', 'A-25', 'A-26', 'A-27', 'A-28', 'A-30', 'A-31')
     if (($packets.lots -join ',') -cne ($expectedLots -join ',') -or $packets.verified -ne $expectedLots.Count) { throw 'EXPECTED_CURRENT_PACKETS_NOT_REPLAYED' }
     $a20 = @($packets.excluded | Where-Object { $_.lot -eq 'A-20' -and $_.reason -eq 'declaration absente' })
     if ($a20.Count -ne 1 -or (Test-Path -LiteralPath (Join-Path $copy 'production/A-20/rejeu.json'))) { throw 'A20_MUST_REMAIN_OUTSIDE_REPLAY' }

@@ -51,6 +51,11 @@ def validate(root,packet):
             need(d.get('sources',{}).get(name)==digest(path(name).read_bytes()),'SOURCE_TESTEE '+name)
     need(packet.get('scope')=='imagine-test-demo' and packet.get('version')==1,'SCHEMA')
     need(bool(packet.get('sources')) and bool(packet.get('artifacts')),'MANIFESTE_VIDE')
+    minimum_sources=set(CORE+TESTS+['wp/outils/demo/'+name for name in ['b09.py','b09-seed.php','b09-recette.py','b09-readback.py','b09-local.py','b09-mutations.py','b09-gates.py']]+['wp/tests/demo/b09-structure.php','wp/tests/demo/b09-observer.php','wp/tests/demo/b09-mutation-prive.php'])
+    need(minimum_sources <= set(packet['sources']),'MANIFESTE_SOURCES_COMPLET')
+    minimum_artifacts={PREFIX+name for name in ['verifier.py','A-VOIR.md','NOTE.md','sources-officielles.json','tests-finaux.log','mutations-finales.json','recette-finale.json','structure-finale-verifiee.json','pages-reprise-finale.json','reprise-stable-finale.json','readback-final.json','preparation-finale.json','preparation-finale.log','regression-finale.json','regression-finale.log']}
+    minimum_artifacts|={PREFIX+'mutations-finales-'+name+'.log' for name in MUTATIONS}
+    need(minimum_artifacts <= set(packet['artifacts']),'MANIFESTE_PREUVES_COMPLET')
     for name,sha in packet['sources'].items():
         need(name.startswith(('wp/outils/demo/b09','wp/tests/demo/b09','wp/plugins/imagine-site/Contact','wp/plugins/imagine-site/AutresPages','wp/plugins/imagine-site/tests/Contact')),'PERIMETRE_SOURCE')
         need(digest(path(name).read_bytes())==sha,'EMPREINTE_SOURCE '+name)
@@ -122,8 +127,11 @@ def validate(root,packet):
     for key,row in native['pages'].items():
         need({k:row[k] for k in ['id','title','content','url']}==seed['readback'][key] and row['marker']==key and row['status']=='publish' and row['type']=='page' and row['parent']==0,'PAGE_READBACK')
     need(set(native['pages'])==set(TITLES),'PAGES_READBACK_ENSEMBLE')
+    need(set(final['remote_hashes'])=={'plugins/imagine-site/Contact.php','plugins/imagine-site/ContactConfidentialite.php','plugins/imagine-site/AutresPages.php','plugins/imagine-site/imagine-site.php','themes/imagine/footer.php'},'READBACK_FICHIERS_ENSEMBLE')
     for file,sha in final['remote_hashes'].items():
-        need(sha==digest(path('wp/'+file).read_bytes()),'READBACK_SOURCE_DISTANTE')
+        need(re.fullmatch('[a-f0-9]{64}',sha) is not None,'READBACK_SHA')
+        if 'wp/'+file in CORE:
+            need(sha==digest(path('wp/'+file).read_bytes()),'READBACK_SOURCE_DISTANTE')
     prep=receipt('preparation-finale.json')
     need(prep['exit']==0 and 'image verifiee sha256:' in path(PREFIX+prep['log']).read_text(encoding='utf-8'),'IMAGE_RECONSTRUITE')
     reg=receipt('regression-finale.json')

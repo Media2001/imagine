@@ -1,0 +1,67 @@
+{
+  "scope": "imagine-test-demo",
+  "sources": {
+    "wp/outils/demo/b09-finaliser.py": "0b57a0ada4a9fe715c89157e64e2d5b35d91121e3821f9a29bf98bfeeb9711d8",
+    "wp/outils/demo/b09-gates.py": "364a06abcb2f2a4b18179f498d2640725c3ebd3b51b16baef2b6039dfdbce1ad",
+    "wp/outils/demo/b09-local.py": "725cc7310b0cf99b0d4fa2888f20a15215e6301b36a41f4742db78800a4e7eb3",
+    "wp/outils/demo/b09-mutations.py": "a7b80e7d6b1029ff86450bd43afe3d7978a15f299129739a4b5954cbd2aa7785",
+    "wp/outils/demo/b09-readback.py": "8144d5b880673a7de8443516443b0605992e6406c2ca989ed88a5822b107a314",
+    "wp/outils/demo/b09-recette.py": "c9f5dbbc8b4ee41f5833d62d218a0c1b4def6414ec46d677dfd63f652cb72dc0",
+    "wp/outils/demo/b09-seed.php": "ae5daed08f3d6a25bb9b7731158f010cc885670dbeda1d60dc1b47c8c9a9048b",
+    "wp/outils/demo/b09-sources.py": "758250271b7a9b7450f6c2c9a99da9bcfe78a2baf46f1fe5f4cd940760eaae18",
+    "wp/outils/demo/b09.py": "b4d6adae522e06e2c9a1377d6ac33fb843c654f39cb72a1f67ae0e2101c7be45",
+    "wp/plugins/imagine-site/AutresPages.php": "ceed48252b70041d8f966beb0140a83d8fe147663ecae5340feb91f498839b0e",
+    "wp/plugins/imagine-site/Contact.php": "1f6ac635a0461ceeb8ac8326354b9a0d5a887093e4d7e29e979fca1162cee8cf",
+    "wp/plugins/imagine-site/ContactConfidentialite.php": "6ccaad031dc0b483cec90d81f903476c53e65cd3ebb4a00c08848eaa54fb3828",
+    "wp/plugins/imagine-site/tests/ContactAdapterTest.php": "cc50c8ccf5e9c5b9dc5571d2ff5aef07cd28ca18405e45b641bd9b1b39e9d8c1",
+    "wp/plugins/imagine-site/tests/ContactWPStubs.php": "ea13a23b98edb5a1b98102d95f7db9d1a912f858317b9732db775f9683fd126f",
+    "wp/tests/demo/b09-horslive.php": "7b8d15b0fd6b6663f97ce39ee5228d731ed26af44e44c6ca6c9cdbf45c13a1bc",
+    "wp/tests/demo/b09-mutation-prive.php": "3e7722257c0b0c15e4ecf464498b6e5a21f42d5998201d2ec192e2ab9632b54f",
+    "wp/tests/demo/b09-observer.php": "162135100f71b3b3d31e0ef294c8a49e00856a20bb29daf79b051e6084068d7d",
+    "wp/tests/demo/b09-structure.php": "7613bd3fcd4802d4c9f4785e3176d2ab188811cf0c46e08a5b8ecb7437d13ec7",
+    "wp/tests/demo/b09-verifier-tests.py": "e7d1d5d9b263da69234ffb744c399ef8327952f60cf3aac6dc4714636411a2fc",
+    "wp/themes/imagine/footer.php": "33c8f45ac3c8b199b84b2f83c2fddcccbb401ab18faa57d683ed81e2fea8cbc9"
+  },
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "private_snapshot": {
+    "file": "c25-private-i75ennsl/snapshot.json",
+    "sha256": "64631ace4ef3d378aa20899b324eadeb3ab7d41d73958ab98ea33dec66bf97dc",
+    "private": true
+  },
+  "fixture": {
+    "pages": {
+      "faq": 3314,
+      "cgv": 3315,
+      "confidentialite": 3316,
+      "cookies": 3317,
+      "contact": 3318
+    },
+    "menu": 38,
+    "items": {
+      "faq": 3319,
+      "cgv": 3320,
+      "confidentialite": 3321,
+      "cookies": 3322,
+      "contact": 3323
+    }
+  },
+  "idempotent": true,
+  "unchanged_existing_fixture": {
+    "users": true,
+    "usermeta": true,
+    "posts": true,
+    "postmeta": true,
+    "navigation": true
+  },
+  "business_preserved": true,
+  "runner_removed": true
+}

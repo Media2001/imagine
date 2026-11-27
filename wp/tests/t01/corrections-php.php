@@ -121,7 +121,9 @@ function fixtureReplay(string $methodBody, string $configuration = 'phpunit.xml'
     // Relocate only hard-coded input/output roots; selection and verdict code are unchanged.
     $code = str_replace(['/repo/wp', '/tmp/t01/', '/opt/t01/', '/tmp/t01-tools'], [$root . '/wp', $root . '/work/', $root . '/cache/', $root . '/tools-work'], file_get_contents(__DIR__ . '/executer.php'));
     file_put_contents($root . '/executer.php', $code);
-    foreach (['discovery.php', 'tools.php'] as $file) {
+    // The relocated executor includes the packet phase too; copy its real
+    // dependencies instead of adding a production bypass or editing verdicts.
+    foreach (['discovery.php', 'tools.php', 'paquets.php', 'paquets.py'] as $file) {
         copy(__DIR__ . '/' . $file, $root . '/' . $file);
     }
     [$status, $output] = childPhp('require ' . var_export($root . '/executer.php', true) . ';');

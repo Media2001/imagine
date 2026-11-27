@@ -88,7 +88,9 @@ function toolReplayFixture(string $unit): array
     file_put_contents($package . '/phpunit.xml', '<phpunit bootstrap="vendor/autoload.php"><testsuites><testsuite name="Synthetic"><directory>tests</directory></testsuite></testsuites></phpunit>');
     file_put_contents($package . '/tests/KeepTest.php', '<?php final class KeepTest extends \\PHPUnit\\Framework\\TestCase { public function testKeep(): void { self::assertTrue(true); } }');
     file_put_contents($root . '/tests/a90/unit.php', $unit);
-    foreach (['discovery.php', 'tools.php'] as $file) {
+    // Keep the real packet include available in this disposable fixture.
+    // No production mutation flag and no counter/verdict substitution.
+    foreach (['discovery.php', 'tools.php', 'paquets.php', 'paquets.py'] as $file) {
         copy(__DIR__ . '/' . $file, $root . '/' . $file);
     }
     file_put_contents($root . '/executer.php', str_replace(
