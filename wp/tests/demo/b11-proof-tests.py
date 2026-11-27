@@ -46,7 +46,8 @@ class ProofRules(unittest.TestCase):
     def test_ambient_destination_does_not_allow_arbitrary_local_or_external_requests(self):
         known={'host':'license.dynamic.ooo','ambient_novamira_update':True,'subject_b11':False}
         self.assertTrue(m.ambient_destination(known,'http://demo.invalid:8085'))
-        cron={'host':'demo.invalid','path':'/wp-cron.php','stack':['spawn_cron'],
+        cron={'host':'demo.invalid','path':'/wp-admin/admin-ajax.php',
+              'stack':['WP_Async_Request->dispatch','ActionScheduler_AsyncRequest_QueueRunner->maybe_dispatch'],
               'ambient_novamira_update':False,'subject_b11':False}
         self.assertTrue(m.ambient_destination(cron,'http://demo.invalid:8085'))
         for bad in [{**cron,'host':'evil.invalid'},{**cron,'path':'/unexpected'},

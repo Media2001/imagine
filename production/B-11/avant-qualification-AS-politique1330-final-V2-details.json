@@ -1,0 +1,2256 @@
+{
+  "editors": {
+    "11": {
+      "kind": "native-save_post-hook-not-UI",
+      "forced": false,
+      "readback_values": [
+        "https://video-fictive.example.invalid/B11_VIDEO_FICTIVE?a=1&b=2",
+        "https://podcast-fictif.example.invalid/B11_PODCAST_FICTIF"
+      ]
+    },
+    "3454": {
+      "kind": "native-save_post-hook-not-UI",
+      "forced": false,
+      "readback_values": [
+        "https://video-fictive.example.invalid/B11_VIDEO_FICTIVE?a=1&b=2",
+        "https://podcast-fictif.example.invalid/B11_PODCAST_FICTIF"
+      ]
+    }
+  },
+  "settings_evidence": [
+    {
+      "mode": "0",
+      "names": [
+        "imagine_acces_reglages",
+        "imagine_decouverte_reglages",
+        "imagine_decouverte_relecture",
+        "imagine_c05_reglages",
+        "imagine_envoi_colonnes_export",
+        "imagine_commande_adresse_nouveau",
+        "imagine_solidaire_categories",
+        "imagine_partenaire_du_mois",
+        "imagine_newsletters_catalogue",
+        "imagine_newsletters_creation",
+        "imagine_personnalisation_questions",
+        "imagine_retractation_reglages",
+        "imagine_acquisition_choix",
+        "imagine_cooperateurs_roles_attribut",
+        "imagine_cooperateurs_roles_lecture",
+        "imagine_medias"
+      ],
+      "before": {
+        "imagine_acces_reglages": {
+          "present": false,
+          "effective_value": {
+            "contenu_futur": "ferme_tous",
+            "pdf_robot": "extrait",
+            "pdf_anterieur_abonnement": "ferme"
+          },
+          "effective_sha256": "a0cf17d0a2928a032b95b61a875f967b41067788ca91414772b0366e0c2215bd",
+          "raw_sha256": null,
+          "default_known": true,
+          "default_value": {
+            "contenu_futur": "ferme_tous",
+            "pdf_robot": "extrait",
+            "pdf_anterieur_abonnement": "ferme"
+          },
+          "default_sha256": "a0cf17d0a2928a032b95b61a875f967b41067788ca91414772b0366e0c2215bd",
+          "default_source": "Settings API default",
+          "settings_api_default_declared": true,
+          "owner": null
+        },
+        "imagine_decouverte_reglages": {
+          "present": false,
+          "effective_value": {
+            "ouverture": "fermee",
+            "forme": "articles",
+            "jours": 7,
+            "nombre": 2,
+            "numeros": []
+          },
+          "effective_sha256": "d1ba03e47d490ddaea5036d5197ed0bd78995781857fa283df86260bfd8524d3",
+          "raw_sha256": null,
+          "default_known": true,
+          "default_value": {
+            "ouverture": "fermee",
+            "forme": "articles",
+            "jours": 7,
+            "nombre": 2,
+            "numeros": []
+          },
+          "default_sha256": "d1ba03e47d490ddaea5036d5197ed0bd78995781857fa283df86260bfd8524d3",
+          "default_source": "Decouverte.php: get_option(self::OPTION, self::defauts())",
+          "settings_api_default_declared": false,
+          "owner": "C-12"
+        },
+        "imagine_decouverte_relecture": {
+          "present": false,
+          "effective_value": "fermee",
+          "effective_sha256": "a5937745299307d5eb62e99ceaeb449a2944c02897a6d622ef467b1eda4fca4a",
+          "raw_sha256": null,
+          "default_known": true,
+          "default_value": "fermee",
+          "default_sha256": "a5937745299307d5eb62e99ceaeb449a2944c02897a6d622ef467b1eda4fca4a",
+          "default_source": "DecouverteReglages.php: get_option(Decouverte::RELECTURE, 'fermee')",
+          "settings_api_default_declared": false,
+          "owner": "C-12"
+        },
+        "imagine_c05_reglages": {
+          "present": true,
+          "effective_value": {
+            "marge_jours": null,
+            "apres_rejet": "restent_dues",
+            "tarif": "fige_bloc",
+            "confirmation_premier_sepa": "avec_marge"
+          },
+          "effective_sha256": "ab0ee3a223111d6a45a7f1f7f8d96607f04117fbd9b17da2bd7a648a0d54596c",
+          "raw_sha256": "ab0ee3a223111d6a45a7f1f7f8d96607f04117fbd9b17da2bd7a648a0d54596c",
+          "default_known": true,
+          "default_value": {
+            "marge_jours": null,
+            "apres_rejet": "restent_dues",
+            "tarif": "fige_bloc",
+            "confirmation_premier_sepa": "avec_marge"
+          },
+          "default_sha256": "ab0ee3a223111d6a45a7f1f7f8d96607f04117fbd9b17da2bd7a648a0d54596c",
+          "default_source": "Settings API default",
+          "settings_api_default_declared": true,
+          "owner": null
+        },
+        "imagine_envoi_colonnes_export": {
+          "present": true,
+          "effective_value": [
+            "abonnement_id",
+            "destinataire_id",
+            "destinataire",
+            "rue",
+            "complement",
+            "code_postal",
+            "ville",
+            "pays",
+            "origine"
+          ],
+          "effective_sha256": "cfa5713017cbcc6cc447d200463303477b809db333f1d8588fd690abb06e2e4a",
+          "raw_sha256": "cfa5713017cbcc6cc447d200463303477b809db333f1d8588fd690abb06e2e4a",
+          "default_known": true,
+          "default_value": [
+            "abonnement_id",
+            "destinataire_id",
+            "destinataire",
+            "rue",
+            "complement",
+            "code_postal",
+            "ville",
+            "pays",
+            "origine"
+          ],
+          "default_sha256": "cfa5713017cbcc6cc447d200463303477b809db333f1d8588fd690abb06e2e4a",
+          "default_source": "Settings API default",
+          "settings_api_default_declared": true,
+          "owner": null
+        },
+        "imagine_commande_adresse_nouveau": {
+          "present": true,
+          "effective_value": "oui",
+          "effective_sha256": "1e5beaacc999e937b07286f9ae9cd1df7a5e19bb3cef7a45a39c6b2e11ad6bda",
+          "raw_sha256": "1e5beaacc999e937b07286f9ae9cd1df7a5e19bb3cef7a45a39c6b2e11ad6bda",
+          "default_known": false,
+          "default_value": null,
+          "default_sha256": null,
+          "default_source": null,
+          "settings_api_default_declared": false,
+          "owner": null
+        },
+        "imagine_solidaire_categories": {
+          "present": false,
+          "effective_value": [
+            "à préciser"
+          ],
+          "effective_sha256": "698a9ff5968a8fd186355f5d7c99b405c80789bdf3d7ccb1a2ea22d48d94673d",
+          "raw_sha256": null,
+          "default_known": true,
+          "default_value": [
+            "à préciser"
+          ],
+          "default_sha256": "698a9ff5968a8fd186355f5d7c99b405c80789bdf3d7ccb1a2ea22d48d94673d",
+          "default_source": "JustificatifsReglages.php: get_option(self::OPTION, ['à préciser'])",
+          "settings_api_default_declared": false,
+          "owner": "C-17"
+        },
+        "imagine_partenaire_du_mois": {
+          "present": true,
+          "effective_value": "48",
+          "effective_sha256": "b63b90f18cd61a43e2782036d0e76c591015ee56201df12b8193215ce57dc9f8",
+          "raw_sha256": "b63b90f18cd61a43e2782036d0e76c591015ee56201df12b8193215ce57dc9f8",
+          "default_known": false,
+          "default_value": null,
+          "default_sha256": null,
+          "default_source": null,
+          "settings_api_default_declared": false,
+          "owner": null
+        },
+        "imagine_newsletters_catalogue": {
+          "present": true,
+          "effective_value": [
+            {
+              "id": "lettre-fictive",
+              "titre": "La lettre fictive Imagine",
+              "presentation": "Les nouvelles de la rédaction de démonstration.",
+              "principale": true
+            },
+            {
+              "id": "rencontres-fictives",
+              "titre": "Les rencontres fictives",
+              "presentation": "Des rencontres entièrement inventées pour la démonstration.",
+              "principale": false
+            },
+            {
+              "id": "cooperateurs-fictifs",
+              "titre": "La lettre des coopérateurs fictifs",
+              "presentation": "Une lettre de démonstration pour les coopérateurs.",
+              "principale": false
+            }
+          ],
+          "effective_sha256": "e605e1e67e9d5e170ecb498bb8db7188a8c86c0cd3a781a72b60d3c8785cb95d",
+          "raw_sha256": "e605e1e67e9d5e170ecb498bb8db7188a8c86c0cd3a781a72b60d3c8785cb95d",
+          "default_known": false,
+          "default_value": null,
+          "default_sha256": null,
+          "default_source": null,
+          "settings_api_default_declared": false,
+          "owner": null
+        },
+        "imagine_newsletters_creation": {
+          "present": false,
+          "effective_value": "non",
+          "effective_sha256": "e62367b59b13f2c2c2ac0e7e283efda8c55d18c3b621ece01309ee13cf222bea",
+          "raw_sha256": null,
+          "default_known": true,
+          "default_value": "non",
+          "default_sha256": "e62367b59b13f2c2c2ac0e7e283efda8c55d18c3b621ece01309ee13cf222bea",
+          "default_source": "Newsletters.php: get_option(self::CREATION, 'non')",
+          "settings_api_default_declared": false,
+          "owner": "C-22"
+        },
+        "imagine_personnalisation_questions": {
+          "present": true,
+          "effective_value": [
+            {
+              "id": "situation-fictive",
+              "titre": "Situation entièrement fictive",
+              "multiple": false,
+              "choix": [
+                {
+                  "id": "reveur-fictif",
+                  "titre": "Rêveur de nuages fictif"
+                },
+                {
+                  "id": "explorateur-fictif",
+                  "titre": "Explorateur de lunes fictif"
+                }
+              ]
+            },
+            {
+              "id": "interets-fictifs",
+              "titre": "Centres d’intérêt entièrement fictifs",
+              "multiple": true,
+              "choix": [
+                {
+                  "id": "jardins-lunaires-fictifs",
+                  "titre": "Jardins lunaires fictifs"
+                },
+                {
+                  "id": "cerfs-volants-fictifs",
+                  "titre": "Cerfs-volants sous-marins fictifs"
+                }
+              ]
+            },
+            {
+              "id": "age-fictif",
+              "titre": "Tranche d’âge entièrement fictive",
+              "multiple": false,
+              "choix": [
+                {
+                  "id": "age-cent-lunes-fictif",
+                  "titre": "De 100 à 199 lunes fictives"
+                },
+                {
+                  "id": "age-deux-cents-lunes-fictif",
+                  "titre": "200 lunes fictives et plus"
+                }
+              ]
+            },
+            {
+              "id": "localite-fictive",
+              "titre": "Localité entièrement fictive",
+              "multiple": false,
+              "choix": [
+                {
+                  "id": "village-nuages-fictif",
+                  "titre": "Village des nuages fictif"
+                },
+                {
+                  "id": "ile-lucioles-fictive",
+                  "titre": "Île des lucioles fictive"
+                }
+              ]
+            }
+          ],
+          "effective_sha256": "4d2dbde1b17cc0a0520177351eaf404ec43a358bd9f9d71c929a6f9cfff3097a",
+          "raw_sha256": "4d2dbde1b17cc0a0520177351eaf404ec43a358bd9f9d71c929a6f9cfff3097a",
+          "default_known": false,
+          "default_value": null,
+          "default_sha256": null,
+          "default_source": null,
+          "settings_api_default_declared": false,
+          "owner": null
+        },
+        "imagine_retractation_reglages": {
+          "present": false,
+          "effective_value": {
+            "jours": 14,
+            "origine": "paiement"
+          },
+          "effective_sha256": "79bc38daa6024858fded60ad9be281ec292c2e79f5e5bd9241985c3b16db1381",
+          "raw_sha256": null,
+          "default_known": true,
+          "default_value": {
+            "jours": 14,
+            "origine": "paiement"
+          },
+          "default_sha256": "79bc38daa6024858fded60ad9be281ec292c2e79f5e5bd9241985c3b16db1381",
+          "default_source": "Retractation.php: get_option(self::OPTION, ['jours' => 14, 'origine' => 'paiement'])",
+          "settings_api_default_declared": false,
+          "owner": "C-25"
+        },
+        "imagine_acquisition_choix": {
+          "present": true,
+          "effective_value": {
+            "lune": "Radio fictive \\ lune",
+            "mars": "Journal martien fictif"
+          },
+          "effective_sha256": "5da493a90e982da09858ca49a874b204d3eb964a99c1c8db2b41c0a35f62d2dd",
+          "raw_sha256": "5da493a90e982da09858ca49a874b204d3eb964a99c1c8db2b41c0a35f62d2dd",
+          "default_known": false,
+          "default_value": null,
+          "default_sha256": null,
+          "default_source": null,
+          "settings_api_default_declared": false,
+          "owner": null
+        },
+        "imagine_cooperateurs_roles_attribut": {
+          "present": false,
+          "effective_value": [
+            "administrator"
+          ],
+          "effective_sha256": "d83346855190fa888f3ea47bbb053cf2ffdcfc118df4c14f7d2adc185fac61c3",
+          "raw_sha256": null,
+          "default_known": true,
+          "default_value": [
+            "administrator"
+          ],
+          "default_sha256": "d83346855190fa888f3ea47bbb053cf2ffdcfc118df4c14f7d2adc185fac61c3",
+          "default_source": "Settings API default",
+          "settings_api_default_declared": true,
+          "owner": null
+        },
+        "imagine_cooperateurs_roles_lecture": {
+          "present": false,
+          "effective_value": [
+            "administrator"
+          ],
+          "effective_sha256": "d83346855190fa888f3ea47bbb053cf2ffdcfc118df4c14f7d2adc185fac61c3",
+          "raw_sha256": null,
+          "default_known": true,
+          "default_value": [
+            "administrator"
+          ],
+          "default_sha256": "d83346855190fa888f3ea47bbb053cf2ffdcfc118df4c14f7d2adc185fac61c3",
+          "default_source": "Settings API default",
+          "settings_api_default_declared": true,
+          "owner": null
+        },
+        "imagine_medias": {
+          "present": true,
+          "effective_value": {
+            "hosts": [
+              "video-fictive.example.invalid"
+            ],
+            "integration": "0"
+          },
+          "effective_sha256": "5756aa2d4cd57c2123bfaa1ea25bbba3bdfab17a2d3f1e8eee9f567c0edee890",
+          "raw_sha256": "5756aa2d4cd57c2123bfaa1ea25bbba3bdfab17a2d3f1e8eee9f567c0edee890",
+          "default_known": false,
+          "default_value": null,
+          "default_sha256": null,
+          "default_source": null,
+          "settings_api_default_declared": false,
+          "owner": null
+        }
+      },
+      "after": {
+        "imagine_acces_reglages": {
+          "present": false,
+          "effective_value": {
+            "contenu_futur": "ferme_tous",
+            "pdf_robot": "extrait",
+            "pdf_anterieur_abonnement": "ferme"
+          },
+          "effective_sha256": "a0cf17d0a2928a032b95b61a875f967b41067788ca91414772b0366e0c2215bd",
+          "raw_sha256": null,
+          "default_known": true,
+          "default_value": {
+            "contenu_futur": "ferme_tous",
+            "pdf_robot": "extrait",
+            "pdf_anterieur_abonnement": "ferme"
+          },
+          "default_sha256": "a0cf17d0a2928a032b95b61a875f967b41067788ca91414772b0366e0c2215bd",
+          "default_source": "Settings API default",
+          "settings_api_default_declared": true,
+          "owner": null
+        },
+        "imagine_decouverte_reglages": {
+          "present": true,
+          "effective_value": {
+            "ouverture": "fermee",
+            "forme": "articles",
+            "jours": 7,
+            "nombre": 2,
+            "numeros": []
+          },
+          "effective_sha256": "d1ba03e47d490ddaea5036d5197ed0bd78995781857fa283df86260bfd8524d3",
+          "raw_sha256": "d1ba03e47d490ddaea5036d5197ed0bd78995781857fa283df86260bfd8524d3",
+          "default_known": true,
+          "default_value": {
+            "ouverture": "fermee",
+            "forme": "articles",
+            "jours": 7,
+            "nombre": 2,
+            "numeros": []
+          },
+          "default_sha256": "d1ba03e47d490ddaea5036d5197ed0bd78995781857fa283df86260bfd8524d3",
+          "default_source": "Decouverte.php: get_option(self::OPTION, self::defauts())",
+          "settings_api_default_declared": false,
+          "owner": "C-12"
+        },
+        "imagine_decouverte_relecture": {
+          "present": true,
+          "effective_value": "fermee",
+          "effective_sha256": "a5937745299307d5eb62e99ceaeb449a2944c02897a6d622ef467b1eda4fca4a",
+          "raw_sha256": "a5937745299307d5eb62e99ceaeb449a2944c02897a6d622ef467b1eda4fca4a",
+          "default_known": true,
+          "default_value": "fermee",
+          "default_sha256": "a5937745299307d5eb62e99ceaeb449a2944c02897a6d622ef467b1eda4fca4a",
+          "default_source": "DecouverteReglages.php: get_option(Decouverte::RELECTURE, 'fermee')",
+          "settings_api_default_declared": false,
+          "owner": "C-12"
+        },
+        "imagine_c05_reglages": {
+          "present": true,
+          "effective_value": {
+            "marge_jours": null,
+            "apres_rejet": "restent_dues",
+            "tarif": "fige_bloc",
+            "confirmation_premier_sepa": "avec_marge"
+          },
+          "effective_sha256": "ab0ee3a223111d6a45a7f1f7f8d96607f04117fbd9b17da2bd7a648a0d54596c",
+          "raw_sha256": "ab0ee3a223111d6a45a7f1f7f8d96607f04117fbd9b17da2bd7a648a0d54596c",
+          "default_known": true,
+          "default_value": {
+            "marge_jours": null,
+            "apres_rejet": "restent_dues",
+            "tarif": "fige_bloc",
+            "confirmation_premier_sepa": "avec_marge"
+          },
+          "default_sha256": "ab0ee3a223111d6a45a7f1f7f8d96607f04117fbd9b17da2bd7a648a0d54596c",
+          "default_source": "Settings API default",
+          "settings_api_default_declared": true,
+          "owner": null
+        },
+        "imagine_envoi_colonnes_export": {
+          "present": true,
+          "effective_value": [
+            "abonnement_id",
+            "destinataire_id",
+            "destinataire",
+            "rue",
+            "complement",
+            "code_postal",
+            "ville",
+            "pays",
+            "origine"
+          ],
+          "effective_sha256": "cfa5713017cbcc6cc447d200463303477b809db333f1d8588fd690abb06e2e4a",
+          "raw_sha256": "cfa5713017cbcc6cc447d200463303477b809db333f1d8588fd690abb06e2e4a",
+          "default_known": true,
+          "default_value": [
+            "abonnement_id",
+            "destinataire_id",
+            "destinataire",
+            "rue",
+            "complement",
+            "code_postal",
+            "ville",
+            "pays",
+            "origine"
+          ],
+          "default_sha256": "cfa5713017cbcc6cc447d200463303477b809db333f1d8588fd690abb06e2e4a",
+          "default_source": "Settings API default",
+          "settings_api_default_declared": true,
+          "owner": null
+        },
+        "imagine_commande_adresse_nouveau": {
+          "present": true,
+          "effective_value": "oui",
+          "effective_sha256": "1e5beaacc999e937b07286f9ae9cd1df7a5e19bb3cef7a45a39c6b2e11ad6bda",
+          "raw_sha256": "1e5beaacc999e937b07286f9ae9cd1df7a5e19bb3cef7a45a39c6b2e11ad6bda",
+          "default_known": false,
+          "default_value": null,
+          "default_sha256": null,
+          "default_source": null,
+          "settings_api_default_declared": false,
+          "owner": null
+        },
+        "imagine_solidaire_categories": {
+          "present": true,
+          "effective_value": [
+            "à préciser"
+          ],
+          "effective_sha256": "698a9ff5968a8fd186355f5d7c99b405c80789bdf3d7ccb1a2ea22d48d94673d",
+          "raw_sha256": "698a9ff5968a8fd186355f5d7c99b405c80789bdf3d7ccb1a2ea22d48d94673d",
+          "default_known": true,
+          "default_value": [
+            "à préciser"
+          ],
+          "default_sha256": "698a9ff5968a8fd186355f5d7c99b405c80789bdf3d7ccb1a2ea22d48d94673d",
+          "default_source": "JustificatifsReglages.php: get_option(self::OPTION, ['à préciser'])",
+          "settings_api_default_declared": false,
+          "owner": "C-17"
+        },
+        "imagine_partenaire_du_mois": {
+          "present": true,
+          "effective_value": "48",
+          "effective_sha256": "b63b90f18cd61a43e2782036d0e76c591015ee56201df12b8193215ce57dc9f8",
+          "raw_sha256": "b63b90f18cd61a43e2782036d0e76c591015ee56201df12b8193215ce57dc9f8",
+          "default_known": false,
+          "default_value": null,
+          "default_sha256": null,
+          "default_source": null,
+          "settings_api_default_declared": false,
+          "owner": null
+        },
+        "imagine_newsletters_catalogue": {
+          "present": true,
+          "effective_value": [
+            {
+              "id": "lettre-fictive",
+              "titre": "La lettre fictive Imagine",
+              "presentation": "Les nouvelles de la rédaction de démonstration.",
+              "principale": true
+            },
+            {
+              "id": "rencontres-fictives",
+              "titre": "Les rencontres fictives",
+              "presentation": "Des rencontres entièrement inventées pour la démonstration.",
+              "principale": false
+            },
+            {
+              "id": "cooperateurs-fictifs",
+              "titre": "La lettre des coopérateurs fictifs",
+              "presentation": "Une lettre de démonstration pour les coopérateurs.",
+              "principale": false
+            }
+          ],
+          "effective_sha256": "e605e1e67e9d5e170ecb498bb8db7188a8c86c0cd3a781a72b60d3c8785cb95d",
+          "raw_sha256": "e605e1e67e9d5e170ecb498bb8db7188a8c86c0cd3a781a72b60d3c8785cb95d",
+          "default_known": false,
+          "default_value": null,
+          "default_sha256": null,
+          "default_source": null,
+          "settings_api_default_declared": false,
+          "owner": null
+        },
+        "imagine_newsletters_creation": {
+          "present": true,
+          "effective_value": "non",
+          "effective_sha256": "e62367b59b13f2c2c2ac0e7e283efda8c55d18c3b621ece01309ee13cf222bea",
+          "raw_sha256": "e62367b59b13f2c2c2ac0e7e283efda8c55d18c3b621ece01309ee13cf222bea",
+          "default_known": true,
+          "default_value": "non",
+          "default_sha256": "e62367b59b13f2c2c2ac0e7e283efda8c55d18c3b621ece01309ee13cf222bea",
+          "default_source": "Newsletters.php: get_option(self::CREATION, 'non')",
+          "settings_api_default_declared": false,
+          "owner": "C-22"
+        },
+        "imagine_personnalisation_questions": {
+          "present": true,
+          "effective_value": [
+            {
+              "id": "situation-fictive",
+              "titre": "Situation entièrement fictive",
+              "multiple": false,
+              "choix": [
+                {
+                  "id": "reveur-fictif",
+                  "titre": "Rêveur de nuages fictif"
+                },
+                {
+                  "id": "explorateur-fictif",
+                  "titre": "Explorateur de lunes fictif"
+                }
+              ]
+            },
+            {
+              "id": "interets-fictifs",
+              "titre": "Centres d’intérêt entièrement fictifs",
+              "multiple": true,
+              "choix": [
+                {
+                  "id": "jardins-lunaires-fictifs",
+                  "titre": "Jardins lunaires fictifs"
+                },
+                {
+                  "id": "cerfs-volants-fictifs",
+                  "titre": "Cerfs-volants sous-marins fictifs"
+                }
+              ]
+            },
+            {
+              "id": "age-fictif",
+              "titre": "Tranche d’âge entièrement fictive",
+              "multiple": false,
+              "choix": [
+                {
+                  "id": "age-cent-lunes-fictif",
+                  "titre": "De 100 à 199 lunes fictives"
+                },
+                {
+                  "id": "age-deux-cents-lunes-fictif",
+                  "titre": "200 lunes fictives et plus"
+                }
+              ]
+            },
+            {
+              "id": "localite-fictive",
+              "titre": "Localité entièrement fictive",
+              "multiple": false,
+              "choix": [
+                {
+                  "id": "village-nuages-fictif",
+                  "titre": "Village des nuages fictif"
+                },
+                {
+                  "id": "ile-lucioles-fictive",
+                  "titre": "Île des lucioles fictive"
+                }
+              ]
+            }
+          ],
+          "effective_sha256": "4d2dbde1b17cc0a0520177351eaf404ec43a358bd9f9d71c929a6f9cfff3097a",
+          "raw_sha256": "4d2dbde1b17cc0a0520177351eaf404ec43a358bd9f9d71c929a6f9cfff3097a",
+          "default_known": false,
+          "default_value": null,
+          "default_sha256": null,
+          "default_source": null,
+          "settings_api_default_declared": false,
+          "owner": null
+        },
+        "imagine_retractation_reglages": {
+          "present": true,
+          "effective_value": {
+            "jours": 14,
+            "origine": "paiement"
+          },
+          "effective_sha256": "79bc38daa6024858fded60ad9be281ec292c2e79f5e5bd9241985c3b16db1381",
+          "raw_sha256": "79bc38daa6024858fded60ad9be281ec292c2e79f5e5bd9241985c3b16db1381",
+          "default_known": true,
+          "default_value": {
+            "jours": 14,
+            "origine": "paiement"
+          },
+          "default_sha256": "79bc38daa6024858fded60ad9be281ec292c2e79f5e5bd9241985c3b16db1381",
+          "default_source": "Retractation.php: get_option(self::OPTION, ['jours' => 14, 'origine' => 'paiement'])",
+          "settings_api_default_declared": false,
+          "owner": "C-25"
+        },
+        "imagine_acquisition_choix": {
+          "present": true,
+          "effective_value": {
+            "lune": "Radio fictive \\ lune",
+            "mars": "Journal martien fictif"
+          },
+          "effective_sha256": "5da493a90e982da09858ca49a874b204d3eb964a99c1c8db2b41c0a35f62d2dd",
+          "raw_sha256": "5da493a90e982da09858ca49a874b204d3eb964a99c1c8db2b41c0a35f62d2dd",
+          "default_known": false,
+          "default_value": null,
+          "default_sha256": null,
+          "default_source": null,
+          "settings_api_default_declared": false,
+          "owner": null
+        },
+        "imagine_cooperateurs_roles_attribut": {
+          "present": false,
+          "effective_value": [
+            "administrator"
+          ],
+          "effective_sha256": "d83346855190fa888f3ea47bbb053cf2ffdcfc118df4c14f7d2adc185fac61c3",
+          "raw_sha256": null,
+          "default_known": true,
+          "default_value": [
+            "administrator"
+          ],
+          "default_sha256": "d83346855190fa888f3ea47bbb053cf2ffdcfc118df4c14f7d2adc185fac61c3",
+          "default_source": "Settings API default",
+          "settings_api_default_declared": true,
+          "owner": null
+        },
+        "imagine_cooperateurs_roles_lecture": {
+          "present": false,
+          "effective_value": [
+            "administrator"
+          ],
+          "effective_sha256": "d83346855190fa888f3ea47bbb053cf2ffdcfc118df4c14f7d2adc185fac61c3",
+          "raw_sha256": null,
+          "default_known": true,
+          "default_value": [
+            "administrator"
+          ],
+          "default_sha256": "d83346855190fa888f3ea47bbb053cf2ffdcfc118df4c14f7d2adc185fac61c3",
+          "default_source": "Settings API default",
+          "settings_api_default_declared": true,
+          "owner": null
+        },
+        "imagine_medias": {
+          "present": true,
+          "effective_value": {
+            "hosts": [
+              "video-fictive.example.invalid"
+            ],
+            "integration": "0"
+          },
+          "effective_sha256": "5756aa2d4cd57c2123bfaa1ea25bbba3bdfab17a2d3f1e8eee9f567c0edee890",
+          "raw_sha256": "5756aa2d4cd57c2123bfaa1ea25bbba3bdfab17a2d3f1e8eee9f567c0edee890",
+          "default_known": false,
+          "default_value": null,
+          "default_sha256": null,
+          "default_source": null,
+          "settings_api_default_declared": false,
+          "owner": null
+        }
+      },
+      "ok": true,
+      "absent_to_exact_default": [
+        "imagine_decouverte_reglages",
+        "imagine_decouverte_relecture",
+        "imagine_solidaire_categories",
+        "imagine_newsletters_creation",
+        "imagine_retractation_reglages"
+      ],
+      "different": []
+    },
+    {
+      "mode": "1",
+      "names": [
+        "imagine_acces_reglages",
+        "imagine_decouverte_reglages",
+        "imagine_decouverte_relecture",
+        "imagine_c05_reglages",
+        "imagine_envoi_colonnes_export",
+        "imagine_commande_adresse_nouveau",
+        "imagine_solidaire_categories",
+        "imagine_partenaire_du_mois",
+        "imagine_newsletters_catalogue",
+        "imagine_newsletters_creation",
+        "imagine_personnalisation_questions",
+        "imagine_retractation_reglages",
+        "imagine_acquisition_choix",
+        "imagine_cooperateurs_roles_attribut",
+        "imagine_cooperateurs_roles_lecture",
+        "imagine_medias"
+      ],
+      "before": {
+        "imagine_acces_reglages": {
+          "present": false,
+          "effective_value": {
+            "contenu_futur": "ferme_tous",
+            "pdf_robot": "extrait",
+            "pdf_anterieur_abonnement": "ferme"
+          },
+          "effective_sha256": "a0cf17d0a2928a032b95b61a875f967b41067788ca91414772b0366e0c2215bd",
+          "raw_sha256": null,
+          "default_known": true,
+          "default_value": {
+            "contenu_futur": "ferme_tous",
+            "pdf_robot": "extrait",
+            "pdf_anterieur_abonnement": "ferme"
+          },
+          "default_sha256": "a0cf17d0a2928a032b95b61a875f967b41067788ca91414772b0366e0c2215bd",
+          "default_source": "Settings API default",
+          "settings_api_default_declared": true,
+          "owner": null
+        },
+        "imagine_decouverte_reglages": {
+          "present": true,
+          "effective_value": {
+            "ouverture": "fermee",
+            "forme": "articles",
+            "jours": 7,
+            "nombre": 2,
+            "numeros": []
+          },
+          "effective_sha256": "d1ba03e47d490ddaea5036d5197ed0bd78995781857fa283df86260bfd8524d3",
+          "raw_sha256": "d1ba03e47d490ddaea5036d5197ed0bd78995781857fa283df86260bfd8524d3",
+          "default_known": true,
+          "default_value": {
+            "ouverture": "fermee",
+            "forme": "articles",
+            "jours": 7,
+            "nombre": 2,
+            "numeros": []
+          },
+          "default_sha256": "d1ba03e47d490ddaea5036d5197ed0bd78995781857fa283df86260bfd8524d3",
+          "default_source": "Decouverte.php: get_option(self::OPTION, self::defauts())",
+          "settings_api_default_declared": false,
+          "owner": "C-12"
+        },
+        "imagine_decouverte_relecture": {
+          "present": true,
+          "effective_value": "fermee",
+          "effective_sha256": "a5937745299307d5eb62e99ceaeb449a2944c02897a6d622ef467b1eda4fca4a",
+          "raw_sha256": "a5937745299307d5eb62e99ceaeb449a2944c02897a6d622ef467b1eda4fca4a",
+          "default_known": true,
+          "default_value": "fermee",
+          "default_sha256": "a5937745299307d5eb62e99ceaeb449a2944c02897a6d622ef467b1eda4fca4a",
+          "default_source": "DecouverteReglages.php: get_option(Decouverte::RELECTURE, 'fermee')",
+          "settings_api_default_declared": false,
+          "owner": "C-12"
+        },
+        "imagine_c05_reglages": {
+          "present": true,
+          "effective_value": {
+            "marge_jours": null,
+            "apres_rejet": "restent_dues",
+            "tarif": "fige_bloc",
+            "confirmation_premier_sepa": "avec_marge"
+          },
+          "effective_sha256": "ab0ee3a223111d6a45a7f1f7f8d96607f04117fbd9b17da2bd7a648a0d54596c",
+          "raw_sha256": "ab0ee3a223111d6a45a7f1f7f8d96607f04117fbd9b17da2bd7a648a0d54596c",
+          "default_known": true,
+          "default_value": {
+            "marge_jours": null,
+            "apres_rejet": "restent_dues",
+            "tarif": "fige_bloc",
+            "confirmation_premier_sepa": "avec_marge"
+          },
+          "default_sha256": "ab0ee3a223111d6a45a7f1f7f8d96607f04117fbd9b17da2bd7a648a0d54596c",
+          "default_source": "Settings API default",
+          "settings_api_default_declared": true,
+          "owner": null
+        },
+        "imagine_envoi_colonnes_export": {
+          "present": true,
+          "effective_value": [
+            "abonnement_id",
+            "destinataire_id",
+            "destinataire",
+            "rue",
+            "complement",
+            "code_postal",
+            "ville",
+            "pays",
+            "origine"
+          ],
+          "effective_sha256": "cfa5713017cbcc6cc447d200463303477b809db333f1d8588fd690abb06e2e4a",
+          "raw_sha256": "cfa5713017cbcc6cc447d200463303477b809db333f1d8588fd690abb06e2e4a",
+          "default_known": true,
+          "default_value": [
+            "abonnement_id",
+            "destinataire_id",
+            "destinataire",
+            "rue",
+            "complement",
+            "code_postal",
+            "ville",
+            "pays",
+            "origine"
+          ],
+          "default_sha256": "cfa5713017cbcc6cc447d200463303477b809db333f1d8588fd690abb06e2e4a",
+          "default_source": "Settings API default",
+          "settings_api_default_declared": true,
+          "owner": null
+        },
+        "imagine_commande_adresse_nouveau": {
+          "present": true,
+          "effective_value": "oui",
+          "effective_sha256": "1e5beaacc999e937b07286f9ae9cd1df7a5e19bb3cef7a45a39c6b2e11ad6bda",
+          "raw_sha256": "1e5beaacc999e937b07286f9ae9cd1df7a5e19bb3cef7a45a39c6b2e11ad6bda",
+          "default_known": false,
+          "default_value": null,
+          "default_sha256": null,
+          "default_source": null,
+          "settings_api_default_declared": false,
+          "owner": null
+        },
+        "imagine_solidaire_categories": {
+          "present": true,
+          "effective_value": [
+            "à préciser"
+          ],
+          "effective_sha256": "698a9ff5968a8fd186355f5d7c99b405c80789bdf3d7ccb1a2ea22d48d94673d",
+          "raw_sha256": "698a9ff5968a8fd186355f5d7c99b405c80789bdf3d7ccb1a2ea22d48d94673d",
+          "default_known": true,
+          "default_value": [
+            "à préciser"
+          ],
+          "default_sha256": "698a9ff5968a8fd186355f5d7c99b405c80789bdf3d7ccb1a2ea22d48d94673d",
+          "default_source": "JustificatifsReglages.php: get_option(self::OPTION, ['à préciser'])",
+          "settings_api_default_declared": false,
+          "owner": "C-17"
+        },
+        "imagine_partenaire_du_mois": {
+          "present": true,
+          "effective_value": "48",
+          "effective_sha256": "b63b90f18cd61a43e2782036d0e76c591015ee56201df12b8193215ce57dc9f8",
+          "raw_sha256": "b63b90f18cd61a43e2782036d0e76c591015ee56201df12b8193215ce57dc9f8",
+          "default_known": false,
+          "default_value": null,
+          "default_sha256": null,
+          "default_source": null,
+          "settings_api_default_declared": false,
+          "owner": null
+        },
+        "imagine_newsletters_catalogue": {
+          "present": true,
+          "effective_value": [
+            {
+              "id": "lettre-fictive",
+              "titre": "La lettre fictive Imagine",
+              "presentation": "Les nouvelles de la rédaction de démonstration.",
+              "principale": true
+            },
+            {
+              "id": "rencontres-fictives",
+              "titre": "Les rencontres fictives",
+              "presentation": "Des rencontres entièrement inventées pour la démonstration.",
+              "principale": false
+            },
+            {
+              "id": "cooperateurs-fictifs",
+              "titre": "La lettre des coopérateurs fictifs",
+              "presentation": "Une lettre de démonstration pour les coopérateurs.",
+              "principale": false
+            }
+          ],
+          "effective_sha256": "e605e1e67e9d5e170ecb498bb8db7188a8c86c0cd3a781a72b60d3c8785cb95d",
+          "raw_sha256": "e605e1e67e9d5e170ecb498bb8db7188a8c86c0cd3a781a72b60d3c8785cb95d",
+          "default_known": false,
+          "default_value": null,
+          "default_sha256": null,
+          "default_source": null,
+          "settings_api_default_declared": false,
+          "owner": null
+        },
+        "imagine_newsletters_creation": {
+          "present": true,
+          "effective_value": "non",
+          "effective_sha256": "e62367b59b13f2c2c2ac0e7e283efda8c55d18c3b621ece01309ee13cf222bea",
+          "raw_sha256": "e62367b59b13f2c2c2ac0e7e283efda8c55d18c3b621ece01309ee13cf222bea",
+          "default_known": true,
+          "default_value": "non",
+          "default_sha256": "e62367b59b13f2c2c2ac0e7e283efda8c55d18c3b621ece01309ee13cf222bea",
+          "default_source": "Newsletters.php: get_option(self::CREATION, 'non')",
+          "settings_api_default_declared": false,
+          "owner": "C-22"
+        },
+        "imagine_personnalisation_questions": {
+          "present": true,
+          "effective_value": [
+            {
+              "id": "situation-fictive",
+              "titre": "Situation entièrement fictive",
+              "multiple": false,
+              "choix": [
+                {
+                  "id": "reveur-fictif",
+                  "titre": "Rêveur de nuages fictif"
+                },
+                {
+                  "id": "explorateur-fictif",
+                  "titre": "Explorateur de lunes fictif"
+                }
+              ]
+            },
+            {
+              "id": "interets-fictifs",
+              "titre": "Centres d’intérêt entièrement fictifs",
+              "multiple": true,
+              "choix": [
+                {
+                  "id": "jardins-lunaires-fictifs",
+                  "titre": "Jardins lunaires fictifs"
+                },
+                {
+                  "id": "cerfs-volants-fictifs",
+                  "titre": "Cerfs-volants sous-marins fictifs"
+                }
+              ]
+            },
+            {
+              "id": "age-fictif",
+              "titre": "Tranche d’âge entièrement fictive",
+              "multiple": false,
+              "choix": [
+                {
+                  "id": "age-cent-lunes-fictif",
+                  "titre": "De 100 à 199 lunes fictives"
+                },
+                {
+                  "id": "age-deux-cents-lunes-fictif",
+                  "titre": "200 lunes fictives et plus"
+                }
+              ]
+            },
+            {
+              "id": "localite-fictive",
+              "titre": "Localité entièrement fictive",
+              "multiple": false,
+              "choix": [
+                {
+                  "id": "village-nuages-fictif",
+                  "titre": "Village des nuages fictif"
+                },
+                {
+                  "id": "ile-lucioles-fictive",
+                  "titre": "Île des lucioles fictive"
+                }
+              ]
+            }
+          ],
+          "effective_sha256": "4d2dbde1b17cc0a0520177351eaf404ec43a358bd9f9d71c929a6f9cfff3097a",
+          "raw_sha256": "4d2dbde1b17cc0a0520177351eaf404ec43a358bd9f9d71c929a6f9cfff3097a",
+          "default_known": false,
+          "default_value": null,
+          "default_sha256": null,
+          "default_source": null,
+          "settings_api_default_declared": false,
+          "owner": null
+        },
+        "imagine_retractation_reglages": {
+          "present": true,
+          "effective_value": {
+            "jours": 14,
+            "origine": "paiement"
+          },
+          "effective_sha256": "79bc38daa6024858fded60ad9be281ec292c2e79f5e5bd9241985c3b16db1381",
+          "raw_sha256": "79bc38daa6024858fded60ad9be281ec292c2e79f5e5bd9241985c3b16db1381",
+          "default_known": true,
+          "default_value": {
+            "jours": 14,
+            "origine": "paiement"
+          },
+          "default_sha256": "79bc38daa6024858fded60ad9be281ec292c2e79f5e5bd9241985c3b16db1381",
+          "default_source": "Retractation.php: get_option(self::OPTION, ['jours' => 14, 'origine' => 'paiement'])",
+          "settings_api_default_declared": false,
+          "owner": "C-25"
+        },
+        "imagine_acquisition_choix": {
+          "present": true,
+          "effective_value": {
+            "lune": "Radio fictive \\ lune",
+            "mars": "Journal martien fictif"
+          },
+          "effective_sha256": "5da493a90e982da09858ca49a874b204d3eb964a99c1c8db2b41c0a35f62d2dd",
+          "raw_sha256": "5da493a90e982da09858ca49a874b204d3eb964a99c1c8db2b41c0a35f62d2dd",
+          "default_known": false,
+          "default_value": null,
+          "default_sha256": null,
+          "default_source": null,
+          "settings_api_default_declared": false,
+          "owner": null
+        },
+        "imagine_cooperateurs_roles_attribut": {
+          "present": false,
+          "effective_value": [
+            "administrator"
+          ],
+          "effective_sha256": "d83346855190fa888f3ea47bbb053cf2ffdcfc118df4c14f7d2adc185fac61c3",
+          "raw_sha256": null,
+          "default_known": true,
+          "default_value": [
+            "administrator"
+          ],
+          "default_sha256": "d83346855190fa888f3ea47bbb053cf2ffdcfc118df4c14f7d2adc185fac61c3",
+          "default_source": "Settings API default",
+          "settings_api_default_declared": true,
+          "owner": null
+        },
+        "imagine_cooperateurs_roles_lecture": {
+          "present": false,
+          "effective_value": [
+            "administrator"
+          ],
+          "effective_sha256": "d83346855190fa888f3ea47bbb053cf2ffdcfc118df4c14f7d2adc185fac61c3",
+          "raw_sha256": null,
+          "default_known": true,
+          "default_value": [
+            "administrator"
+          ],
+          "default_sha256": "d83346855190fa888f3ea47bbb053cf2ffdcfc118df4c14f7d2adc185fac61c3",
+          "default_source": "Settings API default",
+          "settings_api_default_declared": true,
+          "owner": null
+        },
+        "imagine_medias": {
+          "present": true,
+          "effective_value": {
+            "hosts": [
+              "video-fictive.example.invalid"
+            ],
+            "integration": "0"
+          },
+          "effective_sha256": "5756aa2d4cd57c2123bfaa1ea25bbba3bdfab17a2d3f1e8eee9f567c0edee890",
+          "raw_sha256": "5756aa2d4cd57c2123bfaa1ea25bbba3bdfab17a2d3f1e8eee9f567c0edee890",
+          "default_known": false,
+          "default_value": null,
+          "default_sha256": null,
+          "default_source": null,
+          "settings_api_default_declared": false,
+          "owner": null
+        }
+      },
+      "after": {
+        "imagine_acces_reglages": {
+          "present": false,
+          "effective_value": {
+            "contenu_futur": "ferme_tous",
+            "pdf_robot": "extrait",
+            "pdf_anterieur_abonnement": "ferme"
+          },
+          "effective_sha256": "a0cf17d0a2928a032b95b61a875f967b41067788ca91414772b0366e0c2215bd",
+          "raw_sha256": null,
+          "default_known": true,
+          "default_value": {
+            "contenu_futur": "ferme_tous",
+            "pdf_robot": "extrait",
+            "pdf_anterieur_abonnement": "ferme"
+          },
+          "default_sha256": "a0cf17d0a2928a032b95b61a875f967b41067788ca91414772b0366e0c2215bd",
+          "default_source": "Settings API default",
+          "settings_api_default_declared": true,
+          "owner": null
+        },
+        "imagine_decouverte_reglages": {
+          "present": true,
+          "effective_value": {
+            "ouverture": "fermee",
+            "forme": "articles",
+            "jours": 7,
+            "nombre": 2,
+            "numeros": []
+          },
+          "effective_sha256": "d1ba03e47d490ddaea5036d5197ed0bd78995781857fa283df86260bfd8524d3",
+          "raw_sha256": "d1ba03e47d490ddaea5036d5197ed0bd78995781857fa283df86260bfd8524d3",
+          "default_known": true,
+          "default_value": {
+            "ouverture": "fermee",
+            "forme": "articles",
+            "jours": 7,
+            "nombre": 2,
+            "numeros": []
+          },
+          "default_sha256": "d1ba03e47d490ddaea5036d5197ed0bd78995781857fa283df86260bfd8524d3",
+          "default_source": "Decouverte.php: get_option(self::OPTION, self::defauts())",
+          "settings_api_default_declared": false,
+          "owner": "C-12"
+        },
+        "imagine_decouverte_relecture": {
+          "present": true,
+          "effective_value": "fermee",
+          "effective_sha256": "a5937745299307d5eb62e99ceaeb449a2944c02897a6d622ef467b1eda4fca4a",
+          "raw_sha256": "a5937745299307d5eb62e99ceaeb449a2944c02897a6d622ef467b1eda4fca4a",
+          "default_known": true,
+          "default_value": "fermee",
+          "default_sha256": "a5937745299307d5eb62e99ceaeb449a2944c02897a6d622ef467b1eda4fca4a",
+          "default_source": "DecouverteReglages.php: get_option(Decouverte::RELECTURE, 'fermee')",
+          "settings_api_default_declared": false,
+          "owner": "C-12"
+        },
+        "imagine_c05_reglages": {
+          "present": true,
+          "effective_value": {
+            "marge_jours": null,
+            "apres_rejet": "restent_dues",
+            "tarif": "fige_bloc",
+            "confirmation_premier_sepa": "avec_marge"
+          },
+          "effective_sha256": "ab0ee3a223111d6a45a7f1f7f8d96607f04117fbd9b17da2bd7a648a0d54596c",
+          "raw_sha256": "ab0ee3a223111d6a45a7f1f7f8d96607f04117fbd9b17da2bd7a648a0d54596c",
+          "default_known": true,
+          "default_value": {
+            "marge_jours": null,
+            "apres_rejet": "restent_dues",
+            "tarif": "fige_bloc",
+            "confirmation_premier_sepa": "avec_marge"
+          },
+          "default_sha256": "ab0ee3a223111d6a45a7f1f7f8d96607f04117fbd9b17da2bd7a648a0d54596c",
+          "default_source": "Settings API default",
+          "settings_api_default_declared": true,
+          "owner": null
+        },
+        "imagine_envoi_colonnes_export": {
+          "present": true,
+          "effective_value": [
+            "abonnement_id",
+            "destinataire_id",
+            "destinataire",
+            "rue",
+            "complement",
+            "code_postal",
+            "ville",
+            "pays",
+            "origine"
+          ],
+          "effective_sha256": "cfa5713017cbcc6cc447d200463303477b809db333f1d8588fd690abb06e2e4a",
+          "raw_sha256": "cfa5713017cbcc6cc447d200463303477b809db333f1d8588fd690abb06e2e4a",
+          "default_known": true,
+          "default_value": [
+            "abonnement_id",
+            "destinataire_id",
+            "destinataire",
+            "rue",
+            "complement",
+            "code_postal",
+            "ville",
+            "pays",
+            "origine"
+          ],
+          "default_sha256": "cfa5713017cbcc6cc447d200463303477b809db333f1d8588fd690abb06e2e4a",
+          "default_source": "Settings API default",
+          "settings_api_default_declared": true,
+          "owner": null
+        },
+        "imagine_commande_adresse_nouveau": {
+          "present": true,
+          "effective_value": "oui",
+          "effective_sha256": "1e5beaacc999e937b07286f9ae9cd1df7a5e19bb3cef7a45a39c6b2e11ad6bda",
+          "raw_sha256": "1e5beaacc999e937b07286f9ae9cd1df7a5e19bb3cef7a45a39c6b2e11ad6bda",
+          "default_known": false,
+          "default_value": null,
+          "default_sha256": null,
+          "default_source": null,
+          "settings_api_default_declared": false,
+          "owner": null
+        },
+        "imagine_solidaire_categories": {
+          "present": true,
+          "effective_value": [
+            "à préciser"
+          ],
+          "effective_sha256": "698a9ff5968a8fd186355f5d7c99b405c80789bdf3d7ccb1a2ea22d48d94673d",
+          "raw_sha256": "698a9ff5968a8fd186355f5d7c99b405c80789bdf3d7ccb1a2ea22d48d94673d",
+          "default_known": true,
+          "default_value": [
+            "à préciser"
+          ],
+          "default_sha256": "698a9ff5968a8fd186355f5d7c99b405c80789bdf3d7ccb1a2ea22d48d94673d",
+          "default_source": "JustificatifsReglages.php: get_option(self::OPTION, ['à préciser'])",
+          "settings_api_default_declared": false,
+          "owner": "C-17"
+        },
+        "imagine_partenaire_du_mois": {
+          "present": true,
+          "effective_value": "48",
+          "effective_sha256": "b63b90f18cd61a43e2782036d0e76c591015ee56201df12b8193215ce57dc9f8",
+          "raw_sha256": "b63b90f18cd61a43e2782036d0e76c591015ee56201df12b8193215ce57dc9f8",
+          "default_known": false,
+          "default_value": null,
+          "default_sha256": null,
+          "default_source": null,
+          "settings_api_default_declared": false,
+          "owner": null
+        },
+        "imagine_newsletters_catalogue": {
+          "present": true,
+          "effective_value": [
+            {
+              "id": "lettre-fictive",
+              "titre": "La lettre fictive Imagine",
+              "presentation": "Les nouvelles de la rédaction de démonstration.",
+              "principale": true
+            },
+            {
+              "id": "rencontres-fictives",
+              "titre": "Les rencontres fictives",
+              "presentation": "Des rencontres entièrement inventées pour la démonstration.",
+              "principale": false
+            },
+            {
+              "id": "cooperateurs-fictifs",
+              "titre": "La lettre des coopérateurs fictifs",
+              "presentation": "Une lettre de démonstration pour les coopérateurs.",
+              "principale": false
+            }
+          ],
+          "effective_sha256": "e605e1e67e9d5e170ecb498bb8db7188a8c86c0cd3a781a72b60d3c8785cb95d",
+          "raw_sha256": "e605e1e67e9d5e170ecb498bb8db7188a8c86c0cd3a781a72b60d3c8785cb95d",
+          "default_known": false,
+          "default_value": null,
+          "default_sha256": null,
+          "default_source": null,
+          "settings_api_default_declared": false,
+          "owner": null
+        },
+        "imagine_newsletters_creation": {
+          "present": true,
+          "effective_value": "non",
+          "effective_sha256": "e62367b59b13f2c2c2ac0e7e283efda8c55d18c3b621ece01309ee13cf222bea",
+          "raw_sha256": "e62367b59b13f2c2c2ac0e7e283efda8c55d18c3b621ece01309ee13cf222bea",
+          "default_known": true,
+          "default_value": "non",
+          "default_sha256": "e62367b59b13f2c2c2ac0e7e283efda8c55d18c3b621ece01309ee13cf222bea",
+          "default_source": "Newsletters.php: get_option(self::CREATION, 'non')",
+          "settings_api_default_declared": false,
+          "owner": "C-22"
+        },
+        "imagine_personnalisation_questions": {
+          "present": true,
+          "effective_value": [
+            {
+              "id": "situation-fictive",
+              "titre": "Situation entièrement fictive",
+              "multiple": false,
+              "choix": [
+                {
+                  "id": "reveur-fictif",
+                  "titre": "Rêveur de nuages fictif"
+                },
+                {
+                  "id": "explorateur-fictif",
+                  "titre": "Explorateur de lunes fictif"
+                }
+              ]
+            },
+            {
+              "id": "interets-fictifs",
+              "titre": "Centres d’intérêt entièrement fictifs",
+              "multiple": true,
+              "choix": [
+                {
+                  "id": "jardins-lunaires-fictifs",
+                  "titre": "Jardins lunaires fictifs"
+                },
+                {
+                  "id": "cerfs-volants-fictifs",
+                  "titre": "Cerfs-volants sous-marins fictifs"
+                }
+              ]
+            },
+            {
+              "id": "age-fictif",
+              "titre": "Tranche d’âge entièrement fictive",
+              "multiple": false,
+              "choix": [
+                {
+                  "id": "age-cent-lunes-fictif",
+                  "titre": "De 100 à 199 lunes fictives"
+                },
+                {
+                  "id": "age-deux-cents-lunes-fictif",
+                  "titre": "200 lunes fictives et plus"
+                }
+              ]
+            },
+            {
+              "id": "localite-fictive",
+              "titre": "Localité entièrement fictive",
+              "multiple": false,
+              "choix": [
+                {
+                  "id": "village-nuages-fictif",
+                  "titre": "Village des nuages fictif"
+                },
+                {
+                  "id": "ile-lucioles-fictive",
+                  "titre": "Île des lucioles fictive"
+                }
+              ]
+            }
+          ],
+          "effective_sha256": "4d2dbde1b17cc0a0520177351eaf404ec43a358bd9f9d71c929a6f9cfff3097a",
+          "raw_sha256": "4d2dbde1b17cc0a0520177351eaf404ec43a358bd9f9d71c929a6f9cfff3097a",
+          "default_known": false,
+          "default_value": null,
+          "default_sha256": null,
+          "default_source": null,
+          "settings_api_default_declared": false,
+          "owner": null
+        },
+        "imagine_retractation_reglages": {
+          "present": true,
+          "effective_value": {
+            "jours": 14,
+            "origine": "paiement"
+          },
+          "effective_sha256": "79bc38daa6024858fded60ad9be281ec292c2e79f5e5bd9241985c3b16db1381",
+          "raw_sha256": "79bc38daa6024858fded60ad9be281ec292c2e79f5e5bd9241985c3b16db1381",
+          "default_known": true,
+          "default_value": {
+            "jours": 14,
+            "origine": "paiement"
+          },
+          "default_sha256": "79bc38daa6024858fded60ad9be281ec292c2e79f5e5bd9241985c3b16db1381",
+          "default_source": "Retractation.php: get_option(self::OPTION, ['jours' => 14, 'origine' => 'paiement'])",
+          "settings_api_default_declared": false,
+          "owner": "C-25"
+        },
+        "imagine_acquisition_choix": {
+          "present": true,
+          "effective_value": {
+            "lune": "Radio fictive \\ lune",
+            "mars": "Journal martien fictif"
+          },
+          "effective_sha256": "5da493a90e982da09858ca49a874b204d3eb964a99c1c8db2b41c0a35f62d2dd",
+          "raw_sha256": "5da493a90e982da09858ca49a874b204d3eb964a99c1c8db2b41c0a35f62d2dd",
+          "default_known": false,
+          "default_value": null,
+          "default_sha256": null,
+          "default_source": null,
+          "settings_api_default_declared": false,
+          "owner": null
+        },
+        "imagine_cooperateurs_roles_attribut": {
+          "present": false,
+          "effective_value": [
+            "administrator"
+          ],
+          "effective_sha256": "d83346855190fa888f3ea47bbb053cf2ffdcfc118df4c14f7d2adc185fac61c3",
+          "raw_sha256": null,
+          "default_known": true,
+          "default_value": [
+            "administrator"
+          ],
+          "default_sha256": "d83346855190fa888f3ea47bbb053cf2ffdcfc118df4c14f7d2adc185fac61c3",
+          "default_source": "Settings API default",
+          "settings_api_default_declared": true,
+          "owner": null
+        },
+        "imagine_cooperateurs_roles_lecture": {
+          "present": false,
+          "effective_value": [
+            "administrator"
+          ],
+          "effective_sha256": "d83346855190fa888f3ea47bbb053cf2ffdcfc118df4c14f7d2adc185fac61c3",
+          "raw_sha256": null,
+          "default_known": true,
+          "default_value": [
+            "administrator"
+          ],
+          "default_sha256": "d83346855190fa888f3ea47bbb053cf2ffdcfc118df4c14f7d2adc185fac61c3",
+          "default_source": "Settings API default",
+          "settings_api_default_declared": true,
+          "owner": null
+        },
+        "imagine_medias": {
+          "present": true,
+          "effective_value": {
+            "hosts": [
+              "video-fictive.example.invalid"
+            ],
+            "integration": "1"
+          },
+          "effective_sha256": "07ede552d5f7566aede0a8e0a60f795d3dcd9a8252dfab631df8b05a7dfe8de0",
+          "raw_sha256": "07ede552d5f7566aede0a8e0a60f795d3dcd9a8252dfab631df8b05a7dfe8de0",
+          "default_known": false,
+          "default_value": null,
+          "default_sha256": null,
+          "default_source": null,
+          "settings_api_default_declared": false,
+          "owner": null
+        }
+      },
+      "ok": true,
+      "absent_to_exact_default": [],
+      "different": []
+    },
+    {
+      "mode": "0",
+      "names": [
+        "imagine_acces_reglages",
+        "imagine_decouverte_reglages",
+        "imagine_decouverte_relecture",
+        "imagine_c05_reglages",
+        "imagine_envoi_colonnes_export",
+        "imagine_commande_adresse_nouveau",
+        "imagine_solidaire_categories",
+        "imagine_partenaire_du_mois",
+        "imagine_newsletters_catalogue",
+        "imagine_newsletters_creation",
+        "imagine_personnalisation_questions",
+        "imagine_retractation_reglages",
+        "imagine_acquisition_choix",
+        "imagine_cooperateurs_roles_attribut",
+        "imagine_cooperateurs_roles_lecture",
+        "imagine_medias"
+      ],
+      "before": {
+        "imagine_acces_reglages": {
+          "present": false,
+          "effective_value": {
+            "contenu_futur": "ferme_tous",
+            "pdf_robot": "extrait",
+            "pdf_anterieur_abonnement": "ferme"
+          },
+          "effective_sha256": "a0cf17d0a2928a032b95b61a875f967b41067788ca91414772b0366e0c2215bd",
+          "raw_sha256": null,
+          "default_known": true,
+          "default_value": {
+            "contenu_futur": "ferme_tous",
+            "pdf_robot": "extrait",
+            "pdf_anterieur_abonnement": "ferme"
+          },
+          "default_sha256": "a0cf17d0a2928a032b95b61a875f967b41067788ca91414772b0366e0c2215bd",
+          "default_source": "Settings API default",
+          "settings_api_default_declared": true,
+          "owner": null
+        },
+        "imagine_decouverte_reglages": {
+          "present": true,
+          "effective_value": {
+            "ouverture": "fermee",
+            "forme": "articles",
+            "jours": 7,
+            "nombre": 2,
+            "numeros": []
+          },
+          "effective_sha256": "d1ba03e47d490ddaea5036d5197ed0bd78995781857fa283df86260bfd8524d3",
+          "raw_sha256": "d1ba03e47d490ddaea5036d5197ed0bd78995781857fa283df86260bfd8524d3",
+          "default_known": true,
+          "default_value": {
+            "ouverture": "fermee",
+            "forme": "articles",
+            "jours": 7,
+            "nombre": 2,
+            "numeros": []
+          },
+          "default_sha256": "d1ba03e47d490ddaea5036d5197ed0bd78995781857fa283df86260bfd8524d3",
+          "default_source": "Decouverte.php: get_option(self::OPTION, self::defauts())",
+          "settings_api_default_declared": false,
+          "owner": "C-12"
+        },
+        "imagine_decouverte_relecture": {
+          "present": true,
+          "effective_value": "fermee",
+          "effective_sha256": "a5937745299307d5eb62e99ceaeb449a2944c02897a6d622ef467b1eda4fca4a",
+          "raw_sha256": "a5937745299307d5eb62e99ceaeb449a2944c02897a6d622ef467b1eda4fca4a",
+          "default_known": true,
+          "default_value": "fermee",
+          "default_sha256": "a5937745299307d5eb62e99ceaeb449a2944c02897a6d622ef467b1eda4fca4a",
+          "default_source": "DecouverteReglages.php: get_option(Decouverte::RELECTURE, 'fermee')",
+          "settings_api_default_declared": false,
+          "owner": "C-12"
+        },
+        "imagine_c05_reglages": {
+          "present": true,
+          "effective_value": {
+            "marge_jours": null,
+            "apres_rejet": "restent_dues",
+            "tarif": "fige_bloc",
+            "confirmation_premier_sepa": "avec_marge"
+          },
+          "effective_sha256": "ab0ee3a223111d6a45a7f1f7f8d96607f04117fbd9b17da2bd7a648a0d54596c",
+          "raw_sha256": "ab0ee3a223111d6a45a7f1f7f8d96607f04117fbd9b17da2bd7a648a0d54596c",
+          "default_known": true,
+          "default_value": {
+            "marge_jours": null,
+            "apres_rejet": "restent_dues",
+            "tarif": "fige_bloc",
+            "confirmation_premier_sepa": "avec_marge"
+          },
+          "default_sha256": "ab0ee3a223111d6a45a7f1f7f8d96607f04117fbd9b17da2bd7a648a0d54596c",
+          "default_source": "Settings API default",
+          "settings_api_default_declared": true,
+          "owner": null
+        },
+        "imagine_envoi_colonnes_export": {
+          "present": true,
+          "effective_value": [
+            "abonnement_id",
+            "destinataire_id",
+            "destinataire",
+            "rue",
+            "complement",
+            "code_postal",
+            "ville",
+            "pays",
+            "origine"
+          ],
+          "effective_sha256": "cfa5713017cbcc6cc447d200463303477b809db333f1d8588fd690abb06e2e4a",
+          "raw_sha256": "cfa5713017cbcc6cc447d200463303477b809db333f1d8588fd690abb06e2e4a",
+          "default_known": true,
+          "default_value": [
+            "abonnement_id",
+            "destinataire_id",
+            "destinataire",
+            "rue",
+            "complement",
+            "code_postal",
+            "ville",
+            "pays",
+            "origine"
+          ],
+          "default_sha256": "cfa5713017cbcc6cc447d200463303477b809db333f1d8588fd690abb06e2e4a",
+          "default_source": "Settings API default",
+          "settings_api_default_declared": true,
+          "owner": null
+        },
+        "imagine_commande_adresse_nouveau": {
+          "present": true,
+          "effective_value": "oui",
+          "effective_sha256": "1e5beaacc999e937b07286f9ae9cd1df7a5e19bb3cef7a45a39c6b2e11ad6bda",
+          "raw_sha256": "1e5beaacc999e937b07286f9ae9cd1df7a5e19bb3cef7a45a39c6b2e11ad6bda",
+          "default_known": false,
+          "default_value": null,
+          "default_sha256": null,
+          "default_source": null,
+          "settings_api_default_declared": false,
+          "owner": null
+        },
+        "imagine_solidaire_categories": {
+          "present": true,
+          "effective_value": [
+            "à préciser"
+          ],
+          "effective_sha256": "698a9ff5968a8fd186355f5d7c99b405c80789bdf3d7ccb1a2ea22d48d94673d",
+          "raw_sha256": "698a9ff5968a8fd186355f5d7c99b405c80789bdf3d7ccb1a2ea22d48d94673d",
+          "default_known": true,
+          "default_value": [
+            "à préciser"
+          ],
+          "default_sha256": "698a9ff5968a8fd186355f5d7c99b405c80789bdf3d7ccb1a2ea22d48d94673d",
+          "default_source": "JustificatifsReglages.php: get_option(self::OPTION, ['à préciser'])",
+          "settings_api_default_declared": false,
+          "owner": "C-17"
+        },
+        "imagine_partenaire_du_mois": {
+          "present": true,
+          "effective_value": "48",
+          "effective_sha256": "b63b90f18cd61a43e2782036d0e76c591015ee56201df12b8193215ce57dc9f8",
+          "raw_sha256": "b63b90f18cd61a43e2782036d0e76c591015ee56201df12b8193215ce57dc9f8",
+          "default_known": false,
+          "default_value": null,
+          "default_sha256": null,
+          "default_source": null,
+          "settings_api_default_declared": false,
+          "owner": null
+        },
+        "imagine_newsletters_catalogue": {
+          "present": true,
+          "effective_value": [
+            {
+              "id": "lettre-fictive",
+              "titre": "La lettre fictive Imagine",
+              "presentation": "Les nouvelles de la rédaction de démonstration.",
+              "principale": true
+            },
+            {
+              "id": "rencontres-fictives",
+              "titre": "Les rencontres fictives",
+              "presentation": "Des rencontres entièrement inventées pour la démonstration.",
+              "principale": false
+            },
+            {
+              "id": "cooperateurs-fictifs",
+              "titre": "La lettre des coopérateurs fictifs",
+              "presentation": "Une lettre de démonstration pour les coopérateurs.",
+              "principale": false
+            }
+          ],
+          "effective_sha256": "e605e1e67e9d5e170ecb498bb8db7188a8c86c0cd3a781a72b60d3c8785cb95d",
+          "raw_sha256": "e605e1e67e9d5e170ecb498bb8db7188a8c86c0cd3a781a72b60d3c8785cb95d",
+          "default_known": false,
+          "default_value": null,
+          "default_sha256": null,
+          "default_source": null,
+          "settings_api_default_declared": false,
+          "owner": null
+        },
+        "imagine_newsletters_creation": {
+          "present": true,
+          "effective_value": "non",
+          "effective_sha256": "e62367b59b13f2c2c2ac0e7e283efda8c55d18c3b621ece01309ee13cf222bea",
+          "raw_sha256": "e62367b59b13f2c2c2ac0e7e283efda8c55d18c3b621ece01309ee13cf222bea",
+          "default_known": true,
+          "default_value": "non",
+          "default_sha256": "e62367b59b13f2c2c2ac0e7e283efda8c55d18c3b621ece01309ee13cf222bea",
+          "default_source": "Newsletters.php: get_option(self::CREATION, 'non')",
+          "settings_api_default_declared": false,
+          "owner": "C-22"
+        },
+        "imagine_personnalisation_questions": {
+          "present": true,
+          "effective_value": [
+            {
+              "id": "situation-fictive",
+              "titre": "Situation entièrement fictive",
+              "multiple": false,
+              "choix": [
+                {
+                  "id": "reveur-fictif",
+                  "titre": "Rêveur de nuages fictif"
+                },
+                {
+                  "id": "explorateur-fictif",
+                  "titre": "Explorateur de lunes fictif"
+                }
+              ]
+            },
+            {
+              "id": "interets-fictifs",
+              "titre": "Centres d’intérêt entièrement fictifs",
+              "multiple": true,
+              "choix": [
+                {
+                  "id": "jardins-lunaires-fictifs",
+                  "titre": "Jardins lunaires fictifs"
+                },
+                {
+                  "id": "cerfs-volants-fictifs",
+                  "titre": "Cerfs-volants sous-marins fictifs"
+                }
+              ]
+            },
+            {
+              "id": "age-fictif",
+              "titre": "Tranche d’âge entièrement fictive",
+              "multiple": false,
+              "choix": [
+                {
+                  "id": "age-cent-lunes-fictif",
+                  "titre": "De 100 à 199 lunes fictives"
+                },
+                {
+                  "id": "age-deux-cents-lunes-fictif",
+                  "titre": "200 lunes fictives et plus"
+                }
+              ]
+            },
+            {
+              "id": "localite-fictive",
+              "titre": "Localité entièrement fictive",
+              "multiple": false,
+              "choix": [
+                {
+                  "id": "village-nuages-fictif",
+                  "titre": "Village des nuages fictif"
+                },
+                {
+                  "id": "ile-lucioles-fictive",
+                  "titre": "Île des lucioles fictive"
+                }
+              ]
+            }
+          ],
+          "effective_sha256": "4d2dbde1b17cc0a0520177351eaf404ec43a358bd9f9d71c929a6f9cfff3097a",
+          "raw_sha256": "4d2dbde1b17cc0a0520177351eaf404ec43a358bd9f9d71c929a6f9cfff3097a",
+          "default_known": false,
+          "default_value": null,
+          "default_sha256": null,
+          "default_source": null,
+          "settings_api_default_declared": false,
+          "owner": null
+        },
+        "imagine_retractation_reglages": {
+          "present": true,
+          "effective_value": {
+            "jours": 14,
+            "origine": "paiement"
+          },
+          "effective_sha256": "79bc38daa6024858fded60ad9be281ec292c2e79f5e5bd9241985c3b16db1381",
+          "raw_sha256": "79bc38daa6024858fded60ad9be281ec292c2e79f5e5bd9241985c3b16db1381",
+          "default_known": true,
+          "default_value": {
+            "jours": 14,
+            "origine": "paiement"
+          },
+          "default_sha256": "79bc38daa6024858fded60ad9be281ec292c2e79f5e5bd9241985c3b16db1381",
+          "default_source": "Retractation.php: get_option(self::OPTION, ['jours' => 14, 'origine' => 'paiement'])",
+          "settings_api_default_declared": false,
+          "owner": "C-25"
+        },
+        "imagine_acquisition_choix": {
+          "present": true,
+          "effective_value": {
+            "lune": "Radio fictive \\ lune",
+            "mars": "Journal martien fictif"
+          },
+          "effective_sha256": "5da493a90e982da09858ca49a874b204d3eb964a99c1c8db2b41c0a35f62d2dd",
+          "raw_sha256": "5da493a90e982da09858ca49a874b204d3eb964a99c1c8db2b41c0a35f62d2dd",
+          "default_known": false,
+          "default_value": null,
+          "default_sha256": null,
+          "default_source": null,
+          "settings_api_default_declared": false,
+          "owner": null
+        },
+        "imagine_cooperateurs_roles_attribut": {
+          "present": false,
+          "effective_value": [
+            "administrator"
+          ],
+          "effective_sha256": "d83346855190fa888f3ea47bbb053cf2ffdcfc118df4c14f7d2adc185fac61c3",
+          "raw_sha256": null,
+          "default_known": true,
+          "default_value": [
+            "administrator"
+          ],
+          "default_sha256": "d83346855190fa888f3ea47bbb053cf2ffdcfc118df4c14f7d2adc185fac61c3",
+          "default_source": "Settings API default",
+          "settings_api_default_declared": true,
+          "owner": null
+        },
+        "imagine_cooperateurs_roles_lecture": {
+          "present": false,
+          "effective_value": [
+            "administrator"
+          ],
+          "effective_sha256": "d83346855190fa888f3ea47bbb053cf2ffdcfc118df4c14f7d2adc185fac61c3",
+          "raw_sha256": null,
+          "default_known": true,
+          "default_value": [
+            "administrator"
+          ],
+          "default_sha256": "d83346855190fa888f3ea47bbb053cf2ffdcfc118df4c14f7d2adc185fac61c3",
+          "default_source": "Settings API default",
+          "settings_api_default_declared": true,
+          "owner": null
+        },
+        "imagine_medias": {
+          "present": true,
+          "effective_value": {
+            "hosts": [
+              "video-fictive.example.invalid"
+            ],
+            "integration": "1"
+          },
+          "effective_sha256": "07ede552d5f7566aede0a8e0a60f795d3dcd9a8252dfab631df8b05a7dfe8de0",
+          "raw_sha256": "07ede552d5f7566aede0a8e0a60f795d3dcd9a8252dfab631df8b05a7dfe8de0",
+          "default_known": false,
+          "default_value": null,
+          "default_sha256": null,
+          "default_source": null,
+          "settings_api_default_declared": false,
+          "owner": null
+        }
+      },
+      "after": {
+        "imagine_acces_reglages": {
+          "present": false,
+          "effective_value": {
+            "contenu_futur": "ferme_tous",
+            "pdf_robot": "extrait",
+            "pdf_anterieur_abonnement": "ferme"
+          },
+          "effective_sha256": "a0cf17d0a2928a032b95b61a875f967b41067788ca91414772b0366e0c2215bd",
+          "raw_sha256": null,
+          "default_known": true,
+          "default_value": {
+            "contenu_futur": "ferme_tous",
+            "pdf_robot": "extrait",
+            "pdf_anterieur_abonnement": "ferme"
+          },
+          "default_sha256": "a0cf17d0a2928a032b95b61a875f967b41067788ca91414772b0366e0c2215bd",
+          "default_source": "Settings API default",
+          "settings_api_default_declared": true,
+          "owner": null
+        },
+        "imagine_decouverte_reglages": {
+          "present": true,
+          "effective_value": {
+            "ouverture": "fermee",
+            "forme": "articles",
+            "jours": 7,
+            "nombre": 2,
+            "numeros": []
+          },
+          "effective_sha256": "d1ba03e47d490ddaea5036d5197ed0bd78995781857fa283df86260bfd8524d3",
+          "raw_sha256": "d1ba03e47d490ddaea5036d5197ed0bd78995781857fa283df86260bfd8524d3",
+          "default_known": true,
+          "default_value": {
+            "ouverture": "fermee",
+            "forme": "articles",
+            "jours": 7,
+            "nombre": 2,
+            "numeros": []
+          },
+          "default_sha256": "d1ba03e47d490ddaea5036d5197ed0bd78995781857fa283df86260bfd8524d3",
+          "default_source": "Decouverte.php: get_option(self::OPTION, self::defauts())",
+          "settings_api_default_declared": false,
+          "owner": "C-12"
+        },
+        "imagine_decouverte_relecture": {
+          "present": true,
+          "effective_value": "fermee",
+          "effective_sha256": "a5937745299307d5eb62e99ceaeb449a2944c02897a6d622ef467b1eda4fca4a",
+          "raw_sha256": "a5937745299307d5eb62e99ceaeb449a2944c02897a6d622ef467b1eda4fca4a",
+          "default_known": true,
+          "default_value": "fermee",
+          "default_sha256": "a5937745299307d5eb62e99ceaeb449a2944c02897a6d622ef467b1eda4fca4a",
+          "default_source": "DecouverteReglages.php: get_option(Decouverte::RELECTURE, 'fermee')",
+          "settings_api_default_declared": false,
+          "owner": "C-12"
+        },
+        "imagine_c05_reglages": {
+          "present": true,
+          "effective_value": {
+            "marge_jours": null,
+            "apres_rejet": "restent_dues",
+            "tarif": "fige_bloc",
+            "confirmation_premier_sepa": "avec_marge"
+          },
+          "effective_sha256": "ab0ee3a223111d6a45a7f1f7f8d96607f04117fbd9b17da2bd7a648a0d54596c",
+          "raw_sha256": "ab0ee3a223111d6a45a7f1f7f8d96607f04117fbd9b17da2bd7a648a0d54596c",
+          "default_known": true,
+          "default_value": {
+            "marge_jours": null,
+            "apres_rejet": "restent_dues",
+            "tarif": "fige_bloc",
+            "confirmation_premier_sepa": "avec_marge"
+          },
+          "default_sha256": "ab0ee3a223111d6a45a7f1f7f8d96607f04117fbd9b17da2bd7a648a0d54596c",
+          "default_source": "Settings API default",
+          "settings_api_default_declared": true,
+          "owner": null
+        },
+        "imagine_envoi_colonnes_export": {
+          "present": true,
+          "effective_value": [
+            "abonnement_id",
+            "destinataire_id",
+            "destinataire",
+            "rue",
+            "complement",
+            "code_postal",
+            "ville",
+            "pays",
+            "origine"
+          ],
+          "effective_sha256": "cfa5713017cbcc6cc447d200463303477b809db333f1d8588fd690abb06e2e4a",
+          "raw_sha256": "cfa5713017cbcc6cc447d200463303477b809db333f1d8588fd690abb06e2e4a",
+          "default_known": true,
+          "default_value": [
+            "abonnement_id",
+            "destinataire_id",
+            "destinataire",
+            "rue",
+            "complement",
+            "code_postal",
+            "ville",
+            "pays",
+            "origine"
+          ],
+          "default_sha256": "cfa5713017cbcc6cc447d200463303477b809db333f1d8588fd690abb06e2e4a",
+          "default_source": "Settings API default",
+          "settings_api_default_declared": true,
+          "owner": null
+        },
+        "imagine_commande_adresse_nouveau": {
+          "present": true,
+          "effective_value": "oui",
+          "effective_sha256": "1e5beaacc999e937b07286f9ae9cd1df7a5e19bb3cef7a45a39c6b2e11ad6bda",
+          "raw_sha256": "1e5beaacc999e937b07286f9ae9cd1df7a5e19bb3cef7a45a39c6b2e11ad6bda",
+          "default_known": false,
+          "default_value": null,
+          "default_sha256": null,
+          "default_source": null,
+          "settings_api_default_declared": false,
+          "owner": null
+        },
+        "imagine_solidaire_categories": {
+          "present": true,
+          "effective_value": [
+            "à préciser"
+          ],
+          "effective_sha256": "698a9ff5968a8fd186355f5d7c99b405c80789bdf3d7ccb1a2ea22d48d94673d",
+          "raw_sha256": "698a9ff5968a8fd186355f5d7c99b405c80789bdf3d7ccb1a2ea22d48d94673d",
+          "default_known": true,
+          "default_value": [
+            "à préciser"
+          ],
+          "default_sha256": "698a9ff5968a8fd186355f5d7c99b405c80789bdf3d7ccb1a2ea22d48d94673d",
+          "default_source": "JustificatifsReglages.php: get_option(self::OPTION, ['à préciser'])",
+          "settings_api_default_declared": false,
+          "owner": "C-17"
+        },
+        "imagine_partenaire_du_mois": {
+          "present": true,
+          "effective_value": "48",
+          "effective_sha256": "b63b90f18cd61a43e2782036d0e76c591015ee56201df12b8193215ce57dc9f8",
+          "raw_sha256": "b63b90f18cd61a43e2782036d0e76c591015ee56201df12b8193215ce57dc9f8",
+          "default_known": false,
+          "default_value": null,
+          "default_sha256": null,
+          "default_source": null,
+          "settings_api_default_declared": false,
+          "owner": null
+        },
+        "imagine_newsletters_catalogue": {
+          "present": true,
+          "effective_value": [
+            {
+              "id": "lettre-fictive",
+              "titre": "La lettre fictive Imagine",
+              "presentation": "Les nouvelles de la rédaction de démonstration.",
+              "principale": true
+            },
+            {
+              "id": "rencontres-fictives",
+              "titre": "Les rencontres fictives",
+              "presentation": "Des rencontres entièrement inventées pour la démonstration.",
+              "principale": false
+            },
+            {
+              "id": "cooperateurs-fictifs",
+              "titre": "La lettre des coopérateurs fictifs",
+              "presentation": "Une lettre de démonstration pour les coopérateurs.",
+              "principale": false
+            }
+          ],
+          "effective_sha256": "e605e1e67e9d5e170ecb498bb8db7188a8c86c0cd3a781a72b60d3c8785cb95d",
+          "raw_sha256": "e605e1e67e9d5e170ecb498bb8db7188a8c86c0cd3a781a72b60d3c8785cb95d",
+          "default_known": false,
+          "default_value": null,
+          "default_sha256": null,
+          "default_source": null,
+          "settings_api_default_declared": false,
+          "owner": null
+        },
+        "imagine_newsletters_creation": {
+          "present": true,
+          "effective_value": "non",
+          "effective_sha256": "e62367b59b13f2c2c2ac0e7e283efda8c55d18c3b621ece01309ee13cf222bea",
+          "raw_sha256": "e62367b59b13f2c2c2ac0e7e283efda8c55d18c3b621ece01309ee13cf222bea",
+          "default_known": true,
+          "default_value": "non",
+          "default_sha256": "e62367b59b13f2c2c2ac0e7e283efda8c55d18c3b621ece01309ee13cf222bea",
+          "default_source": "Newsletters.php: get_option(self::CREATION, 'non')",
+          "settings_api_default_declared": false,
+          "owner": "C-22"
+        },
+        "imagine_personnalisation_questions": {
+          "present": true,
+          "effective_value": [
+            {
+              "id": "situation-fictive",
+              "titre": "Situation entièrement fictive",
+              "multiple": false,
+              "choix": [
+                {
+                  "id": "reveur-fictif",
+                  "titre": "Rêveur de nuages fictif"
+                },
+                {
+                  "id": "explorateur-fictif",
+                  "titre": "Explorateur de lunes fictif"
+                }
+              ]
+            },
+            {
+              "id": "interets-fictifs",
+              "titre": "Centres d’intérêt entièrement fictifs",
+              "multiple": true,
+              "choix": [
+                {
+                  "id": "jardins-lunaires-fictifs",
+                  "titre": "Jardins lunaires fictifs"
+                },
+                {
+                  "id": "cerfs-volants-fictifs",
+                  "titre": "Cerfs-volants sous-marins fictifs"
+                }
+              ]
+            },
+            {
+              "id": "age-fictif",
+              "titre": "Tranche d’âge entièrement fictive",
+              "multiple": false,
+              "choix": [
+                {
+                  "id": "age-cent-lunes-fictif",
+                  "titre": "De 100 à 199 lunes fictives"
+                },
+                {
+                  "id": "age-deux-cents-lunes-fictif",
+                  "titre": "200 lunes fictives et plus"
+                }
+              ]
+            },
+            {
+              "id": "localite-fictive",
+              "titre": "Localité entièrement fictive",
+              "multiple": false,
+              "choix": [
+                {
+                  "id": "village-nuages-fictif",
+                  "titre": "Village des nuages fictif"
+                },
+                {
+                  "id": "ile-lucioles-fictive",
+                  "titre": "Île des lucioles fictive"
+                }
+              ]
+            }
+          ],
+          "effective_sha256": "4d2dbde1b17cc0a0520177351eaf404ec43a358bd9f9d71c929a6f9cfff3097a",
+          "raw_sha256": "4d2dbde1b17cc0a0520177351eaf404ec43a358bd9f9d71c929a6f9cfff3097a",
+          "default_known": false,
+          "default_value": null,
+          "default_sha256": null,
+          "default_source": null,
+          "settings_api_default_declared": false,
+          "owner": null
+        },
+        "imagine_retractation_reglages": {
+          "present": true,
+          "effective_value": {
+            "jours": 14,
+            "origine": "paiement"
+          },
+          "effective_sha256": "79bc38daa6024858fded60ad9be281ec292c2e79f5e5bd9241985c3b16db1381",
+          "raw_sha256": "79bc38daa6024858fded60ad9be281ec292c2e79f5e5bd9241985c3b16db1381",
+          "default_known": true,
+          "default_value": {
+            "jours": 14,
+            "origine": "paiement"
+          },
+          "default_sha256": "79bc38daa6024858fded60ad9be281ec292c2e79f5e5bd9241985c3b16db1381",
+          "default_source": "Retractation.php: get_option(self::OPTION, ['jours' => 14, 'origine' => 'paiement'])",
+          "settings_api_default_declared": false,
+          "owner": "C-25"
+        },
+        "imagine_acquisition_choix": {
+          "present": true,
+          "effective_value": {
+            "lune": "Radio fictive \\ lune",
+            "mars": "Journal martien fictif"
+          },
+          "effective_sha256": "5da493a90e982da09858ca49a874b204d3eb964a99c1c8db2b41c0a35f62d2dd",
+          "raw_sha256": "5da493a90e982da09858ca49a874b204d3eb964a99c1c8db2b41c0a35f62d2dd",
+          "default_known": false,
+          "default_value": null,
+          "default_sha256": null,
+          "default_source": null,
+          "settings_api_default_declared": false,
+          "owner": null
+        },
+        "imagine_cooperateurs_roles_attribut": {
+          "present": false,
+          "effective_value": [
+            "administrator"
+          ],
+          "effective_sha256": "d83346855190fa888f3ea47bbb053cf2ffdcfc118df4c14f7d2adc185fac61c3",
+          "raw_sha256": null,
+          "default_known": true,
+          "default_value": [
+            "administrator"
+          ],
+          "default_sha256": "d83346855190fa888f3ea47bbb053cf2ffdcfc118df4c14f7d2adc185fac61c3",
+          "default_source": "Settings API default",
+          "settings_api_default_declared": true,
+          "owner": null
+        },
+        "imagine_cooperateurs_roles_lecture": {
+          "present": false,
+          "effective_value": [
+            "administrator"
+          ],
+          "effective_sha256": "d83346855190fa888f3ea47bbb053cf2ffdcfc118df4c14f7d2adc185fac61c3",
+          "raw_sha256": null,
+          "default_known": true,
+          "default_value": [
+            "administrator"
+          ],
+          "default_sha256": "d83346855190fa888f3ea47bbb053cf2ffdcfc118df4c14f7d2adc185fac61c3",
+          "default_source": "Settings API default",
+          "settings_api_default_declared": true,
+          "owner": null
+        },
+        "imagine_medias": {
+          "present": true,
+          "effective_value": {
+            "hosts": [
+              "video-fictive.example.invalid"
+            ],
+            "integration": "0"
+          },
+          "effective_sha256": "5756aa2d4cd57c2123bfaa1ea25bbba3bdfab17a2d3f1e8eee9f567c0edee890",
+          "raw_sha256": "5756aa2d4cd57c2123bfaa1ea25bbba3bdfab17a2d3f1e8eee9f567c0edee890",
+          "default_known": false,
+          "default_value": null,
+          "default_sha256": null,
+          "default_source": null,
+          "settings_api_default_declared": false,
+          "owner": null
+        }
+      },
+      "ok": true,
+      "absent_to_exact_default": [],
+      "different": []
+    }
+  ],
+  "external_attempts": [
+    {
+      "url": "https://secure.gravatar.com/avatar/d7c5125f16c5bb00456ad644b5581f52e93ce99e6ae6005cddd634cb613c420c?s=26&d=mm&r=g",
+      "context": "admin",
+      "origin": "http://192.168.129.32:8085/wp-admin/admin.php?page=imagine-reglages",
+      "blocked_before_transport": true
+    },
+    {
+      "url": "https://secure.gravatar.com/avatar/d7c5125f16c5bb00456ad644b5581f52e93ce99e6ae6005cddd634cb613c420c?s=26&d=mm&r=g",
+      "context": "admin",
+      "origin": "http://192.168.129.32:8085/wp-admin/admin.php?page=imagine-reglages",
+      "blocked_before_transport": true
+    },
+    {
+      "url": "https://secure.gravatar.com/avatar/d7c5125f16c5bb00456ad644b5581f52e93ce99e6ae6005cddd634cb613c420c?s=26&d=mm&r=g",
+      "context": "admin",
+      "origin": "http://192.168.129.32:8085/wp-admin/admin.php?page=imagine-reglages",
+      "blocked_before_transport": true
+    },
+    {
+      "url": "https://secure.gravatar.com/avatar/d7c5125f16c5bb00456ad644b5581f52e93ce99e6ae6005cddd634cb613c420c?s=26&d=mm&r=g",
+      "context": "admin",
+      "origin": "http://192.168.129.32:8085/wp-admin/admin.php?page=imagine-reglages",
+      "blocked_before_transport": true
+    },
+    {
+      "url": "https://secure.gravatar.com/avatar/d7c5125f16c5bb00456ad644b5581f52e93ce99e6ae6005cddd634cb613c420c?s=26&d=mm&r=g",
+      "context": "admin",
+      "origin": "http://192.168.129.32:8085/wp-admin/admin.php?page=imagine-reglages",
+      "blocked_before_transport": true
+    },
+    {
+      "url": "https://secure.gravatar.com/avatar/d7c5125f16c5bb00456ad644b5581f52e93ce99e6ae6005cddd634cb613c420c?s=26&d=mm&r=g",
+      "context": "admin",
+      "origin": "http://192.168.129.32:8085/wp-admin/admin.php?page=imagine-reglages",
+      "blocked_before_transport": true
+    },
+    {
+      "url": "https://secure.gravatar.com/avatar/d7c5125f16c5bb00456ad644b5581f52e93ce99e6ae6005cddd634cb613c420c?s=26&d=mm&r=g",
+      "context": "admin",
+      "origin": "http://192.168.129.32:8085/wp-admin/admin.php?page=imagine-reglages",
+      "blocked_before_transport": true
+    },
+    {
+      "url": "https://secure.gravatar.com/avatar/d7c5125f16c5bb00456ad644b5581f52e93ce99e6ae6005cddd634cb613c420c?s=26&d=mm&r=g",
+      "context": "admin",
+      "origin": "http://192.168.129.32:8085/wp-admin/admin.php?page=imagine-reglages",
+      "blocked_before_transport": true
+    },
+    {
+      "url": "https://secure.gravatar.com/avatar/d7c5125f16c5bb00456ad644b5581f52e93ce99e6ae6005cddd634cb613c420c?s=26&d=mm&r=g",
+      "context": "admin",
+      "origin": "http://192.168.129.32:8085/wp-admin/admin.php?page=imagine-reglages",
+      "blocked_before_transport": true
+    }
+  ]
+}

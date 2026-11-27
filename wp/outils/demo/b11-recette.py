@@ -44,8 +44,9 @@ def ambient_destination(event, site):
         return False
     if event['ambient_novamira_update'] and event['host']=='license.dynamic.ooo':
         return True
-    return (event['host']==urlsplit(site).hostname and event.get('path')=='/wp-cron.php'
-            and 'spawn_cron' in event.get('stack',[]))
+    return (event['host']==urlsplit(site).hostname and event.get('path')=='/wp-admin/admin-ajax.php'
+            and {'WP_Async_Request->dispatch','ActionScheduler_AsyncRequest_QueueRunner->maybe_dispatch'}
+            <=set(event.get('stack',[])))
 
 
 def forbidden_external(event):
