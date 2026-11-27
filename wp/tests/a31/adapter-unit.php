@@ -56,6 +56,7 @@ class WCS_Related_Order_Store
 }
 function wcs_get_subscription(int $id): WC_Subscription|false
 {
+    $GLOBALS['a31_resolved_subscriptions'][] = $id;
     return $id === 7 ? new WC_Subscription([]) : false;
 }
 // phpcs:enable PSR1.Classes.ClassDeclaration, Squiz.Classes.ValidClassName, PSR1.Methods.CamelCapsMethodName
@@ -66,7 +67,7 @@ $check = static function (string $name, bool $ok) use (&$checks): void {
 };
 $store = new WCS_Related_Order_Store();
 $read = static fn (array $m, bool $p = false): array =>
-    Imagine\OrderHistory\Inventory::relations(new WC_Order($m), $store, $p);
+    Imagine\OrderHistory\Inventory::relations(new WC_Order($m), $store, $p, [7 => true]);
 $check('parent_native_relation', $read([], true)['nature'] === 'parent');
 $check('standalone_not_default_for_opaque', $read([])['nature'] === 'none');
 foreach (['renewal', 'switch', 'resubscribe'] as $type) {
@@ -74,6 +75,10 @@ foreach (['renewal', 'switch', 'resubscribe'] as $type) {
 }
 $check('renewal_missing_native_subscription', $read(['_subscription_renewal' => ['8']])['orphan_renewal']);
 $check('existing_subscription_not_orphan', !$read(['_subscription_renewal' => ['7']])['orphan_renewal']);
+$check(
+    'missing_reference_never_resolved_by_logging_getter',
+    !in_array(8, $GLOBALS['a31_resolved_subscriptions'] ?? [], true)
+);
 foreach (['', '0', '-7', '7junk', 'A31_PRIVATE_CANARY', ['7'], '99999999999999999999999'] as $i => $value) {
     $check('malformed_' . $i, $read(['_subscription_renewal' => [$value]])['nature'] === 'illisible');
 }

@@ -22,8 +22,12 @@ final class Inventory
         return $date === null ? 'illisible' : (int) gmdate('Y', $date->getTimestamp());
     }
 
-    public static function relations(\WC_Order $order, \WCS_Related_Order_Store $store, bool $parent): array
-    {
+    public static function relations(
+        \WC_Order $order,
+        \WCS_Related_Order_Store $store,
+        bool $parent,
+        array $subscriptionsById
+    ): array {
         $types = $parent ? ['parent'] : [];
         $orphan = false;
         $opaque = false;
@@ -54,7 +58,9 @@ final class Inventory
             }
             if ($type === 'renewal') {
                 foreach ($raw as $id) {
-                    if (!(wcs_get_subscription($id) instanceof \WC_Subscription)) {
+                    // WCS logs a failed lookup to a site file. Resolve the native census once;
+                    // missing references must not call that logging path at all.
+                    if (!isset($subscriptionsById[$id])) {
                         $orphan = true;
                     }
                 }
@@ -94,14 +100,15 @@ final class Inventory
         $rows = $storage === 'hpos'
             ? self::select("SELECT id AS object_id,type AS object_type FROM `{$prefix}wc_orders`"
                 . " WHERE type IN ('shop_order','shop_order_refund','shop_subscription')"
-                . " AND status <> 'trash' ORDER BY id")
+                . " AND (type='shop_subscription' OR status <> 'trash') ORDER BY id")
             : self::select("SELECT ID AS object_id,post_type AS object_type FROM `{$prefix}posts`"
                 . " WHERE post_type IN ('shop_order','shop_order_refund','shop_subscription')"
-                . " AND post_status <> 'trash' ORDER BY ID");
+                . " AND (post_type='shop_subscription' OR post_status <> 'trash') ORDER BY ID");
         $neutralised = (bool) self::select("SELECT option_id FROM `{$prefix}options`"
             . " WHERE option_name='imagine_staging_disabled_plugins'");
         $objects = [];
         $subscriptions = [];
+        $subscriptionsById = [];
         $parents = [];
         foreach ($rows as $row) {
             $id = (int) $row['object_id'];
@@ -111,6 +118,7 @@ final class Inventory
                 if (!$object instanceof \WC_Subscription) {
                     throw new \RuntimeException('A31_SUBSCRIPTION_UNREADABLE');
                 }
+                $subscriptionsById[$id] = true;
                 $parent = (int) $object->get_parent_id('edit');
                 $parents[$parent] = true;
                 $original = $parent > 0 ? wc_get_order($parent) : false;
@@ -145,7 +153,7 @@ final class Inventory
             $user = (int) $object->get_customer_id('edit');
             $orders[] = ['year' => self::year($object), 'status' => $object->get_status('edit'),
                 'account_missing' => $user > 0 && get_userdata($user) === false, 'link_unknown' => false]
-                + self::relations($object, $store, isset($parents[$entry['id']]));
+                + self::relations($object, $store, isset($parents[$entry['id']]), $subscriptionsById);
         }
         return ['schema' => 'imagine-a31-history-v1', 'read_only' => true, 'storage' => $storage,
             'neutralisation' => $neutralised ? Analysis::UNKNOWN : 'observe',
