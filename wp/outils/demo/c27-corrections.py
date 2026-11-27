@@ -85,7 +85,7 @@ def run(label):
                 if mode == 'M1':
                     status, body = http(identity['url']+'/wp-admin/admin-post.php',
                         {'action': 'imagine_acquisition', 'commande': str(row['id']), 'choix': 'lune', '_c27': signed})
-                    after = c27.wp('echo wp_json_encode(["answer"=>get_option(Imagine\\Site\\Acquisition::REPONSE.'+str(row['id'])+',null),"source"=>get_user_meta(28,Imagine\\Site\\Acquisition::SOURCE,true)]);')
+                    after = c27.wp('echo wp_json_encode(["answer"=>get_option(Imagine\\Site\\Acquisition::REPONSE . '+str(row['id'])+',null),"source"=>get_user_meta(28,Imagine\\Site\\Acquisition::SOURCE,true)]);')
                     data['old_POST_status'] = status
                     data['old_POST_wrote_answer'] = isinstance(after['answer'], dict)
                     data['old_POST_wrote_source'] = isinstance(after['source'], dict)
@@ -93,6 +93,10 @@ def run(label):
                 else:
                     passed = data['pass']
                 checks[key] = passed is (not mutant)
+                if mutant and mode == 'I1':
+                    checks[key] = checks[key] and data['sql_faults'] == 1 and data['answer_present'] is True and data['source_previous_preserved'] is False
+                if mutant and mode == 'I2':
+                    checks[key] = checks[key] and data['sql_faults'] == 1 and data['source_present'] is True and data['result']['done'] is True and data['result']['items_retained'] is False
                 evidence[key] = data
                 print(key, checks[key], json.dumps(data, ensure_ascii=False))
             finally:

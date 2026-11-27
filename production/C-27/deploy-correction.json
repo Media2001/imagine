@@ -1,0 +1,51 @@
+{
+  "scope": "imagine-test-demo",
+  "sources": {
+    "wp/outils/demo/c27-corrections.py": "06df0e08855dece9e835af915ad6a4b969afaafec171627835319ed800c425a4",
+    "wp/outils/demo/c27-finaliser.py": "4991ad9458e9b9565ceb1d4332ee033e8597625030440355dceaf9c5e0cdafd1",
+    "wp/outils/demo/c27-gates.py": "133be5259e45e69015ad6152a927dcc2b151391afef7f35915d3832f59f0fe29",
+    "wp/outils/demo/c27-mutations.py": "660745c5bd0ac486d1bc6bd786a194959264dd319cda0ee3a04d67cbb9c89c01",
+    "wp/outils/demo/c27-native.py": "7628a5701924cdce7335413ae3dfb2d8e8c6fcef14338ca8ed5798484c5c5e41",
+    "wp/outils/demo/c27-readback.py": "0885269bc21093a84f95fd38d716fb6f607f2d4f23838b627585e15a05e38213",
+    "wp/outils/demo/c27-recette.py": "a509d6e4dc1201fd7f2701422132ce92a21a1cce65caa78406045ad6154967f9",
+    "wp/outils/demo/c27-seed.py": "a32a9978b17a5f3f1d77deea0ac651ac7a493b673762c8b894b332c29506bd85",
+    "wp/outils/demo/c27.py": "bbb033617f73d63b30f50bf27637c72f9b30c150e5ee38432d3a783fe7d70f81",
+    "wp/plugins/imagine-site/Acquisition.php": "689447e6cd2b06fb8554ca208730b53a5979217bfa99af73179a920be77bfbf5",
+    "wp/plugins/imagine-site/AcquisitionAdmin.php": "0f9b70bdc8eed7591a6c42fa17a0b7f33283d7b50d66c2f267cd3283ff960a4c",
+    "wp/plugins/imagine-site/AcquisitionConfidentialite.php": "e2891a523b9f28104999ceca33030fdbb07c5365f6e6917501c590bbec81bbae",
+    "wp/plugins/imagine-site/AcquisitionReglages.php": "225937e1971f220a0ada69b0c1389bf4fbebddca47387b5ca4a7ff317cb224bc",
+    "wp/plugins/imagine-site/AcquisitionRegles.php": "388b89cd261f73c30ea1e2564b84aab778feb481e5f098795f4b30eca9ba8f93",
+    "wp/plugins/imagine-site/tests/AcquisitionAdapterTest.php": "6b147650497a99cb1f7e60ede6e54d906ca13bd8921390205089b09a83adc1e1",
+    "wp/plugins/imagine-site/tests/AcquisitionReglesTest.php": "37e4c918a775f62b126a421167dc6f3c731be6c0ac7ee569d19c7e24a8e38ab5",
+    "wp/plugins/imagine-site/tests/AcquisitionWPStubs.php": "7562d02f63264d39b2ee69b8b69db630af86c5f8c11ada0261684bde0f5980c5",
+    "wp/tests/demo/c27-corrections-runtime.php": "d2ee63dcb41834eb1604a5c7a206dd6af59f4ffb950ca0cca8df88692b342601",
+    "wp/tests/demo/c27-horslive.php": "55596ab36296a0974e8df05718d65e1075f6c9d4007dad40e77f16c3addfc938",
+    "wp/tests/demo/c27-observer.php": "d6d3c1456f9ff62f8a86bf3c9eac6c924870005cc69934cff70215988d150f68",
+    "wp/tests/demo/c27-runtime.php": "0fb01d5987c0cc190fc3ca4db7e0060271c52ab28bcac4e79b8bb4ec97fff7f8",
+    "wp/tests/demo/c27-verifier-tests.py": "31a088b825eb71cd7513efc56ac415e57d29842de8bf17102bfba90753b5dd4d"
+  },
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "private_snapshot": {
+    "file": "c25-private-pl_dsuag/snapshot.json",
+    "sha256": "27c89c654e32c893505618fbb7a429a6cb43447b34a0c12f9c8ee87a2e4af145",
+    "private": true
+  },
+  "readback": {
+    "plugins/imagine-site/AcquisitionRegles.php": "388b89cd261f73c30ea1e2564b84aab778feb481e5f098795f4b30eca9ba8f93",
+    "plugins/imagine-site/Acquisition.php": "689447e6cd2b06fb8554ca208730b53a5979217bfa99af73179a920be77bfbf5",
+    "plugins/imagine-site/AcquisitionReglages.php": "225937e1971f220a0ada69b0c1389bf4fbebddca47387b5ca4a7ff317cb224bc",
+    "plugins/imagine-site/AcquisitionConfidentialite.php": "e2891a523b9f28104999ceca33030fdbb07c5365f6e6917501c590bbec81bbae",
+    "plugins/imagine-site/AcquisitionAdmin.php": "0f9b70bdc8eed7591a6c42fa17a0b7f33283d7b50d66c2f267cd3283ff960a4c",
+    "plugins/imagine-site/imagine-site.php": "084a83833c81f81fff8da28395e93bd1c7216a0506109d9b1a0c862a6ae1aaa4"
+  },
+  "business_preserved": true
+}

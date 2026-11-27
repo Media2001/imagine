@@ -23,8 +23,20 @@ if ($mode === 'I1') {
 }
 $reads = 0;
 $faults = 0;
-$filter = static function (string $sql) use ($wpdb, $mode, &$reads, &$faults): string {
-    if (preg_match('/^\s*SELECT\b/i', $sql) && str_contains($sql, $wpdb->usermeta)) {
+$armed = false;
+$filter = static function (string $sql) use ($wpdb, $mode, &$reads, &$faults, &$armed): string {
+    if (str_contains($sql, 'GET_LOCK(')) {
+        $armed = true;
+        if ($mode === 'I2') {
+            // Le compte est déjà résolu ; la première lecture SOURCE sous verrou est fraîche.
+            wp_cache_delete(28, 'user_meta');
+        }
+    }
+    if (str_contains($sql, 'RELEASE_LOCK(')) {
+        $armed = false;
+    }
+    if ($armed && preg_match('/^\s*SELECT\s+(?:meta_value|user_id, meta_key, meta_value)\s+FROM\b/i', $sql)
+        && str_contains($sql, $wpdb->usermeta)) {
         ++$reads;
         if (($mode === 'I1' || $mode === 'I2') && $reads === 1 || $mode === 'finalfail' && $reads === 3) {
             ++$faults;

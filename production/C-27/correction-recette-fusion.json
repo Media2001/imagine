@@ -1,0 +1,185 @@
+{
+  "scope": "imagine-test-demo",
+  "sources": {
+    "wp/outils/demo/c27-corrections.py": "06df0e08855dece9e835af915ad6a4b969afaafec171627835319ed800c425a4",
+    "wp/outils/demo/c27-finaliser.py": "4991ad9458e9b9565ceb1d4332ee033e8597625030440355dceaf9c5e0cdafd1",
+    "wp/outils/demo/c27-gates.py": "133be5259e45e69015ad6152a927dcc2b151391afef7f35915d3832f59f0fe29",
+    "wp/outils/demo/c27-mutations.py": "660745c5bd0ac486d1bc6bd786a194959264dd319cda0ee3a04d67cbb9c89c01",
+    "wp/outils/demo/c27-native.py": "7628a5701924cdce7335413ae3dfb2d8e8c6fcef14338ca8ed5798484c5c5e41",
+    "wp/outils/demo/c27-readback.py": "0885269bc21093a84f95fd38d716fb6f607f2d4f23838b627585e15a05e38213",
+    "wp/outils/demo/c27-recette.py": "a509d6e4dc1201fd7f2701422132ce92a21a1cce65caa78406045ad6154967f9",
+    "wp/outils/demo/c27-seed.py": "a32a9978b17a5f3f1d77deea0ac651ac7a493b673762c8b894b332c29506bd85",
+    "wp/outils/demo/c27.py": "bbb033617f73d63b30f50bf27637c72f9b30c150e5ee38432d3a783fe7d70f81",
+    "wp/plugins/imagine-site/Acquisition.php": "689447e6cd2b06fb8554ca208730b53a5979217bfa99af73179a920be77bfbf5",
+    "wp/plugins/imagine-site/AcquisitionAdmin.php": "0f9b70bdc8eed7591a6c42fa17a0b7f33283d7b50d66c2f267cd3283ff960a4c",
+    "wp/plugins/imagine-site/AcquisitionConfidentialite.php": "e2891a523b9f28104999ceca33030fdbb07c5365f6e6917501c590bbec81bbae",
+    "wp/plugins/imagine-site/AcquisitionReglages.php": "225937e1971f220a0ada69b0c1389bf4fbebddca47387b5ca4a7ff317cb224bc",
+    "wp/plugins/imagine-site/AcquisitionRegles.php": "388b89cd261f73c30ea1e2564b84aab778feb481e5f098795f4b30eca9ba8f93",
+    "wp/plugins/imagine-site/tests/AcquisitionAdapterTest.php": "6b147650497a99cb1f7e60ede6e54d906ca13bd8921390205089b09a83adc1e1",
+    "wp/plugins/imagine-site/tests/AcquisitionReglesTest.php": "37e4c918a775f62b126a421167dc6f3c731be6c0ac7ee569d19c7e24a8e38ab5",
+    "wp/plugins/imagine-site/tests/AcquisitionWPStubs.php": "7562d02f63264d39b2ee69b8b69db630af86c5f8c11ada0261684bde0f5980c5",
+    "wp/tests/demo/c27-corrections-runtime.php": "d2ee63dcb41834eb1604a5c7a206dd6af59f4ffb950ca0cca8df88692b342601",
+    "wp/tests/demo/c27-horslive.php": "55596ab36296a0974e8df05718d65e1075f6c9d4007dad40e77f16c3addfc938",
+    "wp/tests/demo/c27-observer.php": "d6d3c1456f9ff62f8a86bf3c9eac6c924870005cc69934cff70215988d150f68",
+    "wp/tests/demo/c27-runtime.php": "0fb01d5987c0cc190fc3ca4db7e0060271c52ab28bcac4e79b8bb4ec97fff7f8",
+    "wp/tests/demo/c27-verifier-tests.py": "31a088b825eb71cd7513efc56ac415e57d29842de8bf17102bfba90753b5dd4d"
+  },
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "private_snapshot": {
+    "file": "c25-private-_kqlr5fp/snapshot.json",
+    "sha256": "00d284c95c5a95c1f5193bf92bb44c6f8139864992bac3527bcb2790ff37a973",
+    "private": true
+  },
+  "checks": {
+    "I1_corrige": true,
+    "I1_mutant": true,
+    "I2_corrige": false,
+    "I2_mutant": true,
+    "deletefail_corrige": true,
+    "finalfail_corrige": false
+  },
+  "evidence": {
+    "I1_corrige": {
+      "pass": true,
+      "setup": true,
+      "mode": "I1",
+      "sql_reads": 1,
+      "sql_faults": 1,
+      "refused": true,
+      "result": "imagine_acquisition_ecriture",
+      "source_present": true,
+      "source_previous_preserved": true,
+      "answer_present": false,
+      "seen": null
+    },
+    "I1_mutant": {
+      "pass": false,
+      "setup": true,
+      "mode": "I1",
+      "sql_reads": 3,
+      "sql_faults": 1,
+      "refused": false,
+      "result": true,
+      "source_present": true,
+      "source_previous_preserved": false,
+      "answer_present": true,
+      "seen": null
+    },
+    "I2_corrige": {
+      "pass": false,
+      "setup": true,
+      "mode": "I2",
+      "sql_reads": 5,
+      "sql_faults": 1,
+      "refused": false,
+      "result": {
+        "items_removed": true,
+        "items_retained": false,
+        "messages": [],
+        "done": true
+      },
+      "source_present": false,
+      "source_previous_preserved": false,
+      "answer_present": true,
+      "seen": null
+    },
+    "I2_mutant": {
+      "pass": false,
+      "setup": true,
+      "mode": "I2",
+      "sql_reads": 1,
+      "sql_faults": 1,
+      "refused": false,
+      "result": {
+        "items_removed": true,
+        "items_retained": false,
+        "messages": [],
+        "done": true
+      },
+      "source_present": true,
+      "source_previous_preserved": false,
+      "answer_present": true,
+      "seen": null
+    },
+    "deletefail_corrige": {
+      "pass": true,
+      "setup": true,
+      "mode": "deletefail",
+      "sql_reads": 2,
+      "sql_faults": 0,
+      "refused": false,
+      "result": {
+        "items_removed": false,
+        "items_retained": true,
+        "messages": [
+          "Effacement incomplet : réessayez."
+        ],
+        "done": false
+      },
+      "source_present": true,
+      "source_previous_preserved": false,
+      "answer_present": true,
+      "seen": null
+    },
+    "finalfail_corrige": {
+      "pass": false,
+      "setup": true,
+      "mode": "finalfail",
+      "sql_reads": 4,
+      "sql_faults": 1,
+      "refused": false,
+      "result": {
+        "items_removed": false,
+        "items_retained": true,
+        "messages": [
+          "Effacement incomplet : réessayez."
+        ],
+        "done": false
+      },
+      "source_present": true,
+      "source_previous_preserved": false,
+      "answer_present": true,
+      "seen": null
+    }
+  },
+  "restoration": {
+    "users": true,
+    "usermeta": true,
+    "posts": true,
+    "postmeta": true,
+    "comments": true,
+    "commentmeta": true,
+    "navigation": true,
+    "wc_orders": true,
+    "wc_orders_meta": true,
+    "wc_order_addresses": true,
+    "wc_order_operational_data": true,
+    "woocommerce_order_items": true,
+    "woocommerce_order_itemmeta": true,
+    "actionscheduler_actions": true,
+    "actionscheduler_logs": true,
+    "actionscheduler_groups": true,
+    "actionscheduler_claims": true,
+    "options_metier": true
+  },
+  "cleanup": {
+    "sources_exactes": true,
+    "commandes_natives_supprimees": true,
+    "actions_et_adresses_restaurees": true,
+    "options_C27_restaurees": true,
+    "profil_lecteur_restaure": true,
+    "temporaires_retires": true
+  },
+  "business_preserved": true,
+  "error": "RuntimeError: WP-CLI : [27-Nov-2026 12:49:34 UTC] PHP Parse error:  syntax error, unexpected floating-point number \".4007\", expecting \")\" in phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/Eval_Command.php(39) : eval()'d code on line 1\nParse error: syntax error, unexpected floating-point number \".4007\", expecting \")\" in phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/Eval_Command.php(39) : eval()'d code on line 1\nError: Il y a eu une erreur critique sur ce site.En apprendre plus sur le débogage de WordPress. Il y a eu une erreur critique sur ce site.\n",
+  "owned_orders": 7
+}
