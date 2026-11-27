@@ -73,6 +73,31 @@ try {
     $stable = $wpdb->get_results("SELECT * FROM {$wpdb->posts} WHERE ID IN ($ids) ORDER BY ID", ARRAY_A);
     $execute();
     $checks['seed_stable_ne_reecrit_pas_les_items'] = $stable === $wpdb->get_results("SELECT * FROM {$wpdb->posts} WHERE ID IN ($ids) ORDER BY ID", ARRAY_A);
+    // Items marqués hors option et hors rattachement : aucune appropriation ambiguë.
+    foreach (['type' => ['page', 'faq'], 'marqueur' => ['nav_menu_item', 'inconnu'],
+        'doublon' => ['nav_menu_item', 'faq'], 'rattachement_etranger' => ['nav_menu_item', 'contact']] as $case => [$type, $marker]) {
+        $probe = wp_insert_post(['post_type' => $type, 'post_status' => 'draft',
+            'post_title' => 'Témoin fictif B09', 'meta_input' => ['imagine_b09_menu_item' => $marker]], true);
+        if ($case === 'rattachement_etranger') {
+            wp_set_object_terms($probe, [(int) $locations['imagine-principal']], 'nav_menu');
+        }
+        try {
+            $execute();
+            $checks['marque_hors_option_refus_' . $case] = false;
+        } catch (RuntimeException $error) {
+            $checks['marque_hors_option_refus_' . $case] = $error->getMessage() === 'Item étranger B09';
+        }
+        wp_delete_post($probe, true);
+    }
+    add_post_meta($first['items']['faq'], 'imagine_b09_menu_item', 'faq');
+    try {
+        $execute();
+        $checks['marqueurs_multiples_refuses'] = false;
+    } catch (RuntimeException $error) {
+        $checks['marqueurs_multiples_refuses'] = $error->getMessage() === 'Item étranger B09';
+    }
+    delete_post_meta($first['items']['faq'], 'imagine_b09_menu_item');
+    add_post_meta($first['items']['faq'], 'imagine_b09_menu_item', 'faq');
     $foreign = wp_update_nav_menu_item($first['menu'], 0, ['menu-item-title' => 'Étranger fictif B09',
         'menu-item-type' => 'custom', 'menu-item-url' => home_url('/'), 'menu-item-status' => 'publish']);
     try {

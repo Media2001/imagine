@@ -20,6 +20,7 @@ foreach (discoverT01Packages('/repo/wp')['packages'] as $package) {
         'prive' => ['Contact.php', "'post_status' => 'private'", "'post_status' => 'publish'"],
         'rest' => ['Contact.php', "'show_in_rest' => false", "'show_in_rest' => true"],
         'export' => ['ContactConfidentialite.php', "return ['data' => \$data,", "return ['data' => [],"],
+        'meta-partielle' => ['ContactConfidentialite.php', 'self::metas($id) !== []', 'false'],
         'effacement' => ['ContactConfidentialite.php', 'wp_delete_post($id, true)', 'true'],
         'lecture' => ['Contact.php', "\$wpdb->last_error !== '' ? null", "\$wpdb->last_error !== '' ? []"],
         'admin' => ['Contact.php', "if (!current_user_can('manage_options'))", 'if (false)'],

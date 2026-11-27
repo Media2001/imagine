@@ -1,0 +1,41 @@
+{
+  "scope": "imagine-test-demo",
+  "sources": {
+    "wp/outils/demo/b09-correction-live.py": "691402a9d983b8b514ab8a43d7f93c56d8b04be9e5fa246e3a081f40a8f75c6e",
+    "wp/outils/demo/b09-correction-mutants.py": "c6f30bb4bf2e541e02443775c87d9b0aca1c87f3c603002c9ae1cb56fe864f18",
+    "wp/outils/demo/b09-corrections.py": "67d023f72030d8950d4cf71f0024891897f4c1d8cc38b0bf63b5619e30752c73",
+    "wp/outils/demo/b09-finaliser.py": "05a16e473d9982565c114ad5baf5717b6c58aa51869b88d2b514daedb98fef0a",
+    "wp/outils/demo/b09-gates.py": "364a06abcb2f2a4b18179f498d2640725c3ebd3b51b16baef2b6039dfdbce1ad",
+    "wp/outils/demo/b09-local.py": "725cc7310b0cf99b0d4fa2888f20a15215e6301b36a41f4742db78800a4e7eb3",
+    "wp/outils/demo/b09-mutations.py": "a7b80e7d6b1029ff86450bd43afe3d7978a15f299129739a4b5954cbd2aa7785",
+    "wp/outils/demo/b09-readback.py": "8144d5b880673a7de8443516443b0605992e6406c2ca989ed88a5822b107a314",
+    "wp/outils/demo/b09-recette.py": "c9f5dbbc8b4ee41f5833d62d218a0c1b4def6414ec46d677dfd63f652cb72dc0",
+    "wp/outils/demo/b09-seed.php": "4a66a92a8c0a625dbbe90f0a68f4e4e93315b4f9144960f5ad2659ddd9acec1f",
+    "wp/outils/demo/b09-sources.py": "758250271b7a9b7450f6c2c9a99da9bcfe78a2baf46f1fe5f4cd940760eaae18",
+    "wp/outils/demo/b09.py": "b4d6adae522e06e2c9a1377d6ac33fb843c654f39cb72a1f67ae0e2101c7be45",
+    "wp/plugins/imagine-site/AutresPages.php": "ceed48252b70041d8f966beb0140a83d8fe147663ecae5340feb91f498839b0e",
+    "wp/plugins/imagine-site/Contact.php": "43d7b03da1d0b3a7fbccf63db8abf764fe3e01b91aed38238974427bc3cdd265",
+    "wp/plugins/imagine-site/ContactConfidentialite.php": "9c3e13ebd5b25fcc8af353f4363eedba95e38c9aac45df3c483b0a40783e43e8",
+    "wp/plugins/imagine-site/tests/ContactAdapterTest.php": "4e51a739794db46bedcb0e8900ddcdc91f6107d52f42c44d875d52305bbd7a12",
+    "wp/plugins/imagine-site/tests/ContactWPStubs.php": "340f1369a79bc89e339bfc979b1f309d1a08ed814bf8f4b0e3807324f6c985ea",
+    "wp/tests/demo/b09-horslive.php": "8f2620ea7240d726fca66b2050b458387c1dabb6509b874d9059ef6d90fa6fa0",
+    "wp/tests/demo/b09-mutation-prive.php": "3e7722257c0b0c15e4ecf464498b6e5a21f42d5998201d2ec192e2ab9632b54f",
+    "wp/tests/demo/b09-observer.php": "162135100f71b3b3d31e0ef294c8a49e00856a20bb29daf79b051e6084068d7d",
+    "wp/tests/demo/b09-structure.php": "508b557cef66f39dce9d5155d88cd484f03f91ede5ee8fa374ac6112fa261080",
+    "wp/tests/demo/b09-verifier-tests.py": "4ab3d92071f8ecd5023ef01c9199eb8bcc06ebe8e321e93f8662db0229191caa",
+    "wp/themes/imagine/footer.php": "33c8f45ac3c8b199b84b2f83c2fddcccbb401ab18faa57d683ed81e2fea8cbc9"
+  },
+  "command": [
+    "powershell.exe",
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "wp/tests/preparer-image.ps1"
+  ],
+  "python": "3.11.15 (main, Jun 23 2026, 15:20:37) [MSC v.1944 64 bit (AMD64)]",
+  "exit": 0,
+  "log": "corrections-preparation.log",
+  "sha256": "04877446096947614669ce17e3719ef36aee362e4a9f234d96cdf2112f0257ba",
+  "results": []
+}

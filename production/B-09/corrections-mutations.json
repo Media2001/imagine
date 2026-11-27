@@ -1,0 +1,223 @@
+{
+  "scope": "imagine-test-demo",
+  "sources": {
+    "wp/outils/demo/b09-correction-live.py": "691402a9d983b8b514ab8a43d7f93c56d8b04be9e5fa246e3a081f40a8f75c6e",
+    "wp/outils/demo/b09-corrections.py": "67d023f72030d8950d4cf71f0024891897f4c1d8cc38b0bf63b5619e30752c73",
+    "wp/outils/demo/b09-finaliser.py": "05a16e473d9982565c114ad5baf5717b6c58aa51869b88d2b514daedb98fef0a",
+    "wp/outils/demo/b09-gates.py": "364a06abcb2f2a4b18179f498d2640725c3ebd3b51b16baef2b6039dfdbce1ad",
+    "wp/outils/demo/b09-local.py": "725cc7310b0cf99b0d4fa2888f20a15215e6301b36a41f4742db78800a4e7eb3",
+    "wp/outils/demo/b09-mutations.py": "a7b80e7d6b1029ff86450bd43afe3d7978a15f299129739a4b5954cbd2aa7785",
+    "wp/outils/demo/b09-readback.py": "8144d5b880673a7de8443516443b0605992e6406c2ca989ed88a5822b107a314",
+    "wp/outils/demo/b09-recette.py": "c9f5dbbc8b4ee41f5833d62d218a0c1b4def6414ec46d677dfd63f652cb72dc0",
+    "wp/outils/demo/b09-seed.php": "4a66a92a8c0a625dbbe90f0a68f4e4e93315b4f9144960f5ad2659ddd9acec1f",
+    "wp/outils/demo/b09-sources.py": "758250271b7a9b7450f6c2c9a99da9bcfe78a2baf46f1fe5f4cd940760eaae18",
+    "wp/outils/demo/b09.py": "b4d6adae522e06e2c9a1377d6ac33fb843c654f39cb72a1f67ae0e2101c7be45",
+    "wp/plugins/imagine-site/AutresPages.php": "ceed48252b70041d8f966beb0140a83d8fe147663ecae5340feb91f498839b0e",
+    "wp/plugins/imagine-site/Contact.php": "43d7b03da1d0b3a7fbccf63db8abf764fe3e01b91aed38238974427bc3cdd265",
+    "wp/plugins/imagine-site/ContactConfidentialite.php": "9c3e13ebd5b25fcc8af353f4363eedba95e38c9aac45df3c483b0a40783e43e8",
+    "wp/plugins/imagine-site/tests/ContactAdapterTest.php": "4e51a739794db46bedcb0e8900ddcdc91f6107d52f42c44d875d52305bbd7a12",
+    "wp/plugins/imagine-site/tests/ContactWPStubs.php": "340f1369a79bc89e339bfc979b1f309d1a08ed814bf8f4b0e3807324f6c985ea",
+    "wp/tests/demo/b09-horslive.php": "7b8d15b0fd6b6663f97ce39ee5228d731ed26af44e44c6ca6c9cdbf45c13a1bc",
+    "wp/tests/demo/b09-mutation-prive.php": "3e7722257c0b0c15e4ecf464498b6e5a21f42d5998201d2ec192e2ab9632b54f",
+    "wp/tests/demo/b09-observer.php": "162135100f71b3b3d31e0ef294c8a49e00856a20bb29daf79b051e6084068d7d",
+    "wp/tests/demo/b09-structure.php": "508b557cef66f39dce9d5155d88cd484f03f91ede5ee8fa374ac6112fa261080",
+    "wp/tests/demo/b09-verifier-tests.py": "4ab3d92071f8ecd5023ef01c9199eb8bcc06ebe8e321e93f8662db0229191caa",
+    "wp/themes/imagine/footer.php": "33c8f45ac3c8b199b84b2f83c2fddcccbb401ab18faa57d683ed81e2fea8cbc9"
+  },
+  "mutations": [
+    {
+      "mutation": "slash",
+      "exit": 1,
+      "detected": true,
+      "junit": {
+        "name": "/tmp/t01/plugins/imagine-site/phpunit.xml",
+        "tests": "7",
+        "assertions": "194",
+        "errors": "0",
+        "failures": "1",
+        "skipped": "0",
+        "time": "0.022150"
+      },
+      "log": "corrections-mutations-slash.log",
+      "sha256": "be1b8dc561fb3c8d2b5fd33a8a43142c53272e13bf40752092318e7fa4f85422"
+    },
+    {
+      "mutation": "consentement",
+      "exit": 1,
+      "detected": true,
+      "junit": {
+        "name": "/tmp/t01/plugins/imagine-site/phpunit.xml",
+        "tests": "7",
+        "assertions": "187",
+        "errors": "0",
+        "failures": "1",
+        "skipped": "0",
+        "time": "0.020607"
+      },
+      "log": "corrections-mutations-consentement.log",
+      "sha256": "41366107bffde9c87d1aafcc76594a3e3f3f9eafbe55d3529115193addd3f7e8"
+    },
+    {
+      "mutation": "mail",
+      "exit": 1,
+      "detected": true,
+      "junit": {
+        "name": "/tmp/t01/plugins/imagine-site/phpunit.xml",
+        "tests": "7",
+        "assertions": "196",
+        "errors": "0",
+        "failures": "2",
+        "skipped": "0",
+        "time": "0.025283"
+      },
+      "log": "corrections-mutations-mail.log",
+      "sha256": "9340131b9695bf3e6d949c5a2f49cd305a4217d11ecfec89dd7fd67425c8d6b7"
+    },
+    {
+      "mutation": "http",
+      "exit": 1,
+      "detected": true,
+      "junit": {
+        "name": "/tmp/t01/plugins/imagine-site/phpunit.xml",
+        "tests": "7",
+        "assertions": "196",
+        "errors": "0",
+        "failures": "2",
+        "skipped": "0",
+        "time": "0.024471"
+      },
+      "log": "corrections-mutations-http.log",
+      "sha256": "afb41b0f413510ae55b35abe98970783286833f1f1ce2e906460dfb4663de80e"
+    },
+    {
+      "mutation": "prive",
+      "exit": 1,
+      "detected": true,
+      "junit": {
+        "name": "/tmp/t01/plugins/imagine-site/phpunit.xml",
+        "tests": "7",
+        "assertions": "192",
+        "errors": "0",
+        "failures": "1",
+        "skipped": "0",
+        "time": "0.021288"
+      },
+      "log": "corrections-mutations-prive.log",
+      "sha256": "8a68e5fe0d49174e9dfea467d73e19f5975dde85149473ea968e9ad57087ec31"
+    },
+    {
+      "mutation": "rest",
+      "exit": 1,
+      "detected": true,
+      "junit": {
+        "name": "/tmp/t01/plugins/imagine-site/phpunit.xml",
+        "tests": "7",
+        "assertions": "186",
+        "errors": "0",
+        "failures": "2",
+        "skipped": "0",
+        "time": "0.023517"
+      },
+      "log": "corrections-mutations-rest.log",
+      "sha256": "055469ce77690325bb92c84f9a2e488f5857e03f194b9ea910c6ea02d4cf1457"
+    },
+    {
+      "mutation": "export",
+      "exit": 1,
+      "detected": true,
+      "junit": {
+        "name": "/tmp/t01/plugins/imagine-site/phpunit.xml",
+        "tests": "7",
+        "assertions": "183",
+        "errors": "0",
+        "failures": "3",
+        "skipped": "0",
+        "time": "0.024937"
+      },
+      "log": "corrections-mutations-export.log",
+      "sha256": "3ee4a5a5d7f0526d157c951f6411a7075fbffda815dfc1bc37758144bc37bf09"
+    },
+    {
+      "mutation": "effacement",
+      "exit": 1,
+      "detected": true,
+      "junit": {
+        "name": "/tmp/t01/plugins/imagine-site/phpunit.xml",
+        "tests": "7",
+        "assertions": "188",
+        "errors": "0",
+        "failures": "2",
+        "skipped": "0",
+        "time": "0.023180"
+      },
+      "log": "corrections-mutations-effacement.log",
+      "sha256": "491410b8c1abf0a3d5515581dd6a59afaa09ba0ec8b466708d43321e799f57a2"
+    },
+    {
+      "mutation": "lecture",
+      "exit": 1,
+      "detected": true,
+      "junit": {
+        "name": "/tmp/t01/plugins/imagine-site/phpunit.xml",
+        "tests": "7",
+        "assertions": "197",
+        "errors": "0",
+        "failures": "1",
+        "skipped": "0",
+        "time": "0.022661"
+      },
+      "log": "corrections-mutations-lecture.log",
+      "sha256": "441de49077087cfe3f594969082eb25f4a1dd7bb9cd07858f25be3e6c46224c5"
+    },
+    {
+      "mutation": "nonce",
+      "exit": 1,
+      "detected": true,
+      "junit": {
+        "name": "/tmp/t01/plugins/imagine-site/phpunit.xml",
+        "tests": "7",
+        "assertions": "197",
+        "errors": "0",
+        "failures": "1",
+        "skipped": "0",
+        "time": "0.021088"
+      },
+      "log": "corrections-mutations-nonce.log",
+      "sha256": "681bf21ffea962075739613a79e28adce2ba723281a2c4933cb1c4f1aa64b6fc"
+    },
+    {
+      "mutation": "admin",
+      "exit": 1,
+      "detected": true,
+      "junit": {
+        "name": "/tmp/t01/plugins/imagine-site/phpunit.xml",
+        "tests": "7",
+        "assertions": "184",
+        "errors": "0",
+        "failures": "1",
+        "skipped": "0",
+        "time": "0.021011"
+      },
+      "log": "corrections-mutations-admin.log",
+      "sha256": "1bc0425fa2c48972384a70b0014ee7d65726a84160b31a08b4a859cfe0cc2c51"
+    },
+    {
+      "mutation": "raccord",
+      "exit": 1,
+      "detected": true,
+      "junit": {
+        "name": "/tmp/t01/plugins/imagine-site/phpunit.xml",
+        "tests": "7",
+        "assertions": "203",
+        "errors": "0",
+        "failures": "1",
+        "skipped": "0",
+        "time": "0.020938"
+      },
+      "log": "corrections-mutations-raccord.log",
+      "sha256": "53c13811f6813b3e6e402ad897524ef802e26657984aeaf13b8db59ab3c48492"
+    }
+  ],
+  "count": 12,
+  "detected": 12
+}

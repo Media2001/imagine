@@ -136,6 +136,12 @@ def run_storage(storage):
         target = OUT / (storage + '-unverified')
         q, _ = tour(site, audit / 'audit.json', mapping, target)
         d = json.loads((target / 'bilan.json').read_text())
+        negative = {'marker_exists': (site / '.imagine-staging-verified.json').exists(),
+                    'declared_environment': 'production', 'exit_code': q.returncode,
+                    'commands': [m.command(e, site, audit / 'audit.json', mapping, Path(r['rapport'])) for e, r in zip(m.entries(), d['outils'])],
+                    'rows': d['outils'], 'database_before': unverified_before, 'database_after': b.fingerprint(db),
+                    'files_before': unverified_files, 'files_after': b.files(site)}
+        (OUT / (storage + '-unverified-proof.json')).write_text(json.dumps(negative, indent=2) + '\n')
         check(storage + ':every_tool_checks_site', q.returncode == 1 and len(d['outils']) == len(m.entries())
               and all(r['statut'] != 'réussi' for r in d['outils'])
               and unverified_before == b.fingerprint(db) and unverified_files == b.files(site), d['outils'])
