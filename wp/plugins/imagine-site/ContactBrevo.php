@@ -39,17 +39,17 @@ final class ContactBrevo
         add_action(
             'admin_init',
             static function (): void {
-            if (($_GET['page'] ?? null) === self::PAGE) {
-                self::verifier();
-            }
+                if (($_GET['page'] ?? null) === self::PAGE) {
+                    self::verifier();
+                }
             }
         );
         add_filter(
             'woocommerce_prevent_admin_access',
             static function (bool $prevent): bool {
-            global $pagenow;
-            return $pagenow === 'admin.php' && ($_GET['page'] ?? null) === self::PAGE
-                && TableauBordAdmin::autorise() ? false : $prevent;
+                global $pagenow;
+                return $pagenow === 'admin.php' && ($_GET['page'] ?? null) === self::PAGE
+                    && TableauBordAdmin::autorise() ? false : $prevent;
             }
         );
     }
@@ -189,11 +189,11 @@ final class ContactBrevo
         for ($page = 1; ; $page++) {
             $rows = wcs_get_subscriptions(
                 [
-                'subscriptions_per_page' => 100,
-                'paged' => $page,
-                'subscription_status' => 'any',
-                'orderby' => 'ID',
-                'order' => 'ASC',
+                    'subscriptions_per_page' => 100,
+                    'paged' => $page,
+                    'subscription_status' => 'any',
+                    'orderby' => 'ID',
+                    'order' => 'ASC',
                 ]
             );
             if (!is_array($rows)) {
@@ -237,13 +237,16 @@ final class ContactBrevo
         $coop = get_user_meta($id, Cooperateurs::META, true);
         return ContactBrevoRegles::fiche(
             [
-            'existe' => (bool)$user, 'email_recevable' => $user && Newsletters::admissible($id),
-            'email' => $user ? $user->user_email : '', 'catalogue' => array_column(Newsletters::catalogue(), 'id'),
-            'preferences' => Newsletters::preferences($id), 'abonnements' => $contexte['abonnements'][$id] ?? [],
-            'beneficiaire' => isset($contexte['beneficiaires'][$id]),
-            'cooperateur' => is_array($coop) && ($coop['cooperateur'] ?? false) === true,
-            'tarifs_autorises' => array_values($contexte['tarifs']),
-            'personnalisation' => Personnalisation::attributsConnecteur($id),
+                'existe' => (bool)$user,
+                'email_recevable' => $user && Newsletters::admissible($id),
+                'email' => $user ? $user->user_email : '',
+                'catalogue' => array_column(Newsletters::catalogue(), 'id'),
+                'preferences' => Newsletters::preferences($id),
+                'abonnements' => $contexte['abonnements'][$id] ?? [],
+                'beneficiaire' => isset($contexte['beneficiaires'][$id]),
+                'cooperateur' => is_array($coop) && ($coop['cooperateur'] ?? false) === true,
+                'tarifs_autorises' => array_values($contexte['tarifs']),
+                'personnalisation' => Personnalisation::attributsConnecteur($id),
             ]
         );
     }

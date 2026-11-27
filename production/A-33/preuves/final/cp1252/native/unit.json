@@ -1,0 +1,98 @@
+{
+    "suite": "A33-pure",
+    "checks": [
+        {
+            "check": "analysis_exists",
+            "status": "PASS"
+        },
+        {
+            "check": "editorial_policy_exists",
+            "status": "PASS"
+        },
+        {
+            "check": "no_commerce_mapping_shop_order",
+            "status": "PASS"
+        },
+        {
+            "check": "no_commerce_mapping_shop_order_refund",
+            "status": "PASS"
+        },
+        {
+            "check": "no_commerce_mapping_shop_subscription",
+            "status": "PASS"
+        },
+        {
+            "check": "no_commerce_mapping_shop_coupon",
+            "status": "PASS"
+        },
+        {
+            "check": "no_commerce_mapping_wc_user_membership",
+            "status": "PASS"
+        },
+        {
+            "check": "empty_is_exact_zero",
+            "status": "PASS"
+        },
+        {
+            "check": "known_stat_sizes_exact",
+            "status": "PASS"
+        },
+        {
+            "check": "missing_separate_0",
+            "status": "PASS"
+        },
+        {
+            "check": "missing_never_zero_0",
+            "status": "PASS"
+        },
+        {
+            "check": "missing_separate_1",
+            "status": "PASS"
+        },
+        {
+            "check": "missing_never_zero_1",
+            "status": "PASS"
+        },
+        {
+            "check": "closed_type_numero",
+            "status": "PASS"
+        },
+        {
+            "check": "closed_type_article",
+            "status": "PASS"
+        },
+        {
+            "check": "closed_type_post",
+            "status": "PASS"
+        },
+        {
+            "check": "closed_type_page",
+            "status": "PASS"
+        },
+        {
+            "check": "closed_type_product",
+            "status": "PASS"
+        },
+        {
+            "check": "closed_type_product_variation",
+            "status": "PASS"
+        },
+        {
+            "check": "closed_type_autre",
+            "status": "PASS"
+        },
+        {
+            "check": "utc_year_0",
+            "status": "PASS"
+        },
+        {
+            "check": "utc_year_1",
+            "status": "PASS"
+        },
+        {
+            "check": "utc_year_2",
+            "status": "PASS"
+        }
+    ],
+    "exit_code": 0
+}

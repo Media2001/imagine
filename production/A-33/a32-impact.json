@@ -1,0 +1,14 @@
+{
+  "added": [
+    "wp/outils/bascule/a33/Analysis.php",
+    "wp/outils/bascule/a33/Command.php",
+    "wp/outils/bascule/a33/Inventory.php",
+    "wp/outils/bascule/a33/confine.py",
+    "wp/outils/bascule/a33/correspondance.exemple.json",
+    "wp/outils/bascule/a33/peser-archives",
+    "wp/outils/bascule/a33/refusals.json",
+    "wp/outils/bascule/a33/report.py"
+  ],
+  "removed": [],
+  "changed": []
+}

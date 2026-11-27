@@ -17,11 +17,11 @@ def load(name):return json.loads((OUT/name).read_text(encoding='utf-8'))
 def digest(path):return hashlib.sha256(path.read_bytes()).hexdigest()
 def section():return (ROOT/'wp/plugins/imagine-site/README.md').read_text(encoding='utf-8').split('## C-29 — la fiche du contact pour Brevo, sans Brevo\n',1)[1].split('## B-12 — aucun appel sortant depuis le corps',1)[0]
 
-def native_receipt(r):
+def native_receipt(r, expected=51):
     assert r['business_preserved'] and r['strict_before']==r['strict_after'], 'NATIVE_RESTORATION'
     n=r['native'];assert n['code']==0 and not n['stderr'], 'NATIVE_EXECUTION'
     d=json.loads(n['stdout'])
-    assert d['total']==len(d['checks'])==51 and all(d['checks'].values()), 'NATIVE_CHECKS'
+    assert d['total']==len(d['checks'])==expected and all(d['checks'].values()), 'NATIVE_CHECKS'
     assert len(d['profils'])==27 and sum(k.startswith('profil_') for k in d['checks'])==27, 'PROFILES'
     assert d['writes']==[] and d['outgoing']==[], 'NATIVE_ZERO'
     assert d['mutation']['positive'] and d['mutation']['negative']==[] and d['mutation']['leak_mutant'], 'CONSENT_WITNESS'
@@ -37,7 +37,7 @@ def http_receipt(r):
     assert all(e['blocked_before_transport'] and e['url'].startswith('https://secure.gravatar.com/') for e in r['external_browser']), 'BROWSER_NETWORK'
     return r
 
-def verify(live=False,manifest=None,require_pret=True):
+def historical_verify(live=False,manifest=None,require_pret=True):
     m=manifest or load('reception-contrat-V2.json')
     assert m['scope']=='imagine-test-demo' and m['ready'] is True
     contract.integrity('C29',m,OUT)
