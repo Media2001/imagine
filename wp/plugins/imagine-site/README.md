@@ -555,6 +555,13 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/rejouer.ps1
 
 Les deux premières commandes vérifient le paquet et, avec `--live`, relisent seulement le site fictif. PHPUnit C28 inclut les doubles persistés de `candidat`/`payer`/`instantanes` et des gardes panier ; les cinq canaris de source rouges puis verts sont rejouables hors réseau dans une copie jetable. Le banc natif prouve aussi la panne **après** paiement persisté, le rechargement, l'édition du pack et la sauvegarde tardive fermée/signalée. La recette navigateur est temporairement mutante : formulaire produit natif, panier réel, paiement/remboursements natifs **sans passerelle ni transfert**, GET articles/PDF et compte pour acheteur/tiers/anonyme ; ajout du quatrième et retrait du premier sans changer le passé. Les 32 témoins C26 sont réutilisés sans changer sa matrice. Snapshot privé avant la recette, retour relu des profils, commandes, réglages, sessions et actions métier ; aucune réinitialisation C09. Fixture laissée : seul produit pack fictif, liste de trois numéros et option de déclaration, pas de nouvel achat permanent. Preuves, commandes exactes et limites : `production/C-28/{NOTE.md,A-VOIR.md,reception-corrections.json}` ; `reception.json` est historique. PRET signifie prêt à relire, ni clôture, ni validation visuelle, ni GO sur le réel.
 
+## B-12 — aucun appel sortant depuis le corps
+WordPress traite URL seule, bloc `core/embed` et `[embed]` via `WP_Embed` ; un handler natif prioritaire rend les seules URL externes en liens, avant tout cache/lecteur.
+L'affichage et le cache post-enregistrement (`cache_oembed`, AJAX natif) sont verrouillés ; `pre_oembed_result` couvre la résolution directe, `pre_render_block` les anciens HTML embarqués.
+L'aperçu `/oembed/1.0/proxy` appelle `get_data()` : `rest_dispatch_request`, après permissions et avant son cache, rend un lien sans cadre/script/vignette ; réglages B11 sans effet sur ce verrou.
+Interne délégué sans changement, corps jamais réécrit, aucun réglage nouveau ; sources natives officielles et levée future en trois lignes dans `production/B-12/NOTE.md`.
+Tests : `python -B wp/tests/demo/b12-verifier.py` (`--live` = lecture seule) ; rejeu PHPUnit standard, matrice native et mutation B00 : `production/B-12/A-VOIR.md`.
+
 
 
 

@@ -1,0 +1,33 @@
+{
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "native": {
+    "code": 0,
+    "stdout": "{\"mutant\":false,\"checks\":{\"fixture_fictive_existante\":true,\"article_0_cree\":true,\"corps_0_exact_save\":true,\"route_0_executee\":true,\"apercu_0_lien\":true,\"rendu_0_lien\":true,\"corps_0_exact_apres\":true,\"article_1_cree\":true,\"corps_1_exact_save\":true,\"route_1_executee\":true,\"apercu_1_lien\":true,\"rendu_1_lien\":true,\"corps_1_exact_apres\":true,\"zero_tentative_save_render_preview\":true,\"matrix_corps_exact_0_0\":true,\"matrix_rendu_lien_0_0\":true,\"matrix_apercu_lien_0_0\":true,\"matrix_corps_exact_0_1\":true,\"matrix_rendu_lien_0_1\":true,\"matrix_apercu_lien_0_1\":true,\"shortcode_0_350c0a5d5941f88c32e9c001a4ccc307\":true,\"direct_0_350c0a5d5941f88c32e9c001a4ccc307\":true,\"shortcode_0_2f44941987fe08d8f628aa41e036104c\":true,\"direct_0_2f44941987fe08d8f628aa41e036104c\":true,\"shortcode_0_30c146dacd658f0ac1251515a9dd593a\":true,\"direct_0_30c146dacd658f0ac1251515a9dd593a\":true,\"shortcode_0_bf576aa869eb0718e3521fdb41df0ad8\":true,\"direct_0_bf576aa869eb0718e3521fdb41df0ad8\":true,\"matrix_corps_exact_1_0\":true,\"matrix_rendu_lien_1_0\":true,\"matrix_apercu_lien_1_0\":true,\"matrix_corps_exact_1_1\":true,\"matrix_rendu_lien_1_1\":true,\"matrix_apercu_lien_1_1\":true,\"shortcode_1_350c0a5d5941f88c32e9c001a4ccc307\":true,\"direct_1_350c0a5d5941f88c32e9c001a4ccc307\":true,\"shortcode_1_2f44941987fe08d8f628aa41e036104c\":true,\"direct_1_2f44941987fe08d8f628aa41e036104c\":true,\"shortcode_1_30c146dacd658f0ac1251515a9dd593a\":true,\"direct_1_30c146dacd658f0ac1251515a9dd593a\":true,\"shortcode_1_bf576aa869eb0718e3521fdb41df0ad8\":true,\"direct_1_bf576aa869eb0718e3521fdb41df0ad8\":true,\"cache_ancien_ne_sort_pas\":true,\"bloc_enregistre_ancien_ne_sort_pas\":true,\"proxy_cache_ancien_ne_sort_pas\":true,\"interne_handler_delegue\":true,\"interne_resolution_identique\":true,\"interne_bloc_identique\":true,\"interne_proxy_natif_identique\":true,\"lien_ordinaire_inchange\":true,\"proxy_permissions_natives_conservees\":true,\"corps_final_0_jamais_reecrit\":true,\"corps_final_1_jamais_reecrit\":true,\"zero_tentative_tous_settings\":true,\"essai_4063_retire\":true,\"essai_4064_retire\":true},\"total\":56,\"events\":[],\"transport\":0,\"ids_removed\":[4063,4064]}",
+    "stderr": ""
+  },
+  "business_preserved": true,
+  "probe_removed": true,
+  "sources": {
+    "wp/outils/demo/b12-finaliser.py": "f8b902868f7abca331f5376b0cba6cda229c39aa3d592f692b7af797d333ad96",
+    "wp/outils/demo/b12-inspect.py": "19e81d4a0825e3c38810937e1ed99cbd5622f754edf2ef06aeee64cea068886d",
+    "wp/outils/demo/b12-neighbors.py": "13480fed252c8f0103d4c65dc499c3a8871d0e2f2fdcc3309dcaf90f1206cc81",
+    "wp/outils/demo/b12-standard.py": "d81485e72eaa4047b883dbb6820eb17942a8b7be6323ccbf66f223c2edc86ca4",
+    "wp/outils/demo/b12.py": "127a1e33b7bd8a307dd46e1a9a230fc807bbeb418d5a96c10f37d0dd994ade9b",
+    "wp/plugins/imagine-site/imagine-site.php": "9530b50879a99f44284019ee481a1bd191e1b35a71a61b9a6310da7c1d7a6eb8",
+    "wp/plugins/imagine-site/IntegrationsCorps.php": "c862e6849c314e76e5c82c20695774bb2f10835c566510942a56def474567048",
+    "wp/plugins/imagine-site/tests/IntegrationsCorpsB12Stubs.php": "ff635a352975fb7f4c278f1eb56ff9ab6bacbf567f300b3564b31752c02bf229",
+    "wp/plugins/imagine-site/tests/IntegrationsCorpsB12Test.php": "14e5a8b8365ddf7e0dcae0c3c4d631401befc938ceb96be1fda03a1ff4b9e77f",
+    "wp/tests/demo/b12-proof-tests.py": "67aacb987be429eabe1c5c35ee6f8c9182720940ac74c9685d283e7f84ab67cd",
+    "wp/tests/demo/b12-runtime.php": "c548afd7e9d6372acc179e8c5cb2abf739bbf4eddffa61c94ea183f50a626dde",
+    "wp/tests/demo/b12-verifier.py": "81ba656b25b74453214143d075e31efdb78932916c23d9723073caf164e77b2e"
+  }
+}

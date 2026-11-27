@@ -134,6 +134,16 @@ if ($mutant) {
         return wp_json_encode($data);
     };
     $check('interne_proxy_natif_identique', !empty($with) && $normalize($with) === $normalize($without));
+    $ordinary = '<p><a href="' . esc_url($url) . '">Lien ordinaire fictif</a></p>';
+    $check('lien_ordinaire_inchange', str_contains(apply_filters('the_content', $ordinary), $ordinary));
+    wp_set_current_user(0);
+    $anonymous = new WP_REST_Request('GET', '/oembed/1.0/proxy');
+    $anonymous->set_param('url', $url);
+    $check('proxy_permissions_natives_conservees', in_array(rest_do_request($anonymous)->get_status(), [401, 403], true));
+    wp_set_current_user($editor->ID);
+    foreach ($ids as $i => $id) {
+        $check('corps_final_' . $i . '_jamais_reecrit', get_post($id)->post_content === $body[$i]);
+    }
     $check('zero_tentative_tous_settings', $events === [] && $transport === 0);
 }
 foreach ($ids as $id) {

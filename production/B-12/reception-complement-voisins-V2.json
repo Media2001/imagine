@@ -1,0 +1,23 @@
+{
+  "scope": "imagine-test-demo",
+  "status": "PASS",
+  "bootstrap_current": "9530b50879a99f44284019ee481a1bd191e1b35a71a61b9a6310da7c1d7a6eb8",
+  "bootstrap_without_only_B12": "084a83833c81f81fff8da28395e93bd1c7216a0506109d9b1a0c862a6ae1aaa4",
+  "excluded_exact_block": "// B12 — aucune résolution externe du corps sans consentement.\nrequire_once __DIR__ . '/IntegrationsCorps.php';\nIntegrationsCorps::register();\n\n",
+  "all_other_component_bytes_exact": true,
+  "historical_receipts_unchanged": {
+    "production/B-11/reception-politique1330-V2.json": "ae0ae99ce4a9c53f573fa77d390d7ae93faa3ab269879580a95b5c93f0c0ce4a",
+    "production/C-28/reception-corrections.json": "49bf954f01eb8cf6226b90144cf38945d65463a750de057b8a8ea6c7eb5f96ea",
+    "production/C-27/correction-final-V2.json": "2d775ec72978c78a5bec8770b2aa9d87a4af64121aa31f5b5d2c3612e063405b"
+  },
+  "checks": {
+    "C27": 628,
+    "B11_offline": 32,
+    "B11_live": 35,
+    "C28_offline": 31,
+    "C28_live": 37
+  },
+  "business_preserved": true,
+  "UI_save_verified": false,
+  "log": "reception-complement-voisins-V2.log"
+}

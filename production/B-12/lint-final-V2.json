@@ -1,0 +1,12 @@
+{
+  "files": [
+    "wp/plugins/imagine-site/IntegrationsCorps.php",
+    "wp/plugins/imagine-site/imagine-site.php",
+    "wp/plugins/imagine-site/tests/IntegrationsCorpsB12Test.php",
+    "wp/plugins/imagine-site/tests/IntegrationsCorpsB12Stubs.php",
+    "wp/tests/demo/b12-runtime.php"
+  ],
+  "exit": 0,
+  "stdout": "No syntax errors detected in /repo/wp/plugins/imagine-site/IntegrationsCorps.php\nNo syntax errors detected in /repo/wp/plugins/imagine-site/imagine-site.php\nNo syntax errors detected in /repo/wp/plugins/imagine-site/tests/IntegrationsCorpsB12Test.php\nNo syntax errors detected in /repo/wp/plugins/imagine-site/tests/IntegrationsCorpsB12Stubs.php\nNo syntax errors detected in /repo/wp/tests/demo/b12-runtime.php\n",
+  "stderr": ""
+}
