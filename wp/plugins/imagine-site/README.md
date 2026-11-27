@@ -368,6 +368,27 @@ python -B wp/outils/demo/c24-mutations.py nouvelles-gardes-V2
 
 `c24.py rules` utilise seulement le conteneur local hors réseau ; les autres recettes de ce second bloc accèdent à la démonstration. Le parcours HTTP rend la vraie page C10 et vérifie la section entre ouverture/fermeture de son formulaire ; sa mutation témoin retire uniquement l'injection C24 de la requête d'essai. Les scripts historiques de récupération ne font pas partie du rejeu. Questions rangées : localité fermée par défaut, inscription par défaut exclue de la transmission, emplacement visuel à valider par Ced. Preuves courantes et limites : `production/C-24/{A-VOIR.md,TRANSMISSION.md,manifest-fusion2050-V2.json}`. PRET technique ne vaut ni clôture, ni validation visuelle, ni GO sur le réel.
 
+## B-06 — espace coopérateurs
+
+`CooperateursRegles` porte les règles pures ; `Cooperateurs` protège côté serveur les cinq pages de l’espace et leurs sorties REST/recherche/flux. Le lien public de B-08 ne donne aucun droit. Le statut privé `imagine_cooperateur` ne remplace ni un abonnement, ni un achat de numéro. Deux réglages de rôles, `imagine_cooperateurs_roles_attribut` et `imagine_cooperateurs_roles_lecture`, ont le défaut **Administrateur seul**. Les changements sont journalisés ; un journal illisible rend les outils de confidentialité incomplets. Les callbacks natifs exportent/effacent les seules données du titulaire, sans modifier les tiers.
+
+Rejeu local : `powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/rejouer.ps1` ; parcours et commandes natives ciblées dans `production/B-06/A-VOIR.md`. Aucun raccord CoopHub ni paiement.
+
+## B-07 — agenda
+
+`AgendaRegles` porte la validation pure ; `Agenda` raccorde les événements `imagine_evenement`, l’archive `/evenements/`, les fiches et les inscriptions locales privées `imagine_inscription`. Métadonnées éditoriales : `imagine_type`, `imagine_date`, `imagine_heure`, `imagine_lieu`, `imagine_url_partenaire`. Les événements partenaires renvoient au site extérieur avec la relation commerciale ; aucun billet ni paiement n’est livré. Rien ne part par email ou HTTP. Les callbacks `AgendaConfidentialite::exporter/effacer`, enregistrés sous `imagine-agenda` dans les outils natifs C-21/WordPress, travaillent par adresse ; une lecture en erreur ne devient pas un export vide réussi.
+
+Tests de l’adaptateur inclus dans la suite racine : `powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/rejouer.ps1`. Recette fictive et limites : `production/B-07/A-VOIR.md`.
+
+## B-08 — Soutenir et Notre coopérative
+
+Pages et menu WordPress natifs, sept sous-pages éditoriales vides et formulaire discret hors menu. Réglages natifs **Réglages → Soutenir**, option `imagine_soutenir[don]` fermée par défaut et `imagine_soutenir[parts_url]` vide par défaut. Une adresse de parts n’accepte que **HTTPS**, sans identifiants ; elle produit un lien `rel="sponsored"`, pas une intégration CoopHub. Le don ouvert reste un emplacement **sans paiement**.
+
+Les propositions restent dans le type privé `imagine_sujet` (`wp_posts`), corps vide et métadonnées `imagine_sujet_nom/email/texte/consentement/date` (`wp_postmeta`). Aucun email, appel, rapprochement de compte ou inscription newsletter. `Sujet::enregistrer()` échappe à la frontière `wp_insert_post` avec `wp_slash($meta)` et compare les valeurs normalisées après lecture : les antislashs restent identiques au formulaire, au détail admin et à l’export. `SujetConfidentialite::exporter/effacer` sont les callbacks natifs `imagine-sujets`, additifs à C-21, paginés et recherchés par adresse (avec ou sans compte), tiers préservés.
+
+Le seed de démonstration marque le menu dès le hook de création natif, puis chaque item dès son insertion ; le rejeu récupère aussi un item interrompu avant son rattachement, mais refuse un menu/item étranger. Une cible absente donne une URL custom vide, jamais un repli silencieux vers une autre page. Rejeu local, sans site : `python -B wp/outils/demo/b08-local.py LABEL_NEUF`. Suite partagée : `powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/rejouer.ps1`. Recettes HTTP et seed exclusivement sur `imagine-test-demo`, commandes et preuves corrigées dans `production/B-08/{NOTE.md,A-VOIR.md}` ; contrôle du paquet sans réseau ni argument : `python -B production/B-08/verifier.py`.
+
+
 ## C-25 — rétractation, demande seule
 
 Dans Mon compte, une commande admissible (ou la commande initiale de son abonnement, titulaires vérifiés) propose **Me rétracter**. Étape 1 : référence, délai UTC et motif libre facultatif, sans écriture. Étape 2 : confirmation explicite avec nonce lié à la cible et au motif. Une note WooCommerce **privée**, sa métadonnée et un événement du journal partagé C10 sont persistés ; l’accusé daté se retrouve ensuite. Rejeu : le premier accusé, pas une deuxième demande. Aucun remboursement, annulation, accès fermé, email ou transport extérieur. Un motif avec antislash est adapté à l’API WP par `wp_slash($record)` ; l’original sert à la comparaison stricte après lecture et sort à l’export natif C21 sans perte.

@@ -67,7 +67,9 @@ def run(label):
         checks['consentement_decocher_formulaire_public'] = 'type="checkbox"' in node and 'checked' not in node
         nonce = unescape(re.search(r'name="_b08" value="([^"]+)"', node).group(1))
         known = b08.wp('echo wp_json_encode(get_userdata(28)->user_email);')
-        payload = {'action': 'imagine_sujet', '_b08': nonce, 'nom': 'Personnage fictif B08', 'email': known, 'sujet': 'B08_SUJET_PRIVE_TEMOIN_2026'}
+        subject = 'B08_SUJET_PRIVE_TEMOIN_2026 C:\\dossier\\fichier\nDeuxième ligne \\ et apostrophe\'s'
+        name = 'Personnage fictif B08 \\ rédaction'
+        payload = {'action': 'imagine_sujet', '_b08': nonce, 'nom': name, 'email': known, 'sujet': subject}
         _, reply1, url1 = http('/wp-admin/admin-post.php', payload)
         payload2 = {**payload, 'email': 'b08-inconnu@example.org', 'sujet': 'B08_TIERS_PRIVE_TEMOIN_2026', 'consentement': '1'}
         _, reply2, url2 = http('/wp-admin/admin-post.php', payload2)
@@ -79,11 +81,16 @@ def run(label):
         _, admin, _ = http('/wp-admin/edit.php?post_type=imagine_sujet', admin=True)
         _, detail, _ = http('/wp-admin/post.php?post=' + str(stored['a'][0]) + '&action=edit', admin=True)
         checks['admin_liste_et_detail'] = 'Proposition de sujet' in admin and 'B08_SUJET_PRIVE_TEMOIN_2026' in detail
+        subject_node = re.search(r'<strong>Sujet</strong><br>(.*?)</p>', detail, re.S)
+        checks['antislash_detail_exact'] = subject_node is not None and unescape(re.sub(r'<[^>]+>', '', subject_node.group(1))) == subject
+        checks['antislash_nom_detail_exact'] = name in unescape(detail)
         _, settings, _ = http('/wp-admin/options-general.php?page=imagine-soutenir', admin=True)
         checks['reglages_natifs_admin'] = 'name="imagine_soutenir[parts_url]"' in settings and 'options.php' in settings
         registry = b08.wp('''$a=apply_filters('wp_privacy_personal_data_exporters',[]);$b=apply_filters('wp_privacy_personal_data_erasers',[]);echo wp_json_encode(['export'=>isset($a['imagine-sujets']),'erase'=>isset($b['imagine-sujets'])]);''')
         checks['privacy_native_enregistre'] = all(registry.values())
-        exported = b08.wp('echo wp_json_encode(Imagine\\Site\\SujetConfidentialite::exporter(' + b08.php(known) + '));')
+        exported = b08.wp('$registry=apply_filters("wp_privacy_personal_data_exporters",[]);echo wp_json_encode(call_user_func($registry["imagine-sujets"]["callback"],' + b08.php(known) + ',1));')
+        checks['antislash_export_exact'] = {field['name']: field['value'] for field in exported['data'][0]['data']}['Sujet'] == subject
+        checks['antislash_nom_export_exact'] = {field['name']: field['value'] for field in exported['data'][0]['data']}['Nom'] == name
         checks['export_compte_par_adresse_sans_tiers'] = len(exported['data']) == 1 and 'B08_SUJET_PRIVE_TEMOIN_2026' in json.dumps(exported) and 'B08_TIERS_PRIVE' not in json.dumps(exported)
         # Témoin public recherché sur les mêmes collections avant toute absence privée.
         _, collection, _ = http('/wp-json/wp/v2/pages?per_page=100')

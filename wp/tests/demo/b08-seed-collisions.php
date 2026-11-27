@@ -33,7 +33,8 @@ foreach (['menu', 'marqueur', 'item', 'reference', 'autre_menu'] as $case) {
             $other = wp_create_nav_menu('b08-etranger-fictif');
             wp_set_object_terms($id, [$other], 'nav_menu');
         }
-        $count = count(wp_get_nav_menu_items($prior['menu']));
+        $testedMenu = (int)$prior['menu'];
+        $count = count(wp_get_nav_menu_items($testedMenu));
         ob_start();
         try {
             require WP_CONTENT_DIR . '/imagine-demo-build/b08-seed.php';
@@ -43,7 +44,7 @@ foreach (['menu', 'marqueur', 'item', 'reference', 'autre_menu'] as $case) {
         } finally {
             ob_end_clean();
         }
-        $checks[$case . '_sans_creation'] = $count === count(wp_get_nav_menu_items($prior['menu']));
+        $checks[$case . '_sans_creation'] = $count === count(wp_get_nav_menu_items($testedMenu));
     } finally {
         $wpdb->query('ROLLBACK');
         wp_cache_flush();

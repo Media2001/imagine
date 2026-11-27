@@ -58,6 +58,7 @@ def run_storage(storage):
     (site / 'wp-config.php').write_text(writable, encoding='utf-8')
     try:
         seed = b.wp(site, ['eval-file', '/opt/a30/seed.php', '--use-include'])
+        (OUT / (storage + '-seed-command.log')).write_text(seed.stdout + seed.stderr, encoding='utf-8')
         match = re.search(r'^A30_PRODUCT=([0-9]+)$', seed.stdout, re.M)
         b.check(storage + ':native_seed', match is not None and not seed.stderr)
         product = int(match[1])
