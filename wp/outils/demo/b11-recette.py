@@ -109,6 +109,7 @@ def run(label):
             witness_page.close()
             admin=contexts['admin'];page=admin.new_page()
             def setting(value):
+                admin.set_extra_http_headers({'X-Imagine-B11-Observe':'settings-save'})
                 page.goto(identity['url']+'/wp-admin/admin.php?page=imagine-reglages');page.wait_for_load_state('networkidle')
                 check('section_reglages_natifs',page.locator('#imagine-medias-reglages').count()==1)
                 page.locator('[name="imagine_medias[hosts]"]').fill('video-fictive.example.invalid')
@@ -127,6 +128,7 @@ def run(label):
                 check('reglage_'+value+'_reload',page.locator('[name="imagine_medias[integration]"]').input_value()==value)
             def edit(ident,video=VIDEO,podcast=PODCAST,phase='save'):
                 # Parcours livré : aucun changement d'éditeur, de formulaire ou de nonce.
+                admin.set_extra_http_headers({'X-Imagine-B11-Observe':phase,**({'X-Imagine-B11-Mutation':'no-persist'} if phase=='mutation-no-persist' else {})})
                 editors[str(ident)]={'stage':'navigate','forced':False}
                 page.goto(identity['url']+'/wp-admin/post.php?post='+str(ident)+'&action=edit&b11_observe='+phase,wait_until='domcontentloaded');page.wait_for_timeout(4000)
                 editors[str(ident)]['stage']='inspect'
@@ -136,7 +138,7 @@ def run(label):
                     if close.count():close.first.click()
                 guide=page.locator('.components-guide')
                 if guide.count():
-                    guide.locator('button[aria-label]').filter(has_text='').first.click()
+                    guide.get_by_role('button',name='Fermer',exact=True).click(force=True,timeout=5000)
                 page.keyboard.press('Escape')
                 panels=page.get_by_role('button',name=re.compile('Boîtes méta|Meta boxes',re.I))
                 if panels.count() and panels.first.get_attribute('aria-expanded')=='false':panels.first.click()
@@ -166,7 +168,11 @@ def run(label):
                 start=len(external);seen=len(requests)
                 changed={str(i):[VIDEO+'&correction='+value+'-'+str(i),PODCAST+'?correction='+value+'-'+str(i)] for i in [fixture['issue'],fixture['article']]}
                 check('valeurs_reellement_changees_'+value,all(all(v!=old for v,old in zip(changed[k],baseline_meta[k])) for k in changed))
-                for ident in [fixture['issue'],fixture['article']]:edit(ident,*changed[str(ident)],phase='mode'+value+'-save')
+                for ident in [fixture['issue'],fixture['article']]:
+                    try:edit(ident,*changed[str(ident)],phase='mode'+value+'-save')
+                    except Exception as exc:
+                        editors.setdefault(str(ident),{})['error']=type(exc).__name__+': '+str(exc)
+                        check('editeur_livre_accessible_'+str(ident),False,fatal=False)
                 check('save_'+value+'_readback',persisted(metas(),changed) and all(editors[k]['reload_values']==v for k,v in changed.items()))
                 cleared={k:['',''] for k in changed}
                 for ident in [fixture['issue'],fixture['article']]:edit(ident,'','',phase='clear-save')
