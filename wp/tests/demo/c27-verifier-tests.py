@@ -19,7 +19,7 @@ class PacketTests(unittest.TestCase):
         self.temp=tempfile.TemporaryDirectory(prefix='c27-verifier-',dir=Path(os.environ['LOCALAPPDATA'])/'hermes/cache/scratch')
         self.addCleanup(self.temp.cleanup)
         self.root=Path(self.temp.name)
-        self.packet=copy.deepcopy(verify.load(ROOT/'production/C-27/final-V2.json'))
+        self.packet=copy.deepcopy(verify.load(ROOT/'production/C-27/correction-final-V2.json'))
         paths=set(self.packet['sources'])|set(self.packet['artifacts'])|{'wp/plugins/imagine-site/imagine-site.php','wp/plugins/imagine-site/README.md'}
         for name in paths:
             out=self.root/name;out.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(ROOT/name,out)
@@ -32,8 +32,8 @@ class PacketTests(unittest.TestCase):
         with self.assertRaisesRegex(AssertionError,pattern):verify.validate(self.root,self.packet)
     def test_reference(self):
         result=verify.validate(self.root,self.packet)
-        self.assertEqual(result['unit_tests'],7)
-        self.assertEqual(result['native_checks'],47)
+        self.assertEqual(result['unit_tests'],12)
+        self.assertEqual(result['native_checks'],56)
     def test_scope(self):
         self.packet['scope']='autre-site';self.reject('SCHEMA')
     def test_drop_check_even_resigned(self):
@@ -54,6 +54,26 @@ class PacketTests(unittest.TestCase):
         name=self.packet['receipts']['regression'];data=verify.load(self.root/'production/C-27'/name)
         data['results'][0]['packets']['failures'].append({'lot':'A-INCONNU','control':'INCONNU'})
         self.resign(name,data);self.reject('PAQUET_HORS_SCOPE_INATTENDU')
+
+    def test_I1_mutant_must_really_overwrite(self):
+        name=self.packet['receipts']['fusion'];data=verify.load(self.root/'production/C-27'/name)
+        data['evidence']['I1_mutant']['source_previous_preserved']=True
+        self.resign(name,data);self.reject('I1_MUTANT_REEL')
+
+    def test_I2_mutant_must_really_retain_source(self):
+        name=self.packet['receipts']['fusion'];data=verify.load(self.root/'production/C-27'/name)
+        data['evidence']['I2_mutant']['source_present']=False
+        self.resign(name,data);self.reject('I2_MUTANT_REEL')
+
+    def test_final_source_read_failure_must_not_claim_done(self):
+        name=self.packet['receipts']['fusion'];data=verify.load(self.root/'production/C-27'/name)
+        data['evidence']['finalfail_corrige']['result']['done']=True
+        self.resign(name,data);self.reject('I2_RELECTURE_FINALE')
+
+    def test_M1_mutant_must_really_accept_old_POST(self):
+        name=self.packet['receipts']['fusion'];data=verify.load(self.root/'production/C-27'/name)
+        data['evidence']['M1_mutant']['old_POST_wrote_source']=False
+        self.resign(name,data);self.reject('M1_MUTANT_REEL')
 
 
 if __name__=='__main__':unittest.main(verbosity=2)

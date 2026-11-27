@@ -14,7 +14,7 @@ assert hashlib.sha256(raw).hexdigest()==receipt['private_snapshot']['sha256']
 saved=json.loads(raw)['payload']['database'];current=c27.snapshot()
 exact=native.compare(saved,current);preserved={k:v for k,v in exact.items() if k!='options_metier'}
 assert all(preserved.values())
-data=c27.wp('$files=["mu-plugins/c27-observer.php","imagine-demo-build/c27-runtime.php"];$out=["configuration"=>Imagine\\Site\\Acquisition::configuration(),"answers"=>Imagine\\Site\\AcquisitionConfidentialite::lignes(),"seen"=>Imagine\\Site\\AcquisitionConfidentialite::lignes(null,true),"temporary_files"=>[]];foreach($files as $n){$out["temporary_files"][$n]=file_exists(WP_CONTENT_DIR."/".$n);}echo wp_json_encode($out);')
+data=c27.wp('$files=["mu-plugins/c27-observer.php","imagine-demo-build/c27-runtime.php","imagine-demo-build/c27-corrections-runtime.php"];$out=["configuration"=>Imagine\\Site\\Acquisition::configuration(),"answers"=>Imagine\\Site\\AcquisitionConfidentialite::lignes(),"seen"=>Imagine\\Site\\AcquisitionConfidentialite::lignes(null,true),"temporary_files"=>[]];foreach($files as $n){$out["temporary_files"][$n]=file_exists(WP_CONTENT_DIR."/".$n);}echo wp_json_encode($out);')
 assert data['answers']==data['seen']==[] and all(v is False for v in data['temporary_files'].values())
 hashes=c27.b09.b08.c25.b06.hashes(c27.NAMES)
 assert hashes=={n:hashlib.sha256((c27.ROOT/'wp'/n).read_bytes()).hexdigest() for n in c27.NAMES}
