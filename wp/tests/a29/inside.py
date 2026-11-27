@@ -86,6 +86,16 @@ def seed(site, cfg, repeats=1):
         expected = {'pending': 12 * repeats, 'failed': repeats}
         receipt = {'scope': 'native_seed_after_php_shutdown', 'counts': observed, 'expected': expected,
                    'exit_code': int(observed != expected)}
+        if observed != expected:
+            planned = {'woocommerce_scheduled_subscription_payment', 'woocommerce_scheduled_subscription_payment_retry',
+                       'woocommerce_scheduled_subscription_expiration', 'A29_UNKNOWN_ACTIVE_PRIVATE_CANARY',
+                       'A29_UNKNOWN_ORPHAN_PRIVATE_CANARY'}
+            helpers = {'action_scheduler/migration_hook': 'native_migration',
+                       'action_scheduler/ensure_recurring_actions': 'native_ensure_recurring'}
+            hooks = b.sql('a02_' + site.name,
+                          "SELECT hook FROM wp_actionscheduler_actions WHERE status='pending'").stdout.splitlines()[1:]
+            receipt['closed_extra_followups'] = [helpers.get(hook, 'unqualified_native_followup')
+                                                for hook in hooks if hook not in planned]
         (OUT / (site.name + '-seed-shutdown-' + str(repeats) + '.json')).write_text(
             json.dumps(receipt, indent=2) + '\n', encoding='utf-8')
         b.check(site.name + ':native_seed_after_shutdown_' + str(repeats), observed == expected)
