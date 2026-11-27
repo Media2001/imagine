@@ -13,6 +13,7 @@ final class PointsVente
     public const TYPE = 'imagine_vente';
     public const ACTIFS = 'imagine_vente_actifs';
     public const CONFIG = 'imagine_vente_configuration';
+    public const NETTOYAGE = 'imagine_vente_nettoyage';
 
     public static function register(): void
     {
@@ -77,6 +78,34 @@ final class PointsVente
         return PointsVenteRegles::REQUIS;
     }
 
+    private static function retenirNettoyage(array $ids): void
+    {
+        $pending = array_values(array_unique(array_merge(get_option(self::NETTOYAGE, []), $ids)));
+        update_option(self::NETTOYAGE, $pending, false);
+        if (get_option(self::NETTOYAGE) !== $pending) {
+            throw new RuntimeException('reprise_refusee');
+        }
+    }
+
+    private static function nettoyer(): bool
+    {
+        $remaining = [];
+        $active = get_option(self::ACTIFS, []);
+        foreach (get_option(self::NETTOYAGE, []) as $id) {
+            // Un arrêt avant bascule peut avoir laissé des IDs encore actifs dans la reprise.
+            if (in_array($id, $active, true) || !get_post((int) $id)) {
+                continue;
+            }
+            if (get_post_type((int) $id) !== self::TYPE || !wp_delete_post((int) $id, true)
+                || get_post((int) $id)
+            ) {
+                $remaining[] = $id;
+            }
+        }
+        update_option(self::NETTOYAGE, $remaining, false);
+        return $remaining === [] && get_option(self::NETTOYAGE) === [];
+    }
+
     public static function importer(string $csv, array $mapping, string $separateur): array
     {
         $result = PointsVenteRegles::charger($csv, $mapping, $separateur);
@@ -90,8 +119,15 @@ final class PointsVente
         $switched = false;
         try {
             $old = get_option(self::ACTIFS, []);
-            if (self::lignes() === $result['lignes']) {
-                return ['pris' => count($result['lignes']), 'refus' => $result['refus']];
+            try {
+                $identical = self::lignes() === $result['lignes'];
+            } catch (RuntimeException $e) {
+                $identical = false;
+            }
+            if ($identical) {
+                $clean = self::nettoyer();
+                return ['pris' => count($result['lignes']), 'refus' => $result['refus']]
+                    + ($clean ? [] : ['remplace' => false, 'nettoyage_complet' => false]);
             }
             foreach ($result['lignes'] as $row) {
                 $id = wp_insert_post(['post_type' => self::TYPE, 'post_status' => 'private',
@@ -106,19 +142,20 @@ final class PointsVente
                     throw new RuntimeException('stockage_refuse');
                 }
             }
+            // Persister la reprise AVANT de retirer les anciens IDs de la liste active.
+            self::retenirNettoyage($old);
             update_option(self::ACTIFS, $created, false);
             if (get_option(self::ACTIFS) !== $created) {
                 throw new RuntimeException('bascule_refusee');
             }
             $switched = true;
-            foreach ($old as $id) {
-                if (get_post_type((int) $id) !== self::TYPE || !wp_delete_post((int) $id, true)) {
-                    throw new RuntimeException('nettoyage_refuse');
-                }
-            }
-            return ['pris' => count($created), 'refus' => $result['refus']];
+            $clean = self::nettoyer();
+            return ['pris' => count($created), 'refus' => $result['refus']]
+                + ($clean ? [] : ['remplace' => true, 'nettoyage_complet' => false]);
         } finally {
             if (!$switched) {
+                // Une suppression de préparation peut elle aussi échouer : conserver sa reprise.
+                self::retenirNettoyage($created);
                 foreach ($created as $id) {
                     wp_delete_post($id, true);
                 }
@@ -155,6 +192,18 @@ final class PointsVente
                 . '"><p>' . esc_html__('Carte non raccordée — aucun fournisseur choisi.', 'imagine-site') . '</p></div>';
         }
         return $html;
+    }
+
+    public static function libelleRefus(string $code): string
+    {
+        return match ($code) {
+            'nombre_colonnes' => __('Nombre de colonnes incorrect.', 'imagine-site'),
+            'champ_requis' => __('Champ obligatoire manquant.', 'imagine-site'),
+            'syntaxe_csv' => __('Syntaxe CSV incorrecte.', 'imagine-site'),
+            'doublon' => __('Ligne en double.', 'imagine-site'),
+            'champ_invalide' => __('Champ invalide.', 'imagine-site'),
+            default => __('Ligne refusée.', 'imagine-site'),
+        };
     }
 
     public static function administration(): void
@@ -202,7 +251,7 @@ final class PointsVente
                     $result = self::importer($csv, $config['mapping'], $config['separateur']);
                     echo '<p role="status">' . esc_html(sprintf(__('%1$d lignes prises ; %2$d refusées.', 'imagine-site'), $result['pris'], count($result['refus']))) . '</p><ul>';
                     foreach ($result['refus'] as $refusal) {
-                        echo '<li>' . esc_html(sprintf(__('Ligne %1$d : %2$s', 'imagine-site'), $refusal['ligne'], $refusal['motif'])) . '</li>';
+                        echo '<li>' . esc_html(sprintf(__('Ligne %1$d : %2$s', 'imagine-site'), $refusal['ligne'], self::libelleRefus($refusal['motif']))) . '</li>';
                     }
                     echo '</ul>';
                 } else {

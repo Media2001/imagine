@@ -15,6 +15,23 @@ final class PointsVenteRegles
     public static function cle(string $value): string
     {
         $value = mb_strtolower(trim($value), 'UTF-8');
+        // intl donne la décomposition Unicode complète ; le repli latin est borné et documenté.
+        if (class_exists(\Normalizer::class)) {
+            $value = \Normalizer::normalize($value, \Normalizer::FORM_D);
+        }
+        $value = strtr($value, ['œ' => 'oe', 'æ' => 'ae']);
+        foreach ([
+            'a' => 'ǎǟǡǻȁȃạảấầẩẫậắằẳẵặ', 'c' => 'ĉċḉ',
+            'd' => 'ḋḍḏḑḓ', 'e' => 'ȅȇẹẻẽếềểễệ', 'g' => 'ĝğġģǧǵḡ',
+            'h' => 'ĥȟḣḥḧḩḫ', 'i' => 'ǐȉȋịỉ', 'j' => 'ĵǰ', 'k' => 'ķǩḱḳḵ',
+            'l' => 'ĺļľḷḹḻḽ', 'm' => 'ḿṁṃ', 'n' => 'ņǹṅṇṉṋ',
+            'o' => 'ǒǫǭǿȍȏȫȭȯȱọỏốồổỗộớờởỡợơ', 'p' => 'ṕṗ',
+            'r' => 'ŗȑȓṙṛṝṟ', 's' => 'ŝșṡṣṥṧṩ', 't' => 'ţțṫṭṯṱ',
+            'u' => 'ǔǖǘǚǜȕȗụủứừửữựư', 'v' => 'ṽṿ', 'w' => 'ŵẁẃẅẇẉ',
+            'x' => 'ẋẍ', 'y' => 'ŷȳẏỳỵỷỹ', 'z' => 'ẑẓẕ',
+        ] as $plain => $letters) {
+            $value = strtr($value, array_fill_keys(preg_split('//u', $letters, -1, PREG_SPLIT_NO_EMPTY), $plain));
+        }
         $value = strtr($value, array_combine(
             preg_split('//u', 'àáâãäåāăąçćčďđèéêëēĕėęěìíîïĩīĭįıñńňòóôõöøōŏőŕřśşšťùúûüũūŭůűųýÿžźż', -1, PREG_SPLIT_NO_EMPTY),
             str_split('aaaaaaaaacccddeeeeeeeeeiiiiiiiiinnnooooooooorrssstuuuuuuuuuuyyzzz')
