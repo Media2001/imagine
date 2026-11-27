@@ -159,6 +159,11 @@ AcquisitionReglages::register();
 AcquisitionConfidentialite::register();
 AcquisitionAdmin::register();
 
+// B10 — points de vente locaux, sans fournisseur de carte.
+require_once __DIR__ . '/PointsVenteRegles.php';
+require_once __DIR__ . '/PointsVente.php';
+PointsVente::register();
+
 add_action('init', static function (): void {
     foreach ([
         'imagine_numero' => [__('Numéros fictifs', 'imagine-site'), 'numeros'],

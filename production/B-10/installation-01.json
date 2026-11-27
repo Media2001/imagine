@@ -1,0 +1,8 @@
+{
+  "readback": {
+    "plugins/imagine-site/PointsVenteRegles.php": "ddcfb85edf62cf75268c64eb6a8323a414300266ff6763be9ce42646e28003f8",
+    "plugins/imagine-site/PointsVente.php": "35ebe33ba77eee79ad5bb64832d2365c61b2c2c552c3313e02af51f3dc2d9547",
+    "plugins/imagine-site/imagine-site.php": "d8b1e561df06230fbbb2f5fcf520215c5532feaea8d934c23676008fe49667d9"
+  },
+  "business_preserved": true
+}

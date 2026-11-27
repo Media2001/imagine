@@ -14,8 +14,8 @@ final class PointsVenteReglesTest extends TestCase
     public function testRechercheExacteEtTri(): void
     {
         $rows = [
-            ['nom' => 'Z fictif', 'localite' => 'Zéphyr-Fictif', 'postal' => '00002'],
-            ['nom' => 'A fictif', 'localite' => 'Étoile-Fictive', 'postal' => '00001'],
+            ['nom' => 'Z fictif', 'adresse' => '2 rue fictive', 'localite' => 'Zéphyr-Fictif', 'postal' => '00002'],
+            ['nom' => 'A fictif', 'adresse' => '1 rue fictive', 'localite' => 'Étoile-Fictive', 'postal' => '00001'],
         ];
         self::assertSame([$rows[1]], PointsVenteRegles::rechercher($rows, 'ETOILE-FICTIVE'));
         self::assertSame([$rows[1]], PointsVenteRegles::rechercher($rows, 'étoile-fictive'));

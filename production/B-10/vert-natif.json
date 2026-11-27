@@ -1,0 +1,6 @@
+{
+  "code": 0,
+  "stdout": "{\"checks\":{\"chargement\":true,\"antislash_natif\":true,\"rechargement_ids_stables\":true,\"colonnes_personnelles_non_mappees_absentes\":true,\"remplacement_et_refus_numero_motif\":true,\"entete_refusee\":true,\"mapping_personne_explicite\":true,\"reglage_deux_valeurs_ferme\":true,\"type_prive_sans_REST_recherche\":true}}",
+  "stderr": "",
+  "restored": true
+}
