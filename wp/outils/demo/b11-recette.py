@@ -218,8 +218,9 @@ def run(label, policy1330=False):
                 network[value]={'browser_requests':requests[seen:],'external':[e for e in external[start:] if forbidden_external(e)],'all_external_attempts':external[start:]}
                 check('navigateur_'+value+'_zero_tiers',not network[value]['external'] and bool(network[value]['browser_requests']))
             try:
-                b11.upload(mutant,(b11.ROOT/'wp/tests/demo/b11-no-persist.php').read_bytes())
-                check('mutant_non_persistance_relu',b11.b10.b09.b08.c25.b06.hashes([mutant])[mutant]==hashlib.sha256((b11.ROOT/'wp/tests/demo/b11-no-persist.php').read_bytes()).hexdigest())
+                if not policy1330:
+                    b11.upload(mutant,(b11.ROOT/'wp/tests/demo/b11-no-persist.php').read_bytes())
+                    check('mutant_non_persistance_relu',b11.b10.b09.b08.c25.b06.hashes([mutant])[mutant]==hashlib.sha256((b11.ROOT/'wp/tests/demo/b11-no-persist.php').read_bytes()).hexdigest())
                 admin.set_extra_http_headers({'X-Imagine-B11-Mutation':'no-persist'})
                 before=metas()
                 for ident in ([] if policy1330 else [fixture['issue'],fixture['article']]):

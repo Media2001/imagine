@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 // Lecture seule : aucun register_setting/update_option, aucune normalisation des lignes présentes.
 // Les cinq défauts vivent dans les appels get_option des propriétaires, pas dans Settings API.
+// WP-CLI ne charge pas les helpers admin dont admin_init natif dépend.
+require_once ABSPATH . 'wp-admin/includes/admin.php';
+require_once WC_ABSPATH . 'includes/admin/wc-admin-functions.php';
 do_action('admin_init');
 $registered = get_registered_settings();
 $defaults = [

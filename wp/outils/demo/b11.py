@@ -22,6 +22,11 @@ def save(label,data):
 
 def sources():
     files=[ROOT/'wp'/n for n in FILES]
+    # Dependencies actually read by the passive default check and stable C27/C28 tree.
+    files.extend(ROOT/'wp/plugins/imagine-site'/n for n in [
+        'Decouverte.php','DecouverteReglages.php','JustificatifsReglages.php',
+        'Newsletters.php','Retractation.php','AchatsNumeros.php','PacksThematiques.php',
+        'Acquisition.php','AcquisitionConfidentialite.php'])
     for pat in ['wp/outils/demo/b11*','wp/tests/demo/b11*','wp/plugins/imagine-site/tests/MediasB11*']:
         files.extend(p for p in ROOT.glob(pat) if p.is_file())
     return {p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(set(files))}

@@ -10,7 +10,7 @@ sys.path.insert(0,str(ROOT/'wp/outils/demo'))
 import b11
 
 
-def verify(live=False):
+def verify_historical(live=False):
     out=b11.OUT
     load=lambda n:json.loads((out/(n+'.json')).read_text(encoding='utf-8'))
     manifest=load('reception-corrections-V2')
@@ -72,6 +72,14 @@ def verify(live=False):
         check('live_observateur_absent',value['observer'] is False)
     print(json.dumps({'B11':'PASS','mode':'live-readonly' if live else 'offline','checks':len(checks),'success':all(checks.values())},ensure_ascii=False))
     return checks
+
+def verify(live=False):
+    # Reception historique ci-dessus conservee pour provenance, jamais choisie par la CLI.
+    import importlib.util
+    spec=importlib.util.spec_from_file_location('b11_policy1330',ROOT/'wp/tests/demo/b11-verifier1330.py')
+    module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+    return module.verify(live)
+
 
 if __name__=='__main__':
     assert sys.argv[1:] in [[],['--live']]
