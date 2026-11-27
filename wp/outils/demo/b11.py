@@ -52,8 +52,7 @@ def deploy(label):
     local={n:(ROOT/'wp'/n).read_text(encoding='utf-8') for n in FILES}
     assert old[FILES[3]] in [local[FILES[3]],local[FILES[3]].replace(BLOCK,'')], 'Bootstrap divergent'
     for n in FILES[:3]:assert old[n] in [None,local[n]],n
-    single=local[FILES[4]].replace("        <?php echo class_exists('Imagine\\Site\\Medias') ? \\Imagine\\Site\\Medias::rendre(get_post()) : ''; ?>\n",'')
-    issue=local[FILES[5]].replace("    <?php echo class_exists('Imagine\\Site\\Medias') ? \\Imagine\\Site\\Medias::rendre($issue) : ''; ?>\n",'').replace("        <?php echo class_exists('Imagine\\Site\\AudioNumero') ? \\Imagine\\Site\\AudioNumero::lecteur($issue) : ''; ?>","        <p><?php esc_html_e('Emplacement du sommaire audio — aucun enregistrement fourni.', 'imagine'); ?></p>")
+
     single='\n'.join(line for line in local[FILES[4]].split('\n') if 'Medias::rendre(get_post())' not in line)
     issue='\n'.join(line if 'AudioNumero::lecteur($issue)' not in line else "        <p><?php esc_html_e('Emplacement du sommaire audio — aucun enregistrement fourni.', 'imagine'); ?></p>" for line in local[FILES[5]].split('\n') if 'Medias::rendre($issue)' not in line)
     assert old[FILES[4]] in [local[FILES[4]],single], 'Article divergent'

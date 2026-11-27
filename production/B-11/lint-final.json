@@ -1,0 +1,18 @@
+{
+  "exit": 0,
+  "stdout": "{\"wp\\/outils\\/demo\\/b11-seed.php\":true,\"wp\\/plugins\\/imagine-site\\/AudioNumero.php\":true,\"wp\\/plugins\\/imagine-site\\/imagine-site.php\":true,\"wp\\/plugins\\/imagine-site\\/Medias.php\":true,\"wp\\/plugins\\/imagine-site\\/MediasRegles.php\":true,\"wp\\/plugins\\/imagine-site\\/tests\\/MediasB11Test.php\":true,\"wp\\/tests\\/demo\\/b11-horslive.php\":true,\"wp\\/tests\\/demo\\/b11-observer.php\":true,\"wp\\/tests\\/demo\\/b11-runtime.php\":true,\"wp\\/themes\\/imagine\\/single-imagine_numero.php\":true,\"wp\\/themes\\/imagine\\/single.php\":true}",
+  "stderr": "",
+  "files": [
+    "wp/outils/demo/b11-seed.php",
+    "wp/plugins/imagine-site/AudioNumero.php",
+    "wp/plugins/imagine-site/imagine-site.php",
+    "wp/plugins/imagine-site/Medias.php",
+    "wp/plugins/imagine-site/MediasRegles.php",
+    "wp/plugins/imagine-site/tests/MediasB11Test.php",
+    "wp/tests/demo/b11-horslive.php",
+    "wp/tests/demo/b11-observer.php",
+    "wp/tests/demo/b11-runtime.php",
+    "wp/themes/imagine/single-imagine_numero.php",
+    "wp/themes/imagine/single.php"
+  ]
+}
