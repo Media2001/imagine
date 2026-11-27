@@ -1,0 +1,273 @@
+[
+  {
+    "name": "a21-matrix",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "wp/tests/a21/matrix.py",
+      "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\requal2127-t03-20261127\\a21-matrix"
+    ],
+    "start": "2026-11-27T04:08:28.755178+01:00",
+    "end": "2026-11-27T04:12:01.093955+01:00",
+    "exit_code": 0,
+    "python_encoding_environment": "utf-8",
+    "log": "a21-matrix.log",
+    "stderr": "a21-matrix.stderr.log",
+    "log_sha256": "0df5f6f27b3669dcd91bfb0da61de9e221b8113830b859d653028a890ca92636",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sources_stable": true,
+    "frozen_at": "2026-11-27T04:05:13.105973+01:00"
+  },
+  {
+    "name": "a22-matrix",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "wp/tests/a22/matrix.py",
+      "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\requal2127-t03-20261127\\a22-matrix"
+    ],
+    "start": "2026-11-27T04:12:01.218187+01:00",
+    "end": "2026-11-27T04:39:27.240849+01:00",
+    "exit_code": 0,
+    "python_encoding_environment": "utf-8",
+    "log": "a22-matrix.log",
+    "stderr": "a22-matrix.stderr.log",
+    "log_sha256": "266e3bc7dccb1ee38273f3a7cfd93832fe4a3b60cee3407e05afee7cb242350b",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sources_stable": true,
+    "frozen_at": "2026-11-27T04:05:13.105973+01:00"
+  },
+  {
+    "name": "a23-matrix",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "wp/tests/a23/matrix.py",
+      "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\requal2127-t03-20261127\\a23-matrix"
+    ],
+    "start": "2026-11-27T04:39:27.352667+01:00",
+    "end": "2026-11-27T04:43:19.649666+01:00",
+    "exit_code": 0,
+    "python_encoding_environment": "utf-8",
+    "log": "a23-matrix.log",
+    "stderr": "a23-matrix.stderr.log",
+    "log_sha256": "5dcf03e9e0cb89c5125fab5fb88854d6eecde190c0c95e5fd0728724ea4bb795",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sources_stable": true,
+    "frozen_at": "2026-11-27T04:05:13.105973+01:00"
+  },
+  {
+    "name": "a24-matrix",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "wp/tests/a24/matrix.py",
+      "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\requal2127-t03-20261127\\a24-matrix"
+    ],
+    "start": "2026-11-27T04:43:19.755991+01:00",
+    "end": "2026-11-27T04:47:01.380211+01:00",
+    "exit_code": 0,
+    "python_encoding_environment": "utf-8",
+    "log": "a24-matrix.log",
+    "stderr": "a24-matrix.stderr.log",
+    "log_sha256": "e510808041180a6ae6f65480d9476d5330ee48f216e9019de1618f3faffe731e",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sources_stable": true,
+    "frozen_at": "2026-11-27T04:05:13.105973+01:00"
+  },
+  {
+    "name": "a25-matrix",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "wp/tests/a25/matrix.py",
+      "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\requal2127-t03-20261127\\a25-matrix"
+    ],
+    "start": "2026-11-27T04:47:01.483600+01:00",
+    "end": "2026-11-27T04:51:08.913007+01:00",
+    "exit_code": 0,
+    "python_encoding_environment": "utf-8",
+    "log": "a25-matrix.log",
+    "stderr": "a25-matrix.stderr.log",
+    "log_sha256": "e5154146bfed60fdc589369955a0ed5dcded41873e41147fe0a0fd0af814e3ac",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sources_stable": true,
+    "frozen_at": "2026-11-27T04:05:13.105973+01:00"
+  },
+  {
+    "name": "a26-matrix",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "wp/tests/a26/matrix.py",
+      "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\requal2127-t03-20261127\\a26-matrix"
+    ],
+    "start": "2026-11-27T04:51:09.025124+01:00",
+    "end": "2026-11-27T04:54:49.316054+01:00",
+    "exit_code": 0,
+    "python_encoding_environment": "utf-8",
+    "log": "a26-matrix.log",
+    "stderr": "a26-matrix.stderr.log",
+    "log_sha256": "879582d2753d163911c4353a8a712966c3cb8eaf8cced842c58bbf2213080b77",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sources_stable": true,
+    "frozen_at": "2026-11-27T04:05:13.105973+01:00"
+  },
+  {
+    "name": "a27-matrix",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "wp/tests/a27/matrix.py",
+      "--include-native",
+      "--parent-serialized",
+      "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\requal2127-t03-20261127\\a27-matrix"
+    ],
+    "start": "2026-11-27T04:54:49.434044+01:00",
+    "end": "2026-11-27T05:01:29.245237+01:00",
+    "exit_code": 0,
+    "python_encoding_environment": "utf-8",
+    "log": "a27-matrix.log",
+    "stderr": "a27-matrix.stderr.log",
+    "log_sha256": "0b6f7a3e6431becadddc5a0cc6edf08aecfb5863fbb7c09f8946e41157cf3c9f",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sources_stable": true,
+    "frozen_at": "2026-11-27T04:05:13.105973+01:00"
+  },
+  {
+    "name": "a21-style",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "wp/tests/a21/style.py",
+      "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\requal2127-t03-20261127\\a21-style"
+    ],
+    "start": "2026-11-27T04:05:13.191777+01:00",
+    "end": "2026-11-27T04:05:17.068823+01:00",
+    "exit_code": 0,
+    "python_encoding_environment": "utf-8",
+    "log": "a21-style.log",
+    "stderr": "a21-style.stderr.log",
+    "log_sha256": "5e7b69bb312c7a779bcb96ae8560bfbad6f8d9ee3f4c56ef77f67a85f15c45d8",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sources_stable": true,
+    "frozen_at": "2026-11-27T04:05:13.105973+01:00"
+  },
+  {
+    "name": "a22-style-positional",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "production/A-22/style.py",
+      "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\requal2127-t03-20261127\\a22-style"
+    ],
+    "start": "2026-11-27T04:06:04.716700+01:00",
+    "end": "2026-11-27T04:06:07.573340+01:00",
+    "exit_code": 0,
+    "python_encoding_environment": "utf-8",
+    "log": "a22-style-positional.log",
+    "stderr": "a22-style-positional.stderr.log",
+    "log_sha256": "952fdc42ab3925af2908fa490060408bb5b6df9bffbc35fc1824bb8ae95cc7e2",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sources_stable": true,
+    "frozen_at": "2026-11-27T04:05:13.105973+01:00"
+  },
+  {
+    "name": "a24-style-existing-wrapper",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "C:/Users/Ced/AppData/Local/hermes/cache/scratch/a232425-final-20261126/a24-style.py",
+      "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\requal2127-t03-20261127\\a24-style"
+    ],
+    "start": "2026-11-27T04:08:25.449362+01:00",
+    "end": "2026-11-27T04:08:28.633969+01:00",
+    "exit_code": 0,
+    "python_encoding_environment": "utf-8",
+    "log": "a24-style-existing-wrapper.log",
+    "stderr": "a24-style-existing-wrapper.stderr.log",
+    "log_sha256": "7ce5a0e1351ef428979c7eb2e5d911d80d308492a07e05912a65ca8892eb522f",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sources_stable": true,
+    "frozen_at": "2026-11-27T04:05:13.105973+01:00"
+  },
+  {
+    "name": "a26-candidate-verify",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "wp/tests/a26/verify.py",
+      "--packet=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\requal2127-t03-20261127\\a26-matrix",
+      "--require-shared-doc"
+    ],
+    "start": "2026-11-27T05:02:08.300474+01:00",
+    "end": "2026-11-27T05:02:08.439297+01:00",
+    "exit_code": 0,
+    "python_encoding_environment": "utf-8",
+    "log": "a26-candidate-verify.log",
+    "stderr": "a26-candidate-verify.stderr.log",
+    "log_sha256": "83c64bd819295e4d4a136be74cea9b98a7e47237c4de03f90939efbfa66d9ef3",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sources_stable": true,
+    "frozen_at": "2026-11-27T04:05:13.105973+01:00"
+  },
+  {
+    "name": "a27-candidate-verify",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "wp/tests/a27/verify.py",
+      "--evidence=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\requal2127-t03-20261127\\a27-matrix"
+    ],
+    "start": "2026-11-27T05:02:08.567103+01:00",
+    "end": "2026-11-27T05:02:08.891305+01:00",
+    "exit_code": 0,
+    "python_encoding_environment": "utf-8",
+    "log": "a27-candidate-verify.log",
+    "stderr": "a27-candidate-verify.stderr.log",
+    "log_sha256": "60197a54ac6f68a03c137ad1306a415801b51fb093e21e528a5790ce88707d52",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sources_stable": true,
+    "frozen_at": "2026-11-27T04:05:13.105973+01:00"
+  },
+  {
+    "name": "prepare-image",
+    "command": [
+      "powershell.exe",
+      "-NoProfile",
+      "-ExecutionPolicy",
+      "Bypass",
+      "-File",
+      "wp/tests/preparer-image.ps1"
+    ],
+    "start": "2026-11-27T04:00:19.175621+01:00",
+    "end": "2026-11-27T04:00:23.364073+01:00",
+    "exit_code": 0,
+    "python_encoding_environment": "utf-8",
+    "log": "prepare-image.log",
+    "stderr": "prepare-image.stderr.log",
+    "log_sha256": "0fac1e36d3d12d8398c2c84fdc38d5bfa99e05a73ef8775e1cad8d64d016a501",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "name": "prepare-image-gates",
+    "command": [
+      "powershell.exe",
+      "-NoProfile",
+      "-ExecutionPolicy",
+      "Bypass",
+      "-File",
+      "wp/tests/preparer-image.ps1"
+    ],
+    "start": "2026-11-27T05:02:24.988127+01:00",
+    "end": "2026-11-27T05:02:28.850361+01:00",
+    "exit_code": 0,
+    "python_encoding_environment": "utf-8",
+    "log": "prepare-image-gates.log",
+    "stderr": "prepare-image-gates.stderr.log",
+    "log_sha256": "0d93d9c73579785e32d452c4fe2ba2606c4d70b47dfcbffd1e6727407c111801",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sources_stable": true,
+    "frozen_at": "2026-11-27T04:05:13.105973+01:00"
+  }
+]

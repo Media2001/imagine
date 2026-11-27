@@ -1,4 +1,5 @@
 {
+  "schema": "a30-clean-windows-v1",
   "rows": [
     {
       "console": "utf-8",
@@ -15,9 +16,17 @@
         "-v"
       ],
       "exit_code": 0,
-      "tests_run": 25,
+      "tests_run": 34,
+      "suite_discovered": 34,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
       "all_pass": true,
-      "log_sha256": "1b95a764b868045348a7bb0d0421461c335856d6fe2890788b0767e10932e920"
+      "TMPDIR_present": false,
+      "environment_sha256": "70b690fb931c536fed23176aace38cf9b2b0fee03c12f17e37100cd908372a50",
+      "log_encoding": "utf-8",
+      "subprocess_decode_encoding": "utf-8",
+      "log_sha256": "0a358f541d8e9b848ed7bc1739ecfc3ca55a2a0bc693903205fda66e365d6094"
     },
     {
       "console": "utf-8",
@@ -25,7 +34,7 @@
         "C:\\Python314\\python.exe",
         "-B",
         "C:\\Users\\Ced\\imagine\\wp\\tests\\a30\\run.py",
-        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-t03-20261127\\final-matrix\\utf8\\native"
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-t03-20261127-final-0714\\a30-matrix\\utf8\\native"
       ],
       "exit_code": 0,
       "kind": "native",
@@ -46,9 +55,17 @@
         "-v"
       ],
       "exit_code": 0,
-      "tests_run": 25,
+      "tests_run": 34,
+      "suite_discovered": 34,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
       "all_pass": true,
-      "log_sha256": "f351d6c995cd94f2a8290ff540f62118823bbbc0e091094f746cbc7b054420f2"
+      "TMPDIR_present": false,
+      "environment_sha256": "1ff722f38d15e2e04ac653f60cc8ccf59194bbab4d30d1eeb54adc2a27f6d407",
+      "log_encoding": "utf-8",
+      "subprocess_decode_encoding": "cp1252",
+      "log_sha256": "1aa19126beaa862fb84294a01c29c4565655cbf532af5b2638f3ab22ec2d2500"
     },
     {
       "console": "cp1252",
@@ -56,7 +73,7 @@
         "C:\\Python314\\python.exe",
         "-B",
         "C:\\Users\\Ced\\imagine\\wp\\tests\\a30\\run.py",
-        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-t03-20261127\\final-matrix\\cp1252\\native"
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-t03-20261127-final-0714\\a30-matrix\\cp1252\\native"
       ],
       "exit_code": 0,
       "kind": "native",

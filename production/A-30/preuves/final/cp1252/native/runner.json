@@ -1,8 +1,8 @@
 {
   "suite": "A30-owned-runner",
-  "container": "imagine-a30-dry-run-cb85acf996cf",
+  "container": "imagine-a30-dry-run-6aad567d3cfc",
   "mode": "full",
-  "at": "2026-11-27T04:36:45.433382+00:00",
+  "at": "2026-11-27T06:19:28.139373+00:00",
   "checks": [
     {
       "check": "isolation_before",

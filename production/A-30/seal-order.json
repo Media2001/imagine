@@ -1,9 +1,43 @@
 {
-  "declaration_installed_at": "2026-11-27T05:39:33.144336+01:00",
+  "at": "2026-11-27T07:25:25.393544+01:00",
+  "declaration_sha256": "b717091931c1c9a126c2d01c0b95379d3563b76df6b4f6fa32ab637f7a9b5dbb",
   "before_first_seal": true,
-  "declaration_sha256": "e85bb5ac530703f49515b0b62f73526c93b2bdd770027723cbe04ee99f5ae381",
-  "logs_count": 27,
-  "completed_metadata_at": "2026-11-27T05:45:37.172869+01:00",
-  "completed_declaration_sha256": "9a3320fafdf225420bb72c61f428185b2f0c0d8b42c9f84e83656a89280be2e6",
-  "final_logs_count": 49
+  "historical_outside_repository": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-t03-20261127-final-0714\\before-A-30",
+  "native_commands": [
+    {
+      "name": "a30-matrix",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a30/matrix.py",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-t03-20261127-final-0714\\a30-matrix",
+        "--temp-root=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-t03-20261127-final-0714",
+        "--with-native"
+      ],
+      "start": "2026-11-27T07:17:57.466458+01:00",
+      "end": "2026-11-27T07:20:54.627481+01:00",
+      "exit_code": 0,
+      "stdout": "a30-matrix.log",
+      "stderr": "a30-matrix.stderr.log",
+      "stdout_sha256": "7f78f9d8c0179d386550f04fdb3abfe0f76830acbf0fe1ed544fa2fd88ce8c47",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "a30-style",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a30/style.py",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-t03-20261127-final-0714\\a30-style"
+      ],
+      "start": "2026-11-27T07:17:54.770259+01:00",
+      "end": "2026-11-27T07:17:57.459084+01:00",
+      "exit_code": 0,
+      "stdout": "a30-style.log",
+      "stderr": "a30-style.stderr.log",
+      "stdout_sha256": "e22e88256bd5e7c777e7ba2c6c777b79e1008b46f1ebe8268ce5dce6186b1f84",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "parent_gates": "PENDING_NO_PRET"
 }

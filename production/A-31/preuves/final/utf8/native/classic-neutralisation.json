@@ -1,7 +1,7 @@
 {
   "neutraliser_and_anonymiser_executed": true,
-  "structure_before_sha256": "808e321c760abb0975aa0d7047b09ab54087e427a2fe8233c210fde98374922c",
-  "structure_after_sha256": "808e321c760abb0975aa0d7047b09ab54087e427a2fe8233c210fde98374922c",
+  "structure_before_sha256": "c1fbb7d9ccc34134655c480f3ed8fb187388d6c1ca6372083664ba670c4c2309",
+  "structure_after_sha256": "c1fbb7d9ccc34134655c480f3ed8fb187388d6c1ca6372083664ba670c4c2309",
   "extension_relation_before": 1,
   "extension_relation_after": 0,
   "renewal_relation_before": 2,

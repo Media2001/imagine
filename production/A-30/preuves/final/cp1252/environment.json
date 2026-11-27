@@ -6,5 +6,21 @@
   "stderr": "cp1252",
   "locale": "cp1252",
   "preferred": "cp1252",
-  "utf8_mode": 0
+  "utf8_mode": 0,
+  "TMPDIR_present": false,
+  "TMPDIR": null,
+  "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-t03-20261127-final-0714\\a30-clean-windows-f35l6_uy",
+  "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-t03-20261127-final-0714\\a30-clean-windows-f35l6_uy",
+  "tempdir": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-t03-20261127-final-0714\\a30-clean-windows-f35l6_uy",
+  "suite_discovered": 34,
+  "probe_command": [
+    "C:\\Python314\\python.exe",
+    "-B",
+    "-c",
+    "import sys,locale,json,os,tempfile,unittest;suite=unittest.defaultTestLoader.discover('wp/tests/a30',pattern='test_*.py');print(json.dumps({'platform':sys.platform,'executable':sys.executable,'version':sys.version,'stdout':sys.stdout.encoding,'stderr':sys.stderr.encoding,'locale':locale.getencoding(),'preferred':locale.getpreferredencoding(False),'utf8_mode':sys.flags.utf8_mode,'TMPDIR_present':'TMPDIR' in os.environ,'TMPDIR':os.environ.get('TMPDIR'),'TEMP':os.environ.get('TEMP'),'TMP':os.environ.get('TMP'),'tempdir':tempfile.gettempdir(),'suite_discovered':suite.countTestCases()}))"
+  ],
+  "probe_exit_code": 0,
+  "requested_console": "cp1252",
+  "probe_decode_encoding": "cp1252",
+  "proof_json_encoding": "utf-8"
 }
