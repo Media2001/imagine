@@ -1,0 +1,19 @@
+{
+  "lots": [
+    20,
+    21,
+    22,
+    23,
+    24,
+    25
+  ],
+  "calls": {
+    "20": "wp/tests/a20/verify.py",
+    "21": "wp/tests/a21/verify.py",
+    "22": "wp/tests/a22/verify.py",
+    "23": "wp/tests/a23/verify.py",
+    "24": "wp/tests/a24/verify.py",
+    "25": "wp/tests/a25/verify.py"
+  },
+  "checks_changed": false
+}

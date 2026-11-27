@@ -72,8 +72,8 @@
   },
   "delivery_sources": {
     "production/A-24/COMMANDES.md": "cbbe7afee873cb218c7eb6c975ac90c234a281ad33b3161cc5b43743c76670cb",
-    "production/A-24/notes.md": "1b5e76365470aed66b4ff06b1379ab75d9204839ee021a62abc7ea61d4fe832e",
-    "production/A-24/RAPPORT.md": "6c7d59bb55a127bfa4abc2f0a9301ca92515912fc84b1378fbf2046b804b3aea",
+    "production/A-24/notes.md": "3907fb1d92f6951589c2a6e8a313fad47ee958783971a70f1f1f4d2e3e93e669",
+    "production/A-24/RAPPORT.md": "38682de7817cb68e8cfe7d05899d5717d9177de1ba75ccfa1bef3dde8c6734a6",
     "production/A-24/readme-ajout.txt": "6b2c26b3fd569e5e9cd53a178b47bd58ec86ce84cbdfd3b4468a1f77b6e3ab61"
   },
   "evidence_sha256": {

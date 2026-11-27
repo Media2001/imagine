@@ -47,6 +47,14 @@ final class SoutenirAdapterTest extends TestCase
         self::assertStringContainsString('imagine_soutenir[parts_url]', Soutenir::champs());
     }
 
+    public function testPartsRefuseHttpEnLectureEtEcriture(): void
+    {
+        self::assertSame(['don' => false, 'parts_url' => ''], Soutenir::nettoyer(['don' => '1', 'parts_url' => 'http://example.org/parts']));
+        $GLOBALS['b08_options'][Soutenir::OPTION] = ['don' => false, 'parts_url' => 'http://example.org/parts'];
+        self::assertSame('', Soutenir::configuration()['parts_url']);
+        self::assertStringNotContainsString('http://example.org/parts', Soutenir::rendre());
+    }
+
     public function testNavigationNativeVideEtLienB06SansChangerAcces(): void
     {
         self::assertTrue(class_exists(Cooperative::class), 'Raccord pages absent');

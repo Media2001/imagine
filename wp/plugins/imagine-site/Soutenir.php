@@ -19,7 +19,7 @@ final class Soutenir
     private static function url(mixed $url): bool
     {
         return is_string($url) && ($url === '' || (filter_var($url, FILTER_VALIDATE_URL)
-            && in_array(parse_url($url, PHP_URL_SCHEME), ['https', 'http'], true)
+            && parse_url($url, PHP_URL_SCHEME) === 'https'
             && parse_url($url, PHP_URL_USER) === null && parse_url($url, PHP_URL_PASS) === null));
     }
 

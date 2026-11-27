@@ -55,7 +55,7 @@ final class Sujet
             'imagine_sujet_date' => gmdate(DATE_ATOM)];
         $id = wp_insert_post(['post_type' => self::TYPE, 'post_status' => 'private',
             'post_title' => __('Proposition de sujet', 'imagine-site'), 'post_content' => '',
-            'post_author' => 0, 'post_parent' => 0, 'meta_input' => $meta], true);
+            'post_author' => 0, 'post_parent' => 0, 'meta_input' => wp_slash($meta)], true);
         if (is_wp_error($id) || !$id) {
             return false;
         }

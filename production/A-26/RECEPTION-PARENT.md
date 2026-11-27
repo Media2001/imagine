@@ -1,3 +1,9 @@
+# État courant : réception native parent exécutée
+
+Voir FINALISATION.md et preuves/final ; le candidat antérieur ci-dessous est historique, pas le verdict courant.
+
+---
+
 # A-26 — Réception par le parent
 
 **Réception initiale du worker, conservée comme historique.** La réception native déléguée, les corrections, compteurs, portes et statut actuels sont exclusivement dans `FINALISATION.md`, `manifest.json`, `preuves/final/` et l'éventuel `PRET`. Les paquets locaux initiaux ont été déplacés intacts en scratch `a2627-parent-20261126/historical/A-26/` ; ils ne qualifient pas la livraison actuelle.

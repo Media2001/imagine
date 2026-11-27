@@ -49,6 +49,30 @@ final class SujetAdapterTest extends TestCase
         self::assertSame('manage_options', $GLOBALS['b08_types'][Sujet::TYPE]['capabilities']['read_post']);
     }
 
+    public function testAntislashDuPostAuDetailAdminEtExport(): void
+    {
+        $nom = 'Fictif \\ rédaction';
+        $texte = "Sujet C:\\dossier\\fichier et l'apostrophe\nDeuxième ligne \\";
+        $_POST = wp_slash(['_b08' => 'nonce', 'nom' => $nom, 'email' => 'slash@example.org', 'sujet' => $texte]);
+        self::assertStringContainsString('enregistrée', Sujet::traiter($_POST));
+        self::assertCount(1, $GLOBALS['b08_posts']);
+        self::assertSame($texte, get_post_meta(100, 'imagine_sujet_texte', true));
+        self::assertSame($nom, get_post_meta(100, 'imagine_sujet_nom', true));
+        Sujet::register();
+        foreach ($GLOBALS['b08_hooks']['add_meta_boxes'] as $callback) {
+            $callback();
+        }
+        ob_start();
+        ($GLOBALS['b08_boxes']['imagine-sujet-prive'])(get_post(100));
+        $detail = ob_get_clean();
+        self::assertStringContainsString(nl2br(esc_html($texte)), $detail);
+        self::assertStringContainsString(esc_html($nom), $detail);
+        $export = SujetConfidentialite::exporter('slash@example.org');
+        self::assertSame($texte, array_column($export['data'][0]['data'], 'value', 'name')['Sujet']);
+        self::assertSame($nom, array_column($export['data'][0]['data'], 'value', 'name')['Nom']);
+        self::assertSame(['mail' => 0, 'http' => 0], $GLOBALS['b08_calls']);
+    }
+
     public function testErreursEcritureJamaisAnnonceesCommeSucces(): void
     {
         self::assertTrue(class_exists(Sujet::class), 'Persistance absente');

@@ -43,7 +43,9 @@ function get_page_by_path(string $path): object { return (object)['ID' => $path 
 function admin_url(string $path = ''): string { return 'https://demo.example.org/wp-admin/' . $path; }
 function wp_nonce_field(string $a, string $n): void { echo '<input name="' . $n . '" value="nonce">'; }
 function wp_verify_nonce(string $n, string $a): bool { return $n === 'nonce'; }
-function wp_unslash(string $s): string { return stripslashes($s); }
+function wp_unslash(mixed $s): mixed { return is_array($s) ? array_map('wp_unslash', $s) : (is_string($s) ? stripslashes($s) : $s); }
+function wp_slash(mixed $s): mixed { return is_array($s) ? array_map('wp_slash', $s) : (is_string($s) ? addslashes($s) : $s); }
+function add_meta_box(string $id, string $title, callable $callback, string $screen): void { $GLOBALS['b08_boxes'][$id] = $callback; }
 function sanitize_text_field(string $s): string { return trim(strip_tags($s)); }
 function sanitize_textarea_field(string $s): string { return trim(strip_tags($s)); }
 function is_email(string $s): bool { return filter_var($s, FILTER_VALIDATE_EMAIL) !== false; }
@@ -53,7 +55,8 @@ function wp_insert_post(array $row, bool $errors = false): int|WP_Error
     if ($GLOBALS['b08_fail_insert'] ?? false) { return new WP_Error('write'); }
     $id = count($GLOBALS['b08_posts']) + 100;
     $GLOBALS['b08_posts'][$id] = (object)(['ID' => $id] + $row);
-    $GLOBALS['b08_meta'][$id] = ($GLOBALS['b08_fail_meta'] ?? false) ? [] : $row['meta_input'];
+    // update_metadata() déséchappe les valeurs reçues de meta_input.
+    $GLOBALS['b08_meta'][$id] = ($GLOBALS['b08_fail_meta'] ?? false) ? [] : wp_unslash($row['meta_input']);
     return $id;
 }
 function get_post(int $id): ?object { return $GLOBALS['b08_posts'][$id] ?? null; }

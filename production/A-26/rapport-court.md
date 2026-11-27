@@ -1,5 +1,5 @@
-Fait : A-26, qualification native classique/HPOS et corrections exécutées ; détails et chiffres dans FINALISATION.md.
-Prêt à relire : A-26 après gates et vérifications scellées ; le marqueur PRET final fait foi.
-À valider ou à arbitrer par Ced : aucune question technique bloquante ; aucun GO réel demandé.
-Bloqué : aucun blocage restant après les gates mesurées, tests et compteurs ci-dessus.
-Ensuite : relectures parent ; aucune mutation de file/synchronisation, verrou laissé au parent.
+Fait : A-26, matrice neuve native sur import A28 final ; WP_HTML_Tag_Processor réel, deux contre-exemples RED puis GREEN dans chaque magasin ; rapports annuels et trois modes dix derniers vérifiés. form-policy.json réellement gelé et import final exécuté ; chemin README explicite unique.
+Prêt à relire : uniquement après vérificateurs et PRET final ; preuves/final unique, compteurs dans FINALISATION.md.
+À arbitrer : pas de question technique ajoutée ; A22 toujours NON CLOS, relecture indépendante attendue, aucun GO réel.
+Bloqué : aucune ancienne preuve utilisée comme nouvelle exécution ; A29 neutral_success exit255/refus reste exclu, A30 autre phase.
+Ensuite : contrôle parent ; commandes/exits/logs dans files/rapports/2026-11-27-05h03-qualification-A21-A27 ; verrou conservé.
