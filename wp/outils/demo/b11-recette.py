@@ -19,6 +19,26 @@ def persisted(actual, expected):
     return set(actual)==set(expected) and all(actual[k]==v for k,v in expected.items())
 
 
+def compare_options(before, after):
+    """Strict effective-value equality; never sanitize an existing raw value."""
+    if set(before) != set(after) or not before:
+        return {'ok': False, 'absent_to_exact_default': [], 'different': ['option_inventory']}
+    differences=[]; explicit=[]
+    for name, old in before.items():
+        new=after[name]
+        if name=='imagine_medias':
+            continue  # The intentional OFF/ON value has its independent exact readback.
+        equal=old['effective_sha256']==new['effective_sha256']
+        default_stable=old['default_sha256']==new['default_sha256']
+        transition=not old['present'] and new['present']
+        exact_default=(old['default_known'] and new['raw_sha256']==old['default_sha256'])
+        if not equal or not default_stable or (transition and not exact_default):
+            differences.append(name)
+        elif transition:
+            explicit.append(name)
+    return {'ok':not differences,'absent_to_exact_default':explicit,'different':differences}
+
+
 def forbidden_external(event):
     origin=urlsplit(event['origin'])
     return not (event['context']=='admin' and origin.path.startswith('/wp-admin/')
@@ -47,7 +67,7 @@ def restore_options(rows):
     return fingerprint()==expected
 
 
-def run(label):
+def run(label, policy1330=False):
     assert not (b11.OUT/(label+'.json')).exists()
     identity=b11.guard();business=b11.state();fixture=b11.wp('echo wp_json_encode(get_option("imagine_b11_fixture"));')
     settings0=b11.wp('echo wp_json_encode(get_option("imagine_medias",null));')
@@ -70,7 +90,8 @@ def run(label):
         checks[name]=bool(ok)
         if not ok and fatal:raise AssertionError(name)
     def read_options(names):
-        return b11.wp('$o=[];foreach('+b11.php(names)+' as $n){$o[$n]=get_option($n,null);}echo wp_json_encode($o);')
+        source=(b11.ROOT/'wp/tests/demo/b11-option-snapshot.php').read_text(encoding='utf-8').split('<?php',1)[1]
+        return b11.wp('$GLOBALS["b11_option_names"]='+b11.php(names)+';echo wp_json_encode(eval('+b11.php(source)+'));')
     def metas():
         return b11.wp('$o=[];foreach('+b11.php([fixture['issue'],fixture['article']])+' as $id){$o[$id]=[get_post_meta($id,"_imagine_video",true),get_post_meta($id,"_imagine_podcast",true)];}echo wp_json_encode($o);')
     ancillary=b11.wp('''global $wpdb;echo wp_json_encode(['styles'=>$wpdb->get_results("SELECT * FROM {$wpdb->posts} WHERE post_type='wp_global_styles' ORDER BY ID",ARRAY_A),'options'=>$wpdb->get_results("SELECT * FROM {$wpdb->options} WHERE option_name LIKE 'imagine_%' ORDER BY option_id",ARRAY_A)]);''')
@@ -116,17 +137,23 @@ def run(label):
                 page.locator('[name="imagine_medias[integration]"]').select_option(value)
                 form=page.locator('form').filter(has=page.locator('#imagine-medias-reglages'))
                 names=form.locator('[name]').evaluate_all("es=>Array.from(new Set(es.map(e=>e.name.split('[')[0]))).filter(n=>n.startsWith('imagine_'))")
-                check('formulaire_reglages_complet',len(names)>3 and 'imagine_medias' in names)
+                check('formulaire_reglages_complet',len(names)==16 and 'imagine_medias' in names)
                 before=read_options(names)
                 page.locator('#submit').click();page.wait_for_load_state('networkidle')
                 check('reglage_'+value+'_readback',b11.wp('echo wp_json_encode(Imagine\\Site\\Medias::configuration());')=={'hosts':['video-fictive.example.invalid'],'integration':value})
                 after=read_options(names)
-                other=[n for n in names if n!='imagine_medias']
-                settings_evidence.append({'mode':value,'names':names,'others_unchanged':all(before[n]==after[n] for n in other),'changed_others':[{'name':n,'before_sha256':hashlib.sha256(json.dumps(before[n],sort_keys=True).encode()).hexdigest(),'after_sha256':hashlib.sha256(json.dumps(after[n],sort_keys=True).encode()).hexdigest()} for n in other if before[n]!=after[n]]})
-                check('autres_reglages_conserves_'+value,all(before[n]==after[n] for n in other),fatal=False)
+                comparison=compare_options(before,after)
+                settings_evidence.append({'mode':value,'names':names,'before':before,'after':after,**comparison})
+                check('autres_reglages_effectifs_conserves_'+value,comparison['ok'],fatal=False)
                 page.reload();page.wait_for_load_state('networkidle')
                 check('reglage_'+value+'_reload',page.locator('[name="imagine_medias[integration]"]').input_value()==value)
             def edit(ident,video=VIDEO,podcast=PODCAST,phase='save'):
+                if policy1330:
+                    # Politique 13h30 : pas d'automate éditeur. Vrai hook WP sous nonce/capacité,
+                    # jamais déclaré comme saisie UI. Le témoin 8/8 reste un reçu distinct.
+                    result=b11.wp('wp_set_current_user('+str(saved['admin']['id'])+');$_GET["b11_observe"]='+b11.php(phase)+';$_POST=wp_slash(["_imagine_medias_nonce"=>wp_create_nonce("imagine_medias_'+str(ident)+'"),"b11_video"=>'+b11.php(video)+',"b11_podcast"=>'+b11.php(podcast)+']);do_action("save_post",'+str(ident)+',get_post('+str(ident)+'),true);echo wp_json_encode(["values"=>[get_post_meta('+str(ident)+',"_imagine_video",true),get_post_meta('+str(ident)+',"_imagine_podcast",true)],"redirect"=>apply_filters("redirect_post_location","http://fictif.invalid/")]);')
+                    editors[str(ident)]={'kind':'native-save_post-hook-not-UI','forced':False,'readback_values':result['values']}
+                    return 'Médias refusés' if 'imagine_medias_refus=1' in result['redirect'] else ''
                 # Parcours livré : aucun changement d'éditeur, de formulaire ou de nonce.
                 admin.set_extra_http_headers({'X-Imagine-B11-Observe':phase,**({'X-Imagine-B11-Mutation':'no-persist'} if phase=='mutation-no-persist' else {})})
                 editors[str(ident)]={'stage':'navigate','forced':False}
@@ -161,7 +188,7 @@ def run(label):
                 page.reload();page.wait_for_load_state('networkidle')
                 readbox=next((f for f in page.frames if f.locator('#b11-video').count()),None)
                 check('champs_relus_reload_'+str(ident),readbox is not None)
-                editors[str(ident)]['reload_values']=[readbox.locator('#b11-video').input_value(),readbox.locator('#b11-podcast').input_value()]
+                editors[str(ident)]['readback_values']=[readbox.locator('#b11-video').input_value(),readbox.locator('#b11-podcast').input_value()]
                 return content
             for value in ['0','1']:
                 setting(value)
@@ -173,10 +200,10 @@ def run(label):
                     except Exception as exc:
                         editors.setdefault(str(ident),{})['error']=type(exc).__name__+': '+str(exc)
                         check('editeur_livre_accessible_'+str(ident),False,fatal=False)
-                check('save_'+value+'_readback',persisted(metas(),changed) and all(editors[k]['reload_values']==v for k,v in changed.items()))
+                check('save_'+value+'_readback',persisted(metas(),changed) and all(editors[k]['readback_values']==v for k,v in changed.items()))
                 cleared={k:['',''] for k in changed}
                 for ident in [fixture['issue'],fixture['article']]:edit(ident,'','',phase='clear-save')
-                check('effacement_'+value+'_readback',persisted(metas(),cleared) and all(editors[k]['reload_values']==v for k,v in cleared.items()))
+                check('effacement_'+value+'_readback',persisted(metas(),cleared) and all(editors[k]['readback_values']==v for k,v in cleared.items()))
                 for ident in [fixture['issue'],fixture['article']]:edit(ident,phase='render-save')
                 check('valeurs_rendu_'+value,persisted(metas(),{k:[VIDEO,PODCAST] for k in changed}))
                 pub=contexts['buyer'].new_page()
@@ -195,13 +222,13 @@ def run(label):
                 check('mutant_non_persistance_relu',b11.b10.b09.b08.c25.b06.hashes([mutant])[mutant]==hashlib.sha256((b11.ROOT/'wp/tests/demo/b11-no-persist.php').read_bytes()).hexdigest())
                 admin.set_extra_http_headers({'X-Imagine-B11-Mutation':'no-persist'})
                 before=metas()
-                for ident in [fixture['issue'],fixture['article']]:
+                for ident in ([] if policy1330 else [fixture['issue'],fixture['article']]):
                     attempted=[VIDEO+'&no-persist='+str(ident),PODCAST+'?no-persist='+str(ident)]
                     edit(ident,*attempted,phase='mutation-no-persist')
                     actual=metas()
                     expected={**before,str(ident):attempted}
-                    mutations['no_persist_'+str(ident)]={'attempted':attempted,'actual':actual[str(ident)],'persistence_control_failed':not persisted(actual,expected),'reload':editors[str(ident)]['reload_values']}
-                    check('mutation_non_persistance_'+str(ident)+'_rougit',not persisted(actual,expected) and actual==before and editors[str(ident)]['reload_values']==before[str(ident)])
+                    mutations['no_persist_'+str(ident)]={'attempted':attempted,'actual':actual[str(ident)],'persistence_control_failed':not persisted(actual,expected),'reload':editors[str(ident)]['readback_values']}
+                    check('mutation_non_persistance_'+str(ident)+'_rougit',not persisted(actual,expected) and actual==before and editors[str(ident)]['readback_values']==before[str(ident)])
             finally:
                 admin.set_extra_http_headers({})
                 remove_probes([mutant])
@@ -312,8 +339,10 @@ def run(label):
         cleanup['business_preserved']=b11.state()==business
         b11.save(label+'-details',{'editors':editors,'settings_evidence':settings_evidence,'external_attempts':external})
         b11.save(label+'-nettoyage',cleanup)
-        b11.save(label,{'identity':identity,'checks':checks,'total':len(checks),'failures':sum(not v for v in checks.values()),'error':error,'network':network,'server_observations':observations,'C26_witness_inventory':{'file':str(c26path.relative_to(b11.ROOT)),'sha256':hashlib.sha256(c26path.read_bytes()).hexdigest(),'count':len(witnesses)},'surfaces':surface_rows,'mutations':mutations,'cleanup':cleanup,'sources':b11.sources(),'private_snapshot':durable})
+        b11.save(label,{'policy':'A-FAIRE-2 2026-11-27 13h30' if policy1330 else 'full-editor-automation','persistence_boundary':'native-save_post-hook-not-UI' if policy1330 else 'delivered-editor-UI','identity':identity,'checks':checks,'total':len(checks),'failures':sum(not v for v in checks.values()),'error':error,'network':network,'server_observations':observations,'C26_witness_inventory':{'file':str(c26path.relative_to(b11.ROOT)),'sha256':hashlib.sha256(c26path.read_bytes()).hexdigest(),'count':len(witnesses)},'surfaces':surface_rows,'mutations':mutations,'cleanup':cleanup,'sources':b11.sources(),'private_snapshot':durable})
     print(json.dumps({'total':len(checks),'failures':sum(not v for v in checks.values()),'error':error,'cleanup':cleanup},ensure_ascii=False))
     assert error is None and all(checks.values()) and all(cleanup.values()),error
 
-if __name__=='__main__':run(sys.argv[1])
+if __name__=='__main__':
+    assert sys.argv[2:] in [[],['--policy-1330']]
+    run(sys.argv[1],bool(sys.argv[2:]))

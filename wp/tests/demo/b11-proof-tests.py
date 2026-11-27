@@ -27,6 +27,22 @@ class ProofRules(unittest.TestCase):
     def test_public_gravatar_and_admin_other_host_are_red(self):
         self.assertTrue(m.forbidden_external({'url':'https://secure.gravatar.com/avatar/test','context':'anon','origin':'http://fictif.invalid/article/'}))
         self.assertTrue(m.forbidden_external({'url':'https://s.w.org/test','context':'admin','origin':'http://fictif.invalid/wp-admin/post.php'}))
+    def test_effective_defaults_accept_only_exact_native_explicit_default(self):
+        def row(value, present, default='default'):
+            return {'effective_sha256': value, 'raw_sha256': value if present else None,
+                    'present': present, 'default_sha256': default, 'default_known': True}
+        before={'imagine_medias':row('off',True),'owned':row('default',False)}
+        after={'imagine_medias':row('on',True),'owned':row('default',True)}
+        result=m.compare_options(before,after)
+        self.assertTrue(result['ok'])
+        self.assertEqual(result['absent_to_exact_default'],['owned'])
+        for damaged in [row('different',True),row('DEFAULT',True),row('empty',True)]:
+            self.assertFalse(m.compare_options(before,{**after,'owned':damaged})['ok'])
+        self.assertFalse(m.compare_options(before,{'imagine_medias':after['imagine_medias']})['ok'])
+        present={**before,'owned':row('invalid-but-existing',True)}
+        self.assertFalse(m.compare_options(present,after)['ok'])
+        self.assertFalse(m.compare_options(before,{**after,'owned':{**after['owned'],'default_sha256':'changed'}})['ok'])
+
     def test_passive_observer_does_not_rewrite_path(self):
         text=(ROOT/'wp/tests/demo/b11-observer.php').read_text(encoding='utf-8')
         self.assertNotIn('use_block_editor_for_post',text)
