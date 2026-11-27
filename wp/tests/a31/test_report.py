@@ -40,7 +40,7 @@ class ReportTests(unittest.TestCase):
                     d['counts'][key]['total'] = n
                 if key == 'years':
                     d['counts']['oldest_year'] = 2020
-                self.assertEqual(r.projection(d, '0' * 64), n >= 5, (key, n))
+                self.assertEqual(r.projection(d, '0' * 64), n >= (5 if key in ('years', 'statuses') else 1), (key, n))
 
     def test_five_natures_plus_illisible(self):
         for nature in ('parent', 'renewal', 'switch', 'resubscribe', 'none', 'illisible', 'CANARY', '', None):

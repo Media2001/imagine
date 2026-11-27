@@ -15,13 +15,16 @@ $order = static fn (string $nature, int $year = 2020): array => [
     'orphan_renewal' => false, 'account_missing' => false, 'link_unknown' => false,
 ];
 $one = Analysis::analyse([$order('renewal')], [], []);
-$check('rare_one_no_label', $one['natures'] === ['groups' => [], 'autres' => 1]);
+$check('rare_one_no_label', $one['years'] === ['groups' => [], 'autres' => 1]);
+$check('rare_nature_one_exact', $one['natures'] === ['groups' => [['nature' => 'renewal', 'count' => 1]], 'autres' => 0]);
 $four = Analysis::analyse(array_fill(0, 4, $order('renewal')), [], []);
-$check('rare_four_no_label', $four['natures'] === ['groups' => [], 'autres' => 4]);
+$check('rare_four_no_label', $four['years'] === ['groups' => [], 'autres' => 4]);
+$check('rare_nature_four_exact', $four['natures'] === ['groups' => [['nature' => 'renewal', 'count' => 4]], 'autres' => 0]);
 $check('oldest_four_suppressed', $four['oldest_year'] === 'fusionne');
 $check('oldest_rare_suppressed', $one['oldest_year'] === 'fusionne');
 $five = Analysis::analyse(array_fill(0, 5, $order('renewal')), [], []);
 $check('renewal_five', $five['natures'] === ['groups' => [['nature' => 'renewal', 'count' => 5]], 'autres' => 0]);
+$check('year_five_k5', $five['years'] === ['groups' => [['year' => 2020, 'count' => 5]], 'autres' => 0]);
 $check('oldest_five_exact', $five['oldest_year'] === 2020);
 foreach (Analysis::NATURES as $nature) {
     $d = Analysis::analyse(array_fill(0, 5, $order($nature)), [], []);
@@ -69,7 +72,7 @@ $check('empty_not_unknown', Analysis::analyse([], [], [])['oldest_year'] === nul
 // Fusion 08h58: scalar anomalies remain exact independently, not K5 cells.
 $metrics = ['orphan_renewals', 'living_without_parent', 'orders_missing_account', 'orders_link_unknown'];
 foreach ($metrics as $metric) {
-    foreach ([0, 1, 4, 5] as $count) {
+    foreach ([0, 1, 2, 3, 4, 5] as $count) {
         foreach ([false, true] as $mixed) {
             $orders = [];
             $subs = [];
@@ -99,10 +102,10 @@ foreach ($metrics as $metric) {
         }
     }
 }
-foreach ([0, 1, 4, 5] as $count) {
+foreach ([0, 1, 2, 3, 4, 5] as $count) {
     $result = Analysis::analyse([], [], array_fill(0, $count, ['year' => 2021]));
     $check('refund_exact_total_' . $count, ($result['refunds']['total'] ?? null) === $count);
-    $check('refund_rare_year_' . $count, $result['refunds']['groups'] === ($count >= 5
+    $check('refund_exact_year_' . $count, $result['refunds']['groups'] === ($count > 0
         ? [['year' => 2021, 'count' => $count]] : []));
 }
 $code = (int) in_array('FAIL', array_column($checks, 'status'), true);

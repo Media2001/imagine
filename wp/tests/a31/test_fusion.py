@@ -23,7 +23,7 @@ class FusionTests(unittest.TestCase):
     def test_exact_scalar_zero_one_four_five_alone_and_mixed(self):
         for storage in ('classic', 'hpos'):
             for metric in METRICS:
-                for count in (0, 1, 4, 5):
+                for count in range(6):
                     for mixed in (False, True):
                         with self.subTest(storage=storage, metric=metric, count=count, mixed=mixed):
                             data = payload()
@@ -35,14 +35,25 @@ class FusionTests(unittest.TestCase):
                             bad['counts'][metric] = {'groups': [], 'autres': count}
                             self.assertFalse(r.projection(bad, '0' * 64))
 
-    def test_refund_total_exact_but_rare_year_hidden(self):
-        for count in (0, 1, 4, 5):
+    def test_refund_total_and_year_exact_without_k5(self):
+        for count in range(6):
             data = payload()
-            data['counts']['refunds'] = {'total': count, 'autres': count if count < 5 else 0,
-                                         'groups': [] if count < 5 else [{'year': 2021, 'count': count}]}
+            data['counts']['refunds'] = {'total': count, 'autres': 0,
+                                         'groups': [{'year': 2021, 'count': count}] if count else []}
             self.assertTrue(r.projection(data, '0' * 64))
             data['counts']['refunds']['total'] += 1
             self.assertFalse(r.projection(data, '0' * 64))
+
+    def test_only_year_and_year_status_are_pooled(self):
+        for key, fields in [('natures', {'nature': 'renewal'}), ('refunds', {'year': 2021})]:
+            for count in range(1, 5):
+                data = payload()
+                data['counts'][key] = {'groups': [{**fields, 'count': count}], 'autres': 0}
+                if key == 'refunds':
+                    data['counts'][key]['total'] = count
+                self.assertTrue(r.projection(data, '0' * 64))
+                data['counts'][key].update(groups=[], autres=count)
+                self.assertFalse(r.projection(data, '0' * 64))
 
     def test_windows_child_environment_omits_tmpdir_and_proves_console(self):
         import json
