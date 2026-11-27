@@ -16,8 +16,10 @@ final class AutresPages
         });
         add_filter('the_content', static function (string $content): string {
             $pages = get_option(self::OPTION, []);
-            if (is_singular('page') && in_the_loop() && is_main_query()
-                && get_the_ID() === (int) ($pages['contact'] ?? 0)) {
+            if (
+                is_singular('page') && in_the_loop() && is_main_query()
+                && get_the_ID() === (int) ($pages['contact'] ?? 0)
+            ) {
                 return $content . Contact::formulaire();
             }
             return $content;

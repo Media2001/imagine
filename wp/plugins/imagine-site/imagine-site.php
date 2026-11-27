@@ -140,6 +140,14 @@ Soutenir::register();
 Sujet::register();
 SujetConfidentialite::register();
 
+// B09 — pages natives et contact privé local.
+require_once __DIR__ . '/Contact.php';
+require_once __DIR__ . '/ContactConfidentialite.php';
+require_once __DIR__ . '/AutresPages.php';
+Contact::register();
+ContactConfidentialite::register();
+AutresPages::register();
+
 add_action('init', static function (): void {
     foreach ([
         'imagine_numero' => [__('Numéros fictifs', 'imagine-site'), 'numeros'],

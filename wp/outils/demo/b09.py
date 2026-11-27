@@ -44,7 +44,7 @@ def deploy(label):
     for n in NAMES[:-1]:
         assert old[n] in [None,(ROOT/'wp'/n).read_text(encoding='utf-8')], n
     footer=(ROOT/'wp/themes/imagine/footer.php').read_text(encoding='utf-8')
-    assert old[NAMES[-1]] in [footer,footer.replace("if (has_nav_menu('imagine-footer')) {\n                wp_nav_menu(['theme_location' => 'imagine-footer', 'container' => false, 'fallback_cb' => false]);\n            }", 'imagine_navigation();')], 'Footer divergent'
+    assert old[NAMES[-1]] in [footer,footer.replace("            <?php\n            if (has_nav_menu('imagine-footer')) {\n                wp_nav_menu(['theme_location' => 'imagine-footer', 'container' => false, 'fallback_cb' => false]);\n            }\n            ?>", '            <?php imagine_navigation(); ?>')], 'Footer divergent'
     before=b08.c25.b06.state()
     durable=b08.c25.private('b09-'+label,{'database':b08.snapshot(),'files':old,'business':before})
     for n in names:
@@ -86,6 +86,43 @@ def runtime(label):
         print(json.dumps({**result,'restoration':exact,'business_preserved':preserved},ensure_ascii=False))
         assert all(exact.values()) and preserved
     assert result.get('checks') and all(v is True for v in result['checks'].values())
+
+
+def seed(label):
+    identity=b08.c25.b06.guard()
+    assert wp("echo wp_json_encode(get_option('imagine_b09_menu',null));") is None, 'Seed initial déjà réalisé'
+    before=b08.snapshot()
+    durable=b08.c25.private('b09-'+label,{'database':before,'business':b08.c25.b06.state()})
+    name='imagine-demo-build/b09-seed.php'
+    assert wp('echo wp_json_encode(file_exists(WP_CONTENT_DIR."/'+name+'"));') is False
+    result={}
+    try:
+        b08.c25.b06.profils.b00.upload(name,(ROOT/'wp/outils/demo/b09-seed.php').read_bytes())
+        code="add_action('wp_add_nav_menu_item',static function(){static $n=0;if(++$n===3){exit(73);}},99);require WP_CONTENT_DIR.'/"+name+"';"
+        interrupted=b08.c25.b06.profils.b00.wp('eval',code,check=False)
+        assert interrupted['code']==73, interrupted['code']
+        partial=wp("$v=get_option('imagine_b09_menu');echo wp_json_encode(['ownership'=>$v,'attached'=>count(wp_get_nav_menu_items($v['menu'])),'pages'=>get_option('imagine_b09_pages')]);")
+        assert len(partial['ownership']['items'])==3 and partial['attached']==2
+        orphan=partial['ownership']['items']['confidentialite']
+        assert wp('echo wp_json_encode(wp_get_object_terms('+str(orphan)+',"nav_menu",["fields"=>"ids"]));')==[]
+        # Nouvelle invocation WP-CLI : aucune mémoire PHP de la première création.
+        first=wp('require WP_CONTENT_DIR."/'+name+'";')
+        second=wp('require WP_CONTENT_DIR."/'+name+'";')
+        assert first==second and len(first['items'])==5 and first['pages']==partial['pages']
+        assert all(first['items'][k]==v for k,v in partial['ownership']['items'].items())
+        rows=wp("$v=get_option('imagine_b09_pages');$out=[];foreach($v as $k=>$id){$p=get_post($id);$out[$k]=['id'=>$id,'title'=>$p->post_title,'content'=>$p->post_content,'url'=>get_permalink($id)];}echo wp_json_encode($out);")
+        principal=wp("$v=get_nav_menu_locations();echo wp_json_encode(['principal'=>$v['imagine-principal'],'footer'=>$v['imagine-footer'],'items'=>array_map(static fn($p)=>$p->ID,wp_get_nav_menu_items($v['imagine-footer'])),'privacy'=>(int)get_option('wp_page_for_privacy_policy')]);")
+        orig_locations=next(r for r in before['options'] if r['option_name']=='theme_mods_imagine')
+        # Le contrôle indépendant compare les lignes SQL natives des items/relations de l'ancien menu.
+        after=b08.snapshot()
+        prior_ids={int(r['ID']) for r in before['posts'] if r['post_type']=='nav_menu_item'}
+        preserved=all([r for r in before[k] if int(r['post_id' if k=='postmeta' else 'ID']) in prior_ids]==[r for r in after[k] if int(r['post_id' if k=='postmeta' else 'ID']) in prior_ids] for k in ['posts','postmeta'])
+        assert preserved and principal['footer']==first['menu'] and principal['privacy']==first['pages']['confidentialite']
+        result={'identity':identity,'private_snapshot':durable,'interrupted_exit':73,'partial':partial,'fixture':first,'readback':rows,'native':principal,'checks':{'interruption_processus_reelle':True,'item_orphelin_marque':True,'reprise_autre_processus':True,'ids_partiels_reutilises':True,'rejeu_idempotent':True,'items_principaux_preserves':preserved}}
+    finally:
+        remove_remote([name])
+        save(label,{**result,'seed_runner_removed':True,'private_snapshot':durable})
+    print(json.dumps(result,ensure_ascii=False))
 
 
 if __name__=='__main__':

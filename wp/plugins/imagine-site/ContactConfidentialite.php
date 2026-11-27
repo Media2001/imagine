@@ -23,7 +23,7 @@ final class ContactConfidentialite
     {
         $ids = is_email(SujetRegles::email($email)) ? Contact::ids($email) : [];
         if ($ids === null) {
-            return new \WP_Error('imagine_contact_lecture', __('Lecture des demande de contacts impossible : réessayez cette page.', 'imagine-site'));
+            return new \WP_Error('imagine_contact_lecture', __('Lecture des messages de contact impossible : réessayez cette page.', 'imagine-site'));
         }
         $data = [];
         foreach (array_slice($ids, (max(1, $page) - 1) * 50, 50) as $id) {
@@ -41,7 +41,7 @@ final class ContactConfidentialite
         $ids = is_email(SujetRegles::email($email)) ? Contact::ids($email) : [];
         $result = ['items_removed' => false, 'items_retained' => false, 'messages' => [], 'done' => true];
         if ($ids === null) {
-            return array_replace($result, ['items_retained' => true, 'done' => false, 'messages' => [__('Lecture des demande de contacts impossible : réessayez.', 'imagine-site')]]);
+            return array_replace($result, ['items_retained' => true, 'done' => false, 'messages' => [__('Lecture des messages de contact impossible : réessayez.', 'imagine-site')]]);
         }
         // La collection rétrécit : toujours sa première tranche, pas l'offset export.
         foreach (array_slice($ids, 0, 50) as $id) {
@@ -54,7 +54,7 @@ final class ContactConfidentialite
         $remaining = Contact::ids($email);
         $result['done'] = $remaining === [] && !$result['items_retained'];
         if (!$result['done']) {
-            $result['messages'][] = __('Effacement des demande de contacts incomplet : réessayez.', 'imagine-site');
+            $result['messages'][] = __('Effacement des messages de contact incomplet : réessayez.', 'imagine-site');
         }
         return $result;
     }

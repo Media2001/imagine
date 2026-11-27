@@ -1,0 +1,43 @@
+{
+  "scope": "imagine-test-demo",
+  "sources": {
+    "wp/outils/demo/b09-local.py": "725cc7310b0cf99b0d4fa2888f20a15215e6301b36a41f4742db78800a4e7eb3",
+    "wp/outils/demo/b09-seed.php": "7dac91f834b774a16cf55648f6de2f26aa269a28603447aa9c8961c9fc746afd",
+    "wp/outils/demo/b09-sources.py": "171650085e4a4337dfc5deb018bd317eb916a2b604a8a1c1112fb2b1b09262fd",
+    "wp/outils/demo/b09.py": "89470e8814a4c6993c9856b1ba55f0f50f5417a3924f62d25db4aa47a497e313",
+    "wp/plugins/imagine-site/AutresPages.php": "ceed48252b70041d8f966beb0140a83d8fe147663ecae5340feb91f498839b0e",
+    "wp/plugins/imagine-site/Contact.php": "1f6ac635a0461ceeb8ac8326354b9a0d5a887093e4d7e29e979fca1162cee8cf",
+    "wp/plugins/imagine-site/ContactConfidentialite.php": "6ccaad031dc0b483cec90d81f903476c53e65cd3ebb4a00c08848eaa54fb3828",
+    "wp/plugins/imagine-site/tests/ContactAdapterTest.php": "2eee0206a259f5197933e9bf2dc7d0f946573e859ea9156f0ddb76a973450267",
+    "wp/plugins/imagine-site/tests/ContactWPStubs.php": "a13b7eb42e3190f8511f9de4f93c2ddb23906f48501ceb8dbf41be974a7a5bcd",
+    "wp/tests/demo/b09-ecrire-contact.py": "22b7a90b0ecc14e023c8ccaa4ba7d8c1f4cb3f113ad4f2d0785aaf620284ad25",
+    "wp/tests/demo/b09-ecrire-tests.py": "808fc09bab0273990ddc0533bfd9c8d6eb17c56f6b1735841d4877f14b3a561c",
+    "wp/tests/demo/b09-horslive.php": "916a2298c88b0242cc6c0404577db64b4a1464c7b08ac8dab7e0bcdf6ae3eef9",
+    "wp/tests/demo/b09-structure.php": "400c2da4a0a70c7a100fef7981e08d19292f0a5de754a8cc751e7f4281da4585",
+    "wp/tests/demo/b09-style.php": "e8af1c0a162b81edeb9d4135b268a80dd039a71786f32f5e0571f3a68fef1514",
+    "wp/themes/imagine/footer.php": "33c8f45ac3c8b199b84b2f83c2fddcccbb401ab18faa57d683ed81e2fea8cbc9"
+  },
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "private_snapshot": {
+    "file": "c25-private-w3nizn2n/snapshot.json",
+    "sha256": "88114214351dbc2c6026d6022359a3433507df69f67cb157039f462feddf1fcf",
+    "private": true
+  },
+  "readback": {
+    "plugins/imagine-site/Contact.php": "1f6ac635a0461ceeb8ac8326354b9a0d5a887093e4d7e29e979fca1162cee8cf",
+    "plugins/imagine-site/ContactConfidentialite.php": "6ccaad031dc0b483cec90d81f903476c53e65cd3ebb4a00c08848eaa54fb3828",
+    "plugins/imagine-site/AutresPages.php": "ceed48252b70041d8f966beb0140a83d8fe147663ecae5340feb91f498839b0e",
+    "themes/imagine/footer.php": "33c8f45ac3c8b199b84b2f83c2fddcccbb401ab18faa57d683ed81e2fea8cbc9",
+    "plugins/imagine-site/imagine-site.php": "3ad7dd9df8205d338647ea8df5bfa272bccd89d888ec9a105b3dd849ed083071"
+  },
+  "business_preserved": true
+}

@@ -116,7 +116,7 @@ final class Contact
         echo '<p><label>' . esc_html(__('Nom', 'imagine-site')) . ' <input name="nom" required maxlength="200" autocomplete="name"></label></p>';
         echo '<p><label>' . esc_html(__('Adresse email', 'imagine-site')) . ' <input type="email" name="email" required maxlength="254" autocomplete="email"></label></p>';
         echo '<p><label>' . esc_html(__('Message', 'imagine-site')) . ' <textarea name="contact" required maxlength="10000"></textarea></label></p>';
-        echo '<p><label><input type="checkbox" name="consentement" value="1"> ' . esc_html(__('J’accepte d’être recontacté au contact de cette demande de contact.', 'imagine-site')) . '</label></p>';
+        echo '<p><label><input type="checkbox" name="consentement" value="1"> ' . esc_html(__('J’accepte d’être recontacté au sujet de ce message.', 'imagine-site')) . '</label></p>';
         echo '<p>' . esc_html(__('Ces données sont conservées localement, uniquement pour le traitement de votre demande de contact.', 'imagine-site'))
             . ' <a href="' . esc_url(get_privacy_policy_url()) . '">' . esc_html(__('Confidentialité', 'imagine-site')) . '</a></p>';
         echo '<button type="submit">' . esc_html(__('Enregistrer le message', 'imagine-site')) . '</button></form>';
