@@ -38,6 +38,11 @@ try {
 $explicit = $mapping + ['personne' => 'personne'];
 PointsVente::importer($csv, $explicit, ';');
 $expect('mapping_personne_explicite', PointsVente::lignes()[0]['personne'] === 'SECRET');
+update_option(PointsVente::CONFIG, ['mapping' => $mapping, 'separateur' => ';', 'carte' => '0'], false);
+$expect('retrait_mapping_personne_cache_immediatement', !str_contains(PointsVente::afficher(''), 'SECRET'));
+update_option(PointsVente::CONFIG, ['mapping' => $explicit, 'separateur' => ';', 'carte' => '0'], false);
+$expect('affichage_personne_explicite', str_contains(PointsVente::afficher(''), 'SECRET'));
+delete_option(PointsVente::CONFIG);
 $expect('reglage_deux_valeurs_ferme', PointsVente::carte('0') === '0' && PointsVente::carte('1') === '1'
     && PointsVente::carte('autre') === '0' && PointsVente::carte(null) === '0');
 $type = get_post_type_object(PointsVente::TYPE);

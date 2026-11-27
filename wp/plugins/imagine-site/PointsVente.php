@@ -137,7 +137,7 @@ final class PointsVente
                 $html .= '<li><strong>' . esc_html($row['nom']) . '</strong><br>' . esc_html($row['adresse']) . '<br>'
                     . esc_html($row['postal'] . ' ' . $row['localite']);
                 foreach (['personne' => __('Contact', 'imagine-site'), 'telephone' => __('Téléphone', 'imagine-site')] as $key => $label) {
-                    if (isset($row[$key]) && $row[$key] !== '') {
+                    if (array_key_exists($key, self::configuration()['mapping']) && isset($row[$key]) && $row[$key] !== '') {
                         $html .= '<br>' . esc_html($label . ' : ' . $row[$key]);
                     }
                 }

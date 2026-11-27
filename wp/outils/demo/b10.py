@@ -47,10 +47,29 @@ def runtime(label):
         result=raw
     finally:
         b09.remove_remote([name])
-        wp('foreach(get_posts(["post_type"=>"imagine_vente","post_status"=>"any","numberposts"=>-1,"fields"=>"ids"]) as $id){wp_delete_post($id,true);}delete_option("imagine_vente_actifs");echo wp_json_encode(true);')
+        wp('foreach(get_posts(["post_type"=>"imagine_vente","post_status"=>"any","numberposts"=>-1,"fields"=>"ids"]) as $id){wp_delete_post($id,true);}delete_option("imagine_vente_actifs");delete_option("imagine_vente_configuration");echo wp_json_encode(true);')
         restored=wp('echo wp_json_encode([get_option("imagine_vente_actifs",null),get_posts(["post_type"=>"imagine_vente","post_status"=>"any","numberposts"=>-1,"fields"=>"ids"])]);')==before
         save(label,{**result,'restored':restored})
     print(json.dumps(result,ensure_ascii=False))
     assert restored and result['code']==0
+
+def navigation():
+    return wp('''$locations=get_nav_menu_locations();$out=['locations'=>$locations,'principal'=>[],'footer'=>[]];foreach(['principal'=>'imagine-principal','footer'=>'imagine-footer'] as $key=>$loc){foreach(wp_get_nav_menu_items($locations[$loc]??0)?:[] as $i){$out[$key][]=['id'=>$i->ID,'object'=>(int)$i->object_id,'url'=>$i->url,'title'=>$i->title,'position'=>$i->menu_order];}}echo wp_json_encode($out);''')
+
+
+def seed(label):
+    identity=guard(); before=navigation();name='imagine-demo-build/b10-seed.php'
+    assert wp('echo wp_json_encode(file_exists(WP_CONTENT_DIR."/'+name+'"));') is False
+    try:
+        upload(name,(ROOT/'wp/outils/demo/b10-seed.php').read_bytes())
+        first=wp('require WP_CONTENT_DIR."/'+name+'";')
+        second=wp('require WP_CONTENT_DIR."/'+name+'";')
+    finally: b09.remove_remote([name])
+    after=navigation()
+    preserved=before['locations']==after['locations'] and before['principal']==after['principal'] and all(i in after['footer'] for i in before['footer'])
+    assert first==second and preserved
+    save(label,{'identity':identity,'seed':first,'before':before,'after':after,'checks':{'idempotent':True,'navigation_preserved':True}})
+    print(json.dumps(first,ensure_ascii=False))
+
 
 if __name__=='__main__': globals()[sys.argv[1]](sys.argv[2])
