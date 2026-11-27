@@ -16,10 +16,16 @@ $check = static function (string $name, bool $ok) use (&$checks): void {
 };
 $menu = get_option('imagine_b09_menu');
 $idsBefore = array_map(static fn ($p): int => $p->ID, wp_get_nav_menu_items($menu['menu']));
+$builds = 0;
+$countBuild = static function (string $html) use (&$builds): string { $builds++; return $html; };
+add_filter('post_thumbnail_html', $countBuild);
 PiedPage::invalider();
 $initial = PiedPage::numero();
-$check('numero_cache_construit', $initial !== '' && get_transient(PiedPage::CACHE) === $initial);
-$check('numero_cache_reutilise', PiedPage::numero() === $initial);
+$check('numero_cache_construit', $initial !== '' && get_transient(PiedPage::CACHE) === $initial && $builds === 1);
+$check('numero_cache_reutilise', PiedPage::numero() === $initial && $builds === 1);
+PiedPage::invalider();
+$check('numero_cache_reconstruit_apres_invalidation', PiedPage::numero() === $initial && $builds === 2);
+remove_filter('post_thumbnail_html', $countBuild);
 $issue = Imagine\Site\Accueil::numero();
 $check('numero_meme_regle_accueil', str_contains($initial, esc_url(get_permalink($issue))) && str_contains($initial, esc_html(get_the_title($issue))));
 ob_start();
