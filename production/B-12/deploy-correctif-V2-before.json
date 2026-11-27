@@ -1,0 +1,16 @@
+{
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "hashes": {
+    "plugins/imagine-site/IntegrationsCorps.php": "d7f014762a8caa55a7e9d4cb5ff159973d0e456744a0d67b35e1b992aa30df5f",
+    "plugins/imagine-site/imagine-site.php": "9530b50879a99f44284019ee481a1bd191e1b35a71a61b9a6310da7c1d7a6eb8"
+  }
+}

@@ -28,7 +28,7 @@ if ($mutant && class_exists(IntegrationsCorps::class)) {
     wp_embed_unregister_handler('imagine_corps_externe', PHP_INT_MIN);
     remove_filter('pre_oembed_result', [IntegrationsCorps::class, 'resolution'], PHP_INT_MAX);
     remove_filter('pre_render_block', [IntegrationsCorps::class, 'bloc'], PHP_INT_MAX);
-    remove_filter('rest_request_before_callbacks', [IntegrationsCorps::class, 'apercu'], PHP_INT_MAX);
+    remove_filter('rest_dispatch_request', [IntegrationsCorps::class, 'apercu'], PHP_INT_MAX);
 }
 $editor = get_users(['role' => 'administrator', 'number' => 1])[0];
 wp_set_current_user($editor->ID);
@@ -108,10 +108,17 @@ if ($mutant) {
     $internalRequest = new WP_REST_Request('GET', '/oembed/1.0/proxy');
     $internalRequest->set_param('url', $internal);
     $with = rest_do_request($internalRequest)->get_data();
-    remove_filter('rest_request_before_callbacks', [IntegrationsCorps::class, 'apercu'], PHP_INT_MAX);
+    remove_filter('rest_dispatch_request', [IntegrationsCorps::class, 'apercu'], PHP_INT_MAX);
     $without = rest_do_request($internalRequest)->get_data();
-    add_filter('rest_request_before_callbacks', [IntegrationsCorps::class, 'apercu'], PHP_INT_MAX, 3);
-    $check('interne_proxy_natif_identique', !empty($with) && $with === $without);
+    add_filter('rest_dispatch_request', [IntegrationsCorps::class, 'apercu'], PHP_INT_MAX, 3);
+    $normalize = static function ($data): string {
+        $data = (array) $data;
+        if (isset($data['html'])) {
+            $data['html'] = preg_replace('/(?:(?<=data-secret=")|(?<=secret=))[a-zA-Z0-9]+/', 'NATIVE_RANDOM_SECRET', $data['html']);
+        }
+        return wp_json_encode($data);
+    };
+    $check('interne_proxy_natif_identique', !empty($with) && $normalize($with) === $normalize($without));
     $check('zero_tentative_tous_settings', $events === [] && $transport === 0);
 }
 foreach ($ids as $id) {

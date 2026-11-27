@@ -1,0 +1,26 @@
+{
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "native": {
+    "code": 0,
+    "stdout": "{\"mutant\":true,\"checks\":{\"fixture_fictive_existante\":true,\"article_0_cree\":true,\"corps_0_exact_save\":true,\"route_0_executee\":true,\"corps_0_exact_apres\":true,\"article_1_cree\":true,\"corps_1_exact_save\":true,\"route_1_executee\":true,\"corps_1_exact_apres\":true,\"mutation_save_tentative\":true,\"mutation_render_tentative\":true,\"mutation_preview_tentative\":true,\"mutation_B00_avant_transport\":true,\"essai_4045_retire\":true,\"essai_4046_retire\":true},\"total\":15,\"events\":[{\"phase\":\"save_0\",\"url\":\"https:\\/\\/www.youtube.com\\/oembed?maxwidth=500&maxheight=750&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DB12FICTIF01&dnt=1&format=json\",\"blocked\":true},{\"phase\":\"render_0\",\"url\":\"https:\\/\\/www.youtube.com\\/oembed?maxwidth=500&maxheight=750&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DB12FICTIF01&dnt=1&format=json\",\"blocked\":true},{\"phase\":\"preview_0\",\"url\":\"https:\\/\\/www.youtube.com\\/oembed?maxwidth=600&maxheight=750&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DB12FICTIF01%26b12%3D0&dnt=1&format=json\",\"blocked\":true},{\"phase\":\"save_1\",\"url\":\"https:\\/\\/www.youtube.com\\/oembed?maxwidth=500&maxheight=750&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DB12FICTIF01&dnt=1&format=json\",\"blocked\":true},{\"phase\":\"render_1\",\"url\":\"https:\\/\\/www.youtube.com\\/oembed?maxwidth=500&maxheight=750&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DB12FICTIF01&dnt=1&format=json\",\"blocked\":true},{\"phase\":\"preview_1\",\"url\":\"https:\\/\\/www.youtube.com\\/oembed?maxwidth=600&maxheight=750&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DB12FICTIF01%26b12%3D1&dnt=1&format=json\",\"blocked\":true}],\"transport\":0,\"ids_removed\":[4045,4046]}",
+    "stderr": ""
+  },
+  "business_preserved": true,
+  "probe_removed": true,
+  "sources": {
+    "wp/outils/demo/b12-inspect.py": "19e81d4a0825e3c38810937e1ed99cbd5622f754edf2ef06aeee64cea068886d",
+    "wp/outils/demo/b12.py": "127a1e33b7bd8a307dd46e1a9a230fc807bbeb418d5a96c10f37d0dd994ade9b",
+    "wp/plugins/imagine-site/imagine-site.php": "9530b50879a99f44284019ee481a1bd191e1b35a71a61b9a6310da7c1d7a6eb8",
+    "wp/plugins/imagine-site/IntegrationsCorps.php": "c862e6849c314e76e5c82c20695774bb2f10835c566510942a56def474567048",
+    "wp/tests/demo/b12-runtime.php": "98dfdc2db9972f2bfacbc2848f68ba465cdb4e1821898999af9967a44feaf2b0"
+  }
+}

@@ -46,7 +46,9 @@ def deploy(label):
     identity = guard(); before = b11.state()
     old = wp('$o=[];foreach('+php(FILES)+' as $n){$p=WP_CONTENT_DIR."/".$n;$o[$n]=is_file($p)?file_get_contents($p):null;}echo wp_json_encode($o);')
     local = {n: (ROOT/'wp'/n).read_text(encoding='utf-8') for n in FILES}
-    assert old[FILES[0]] in [None, local[FILES[0]]]
+    previous = OUT/'deploy-V2.json'
+    accepted = json.loads(previous.read_text(encoding='utf-8'))['readback'] if previous.exists() else {}
+    assert old[FILES[0]] in [None, local[FILES[0]]] or hashlib.sha256(old[FILES[0]].encode()).hexdigest() == accepted.get(FILES[0])
     assert old[FILES[1]] in [local[FILES[1]], local[FILES[1]].replace(BLOCK, '')], 'Divergent bootstrap'
     save(label+'-before', {'identity': identity, 'hashes': {n: hashlib.sha256(s.encode()).hexdigest() if s else None for n,s in old.items()}})
     for n in FILES:
