@@ -1,0 +1,25 @@
+{
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "private_snapshot": {
+    "file": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\b11-private-u2pvht7a\\snapshot.json",
+    "sha256": "0c004f7a90023015a611e0c34cb3ed0d7314e30df00230cb91db259fbc1450b7",
+    "private": true
+  },
+  "hashes": {
+    "plugins/imagine-site/MediasRegles.php": null,
+    "plugins/imagine-site/Medias.php": null,
+    "plugins/imagine-site/AudioNumero.php": null,
+    "plugins/imagine-site/imagine-site.php": "d8b1e561df06230fbbb2f5fcf520215c5532feaea8d934c23676008fe49667d9",
+    "themes/imagine/single.php": "31bce0f66ba2a0961d39b1bf231055a20105e39a2e824c0806963608354604a2",
+    "themes/imagine/single-imagine_numero.php": "efaa64dd4bf445b885f71602014d49478e7d600cbfafafffd9eecab010246499"
+  }
+}

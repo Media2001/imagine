@@ -1,0 +1,18 @@
+{
+  "fixture": {
+    "fictif": true,
+    "issue": 11,
+    "article": 3454,
+    "silence_sha256": "59db6dfb709393b7aab8efcc2b395df4def43f1c976d8b157bb9009dbacdc0ec",
+    "seconds": 3,
+    "issue_active": 39,
+    "issue_url": "http://192.168.129.32:8085/numeros/demo-2026-t1/",
+    "article_url": "http://192.168.129.32:8085/b11-article-medias-fictifs/"
+  },
+  "idempotent": true,
+  "private_snapshot": {
+    "file": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\b11-private-rkmwa_10\\snapshot.json",
+    "sha256": "cb51d8a337ef79a54fa78e66e7d88f1e4f0f12ee3ab909286f1972a8d8d4b498",
+    "private": true
+  }
+}

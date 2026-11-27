@@ -1,0 +1,21 @@
+{
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "readback": {
+    "plugins/imagine-site/MediasRegles.php": "85179039a7c2221ed6cf41fe144a1b9960818ca3586696035178875d7b8f917f",
+    "plugins/imagine-site/Medias.php": "f10574b8ae775b30e9a7a25f0639d1c2ce1bef373878ac534e529af0611e793a",
+    "plugins/imagine-site/AudioNumero.php": "0cd603323234f1c56de2d3ef0a3d2c3b20a6c3b379ca8b4ae53d21b64545c3a4",
+    "plugins/imagine-site/imagine-site.php": "d21ac8e9360faab640fef5fe94a5076ed4e677c78521170f90310d8e5daac204",
+    "themes/imagine/single.php": "71b98dcdd3f3a9f537224f8e6c574dc5754760795de78369f7a526a46af0bfad",
+    "themes/imagine/single-imagine_numero.php": "701a14b4dcf8f04182af4d4f0729cb696fc475d9096dcba9e4ba19d4f2d8fef8"
+  },
+  "business_preserved": true
+}

@@ -39,8 +39,12 @@ foreach (['0', '1'] as $setting) {
 }
 $check('reglage_inconnu_ferme', Medias::nettoyer(['hosts' => ['video-fictive.example.invalid'], 'integration' => 'yes'])['integration'] === '0');
 $check('liste_hotes_invalide_conserve', Medias::nettoyer(['hosts' => ['https://evil.invalid'], 'integration' => '0']) === Medias::configuration());
+wp_set_current_user((int) $u['P-NUMERO']);
+$check('audio_acheteur_numero', str_contains(AudioNumero::lecteur(get_post($issue)), 'imagine_audio=' . $issue));
 wp_set_current_user((int) $u['A-CARTE']);
-$check('audio_ayant_droit', str_contains(AudioNumero::lecteur(get_post($issue)), 'imagine_audio=' . $issue));
+$activeIssue = (int) get_option('imagine_b11_fixture')['issue_active'];
+$check('audio_abonne_actif_numero_couvert', str_contains(AudioNumero::lecteur(get_post($activeIssue)), 'imagine_audio=' . $activeIssue));
+$check('audio_anterieur_ferme_par_C06', !str_contains(AudioNumero::lecteur(get_post($issue)), 'imagine_audio='));
 $path = AudioNumero::path($issue);
 $check('audio_hors_webroot', !str_starts_with(realpath($path), realpath(ABSPATH) . '/') && dirname($path) === Imagine\Site\PdfNumero::directory());
 $bytes = file_get_contents($path);
