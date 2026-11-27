@@ -2,7 +2,7 @@
 
 File de la **deuxième session d'Hermès**. Tenue par Claude. **Hermès ne modifie pas ce fichier.**
 
-Mis à jour le 27 novembre 2026, 19 h 30 (passage automatique).
+Mis à jour le 27 novembre 2026, 22 h 30 (passage automatique).
 
 Consigne permanente : `prompts/consigne-permanente.md` (section « Les deux voies »). Doctrine : `doctrine/doctrine.md`.
 
@@ -10,27 +10,28 @@ La voie 1 (`A-FAIRE.md`) s'occupe de l'existant : import, audit, mise à jour. L
 
 ## Consignes actives, par ordre de priorité
 
-File du 27/11, 19 h 30. Tes rapports de 16 h 28, 17 h 00 et 17 h 11 sont lus, merci. **B-11 et B-12 : code clos**, sur leur réception par contrat. C-29 : relu « à corriger », deux importants (consigne 0). Arbitrages : `docs/arbitrages-2026-11-27.md`, passage de 19 h. Rien de toi depuis 17 h 13 : si tu reprends après une interruption, commence par un rapport de cinq lignes.
+File du 27/11, 22 h 30. Tes rapports de 21 h 18, 21 h 36, 21 h 59 et 22 h 17 sont lus, merci : la reprise, les corrections de C-29, B-13 et B-14 rendus avec leur `PRET`. Aucun des trois n'est encore vérifié ou relu : tu continues sans les attendre, et leurs corrections passeront avant le lot en cours si elles arrivent. Arbitrages : `docs/arbitrages-2026-11-27.md`, passage de 22 h.
 
-Les paquets de la voie 1 que ton rejeu trouve rouges (A-31, A-32) ne sont pas à toi : continue à les signaler sans y toucher. **Ils ne bloquent pas la clôture de tes lots** : un lot se clôt sur la ligne `REJEU … PASS`, la ligne `OUTILS` sans échec et son propre vérificateur ; un paquet rouge ne bloque que s'il appartient au lot, ou à un lot clos ou porteur d'un `PRET`.
+Les paquets de la voie 1 que ton rejeu trouve rouges (A-32, A-33 ce soir) ne sont pas à toi : continue à les signaler sans y toucher. **Ils ne bloquent pas la clôture de tes lots** : un lot se clôt sur la ligne `REJEU … PASS`, la ligne `OUTILS` sans échec et son propre vérificateur ; un paquet rouge ne bloque que s'il appartient au lot, ou à un lot clos ou porteur d'un `PRET`.
 
 **Règle du contrat (16 h 30), qui reste : le fichier d'amorçage partagé se contrôle par contrat, jamais par son empreinte entière.** Le vérificateur d'un lot contrôle l'empreinte de **ses** fichiers, la présence dans `imagine-site.php` de **son** bloc d'enregistrement, tel que livré, une seule fois, et **sa** section du README. Tu ne rouvres aucun lot code clos pour cela, et tu ne refais plus de réception complémentaire des voisins pour une simple ligne d'amorçage. Le petit socle commun que tu as écrit pour cela (`lot_reception_contract.py`) est bien : les lots suivants s'en servent, sans l'étendre. La règle « un fichier partagé changé pour un lot se rejoue avant de rendre » reste pour tout le reste (un appel ajouté dans le fichier d'un autre lot, un bouchon commun).
 
-**0. Les corrections de C-29** (`corrections/C-29.md`), avant tout.
-   - **C29-01, tranché, ne l'attends pas de Ced** : un refus explicite du lecteur (`choix=false`, origine lecteur) est conservé même si sa lettre est sortie du catalogue ; sans aucune inscription active et avec au moins un refus conservé, la fiche reste « à retirer ». La suppression administrative d'une lettre encore choisie ne vaut jamais désinscription. Les deux cas d'essai de l'instruction 1 ;
-   - **C29-02** : un bénéficiaire de groupe identifié par un lien natif est « inconnu », adhésion active ou suspendue. La correction se fait dans C-29 ; **tu ne touches pas aux règles postales de C-13** (`EnvoiRelations`). Le test de l'instruction 2, état natif relu avant l'assertion ;
-   - instructions 3 et 4 telles quelles (appels multilignes du fichier neuf en PSR-12, libellés traduisibles sur des chaînes littérales) ; aucun changement de comportement ;
-   - **l'instruction 5 est remplacée** par la règle de clôture ci-dessus : tu n'attends pas A-31 ni A-32 ;
-   - la fiche « à retirer » reste telle quelle, sans identifiant : question rangée pour Imagine ;
-   - réception par contrat, `PRET` redéposé, une vérification.
+**À savoir sur tes trois lots rendus.**
+   - **C-29** : corrections lues ; borner son lecteur à ses propres fichiers pendant B-13 est conforme à la règle du contrat. Vérification attendue ;
+   - **B-13** : « Connexion » comme libellé pour un lecteur connecté est une question de présentation, notée pour Ced ; n'y touche pas. La sélection manuelle des articles reste une question pour Imagine, non construite : c'est bien ;
+   - **B-14** : le retrait de « Derniers articles » suit le §3.2. B-05, clos, n'est pas modifié ; la relecture dira si son contrôle de l'accueil doit être déclaré sans objet.
 
-**1. `briefs/B-13-menu-principal-et-menu-etendu.md`** — §3.1 : les huit entrées du menu dans l'ordre, et le menu étendu des thématiques avec une sélection d'articles (titre, image, lien). Structure seule, sans style ; rien de réservé n'y sort. Une demi-journée.
+**1. `briefs/B-15-pied-de-page.md`** — §3.2 : cinq zones identiques sur toutes les pages (abonnement, newsletter, numéro en cours, point de vente, mentions). **Aucune géolocalisation** : un lien vers la recherche de B-10. Deux à trois heures. Si tu l'as déjà rendu, passe à la suite.
 
-**2. `briefs/B-14-page-d-accueil-structure.md`** — §3.2 : l'accueil dans l'ordre du cahier des charges (numéro en cours, bloc de conversion, reportage en accès libre, newsletter, puis thématiques, événements, Soutenir, coopérative, partenaire du mois). Contenu et ordre, pas la forme ; une seule image chargée en priorité, ni vidéo ni carrousel. Une demi-journée.
+**2. `briefs/B-16-la-page-article.md`** — §3.3 : ce qui entoure le texte d'un article. Résumé et mots-clés en tête, signature, numéro d'origine, appel à l'abonnement en fin d'article pour qui a lu le texte complet sans être abonné. Structure seule ; le rendu du texte par C-08 et le mode lecture de B-03 ne changent pas. Trois heures.
 
-**3. `briefs/B-15-pied-de-page.md`** — §3.2 : cinq zones identiques sur toutes les pages (abonnement, newsletter, numéro en cours, point de vente, mentions). **Aucune géolocalisation** : un lien vers la recherche de B-10. Deux à trois heures.
+**3. `briefs/C-30-offre-de-bienvenue-et-code-suivi.md`** — §3.7, §3.14 : la page « Bienvenue » atteinte par un QR code, et son code suivi rangé sur la commande payée, compté par code. **L'offre n'offre rien** : aucun prix modifié, aucun code de réduction. Aucun traceur. Trois heures.
 
-**Le test d'étanchéité vivant est celui de C-26.** C-29, B-13, B-14 et B-15 ne l'étendent pas ; B-13, B-14 et B-15 prouvent leur étanchéité avec les témoins de C-26. La matrice sera étendue une fois, plus tard, par un lot.
+**4. `briefs/C-31-adresses-jetables-a-l-inscription.md`** — §3.9 : une liste de domaines refusés à l'inscription, en réglage, vide par défaut. Aucune liste téléchargée, aucun service tiers. Deux heures.
+
+Pour les réglages de C-30 et de C-31 : la règle de l'écran de C-10 plus bas vaut toujours (comme les quatre sections existantes, ou un écran à soi comme B-10).
+
+**Le test d'étanchéité vivant est celui de C-26.** Les lots de cette file ne l'étendent pas ; ils prouvent leur étanchéité avec les témoins de C-26. La matrice sera étendue une fois, plus tard, par un lot.
 
 **Règle venue de C-28 et de B-11 : un fichier partagé changé pour un lot se rejoue avant de rendre.** L'appel ajouté dans `AchatsNumeros.php` a fait échouer un test de B-04 et périmé la réception de B-11, qui n'avait pas bougé. Quand un lot touche un fichier qu'un autre lot non clos a scellé, tu le dis en tête du rapport et tu refais la réception du voisin dans le même réveil, historiques conservés. **Exception depuis 16 h 30 : la ligne d'enregistrement d'un lot dans l'amorçage et sa section du README**, contrôlées par contrat (règle en tête).
 

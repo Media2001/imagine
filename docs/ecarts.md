@@ -173,3 +173,18 @@ Toute demande hors cahier des charges, toute contradiction interne au cahier des
 - **C-29 · incident de banc.** Deux préparations de jeu d'essai avaient programmé une tâche de cache à l'arrêt ; état restauré et relu, sauf l'égalité des sessions au départ d'un ancien essai, non revendiquée.
 - **B-12 · preuve « zéro sortie » hors de la suite scellée.** Réserve permanente, écrite au README : matrice native à rejouer à chaque montée de version du cœur.
 - **Voie 2 · rien depuis 17 h 13**, corrections de C-29 arrivées à 17 h 53 et B-13 en file. Moins de trois heures : noté, pas d'alerte.
+
+## 27 novembre 2026, 22 h — lots A-31, A-32, A-33, T-03, C-29, B-13, B-14, voie 2
+
+- **Voie 2 · arrêt de 17 h 13 à 21 h 18, cause non établie.** Reprise seule, sur un verrou ancien retiré par Hermès. Troisième arrêt de ce genre en vingt-quatre heures (voie 2 la nuit, voie 1 l'après-midi, voie 2 le soir) ; chaque fois, environ quatre heures perdues.
+- **A-32 · un relecteur « conforme » sur trois points où l'autre voyait juste.** Codes de supervision perdus dans le bilan, `define` dans une chaîne PHP accepté par la garde, date d'exemple d'A-19 figée : la fusion a relu le code et confirmé. Corrections en cours.
+- **A-32 · la fusion lit le plafond d'A-16 comme une troncature.** Dix numéros est le périmètre du cahier des charges (§4.3) et le défaut documenté de l'outil ; il n'y a pas de mode sans plafond et il n'en est pas créé.
+- **A-32, T-03 · un lecteur de paquet qui photographie les voisins.** Le lecteur d'A-32 prenait l'empreinte de tout le dossier des outils : l'arrivée d'A-33 l'a fait passer au rouge sans qu'une ligne d'A-32 ait changé. Celui de T-03 englobait le paquet d'A-31 : la retouche d'A-31 l'a périmé quarante minutes après son `PRET`. Règle écrite (liste fermée), valable pour les lots à venir ; les lots clos ne sont pas rouverts.
+- **A-31 · le sceau lie cinq fichiers de la tournée d'A-32.** Les corrections d'A-32 peuvent donc périmer le paquet d'A-31, clos : un resceau par sa commande, code inchangé, sans rouvrir la clôture.
+- **A-31 · clos sans rejeu natif par un relecteur.** Le vérificateur a rejoué les suites Python et lu les preuves déposées ; la matrice dans les conteneurs n'a été jouée que par Hermès. Les journaux des paquets ne sont pas versionnés : un lecteur de paquet ne se rejoue pas hors du NUC.
+- **A-33 · deux versions de Python sous Windows.** A-33 et la requalification d'A-32 mesurent Python 3.11.15 ; les lots précédents et les commandes de réception, 3.14.6. À rejouer avec celui des commandes de réception.
+- **A-33 · un échec passager d'un test de C-29 dans un rejeu général**, pendant que la voie 2 corrigeait C-29 ; non reproduit ensuite. Aléa de deux voies sur un même arbre, noté.
+- **B-13 · « Connexion » reste le libellé de l'entrée du menu pour un lecteur connecté.** Elle mène au compte. Présentation, à voir par Ced avec le lot.
+- **B-13 · le lecteur de C-29 borné à ses propres fichiers pendant B-13.** Conforme à la règle du contrat ; C-29 n'est pas clos, sa vérification le lira.
+- **B-14 · la liste « Derniers articles » de l'accueil est retirée.** Le §3.2 ne la prévoit pas. Le contrôle que B-05 faisait sur cette liste n'a plus d'objet sur l'accueil ; B-05, clos, n'est pas modifié. À confirmer par la relecture de B-14.
+- **C-08 · le balisage de contenu payant (§3.9) est déjà posé** par le paywall de la démonstration ; pas de lot nouveau pour lui. Sa description reprend l'extrait public.
