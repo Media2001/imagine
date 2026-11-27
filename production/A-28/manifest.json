@@ -107,6 +107,7 @@
     "production/A-28/readme-contract.json": "977b8d6e81b1120a71129b4db8fafae30fe71e0f57bf16164da1cce74d4f5031",
     "production/A-28/reference/command.php": "cb6a089fdf43d3e561d3e53b0a884463690bfa1ecd16e0e3b2ed31a05bf4e5d1",
     "production/A-28/reference/lib.php": "612943583f01c1e0bad63f76546eaf9f8d00c86d972fb69d59e26b4834f1d8c3",
+    "production/A-28/rejeu.json": "79db8601f869d591815f20f2ae153b91f52db6dddb92a32d9de39a61a192a114",
     "production/A-28/REJEUX-PARENT.md": "9894e134869ed473a41ed9f3976006b49c300aeb0f5af4ae2783ce3aab010841",
     "production/A-28/resultats.json": "3ff64475e0c743fea57bd3e8d00e99e0a69ff19ad298d1b8965a06697dc08dc2",
     "production/A-28/RESULTATS.md": "e47d0f4355e3301bb44a04a1e02e9b431733be7b15cfbaf31e33161d25881fa3",
@@ -159,5 +160,6 @@
     "wp/tests/a28/test_policy.py": "9d40a5da9d7a826b9711036ef8c2dc19be637e54061e6a923b8dec3f32f8cf3b",
     "wp/tests/a28/test_verify.py": "2534c2f9a53a354e0588567fdd102d4885f34b883890f876e664ad6dda84da36",
     "wp/tests/a28/unit.php": "e33a0ba41972a8b67a9e4211f30de14a9a714be62468cbd8fae920cc2b9de78d"
-  }
+  },
+  "recorded_at": "2026-11-27T04:06:28.330279+01:00"
 }

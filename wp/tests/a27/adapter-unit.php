@@ -32,11 +32,9 @@ add_filter('woocommerce_subscription_payment_meta', static function () use (&$sc
 }, 10);
 try {
     $method = new ReflectionMethod(Inventory::class, 'paymentReference');
-    foreach (
-        [['opaque', ['private' => 'A27_OPAQUE_PRIVATE_CANARY'], 'unknown'],
-        ['null', null, 'unknown'], ['empty', '', 'absent'], ['scalar', 'opaque-local-reference', 'present']]
-        as [$name, $value, $expected]
-    ) {
+    $cases = [['opaque', ['private' => 'A27_OPAQUE_PRIVATE_CANARY'], 'unknown'],
+        ['null', null, 'unknown'], ['empty', '', 'absent'], ['scalar', 'opaque-local-reference', 'present']];
+    foreach ($cases as [$name, $value, $expected]) {
         $schema = ['ppcp-gateway' => ['post_meta' => ['opaque_field' => ['value' => $value]]]];
         $upstream = \Imagine\SubscriptionCoherence\Inventory::paymentReference($subscription);
         $check($name . '_actual_a19_boundary', $upstream === ($expected === 'unknown' ? 'absent' : $expected));
