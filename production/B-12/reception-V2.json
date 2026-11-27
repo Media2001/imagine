@@ -1,0 +1,48 @@
+{
+  "scope": "imagine-test-demo",
+  "ready": true,
+  "at": "2026-11-27T14:19:04.036888+00:00",
+  "sources": {
+    "wp/outils/demo/b12-finaliser.py": "f8b902868f7abca331f5376b0cba6cda229c39aa3d592f692b7af797d333ad96",
+    "wp/outils/demo/b12-inspect.py": "19e81d4a0825e3c38810937e1ed99cbd5622f754edf2ef06aeee64cea068886d",
+    "wp/outils/demo/b12-neighbors.py": "13480fed252c8f0103d4c65dc499c3a8871d0e2f2fdcc3309dcaf90f1206cc81",
+    "wp/outils/demo/b12-standard.py": "d81485e72eaa4047b883dbb6820eb17942a8b7be6323ccbf66f223c2edc86ca4",
+    "wp/outils/demo/b12.py": "127a1e33b7bd8a307dd46e1a9a230fc807bbeb418d5a96c10f37d0dd994ade9b",
+    "wp/plugins/imagine-site/imagine-site.php": "9530b50879a99f44284019ee481a1bd191e1b35a71a61b9a6310da7c1d7a6eb8",
+    "wp/plugins/imagine-site/IntegrationsCorps.php": "c862e6849c314e76e5c82c20695774bb2f10835c566510942a56def474567048",
+    "wp/plugins/imagine-site/tests/IntegrationsCorpsB12Stubs.php": "ff635a352975fb7f4c278f1eb56ff9ab6bacbf567f300b3564b31752c02bf229",
+    "wp/plugins/imagine-site/tests/IntegrationsCorpsB12Test.php": "14e5a8b8365ddf7e0dcae0c3c4d631401befc938ceb96be1fda03a1ff4b9e77f",
+    "wp/tests/demo/b12-proof-tests.py": "67aacb987be429eabe1c5c35ee6f8c9182720940ac74c9685d283e7f84ab67cd",
+    "wp/tests/demo/b12-runtime.php": "c548afd7e9d6372acc179e8c5cb2abf739bbf4eddffa61c94ea183f50a626dde",
+    "wp/tests/demo/b12-verifier.py": "81ba656b25b74453214143d075e31efdb78932916c23d9723073caf164e77b2e"
+  },
+  "evidence": {
+    "native-reception-V2.json": "fdea999488b0ec29773795d07c327652af6da861b689e363b3465c957fd19e95",
+    "mutation-reception-V2.json": "86536a679ff5a7d5e640d24877e634d06a99224ab027ee334fc07a25dc91f0a1",
+    "red-verrou-absent-V2.json": "7dfede7d1de560a781436472d6abfb3d01ae7c20c034bfe6f99332bffd849ec4",
+    "red-mutation-native-V2.json": "b4aef2b962053204bdc8a65149a925171335c5ad526e366906d0019039403f8c",
+    "image-rebuilt-V2.json": "a98c0df502d67fd144616e79f375b9e1a45b7cc6afae88379fed3f6325bd5241",
+    "image-rebuilt-V2.log": "1f50e98178259db0a47848e4857c4361a51f5421ff1e90fcab251331243666d9",
+    "replay-corrected-V2.json": "62559bcde730ebd0e637baedbe2529b43ef25a82d27a4cc4d13fd95e4ee72b66",
+    "replay-corrected-V2.log": "96c7ba94ccf7ecde1b82608116e2ba94dda12c85844f67ce234aaaf8089e94fa",
+    "reception-complement-voisins-V2.json": "7db78fcaa447423706e34835f1e26b89dac40f822765244b0554daa67a6f7a96",
+    "reception-complement-voisins-V2.log": "22b65bb77a16b5d8d1fbcd7e58827380671f6678706b49c0736748f5b5d30a87",
+    "reception-complement-voisins-V2-B11-native.json": "dc6c543ba5926c8f3c7af45f6c53130aca7379f87168020008a34696819afaa5",
+    "reception-complement-voisins-V2-C28-native.json": "f67ca0aad1f4a240c6076500f4d71e81413cf9f059a959331a507ce5371a5055",
+    "sources-officielles-V2.json": "67068df709b4b422a999de57a6718e80f924ddb4946e170914671b15ca251af6",
+    "lint-final-V2.json": "a93a878134fe40eb3a1f73796a0c4aec5f5afdb1530ac7d0642bbd7dc867e08f",
+    "proof-reader-tests-V2.log": "9e66299bab6e5fb65ac7bb61cabca2c30a3cd85a4ab984ee9f6d0a8853807c08",
+    "NOTE.md": "e9d5d33e7411e5ac448636264ff38e0785f7eaa2cc84d230d64c1ad8ed202471",
+    "A-VOIR.md": "f9fca12224156a689bda5f1a3a517104e3ca7ccce17bd7eb89ac45b6aed13dad"
+  },
+  "green": "native-reception-V2.json",
+  "mutation": "mutation-reception-V2.json",
+  "neighbors": "reception-complement-voisins-V2.json",
+  "readme_section": "1fe782e6270a2e3c82228996507f22b39040dcadb39ac2c0bc8f47c31e272714",
+  "limits": [
+    "Native WordPress execution via WP-CLI: real save/cache/render/REST router, not a manual editor UI recording.",
+    "Exact business rows restored; InnoDB AUTO_INCREMENT counters may advance despite rollback.",
+    "B11 UI_save_verified=false remains the accepted 13h30 boundary.",
+    "A31 A31_PARTIAL_EVIDENCE and A32 A32_PACKAGE_DRIFT are foreign packet failures; untouched."
+  ]
+}
