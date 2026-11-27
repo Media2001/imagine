@@ -38,7 +38,7 @@ final class Analysis
         bool $neutralised = false
     ): array {
         $buckets = array_fill_keys(
-            ['years', 'statuses', 'natures', 'orphan_renewals', 'structural_links', 'refunds'],
+            ['years', 'statuses', 'natures', 'refunds'],
             []
         );
         $add = static function (string $kind, array $fields) use (&$buckets): void {
@@ -47,6 +47,10 @@ final class Analysis
             $buckets[$kind][$key]['count']++;
         };
         $years = [];
+        $links = array_fill_keys(
+            ['orphan_renewals', 'living_without_parent', 'orders_missing_account', 'orders_link_unknown'],
+            0
+        );
         foreach ($orders as $row) {
             $year = self::year($row['year']);
             $years[$year] = ($years[$year] ?? 0) + 1;
@@ -56,29 +60,30 @@ final class Analysis
             $nature = in_array($row['nature'], self::NATURES, true) ? $row['nature'] : 'illisible';
             $add('natures', ['nature' => $nature]);
             if ($row['orphan_renewal']) {
-                $add('orphan_renewals', ['metric' => 'renewals_missing_subscription']);
+                $links['orphan_renewals']++;
             }
             if ($row['account_missing']) {
-                $add('structural_links', ['metric' => 'orders_missing_account']);
+                $links['orders_missing_account']++;
             }
             if ($row['link_unknown']) {
-                $add('structural_links', ['metric' => 'orders_link_unknown']);
+                $links['orders_link_unknown']++;
             }
         }
         foreach ($subscriptions as $row) {
             // A-19 Analysis::analyse lines 63-65: its living/active cohort is exactly active.
             if ($row['status'] === 'active' && !$row['parent_exists']) {
-                $add('structural_links', ['metric' => 'living_without_parent']);
+                $links['living_without_parent']++;
             }
         }
         foreach ($refunds as $row) {
             $add('refunds', ['year' => self::year($row['year'])]);
         }
-        $result = [];
+        $result = $links;
         foreach ($buckets as $key => $rows) {
             $result[$key] = $neutralised && $key === 'natures'
                 ? self::UNKNOWN : self::pool($rows);
         }
+        $result['refunds'] = ['total' => count($refunds)] + $result['refunds'];
         $oldest = null;
         if (isset($years['illisible'])) {
             $oldest = 'illisible';

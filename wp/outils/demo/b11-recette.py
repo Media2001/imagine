@@ -292,6 +292,7 @@ def run(label):
         error=type(exc).__name__+': '+str(exc)
     finally:
         # Les inverses sont indépendantes ; aucune session ni nonce dans les reçus publics.
+        observations=b11.wp('echo wp_json_encode(get_option("imagine_b11_observations",[]));')
         remove_probes([observer,mutant]);cleanup['observer_removed']=True
         b11.wp('delete_option("imagine_b11_observations");update_option("imagine_medias",'+b11.php(settings0)+',false);echo wp_json_encode(true);')
         cleanup['settings_restored']=b11.wp('echo wp_json_encode(get_option("imagine_medias",null));')==settings0

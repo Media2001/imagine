@@ -13,12 +13,33 @@ import b11
 def verify(live=False):
     out=b11.OUT
     load=lambda n:json.loads((out/(n+'.json')).read_text(encoding='utf-8'))
-    r=load('recette-finale');native=load('natif-final');image=load('preparation-image');replay=load('regression-finale')
+    manifest=load('reception-corrections-V2')
+    assert manifest['scope']=='imagine-test-demo'
+    assert manifest['sources']==b11.sources(),'Sources modifiées après réception complémentaire'
+    assert all(hashlib.sha256((out/n).read_bytes()).hexdigest()==h for n,h in manifest['evidence'].items()),'Preuve complémentaire modifiée'
+    assert all(hashlib.sha256((out/n).read_bytes()).hexdigest()==h for n,h in manifest['historical_receipts'].items()),'Historique modifié'
+    r=load('corrections-final-V2');native=load('corrections-natif-V2');image=load('corrections-image-V2');replay=load('corrections-rejeu-V2')
+    details=load('corrections-final-V2-details')
+    if not manifest['ready']:
+        assert not (out/'PRET').exists(),'PRET interdit pendant blocage'
+        assert r['error'] is not None or r['failures'] or not all(r['checks'].values()),'Blocage sans preuve rouge'
+        assert all(r['cleanup'].values()),'Restauration non prouvée'
+        if live:
+            b11.guard()
+            assert b11.b10.b09.b08.c25.b06.hashes(b11.FILES)=={n:hashlib.sha256((ROOT/'wp'/n).read_bytes()).hexdigest() for n in b11.FILES}
+            assert b11.wp('echo wp_json_encode(!file_exists(WP_CONTENT_DIR."/mu-plugins/b11-observer.php")&&!file_exists(WP_CONTENT_DIR."/mu-plugins/b11-no-persist.php")&&get_option("imagine_b11_observations",null)===null);')
+        print(json.dumps({'B11':'BLOCKED','receipt':'reception-corrections-V2.json','mode':'live-readonly' if live else 'offline','ready':False,'recipe_error':r['error'],'failed':[k for k,v in r['checks'].items() if not v],'blockers':manifest['blockers'],'restoration_verified':True},ensure_ascii=False))
+        return False
     checks={}
     def check(k,v):
         checks[k]=bool(v)
         if not v:raise AssertionError(k)
     check('recette_complete',r['error'] is None and r['total']==len(r['checks']) and r['failures']==0 and all(r['checks'].values()))
+    check('persistance_changement_effacement_OFF_ON',all(r['checks'].get(k) for k in ['save_0_readback','save_1_readback','effacement_0_readback','effacement_1_readback']))
+    check('editeurs_livres_et_reload',set(details['editors'])=={'11','3454'} and all(e.get('forced') is False and not e.get('error') and 'reload_values' in e for e in details['editors'].values()))
+    check('autres_reglages_conserves',bool(details['settings_evidence']) and {x['mode'] for x in details['settings_evidence']}=={'0','1'} and all(x['others_unchanged'] and len(x['names'])>3 for x in details['settings_evidence']))
+    check('mutations_non_persistance_UI',all(r['mutations'].get('no_persist_'+i,{}).get('persistence_control_failed') for i in ['11','3454']))
+    check('mutation_gravatar_public_avant_transport',r['mutations']['gravatar_public']['zero_tiers_failed'] and r['mutations']['gravatar_public']['event']['blocked_before_transport'])
     check('restauration_relue',all(r['cleanup'].values()) and r['cleanup']['business_preserved'])
     check('sources_apres_derniere_ecriture',r['sources']==b11.sources() and native['sources']==b11.sources())
     check('deux_reglages_sans_reseau_public',set(r['network'])=={'0','1'} and all(x['browser_requests'] and not x['external'] for x in r['network'].values()))
@@ -31,7 +52,7 @@ def verify(live=False):
     check('pas_appel_B11',r['checks']['save_render_B11_zero_HTTP_oembed_mail'] and r['checks']['tentatives_ambiance_qualifiees_bloquees_B00'])
     n=native['native'];data=json.loads(n['stdout'])
     check('natif_23',n['code']==0 and not n['stderr'] and data['total']==len(data['checks'])==23 and all(data['checks'].values()) and native['business_preserved'])
-    text=(out/'unitaire-final.log').read_text(encoding='utf-8')
+    text=(out/'corrections-unitaire-V2.log').read_text(encoding='utf-8')
     check('PHPUnit_4_34',bool(re.search(r'OK \(4 tests, 34 assertions\)',text)))
     check('image_reconstruite',image['exit']==0 and 'image verifiee sha256:' in (out/image['log']).read_text(encoding='utf-8'))
     replay_text=(out/replay['log']).read_text(encoding='utf-8')
@@ -54,4 +75,4 @@ def verify(live=False):
 
 if __name__=='__main__':
     assert sys.argv[1:] in [[],['--live']]
-    verify(bool(sys.argv[1:]))
+    raise SystemExit(1 if verify(bool(sys.argv[1:])) is False else 0)

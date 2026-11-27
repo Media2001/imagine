@@ -6,7 +6,8 @@ UNKNOWN = 'inconnu après neutralisation'
 STATUSES = ('pending', 'processing', 'on-hold', 'completed', 'cancelled', 'refunded', 'failed', 'checkout-draft', 'autre')
 NATURES = ('parent', 'renewal', 'switch', 'resubscribe', 'none', 'illisible')
 UNREADABLE_AFTER_IMPORT = ('natures',)
-READABLE_AFTER_IMPORT = ('years', 'statuses', 'orphan_renewals', 'structural_links', 'refunds', 'oldest_year')
+LINKS = ('orphan_renewals', 'living_without_parent', 'orders_missing_account', 'orders_link_unknown')
+READABLE_AFTER_IMPORT = ('years', 'statuses', *LINKS, 'refunds', 'oldest_year')
 COUNTS = READABLE_AFTER_IMPORT + UNREADABLE_AFTER_IMPORT
 MARKDOWN = '# Historique des commandes — lecture seule\n\nNombres seulement ; aucune réparation.\n\n```json\n'
 
@@ -42,11 +43,16 @@ def projection(data, audit_hash):
     counts = data['counts']
     if type(counts) is not dict or set(counts) != set(COUNTS):
         return False
+    if any(not number(counts[key]) for key in LINKS):
+        return False
+    refunds = counts['refunds']
+    if (type(refunds) is not dict or set(refunds) != {'total', 'groups', 'autres'}
+            or not number(refunds['total'])
+            or not pool_valid({k: refunds[k] for k in ('groups', 'autres')}, {'year': year})
+            or refunds['total'] != refunds['autres'] + sum(row['count'] for row in refunds['groups'])):
+        return False
     schemas = {'years': {'year': year}, 'statuses': {'year': year, 'status': lambda v: v in STATUSES},
-               'natures': {'nature': lambda v: v in NATURES},
-               'orphan_renewals': {'metric': lambda v: v == 'renewals_missing_subscription'},
-               'structural_links': {'metric': lambda v: v in ('living_without_parent', 'orders_missing_account', 'orders_link_unknown')},
-               'refunds': {'year': year}}
+               'natures': {'nature': lambda v: v in NATURES}}
     for key, fields in schemas.items():
         if data['neutralisation'] == UNKNOWN and key in UNREADABLE_AFTER_IMPORT:
             if counts[key] != UNKNOWN:

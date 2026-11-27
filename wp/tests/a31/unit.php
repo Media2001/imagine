@@ -69,6 +69,43 @@ $check('neutral_orphan_readable', $neutral['orphan_renewals'] === [
 ]);
 $check('neutral_years_preserved', $neutral['years'] === $five['years'] && $neutral['oldest_year'] === 2020);
 $check('empty_not_unknown', Analysis::analyse([], [], [])['oldest_year'] === null);
+// Fusion 08h58: scalar anomalies remain exact independently, not K5 cells.
+$metrics = ['orphan_renewals', 'living_without_parent', 'orders_missing_account', 'orders_link_unknown'];
+foreach ($metrics as $metric) {
+    foreach ([0, 1, 4, 5] as $count) {
+        foreach ([false, true] as $mixed) {
+            $orders = [];
+            $subs = [];
+            $expectedLinks = array_fill_keys($metrics, 0);
+            foreach ($metrics as $otherMetric) {
+                $n = $otherMetric === $metric ? $count : ($mixed ? 4 : 0);
+                $expectedLinks[$otherMetric] = $n;
+                for ($i = 0; $i < $n; $i++) {
+                    if ($otherMetric === 'living_without_parent') {
+                        $subs[] = ['status' => 'active', 'parent_exists' => false];
+                    } else {
+                        $entry = $order('none');
+                        $flag = ['orphan_renewals' => 'orphan_renewal',
+                            'orders_missing_account' => 'account_missing', 'orders_link_unknown' => 'link_unknown'];
+                        $entry[$flag[$otherMetric]] = true;
+                        $orders[] = $entry;
+                    }
+                }
+            }
+            $result = Analysis::analyse($orders, $subs, []);
+            foreach ($expectedLinks as $key => $value) {
+                $check('scalar_' . $metric . '_' . $count . '_' . ($mixed ? 'mixed' : 'alone') . '_' . $key,
+                    ($result[$key] ?? null) === $value);
+            }
+        }
+    }
+}
+foreach ([0, 1, 4, 5] as $count) {
+    $result = Analysis::analyse([], [], array_fill(0, $count, ['year' => 2021]));
+    $check('refund_exact_total_' . $count, ($result['refunds']['total'] ?? null) === $count);
+    $check('refund_rare_year_' . $count, $result['refunds']['groups'] === ($count >= 5
+        ? [['year' => 2021, 'count' => $count]] : []));
+}
 $code = (int) in_array('FAIL', array_column($checks, 'status'), true);
 if (!defined('A31_PURE_PROBE')) {
     file_put_contents(
