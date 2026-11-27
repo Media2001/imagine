@@ -51,41 +51,19 @@ Le premier rejeu nominal réellement observé (`qualification-01`, avant récept
 
 ## 4. Commandes de réception/finalisation parent
 
-Depuis `C:/Users/Ced/imagine`, **séquentiellement**, avec le même Python Windows ; sorties toujours dans un **nouveau** répertoire Scratch. Ne pas lancer des runners T01 concurrents : leur balayage d'orphelins est exclusif.
-
-Qualification des corrections, consoles et intégrations réelles, avec nouvelle observation nominale :
+La procédure finale courante est **`FINALISATION.md`**. Depuis `C:/Users/Ced/imagine`, séquentiellement, avec le même Python Windows :
 
 ```text
-C:/Python314/python.exe -B production/T-03/qualifier-corrections.py --output C:/Users/Ced/AppData/Local/hermes/cache/scratch/t03-parent-final-NEUF --nominal
-```
-
-Lecture seule du candidat livré (ne lance aucun Docker, n'écrit aucun fichier) :
-
-```text
-C:/Python314/python.exe -B production/T-03/verify-corrections.py
-```
-
-Après traitement A-32 et gates A-31 par le parent, reprendre les qualifications/gates/gels réellement nécessaires dans leurs périmètres autorisés, puis les lecteurs A-20, A-21…A-28, A-30, A-31 et A-32 dans les deux consoles. Exemples, sans retoucher les lecteurs :
-
-```text
-C:/Python314/python.exe -B production/A-26/verify.py
-C:/Python314/python.exe -B production/A-27/verify.py
-C:/Python314/python.exe -B production/A-31/verify.py
+C:/Python314/python.exe -B production/T-03/verify-final.py
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/rejouer.ps1
 ```
 
-Ne pas se contenter du code 0 global : exiger **PAQUETS : 12 vérifiés, 0 échecs**, A-20/A-31/A-32 présents et aucune exclusion, OUTILS réconcilié au nombre observé, REJEU PASS, une seule ligne T01_RESULT et nettoyage relu. Refaire les gates finales requises sans modifier import, gardien, t01 ou rejouer pour les satisfaire. Après toute modification T-03 : nouvelle qualification en Scratch, remplacement du seul paquet courant de qualification, puis `C:/Python314/python.exe -B production/T-03/sceller-candidat.py` ; aucun resceau manuel.
+Le premier est sans écriture, sans Docker et sans argument ; il valide l'état final avec PRET. Le lecteur `verify-corrections.py` reste avant PRET seulement, et refuse donc volontairement l'état final. La qualification, la preuve native et les gates de clôture ont leur unique preuve courante dans `preuves/final/`. `sceller-candidat.py` et `finaliser.py` ont calculé et contrôlé le sceau, jamais des empreintes remplacées à la main.
 
-Seulement ensuite, nouvelle preuve finale complète nominale + exactement un octet A-28 sur copie :
+Exiger le lecteur PASS ; **PAQUETS : 12 vérifiés, 0 échecs ; hors rejeu : aucun**, A-20/A-31/A-32 présents ; OUTILS 22/791 vert ; REJEU 1204 tests/36667 assertions PASS ; marqueur T01_RESULT unique et nettoyage relu. Aucun runner concurrent. La preuve un octet n'a que A-28 PACKAGE_DRIFT en rouge, mêmes tests et REJEU, copie et deux conteneurs absents, original intact.
 
-```text
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File production/T-03/native-copy-proof.ps1 -Output C:/Users/Ced/AppData/Local/hermes/cache/scratch/t03-parent-one-byte-NEUF
-```
-
-Le banc propriétaire attend explicitement les douze lots, A-20, A-31 et A-32 compris ; le banc commun `wp/tests/t01/test-paquets-native.ps1` reste intact. Exiger baseline sans rouge, puis seul A-28 PACKAGE_DRIFT, même dernier REJEU et mêmes nombres, deux nettoyages, copie absente et reçu original inchangé. **Cette preuve finale n'est pas anticipée ou synthétisée dans le paquet candidat.**
-
-À la réception finale, refaire inventaire/octet des sources import/gardien contre le gel parent antérieur, et contrôler que `rejouer.ps1`, `commun.ps1`, Dockerfile, les deux montages RO, timeout extérieur 600 et limites sont restés identiques. Les gels qui incluaient les anciens t01 doivent être repris après les vraies gates, sans simple actualisation des empreintes historiques. Aucun fichier ni inventaire de sources de voie 2 ne doit être ajouté à un sceau T-03.
+Le manifeste porte `status:PRET`, `readiness_claimed:true`, `parent_final_gates_pending:false` et l'empreinte du marqueur exact. Le reçu du rejeu séparé postPRET est **hors paquet** : `C:/Users/Ced/AppData/Local/hermes/cache/scratch/t03-final-20261127-postPRET/reception.json`. Il lie les fichiers exacts avant/après et deux rejeux UTF-8/cp1252 sans TMPDIR. Le parent peut rejouer sa propre réception read-only.
 
 ## 5. Limites et état conservé
 
-Aucun Git, compte, site, réel, cron, montage ou limite modifié ; aucun diagnostic A-29 repris. Aucun fichier `wp/tests/t01/`, `wp/tests/rejouer.ps1`, import, gardien, outil clos, A-32 ou voie 2 modifié. Anciennes preuves hors dépôt, aucun manifeste voisin rescellé. Verrou du parent **intact et non libéré**. Après gates et preuve un octet réelles, synchroniser les documents/manifeste sur l'état final, puis PRET seulement justifié et vérification/rejeu indépendant. **Ne pas poser PRET sur la seule base de ce candidat.**
+Aucun Git, compte, site, réel, cron, montage ou limite modifié ; aucun A-29/A-33 repris. Aucun fichier t01/rejouer/import/gardien/outil clos/A-31/A-32/voie 2 modifié ; gel exact relu. Anciennes preuves hors dépôt ; aucun manifeste voisin rescellé. Verrou parent intact et non libéré. Les matrices métier natives restent hors rejeu. PRET technique n'est ni clôture par Claude ni GO réel.

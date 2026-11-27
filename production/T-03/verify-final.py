@@ -78,6 +78,9 @@ def verify_gates():
             raise ValueError('PROTECTED_MEMBERSHIP_OR_BYTES')
     closure = json.loads((proof / 'cloture/closure-checks.json').read_text(encoding='utf-8'))
     helper = load('t03_qualification_final', 'qualifier-corrections.py')
+    bindings = json.loads((proof / 'native/source-binding.json').read_text(encoding='utf-8'))
+    if bindings['source_sha256'] != helper.source_hashes() or bindings['exit_code'] != 0:
+        raise ValueError('NATIVE_SOURCE_STALE')
     if closure['status'] != 'PASS' or closure['source_sha256'] != helper.source_hashes():
         raise ValueError('CLOSURE_STALE')
     expected_commands = ['utf8-test-cloture', 'utf8-test-finalisation', 'cp1252-test-cloture', 'cp1252-test-finalisation', 'powershell-parse', 'prepare-image']
