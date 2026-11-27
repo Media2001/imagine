@@ -1,0 +1,1 @@
+{"command": ["powershell.exe", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "wp/tests/rejouer.ps1"], "exit": 1, "log": "antislash-regression.log", "log_sha256": "a54dfc40fb21e7a72f42dfbd8a44fa09d74eeec51cbc2e2c49d4f212446aeeb0"}

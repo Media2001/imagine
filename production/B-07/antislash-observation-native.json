@@ -10,12 +10,13 @@
     "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
   },
   "private_snapshot": {
-    "file": "c25-private-gqujyi8r/snapshot.json",
-    "sha256": "e6e1cbc8d3b5b31621750173af8d779a779ae5e13e68f6ecea182d9ac6ac64a0",
+    "file": "c25-private-9q3x_oyk/snapshot.json",
+    "sha256": "082b94056ceb457aad3fa74d98d2224f337e1be0ae5731a114cdfca00395a18e",
     "private": true
   },
   "sources": {
-    "wp/outils/demo/b07-antislash-observations.py": "15f8255d579df03c34d0b7351ca9ad4989d06fbaa85c8d32f376e84da0a6e88a"
+    "wp/outils/demo/b07-antislash-observations.py": "2e01e11ec65784d097083159cbaabf450d369acad09137818ec366f84a266912",
+    "wp/tests/demo/b07-antislash-observer.php": "83c8c4cf428a4d6c0afc90558cbefd9b6b37c129146a47b41afb4e111a93a252"
   },
   "prior_native_receipt_sha256": "9769a067568a2510f6678fb03244e62de3ba2e04a2b824d58a9ab7550e18ca32",
   "post_codes": [
@@ -28,30 +29,50 @@
       {
         "mail": 0,
         "http": 0,
+        "http_agenda": 0,
+        "http_infrastructure": 0,
+        "http_autre": 0,
         "transport_mail": 0,
         "transport_http": 0
       },
       {
         "mail": 0,
-        "http": 3,
+        "http": 2,
+        "http_agenda": 0,
+        "http_infrastructure": 2,
+        "http_autre": 0,
         "transport_mail": 0,
         "transport_http": 0
       },
       {
         "mail": 0,
         "http": 1,
+        "http_agenda": 0,
+        "http_infrastructure": 1,
+        "http_autre": 0,
         "transport_mail": 0,
         "transport_http": 0
       },
       {
         "mail": 0,
         "http": 0,
+        "http_agenda": 0,
+        "http_infrastructure": 0,
+        "http_autre": 0,
         "transport_mail": 0,
         "transport_http": 0
       }
     ],
     "requests": 4
   },
+  "absence_mutations_detected": {
+    "mail": true,
+    "http_agenda": true,
+    "http_autre": true,
+    "transport_mail": true,
+    "transport_http": true
+  },
+  "checks_passed": true,
   "restoration": {
     "users": true,
     "usermeta": true,

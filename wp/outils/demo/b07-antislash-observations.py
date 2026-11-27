@@ -27,7 +27,7 @@ def run():
     assert c27.wp('echo wp_json_encode(Imagine\\Site\\Agenda::inscriptions('+c27.php(email)+'));') == []
     assert c27.wp('$v=[];foreach('+c27.php([n.OBSERVER,n.TRACE])+' as $p){$v[]=file_exists(WP_CONTENT_DIR."/".$p);}echo wp_json_encode($v);') == [False,False]
     result = {'identity':identity, 'private_snapshot':durable,
-              'sources': {'wp/outils/demo/b07-antislash-observations.py':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()},
+              'sources': {p:hashlib.sha256((n.ROOT/p).read_bytes()).hexdigest() for p in ['wp/outils/demo/b07-antislash-observations.py','wp/tests/demo/b07-antislash-observer.php']},
               'prior_native_receipt_sha256':hashlib.sha256((n.PROOF/'antislash-native.json').read_bytes()).hexdigest()}
     try:
         c27.upload(n.TRACE,b'')
@@ -48,7 +48,17 @@ def run():
         raw=c27.wp('echo wp_json_encode(file_get_contents(WP_CONTENT_DIR."/'+n.TRACE+'"));')
         rows=[json.loads(line) for line in raw.splitlines()]
         result['observations']={'rows':rows,'requests':len(rows)}
-        assert rows and all(all(v==0 for v in row.values()) for row in rows)
+        def quiet(items):
+            return bool(items) and all(all(row[k] == 0 for k in ['mail','http_agenda','http_autre','transport_mail','transport_http'])
+                                       and row['http'] == row['http_infrastructure'] for row in items)
+        assert quiet(rows)
+        mutations = {}
+        for key in ['mail','http_agenda','http_autre','transport_mail','transport_http']:
+            changed = [dict(row) for row in rows]
+            changed[0][key] = 1
+            mutations[key] = not quiet(changed)
+        assert all(mutations.values())
+        result['absence_mutations_detected'] = mutations
         result['checks_passed']=True
     finally:
         c27.wp('foreach(Imagine\\Site\\Agenda::inscriptions('+c27.php(email)+') as $id){wp_delete_post($id,true);}echo wp_json_encode(true);')
