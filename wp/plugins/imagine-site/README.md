@@ -603,6 +603,19 @@ Tests : `python -B wp/tests/demo/b12-verifier.py` (`--live` = lecture seule) ; r
 La suite scellée `rejouer.ps1` utilise des **doublures maison** (`IntegrationsCorpsB12Stubs.php`) : elle **ne prouve pas le pipeline natif ni le zéro appel sortant réel**. Cette preuve vient de `wp/tests/demo/b12-runtime.php`, complétée par `b12-routes-runtime.php` pour les routes MAJ/mixed, caches anciens et permissions ; exécution sur le seul WordPress fictif gardé, observateur avant transport.
 **À chaque montée de version du cœur WordPress**, rejouer cette matrice native (enregistrement/cache, rendu, aperçu, variantes de casse, cache absent/ancien et permissions) avant de déclarer le lot prêt : l'ordre handlers/cache et dispatch/permissions/transient est un détail interne non contractuel. Réception courante : `production/B-12/reception-contrat-V2.json`. Arbitrage de 16h30 : `SOURCES` vérifie exactement les fichiers propres B12, le bootstrap partagé seulement l'unique bloc d'enregistrement B12 exact, et le README sa seule section bornée ; aucun sceau entier du bootstrap ni PRET voisin n'entre dans le contrat. Les anciens reçus et le complément C29 restent historiques, sans resceau silencieux.
 
+## B-13 — menu principal et menu étendu
+
+### Le standard d'abord — cinq lignes
+1. Les menus natifs WordPress conservent les liens, l'ordre et les sous-menus : https://developer.wordpress.org/reference/functions/wp_nav_menu/.
+2. Le filtre natif `walker_nav_menu_start_el` permet d'ajouter la sélection sous l'entrée Thématiques sans remplacer le menu : https://developer.wordpress.org/reference/hooks/walker_nav_menu_start_el/.
+3. La sélection d'articles illustrés n'est pas une simple entrée de menu : `Navigation` ajoute uniquement titre, image à la une et lien, jamais extrait ni corps.
+4. Les listes HTML imbriquées restent lisibles au clavier sans JavaScript ; aucune forme, animation ou feuille de style ajoutée.
+5. Les Transients fournissent le cache natif : https://developer.wordpress.org/apis/transients/ ; reconstruction après expiration, publication/dépublication, méta, modification/affectation de thématique et réglage du nombre.
+
+Menu B08 conservé, mêmes identifiants : huit entrées dans l'ordre du §3.1. Connexion reste Connexion pour un lecteur connecté, comme le menu natif existant ; il ouvre Mon compte. S'abonner pointe vers `/abonnement-en-attente/`, explicitement fictive et sans paiement. Le seed B13 ne recrée aucun menu. Trois articles réservés illustrés fictifs sont ajoutés à la démonstration, chacun avec couverture synthétique existante ; leurs corps et extraits sont des témoins interdits dans le menu.
+
+Réglages → Menu principal : 1 à 10 articles récents par thématique, défaut 3. Les thématiques vides sont conservées. Cache du seul fragment public indépendant du lecteur, images différées et non prioritaires ; aucun nouveau contenu de visiteur collecté. Réception : `production/B-13/reception-V2.json`, `A-VOIR.md` ; `python -B production/B-13/verifier.py` et `--live`. Socle `lot_reception_contract.py` inchangé, adapté localement par injection temporaire de paramètres : fichiers propres, bloc B13 exact/unique et section README bornée, aucune empreinte globale ni disponibilité de voisin. Tests natifs transactionnels, vrai navigateur sans JS et témoins existants de C26, matrice C26 non étendue. Ni habillage, validation visuelle ni GO réel.
+
 
 
 

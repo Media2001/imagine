@@ -1,0 +1,13 @@
+{
+  "scope": "imagine-test-demo",
+  "fixture": {
+    "page": 4080,
+    "menu": 22,
+    "articles": [
+      4081,
+      4082,
+      4083
+    ]
+  },
+  "idempotent": true
+}

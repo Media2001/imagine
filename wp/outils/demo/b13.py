@@ -19,7 +19,7 @@ def sources(owner):
     prefix = owner.OUT.name.replace('-', '').lower()
     for pat in [f'wp/outils/demo/{prefix}*', f'wp/tests/demo/{prefix}*', f'wp/plugins/imagine-site/tests/*{prefix.upper()}*']:
         paths.extend(p for p in ROOT.glob(pat) if p.is_file())
-    paths.extend([ROOT/'wp/outils/demo/b13.py', ROOT/'wp/tests/demo/b13-contract.py', owner.OUT/'verifier.py'])
+    paths.extend([ROOT/'wp/outils/demo/b13.py', ROOT/'wp/outils/demo/b13-browser.py', ROOT/'wp/tests/demo/b13-observer.php', ROOT/'wp/tests/demo/b13-contract.py', owner.OUT/'verifier.py'])
     return {p.relative_to(ROOT).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(set(paths)) if p.is_file()}
 
 def save(owner, name, data):
