@@ -6,16 +6,7 @@ declare(strict_types=1);
 if (wp_get_environment_type() !== 'local' || get_option('imagine_demo_site') !== 'imagine-test-demo') {
     return;
 }
-if (($_SERVER['HTTP_X_IMAGINE_B11_SETTINGS'] ?? '') === 'fictif') {
-    add_filter('use_block_editor_for_post', static function (bool $use, $post): bool {
-        $f = get_option('imagine_b11_fixture', []);
-        return in_array($post->ID, [$f['issue'] ?? 0, $f['article'] ?? 0], true) ? false : $use;
-    }, PHP_INT_MAX, 2);
-    add_filter('allowed_options', static function (array $items): array {
-        $items['imagine_reglages'] = ['imagine_medias'];
-        return $items;
-    }, PHP_INT_MAX);
-}
+// Observateur passif : aucun filtre d'éditeur, de formulaire ou de réglage autorisé.
 // Lecture de la décision du coupe-circuit APRÈS son inscription ; ne la modifie pas.
 add_action('muplugins_loaded', static function (): void {
     add_filter('pre_http_request', static function ($value) {

@@ -15,6 +15,16 @@ PODCAST='https://podcast-fictif.example.invalid/B11_PODCAST_FICTIF'
 BODY='CONTENU_FICTIF_RESERVE_B11_VIDEO_PODCAST'
 
 
+def persisted(actual, expected):
+    return set(actual)==set(expected) and all(actual[k]==v for k,v in expected.items())
+
+
+def forbidden_external(event):
+    origin=urlsplit(event['origin'])
+    return not (event['context']=='admin' and origin.path.startswith('/wp-admin/')
+                and urlsplit(event['url']).netloc=='secure.gravatar.com')
+
+
 def run(label):
     assert not (b11.OUT/(label+'.json')).exists()
     identity=b11.guard();business=b11.state();fixture=b11.wp('echo wp_json_encode(get_option("imagine_b11_fixture"));')
@@ -31,10 +41,16 @@ def run(label):
     # Liste complète livrée C26, jamais une matrice ni un paquet rescellé.
     witnesses=c26.denied_markers(c26fixture,'anonyme')
     assert len(witnesses)>10
-    checks={};network={};requests=[];external=[];auth={};surface_rows=[];mutations={};observations={};cleanup={};error=None
+    checks={};network={};requests=[];external=[];auth={};surface_rows=[];mutations={};observations={};cleanup={};error=None;editors={};settings_evidence=[]
     def check(name,ok):
         checks[name]=bool(ok)
         if not ok:raise AssertionError(name)
+    def read_options(names):
+        return b11.wp('$o=[];foreach('+b11.php(names)+' as $n){$o[$n]=get_option($n,null);}echo wp_json_encode($o);')
+    def metas():
+        return b11.wp('$o=[];foreach('+b11.php([fixture['issue'],fixture['article']])+' as $id){$o[$id]=[get_post_meta($id,"_imagine_video",true),get_post_meta($id,"_imagine_podcast",true)];}echo wp_json_encode($o);')
+    ancillary=b11.wp('''global $wpdb;echo wp_json_encode(['styles'=>$wpdb->get_results("SELECT * FROM {$wpdb->posts} WHERE post_type='wp_global_styles' ORDER BY ID",ARRAY_A),'options'=>$wpdb->get_results("SELECT * FROM {$wpdb->options} WHERE option_name LIKE 'imagine_%' ORDER BY option_id",ARRAY_A)]);''')
+    b11.private(label+'-ancillary',ancillary)
     try:
         b11.upload(observer,(b11.ROOT/'wp/tests/demo/b11-observer.php').read_bytes())
         check('observateur_relu',b11.b10.b09.b08.c25.b06.hashes([observer])[observer]==hashlib.sha256((b11.ROOT/'wp/tests/demo/b11-observer.php').read_bytes()).hexdigest())
@@ -45,9 +61,13 @@ def run(label):
             try: browser=p.chromium.launch(headless=True)
             except Exception:browser=p.chromium.launch(headless=True,channel='msedge')
             def context(role=''):
-                ctx=browser.new_context(extra_http_headers={'X-Imagine-B11-Settings':'fictif'})
+                ctx=browser.new_context()
+                ctx.set_default_timeout(20000)
                 def route(r):
-                    if urlsplit(r.request.url).netloc!=urlsplit(identity['url']).netloc:external.append(r.request.url);r.abort()
+                    if urlsplit(r.request.url).netloc!=urlsplit(identity['url']).netloc:
+                        try: origin=r.request.frame.page.url
+                        except Exception: origin='unavailable'
+                        external.append({'url':r.request.url,'context':role or 'anon','origin':origin,'blocked_before_transport':True});r.abort()
                     else:r.continue_()
                 ctx.route('**/*',route);ctx.on('request',lambda r:requests.append(r.url))
                 if role:ctx.add_cookies([{'name':k,'value':v,'url':identity['url']} for k,v in auth[role].items()])
@@ -61,22 +81,49 @@ def run(label):
                 page.locator('[name="imagine_medias[hosts]"]').fill('video-fictive.example.invalid')
                 page.locator('[name="imagine_medias[integration]"]').select_option(value)
                 form=page.locator('form').filter(has=page.locator('#imagine-medias-reglages'))
-                form.evaluate("e=>e.setAttribute('action','options.php?b11_observe=settings-save')")
+                names=form.locator('[name]').evaluate_all("es=>Array.from(new Set(es.map(e=>e.name.split('[')[0]))).filter(n=>n.startsWith('imagine_'))")
+                check('formulaire_reglages_complet',len(names)>3 and 'imagine_medias' in names)
+                before=read_options(names)
                 page.locator('#submit').click();page.wait_for_load_state('networkidle')
                 check('reglage_'+value+'_readback',b11.wp('echo wp_json_encode(Imagine\\Site\\Medias::configuration());')=={'hosts':['video-fictive.example.invalid'],'integration':value})
+                after=read_options(names)
+                other=[n for n in names if n!='imagine_medias']
+                settings_evidence.append({'mode':value,'names':names,'others_unchanged':all(before[n]==after[n] for n in other)})
+                check('autres_reglages_conserves_'+value,all(before[n]==after[n] for n in other))
+                page.reload();page.wait_for_load_state('networkidle')
+                check('reglage_'+value+'_reload',page.locator('[name="imagine_medias[integration]"]').input_value()==value)
             def edit(ident,video=VIDEO,podcast=PODCAST,phase='save'):
-                page.goto(identity['url']+'/wp-admin/post.php?post='+str(ident)+'&action=edit');page.wait_for_load_state('networkidle')
-                # Le formulaire classique natif et son nonce, sans fabriquer une saisie par WP-CLI.
-                check('metabox_'+str(ident),page.locator('#b11-video').count()==1 and page.locator('#b11-podcast').count()==1)
-                page.locator('#b11-video').fill(video);page.locator('#b11-podcast').fill(podcast)
-                form=page.locator('#post');form.evaluate("(e,q)=>e.setAttribute('action',q)",identity['url']+'/wp-admin/post.php?b11_observe='+phase)
-                page.locator('#publish').click();page.wait_for_load_state('networkidle')
-                return page.content()
+                # Parcours livré : aucun changement d'éditeur, de formulaire ou de nonce.
+                page.goto(identity['url']+'/wp-admin/post.php?post='+str(ident)+'&action=edit&b11_observe='+phase);page.wait_for_load_state('networkidle')
+                box=next((f for f in page.frames if f.locator('#b11-video').count()),None)
+                check('metabox_'+str(ident),box is not None and box.locator('#b11-podcast').count()==1)
+                block=page.locator('.block-editor').count()>0
+                editors[str(ident)]={'kind':'block' if block else 'classic','forced':False,'metabox_frame':box!=page.main_frame}
+                box.locator('#b11-video').fill(video);box.locator('#b11-podcast').fill(podcast)
+                if block:
+                    button=page.locator('.editor-post-publish-button__button')
+                    if not button.count():button=page.get_by_role('button',name=re.compile('^(Enregistrer|Mettre à jour|Save|Update)$')).first
+                    button.click();page.wait_for_timeout(2500);page.wait_for_load_state('networkidle')
+                else:
+                    page.locator('#publish').click();page.wait_for_load_state('networkidle')
+                content=page.content()
+                page.reload();page.wait_for_load_state('networkidle')
+                readbox=next((f for f in page.frames if f.locator('#b11-video').count()),None)
+                check('champs_relus_reload_'+str(ident),readbox is not None)
+                editors[str(ident)]['reload_values']=[readbox.locator('#b11-video').input_value(),readbox.locator('#b11-podcast').input_value()]
+                return content
             for value in ['0','1']:
                 setting(value)
                 start=len(external);seen=len(requests)
-                for ident in [fixture['issue'],fixture['article']]:edit(ident,phase='mode'+value+'-save')
-                check('save_'+value+'_readback',b11.wp('$o=[];foreach('+b11.php([fixture['issue'],fixture['article']])+' as $id){$o[$id]=[get_post_meta($id,Imagine\\Site\\Medias::VIDEO,true),get_post_meta($id,Imagine\\Site\\Medias::PODCAST,true)];}echo wp_json_encode($o);')==baseline_meta)
+                changed={str(i):[VIDEO+'&correction='+value+'-'+str(i),PODCAST+'?correction='+value+'-'+str(i)] for i in [fixture['issue'],fixture['article']]}
+                check('valeurs_reellement_changees_'+value,all(all(v!=old for v,old in zip(changed[k],baseline_meta[k])) for k in changed))
+                for ident in [fixture['issue'],fixture['article']]:edit(ident,*changed[str(ident)],phase='mode'+value+'-save')
+                check('save_'+value+'_readback',persisted(metas(),changed) and all(editors[k]['reload_values']==v for k,v in changed.items()))
+                cleared={k:['',''] for k in changed}
+                for ident in [fixture['issue'],fixture['article']]:edit(ident,'','',phase='clear-save')
+                check('effacement_'+value+'_readback',persisted(metas(),cleared) and all(editors[k]['reload_values']==v for k,v in cleared.items()))
+                for ident in [fixture['issue'],fixture['article']]:edit(ident,phase='render-save')
+                check('valeurs_rendu_'+value,persisted(metas(),{k:[VIDEO,PODCAST] for k in changed}))
                 pub=contexts['buyer'].new_page()
                 for url,kind in [(identity['url']+'/b11-article-medias-fictifs/','article'),(identity['url']+'/numeros/demo-2026-t1/','numero')]:
                     r=pub.goto(url+'?b11_observe=mode'+value+'-render');pub.wait_for_load_state('networkidle')
@@ -86,7 +133,7 @@ def run(label):
                         audio=pub.locator('[data-imagine-audio]')
                         duration=audio.evaluate("e=>new Promise((resolve,reject)=>{e.addEventListener('loadedmetadata',()=>resolve(e.duration),{once:true});e.addEventListener('error',()=>reject(Error('audio decode failed')),{once:true});e.load();})")
                         check('lecteur_natif_decode_3_secondes_'+value,duration==3 and audio.get_attribute('controls') is not None and audio.get_attribute('preload')=='none')
-                network[value]={'browser_requests':requests[seen:],'external':[u for u in external[start:] if urlsplit(u).netloc!='secure.gravatar.com']}
+                network[value]={'browser_requests':requests[seen:],'external':[e for e in external[start:] if forbidden_external(e)],'all_external_attempts':external[start:]}
                 check('navigateur_'+value+'_zero_tiers',not network[value]['external'] and bool(network[value]['browser_requests']))
             invalid=edit(fixture['article'],'https://evil.invalid/INTERDIT',phase='bad-host-save')
             check('mauvais_host_POST_natif_refuse','Médias refusés' in invalid and b11.wp('echo wp_json_encode(get_post_meta('+str(fixture['article'])+',Imagine\\Site\\Medias::VIDEO,true));')==VIDEO)
@@ -157,7 +204,11 @@ def run(label):
             mutations['detecteur_reponse_seulement']={'count':len(control),'detected':sum(control),'not_source_mutations':True}
             a=contexts['anon'].new_page();a.goto(identity['url']+'/b11-article-medias-fictifs/')
             n=len(external);a.evaluate("fetch('https://example.invalid/b11-positive').catch(()=>{})");a.wait_for_timeout(200)
-            check('observateur_navigateur_positif_bloque',len(external)==n+1);external.pop()
+            check('observateur_navigateur_positif_bloque',len(external)==n+1 and forbidden_external(external[-1]));external.pop()
+            n=len(external);a.evaluate("fetch('https://secure.gravatar.com/avatar/b11-public-witness').catch(()=>{})");a.wait_for_timeout(300)
+            witness=external.pop() if len(external)==n+1 else None
+            mutations['gravatar_public']={'event':witness,'zero_tiers_failed':bool(witness and forbidden_external(witness))}
+            check('mutation_gravatar_public_rougit_avant_transport',bool(witness and forbidden_external(witness) and witness['blocked_before_transport']))
             setting('0')
             browser.close()
         observations=b11.wp('echo wp_json_encode(get_option("imagine_b11_observations",[]));')
@@ -165,7 +216,7 @@ def run(label):
         check('save_render_B11_zero_HTTP_oembed_mail',not any(d['subject_b11'] for d in destinations) and not any(v for k,v in (observations.items() if isinstance(observations,dict) else []) if k.endswith(('_oembed','_mail')) and not k.startswith('ambiance_')))
         check('tentatives_ambiance_qualifiees_bloquees_B00',all(d['ambient_novamira_update'] and d['host']=='license.dynamic.ooo' for d in destinations))
         check('toutes_tentatives_HTTP_coupees_avant_transport',all(observations.get(k.removesuffix('_http')+'_blocked',0)==v for k,v in observations.items() if k.endswith('_http')) and not any(k.endswith('_NOT_BLOCKED') for k in observations))
-        check('seuls_gravatars_admin_bloques',all(urlsplit(u).netloc=='secure.gravatar.com' for u in external))
+        check('seuls_gravatars_admin_bloques',all(not forbidden_external(e) and e['blocked_before_transport'] for e in external))
     except Exception as exc:
         error=type(exc).__name__+': '+str(exc)
     finally:
