@@ -1,0 +1,31 @@
+# Inventaire des codes — lecture seule
+
+Noms des codes autorises; aucun contact ni identifiant client. Aucun reclassement.
+
+```json
+{
+    "schema": "imagine-a10-coupons-v1",
+    "read_only": true,
+    "generated_at_utc": "2026-11-27T18:11:41Z",
+    "storage": "hpos",
+    "currency": "USD",
+    "window": {
+        "from_utc": "2025-11-27T18:11:41Z",
+        "to_utc": "2026-11-27T18:11:41Z",
+        "inclusive": true
+    },
+    "codes": [],
+    "expired": [],
+    "never_used": [],
+    "limitations": [
+        "Reglages enregistres uniquement, aucun bootstrap ni filtre tiers; aucune promesse de remise effective future.",
+        "Recurrence standard Subscriptions; null pour type inconnu. Limite de paiements incluant le paiement initial: 0 illimitee; ce total configure ne mesure pas le solde de chaque abonnement.",
+        "Commandes distinctes par code et creation UTC sur douze mois calendaires; tous statuts sauf corbeille et auto-draft, futurs et remboursements enfants exclus. Ce ne sont pas des ventes nettes.",
+        "Abonnements porteurs distincts: active, on-hold, pending et pending-cancel separes; cancelled et expired exclus.",
+        "Jamais utilise signifie usage_count enregistre egal a zero, pas une reconstruction historique. Expire et jamais utilise peuvent se recouper.",
+        "Aucun reclassement ni suppression. Usage limits 0 sans limite, item_limit null sans limite, seuils vides 0 sans restriction; montants vides ou invalides null; fiche introuvable: tous reglages inconnus null, jamais classee expiree ou jamais utilisee sans compteur.",
+        "Site simple, configuration litterale, tables InnoDB, stockage Woo standard; metadonnees coupon dupliquees refusees."
+    ],
+    "audit_sha256": "078e2d960f7b66b563b652fe1df2bebd0a9617fc143afd6a3d351c65db112760"
+}
+```

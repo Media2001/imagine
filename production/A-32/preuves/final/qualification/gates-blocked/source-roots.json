@@ -1,0 +1,13 @@
+[
+  "wp/outils/bascule/tournee",
+  "wp/tests/a32",
+  "wp/outils/staging",
+  "wp/outils/staging-court",
+  "wp/tests/t01",
+  "wp/tests/preparer-image.ps1",
+  "wp/tests/rejouer.ps1",
+  "production/A-20/verify.py",
+  "production/A-21/verify.py",
+  "production/A-22/verify.py",
+  "production/A-28/verify.py"
+]

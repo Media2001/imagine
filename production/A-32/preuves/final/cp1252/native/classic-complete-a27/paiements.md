@@ -1,0 +1,28 @@
+# Moyens de paiement enregistrés — lecture seule
+
+Comptes seulement ; aucune garantie de renouvellement.
+
+```json
+{
+    "schema": "imagine-a27-saved-payments-v1",
+    "read_only": true,
+    "storage": "classic",
+    "neutralisation": "observe",
+    "counts": {
+        "automatic": {
+            "groups": [],
+            "autres": 0
+        },
+        "cards": {
+            "groups": [],
+            "autres": 0
+        },
+        "relations": {
+            "groups": [],
+            "autres": 0
+        }
+    },
+    "as_of_utc": "2026-11-27T18:09:30+00:00",
+    "audit_sha256": "b0febe082fd145d45dbf535800a2edacfecc06319be8d8df65adac4158c9d420"
+}
+```
