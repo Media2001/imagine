@@ -96,8 +96,12 @@ if (getenv('A33_CONFINED') === '1') {
     libc = ctypes.CDLL(None, use_errno=True)
     watch = libc.inotify_init1(os.O_NONBLOCK | os.O_CLOEXEC)
     assert watch >= 0
-    for f in (site / 'wp-content/uploads').glob('A33_FILE*'):
+    observed = sorted((site / 'wp-content/uploads').glob('A33_FILE*'))
+    assert len(observed) == 9
+    for f in observed:
         assert libc.inotify_add_watch(watch, os.fsencode(f), 0x01 | 0x20) >= 0
+    observed[0].read_bytes()
+    check('media_watch_positive_inverse', bool(os.read(watch, 65536)))
     try:
         p, out = inventory('nominal')
         try:
@@ -178,6 +182,9 @@ if (getenv('A33_CONFINED') === '1') {
     q, dest = inventory('symlink')
     check('symlink_closed_refusal', (q.returncode, q.stdout, q.stderr) == (1, '', 'A11_SYMLINK_UNSUPPORTED\n') and not dest.exists())
     symlink.unlink()
+    for label, target, code in [('existing', out, 'A33_OUTPUT_EXISTS'), ('site', site / 'blocked', 'A33_OUTPUT_UNSAFE'), ('repository', Path('/subject/blocked'), 'A33_OUTPUT_UNSAFE'), ('ancestor', site.parent / 'blocked', 'A33_OUTPUT_UNSAFE'), ('root', Path('/blocked'), 'A33_OUTPUT_UNSAFE')]:
+        q = cmd(['python3', '/subject/a33/confine.py', '--wp-path=' + str(site), '--audit=' + str(audit / 'audit.json'), '--correspondance=' + str(mapping), '--output=' + str(target)], check=False)
+        check('output_guard_' + label, (q.returncode, q.stdout, q.stderr) == (1, '', code + '\n') and (target == out or not target.exists()))
     check('all_base_tables_and_scheduler_unchanged', before == b.fingerprint(db))
     check('all_site_files_unchanged', files == b.files(site))
     (OUT / 'db-after.json').write_text(json.dumps(b.fingerprint(db)), encoding='utf-8')
