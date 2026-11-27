@@ -125,6 +125,11 @@ $check('late_save_never_reads_current_product', $GLOBALS['product_reads'] === 0)
 $check('late_missing_stays_closed', P::instantanes([0], $o2->items[101]) === []);
 $check('late_missing_not_rebuilt', !$o2->items[101]->meta_exists(P::LIGNE));
 $check('late_missing_signalled', $o2->items[101]->meta_exists('imagine_pack_anomalie'));
+$historical = new WC_Order(79); $historicalLine = new WC_Order_Item_Product(0, 42, 79); $historicalLine->save();
+$historical->items = [101 => $historicalLine]; $historical->paid = true; $historical->save();
+$historical = new WC_Order(79); $historical->date = new DateTimeImmutable('@1234567892'); $historical->save();
+$historical = new WC_Order(79);
+$check('already_paid_missing_date_never_reconstructed', !$historical->items[101]->meta_exists(P::LIGNE) && $historical->items[101]->meta_exists(P::ANOMALIE));
 // Malformed and mismatched paid envelopes cannot be repaired or expanded.
 foreach ([['broken'], ['numeros' => [32], 'paye_le' => 1234567890, 'produit' => 999], ['numeros' => [32], 'paye_le' => 1234567899, 'produit' => 42]] as $bad) {
     $i = $o->items[101]; $i->delete_meta_data(P::ANOMALIE); $i->update_meta_data(P::LIGNE, $bad); $i->save(); $o = new WC_Order();

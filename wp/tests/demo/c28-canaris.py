@@ -20,7 +20,8 @@ def run(label):
     mutants = {
         'C28-01-direct': ('PacksThematiques.php', b"if (!self::achetable(true, wc_get_product($productId)))", b'if (false)'),
         'C28-01-checkout': ('PacksThematiques.php', b"self::ajouter(true, $line['product_id']);", b'// guard removed'),
-        'C28-02-late-reconstruction': ('PacksThematiques.php', b"if ($persisted && $persisted->get_date_paid('edit'))", b'if (false)'),
+        'C28-02-late-reconstruction': ('PacksThematiques.php', b"if ($persisted && ($persisted->is_paid() || $persisted->get_date_paid('edit')))", b'if (false)'),
+        'C28-02-paid-missing-date': ('PacksThematiques.php', b"if ($persisted && ($persisted->is_paid() || $persisted->get_date_paid('edit')))", b"if ($persisted && $persisted->get_date_paid('edit'))"),
         'C28-symmetry': ('AchatsNumeros.php', b"$product->delete_meta_data('imagine_pack_numeros');", b'// unlink removed'),
     }
     results = {}

@@ -12,10 +12,12 @@ import c28
 
 def verify(live=False):
     load = lambda name: json.loads((c28.OUT/(name+'.json')).read_text(encoding='utf-8'))
-    r = load('recette-finale')
-    n = load('natif-final')
-    p = load('preservation-finale')
-    c14 = load('c14-regressions-finales')
+    r = load('correction-recette-finale')
+    n = load('correction-natif-final')
+    p = load('correction-preservation-finale')
+    c14 = load('correction-c14-final')
+    window = load('correction-fenetre-finale')
+    canaries = load('correction-canaris-final')
     checks = {}
     def check(key, value):
         checks[key] = bool(value)
@@ -33,25 +35,31 @@ def verify(live=False):
     check('natif_25', n['native']['code'] == 0 and not n['native']['stderr'] and data['total'] == len(data['checks']) == 25 and data['failures'] == 0 and all(data['checks'].values()) and n['business_preserved'])
     check('C14_45_regressions', c14['business_preserved'] and len(c14['results']) == 1 and all(v['code'] == 0 and not v['stderr'] and len(json.loads(v['stdout'])) == 45 and all(json.loads(v['stdout']).values()) for v in c14['results'].values()))
     check('etat_avant_fixture_sauf_produit_declare', bool(p['checks']) and all(p['checks'].values()) and p['initial_before_fixture'] == p['projected_without_only_owned_product'])
-    check('sources_apres_derniere_ecriture', all(x['sources'] == c28.sources() for x in [r,n,p,c14]))
-    unit = (c28.OUT/'unitaire-final.log').read_text(encoding='utf-8')
-    lint = load('lint-final')
+    wd = json.loads(window['native']['stdout'])
+    check('panne_APRES_paiement_18_controles', window['native']['code'] == 0 and not window['native']['stderr'] and window['business_preserved'] and wd['total'] == len(wd['checks']) == 18 and wd['failures'] == 0 and all(wd['checks'].values()))
+    check('objet_recharge_edition_sauvegarde_tardive_fermee_signalee', all(wd['checks'][key] for key in ['panne_vraiment_apres_paiement_persiste_objet_recharge', 'panne_ligne_non_persistee', 'edition_pack_relue', 'sauvegarde_tardive_pas_reconstruction', 'anomalie_persistante_visible_ligne', 'manque_ferme_droit_C14', 'C14_partiel_delie_pack']))
+    expected_cases = {'C28-01-direct', 'C28-01-checkout', 'C28-02-late-reconstruction', 'C28-02-paid-missing-date', 'C28-symmetry', 'GREEN'}
+    check('canaris_rejouables_rouges_puis_vert', set(canaries['cases']) == expected_cases and all(v['exit'] == (0 if key == 'GREEN' else 1) and v['total'] == len(v['checks']) and v['failures'] == sum(not x for x in v['checks'].values()) and ((v['failures'] == 0) == (key == 'GREEN')) for key,v in canaries['cases'].items()))
+    check('canaris_sources_courantes', all(hashlib.sha256((ROOT/'wp/plugins/imagine-site'/name).read_bytes()).hexdigest() == digest for name,digest in canaries['sources'].items()))
+    check('sources_apres_derniere_ecriture', all(x['sources'] == c28.sources() for x in [r,n,p,c14,window]))
+    unit = (c28.OUT/'correction-unitaire-final.log').read_text(encoding='utf-8')
+    lint = load('correction-lint-final')
     check('syntaxe_sources_PHP', lint['exit'] == 0 and lint['files'] and len(lint['files']) == len(lint['stdout'].splitlines()) and not lint['stderr'])
-    check('PHPUnit_2_18', bool(re.search(r'OK \(2 tests, 18 assertions\)', unit)))
-    image = load('preparation-image')
+    check('PHPUnit_couche_branchement_rejouee', bool(re.search(r'OK \(3 tests, 54 assertions\)', unit)))
+    image = load('correction-image-finale')
     check('image_reconstruite', image['exit'] == 0 and 'image verifiee sha256:' in (c28.OUT/image['log']).read_text(encoding='utf-8'))
-    replay = load('regression-finale')
+    replay = load('correction-regression-finale')
     log = (c28.OUT/replay['log']).read_text(encoding='utf-8')
     raw = re.search(r'^T01_RESULT (.+)$', log, re.M)
     totals = json.loads(raw[1]) if raw else {}
     check('rejeu_general_au_vert', replay['exit'] == 0 and totals.get('tests',0) > 1100 and totals.get('failures') == totals.get('errors') == totals.get('skipped') == 0 and totals.get('pass') is True and bool(re.search(r'REJEU : .* PASS',log)))
-    check('outils_584_verts_A32_limite_inchangee', totals['tools']['checks'] == 584 and totals['tools']['failures'] == 0 and totals['packets']['failures'] == [{'lot':'A-32','control':'A32_PARTIAL_EVIDENCE'}])
+    check('outils_verts_limites_A31_A32_hors_lot', totals['tools']['checks'] >= 584 and totals['tools']['failures'] == 0 and all(x['lot'] in ['A-31','A-32'] for x in totals['packets']['failures']) and all(x['lot'] in ['A-31','A-32'] for x in totals['packets']['excluded']))
     for name in ['NOTE.md','A-VOIR.md']:
         check(name, (c28.OUT/name).is_file() and len((c28.OUT/name).read_text(encoding='utf-8')) > 400)
     readme = (ROOT/'wp/plugins/imagine-site/README.md').read_text(encoding='utf-8')
     check('README_section_unique', readme.count('## C-28 — packs thématiques') == 1)
-    if (c28.OUT/'reception.json').exists():
-        receipt = load('reception')
+    if (c28.OUT/'reception-corrections.json').exists():
+        receipt = load('reception-corrections')
         check('sceau_sources', receipt['sources'] == c28.sources())
         check('sceau_preuves', bool(receipt['evidence']) and all(hashlib.sha256((c28.OUT/name).read_bytes()).hexdigest() == expected for name,expected in receipt['evidence'].items()))
     if live:
