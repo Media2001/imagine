@@ -40,7 +40,9 @@ foreach (['pre_wp_mail' => 'mail', 'pre_http_request' => 'http', 'pre_oembed_res
             }
             // Jamais de query string : l'environnement tiers peut y mettre une licence.
             $counts['destinations'][] = ['phase' => $phase, 'host' => is_string($url) ? parse_url($url, PHP_URL_HOST) : null,
-                'subject_b11' => $subject, 'ambient_novamira_update' => $novamira];
+                'subject_b11' => $subject, 'ambient_novamira_update' => $novamira,
+                'path' => is_string($url) ? parse_url($url, PHP_URL_PATH) : null,
+                'stack' => $novamira ? [] : array_values(array_unique(array_map(static fn ($frame) => ($frame['class'] ?? '') . ($frame['type'] ?? '') . ($frame['function'] ?? ''), $stack)))];
         }
         update_option('imagine_b11_observations', $counts, false);
         return $value;

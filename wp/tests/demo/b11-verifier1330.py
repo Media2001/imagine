@@ -57,7 +57,7 @@ def verify(live=False, manifest=None, require_pret=True):
     check('restaurations_relues',len(r['cleanup'])==16 and all(r['cleanup'].values()) and r['cleanup']['business_preserved'])
     check('PHPUnit_4_34',bool(re.search(r'OK \(4 tests, 34 assertions\)',(out/'politique1330-unitaire-V2.log').read_text(encoding='utf-8'))))
     text=(out/'politique1330-preuves-V2.log').read_text(encoding='utf-8')
-    check('unites_preuve_8','Ran 8 tests' in text and text.rstrip().endswith('OK'))
+    check('unites_preuve_9','Ran 9 tests' in text and text.rstrip().endswith('OK'))
     image=load('politique1330-image-V2.json');replay=load('politique1330-rejeu-V2.json')
     check('image_reconstruite',image['exit']==0 and 'image verifiee sha256:' in (out/image['log']).read_text(encoding='utf-8'))
     check('rejeu_reel_vert',replay['exit']==0 and bool(re.search(r'REJEU : [1-9][0-9]* tests, .* PASS',(out/replay['log']).read_text(encoding='utf-8'))))

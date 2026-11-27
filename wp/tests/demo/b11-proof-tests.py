@@ -43,6 +43,17 @@ class ProofRules(unittest.TestCase):
         self.assertFalse(m.compare_options(present,after)['ok'])
         self.assertFalse(m.compare_options(before,{**after,'owned':{**after['owned'],'default_sha256':'changed'}})['ok'])
 
+    def test_ambient_destination_does_not_allow_arbitrary_local_or_external_requests(self):
+        known={'host':'license.dynamic.ooo','ambient_novamira_update':True,'subject_b11':False}
+        self.assertTrue(m.ambient_destination(known,'http://demo.invalid:8085'))
+        cron={'host':'demo.invalid','path':'/wp-cron.php','stack':['spawn_cron'],
+              'ambient_novamira_update':False,'subject_b11':False}
+        self.assertTrue(m.ambient_destination(cron,'http://demo.invalid:8085'))
+        for bad in [{**cron,'host':'evil.invalid'},{**cron,'path':'/unexpected'},
+                    {**cron,'stack':[]},{**cron,'subject_b11':True},
+                    {**known,'host':'evil.invalid'}]:
+            self.assertFalse(m.ambient_destination(bad,'http://demo.invalid:8085'))
+
     def test_passive_observer_does_not_rewrite_path(self):
         text=(ROOT/'wp/tests/demo/b11-observer.php').read_text(encoding='utf-8')
         self.assertNotIn('use_block_editor_for_post',text)

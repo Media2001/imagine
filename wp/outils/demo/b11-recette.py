@@ -39,6 +39,15 @@ def compare_options(before, after):
     return {'ok':not differences,'absent_to_exact_default':explicit,'different':differences}
 
 
+def ambient_destination(event, site):
+    if event['subject_b11']:
+        return False
+    if event['ambient_novamira_update'] and event['host']=='license.dynamic.ooo':
+        return True
+    return (event['host']==urlsplit(site).hostname and event.get('path')=='/wp-cron.php'
+            and 'spawn_cron' in event.get('stack',[]))
+
+
 def forbidden_external(event):
     origin=urlsplit(event['origin'])
     return not (event['context']=='admin' and origin.path.startswith('/wp-admin/')
@@ -313,7 +322,7 @@ def run(label, policy1330=False):
         observations=b11.wp('echo wp_json_encode(get_option("imagine_b11_observations",[]));')
         destinations=observations.get('destinations',[]) if isinstance(observations,dict) else []
         check('save_render_B11_zero_HTTP_oembed_mail',not any(d['subject_b11'] for d in destinations) and not any(v for k,v in (observations.items() if isinstance(observations,dict) else []) if k.endswith(('_oembed','_mail')) and not k.startswith('ambiance_')))
-        check('tentatives_ambiance_qualifiees_bloquees_B00',all(d['ambient_novamira_update'] and d['host']=='license.dynamic.ooo' for d in destinations))
+        check('tentatives_ambiance_qualifiees_bloquees_B00',all(ambient_destination(d,identity['url']) for d in destinations))
         check('toutes_tentatives_HTTP_coupees_avant_transport',all(observations.get(k.removesuffix('_http')+'_blocked',0)==v for k,v in observations.items() if k.endswith('_http')) and not any(k.endswith('_NOT_BLOCKED') for k in observations))
         check('seuls_gravatars_admin_bloques',all(not forbidden_external(e) and e['blocked_before_transport'] for e in external))
     except Exception as exc:
