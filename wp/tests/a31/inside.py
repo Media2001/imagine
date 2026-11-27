@@ -57,14 +57,16 @@ def audit_at(site, output):
     return audit
 
 
-def seed(site, cfg, repeats=1):
+def seed(site, cfg, repeats=1, scalar_case=''):
     writable = cfg.replace("define('DB_USER', 'a02_" + site.name + "')", "define('DB_USER', 'root')").split(
         "\nfile_put_contents('/scratch/a02-bootstrap-trap'")[0]
     writable = writable.replace("define('ABSPATH', __DIR__.'/');", "if (!defined('ABSPATH')) { define('ABSPATH', __DIR__.'/'); }")
     (site / 'wp-config.php').write_text(writable, encoding='utf-8')
     try:
-        q = b.wp(site, ['eval-file', '/opt/a31/seed.php', '--use-include'], env={'A31_REPETITIONS': str(repeats)})
-        b.check(site.name + ':native_seed_' + str(repeats), q.stdout == 'A31_SEED_OK\n' and not q.stderr)
+        q = b.wp(site, ['eval-file', '/opt/a31/seed.php', '--use-include'],
+                 env={'A31_REPETITIONS': str(repeats), 'A31_SCALAR_CASE': scalar_case})
+        label = 'scalar_seed_' + scalar_case.replace(':', '_') if scalar_case else 'native_seed_' + str(repeats)
+        b.check(site.name + ':' + label, q.stdout == 'A31_SEED_OK\n' and not q.stderr)
     finally:
         (site / 'wp-config.php').write_text(cfg, encoding='utf-8')
 
@@ -226,8 +228,8 @@ if (getenv('A31_CONFINED') === '1') {
     b.check(storage + ':actual_import_changes_extension_not_structure',
             provenance['neutraliser_and_anonymiser_executed'] is True
             and provenance['extension_relation_before'] == 1 and provenance['extension_relation_after'] == 0
-            and provenance['renewal_relation_before'] == provenance['renewal_relation_after'] == 2
-            and provenance['renewal_rows_before'] == provenance['renewal_rows_after'] == 3
+            and provenance['renewal_relation_before'] == provenance['renewal_relation_after'] == 3
+            and provenance['renewal_rows_before'] == provenance['renewal_rows_after'] == 4
             and provenance['opaque_renewal_before'] == provenance['opaque_renewal_after'] == 1
             and provenance['structure_before_sha256'] == provenance['structure_after_sha256']
             and provenance['marker_count'] == 1)
@@ -266,7 +268,63 @@ if (getenv('A31_CONFINED') === '1') {
     for suffix, value in [('before', five_before), ('after', five_after)]:
         (OUT / (storage + '-five-db-' + suffix + '.json')).write_text(json.dumps(value), encoding='utf-8')
     b.check(storage + ':five_db_files_unchanged', five_before == five_after and five_files == b.files(site))
+    table, kind, state, date = ('wp_wc_orders', 'type', 'status', 'date_created_gmt') if storage == 'hpos' else (
+        'wp_posts', 'post_type', 'post_status', 'post_date_gmt')
+    def count_sql(where):
+        return int(b.sql(db, 'SELECT COUNT(*) AS n FROM ' + table + ' WHERE ' + where).stdout.splitlines()[-1])
+    b.check(storage + ':trash_subscription_exists_not_living_not_orphan',
+            count_sql(kind + "='shop_subscription' AND " + state + "='trash'") == 5
+            and data['counts']['living_without_parent'] == data['counts']['orphan_renewals'] == 5
+            and next(row['count'] for row in data['counts']['natures']['groups'] if row['nature'] == 'renewal') == 15)
+    b.check(storage + ':utc_boundary_both_directions_oldest',
+            count_sql(kind + "='shop_order' AND " + date + "='2017-12-31 23:30:00'") == 5
+            and count_sql(kind + "='shop_order' AND " + date + "='2019-01-01 00:30:00'") == 5
+            and data['counts']['oldest_year'] == 2017
+            and {row['year'] for row in data['counts']['years']['groups']} == {2017, 2019, 2020})
+    scalar_matrix(site, cfg, db, storage, audit, mu, base_mu)
     b.check(storage + ':all_retained_files_clean', not any(b'CANARY' in f.read_bytes() for f in OUT.rglob('*') if f.is_file()))
+
+
+def scalar_matrix(site, cfg, db, storage, audit, mu, base_mu):
+    metrics = ('orphan_renewals', 'living_without_parent', 'orders_missing_account', 'orders_link_unknown')
+    # Native WC factory failure boundary, only for explicitly tagged synthetic rows.
+    unreadable_mu = '''
+if (getenv('A31_CONFINED') === '1') {
+    add_filter('woocommerce_order_class', static function ($class, $type, $id) {
+        global $wpdb;
+        $hpos = Automattic\\WooCommerce\\Utilities\\OrderUtil::custom_orders_table_usage_is_enabled();
+        $table = $wpdb->prefix . ($hpos ? 'wc_orders_meta' : 'postmeta');
+        $column = $hpos ? 'order_id' : 'post_id';
+        $found = $wpdb->get_var($wpdb->prepare("SELECT meta_id FROM $table WHERE $column=%d AND meta_key='_a31_fixture_unreadable'", $id));
+        return $found ? false : $class;
+    }, PHP_INT_MAX, 3);
+}
+'''
+    rows = []
+    try:
+        for metric in metrics:
+            for n in (0, 1, 4, 5):
+                for mix in ('alone', 'mixed'):
+                    case = metric + ':' + str(n) + ':' + mix
+                    slug = case.replace(':', '_')
+                    mu.write_text(base_mu, encoding='utf-8')
+                    seed(site, cfg, scalar_case=case)
+                    mu.write_text(base_mu + unreadable_mu, encoding='utf-8')
+                    before, files = b.fingerprint(db), b.files(site)
+                    dest = OUT / (storage + '-scalar-' + slug)
+                    p = inventory(site, dest, audit)
+                    b.check(storage + ':scalar_success_' + slug, (p.returncode, p.stdout, p.stderr) == (0, SUCCESS, ''))
+                    result = json.loads((dest / 'commandes.json').read_bytes())
+                    expected_links = {key: n if key == metric else (4 if mix == 'mixed' else 0) for key in metrics}
+                    b.check(storage + ':scalar_exact_' + slug,
+                            {key: result['counts'][key] for key in metrics} == expected_links)
+                    after, final_files = b.fingerprint(db), b.files(site)
+                    b.check(storage + ':scalar_immutable_' + slug, before == after and files == final_files)
+                    rows.append({'case': case, 'expected': expected_links,
+                                 'db_before': before, 'db_after': after, 'files_before': files, 'files_after': final_files})
+    finally:
+        mu.write_text(base_mu, encoding='utf-8')
+    (OUT / (storage + '-scalar-matrix.json')).write_text(json.dumps(rows, indent=2) + '\n', encoding='utf-8')
 
 
 b.run_storage = run_storage

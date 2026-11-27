@@ -18,7 +18,9 @@ def fixture():
     return {'schema': 'imagine-a31-history-v1', 'read_only': True, 'storage': 'classic',
             'neutralisation': 'observe', 'audit_sha256': '0' * 64,
             'counts': {**{k: {'groups': [], 'autres': 0} for k in
-                         ('years', 'statuses', 'natures', 'orphan_renewals', 'structural_links', 'refunds')},
+                         ('years', 'statuses', 'natures')},
+                       **dict.fromkeys(r.LINKS, 0),
+                       'refunds': {'total': 0, 'groups': [], 'autres': 0},
                        'oldest_year': None}}
 
 
@@ -29,12 +31,13 @@ class ReportTests(unittest.TestCase):
 
     def test_threshold_all_dimensions(self):
         fields = {'years': {'year': 2020}, 'statuses': {'year': 2020, 'status': 'completed'},
-                  'natures': {'nature': 'renewal'}, 'orphan_renewals': {'metric': 'renewals_missing_subscription'},
-                  'structural_links': {'metric': 'living_without_parent'}, 'refunds': {'year': 2020}}
+                  'natures': {'nature': 'renewal'}, 'refunds': {'year': 2020}}
         for key, fields in fields.items():
             for n in range(7):
                 d = fixture()
                 d['counts'][key]['groups'] = [{**fields, 'count': n}]
+                if key == 'refunds':
+                    d['counts'][key]['total'] = n
                 if key == 'years':
                     d['counts']['oldest_year'] = 2020
                 self.assertEqual(r.projection(d, '0' * 64), n >= 5, (key, n))

@@ -1,5 +1,35 @@
 # B-11 — à ouvrir et à rejouer
 
+## Réception courante du 27 novembre 2026 — BLOQUÉ, sans PRET
+
+**Preuve courante : `reception-corrections-V2.json`.** L'ancien `reception.json` et tous ses reçus restent historiques, intacts. Le marqueur antérieur est conservé sous `PRET-historique-avant-corrections-V2.txt` ; aucun PRET courant n'est déposé.
+
+Depuis `C:\Users\Ced\imagine`, commandes exactes du parent :
+```powershell
+python -B wp/tests/demo/b11-verifier.py
+python -B wp/tests/demo/b11-verifier.py --live
+```
+**Sortie attendue : `BLOCKED`, code 1**, et non PASS. La seconde commande relit seulement le site fictif, les sources et l'absence des sondes. Les empreintes de la réception complémentaire sont vérifiées dans les deux modes. Ne pas relancer `b11-finaliser.py`, outil de la réception historique.
+
+### Établi sur l'arbre après stabilisation C28
+- Image reconstruite : `corrections-image-V2.*`, sortie 0.
+- Vrai rejeu général : **1 189 tests, 36 512 assertions, 0 échec/erreur/ignoré**, PASS ; **22 outils, 720 contrôles, 0 échec**. Les paquets sont un bilan distinct : **12 vérifiés, 2 échecs A31_PACKAGE_DRIFT / A32_PACKAGE_DRIFT**, hors B11, sans resceau ni correction ici.
+- PHPUnit B11 : **4 tests / 34 assertions** ; natif transactionnel : **23/23** ; assertions locales de preuve : **7 tests**, verts.
+- Vrai backend d'écriture transactionnel : **8/8**, dont deux mutations actives qui court-circuitent les écritures vidéo/podcast, une par objet, détectées ; changement puis effacement relus. **Ce témoin API ne vaut PAS validation des éditeurs.** Reçu `corrections-ecritures-V2.json`.
+- Témoin Gravatar réellement déclenché depuis la page publique identifiée : rouge au contrôle zéro tiers, route interrompue avant transport ; contexte/origine conservés dans `corrections-final-V2.json`. L'exception est désormais réservée au contexte admin ET à une origine `/wp-admin/`, jamais à un public visité par l'admin.
+
+### Critères non franchis — ne pas déclarer validés
+1. Vrai formulaire complet, **16 options**, sans réduction d'`allowed_options` : cinq autres options auparavant absentes sont créées par le POST natif. Le contrôle strict de conservation rougit. Noms et empreintes dans `corrections-final-V2-details.json` ; leurs valeurs ne sont pas forcées pour verdir.
+2. Les vrais éditeurs blocs des numéros/article sont atteints, sans filtre d'éditeur, mais leurs contrôles B11 restent inaccessibles : métabox masquée au numéro 11, panneau intercepté par le séparateur de redimensionnement à l'article 3454. Captures `corrections-final-V2-editor-*.png` et erreurs exactes dans le reçu de détails. **Aucune persistance/effacement/reload par ces éditeurs n'est revendiquée.**
+3. Recette UI finale : **14 contrôles, 4 rouges**, code 1 ; OFF seulement atteint. ON, refus d'hôte via ces éditeurs, zéro appel sur le parcours complet, mutation no-persist UI et étanchéité intégrale nouvelle ne sont pas terminés. Le GIF d'accueil admin `s.w.org` est aussi observé et bloqué, sans le ranger dans l'exception Gravatar.
+
+Les **16 contrôles de restauration** de ce passage sont vrais : lignes article/numéro/révisions, métas, préférences admin, sessions, styles créés, options et état métier, sources et sondes absentes, tous relus. Les essais de nettoyage interrompus ont une inverse reprise seule (`corrections-01/02-V2-recovery.json`) ; ils ne sont pas effacés ni promus en succès.
+
+Rejeu UI mutant, seulement hors toute autre recette sur `imagine-test-demo`, avec LABEL neuf : `python -B wp/outils/demo/b11-recette.py LABEL-NEUF`. Il conserve sa préimage privée et échoue tant que les critères précédents ne passent pas. Pas de nouveau choix d'éditeur, réglage, profil, droit ou paiement pour contourner les rouges.
+
+<details>
+<summary>Dossier historique avant corrections — résultats et commandes non actuels, ne fondent plus PRET</summary>
+
 **Site unique : `imagine-test-demo`. Toutes les données et adresses de médias sont fictives.** Aucun compte réel, aucun paiement, email, appel fournisseur ou ouverture de droit.
 
 ## Adresses
@@ -52,4 +82,5 @@ Une réception neuve de ce même paquet se vérifie avec les deux premières com
 - Rejeu général : **1 179 tests, 36 441 assertions, 0 échec, 0 erreur, 0 ignoré — PASS** ; outils : **22 outils, 584 contrôles, 0 échec**. Paquets : **12 vérifiés, 1 échec connu `A-32 A32_PARTIAL_EVIDENCE`**, hors périmètre, inchangé.
 - Vérificateur B11 : **17 contrôles offline**, **22 avec readback live**, tous verts.
 
-Les résultats définitifs sont ceux des reçus `unitaire-final.log`, `natif-final.json`, `recette-finale.json` et `regression-finale.log`, lus par le vérificateur. La section « Limites explicites » de `NOTE.md` fait partie de la réception : tentatives ambiantes Novamira bloquées distinctes du zéro B11, premier essai avec empreinte usermeta résiduelle non reconstruite, recette de boîte classique seulement. Pas de consentement réel ni fournisseur intégré, aucune validation visuelle encore donnée par Ced.
+Les résultats de cette section sont ceux de la réception historique `reception.json`, conservée, et non la réception courante. La recette classique historique ne prouve pas les éditeurs livrés. Pas de consentement réel ni fournisseur intégré, aucune validation visuelle donnée par Ced.
+</details>

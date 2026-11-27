@@ -55,14 +55,60 @@ $makeSub = static function (int $parent, string $status) use ($fixtureUser): WC_
     return $sub;
 };
 $store = WCS_Related_Order_Store::instance();
+$metrics = ['orphan_renewals', 'living_without_parent', 'orders_missing_account', 'orders_link_unknown'];
+$case = getenv('A31_SCALAR_CASE');
+if (is_string($case) && $case !== '') {
+    $parts = explode(':', $case);
+    if (count($parts) !== 3 || !in_array($parts[0], $metrics, true)
+        || !in_array($parts[1], ['0', '1', '4', '5'], true) || !in_array($parts[2], ['alone', 'mixed'], true)) {
+        throw new RuntimeException('A31_SEED_SCALAR_CASE');
+    }
+    foreach ($metrics as $metric) {
+        $count = $metric === $parts[0] ? (int) $parts[1] : ($parts[2] === 'mixed' ? 4 : 0);
+        for ($i = 0; $i < $count; $i++) {
+            if ($metric === 'living_without_parent') {
+                $makeSub(0, 'active');
+                continue;
+            }
+            $entry = $makeOrder(2020);
+            if ($metric === 'orphan_renewals') {
+                $entry->add_meta_data('_subscription_renewal', 987654321, false);
+            } elseif ($metric === 'orders_missing_account') {
+                $entry->set_customer_id(987654321);
+            } else {
+                $entry->add_meta_data('_a31_fixture_unreadable', 'yes', true);
+            }
+            $entry->save();
+        }
+    }
+    echo "A31_SEED_OK\n";
+    return;
+}
+update_option('timezone_string', 'Europe/Brussels');
 for ($n = 0; $n < $repetitions; $n++) {
     $parent = $makeOrder(2018);
+    // Local January 1 is UTC December 31: oldest must be 2017, never 2018.
+    $parent->set_date_created('2018-01-01T00:30:00+01:00');
+    $parent->save();
     $sub = $makeSub($parent->get_id(), 'active');
     foreach (['renewal' => 2019, 'switch' => 2020, 'resubscribe' => 2020] as $type => $year) {
         $order = $makeOrder($year);
+        if ($type === 'renewal') {
+            // Local December 31 is UTC January 1: bucket must be 2019.
+            $order->set_date_created('2018-12-31T23:30:00-01:00');
+            $order->save();
+        }
         $store->add_relation($order, $sub, $type);
     }
     $standalone = $makeOrder(2020);
+    $trash = $makeSub(0, 'active');
+    $trashId = $trash->get_id();
+    $store->add_relation($standalone, $trash, 'renewal');
+    $trash->delete(false);
+    $trashed = wcs_get_subscription($trashId);
+    if (!$trashed instanceof WC_Subscription || $trashed->get_status('edit') !== 'trash') {
+        throw new RuntimeException('A31_SEED_TRASH');
+    }
     $orphan = $makeOrder(2020);
     $orphan->add_meta_data('_subscription_renewal', 987654321, false);
     $orphan->save();

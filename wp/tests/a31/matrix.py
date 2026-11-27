@@ -20,6 +20,13 @@ def python_summary(text, returncode):
     return {'tests_run': total, 'all_pass': returncode == 0 and 'OK' in text.splitlines() and total > 0}
 
 
+def python_environment(encoding, mode):
+    env = {**os.environ, 'PYTHONIOENCODING': encoding, 'PYTHONUTF8': mode,
+           'PYTHONDONTWRITEBYTECODE': '1'}
+    env.pop('TMPDIR', None)
+    return env
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--output', required=True, type=Path)
@@ -35,7 +42,7 @@ def main():
         raise RuntimeError('A31_SCRATCH_REQUIRED')
     out.mkdir(parents=True, exist_ok=False)
     rows = []
-    probe = "import sys,locale,json;print(json.dumps({'platform':sys.platform,'executable':sys.executable,'version':sys.version,'stdout':sys.stdout.encoding,'stderr':sys.stderr.encoding,'locale':locale.getencoding(),'preferred':locale.getpreferredencoding(False),'utf8_mode':sys.flags.utf8_mode}))"
+    probe = "import sys,locale,json,os;print(json.dumps({'platform':sys.platform,'executable':sys.executable,'version':sys.version,'stdout':sys.stdout.encoding,'stderr':sys.stderr.encoding,'locale':locale.getencoding(),'preferred':locale.getpreferredencoding(False),'utf8_mode':sys.flags.utf8_mode,'tmpdir':os.environ.get('TMPDIR')}))"
     spec = importlib.util.spec_from_file_location('a31_runner', HERE / 'run.py')
     runner = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(runner)
@@ -54,8 +61,7 @@ def main():
     for console, encoding, mode in [('utf8', 'utf-8', '1'), ('cp1252', 'cp1252', '0')]:
         folder = out / console
         folder.mkdir()
-        env = {**os.environ, 'PYTHONIOENCODING': encoding, 'PYTHONUTF8': mode,
-               'PYTHONDONTWRITEBYTECODE': '1', 'TMPDIR': 'C:/Users/Ced/AppData/Local/hermes/cache/scratch'}
+        env = python_environment(encoding, mode)
         p = subprocess.run([sys.executable, '-B', '-c', probe], env=env, capture_output=True, timeout=30)
         if p.returncode:
             raise RuntimeError('A31_ENVIRONMENT_PROBE_FAILED')
@@ -66,7 +72,7 @@ def main():
             execute([sys.executable, '-B', 'wp/tests/a31/run.py', '--parent-serialized', '--output=' + str(folder / 'native')],
                     env, encoding, folder / 'runner-console.log', 'native')
     if a.include_native:
-        env = {**os.environ, 'PYTHONIOENCODING': 'utf-8', 'PYTHONUTF8': '1', 'PYTHONDONTWRITEBYTECODE': '1'}
+        env = python_environment('utf-8', '1')
         execute([sys.executable, '-B', 'wp/tests/a31/style.py', '--parent-serialized', '--output=' + str(out / 'style')],
                 env, 'utf-8', out / 'style-console.log', 'style')
     stable = before == runner.manifest(runner.OWN) and deps == runner.manifest(runner.DEPS)

@@ -43,20 +43,16 @@ $d = Analysis::analyse(
     array_fill(0, 5, ['status' => 'active', 'parent_exists' => false]),
     []
 );
-$check('renewal_orphans_count_orders_not_links', $d['orphan_renewals']['groups'] === [
-    ['metric' => 'renewals_missing_subscription', 'count' => 5],
-]);
-$check('missing_account_separate_from_guest', $d['structural_links']['groups'] === [
-    ['metric' => 'living_without_parent', 'count' => 5], ['metric' => 'orders_missing_account', 'count' => 5],
-]);
+$check('renewal_orphans_count_orders_not_links', $d['orphan_renewals'] === 5);
+$check('missing_account_separate_from_guest', $d['living_without_parent'] === 5 && $d['orders_missing_account'] === 5);
 foreach (['pending', 'on-hold', 'pending-cancel', 'cancelled', 'expired', 'switched', 'draft'] as $status) {
     $d = Analysis::analyse([], [['status' => $status, 'parent_exists' => false]], []);
-    $check('a19_excludes_' . $status, $d['structural_links'] === ['groups' => [], 'autres' => 0]);
+    $check('a19_excludes_' . $status, $d['living_without_parent'] === 0);
 }
 $d = Analysis::analyse([$order('none', 2019), ...array_fill(0, 5, $order('none', 2020))], [], []);
 $check('oldest_not_next_visible_year', $d['oldest_year'] === 'fusionne');
 $d = Analysis::analyse([], [], array_fill(0, 5, ['year' => 2021]));
-$check('refund_objects_separate', $d['refunds'] === ['groups' => [['year' => 2021, 'count' => 5]], 'autres' => 0]
+$check('refund_objects_separate', $d['refunds'] === ['total' => 5, 'groups' => [['year' => 2021, 'count' => 5]], 'autres' => 0]
     && $d['oldest_year'] === null && $d['years'] === ['groups' => [], 'autres' => 0]);
 $badDate = $order('none');
 $badDate['year'] = '2020-01-01';
@@ -64,9 +60,7 @@ $d = Analysis::analyse([$badDate], [], []);
 $check('invalid_date_oldest_illisible', $d['oldest_year'] === 'illisible');
 $neutral = Analysis::analyse(array_fill(0, 5, $broken), [], [], true);
 $check('neutral_natures_unknown', $neutral['natures'] === Analysis::UNKNOWN);
-$check('neutral_orphan_readable', $neutral['orphan_renewals'] === [
-    'groups' => [['metric' => 'renewals_missing_subscription', 'count' => 5]], 'autres' => 0,
-]);
+$check('neutral_orphan_readable', $neutral['orphan_renewals'] === 5);
 $check('neutral_years_preserved', $neutral['years'] === $five['years'] && $neutral['oldest_year'] === 2020);
 $check('empty_not_unknown', Analysis::analyse([], [], [])['oldest_year'] === null);
 // Fusion 08h58: scalar anomalies remain exact independently, not K5 cells.

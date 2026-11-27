@@ -98,6 +98,15 @@ def main():
         red_data = json.loads((out / 'red-unit.json').read_text(encoding='utf-8'))
         check('red_mutation_k5_caught', red.returncode == 1 and any(
             x['check'] == 'renewal_five' and x['status'] == 'FAIL' for x in red_data['checks']))
+        scalar_mutation = "from pathlib import Path;p=Path('/subject/a31/Analysis.php');s=p.read_text(encoding='utf-8');p.with_suffix('.original').write_text(s,encoding='utf-8');old='$result = $links;';assert s.count(old)==1;p.write_text(s.replace(old,\"$result = array_map(static fn ($v) => ['groups' => [], 'autres' => $v], $links);\"),encoding='utf-8')"
+        b.call(['exec', name, 'python3', '-c', scalar_mutation])
+        scalar_red = b.call(['exec', name, 'php', '/opt/a31/unit.php'], check=False)
+        b.call(['cp', name + ':/report/unit.json', b.local(out / 'red-scalar-unit.json')])
+        b.call(['exec', name, 'python3', '-c', "from pathlib import Path;p=Path('/subject/a31/Analysis.php');q=p.with_suffix('.original');p.write_bytes(q.read_bytes());q.unlink()"])
+        scalar_red_data = json.loads((out / 'red-scalar-unit.json').read_bytes())
+        check('red_scalar_rare_pool_caught', scalar_red.returncode == 1 and any(
+            x['check'] == 'scalar_orphan_renewals_1_alone_orphan_renewals' and x['status'] == 'FAIL'
+            for x in scalar_red_data['checks']))
         adapter = b.call(['exec', name, 'php', '/opt/a31/adapter-unit.php'], check=False)
         (out / 'adapter-unit.log').write_text(adapter.stdout + adapter.stderr, encoding='utf-8')
         b.call(['cp', name + ':/report/adapter-unit.json', b.local(out / 'adapter-unit.json')])

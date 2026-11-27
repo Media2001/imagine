@@ -1,5 +1,28 @@
 # B-11 — vidéos, podcasts et sommaire audio
 
+## État courant après corrections du 27 novembre 2026
+
+**BLOQUÉ, sans PRET.** Le code fonctionnel B11 n'a pas changé. Réception complémentaire : `reception-corrections-V2.json` ; commandes parent et résultats réels : `A-VOIR.md`. Ancienne réception et reçus conservés, pas de remplacement d'empreinte sur parole.
+
+L'observateur est désormais passif : aucun `use_block_editor_for_post`, aucun `allowed_options`. La recette vise les deux vrais éditeurs et prépare des adresses vidéo ET podcast différentes de la préimage pour article ET numéro ; elle exige ensuite des relectures après reload et des effacements, avec témoin actif no-persist. **Ces écritures UI n'ont pas été exécutées avec succès dans ce passage.** Elle ne publie pas de réussite lorsque ces opérations ne sont pas atteintes. Sur ce site, les métaboxes/panneaux ne sont pas accessibles par le parcours livré : recette finale rouge, aucune validation UI revendiquée.
+
+Le vrai formulaire de réglages conserve ses 16 options et son action native. Le contrôle strict découvre cinq options non-B11 créées depuis une absence initiale ; elles sont restaurées ensuite, pas préremplies ni retirées du formulaire pour fabriquer un vert. Découverte, relecture, solidaire, création newsletter et rétractation : détail des noms/empreintes dans `corrections-final-V2-details.json`. Qualification de leurs valeurs par défaut à arbitrer hors de cette correction de preuves.
+
+La surveillance réseau conserve contexte ET page d'origine ; Gravatar n'est excepté que pour une page admin dans le contexte admin, tout tiers étant coupé avant transport. Le témoin Gravatar public est réellement rouge. Le GIF d'accueil de l'éditeur est un tiers admin supplémentaire observé, non excepté. Les observations serveur du parcours atteint sont conservées ; elles ne valent pas zéro appel sur le parcours UI complet non terminé.
+
+La reconstruction d'image et le vrai rejeu racine sont verts pour les tests (1 189 / 36 512 ; outils 22 / 720), pas pour tous les paquets : A31 et A32 sont en dérive hors lot. PHPUnit B11 4/34, natif 23/23, unités de preuve 7 tests. Témoin backend WordPress réel 8/8 : valeurs changées, effacées, deux mutations d'écriture détectées, rollback et état métier relus. Ce résultat backend n'est jamais substitué à la recette d'éditeur manquante.
+
+Remise en état du passage final : 16 contrôles verts, dont préimage des lignes possédées, options, sessions, préférences, styles et état métier, absence relue des deux sondes. Deux interruptions initiales de nettoyage ont été reprises par l'inverse seule ; reçus de reprise conservés. Aucun compte/profil/droit/paiement nouveau, aucune extension de C26, aucun resceau d'un autre lot.
+
+### Limites et signalements à Claude
+- L'URL vidéo collée dans le **corps** réactive potentiellement l'oEmbed natif : B11 ne le verrouille pas, consigne opérationnelle uniquement, arbitrage Ced inchangé.
+- Le `catch (Throwable)` de Paywall masque une erreur de programmation en refus d'accès : hors B11/C06, laissé intact.
+- C28 a modifié le bootstrap partagé après le scellé B11 ; l'ancien reçu est historique, le nouvel arbre a réellement été rejoué après le stub B04 déjà livré par le parent. À reporter par **Claude** dans `docs/ecarts.md` selon l'instruction 6 ; ce fichier interdit n'a pas été écrit.
+- Les validations visuelles et questions de consentement ne sont pas transformées en GO.
+
+<details>
+<summary>Note historique avant corrections — provenance conservée, ne fonde plus PRET</summary>
+
 ## Le standard d'abord — cinq lignes
 1. Une URL isolée dans le corps d'un contenu peut être transformée par `WP_Embed::autoembed()` en lecteur intégré ; un champ de métadonnées séparé n'entre pas dans ce filtre.
 2. `WP_Embed::cache_oembed()` parcourt le corps pour mettre les intégrations en cache : déplacer seulement l'iframe au rendu ne supprime donc pas les demandes liées à l'enregistrement.
@@ -40,4 +63,5 @@ Rejouer l'observation serveur/navigateur avant et après accord/retrait : aucun 
 4. Pas de choix de consentement, de fournisseur réel, de téléchargement tiers, de diffusion CDN, d'upload audio dans les médias, ni de prise en charge Range ajoutée (même service complet que C11). WAV seulement sur ce squelette. Pas de style ou design nouveau ; validation visuelle de Ced attendue.
 5. La suite générale peut afficher un paquet tiers rouge (A32 partiel connu), indépendamment de son verdict de tests ; B11 n'en corrige ni ne rescelle aucun.
 
-Résultats exacts, commandes et données laissées : `A-VOIR.md`, `reception.json` et reçus nommés. PRET signifie candidat technique à relire, pas clôture de code, validation visuelle ou GO sur le réel.
+Les résultats ci-dessus appartiennent à `reception.json`, historique. L'état courant BLOQUÉ et la réception complémentaire figurent en tête de ce document et dans `A-VOIR.md` ; aucun PRET courant.
+</details>

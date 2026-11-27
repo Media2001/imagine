@@ -44,6 +44,25 @@ class FusionTests(unittest.TestCase):
             data['counts']['refunds']['total'] += 1
             self.assertFalse(r.projection(data, '0' * 64))
 
+    def test_windows_child_environment_omits_tmpdir_and_proves_console(self):
+        import json
+        import os
+        import subprocess
+        import sys
+        from unittest import mock
+        spec = importlib.util.spec_from_file_location('a31_env_matrix', ROOT / 'wp/tests/a31/matrix.py')
+        matrix = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(matrix)
+        self.assertTrue(hasattr(matrix, 'python_environment'), 'child environment must omit TMPDIR')
+        for encoding, mode in [('utf-8', '1'), ('cp1252', '0')]:
+            with mock.patch.dict(os.environ, {'TMPDIR': 'C:/fixture-forbidden-temp'}):
+                env = matrix.python_environment(encoding, mode)
+            self.assertNotIn('TMPDIR', env)
+            probe = "import os,sys,json; print(json.dumps({'tmpdir':os.environ.get('TMPDIR'),'stdout':sys.stdout.encoding,'stderr':sys.stderr.encoding,'mode':sys.flags.utf8_mode}))"
+            child = subprocess.run([sys.executable, '-B', '-c', probe], env=env, capture_output=True, check=True)
+            data = json.loads(child.stdout.decode(encoding))
+            self.assertEqual(data, {'tmpdir': None, 'stdout': encoding, 'stderr': encoding, 'mode': int(mode)})
+
     def test_scalars_closed_numeric_contract(self):
         for metric in METRICS:
             for value in (-1, True, 2**53, 1.5, '1', None, 'inconnu après neutralisation'):
