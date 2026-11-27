@@ -41,27 +41,96 @@ final class PacksThematiques
         }
     }
 
-    /** Après la persistance du paiement, une seule écriture par ligne ; relit le produit. */
+    public const ANOMALIE = 'imagine_pack_anomalie';
+    private static ?\WeakMap $captures = null;
+
+    public static function achetable(bool $allowed, $product): bool
+    {
+        return $allowed && !($product instanceof \WC_Product
+            && $product->meta_exists(self::PRODUIT) && self::numeros($product) === []);
+    }
+
+    public static function ajouter(bool $allowed, $productId): bool
+    {
+        if (!self::achetable(true, wc_get_product($productId))) {
+            wc_add_notice(__('Pack indisponible : un numéro inclus n’est plus disponible.', 'imagine-site'), 'error');
+            return false;
+        }
+        return $allowed;
+    }
+
+    public static function panier(): void
+    {
+        if (!WC()->cart) {
+            return;
+        }
+        foreach (WC()->cart->get_cart() as $line) {
+            // Relecture, pas l'objet éventuellement mémorisé dans la session panier.
+            self::ajouter(true, $line['product_id']);
+        }
+    }
+
+    /** Prépare seulement la transition non payé -> payé, jamais une reprise tardive. */
+    public static function preparer($order): void
+    {
+        if (!$order instanceof \WC_Order || $order->get_type() !== 'shop_order') {
+            return;
+        }
+        self::$captures ??= new \WeakMap();
+        unset(self::$captures[$order]);
+        if (!$order->is_paid() || !$order->get_date_paid('edit')) {
+            return;
+        }
+        $persisted = $order->get_id() ? new \WC_Order($order->get_id()) : null;
+        if ($persisted && $persisted->get_date_paid('edit')) {
+            return;
+        }
+        $captures = [];
+        foreach ($order->get_items('line_item') as $item) {
+            self::candidat($item);
+            if ((string) $item->get_meta(self::CANDIDAT, true, 'edit') !== '1') {
+                continue;
+            }
+            $ids = self::numeros(wc_get_product($item->get_product_id()));
+            if ($ids === []) {
+                throw new \RuntimeException(__('Paiement refusé : pack indisponible.', 'imagine-site'));
+            }
+            $captures[spl_object_id($item)] = ['numeros' => $ids,
+                'paye_le' => $order->get_date_paid('edit')->getTimestamp(),
+                'produit' => (int) $item->get_product_id()];
+        }
+        self::$captures[$order] = $captures;
+    }
+
+    /** Après persistance, consomme la capture éphémère ; ne lit jamais le produit. */
     public static function payer($order): void
     {
         if (!$order instanceof \WC_Order || $order->get_type() !== 'shop_order'
             || !$order->is_paid() || !$order->get_date_paid('edit')) {
             return;
         }
+        $captures = self::$captures[$order] ?? [];
+        if (self::$captures !== null) {
+            unset(self::$captures[$order]);
+        }
         foreach ($order->get_items('line_item') as $item) {
-            self::candidat($item);
-            if ((string) $item->get_meta(self::CANDIDAT, true, 'edit') !== '1'
-                || $item->meta_exists(self::LIGNE)) {
+            if ((string) $item->get_meta(self::CANDIDAT, true, 'edit') !== '1') {
                 continue;
             }
-            // Ne pas utiliser l'objet produit éventuellement mémorisé au panier.
-            $product = wc_get_product($item->get_product_id());
-            $item->add_meta_data(self::LIGNE, [
-                'numeros' => self::numeros($product),
-                'paye_le' => $order->get_date_paid('edit')->getTimestamp(),
-                'produit' => (int) $item->get_product_id(),
-            ], true);
-            $item->save();
+            if (!$item->meta_exists(self::LIGNE) && isset($captures[spl_object_id($item)])
+                && !$item->meta_exists(self::ANOMALIE)) {
+                $item->add_meta_data(self::LIGNE, $captures[spl_object_id($item)], true);
+                $item->save();
+            }
+            $snapshot = $item->get_meta(self::LIGNE, true, 'edit');
+            if ((PacksRegles::instantane($snapshot) === []
+                || ($snapshot['produit'] ?? null) !== (int) $item->get_product_id()
+                || ($snapshot['paye_le'] ?? null) !== $order->get_date_paid('edit')->getTimestamp())
+                && !$item->meta_exists(self::ANOMALIE)) {
+                // Visible dans la ligne d'administration ; aucune réparation automatique.
+                $item->add_meta_data(self::ANOMALIE, __('Instantané du pack absent ou non fiable : accès fermé, vérification manuelle requise.', 'imagine-site'), true);
+                $item->save();
+            }
         }
     }
 
@@ -71,6 +140,18 @@ final class PacksThematiques
         if (!$item instanceof \WC_Order_Item_Product
             || (string) $item->get_meta(self::CANDIDAT, true, 'edit') !== '1') {
             return $existing;
+        }
+        if ($item->meta_exists(self::ANOMALIE)) {
+            return [];
+        }
+        $snapshot = $item->get_meta(self::LIGNE, true, 'edit');
+        if (($snapshot['produit'] ?? null) !== (int) $item->get_product_id()) {
+            return [];
+        }
+        $order = $item->get_order();
+        if (!$order || !$order->get_date_paid('edit')
+            || ($snapshot['paye_le'] ?? null) !== $order->get_date_paid('edit')->getTimestamp()) {
+            return [];
         }
         return PacksRegles::instantane($item->get_meta(self::LIGNE, true, 'edit'));
     }
@@ -125,6 +206,10 @@ final class PacksThematiques
     public static function register(): void
     {
         add_action('woocommerce_before_order_item_object_save', [self::class, 'candidat']);
+        add_filter('woocommerce_is_purchasable', [self::class, 'achetable'], 10, 2);
+        add_filter('woocommerce_add_to_cart_validation', [self::class, 'ajouter'], 10, 2);
+        add_action('woocommerce_check_cart_items', [self::class, 'panier']);
+        add_action('woocommerce_before_order_object_save', [self::class, 'preparer']);
         add_action('woocommerce_after_order_object_save', [self::class, 'payer']);
         add_filter('imagine_achat_instantanes', [self::class, 'instantanes'], 10, 2);
         add_action('woocommerce_product_options_general_product_data', [self::class, 'champ']);

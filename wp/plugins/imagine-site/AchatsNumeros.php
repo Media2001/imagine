@@ -192,6 +192,8 @@ final class AchatsNumeros
             && $issue->post_status === 'publish'
         ) {
             $product->update_meta_data(self::PRODUIT, $id);
+            // C28 : déliement symétrique, y compris formulaire programmatique partiel.
+            $product->delete_meta_data('imagine_pack_numeros');
         } else {
             $product->delete_meta_data(self::PRODUIT);
         }

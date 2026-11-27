@@ -1,0 +1,8 @@
+
+Warning: Undefined array key "paid" in /repo/wp/plugins/imagine-site/tests/fixtures/c28-adapter.php on line 53
+
+Fatal error: Uncaught TypeError: Cannot assign null to property WC_Order::$paid of type bool in /repo/wp/plugins/imagine-site/tests/fixtures/c28-adapter.php:53
+Stack trace:
+#0 /repo/wp/plugins/imagine-site/tests/fixtures/c28-adapter.php(97): WC_Order->__construct()
+#1 {main}
+  thrown in /repo/wp/plugins/imagine-site/tests/fixtures/c28-adapter.php on line 53
