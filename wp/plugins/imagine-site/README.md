@@ -616,6 +616,21 @@ Menu B08 conservé, mêmes identifiants : huit entrées dans l'ordre du §3.1. C
 
 Réglages → Menu principal : 1 à 10 articles récents par thématique, défaut 3. Les thématiques vides sont conservées. Cache du seul fragment public indépendant du lecteur, images différées et non prioritaires ; aucun nouveau contenu de visiteur collecté. Réception : `production/B-13/reception-V2.json`, `A-VOIR.md` ; `python -B production/B-13/verifier.py` et `--live`. Socle `lot_reception_contract.py` inchangé, adapté localement par injection temporaire de paramètres : fichiers propres, bloc B13 exact/unique et section README bornée, aucune empreinte globale ni disponibilité de voisin. Tests natifs transactionnels, vrai navigateur sans JS et témoins existants de C26, matrice C26 non étendue. Ni habillage, validation visuelle ni GO réel.
 
+## B-14 — accueil dans l’ordre du cahier des charges
+
+### Le standard d'abord — cinq lignes
+1. WordPress choisit nativement `front-page.php` pour l'accueil : https://developer.wordpress.org/themes/classic-themes/basics/template-hierarchy/.
+2. Les images à la une viennent des pièces jointes natives, avec dimensions et variantes : https://developer.wordpress.org/reference/functions/wp_get_attachment_image/.
+3. L'API accepte explicitement `loading` et `fetchpriority` : seule la couverture de l'accueil est eager/high, toutes les autres images B13/B14 sont lazy/low.
+4. WordPress ne compose pas l'ordre métier §3.2 : `Accueil::rendre` relie les composants existants, sans constructeur ni second réglage de numéro.
+5. Numéro = `Imagine\Theme\imagine_issue_query(1)` de B04 ; produit C14, reportage libre B04, Agenda B07 et partenaire B05 restent leurs sources natives, sans droits ni prix recalculés.
+
+`front-page.php` appelle seulement le composant de structure : numéro/couverture/titre/date/résumé ; conversion ; reportage libre si présent ; newsletter par lien ; thématiques ; trois événements futurs au plus ; Soutenir ; coopérative ; partenaire du mois **inchangé avec son étiquette Partenariat**. La section Derniers articles de B01 est retirée, comme demandé ; l'ancre `imagine-thematiques` du menu reste valide. Recherche native conservée après les sections. Aucun style, animation, vidéo, iframe ou collecte d'email ajouté.
+
+Le produit du numéro courant n'est pas en vente dans la démo : le bouton Acheter est donc absent. Le test natif crée un produit simple entièrement fictif **dans une transaction annulée**, vérifie le lien positif, dépublie le produit, relit son état natif et vérifie l'absence ; aucune vente ni commande n'est effectuée. Le reportage déjà désigné reçoit seulement la couverture synthétique existante comme image à la une si elle manquait, seed idempotent, pas de second article ni numéro.
+
+Réception : `production/B-14/reception-V2.json`, `A-VOIR.md` ; `python -B production/B-14/verifier.py` (`--live` = lecture seule). Tests natifs transactionnels, vrai HTTP anonyme/A-PAPIER, contrôle Partenariat de B05 conservé, témoins C26 et mutations témoins ; matrice C26 inchangée. Socle et banc B13 inchangés, contrat propre uniquement pour l'amorçage/README. Aucune bibliothèque close modifiée, aucun contenu réservé rendu, aucun message de visiteur nouveau. Validation visuelle attendue, aucun GO réel.
+
 
 
 
