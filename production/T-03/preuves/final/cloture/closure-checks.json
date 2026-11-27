@@ -1,0 +1,44 @@
+{
+  "status": "PASS",
+  "commands": [
+    {
+      "name": "closure-python314-utf8",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "production/T-03/test-cloture.py"
+      ],
+      "context": "utf8",
+      "TMPDIR_present": false,
+      "exit_code": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "46e5b45a17e3d5a29efa2ce7fc8df902c937b33be53f491459db0fb62797b61f"
+    },
+    {
+      "name": "closure-python314-cp1252",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "production/T-03/test-cloture.py"
+      ],
+      "context": "cp1252",
+      "TMPDIR_present": false,
+      "exit_code": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "7a3e46e3f262b89da81c52b2157e6bdd71835be01da0bcbd9d92bf4f7b5305e1"
+    },
+    {
+      "name": "powershell-parse",
+      "exit_code": 0,
+      "command": [
+        "powershell.exe",
+        "-NoProfile",
+        "-Command",
+        "$tokens=$null; $errors=$null; [void][System.Management.Automation.Language.Parser]::ParseFile('C:/Users/Ced/imagine/production/T-03/native-copy-proof.ps1',[ref]$tokens,[ref]$errors); if ($errors.Count) { $errors; exit 1 }; Write-Output 'POWERSHELL_PARSE_PASS'"
+      ]
+    }
+  ],
+  "protected_files": 67,
+  "protected_exact_membership_and_bytes": true,
+  "PRET_absent": true
+}

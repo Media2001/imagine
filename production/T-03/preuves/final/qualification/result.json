@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-27T18:35:55.921649+01:00",
+  "at": "2026-11-27T18:38:48.773952+01:00",
   "status": "PASS",
   "expected_command_count": 14,
   "completed_command_count": 14,
@@ -33,8 +33,8 @@
     "wp/tests/t01/tools-contract.php": "83dcc494137dbf1ff715af661a54e8d14190d253f5c2b5c22ad5430a05351d68"
   },
   "python": {
-    "executable": "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
-    "version": "3.11.15 (main, Jun 23 2026, 15:20:37) [MSC v.1944 64 bit (AMD64)]"
+    "executable": "C:\\Python314\\python.exe",
+    "version": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]"
   },
   "readiness_claimed": false,
   "parent_final_gates_pending": true,
@@ -42,101 +42,101 @@
     {
       "name": "utf8-python-context",
       "command": [
-        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "C:\\Python314\\python.exe",
         "-c",
         "import json,locale,os,sys;print(json.dumps({'executable':sys.executable,'version':sys.version,'stdout':sys.stdout.encoding,'stderr':sys.stderr.encoding,'locale':locale.getencoding(),'preferred':locale.getpreferredencoding(False),'utf8_mode':sys.flags.utf8_mode,'tmpdir_present':'TMPDIR' in os.environ}))"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 0.07900000002700835,
-      "stdout_sha256": "bf6d17bc6095ead006759a313cec99c42d943c009bd5320ea63264abb61e95c2",
+      "elapsed_seconds": 0.04439690010622144,
+      "stdout_sha256": "96adb27c947e84d5f89b70368413cf5491f8d7e1e7b59d7e93790024c019d986",
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
       "name": "utf8-test_paquets",
       "command": [
-        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "C:\\Python314\\python.exe",
         "-B",
         "C:\\Users\\Ced\\imagine\\wp\\tests\\t01\\test_paquets.py"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 0.5309999999590218,
+      "elapsed_seconds": 0.47069420001935214,
       "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "stderr_sha256": "627739ea2748a13270b5af9a36a748bd23205b8a43ae1246aaae0234e91b220c"
+      "stderr_sha256": "3f42e3b208279d38b2ff7e226a3335f3d4cb357e4d5fc187659612f091e5de13"
     },
     {
       "name": "utf8-test_t03_integration",
       "command": [
-        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "C:\\Python314\\python.exe",
         "-B",
         "C:\\Users\\Ced\\imagine\\wp\\tests\\t01\\test_t03_integration.py"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 2.344000000040978,
+      "elapsed_seconds": 2.3173231999389827,
       "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "stderr_sha256": "932eaf1bc7db3dae5cfb68126741b31be71d8d3764ce08cc35d8af91e3b9a61f"
+      "stderr_sha256": "88624fe12f36c812eee427a97f3cde1c369a67e490d03c0070a5c10e9f0a9fbc"
     },
     {
       "name": "utf8-real-corrections",
       "command": [
-        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "C:\\Python314\\python.exe",
         "-B",
         "C:\\Users\\Ced\\imagine\\production\\T-03\\test-corrections.py",
         "--output",
-        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\t03-cloture-20261127-1829\\qualification-finale\\utf8-real-fixtures"
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\t03-cloture-20261127-1829\\qualification-python314\\utf8-real-fixtures"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 13.59299999999348,
-      "stdout_sha256": "433c3e1b677faa71e2987610618ff15faf2676064ced4681a5b92d55a5fb10fc",
+      "elapsed_seconds": 12.756159399985336,
+      "stdout_sha256": "413fc3b03bc23373a8145f115341821d4f8407ecaca8b22af307fc5e8deff1e2",
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
       "name": "cp1252-python-context",
       "command": [
-        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "C:\\Python314\\python.exe",
         "-c",
         "import json,locale,os,sys;print(json.dumps({'executable':sys.executable,'version':sys.version,'stdout':sys.stdout.encoding,'stderr':sys.stderr.encoding,'locale':locale.getencoding(),'preferred':locale.getpreferredencoding(False),'utf8_mode':sys.flags.utf8_mode,'tmpdir_present':'TMPDIR' in os.environ}))"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 0.046999999904073775,
-      "stdout_sha256": "015f304c375371fc94d6fcaaf448c84e4c5b2ac0601420849e489fba5ed5554d",
+      "elapsed_seconds": 0.03719470009673387,
+      "stdout_sha256": "170135fdfd0c0130ccd0cd41990fb5c13c604813996cc05203069f35f41d1431",
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
       "name": "cp1252-test_paquets",
       "command": [
-        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "C:\\Python314\\python.exe",
         "-B",
         "C:\\Users\\Ced\\imagine\\wp\\tests\\t01\\test_paquets.py"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 0.31200000003445894,
+      "elapsed_seconds": 0.34477920003701,
       "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "stderr_sha256": "e9b0d19ea6af269d0c61362d98be944b989e9f657322cd3785cd901b84c0c6b1"
+      "stderr_sha256": "bff7f0568eb823041a960bcff9bd3315169627aa8c6b987985efca550020d981"
     },
     {
       "name": "cp1252-test_t03_integration",
       "command": [
-        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "C:\\Python314\\python.exe",
         "-B",
         "C:\\Users\\Ced\\imagine\\wp\\tests\\t01\\test_t03_integration.py"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 2.312999999965541,
+      "elapsed_seconds": 2.238112600054592,
       "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "stderr_sha256": "f882daec3007799a186e5c25606980e6669de4c2c6e4e3f3dae68899eb1897be"
+      "stderr_sha256": "45c429ccba8c2e017c6dc4d25c567afad24819cd25b957a06770e79aab272354"
     },
     {
       "name": "cp1252-real-corrections",
       "command": [
-        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "C:\\Python314\\python.exe",
         "-B",
         "C:\\Users\\Ced\\imagine\\production\\T-03\\test-corrections.py",
         "--output",
-        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\t03-cloture-20261127-1829\\qualification-finale\\cp1252-real-fixtures"
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\t03-cloture-20261127-1829\\qualification-python314\\cp1252-real-fixtures"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 13.047000000020489,
-      "stdout_sha256": "7f95f540180a002081137da6938e682109a1651ebb2f1231a908b925d62f6b7f",
+      "elapsed_seconds": 13.187290599918924,
+      "stdout_sha256": "a09eb58ce96f4bb6584ffbf490f2be7bce4f30452258dc9c33273987501bc36e",
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
@@ -150,8 +150,8 @@
         "production/T-03/test-streams-native.ps1"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 2.781000000075437,
-      "stdout_sha256": "3bf1f9e0c3c1ef631a6fd383d33fb45225f4986512b49a1d5610818bf5a59769",
+      "elapsed_seconds": 2.5903867000015453,
+      "stdout_sha256": "5992e06412fad6521653df3a49aafebaac686993201e73fb29c7b7c0626bdd76",
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
@@ -165,8 +165,8 @@
         "wp/tests/t01/test-php-corrections.ps1"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 4.936999999918044,
-      "stdout_sha256": "c4e6cb74976d26a231d1b24fcd5e3286ceec16b64f8afa404bfc21385582c5ec",
+      "elapsed_seconds": 4.54258160002064,
+      "stdout_sha256": "21d932d7a2c7e32bd5048a65df4da2b5de3fbe8a5608162b7698ad6bf652bd10",
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
@@ -180,8 +180,8 @@
         "wp/tests/t01/test-tools.ps1"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 3.23499999998603,
-      "stdout_sha256": "87efd7aba75f5d2647f065119c339aeee960a0f612ab3f23cf9b6057761c521f",
+      "elapsed_seconds": 2.963663100032136,
+      "stdout_sha256": "9da3a0a6d5e1d1a053a541a258097bf7b6d13c69ce36984156f2b3c2db5721a2",
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
@@ -195,7 +195,7 @@
         "wp/tests/t01/test-rejeu.ps1"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 6.812000000034459,
+      "elapsed_seconds": 6.9815868000732735,
       "stdout_sha256": "f698574beb695708d3fd1d5f1c9ae46b421e27a71a386e5d3d54b3c0d0ac2282",
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
@@ -210,7 +210,7 @@
         "wp/tests/t01/test-tools-summary.ps1"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 3.0619999999180436,
+      "elapsed_seconds": 3.0629158000228927,
       "stdout_sha256": "5930daae1975f52f2ce6318be8572cf09e39c60e110c4c31dd36755ca3cc1417",
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
@@ -225,11 +225,11 @@
         "wp/tests/rejouer.ps1"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 78.54700000002049,
-      "stdout_sha256": "7ebcf1a442e9420433c48cc2b2ad2ab23ac69015ad7d4aab1d9e5e756ef31642",
+      "elapsed_seconds": 76.37181040004361,
+      "stdout_sha256": "d2357dd69c16401e3601a20d61791991471a7b785a288ff810a72da9892be7c5",
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "summaries": [
-        "T01 CLEANUP : absence verifiee de imagine-t01-33303a75884343579b4885cddec2b700",
+        "T01 CLEANUP : absence verifiee de imagine-t01-4ef8aba333a543eb91e091e3fba2bbfa",
         "PAQUETS : 12 v\u00e9rifi\u00e9s, 2 \u00e9checs ; hors rejeu : aucun ; A-31 A31_PARTIAL_EVIDENCE, A-32 A32_PACKAGE_DRIFT",
         "OUTILS : 22 outils, 791 contr\u00f4les, 0 \u00e9checs ; hors rejeu : aucun",
         "REJEU : 1204 tests, 36667 assertions, 0 \u00e9checs, 0 erreurs, 0 ignor\u00e9s \u2014 PASS"
