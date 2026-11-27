@@ -1,0 +1,13 @@
+{
+  "result": {
+    "original_metadata_exact": true,
+    "original_business_options_exact": true
+  },
+  "source_snapshot": "snapshot.json",
+  "source_directory": "c25-private-im2rijcu",
+  "source_sha256": "71d07fa73f8a630d6cda27c09474cc57a3c13c69c7eb3eb1bc3d38a3a4a75474",
+  "native_all_tables_exact": true,
+  "scope": "imagine-test-demo",
+  "session_source": "Existing private C27 snapshot; no original C29 session fingerprint was saved.",
+  "probe_removed": true
+}

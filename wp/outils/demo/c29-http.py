@@ -38,6 +38,10 @@ def run(label):
     keys=['imagine_newsletters_preferences','imagine_personnalisation_reponses','imagine_personnalisation_consentement','imagine_cooperateur','imagine_sans_email','session_tokens']
     # Sessions stay in this process only; never written to evidence or stdout.
     old=wp('global $wpdb;$ids='+php(ids)+';$keys='+php(keys)+';$names='+php(names)+''';$o=['options'=>[],'meta'=>[]];foreach($names as $n){$o['options']=array_merge($o['options'],$wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->options} WHERE option_name=%s",$n),ARRAY_A));}foreach($ids as $id){foreach($keys as $key){$o['meta']=array_merge($o['meta'],$wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->usermeta} WHERE user_id=%d AND meta_key=%s",$id,$key),ARRAY_A));}}echo wp_json_encode($o);''')
+    c29.save(label+'-baseline', {'scope':'imagine-test-demo','options':old['options'],
+        'meta':[r for r in old['meta'] if r['meta_key']!='session_tokens'],
+        'session_rows_sha256':hashlib.sha256(json.dumps([r for r in old['meta'] if r['meta_key']=='session_tokens'],sort_keys=True).encode()).hexdigest(),
+        'journals_before':journals0,'state_before':before})
     probe='mu-plugins/c29-observer.php'
     assert wp('echo wp_json_encode(file_exists(WP_CONTENT_DIR."/'+probe+'"));') is False
     checks={};observations=[];external=[];surfaces=[];error=None;restored=False;removed=False
@@ -124,7 +128,7 @@ def run(label):
             browser.close()
     except Exception as exc:error=repr(exc)
     finally:
-        journals=wp('global $wpdb;$old='+php(journals0)+''';$out=[];foreach($wpdb->get_results("SELECT option_name,option_value FROM {$wpdb->options} WHERE option_name LIKE 'imagine_reglages_journal_%'",ARRAY_A) as $r){if(!in_array($r['option_name'],$old,true)){$event=maybe_unserialize($r['option_value']);if(!in_array($event['option']??null,['imagine_personnalisation_questions','imagine_brevo_tarifs'],true)){throw new RuntimeException('Journal étranger : ne pas nettoyer');}$out[]=$r['option_name'];}}echo wp_json_encode($out);''')
+        journals=wp('global $wpdb;$old='+php(journals0)+''';$out=[];foreach($wpdb->get_results("SELECT option_name,option_value FROM {$wpdb->options} WHERE option_name LIKE 'imagine_reglages_journal_%'",ARRAY_A) as $r){if(!in_array($r['option_name'],$old,true)){$event=maybe_unserialize($r['option_value']);if(!in_array($event['option']??null,['imagine_newsletters_catalogue','imagine_personnalisation_questions','imagine_brevo_tarifs'],true)){throw new RuntimeException('Journal étranger : ne pas nettoyer');}$out[]=$r['option_name'];}}echo wp_json_encode($out);''')
         cleanup_names=names+journals
         code='global $wpdb;$old='+php(old)+';$ids='+php(ids)+';$keys='+php(keys)+';$names='+php(cleanup_names)+''';foreach($names as $n){$wpdb->delete($wpdb->options,['option_name'=>$n]);}foreach($old['options'] as $r){$wpdb->insert($wpdb->options,$r);}foreach($ids as $id){foreach($keys as $key){$wpdb->delete($wpdb->usermeta,['user_id'=>$id,'meta_key'=>$key]);}}foreach($old['meta'] as $r){$wpdb->insert($wpdb->usermeta,$r);}wp_cache_flush();echo wp_json_encode(true);'''
         wp(code)
