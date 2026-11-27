@@ -17,7 +17,7 @@ if (($_SERVER['HTTP_X_IMAGINE_B11_SETTINGS'] ?? '') === 'fictif') {
     }, PHP_INT_MAX);
 }
 foreach (['pre_wp_mail' => 'mail', 'pre_http_request' => 'http', 'pre_oembed_result' => 'oembed'] as $hook => $kind) {
-    add_filter($hook, static function ($value) use ($kind) {
+    add_filter($hook, static function ($value, $args = null, $url = null) use ($kind) {
         $phase = $_GET['b11_observe'] ?? 'ambiance';
         if (!is_string($phase) || !preg_match('/\A[a-z0-9-]+\z/D', $phase)) {
             $phase = 'ambiance';
@@ -25,7 +25,11 @@ foreach (['pre_wp_mail' => 'mail', 'pre_http_request' => 'http', 'pre_oembed_res
         $counts = get_option('imagine_b11_observations', []);
         $key = $phase . '_' . $kind;
         $counts[$key] = ($counts[$key] ?? 0) + 1;
+        if ($kind === 'http' && $phase !== 'ambiance') {
+            $counts['destinations'][] = ['phase' => $phase, 'url' => $url,
+                'stack' => array_values(array_filter(array_map(static fn ($f) => isset($f['file']) ? basename($f['file']) . ':' . ($f['function'] ?? '') : '', debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 18))))];
+        }
         update_option('imagine_b11_observations', $counts, false);
         return $value;
-    }, -1000, 1);
+    }, -1000, 3);
 }
