@@ -5,7 +5,8 @@ import hashlib
 import importlib.util
 import json
 import os
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
+import ntpath
 import re
 import shutil
 import subprocess
@@ -30,13 +31,25 @@ def clean_environment(encoding, mode, scratch, *, repo=ROOT):
     return env
 
 
+def recorded_windows_path(value):
+    """Interpret sealed evidence lexically, never against the reader filesystem."""
+    if (not isinstance(value, str) or not value or '\x00' in value
+            or not PureWindowsPath(value).is_absolute()
+            or '/' in value or '..' in value.split('\\')
+            or ntpath.normpath(value) != value):
+        raise ValueError('A30_RECORDED_WINDOWS_PATH_REQUIRED')
+    return PureWindowsPath(value)
+
+
 def environment_valid(env, encoding, mode, scratch):
     try:
-        expected = assert_outside_repo(scratch)
-        return (env['platform'] == 'win32' and env['stdout'].lower() == encoding
+        expected = recorded_windows_path(scratch)
+        root = recorded_windows_path(env['repository_root_windows'])
+        disjoint = not (expected.is_relative_to(root) or root.is_relative_to(expected))
+        return (disjoint and env['platform'] == 'win32' and env['stdout'].lower() == encoding
                 and env['stderr'].lower() == encoding and env['utf8_mode'] == mode
                 and env['TMPDIR_present'] is False and env['TMPDIR'] is None
-                and all(Path(env[key]).resolve() == expected for key in ('TEMP', 'TMP', 'tempdir'))
+                and all(recorded_windows_path(env[key]) == expected for key in ('TEMP', 'TMP', 'tempdir'))
                 and type(env['suite_discovered']) is int and env['suite_discovered'] > 0)
     except (KeyError, TypeError, ValueError, RuntimeError, AttributeError):
         return False
@@ -77,14 +90,14 @@ def main():
         shutil.rmtree(out)
     out.mkdir(parents=True, exist_ok=False)
     rows = []
-    probe = ("import sys,locale,json,os,tempfile,unittest;"
+    probe = ("import sys,locale,json,os,tempfile,unittest;from pathlib import Path;"
              "suite=unittest.defaultTestLoader.discover('wp/tests/a30',pattern='test_*.py');"
              "print(json.dumps({'platform':sys.platform,'executable':sys.executable,'version':sys.version,"
              "'stdout':sys.stdout.encoding,'stderr':sys.stderr.encoding,'locale':locale.getencoding(),"
              "'preferred':locale.getpreferredencoding(False),'utf8_mode':sys.flags.utf8_mode,"
              "'TMPDIR_present':'TMPDIR' in os.environ,'TMPDIR':os.environ.get('TMPDIR'),"
              "'TEMP':os.environ.get('TEMP'),'TMP':os.environ.get('TMP'),'tempdir':tempfile.gettempdir(),"
-             "'suite_discovered':suite.countTestCases()}))")
+             "'repository_root_windows':str(Path.cwd().resolve()),'suite_discovered':suite.countTestCases()}))")
     temporary = tempfile.TemporaryDirectory(prefix='a30-clean-windows-', dir=temp_root)
     atexit.register(temporary.cleanup)
     scratch = temporary.name
@@ -123,7 +136,7 @@ def main():
                             ('candidate.json', {'status': 'CANDIDAT_GATE_PARENT', 'readiness_claimed': False,
                                                 'native_executed': args.with_native,
                                                 'parent_preparation': 'pending', 'parent_global_T01': 'pending'}),
-                            ('windows-matrix.json', {'schema': 'a30-clean-windows-v1', 'rows': rows, 'exit_code': int(any(r['exit_code'] != 0 or r.get('all_pass') is False for r in rows))})]:
+                            ('windows-matrix.json', {'schema': 'a30-clean-windows-v1', 'repository_root_windows': str(ROOT.resolve()), 'rows': rows, 'exit_code': int(any(r['exit_code'] != 0 or r.get('all_pass') is False for r in rows))})]:
         (out / filename).write_text(json.dumps(value, indent=2) + '\n', encoding='utf-8')
     print(json.dumps({'rows': rows, 'native_executed': args.with_native, 'readiness_claimed': False}, indent=2))
     temporary.cleanup()

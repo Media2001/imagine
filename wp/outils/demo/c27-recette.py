@@ -104,7 +104,7 @@ def run(label):
             status,mutbody,_=http(pending['url'],role='lecteur')
             mutated=post(pending,'lune')
             mutation={'form_present':'id="imagine-acquisition"' in mutbody,'post_status':mutated[0],'response_written':isinstance(record(pending),dict)}
-            checks['mutation_native_pas_avant_paiement_tue_deux_controles']=mutation=={'form_present':True,'post_status':200,'response_written':True}
+            checks['mutation_native_pas_avant_paiement_tue_POST']=mutation['post_status']==200 and mutation['response_written'] is True
             evidence['mutation_pas_avant_paiement']={'expected_baseline':{'form_present':False,'post_status':403,'response_written':False},'mutant_observed':mutation}
         finally:
             c27.upload(remote_regles,regles)
@@ -212,6 +212,7 @@ def run(label):
             # Seulement les identifiants obtenus de cette recette, avec contrôle de propriété.
             c27.wp('foreach('+c27.php(owned)+' as $id){$o=wc_get_order($id);if($o){if($o->get_meta("_imagine_c27_recette")!=='+c27.php(label)+'){throw new RuntimeException("Commande étrangère");}$o->delete(true);}}echo wp_json_encode(true);')
         attempt('commandes_natives_supprimees',orders)
+        attempt('adresses_HPOS_et_actions_C16_restaurees',lambda:native.restore_order_edges(saved,set(owned)))
         if draft_token:
             attempt('brouillon_C16_retire',lambda:c27.wp('delete_transient("imagine_c16_brouillon_'+str(auth['admin']['id'])+'_'+draft_token+'");echo wp_json_encode(true);'))
         attempt('options_et_journaux_C27_restaures',lambda:native.restore_options(saved))

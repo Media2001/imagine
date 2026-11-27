@@ -29,7 +29,7 @@ class MatrixTests(unittest.TestCase):
             measured = {'platform': 'win32', 'stdout': 'cp1252', 'stderr': 'cp1252',
                         'utf8_mode': 0, 'TMPDIR_present': False, 'TMPDIR': None,
                         'TEMP': scratch, 'TMP': scratch, 'tempdir': scratch,
-                        'suite_discovered': 33}
+                        'suite_discovered': 33, 'repository_root_windows': str(HERE.parents[2])}
             log = folder / 'python-tests.log'
             log.write_text('Ran 33 tests in 0.1s\n\nOK\n', encoding='utf-8')
             environment = folder / 'environment.json'
@@ -89,7 +89,7 @@ class MatrixTests(unittest.TestCase):
         with temporary_directory('a30-matrix-probe-') as scratch:
             env = {'platform': 'win32', 'stdout': 'cp1252', 'stderr': 'cp1252',
                    'utf8_mode': 0, 'TMPDIR_present': False, 'TMPDIR': None,
-                   'TEMP': scratch, 'TMP': scratch, 'tempdir': scratch, 'suite_discovered': 33}
+                   'TEMP': scratch, 'TMP': scratch, 'tempdir': scratch, 'suite_discovered': 33, 'repository_root_windows': str(HERE.parents[2])}
             self.assertTrue(matrix.environment_valid(env, 'cp1252', 0, scratch))
             for key, value in [('TMPDIR_present', True), ('TMPDIR', 'inherited'), ('stdout', 'utf-8'),
                                ('stderr', 'utf-8'), ('utf8_mode', 1), ('suite_discovered', 0),

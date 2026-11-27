@@ -1,0 +1,40 @@
+{
+  "scope": "imagine-test-demo",
+  "sources": {
+    "wp/outils/demo/c27-diagnostic.py": "186b0aa01fc14c71dc0234348782bfb612fe08705fc08d8fd89f5403b28cb03d",
+    "wp/outils/demo/c27-native.py": "7628a5701924cdce7335413ae3dfb2d8e8c6fcef14338ca8ed5798484c5c5e41",
+    "wp/outils/demo/c27-recette.py": "7c9d8c8e5dd462a7a2edddef319d569ae523eaa31223763bd1ad8256d90dd760",
+    "wp/outils/demo/c27.py": "fe9d07a3df4629fb6241c7f8fdff39ddde1726270fd3527af309039cb0b43dd2",
+    "wp/plugins/imagine-site/Acquisition.php": "9cf87761593af5cce5ccb2f67a75386f202865a1ff260ab28c8060e985438525",
+    "wp/plugins/imagine-site/AcquisitionAdmin.php": "4dcc8a3077b891161e9f596d36381066662d735914f3e9ee958fce8133edc9fa",
+    "wp/plugins/imagine-site/AcquisitionConfidentialite.php": "96a2aab44925174f861e31e85f2ea44aec7bf657da4b7d9ff695b9bb43721181",
+    "wp/plugins/imagine-site/AcquisitionReglages.php": "225937e1971f220a0ada69b0c1389bf4fbebddca47387b5ca4a7ff317cb224bc",
+    "wp/plugins/imagine-site/AcquisitionRegles.php": "3d07436425edf3279a93993b93fc80f1ce54921f0bcc951c02a678bf0e196f7e",
+    "wp/plugins/imagine-site/tests/AcquisitionReglesTest.php": "37e4c918a775f62b126a421167dc6f3c731be6c0ac7ee569d19c7e24a8e38ab5",
+    "wp/tests/demo/c27-horslive.php": "96771cd4c74ec2d64235ae0b9395c20f48ddc3d242f5fcc7d9b862969b442d1f",
+    "wp/tests/demo/c27-observer.php": "d6d3c1456f9ff62f8a86bf3c9eac6c924870005cc69934cff70215988d150f68",
+    "wp/tests/demo/c27-runtime.php": "0fb01d5987c0cc190fc3ca4db7e0060271c52ab28bcac4e79b8bb4ec97fff7f8"
+  },
+  "restoration": {
+    "users": true,
+    "usermeta": true,
+    "posts": true,
+    "postmeta": true,
+    "comments": true,
+    "commentmeta": true,
+    "navigation": true,
+    "wc_orders": true,
+    "wc_orders_meta": true,
+    "wc_order_addresses": true,
+    "wc_order_operational_data": true,
+    "woocommerce_order_items": true,
+    "woocommerce_order_itemmeta": true,
+    "actionscheduler_actions": true,
+    "actionscheduler_logs": true,
+    "actionscheduler_groups": true,
+    "actionscheduler_claims": true,
+    "options_metier": true
+  },
+  "business_preserved": true,
+  "recovery_from": "10-recette-native-preview.json"
+}

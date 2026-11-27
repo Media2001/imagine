@@ -37,6 +37,33 @@ def restore_users(saved, ids):
     c27.wp('global $wpdb;foreach('+c27.php(list(ids))+' as $id){$wpdb->delete($wpdb->usermeta,["user_id"=>$id]);}foreach('+c27.php(rows)+' as $row){$wpdb->insert($wpdb->usermeta,$row);}wp_cache_flush();echo wp_json_encode(true);')
 
 
+def restore_order_edges(saved, ids):
+    """C16 garde des adresses classiques en HPOS ; les seuls IDs créés sont nettoyés.
+
+    Le rapport Subscriptions natif invalide une tâche de cache à la lecture de C16.
+    Inverse ciblée avec comparaison de toutes les colonnes ; pas de reset global.
+    """
+    assert not any(int(r['ID']) in ids for r in saved['posts'])
+    assert not any(int(r['id']) in ids for r in saved['wc_orders'])
+    c27.wp('global $wpdb;foreach('+c27.php(list(ids))+' as $id){if(wc_get_order($id)){throw new RuntimeException("Commande non supprimée");}$wpdb->delete($wpdb->postmeta,["post_id"=>$id]);}echo wp_json_encode(true);')
+    current=c27.snapshot()
+    old={r['action_id']:r for r in saved['actionscheduler_actions']}
+    now={r['action_id']:r for r in current['actionscheduler_actions']}
+    changed={k for k in old.keys()|now.keys() if old.get(k)!=now.get(k)}
+    for key in changed:
+        for row in [old.get(key),now.get(key)]:
+            if row is None:continue
+            assert row['hook']=='wcs_report_update_cache' and row['args']=='{"report_class":"WCS_Report_Subscription_By_Product"}' and row['status'] in ['pending','canceled'] and row['attempts']=='0' and row['claim_id']=='0', 'Dérive action étrangère'
+    before_logs={r['log_id']:r for r in saved['actionscheduler_logs']}
+    after_logs={r['log_id']:r for r in current['actionscheduler_logs']}
+    logids={k for k in before_logs.keys()|after_logs.keys() if before_logs.get(k)!=after_logs.get(k)}
+    assert all(after_logs[k]['action_id'] in changed and k not in before_logs for k in logids), 'Dérive journal étrangère'
+    targets=[('actionscheduler_logs','log_id',logids,before_logs,after_logs),('actionscheduler_actions','action_id',changed,old,now)]
+    for table,pk,keys,before,after in targets:
+        payload=[{'before':before.get(k),'after':after.get(k)} for k in keys]
+        c27.wp('global $wpdb;$table=$wpdb->prefix.'+c27.php(table)+';foreach('+c27.php(payload)+' as $pair){$old=$pair["before"];$now=$pair["after"];if($now!==null&&$wpdb->delete($table,$now)!==1){throw new RuntimeException("Dérive pendant inverse");}if($old!==null&&$wpdb->insert($table,$old)!==1){throw new RuntimeException("Inverse action refusée");}}echo wp_json_encode(true);')
+
+
 def run(label):
     identity=c27.guard();saved=c27.snapshot();before=c27.state()
     durable=c27.private('c27-'+label,{'database':saved,'business':before})

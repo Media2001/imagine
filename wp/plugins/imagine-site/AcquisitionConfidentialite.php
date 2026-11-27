@@ -68,9 +68,23 @@ final class AcquisitionConfidentialite
         return $out;
     }
 
+    private static function compte(string $email): object|false
+    {
+        global $wpdb;
+        if (!is_email($email)) {
+            return false;
+        }
+        $wpdb->last_error = '';
+        $user = get_user_by('email', $email);
+        return $wpdb->last_error ? new \WP_Error('imagine_acquisition_compte', __('Lecture du compte impossible.', 'imagine-site')) : $user;
+    }
+
     public static function exporter(string $email, int $page = 1): array|\WP_Error
     {
-        $user = is_email($email) ? get_user_by('email', $email) : false;
+        $user = self::compte($email);
+        if (is_wp_error($user)) {
+            return $user;
+        }
         if (!$user) {
             return ['data' => [], 'done' => true];
         }
@@ -103,7 +117,10 @@ final class AcquisitionConfidentialite
     public static function effacer(string $email, int $page = 1): array
     {
         $result = ['items_removed' => false, 'items_retained' => false, 'messages' => [], 'done' => false];
-        $user = is_email($email) ? get_user_by('email', $email) : false;
+        $user = self::compte($email);
+        if (is_wp_error($user)) {
+            return array_replace($result, ['items_retained' => true, 'messages' => [__('Lecture du compte impossible.', 'imagine-site')]]);
+        }
         if (!$user) {
             return array_replace($result, ['done' => true]);
         }
