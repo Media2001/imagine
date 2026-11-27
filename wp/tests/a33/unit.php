@@ -15,7 +15,9 @@ if (is_file($source)) {
     $class = \Imagine\ArchiveWeight\Analysis::class;
     $check('editorial_policy_exists', method_exists($class, 'editorial'));
     if (method_exists($class, 'editorial')) {
-        foreach (['shop_order', 'shop_order_refund', 'shop_subscription', 'shop_coupon', 'wc_user_membership'] as $type) {
+        foreach (
+            ['shop_order', 'shop_order_refund', 'shop_subscription', 'shop_coupon', 'wc_user_membership'] as $type
+        ) {
             $refused = false;
             try {
                 $class::editorial(['article_type' => $type, 'numero_type' => 'post']);

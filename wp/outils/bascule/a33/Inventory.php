@@ -54,6 +54,8 @@ final class Inventory
 
     public static function collect(string $site, array $mapping): array
     {
+        \Imagine\IssueInventory\Mapping::validate($mapping);
+        Analysis::editorial($mapping);
         // The accepted implementation alone owns validation, ordering and refusal semantics.
         $a16 = (new \Imagine\IssueInventory\Inventory($site))->collect($mapping, 10);
         $recentIds = array_column($a16['issues'], 'id');
@@ -63,8 +65,7 @@ final class Inventory
         $p = $wpdb->posts;
         $m = $wpdb->postmeta;
         // Never enumerate an order store or read a commerce object's values.
-        $excluded = "('attachment','revision','shop_order','shop_order_refund','shop_order_placehold',"
-            . "'shop_subscription','shop_coupon','wc_user_membership')";
+        $excluded = "('" . implode("','", Analysis::NON_EDITORIAL) . "')";
         $contents = self::rows("SELECT ID,post_type,post_status,post_date_gmt,post_parent FROM $p "
             . "WHERE BINARY post_type NOT IN $excluded ORDER BY ID");
         $outside = [];

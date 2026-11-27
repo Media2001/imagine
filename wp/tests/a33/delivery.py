@@ -15,7 +15,7 @@ PREVIOUS = {'A-20', 'A-21', 'A-22', 'A-23', 'A-24', 'A-25', 'A-26', 'A-27', 'A-2
 REQUIRED_NATIVE = {'native_audit', 'native_success', 'twelve_selects_ten_exact', 'published_outside_exact_closed_types_years', 'outside_files_exact_years_missing_not_zero', 'orphan_zero_and_missing_parent', 'recent_comparison_exact', 'nonpublished_parent_separate', 'no_media_content_open_or_access', 'no_site_identifiers_all_nominal_channels', 'db_identical_nominal', 'files_identical_nominal', 'deterministic_replay', 'common_and_owned_readme_commands_identical', 'readme_only_exact_arguments', 'a16_variant_parent_exact', 'a16_variant_taxonomy_ten_no_term_post_id_inference', 'symlink_closed_refusal', 'all_base_tables_and_scheduler_unchanged', 'all_site_files_unchanged', 'imported_excluded_unknown_not_zero', 'imported_readable_local_counts_unchanged', 'imported_db_files_identical', 'no_network_interfaces'}
 REQUIRED_NATIVE |= {'same_a16_refusal_' + f for f in ('numero_type', 'thematique', 'pdf_cle', 'liaison.cle', 'article_type', 'date_cle')}
 REQUIRED_NATIVE |= {prefix + label for prefix in ('channel_', 'immutable_channel_') for label in ('echo', 'stdout', 'stderr', 'early', 'shutdown', 'file', 'exception')}
-REQUIRED_NATIVE |= {'media_watch_positive_inverse'} | {'output_guard_' + name for name in ('existing', 'site', 'repository', 'ancestor', 'root')}
+REQUIRED_NATIVE |= {'media_watch_positive_inverse', 'no_commerce_mapping_bootstrap'} | {'output_guard_' + name for name in ('existing', 'site', 'repository', 'ancestor', 'root')}
 
 
 def load(name, p):
