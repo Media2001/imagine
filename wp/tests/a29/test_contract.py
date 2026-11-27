@@ -75,6 +75,12 @@ class ContractTests(unittest.TestCase):
         self.assertIn("required=True)", runner)
         self.assertIn("'preparation'", (folder / 'gates.py').read_text(encoding='utf-8'))
 
+    def test_native_seed_uses_existing_customer(self):
+        seed = (ROOT / 'wp/tests/a29/seed.php').read_text(encoding='utf-8')
+        arguments = re.search(r'wcs_create_subscription\((\[.*?\])\)', seed, re.S).group(1)
+        self.assertIn("'customer_id'", arguments)
+        self.assertIn("get_user_by('login', 'a02-fictif')", seed)
+
     def test_email_native_gate_reads_real_parent_chain(self):
         source = (ROOT / 'wp/tests/a29/standard.php').read_text(encoding='utf-8')
         for key, path in [('native_process', '/includes/libraries/wp-background-process.php'),

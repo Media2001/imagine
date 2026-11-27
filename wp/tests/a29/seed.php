@@ -15,7 +15,12 @@ $active = get_option('active_plugins', []);
 $active[] = 'a29-inconnu/a29-inconnu.php';
 update_option('active_plugins', array_values(array_unique($active)));
 update_option('timezone_string', 'Pacific/Auckland');
-$sub = wcs_create_subscription(['status' => 'pending', 'billing_period' => 'month', 'billing_interval' => 1]);
+$customer = get_user_by('login', 'a02-fictif');
+if (!$customer || !$customer->exists()) {
+    throw new RuntimeException('A29_SEED_CUSTOMER');
+}
+$sub = wcs_create_subscription(['customer_id' => $customer->ID, 'status' => 'pending',
+    'billing_period' => 'month', 'billing_interval' => 1]);
 if (is_wp_error($sub)) {
     throw new RuntimeException('A29_SEED_SUBSCRIPTION');
 }
