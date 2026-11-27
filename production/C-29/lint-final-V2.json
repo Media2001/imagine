@@ -1,0 +1,16 @@
+{
+  "files": [
+    "wp/plugins/imagine-site/ContactBrevoRegles.php",
+    "wp/plugins/imagine-site/ContactBrevo.php",
+    "wp/plugins/imagine-site/imagine-site.php",
+    "wp/plugins/imagine-site/tests/ContactBrevoC29Test.php",
+    "wp/plugins/imagine-site/tests/fixtures/c29-cases.php",
+    "wp/tests/demo/c29-pure.php",
+    "wp/tests/demo/c29-runtime.php",
+    "wp/tests/demo/c29-attendus.php",
+    "wp/tests/demo/c29-observer.php"
+  ],
+  "exit": 0,
+  "stdout": "No syntax errors detected in /repo/wp/plugins/imagine-site/ContactBrevoRegles.php\nNo syntax errors detected in /repo/wp/plugins/imagine-site/ContactBrevo.php\nNo syntax errors detected in /repo/wp/plugins/imagine-site/imagine-site.php\nNo syntax errors detected in /repo/wp/plugins/imagine-site/tests/ContactBrevoC29Test.php\nNo syntax errors detected in /repo/wp/plugins/imagine-site/tests/fixtures/c29-cases.php\nNo syntax errors detected in /repo/wp/tests/demo/c29-pure.php\nNo syntax errors detected in /repo/wp/tests/demo/c29-runtime.php\nNo syntax errors detected in /repo/wp/tests/demo/c29-attendus.php\nNo syntax errors detected in /repo/wp/tests/demo/c29-observer.php\n",
+  "stderr": ""
+}
