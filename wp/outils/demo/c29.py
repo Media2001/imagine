@@ -26,6 +26,19 @@ def pure(label):
     print(r.stdout,r.stderr)
     return r.returncode
 
+def state():
+    import c19
+    data=c19.state()
+    # Exact additional admin-bootstrap expiry refreshes witnessed in http-first-V2.
+    # No business option or scheduler row is excluded.
+    volatile=['_transient_timeout_novamira_update_info',
+        '_transient_timeout_as_is_ensure_recurring_actions_scheduled',
+        '_transient_timeout_woocommerce_admin_settings_payments_has_providers_with_incentive']
+    for key in volatile:data['option_fingerprints'].pop(key,None)
+    data['all_options_fingerprint']=hashlib.sha256(json.dumps(data['option_fingerprints'],sort_keys=True).encode()).hexdigest()
+    data['additional_bootstrap_cache_expiries']=volatile
+    return data
+
 def native(label):
     import b11
     identity = b11.guard()

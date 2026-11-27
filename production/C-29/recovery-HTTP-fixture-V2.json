@@ -1,0 +1,16 @@
+{
+  "options_removed": [
+    "_transient_settings_errors",
+    "_transient_timeout_settings_errors",
+    "imagine_personnalisation_reserve_c_a",
+    "imagine_personnalisation_reserve_q_fictif",
+    "imagine_reglages_journal_6005491c83554d3f91a0f06a7a8056e4",
+    "imagine_reglages_journal_a14f916402254fc19cde16e3e4338b91"
+  ],
+  "native_exact": true,
+  "remaining_only_evidenced_cache_timeouts": [
+    "_transient_timeout_as_is_ensure_recurring_actions_scheduled",
+    "_transient_timeout_novamira_update_info",
+    "_transient_timeout_woocommerce_admin_settings_payments_has_providers_with_incentive"
+  ]
+}

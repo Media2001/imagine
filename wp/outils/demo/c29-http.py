@@ -28,10 +28,13 @@ def fiche(body):
 
 def run(label):
     assert not (OUT/(label+'.json')).exists()
-    identity=b11.guard();before=c19.state()
+    identity=b11.guard();before=c29.state()
     f=wp('echo wp_json_encode(get_option("imagine_c09_fixture"));')
     ids=list(f['users'].values())
-    names=['imagine_newsletters_catalogue','imagine_personnalisation_questions','imagine_brevo_tarifs']
+    names=['imagine_newsletters_catalogue','imagine_personnalisation_questions','imagine_brevo_tarifs',
+        'imagine_personnalisation_reserve_c_a','imagine_personnalisation_reserve_q_fictif',
+        '_transient_settings_errors','_transient_timeout_settings_errors']
+    journals0=wp('global $wpdb;echo wp_json_encode($wpdb->get_col("SELECT option_name FROM ".$wpdb->options." WHERE option_name LIKE \'imagine_reglages_journal_%\'"));')
     keys=['imagine_newsletters_preferences','imagine_personnalisation_reponses','imagine_personnalisation_consentement','imagine_cooperateur','imagine_sans_email','session_tokens']
     # Sessions stay in this process only; never written to evidence or stdout.
     old=wp('global $wpdb;$ids='+php(ids)+';$keys='+php(keys)+';$names='+php(names)+''';$o=['options'=>[],'meta'=>[]];foreach($names as $n){$o['options']=array_merge($o['options'],$wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->options} WHERE option_name=%s",$n),ARRAY_A));}foreach($ids as $id){foreach($keys as $key){$o['meta']=array_merge($o['meta'],$wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->usermeta} WHERE user_id=%d AND meta_key=%s",$id,$key),ARRAY_A));}}echo wp_json_encode($o);''')
@@ -121,11 +124,13 @@ def run(label):
             browser.close()
     except Exception as exc:error=repr(exc)
     finally:
-        code='global $wpdb;$old='+php(old)+';$ids='+php(ids)+';$keys='+php(keys)+';$names='+php(names)+''';foreach($names as $n){$wpdb->delete($wpdb->options,['option_name'=>$n]);}foreach($old['options'] as $r){$wpdb->insert($wpdb->options,$r);}foreach($ids as $id){foreach($keys as $key){$wpdb->delete($wpdb->usermeta,['user_id'=>$id,'meta_key'=>$key]);}}foreach($old['meta'] as $r){$wpdb->insert($wpdb->usermeta,$r);}wp_cache_flush();echo wp_json_encode(true);'''
+        journals=wp('global $wpdb;$old='+php(journals0)+''';$out=[];foreach($wpdb->get_results("SELECT option_name,option_value FROM {$wpdb->options} WHERE option_name LIKE 'imagine_reglages_journal_%'",ARRAY_A) as $r){if(!in_array($r['option_name'],$old,true)){$event=maybe_unserialize($r['option_value']);if(!in_array($event['option']??null,['imagine_personnalisation_questions','imagine_brevo_tarifs'],true)){throw new RuntimeException('Journal étranger : ne pas nettoyer');}$out[]=$r['option_name'];}}echo wp_json_encode($out);''')
+        cleanup_names=names+journals
+        code='global $wpdb;$old='+php(old)+';$ids='+php(ids)+';$keys='+php(keys)+';$names='+php(cleanup_names)+''';foreach($names as $n){$wpdb->delete($wpdb->options,['option_name'=>$n]);}foreach($old['options'] as $r){$wpdb->insert($wpdb->options,$r);}foreach($ids as $id){foreach($keys as $key){$wpdb->delete($wpdb->usermeta,['user_id'=>$id,'meta_key'=>$key]);}}foreach($old['meta'] as $r){$wpdb->insert($wpdb->usermeta,$r);}wp_cache_flush();echo wp_json_encode(true);'''
         wp(code)
         b11.b10.b09.remove_remote([probe])
         removed=wp('echo wp_json_encode(!file_exists(WP_CONTENT_DIR."/'+probe+'"));')
-        after=c19.state();restored=before==after
+        after=c29.state();restored=before==after
         # Explicit session equality; C19's generic native fingerprint excludes session tokens.
         session_ok=wp('global $wpdb;$old='+php(old['meta'])+';$ids='+php(ids)+''';$expected=array_values(array_filter($old,static fn($r)=>$r['meta_key']==='session_tokens'));$actual=$wpdb->get_results('SELECT * FROM '.$wpdb->usermeta.' WHERE user_id IN ('.implode(',',$ids).") AND meta_key='session_tokens' ORDER BY umeta_id",ARRAY_A);usort($expected,static fn($a,$b)=>(int)$a['umeta_id']<=>(int)$b['umeta_id']);echo wp_json_encode($actual===$expected);''')
         c29.save(label,{'identity':identity,'checks':checks,'total':len(checks),'observations':observations,'surfaces':surfaces,'witness':locals().get('witness'),'external_browser':external,'business_preserved':restored,'sessions_restored':session_ok,'probe_removed':removed,'strict_before':before,'strict_after':after,'error':error})
