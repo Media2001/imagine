@@ -36,12 +36,21 @@ $makeOrder = static function (int $year, int $user = 0): WC_Order {
     $o->save();
     return $o;
 };
-$makeSub = static function (int $parent, string $status): WC_Subscription {
-    $sub = wcs_create_subscription(['order_id' => $parent, 'status' => 'pending', 'billing_period' => 'month',
+$fixtureUser = get_user_by('login', 'a02-fictif');
+if (!$fixtureUser instanceof WP_User) {
+    throw new RuntimeException('A31_SEED_CUSTOMER');
+}
+$makeSub = static function (int $parent, string $status) use ($fixtureUser): WC_Subscription {
+    // Installed WCS refuses guest subscriptions, even if the original order is a guest order.
+    $sub = wcs_create_subscription(['order_id' => $parent, 'customer_id' => $fixtureUser->ID,
+        'status' => 'pending', 'billing_period' => 'month',
         'billing_interval' => 1, 'start_date' => '2020-01-01 00:00:00']);
     if (is_wp_error($sub)) {
         throw new RuntimeException('A31_SEED_SUBSCRIPTION');
     }
+    $sub->set_payment_method('');
+    $sub->set_requires_manual_renewal(true);
+    $sub->save();
     $sub->update_status($status);
     return $sub;
 };

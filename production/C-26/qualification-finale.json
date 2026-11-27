@@ -1,7 +1,7 @@
 {
   "scope": "imagine-test-demo",
   "nominal_exit": 0,
-  "nominal_controls": 46,
+  "nominal_controls": 77,
   "network_blocked": true,
   "write_methods_blocked": true,
   "production_unchanged": true,
@@ -10,7 +10,7 @@
       "case": "total",
       "rejected": true,
       "failures": [
-        "livraison-finale_total"
+        "correction-livraison-V2_total"
       ],
       "outer_seal_refreshed": true
     },
@@ -18,9 +18,9 @@
       "case": "matrice-vide",
       "rejected": true,
       "failures": [
-        "livraison-finale_nonempty",
-        "livraison-finale_total",
-        "livraison-finale_cases"
+        "correction-livraison-V2_nonempty",
+        "correction-livraison-V2_total",
+        "correction-livraison-V2_cases"
       ],
       "outer_seal_refreshed": true
     },
@@ -28,8 +28,8 @@
       "case": "case-manquante",
       "rejected": true,
       "failures": [
-        "livraison-finale_total",
-        "livraison-finale_cases"
+        "correction-livraison-V2_total",
+        "correction-livraison-V2_cases"
       ],
       "outer_seal_refreshed": true
     },
@@ -37,7 +37,7 @@
       "case": "restauration",
       "rejected": true,
       "failures": [
-        "livraison-finale_restored"
+        "correction-livraison-V2_restored"
       ],
       "outer_seal_refreshed": true
     },
@@ -45,7 +45,75 @@
       "case": "privacy-inverse",
       "rejected": true,
       "failures": [
-        "livraison-finale_privacy"
+        "correction-livraison-V2_privacy_cases",
+        "correction-livraison-V2_privacy_total"
+      ],
+      "outer_seal_refreshed": true
+    },
+    {
+      "case": "privacy-inverse-vide-redesigne",
+      "rejected": true,
+      "failures": [
+        "correction-livraison-V2_privacy_semantics"
+      ],
+      "outer_seal_refreshed": true
+    },
+    {
+      "case": "privacy-tiers-positive",
+      "rejected": true,
+      "failures": [
+        "correction-livraison-V2_privacy_semantics"
+      ],
+      "outer_seal_refreshed": true
+    },
+    {
+      "case": "c23-extras-supprimes",
+      "rejected": true,
+      "failures": [
+        "correction-livraison-V2_c23_cases",
+        "correction-livraison-V2_c23_total"
+      ],
+      "outer_seal_refreshed": true
+    },
+    {
+      "case": "c23-identite-dupliquee",
+      "rejected": true,
+      "failures": [
+        "correction-livraison-V2_c23_cases",
+        "correction-livraison-V2_c23_total"
+      ],
+      "outer_seal_refreshed": true
+    },
+    {
+      "case": "c23-inverse-vide",
+      "rejected": true,
+      "failures": [
+        "correction-livraison-V2_c23_witnesses"
+      ],
+      "outer_seal_refreshed": true
+    },
+    {
+      "case": "c23-echec-cache",
+      "rejected": true,
+      "failures": [
+        "correction-livraison-V2_c23_leaks",
+        "correction-livraison-V2_c23_failures"
+      ],
+      "outer_seal_refreshed": true
+    },
+    {
+      "case": "oracle-b06-circulaire",
+      "rejected": true,
+      "failures": [
+        "packet_complete_ValueError"
+      ],
+      "outer_seal_refreshed": true
+    },
+    {
+      "case": "restauration-etape-erreur",
+      "rejected": true,
+      "failures": [
+        "correction-livraison-V2_restored"
       ],
       "outer_seal_refreshed": true
     },
@@ -61,7 +129,7 @@
       "case": "decouverte-forcee",
       "rejected": true,
       "failures": [
-        "livraison-finale_policy"
+        "correction-livraison-V2_policy"
       ],
       "outer_seal_refreshed": true
     },
@@ -70,6 +138,30 @@
       "rejected": true,
       "failures": [
         "tests"
+      ],
+      "outer_seal_refreshed": true
+    },
+    {
+      "case": "mutation-c08-b06-incomplete",
+      "rejected": true,
+      "failures": [
+        "mutation_C08_et_B06"
+      ],
+      "outer_seal_refreshed": true
+    },
+    {
+      "case": "mutation-archive-blanchie",
+      "rejected": true,
+      "failures": [
+        "mutation_archive"
+      ],
+      "outer_seal_refreshed": true
+    },
+    {
+      "case": "mutation-autorisation-blanchie",
+      "rejected": true,
+      "failures": [
+        "mutation_autorisation_b06"
       ],
       "outer_seal_refreshed": true
     },

@@ -2,11 +2,11 @@
 
 Source : inventaire natif relu sur `imagine-test-demo` ; bootstrap courant comparé avant les essais. Aucun envoi, transport extérieur ou changement du code métier.
 
-**131 sorties HTTP**, chacune jouée sur les **15 publics** : anonyme, connecte-sans-abonnement, decouverte-fermee-livraison, acheteur-autre-numero, faux-robot, profil-a-vir, profil-a-susp, profil-a-expire, profil-p-offrant, profil-p-offert, profil-p-gest, profil-p-benef, profil-p-pro, profil-p-coop, abonne-actif.
+**132 sorties HTTP**, chacune jouée sur les **15 publics** : anonyme, connecte-sans-abonnement, decouverte-fermee-livraison, acheteur-autre-numero, faux-robot, profil-a-vir, profil-a-susp, profil-a-expire, profil-p-offrant, profil-p-offert, profil-p-gest, profil-p-benef, profil-p-pro, profil-p-coop, abonne-actif.
 
 Tous sont des tiers de V-DEC, propriétaire fictif des données C26. Abonné actif ou coopérateur ne donne aucun droit sur ses réponses, demandes et inscriptions. T = texte réservé d’un numéro non possédé ; D = donnée privée d’un autre compte. Les droits C14 sont respectés. Les surfaces publiques ne sont pas artificiellement classées privées : leur contenu doit exister sans embarquer T ou D.
 
-Les pages publiques exigent le bon h1, les recherches publiques un vrai lien de résultat vers le bon objet, les collections l’ID attendu, le flux événementiel des entrées et liens d’événements, les oEmbed un objet riche au bon titre. Les refus REST sont des erreurs JSON natives ; les recherches privées ont le résultat vide natif attendu, la réflexion étant masquée seulement aux positions exactes.
+Les pages publiques exigent le bon h1 ; `/evenements/` exige les deux groupes natifs et chaque ID/lien événement inventorié ; les recherches publiques un vrai lien de résultat, les collections l’ID attendu, le flux événementiel des entrées et liens d’événements, les oEmbed un objet riche au bon titre. Tous les témoins C08/C10/C12, CONTENU_FICTIF_RESERVE et B06 sont inventoriés ; un corps réservé sans témoin est refusé même pour un lecteur autorisé. Les droits C14 et B06 sont calculés séparément. Les refus REST sont des erreurs JSON natives ; les recherches privées ont le résultat vide natif attendu, la réflexion étant masquée seulement aux positions exactes.
 
 ## Sorties nouvelles et surfaces communes réinspectées
 
@@ -110,29 +110,30 @@ agenda-46-alias | agenda | rest | `/?rest_route=/wp/v2/imagine_evenement/46` | T
 agenda-46-oembed | agenda | oembed | `/wp-json/oembed/1.0/embed?url=http%3A%2F%2F192.168.129.32%3A8085%2Fevenements%2Fdemo-events-1%2F` | T + D ; 15 tiers
 agenda-46-embed | agenda | embed | `/evenements/demo-events-1/embed/` | T + D ; 15 tiers
 agenda-46-search | agenda | search | `/?s=Rencontre+au+village+Imaginaire&post_type=imagine_evenement` | T + D ; 15 tiers
+agenda-archive | agenda | agenda-archive | `/evenements/` | T + D ; 15 tiers
 agenda-flux | agenda | feed | `/?feed=rss2&post_type=imagine_evenement&posts_per_rss=100` | T + D ; 15 tiers
-agenda-prive-page | agenda | private-page | `/?p=3158` | T + D ; 15 tiers
-agenda-prive-rest | agenda | rest-denied | `/wp-json/wp/v2/imagine_inscription/3158` | T + D ; 15 tiers
+agenda-prive-page | agenda | private-page | `/?p=3281` | T + D ; 15 tiers
+agenda-prive-rest | agenda | rest-denied | `/wp-json/wp/v2/imagine_inscription/3281` | T + D ; 15 tiers
 agenda-prive-collection | agenda | rest-denied | `/wp-json/wp/v2/imagine_inscription` | T + D ; 15 tiers
 agenda-prive-feed | agenda | private-feed | `/?feed=rss2&post_type=imagine_inscription` | T + D ; 15 tiers ; repli natif articles publics, pas flux privé non vide
 agenda-prive-search | agenda | search | `/?s=C26_AGENDA_FICTIF` | T + D ; 15 tiers
 agenda-admin | agenda | admin | `/wp-admin/edit.php?post_type=imagine_inscription` | T + D ; 15 tiers
-agenda-admin-detail | agenda | admin | `/wp-admin/post.php?post=3158&action=edit` | T + D ; 15 tiers
-sujet-prive-page | sujet | private-page | `/?p=3159` | T + D ; 15 tiers
-sujet-prive-rest | sujet | rest-denied | `/wp-json/wp/v2/imagine_sujet/3159` | T + D ; 15 tiers
+agenda-admin-detail | agenda | admin | `/wp-admin/post.php?post=3281&action=edit` | T + D ; 15 tiers
+sujet-prive-page | sujet | private-page | `/?p=3282` | T + D ; 15 tiers
+sujet-prive-rest | sujet | rest-denied | `/wp-json/wp/v2/imagine_sujet/3282` | T + D ; 15 tiers
 sujet-prive-collection | sujet | rest-denied | `/wp-json/wp/v2/imagine_sujet` | T + D ; 15 tiers
 sujet-prive-feed | sujet | private-feed | `/?feed=rss2&post_type=imagine_sujet` | T + D ; 15 tiers ; repli natif articles publics, pas flux privé non vide
 sujet-prive-search | sujet | search | `/?s=C26_SUJET_FICTIF` | T + D ; 15 tiers
 sujet-admin | sujet | admin | `/wp-admin/edit.php?post_type=imagine_sujet` | T + D ; 15 tiers
-sujet-admin-detail | sujet | admin | `/wp-admin/post.php?post=3159&action=edit` | T + D ; 15 tiers
+sujet-admin-detail | sujet | admin | `/wp-admin/post.php?post=3282&action=edit` | T + D ; 15 tiers
 personnalisation-compte | personnalisation | account | `/my-account/` | T + D ; 15 tiers
 personnalisation-utilisateur-rest | personnalisation | rest-denied | `/wp-json/wp/v2/users/6?context=edit` | T + D ; 15 tiers
 personnalisation-reglages | personnalisation | admin | `/wp-admin/admin.php?page=imagine-reglages` | T + D ; 15 tiers
 personnalisation-action-GET | personnalisation | refusal | `/wp-admin/admin-post.php?action=imagine_personnalisation` | T + D ; 15 tiers
-retractation-compte-tiers | retractation | account | `/my-account/?imagine_retractation=3160` | T + D ; 15 tiers
-retractation-commande-tiers | retractation | account | `/my-account/view-order/3160/` | T + D ; 15 tiers
+retractation-compte-tiers | retractation | account | `/my-account/?imagine_retractation=3283` | T + D ; 15 tiers
+retractation-commande-tiers | retractation | account | `/my-account/view-order/3283/` | T + D ; 15 tiers
 retractation-admin | retractation | admin | `/wp-admin/admin.php?page=imagine-retractations` | T + D ; 15 tiers
-retractation-rest | retractation | rest-denied | `/wp-json/wc/v3/orders/3160` | T + D ; 15 tiers
+retractation-rest | retractation | rest-denied | `/wp-json/wc/v3/orders/3283` | T + D ; 15 tiers
 sujet-action-GET | sujet | refusal | `/wp-admin/admin-post.php?action=imagine_sujet` | T + D ; 15 tiers
 agenda-action-GET | agenda | refusal | `/wp-admin/admin-post.php?action=imagine_agenda` | T + D ; 15 tiers
 privacy-export-personal-data | personnalisation | admin | `/wp-admin/export-personal-data.php` | T + D ; 15 tiers
@@ -141,7 +142,7 @@ commun-accueil | commun | common-page | `/` | T + D ; 15 tiers
 commun-flux-articles | commun | common-feed | `/?feed=rss2&posts_per_rss=100` | T + D ; 15 tiers
 commun-rest-articles | commun | rest | `/wp-json/wp/v2/posts?per_page=100` | T + D ; 15 tiers
 commun-rest-pages | commun | rest | `/wp-json/wp/v2/pages?per_page=100` | T + D ; 15 tiers
-personnalisation-search | personnalisation | search | `/?s=2001-01-01T01%3A26%3A24Z` | T + D ; 15 tiers
+personnalisation-search | personnalisation | search | `/?s=C26_PERSONNALISATION_FICTIF` | T + D ; 15 tiers
 retractation-search | retractation | search | `/?s=C26_RETRACTATION_FICTIF` | T + D ; 15 tiers
 
 ## Privacy : vrais callbacks enregistrés, en lecture seule
@@ -197,4 +198,4 @@ b06-2871-oembed | 2871 | oembed | `/wp-json/oembed/1.0/embed?url=http%3A%2F%2F19
 b06-2871-embed | 2871 | embed | `/espace-cooperateurs/relais-des-evenements/embed/` | 13 refus + P-COOP inverse
 b06-2871-recherche | 2871 | recherche | `/?s=Relais+des+%C3%A9v%C3%A9nements&post_type=page` | 13 refus + P-COOP inverse
 
-Autres voies historiques : `c23.build_routes()` inchangé et `livraison-finale-c23.md`. Plans de site fermés qualifiés comme fermés, pas comme collections ouvertes. Les six mutations sont qualifiées dans A-VOIR.md ; les anciennes mutations de corps en mémoire ne sont pas des parcours applicatifs mutés.
+Autres voies historiques : `c23.build_routes()` et `correction-livraison-V2-c23.md`. Identités REST, inverses article/PDF/C08/achat et faux Bing exigés exactement une fois, avec recalcul sur toutes les lignes. Oracle B06 : caractéristiques documentées des personnages C09 (P-COOP seul avec statut), rôles natifs et réglage livré lus bruts, comparaison avec la décision native. Plans de site fermés qualifiés comme fermés, pas comme collections ouvertes. Les huit mutations sont qualifiées dans A-VOIR.md ; les anciennes mutations de corps en mémoire ne sont pas des parcours applicatifs mutés.

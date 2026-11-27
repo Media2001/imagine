@@ -1,0 +1,9 @@
+C-26 — proposé à la relecture le 27 novembre 2026, 06 h 10 CET.
+Dix corrections appliquées après B-08 corrigé.
+Paquet : manifest.json, correction-livraison-V2, correction-mutations-V2.
+Python exact 3.11.15 : 52 tests verts en UTF-8 et cp1252, TMPDIR absent.
+3 966 contrôles par passage complet, zéro fuite/échec ; huit mutations applicatives détectées puis restaurées.
+Vérificateur offline : 77/77 ; qualification : 20/20 falsifications refusées, production inchangée.
+Image reconstruite par wp/tests/preparer-image.ps1 : code 0, T01 IMAGE READY.
+Restaurations indépendantes et 14 égalités exactes relues, sources live et état métier préservés.
+Commandes exactes et limites : A-VOIR.md. PRET n'est ni clôture Claude ni validation visuelle de Ced.
