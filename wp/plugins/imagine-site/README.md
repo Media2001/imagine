@@ -631,6 +631,19 @@ Le produit du numéro courant n'est pas en vente dans la démo : le bouton Achet
 
 Réception : `production/B-14/reception-V2.json`, `A-VOIR.md` ; `python -B production/B-14/verifier.py` (`--live` = lecture seule). Tests natifs transactionnels, vrai HTTP anonyme/A-PAPIER, contrôle Partenariat de B05 conservé, témoins C26 et mutations témoins ; matrice C26 inchangée. Socle et banc B13 inchangés, contrat propre uniquement pour l'amorçage/README. Aucune bibliothèque close modifiée, aucun contenu réservé rendu, aucun message de visiteur nouveau. Validation visuelle attendue, aucun GO réel.
 
+## B-15 — pied de page identique sur toutes les pages
+
+### Le standard d'abord — trois lignes
+1. L'emplacement de menu natif et `wp_nav_menu` conservent les liens B09 et leurs identifiants, sans recréer ni dupliquer le menu : https://developer.wordpress.org/reference/functions/wp_nav_menu/.
+2. Une zone de widgets native est disponible via `register_sidebar` : https://developer.wordpress.org/reference/functions/register_sidebar/ ; elle n'est pas ouverte ici, les cinq zones et leur ordre étant imposés et identiques partout.
+3. Le gabarit natif `footer.php` appelle un composant de structure, et le fragment numéro utilise les Transients natifs : https://developer.wordpress.org/apis/transients/ ; aucune géolocalisation, carte ou service tiers.
+
+Cinq zones : abonnement vers la page d'attente B13 ; newsletter par lien ; numéro de `Accueil::numero()` (même requête B04, couverture miniature lazy/low, titre et lien) ; recherche B10 par lien ; mentions avec le menu existant B09, **données natives inchangées**, y compris le lien de points de vente que B10 y avait ajouté. Les cinq liens B09 restent une seule fois chacun. Pas de formulaire d'email. Aucun contenu de visiteur nouveau collecté.
+
+Cache du fragment numéro seulement, indépendant du public. Publication/dépublication d'un numéro, modification de métadonnée, couverture ou suppression invalident ce cache ; disparition/expiration le reconstruit. Les indicateurs natifs de page courante du seul menu footer sont neutralisés au rendu (classes current/page_item et aria-current) pour rendre le HTML identique même sur une page légale ; ni menu stocké ni menu principal modifié. Les identifiants que WordPress déduplique lors de rendus répétés dans **une même requête** sont une différence de banc natif déclarée ; les vraies réponses HTTP sont comparées **entières et brutes sans normalisation**.
+
+Le mode lecture B03 masque déjà `.imagine-shell > footer` par CSS ; comportement conservé et observé dans le navigateur. Réception `production/B-15/reception-V2.json`, `A-VOIR.md` ; `python -B production/B-15/verifier.py` (`--live` lecture seule). Preuves : quatre pages demandées et FAQ pour vérifier le contexte courant, anonyme/A-PAPIER, cache renouvelé après publication native puis retour exact après retrait ; témoins C26 et mutations, sans étendre sa matrice. Socle, banc B13 et lots clos inchangés. Structure seule, visuel à valider, aucun GO réel.
+
 
 
 

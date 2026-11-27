@@ -1,0 +1,10 @@
+{
+  "exit_code": 0,
+  "sources_stable": true,
+  "checks": [
+    {
+      "check": "A32_CANONICAL_GATES",
+      "status": "PASS"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "scope": "imagine-test-demo",
+  "readback": {
+    "plugins/imagine-site/PiedPage.php": "832715b9f273334c5926078d5bdbc3501227978c2e938d959f0d53340cd3900f"
+  }
+}

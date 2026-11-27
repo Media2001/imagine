@@ -29,7 +29,12 @@ final class PiedPage
     public static function classes(array $classes, object $item, object $args): array
     {
         if (($args->theme_location ?? '') === 'imagine-footer') {
-            $classes = array_values(array_filter($classes, static fn (string $name): bool => !preg_match('/^current[-_]/', $name)));
+            $classes = array_values(
+                array_filter(
+                    $classes,
+                    static fn (string $name): bool => !preg_match('/^(?:current[-_]|page_item$|page-item-[0-9]+$)/', $name)
+                )
+            );
         }
         return $classes;
     }

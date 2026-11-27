@@ -1,0 +1,20 @@
+{
+  "scope": "imagine-test-demo",
+  "exit": 0,
+  "stdout": "{\"checks\":{\"classes_footer_stables\":true,\"classes_header_inchangees\":true,\"aria_current_footer_absent\":true,\"aria_current_header_conserve\":true}}\n",
+  "stderr": "",
+  "sources": {
+    "production/B-15/verifier.py": "17594e40f13f25d71731a15eaf2b837eba9cabc300f877507a05394c588b5579",
+    "wp/outils/demo/b13-browser.py": "02a69cab956e503b2a79625df2b084858df9e6b417af638fa503240ebc0d3de0",
+    "wp/outils/demo/b13.py": "3960057fde352c412024678a14d06a7ed6dec04c8d1bff378f7e5305420a5357",
+    "wp/outils/demo/b15-browser.py": "9ec3d0199a9a7ee999ef10421517a31114101fa9e38254384abe4e3499129f34",
+    "wp/outils/demo/b15.py": "99ff721494d4be66003a1be31774f51d6298f2acbe2bd8dcc6c975df199282a8",
+    "wp/plugins/imagine-site/PiedPage.php": "832715b9f273334c5926078d5bdbc3501227978c2e938d959f0d53340cd3900f",
+    "wp/plugins/imagine-site/tests/PiedPageB15Test.php": "83e532251d0e2c23fb78d97cdb86b020523ca9a3b0ad0c2965e7536b84281559",
+    "wp/tests/demo/b13-contract.py": "ebdb04de4f948ec77ec5214bdf7c17f03c0366a02ad97722cfef9c6b1d9ebe63",
+    "wp/tests/demo/b13-observer.php": "72d46a7ab527893be8d4e7aa8a0e04073bcd9f0c38c655620a1e603290a6c03f",
+    "wp/tests/demo/b15-pure.php": "1be0bd410a4fb3fdd71f23c1ad5ce407607afd47871f6f1d5dafdd7efef25cad",
+    "wp/tests/demo/b15-runtime.php": "665caeb39327b0bcbc2c414bfd34f4a572d02041a8249b0c3e7a56de50ad4596",
+    "wp/themes/imagine/footer.php": "8fa3c78ac8d3abe1ccbc5e40f2a9bcb0024bc895e92314f553fc29d76f5a141b"
+  }
+}
