@@ -180,6 +180,10 @@ require_once __DIR__ . '/ContactBrevoRegles.php';
 require_once __DIR__ . '/ContactBrevo.php';
 ContactBrevo::register();
 
+// B13 — menu natif enrichi sans corps d’article.
+require_once __DIR__ . '/Navigation.php';
+Navigation::register();
+
 // C28 — instantané du pack au paiement, décision et remboursements C14 inchangés.
 require_once __DIR__ . '/PacksRegles.php';
 require_once __DIR__ . '/PacksThematiques.php';
