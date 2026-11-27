@@ -82,7 +82,7 @@ final class PacksThematiques
             return;
         }
         $persisted = $order->get_id() ? new \WC_Order($order->get_id()) : null;
-        if ($persisted && $persisted->get_date_paid('edit')) {
+        if ($persisted && ($persisted->is_paid() || $persisted->get_date_paid('edit'))) {
             return;
         }
         $captures = [];

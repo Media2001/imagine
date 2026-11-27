@@ -1,5 +1,7 @@
 # A-31 — Réception exclusive
 
+> **Reprise du 27/11, fusion de 08 h 58 : réception historique ci-dessous, pas une preuve des corrections courantes.** Ancien PRET et ancien paquet archivés hors dépôt dans `C:/Users/Ced/AppData/Local/hermes/cache/scratch/a31-fusion-1250/previous-delivery/`. Le worker a été interrompu par HTTP 401 (jeton fournisseur expiré) ; le parent reprend. Défauts proposés appliqués : quatre scalaires de liens cassés distincts exacts ; remboursement total exact, années rares cachées ; K5 maintenu sur les ventilations. Ajouts : corbeille, frontière UTC, métriques 0/1/4/5 seules et mêlées, sonde Windows sans TMPDIR. Le premier natif a trouvé une requête du banc `SELECT meta_id` incompatible HPOS ; corrigée en `SELECT 1` sans toucher au sujet commun. RED conservé dans `a31-parent-recovery-1310`. Matrice finale : `C:/Python314/python.exe -B wp/tests/a31/matrix.py --include-native --parent-serialized --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a31-parent-final-1320`. Résultats finaux et blocages dans le rapport de réveil ; aucun nouveau PRET avant tous les verts. Aucun import, gardien ou lanceur gelé modifié.
+
 ## Relecture indépendante sans mutation
 
 Depuis `C:/Users/Ced/imagine`, **la seule commande de relecture A-31** :
