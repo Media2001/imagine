@@ -38,6 +38,7 @@ def verify(live=False):
     global_log=(OUT/'regression-reception.log').read_text(encoding='utf-8-sig')
     global_result=json.loads(re.search(r'^T01_RESULT (.+)$',global_log,re.M)[1])
     assert global_result['pass'] and global_result['tests']>0 and global_result['failures']==global_result['errors']==0
+    assert sum(1 for line in global_log.splitlines() if '<testcase ' in line and 'PointsVenteReglesTest' in line)==6, 'Tests B10 non découverts dans T01'
     cleanup=json.loads((OUT/'recette-reception-nettoyage.json').read_text(encoding='utf-8'))
     assert cleanup=={'observer_removed':True,'sessions_restored':True}
     if live:
