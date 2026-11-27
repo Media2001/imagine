@@ -75,6 +75,19 @@ class ContractTests(unittest.TestCase):
         self.assertIn("required=True)", runner)
         self.assertIn("'preparation'", (folder / 'gates.py').read_text(encoding='utf-8'))
 
+    def test_native_post_shutdown_followup_is_qualified_not_discarded(self):
+        import importlib.util
+        path = ROOT / 'wp/tests/a29/verify.py'
+        spec = importlib.util.spec_from_file_location('a29_fixture_oracle_test', path)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        self.assertEqual(module.expected_counts(1)['pending']['autres'], 7)
+        self.assertEqual(module.expected_counts(5)['other_tasks'], 11)
+        native = (ROOT / 'wp/tests/a29/inside.py').read_text(encoding='utf-8')
+        self.assertIn('native_followup_source_and_count_', native)
+        self.assertIn("['autres']+=1", native)
+        self.assertIn('native_wcs_batch_controller', (ROOT / 'wp/tests/a29/standard.php').read_text(encoding='utf-8'))
+
     def test_native_fixture_store_selection_precedes_migration_controller(self):
         native = (ROOT / 'wp/tests/a29/inside.py').read_text(encoding='utf-8')
         self.assertIn("'ActionScheduler_DBStore', 0)", native)

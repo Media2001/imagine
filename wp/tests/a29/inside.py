@@ -84,42 +84,23 @@ def seed(site, cfg, repeats=1):
             if status not in {'pending', 'failed'}:
                 raise RuntimeError('A29_FIXTURE_SCHEDULER_EXTRA_STATUS')
             observed[status] = int(number)
-        expected = {'pending': 12 * repeats, 'failed': repeats}
+        expected = {'pending': 12 * repeats + 1, 'failed': repeats}
+        planned = {'woocommerce_scheduled_subscription_payment', 'woocommerce_scheduled_subscription_payment_retry',
+                   'woocommerce_scheduled_subscription_expiration', 'A29_UNKNOWN_ACTIVE_PRIVATE_CANARY',
+                   'A29_UNKNOWN_ORPHAN_PRIVATE_CANARY'}
+        hooks = b.sql('a02_' + site.name,
+                      "SELECT hook FROM wp_actionscheduler_actions WHERE status='pending'").stdout.splitlines()[1:]
+        extra = [hashlib.sha256(hook.encode('utf-8')).hexdigest() for hook in hooks if hook not in planned]
+        native_source = json.loads((OUT / (site.name + '-standard.json')).read_bytes())['source_sha256']['native_wcs_batch_controller']
+        source_ok = native_source == '66078e937615ba2ab7b71e8becb08a9b5868499a272a9ae7bbad68667908669d'
+        helper_ok = extra == ['5c6b26a1af085e7ae7bc7d72388cde4ae5c002c77c51c59917c8ba9e638eacac']
         receipt = {'scope': 'native_seed_after_php_shutdown', 'counts': observed, 'expected': expected,
-                   'exit_code': int(observed != expected)}
-        if observed != expected:
-            planned = {'woocommerce_scheduled_subscription_payment', 'woocommerce_scheduled_subscription_payment_retry',
-                       'woocommerce_scheduled_subscription_expiration', 'A29_UNKNOWN_ACTIVE_PRIVATE_CANARY',
-                       'A29_UNKNOWN_ORPHAN_PRIVATE_CANARY'}
-            helpers = {'action_scheduler/migration_hook': 'native_migration',
-                       'action_scheduler/ensure_recurring_actions': 'native_ensure_recurring'}
-            hooks = b.sql('a02_' + site.name,
-                          "SELECT hook FROM wp_actionscheduler_actions WHERE status='pending'").stdout.splitlines()[1:]
-            receipt['closed_extra_followups'] = [helpers.get(hook, 'unqualified_native_followup')
-                                                for hook in hooks if hook not in planned]
-            extra = set(hook for hook in hooks if hook not in planned)
-            receipt['extra_followup_sha256'] = sorted(hashlib.sha256(hook.encode('utf-8')).hexdigest() for hook in extra)
-            matched = []
-            for owner in ('woocommerce', 'woocommerce-subscriptions'):
-                root = site / 'wp-content/plugins' / owner
-                for source_file in root.rglob('*.php'):
-                    source = source_file.read_text(encoding='utf-8', errors='replace')
-                    for hook in extra:
-                        literal = "'" + hook + "'"
-                        position = source.find(literal)
-                        if position < 0:
-                            continue
-                        functions = re.findall(r'function\s+([A-Za-z_][A-Za-z0-9_]*)\s*\(', source[:position])
-                        line_index = source.count('\n', 0, position)
-                        excerpt = '\n'.join(source.splitlines()[max(0, line_index - 5):line_index + 20]).replace(hook, '<NATIVE_HELPER>')
-                        excerpt = re.sub(r"'(?:\\.|[^'\\])*'|\"(?:\\.|[^\"\\])*\"", "'<LITERAL>'", excerpt)
-                        matched.append({'owner': owner, 'source_sha256': hashlib.sha256(source_file.read_bytes()).hexdigest(),
-                                        'method': functions[-1] if functions else 'class_constant',
-                                        'hook_sha256': hashlib.sha256(hook.encode('utf-8')).hexdigest(),
-                                        'public_source_excerpt_literals_masked': excerpt[:4000]})
-            receipt['public_native_source_matches'] = matched
+                   'native_followup_count': len(extra), 'native_followup_source_sha256': native_source,
+                   'native_followup_hook_sha256': extra[0] if helper_ok else None,
+                   'exit_code': int(observed != expected or not source_ok or not helper_ok)}
         (OUT / (site.name + '-seed-shutdown-' + str(repeats) + '.json')).write_text(
             json.dumps(receipt, indent=2) + '\n', encoding='utf-8')
+        b.check(site.name + ':native_followup_source_and_count_' + str(repeats), source_ok and helper_ok)
         b.check(site.name + ':native_seed_after_shutdown_' + str(repeats), observed == expected)
     finally:
         (site / 'wp-config.php').write_text(cfg, encoding='utf-8')
@@ -131,17 +112,17 @@ def pool(n):
 
 def expected_counts(repeats):
     if repeats == 1:
-        return {'pending': {'groups': [{'family': 'renouvellement', 'count': 9}], 'autres': 6},
+        return {'pending': {'groups': [{'family': 'renouvellement', 'count': 9}], 'autres': 7},
                 'overdue': pool(2), 'failed': pool(1), 'renewal_weeks': pool(7),
                 'other_tasks': 'moins de cinq', 'other_active_extensions': 'attribution indéterminée'}
     return {'pending': {'groups': [{'family': family, 'count': n} for family, n in [
-                ('autre', 10), ('email', 5), ('entretien_wordpress', 5), ('fin_abonnement', 5),
+                ('autre', 11), ('email', 5), ('entretien_wordpress', 5), ('fin_abonnement', 5),
                 ('nouvelle_tentative', 5), ('renouvellement', 45)]], 'autres': 0},
             'overdue': {'groups': [{'family': 'entretien_wordpress', 'count': 5},
                                   {'family': 'renouvellement', 'count': 5}], 'autres': 0},
             'failed': {'groups': [{'family': 'renouvellement', 'count': 5}], 'autres': 0},
             'renewal_weeks': {'groups': [{'week': week, 'count': n} for week, n in [(1, 10), (2, 15), (3, 5), (8, 5)]], 'autres': 0},
-            'other_tasks': 10, 'other_active_extensions': 'attribution indéterminée'}
+            'other_tasks': 11, 'other_active_extensions': 'attribution indéterminée'}
 
 
 def run_storage(storage):
@@ -241,7 +222,7 @@ if (getenv('A29_CONFINED') === '1') {
                '--audit=' + str(audit), '--output=/report/raw-' + storage], check=False)
     b.check(storage + ':unconfined_php_refused', (raw.returncode, raw.stdout, raw.stderr) == (1, '', 'A29_CONFINEMENT_REQUIRED\n'))
     target = "foreach ($_SERVER['argv'] as $arg) { if (str_starts_with($arg,'--output=')) { $dir=substr($arg,9); } }"
-    coherent = "$p=$dir.'/taches.json';$d=json_decode(file_get_contents($p),true);$d['counts']['pending']['autres']=7;$j=json_encode($d,JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES).\"\\n\";file_put_contents($p,$j);$m=file_get_contents($dir.'/taches.md');$pos=strpos($m,'```json');file_put_contents($dir.'/taches.md',substr($m,0,$pos).'```json'.\"\\n\".$j.\"```\\n\");"
+    coherent = "$p=$dir.'/taches.json';$d=json_decode(file_get_contents($p),true);$d['counts']['pending']['autres']+=1;$j=json_encode($d,JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES).\"\\n\";file_put_contents($p,$j);$m=file_get_contents($dir.'/taches.md');$pos=strpos($m,'```json');file_put_contents($dir.'/taches.md',substr($m,0,$pos).'```json'.\"\\n\".$j.\"```\\n\");"
     cases = [
         ('direct_stdout', "fwrite(STDOUT,'A29_STDOUT_PRIVATE_CANARY');", 'A29_PROCESS_OUTPUT_INVALID'),
         ('direct_stderr', "fwrite(STDERR,'A29_STDERR_PRIVATE_CANARY');", 'A29_PROCESS_OUTPUT_INVALID'),
@@ -295,7 +276,10 @@ if (getenv('A29_CONFINED') === '1') {
                         schema_spec = importlib.util.spec_from_file_location('a29_native_witness_schema', '/subject/a29/report.py')
                         schema = importlib.util.module_from_spec(schema_spec)
                         schema_spec.loader.exec_module(schema)
-                        observed = (json.loads((stage / 'result/taches.json').read_bytes())['counts']['pending']['autres'] == 7
+                        observed = (json.loads((stage / 'result/taches.json').read_bytes())['counts']['pending']['autres']
+                                    == expected_counts(1)['pending']['autres'] + 1
+                                    and all((stage / 'result' / name).read_bytes() != (dest / name).read_bytes()
+                                            for name in ('taches.json', 'taches.md'))
                                     and schema.complete_report(stage / 'result', stage / 'audit/audit.json'))
                         b.check(storage + ':shutdown_mutation_still_valid_json_markdown', observed)
                     b.check(storage + ':mutation_witness_' + label, observed)
@@ -332,8 +316,8 @@ if (getenv('A29_CONFINED') === '1') {
     provenance = json.loads(q.stdout)
     (OUT / (storage + '-neutralisation.json')).write_text(json.dumps(provenance, indent=2) + '\n', encoding='utf-8')
     b.check(storage + ':actual_import_erases_cron_cancels_pending_deletes_failed', not q.stderr and provenance == {
-            'neutraliser_and_anonymiser_executed': True, 'before': {'cron': 3, 'pending': 12, 'failed': 1},
-            'after': {'cron': 0, 'pending': 0, 'failed': 0, 'canceled': 12}, 'marker_count': 1})
+            'neutraliser_and_anonymiser_executed': True, 'before': {'cron': 3, 'pending': 13, 'failed': 1},
+            'after': {'cron': 0, 'pending': 0, 'failed': 0, 'canceled': 13}, 'marker_count': 1})
     b.sql('mysql', "GRANT SELECT ON " + clone + ".* TO 'a02_" + storage + "'@'localhost'")
     (site / 'wp-config.php').write_text(cfg.replace("define('DB_NAME', '" + db + "')", "define('DB_NAME', '" + clone + "')"), encoding='utf-8')
     try:

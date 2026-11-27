@@ -53,6 +53,7 @@ $roots = [$site . '/wp-includes', $site . '/wp-admin', $woo,
     $site . '/wp-content/plugins/woocommerce-subscriptions'];
 $found = array_fill_keys(array_keys(Analysis::HOOKS), false);
 $index = 0;
+$checks['native_wcs_batch_controller_after_shutdown'] = false;
 foreach ($roots as $root) {
     if (!is_dir($root) || is_link($root)) {
         throw new RuntimeException('A29_STANDARD_SOURCE_MISSING');
@@ -63,6 +64,13 @@ foreach ($roots as $root) {
             continue;
         }
         $source = file_get_contents($file->getPathname());
+        if (str_contains($source, 'class WCS_Batch_Processing_Controller')) {
+            $hashes['native_wcs_batch_controller'] = hash('sha256', $source);
+            $checks['native_wcs_batch_controller_after_shutdown'] = str_contains($source, "'shutdown'")
+                && str_contains($source, 'function remove_or_retry_failed_processors(')
+                && str_contains($source, 'function schedule_batch_processing(')
+                && str_contains($source, 'as_schedule_single_action(');
+        }
         foreach ($found as $hook => $ok) {
             if (!$ok && str_contains($source, $hook)) {
                 $found[$hook] = true;

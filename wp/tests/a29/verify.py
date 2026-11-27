@@ -66,18 +66,18 @@ def shared_document_valid():
 
 def expected_counts(repeats):
     if repeats == 1:
-        return {'pending': {'groups': [{'family': 'renouvellement', 'count': 9}], 'autres': 6},
+        return {'pending': {'groups': [{'family': 'renouvellement', 'count': 9}], 'autres': 7},
                 'overdue': {'groups': [], 'autres': 2}, 'failed': {'groups': [], 'autres': 1},
                 'renewal_weeks': {'groups': [], 'autres': 7}, 'other_tasks': 'moins de cinq',
                 'other_active_extensions': 'attribution indéterminée'}
     return {'pending': {'groups': [{'family': family, 'count': n} for family, n in [
-                ('autre', 10), ('email', 5), ('entretien_wordpress', 5), ('fin_abonnement', 5),
+                ('autre', 11), ('email', 5), ('entretien_wordpress', 5), ('fin_abonnement', 5),
                 ('nouvelle_tentative', 5), ('renouvellement', 45)]], 'autres': 0},
             'overdue': {'groups': [{'family': 'entretien_wordpress', 'count': 5},
                                   {'family': 'renouvellement', 'count': 5}], 'autres': 0},
             'failed': {'groups': [{'family': 'renouvellement', 'count': 5}], 'autres': 0},
             'renewal_weeks': {'groups': [{'week': week, 'count': n} for week, n in [(1, 10), (2, 15), (3, 5), (8, 5)]], 'autres': 0},
-            'other_tasks': 10, 'other_active_extensions': 'attribution indéterminée'}
+            'other_tasks': 11, 'other_active_extensions': 'attribution indéterminée'}
 
 
 def verify(packet, python_only=False):
@@ -170,6 +170,7 @@ def verify(packet, python_only=False):
                          'actual_import_erases_cron_cancels_pending_deletes_failed', 'neutral_success',
                          'neutral_all_unknown_no_useful_number', 'neutral_db_files_unchanged',
                          'native_seed_5', 'native_seed_after_shutdown_1', 'native_seed_after_shutdown_5',
+                         'native_followup_source_and_count_1', 'native_followup_source_and_count_5',
                          'five_success', 'five_exact_families_utc_boundaries',
                          'five_db_files_unchanged', 'all_retained_files_clean']
             mandatory += ['native_hybrid_store_refused', 'native_hybrid_refusal_database_files_unchanged']
@@ -183,8 +184,12 @@ def verify(packet, python_only=False):
                 check(prefix + ':post_shutdown_seed_' + str(repeats),
                       read(native / (storage + '-seed-shutdown-' + str(repeats) + '.json')) == {
                           'scope': 'native_seed_after_php_shutdown',
-                          'counts': {'pending': 12 * repeats, 'failed': repeats},
-                          'expected': {'pending': 12 * repeats, 'failed': repeats}, 'exit_code': 0})
+                          'counts': {'pending': 12 * repeats + 1, 'failed': repeats},
+                          'expected': {'pending': 12 * repeats + 1, 'failed': repeats},
+                          'native_followup_count': 1,
+                          'native_followup_source_sha256': '66078e937615ba2ab7b71e8becb08a9b5868499a272a9ae7bbad68667908669d',
+                          'native_followup_hook_sha256': '5c6b26a1af085e7ae7bc7d72388cde4ae5c002c77c51c59917c8ba9e638eacac',
+                          'exit_code': 0})
             for variant in ('', '-neutral', '-five'):
                 stem = storage + variant
                 before = read(native / (stem + '-db-before.json'))
@@ -206,8 +211,8 @@ def verify(packet, python_only=False):
                 check(prefix + ':' + variant + '_identical', (native / (storage + '-' + variant + '/taches.json')).read_bytes() == nominal.read_bytes())
             provenance = read(native / (storage + '-neutralisation.json'))
             check(prefix + ':actual_engine_provenance', provenance == {'neutraliser_and_anonymiser_executed': True,
-                  'before': {'cron': 3, 'pending': 12, 'failed': 1},
-                  'after': {'cron': 0, 'pending': 0, 'failed': 0, 'canceled': 12}, 'marker_count': 1})
+                  'before': {'cron': 3, 'pending': 13, 'failed': 1},
+                  'after': {'cron': 0, 'pending': 0, 'failed': 0, 'canceled': 13}, 'marker_count': 1})
     if not python_only:
         style = read(packet / 'style/style.json')
         check('strict_psr12', receipt_valid(style) and style['phpcs_exit'] == 0
