@@ -8,7 +8,7 @@ import sys
 
 sys.dont_write_bytecode = True
 HERE = Path(__file__).resolve().parent
-REPOSITORY = HERE.parents[3]
+REPOSITORY = HERE.parents[3] if len(HERE.parents) > 3 else HERE.parent
 ISSUES = ('compte_a_creer', 'compte_existant', 'sans_email', 'type_a_decider', 'refuse_a13')
 PAYMENTS = ('virement', 'domiciliation_papier', 'autre')
 OPTIONS = ('importer_echus', 'resoudre_doublons', 'calculer_prochaine_echeance')
@@ -102,6 +102,18 @@ def validate_result(result, prepared):
         if issue not in allowed:
             return False
     return True
+
+
+def valid_binding(stdout, stage):
+    import hashlib
+    import re
+    try:
+        path = stage / 'result.json'
+        return (re.fullmatch(rb'A30_OK [0-9a-f]{64}\n', stdout) is not None
+                and not path.is_symlink() and path.is_file() and path.stat().st_size <= 16777216
+                and stdout == b'A30_OK ' + hashlib.sha256(path.read_bytes()).hexdigest().encode('ascii') + b'\n')
+    except OSError:
+        return False
 
 
 def read_private(stage, prepared):

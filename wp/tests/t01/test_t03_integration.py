@@ -38,6 +38,27 @@ class IntegrationContracts(unittest.TestCase):
         self.assertIn("'t01/Dockerfile'", preparer)
         self.assertNotIn('python', (ROOT / 'wp/tests/rejouer.ps1').read_text(encoding='utf-8').lower())
 
+    @unittest.skipUnless(sys.platform == 'win32', 'Windows PowerShell mock boundary')
+    def test_complete_script_mock_boundary_never_propagates_packet_red(self):
+        outputs = {}
+        for case in ('packet-pass', 'packet-fail', 'pass', 'unsafe-packet-mount'):
+            child = subprocess.run(['powershell.exe', '-NoProfile', '-ExecutionPolicy', 'Bypass',
+                                    '-File', str(HERE / 'mock-wsl.ps1')],
+                                   env={**os.environ, 'PYTHONIOENCODING': 'utf-8',
+                                        'T01_TEST_CASE': case, 'T01_TEST_ROOT': str(ROOT)},
+                                   capture_output=True, timeout=30)
+            lines = child.stdout.decode('utf-8-sig').splitlines()
+            outputs[case] = lines
+            self.assertEqual(child.returncode, 1 if case == 'unsafe-packet-mount' else 0,
+                             child.stdout.decode('utf-8', errors='replace'))
+            self.assertEqual(sum(line.startswith('PAQUETS :') for line in lines), 1)
+            self.assertTrue(any(line.startswith('T01 CLEANUP : absence verifiee') for line in lines))
+        self.assertEqual(outputs['packet-pass'][-1], outputs['packet-fail'][-1])
+        self.assertEqual(outputs['packet-pass'][-1], 'REJEU : 7 tests, 19 assertions, 0 échecs, 0 erreurs, 0 ignorés — PASS')
+        self.assertIn('PAQUETS : 2 vérifiés, 1 échecs ; hors rejeu : aucun ; A-28 PACKAGE_DRIFT', outputs['packet-fail'])
+        self.assertIn('T-03 RUNNER_OUTPUT', outputs['pass'][-3])
+        self.assertTrue(outputs['unsafe-packet-mount'][-1].endswith('FAIL'))
+
     @unittest.skipUnless(sys.platform == 'win32', 'Windows PowerShell parser contract')
     def test_powershell_summary_parser_keeps_red_separate_and_closed(self):
         values = [

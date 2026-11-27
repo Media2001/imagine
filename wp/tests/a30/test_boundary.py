@@ -68,6 +68,19 @@ class BoundaryTests(unittest.TestCase):
             core.publish(source, summary, lines)
         self.assertEqual('SOURCE PRIVATE', source.read_text(encoding='utf-8'))
 
+    def test_valid_schema_shutdown_change_is_rejected_by_content_binding(self):
+        self.assertTrue(hasattr(core, 'valid_binding'), 'A30 final digest binding missing')
+        import hashlib
+        stage = self.work / 'bound'; stage.mkdir()
+        path = stage / 'result.json'; path.write_text(json.dumps(self.result), encoding='utf-8')
+        success = b'A30_OK ' + hashlib.sha256(path.read_bytes()).hexdigest().encode() + b'\n'
+        self.assertTrue(core.valid_binding(success, stage))
+        changed = copy.deepcopy(self.result); changed['rows'][0]['issue'] = 'compte_a_creer'
+        self.assertTrue(core.validate_result(changed, self.prepared))
+        path.write_text(json.dumps(changed), encoding='utf-8')
+        self.assertFalse(core.valid_binding(success, stage))
+        self.assertFalse(core.valid_binding(success + b'PRIVATE', stage))
+
     def test_shared_guard_owns_stdout_stderr_display_shutdown_and_bound(self):
         spec = importlib.util.spec_from_file_location('a30_guard', ROOT / 'wp/outils/bascule/stream_guard.py')
         guard = importlib.util.module_from_spec(spec); spec.loader.exec_module(guard)

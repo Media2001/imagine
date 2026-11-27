@@ -79,7 +79,7 @@ def main(argv=None):
         code, stdout, stderr = guard.supervise(command, {**os.environ, 'A30_CONFINED': '1'}, stage, fence,
             input_data=json.dumps(prepared, ensure_ascii=True, separators=(',', ':')).encode('ascii'),
             invalid='A30_PROCESS_OUTPUT_INVALID', expired='A30_PROCESS_TIMEOUT')
-        if code != 0 or stdout != SUCCESS or stderr:
+        if code != 0 or not core.valid_binding(stdout, stage) or stderr:
             raise RuntimeError(guard.closed_refusal(code, stdout, stderr, allowed, 'A30_PROCESS_OUTPUT_INVALID'))
         result = core.read_private(stage, prepared)
         if result['storage'] != storage:

@@ -109,6 +109,9 @@ def replay(root, execute=None):
     for lot in sorted((root / 'production').iterdir()):
         if not LOT.fullmatch(lot.name):
             continue
+        if lot.is_symlink():
+            result['failures'].append({'lot': lot.name, 'control': 'DECLARATION_INVALID'})
+            continue
         if not (lot / 'verify.py').exists() and not (lot / 'rejeu.json').exists():
             continue
         try:

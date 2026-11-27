@@ -89,7 +89,8 @@ final class Engine
                 }
                 continue;
             }
-            if (!isset($this->unknownTables[$table]) || !is_array($decision)
+            if (
+                !isset($this->unknownTables[$table]) || !is_array($decision)
                 || array_diff(array_keys($decision), ['action', 'columns'])
                 || !in_array($decision['action'] ?? '', ['garder', 'vider', 'anonymiser'], true)
                 || (($decision['action'] ?? '') !== 'anonymiser' && array_key_exists('columns', $decision))
@@ -97,7 +98,8 @@ final class Engine
                     && (empty($decision['columns']) || !is_array($decision['columns'])
                         || !array_is_list($decision['columns'])
                         || count(array_filter($decision['columns'], 'is_string')) !== count($decision['columns'])
-                        || array_diff($decision['columns'], $this->unknownTables[$table])))) {
+                        || array_diff($decision['columns'], $this->unknownTables[$table])))
+            ) {
                 throw new RuntimeException('DECISION_INVALIDE');
             }
         }
@@ -123,8 +125,10 @@ final class Engine
             }
         }
         $provenance = $context['form_post_ids'] ?? [];
-        if (!is_array($provenance) || !array_is_list($provenance)
-            || count(array_filter($provenance, static fn (mixed $id): bool => is_int($id) && $id > 0)) !== count($provenance)) {
+        if (
+            !is_array($provenance) || !array_is_list($provenance)
+            || count(array_filter($provenance, static fn (mixed $id): bool => is_int($id) && $id > 0)) !== count($provenance)
+        ) {
             throw new RuntimeException('CONTEXTE_REFUSE');
         }
         $this->knownFormPosts = array_fill_keys($provenance, true) + $this->formPostIds();
@@ -389,9 +393,11 @@ final class Engine
             }
             $kind = str_starts_with($table, $this->prefix) ? substr($table, strlen($this->prefix)) : '';
             foreach ($this->store->rows($table) as $row) {
-                if (in_array($kind, $this->formTables, true)
+                if (
+                    in_array($kind, $this->formTables, true)
                     || ($kind === 'posts' && isset($formPosts[(int) ($row['ID'] ?? 0)]))
-                    || ($kind === 'postmeta' && isset($formPosts[(int) ($row['post_id'] ?? 0)]))) {
+                    || ($kind === 'postmeta' && isset($formPosts[(int) ($row['post_id'] ?? 0)]))
+                ) {
                     $this->store->replace($table, $row, null);
                     continue;
                 }
@@ -399,13 +405,17 @@ final class Engine
                     $this->store->replace($table, $row, null);
                     continue;
                 }
-                if ($kind === 'actionscheduler_actions' && (in_array($row['status'], ['complete', 'failed'], true)
-                    || preg_match('/^(?:pmxi_|pmxe_|wp_all_(?:import|export)|woe_|woo_order_export)/i', (string) ($row['hook'] ?? '')))) {
+                if (
+                    $kind === 'actionscheduler_actions' && (in_array($row['status'], ['complete', 'failed'], true)
+                    || preg_match('/^(?:pmxi_|pmxe_|wp_all_(?:import|export)|woe_|woo_order_export)/i', (string) ($row['hook'] ?? '')))
+                ) {
                     $this->store->replace($table, $row, null);
                     continue;
                 }
-                if (in_array($kind, ['woocommerce_payment_tokens', 'woocommerce_payment_tokenmeta', 'woocommerce_sessions', 'woocommerce_api_keys', 'actionscheduler_logs', 'actionscheduler_claims', 'woocommerce_log', 'wc_download_log', 'wc_rate_limits'], true)
-                    || ($privacy && $kind === 'commentmeta')) {
+                if (
+                    in_array($kind, ['woocommerce_payment_tokens', 'woocommerce_payment_tokenmeta', 'woocommerce_sessions', 'woocommerce_api_keys', 'actionscheduler_logs', 'actionscheduler_claims', 'woocommerce_log', 'wc_download_log', 'wc_rate_limits'], true)
+                    || ($privacy && $kind === 'commentmeta')
+                ) {
                     $this->store->replace($table, $row, null);
                     continue;
                 }
@@ -437,9 +447,11 @@ final class Engine
                     }
                     // HPOS address_type is the billing/shipping discriminator of a unique key,
                     // not a person's address. Keep its structure; still scrub dangerous values above.
-                    if ($personal && ((in_array($kind, ['wc_order_addresses', 'wc_orders', 'wc_customer_lookup', 'wc_order_operational_data'], true)
+                    if (
+                        $personal && ((in_array($kind, ['wc_order_addresses', 'wc_orders', 'wc_customer_lookup', 'wc_order_operational_data'], true)
                         && !($kind === 'wc_order_addresses' && $key === 'address_type') && self::piiKey($key))
-                        || ($key === 'meta_value' && self::piiKey($row['meta_key'] ?? '')))) {
+                        || ($key === 'meta_value' && self::piiKey($row['meta_key'] ?? '')))
+                    ) {
                         $next[$key] = '';
                     }
                 }
@@ -461,10 +473,12 @@ final class Engine
                     if (self::sensitiveKey($row['option_name'])) {
                         $next['option_value'] = '';
                     }
-                    if ($privacy && in_array($row['option_name'], [
+                    if (
+                        $privacy && in_array($row['option_name'], [
                         'admin_email', 'new_admin_email', 'woocommerce_email_from_address',
                         'woocommerce_stock_email_recipient',
-                    ], true)) {
+                        ], true)
+                    ) {
                         $next['option_value'] = 'imagine-test-admin@example.org';
                     }
                     if (preg_match('/^woocommerce[_-].*(?:stripe|paypal|ppcp).*[_-]settings$/i', $row['option_name'])) {
@@ -748,8 +762,10 @@ final class Engine
                             $warnings[] = 'ADMIN_TEST_NON_CONFORME';
                         }
                     }
-                    if ((password_get_info($row['user_pass'] ?? '')['algo'] ?? null) === null
-                        || ($row['user_url'] ?? '') !== '' || ($row['user_activation_key'] ?? '') !== '') {
+                    if (
+                        (password_get_info($row['user_pass'] ?? '')['algo'] ?? null) === null
+                        || ($row['user_url'] ?? '') !== '' || ($row['user_activation_key'] ?? '') !== ''
+                    ) {
                         $warnings[] = 'COMPTE_NON_ANONYME';
                     }
                 }
@@ -847,19 +863,23 @@ final class Guard
 {
     public static function context(array $context): string
     {
-        if (($context['environment'] ?? null) !== 'staging'
+        if (
+            ($context['environment'] ?? null) !== 'staging'
             || ($context['isolated'] ?? null) !== true
             || ($context['restored'] ?? null) !== true
             || !preg_match('/^[a-zA-Z0-9_]+_(staging|test)$/D', $context['database'] ?? '')
-            || empty($context['production_hosts']) || !is_array($context['production_hosts'])) {
+            || empty($context['production_hosts']) || !is_array($context['production_hosts'])
+        ) {
             throw new RuntimeException('CONTEXTE_REFUSE');
         }
         $url = $context['target_url'] ?? '';
         $parts = parse_url($url);
-        if (!is_array($parts) || !in_array($parts['scheme'] ?? '', ['http', 'https'], true)
+        if (
+            !is_array($parts) || !in_array($parts['scheme'] ?? '', ['http', 'https'], true)
             || isset($parts['user'], $parts['pass']) || isset($parts['user']) || isset($parts['query'])
             || isset($parts['fragment']) || !empty($parts['path'])
-            || !preg_match('/^(localhost|[a-z0-9.-]+\.(test|localhost|invalid))$/D', $parts['host'] ?? '')) {
+            || !preg_match('/^(localhost|[a-z0-9.-]+\.(test|localhost|invalid))$/D', $parts['host'] ?? '')
+        ) {
             throw new RuntimeException('URL_REFUSEE');
         }
         foreach ($context['production_hosts'] as $host) {

@@ -212,12 +212,15 @@ def verify(root=ROOT):
     matrix = matrix_contract(packet / 'native', root, historical)
     gates_contract(packet / 'gates', root)
     scope = load(packet / 'scope.json')
-    need(all((r.get('owner') == 'voie2' and r['file'].startswith(('wp/outils/demo/', 'wp/tests/demo/')))
-             or (r.get('owner') == 'parent/A29' and r['file'] == 'wp/tests/a02-audit/README.md')
-             for r in scope['concurrent_owner_changes']), 'CONCURRENT_OWNER_SCOPE')
-    need(scope['out_of_scope_changed'] == [] and scope['out_of_scope_added'] == [] and scope['ced_commands_unchanged'] is True
-         and scope['readme_exact_three_lines'] is True and scope['common_guardian_unchanged'] is True
-         and scope['old_packets_A23_A27_preserved'] is True, 'SCOPE_DRIFT')
+    need(scope['correction_scope'] is True
+         and scope['owned_import_changes'] == scope['allowed_import_changes']
+         == ['wp/outils/staging-court/inside.py', 'wp/outils/staging/lib.php']
+         and scope['readme_owned_lines_and_commands'] is True
+         and scope['other_lots_executed_or_resealed'] is False, 'SCOPE_DRIFT')
+    invalid = load(packet / 'dependency-invalidations.json')
+    need(invalid['invalidated_lots'] == ['A-' + str(n) for n in range(21, 28)], 'DEPENDENCY_INVALIDATIONS')
+    for rel, digest in invalid['import_sources'].items():
+        need(hashlib.sha256((root / rel).read_bytes()).hexdigest() == digest, 'IMPORT_FROZEN')
     return {'lot': 'A-28', 'status': 'PASS', 'exit': 0, 'packet': PACKET.as_posix(),
             'native_cases': matrix['cases'], 'baseline_cases': 6, 'residue_mutations': matrix['mutations'], 'pret_present': (base / 'PRET').is_file()}
 

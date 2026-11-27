@@ -40,6 +40,7 @@ function global:wsl.exe {
             }
             $binding = $d[[Array]::IndexOf($d, '--mount') + 1]
             if ($binding -ne 'type=bind,source=/fixture/repository/wp,target=/repo/wp,readonly') { throw 'Unsafe mount.' }
+            if ($d -notcontains 'type=bind,source=/fixture/repository,target=/packet-repo,readonly') { throw 'Packet mount absent or writable.' }
             $label = $d[[Array]::IndexOf($d, '--label') + 1]
             $global:T01Mockowner = $label.Substring('org.imagine.t01='.Length)
             $global:T01Mockcreated = $true
@@ -50,10 +51,13 @@ function global:wsl.exe {
             if ($global:T01Mockremoved) { $global:LASTEXITCODE = 1; return 'Error: no such object: fixture (test double)' }
             if (-not $global:T01Mockcreated) { throw 'Inspected before creation.' }
             $mount = @{ Type = 'bind'; Source = '/fixture/repository/wp'; Destination = '/repo/wp'; RW = ($global:T01Mockcase -eq 'unsafe-mount') }
-            $info = @{ Image = $global:T01MockimageId; Config = @{ Labels = @{ 'org.imagine.t01' = $global:T01Mockowner }; ExposedPorts = $null }; HostConfig = @{ NetworkMode = 'none'; ReadonlyRootfs = $true; Privileged = $false; PortBindings = $null; CapDrop = @('ALL'); SecurityOpt = @('no-new-privileges') }; Mounts = @($mount); NetworkSettings = @{ Networks = @{ none = @{} } }; State = @{ Running = $false; ExitCode = $(if ($global:T01Mockcase -eq 'fail') { 1 } else { 0 }) } }
+            $packetMount = @{ Type = 'bind'; Source = '/fixture/repository'; Destination = '/packet-repo'; RW = ($global:T01Mockcase -eq 'unsafe-packet-mount') }
+            $info = @{ Image = $global:T01MockimageId; Config = @{ Labels = @{ 'org.imagine.t01' = $global:T01Mockowner }; ExposedPorts = $null }; HostConfig = @{ NetworkMode = 'none'; ReadonlyRootfs = $true; Privileged = $false; PortBindings = $null; CapDrop = @('ALL'); SecurityOpt = @('no-new-privileges') }; Mounts = @($mount, $packetMount); NetworkSettings = @{ Networks = @{ none = @{} } }; State = @{ Running = $false; ExitCode = $(if ($global:T01Mockcase -eq 'fail') { 1 } else { 0 }) } }
             return (ConvertTo-Json -Depth 15 -Compress -InputObject @($info))
         }
         'start' {
+            if ($global:T01Mockcase -eq 'packet-pass') { Write-Output 'T03_PACKETS {"verified":2,"lots":["A-22","A-28"],"failures":[],"excluded":[]}' }
+            if ($global:T01Mockcase -eq 'packet-fail') { Write-Output 'T03_PACKETS {"verified":2,"lots":["A-22","A-28"],"failures":[{"lot":"A-28","control":"PACKAGE_DRIFT"}],"excluded":[]}' }
             $global:T01Mockstarted = $true
             if ($global:T01Mockcase -eq 'start-error') { $global:LASTEXITCODE = 1; return 'Start failed (test double)' }
             if ($global:T01Mockcase -eq 'malformed') { return 'T01_RESULT {"tests":"unknown"}' }

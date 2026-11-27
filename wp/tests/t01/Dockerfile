@@ -2,7 +2,7 @@
 FROM composer:2 AS composer
 FROM php:8.2-cli
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends libonig-dev libxml2-dev unzip \
+    && apt-get install -y --no-install-recommends libonig-dev libxml2-dev unzip python3 \
     && docker-php-ext-install -j2 mbstring dom xml xmlwriter \
     && rm -rf /var/lib/apt/lists/*
 COPY --from=composer /usr/bin/composer /usr/local/bin/composer

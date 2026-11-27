@@ -91,6 +91,28 @@ try {
     $check('known_orphan_no_bootstrap', $calls === 0);
     $engine->neutraliser();
     $check('unknown_orphan_not_globally_purged', array_column($store->rows('x_postmeta'), 'post_id') === [99]);
+    foreach ([[0], ['41'], [1 => 41], '41'] as $invalid) {
+        $refused = false;
+        try {
+            new Engine(new MemoryStore(), $context + ['form_post_ids' => $invalid], 'x_');
+        } catch (RuntimeException $error) {
+            $refused = $error->getMessage() === 'CONTEXTE_REFUSE';
+        }
+        $check('invalid_provenance_' . count($checks), $refused);
+    }
+    $store = new MemoryStore();
+    $store->tables['x_posts'] = [
+        ['ID' => 41, 'post_type' => 'flamingo_inbound', 'post_parent' => 0],
+        ['ID' => 42, 'post_type' => 'revision', 'post_parent' => 41],
+    ];
+    $store->tables['x_postmeta'] = [
+        ['meta_id' => 1, 'post_id' => 42, 'meta_key' => '_a28_message', 'meta_value' => 'A28_FICTIVE_UNIT'],
+    ];
+    $engine = new Engine($store, $context, 'x_');
+    $store->tables['x_posts'] = [];
+    $report = $engine->verifier($proof);
+    $check('in_memory_provenance_survives_parent_and_revision_loss', !$report['ok']
+        && $report['form_message_residues'] === 1);
     foreach (['flamingo_inbound', 'flamingo_contact'] as $type) {
         $store = new MemoryStore();
         $store->tables['x_posts'] = [

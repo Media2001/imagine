@@ -8,6 +8,19 @@ try {
             throw new RuntimeException('Required PHP extension absent: ' . $extension);
         }
     }
+    if (!is_executable('/usr/bin/python3')) {
+        throw new RuntimeException('Python T03 absent; run preparer-image.ps1.');
+    }
+    $python = proc_open(
+        ['/usr/bin/python3', '-B', '-c', 'import hashlib,json,pathlib,subprocess,sys; assert sys.version_info >= (3, 9)'],
+        [0 => ['file', '/dev/null', 'r'], 1 => ['file', '/dev/null', 'w'], 2 => ['file', '/dev/null', 'w']],
+        $pythonPipes,
+        '/tmp'
+    );
+    if (!is_resource($python) || proc_close($python) !== 0) {
+        throw new RuntimeException('Python T03 incomplete; run preparer-image.ps1.');
+    }
+    echo "T03 IMAGE PYTHON : offline standard-library probe PASS\n";
     $packages = glob('/opt/t01/*/composer.json');
     if ($packages === []) {
         throw new RuntimeException('No dependency package in image.');

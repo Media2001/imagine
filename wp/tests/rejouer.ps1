@@ -3,6 +3,8 @@
 $ErrorActionPreference = 'Stop'
 [Console]::OutputEncoding = New-Object Text.UTF8Encoding($false)
 . (Join-Path $PSScriptRoot 't01/commun.ps1')
+. (Join-Path $PSScriptRoot 't01/paquets.ps1')
+$packetSummary = Get-T03PacketSummary ''
 $exitCode = 1
 $created = $false
 $name = 'imagine-t01-' + [Guid]::NewGuid().ToString('N')
@@ -23,17 +25,20 @@ try {
     $sourceLines = @(& wsl.exe -d Ubuntu -- wslpath -a -u $wpRoot 2>&1)
     if ($LASTEXITCODE -ne 0) { throw ('Conversion du chemin WSL impossible : ' + ($sourceLines -join "`n")) }
     $source = ($sourceLines -join "`n").Trim()
-    if (-not $source.StartsWith('/') -or $source.Contains(',') -or $source.Contains("`n")) { throw 'Chemin de montage WSL refuse.' }
+    if (-not $source.StartsWith('/') -or $source.Contains(',') -or $source.Contains("`n") -or -not $source.EndsWith('/wp')) { throw 'Chemin de montage WSL refuse.' }
+    $packetSource = $source.Substring(0, $source.Length - 3)
+    if ([string]::IsNullOrWhiteSpace($packetSource)) { throw 'Racine de paquet refusee.' }
     # Also check ownership/absence if Docker created the object but returned an error.
     $created = $true
-    $create = Invoke-T01Docker @('create', '--name', $name, '--label', ($script:T01Label + '=' + $owner), '--pull', 'never', '--network', 'none', '--read-only', '--mount', ('type=bind,source=' + $source + ',target=/repo/wp,readonly'), '--tmpfs', '/tmp:rw,nosuid,nodev,size=512m,mode=1777', '--cap-drop', 'ALL', '--security-opt', 'no-new-privileges', '--user', '65534:65534', '--pids-limit', '128', '--memory', '768m', '--cpus', '2', '--no-healthcheck', '--log-driver', 'none', '--entrypoint', 'timeout', $image.Id, '600', 'php', '/repo/wp/tests/t01/executer.php')
+    $create = Invoke-T01Docker @('create', '--name', $name, '--label', ($script:T01Label + '=' + $owner), '--pull', 'never', '--network', 'none', '--read-only', '--mount', ('type=bind,source=' + $source + ',target=/repo/wp,readonly'), '--mount', ('type=bind,source=' + $packetSource + ',target=/packet-repo,readonly'), '--tmpfs', '/tmp:rw,nosuid,nodev,size=512m,mode=1777', '--cap-drop', 'ALL', '--security-opt', 'no-new-privileges', '--user', '65534:65534', '--pids-limit', '128', '--memory', '768m', '--cpus', '2', '--no-healthcheck', '--log-driver', 'none', '--entrypoint', 'timeout', $image.Id, '600', 'php', '/repo/wp/tests/t01/executer.php')
     [void](Assert-T01Success $create 'Creation du conteneur jetable impossible.')
-    Assert-T01Isolation (Get-T01Inspect $name) $owner $image.Id $source
+    Assert-T01Isolation (Get-T01Inspect $name) $owner $image.Id $source $packetSource
     Write-Output ('T01 IMAGE : ' + $image.Id)
     $run = Invoke-T01Docker @('start', '-a', $name)
     Write-Output $run.Text
+    $packetSummary = Get-T03PacketSummary $run.Text
     $after = Get-T01Inspect $name
-    Assert-T01Isolation $after $owner $image.Id $source
+    Assert-T01Isolation $after $owner $image.Id $source $packetSource
     if ($after.State.Running) { throw 'Le conteneur ne s est pas arrete.' }
     $markers = @($run.Text -split "`n" | Where-Object { $_ -match '^T01_RESULT ' })
     if ($markers.Count -ne 1) { throw 'Bilan PHPUnit absent ou ambigu.' }
@@ -68,6 +73,7 @@ try {
 $status = if ($exitCode -eq 0) { 'PASS' } else { 'FAIL' }
 # Accents use codepoints to keep this entry point parseable under Windows PowerShell 5.1.
 $e = [char]0x00e9; $dash = [char]0x2014
+Write-Output $packetSummary
 Write-Output ('OUTILS : {0} outils, {1} contr{4}les, {2} {5}checs ; hors rejeu : {3}' -f $toolResult.tools, $toolResult.checks, $toolResult.failures, $toolOutside, [char]0x00f4, $e)
 Write-Output ('REJEU : {0} tests, {1} assertions, {2} {5}checs, {3} erreurs, {4} ignor{5}s {6} {7}' -f $result.tests, $result.assertions, $result.failures, $result.errors, $result.skipped, $e, $dash, $status)
 exit $exitCode

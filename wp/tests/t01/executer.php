@@ -197,6 +197,7 @@ try {
     echo 'T01 TOOL ERROR : ' . $error->getMessage() . "\n";
     $toolTotals['failures']++;
 }
+require __DIR__ . '/paquets.php';
 $pass = $pass && $totals['tests'] > 0 && $totals['failures'] === 0 && $totals['errors'] === 0 && $totals['skipped'] === 0 && $toolTotals['failures'] === 0;
 echo 'T01_RESULT ' . json_encode($totals + ['tools' => $toolTotals, 'pass' => $pass], JSON_THROW_ON_ERROR) . "\n";
 exit($pass ? 0 : 1);

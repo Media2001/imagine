@@ -6,7 +6,7 @@
   },
   "paiements": {
     "virement": "virement",
-    "domiciliation papier": "domiciliation_papier"
+    "domiciliation_papier": "domiciliation_papier"
   },
   "options": {
     "importer_echus": false,
