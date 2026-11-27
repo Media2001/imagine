@@ -18,7 +18,9 @@ ROOT = Path(__file__).resolve().parents[2]
 OWN_TOOLS = [
     'wp/tests/t01/executer.php', 'wp/tests/t01/paquets.php', 'wp/tests/t01/paquets.py',
     'wp/tests/t01/test_paquets.py', 'wp/tests/t01/test_t03_integration.py',
-    'wp/tests/t01/test_t03_streams_native.py', 'wp/tests/rejouer.ps1',
+    'wp/tests/t01/test_t03_streams_native.py', 'wp/tests/t01/corrections-php.php',
+    'wp/tests/t01/tools-contract.php', 'wp/tests/t01/paquets.ps1',
+    'wp/tests/rejouer.ps1',
     'wp/tests/t01/commun.ps1', 'wp/tests/t01/Dockerfile',
 ]
 
@@ -41,6 +43,8 @@ def run(output, nominal=False):
         environment = {**os.environ, 'PYTHONIOENCODING': 'utf-8' if context == 'utf8' else 'cp1252',
                        'PYTHONUTF8': '1' if context == 'utf8' else '0', 'PYTHONDONTWRITEBYTECODE':'1',
                        'TMPDIR': str(Path(os.environ['LOCALAPPDATA']) / 'hermes/cache/scratch')}
+        probe = "import json,locale,sys;print(json.dumps({'executable':sys.executable,'version':sys.version,'stdout':sys.stdout.encoding,'stderr':sys.stderr.encoding,'locale':locale.getencoding(),'preferred':locale.getpreferredencoding(False),'utf8_mode':sys.flags.utf8_mode}))"
+        commands.append((context + '-python-context', [sys.executable, '-c', probe], environment, 30))
         for name in ('test_paquets', 'test_t03_integration'):
             commands.append((context + '-' + name,
                              [sys.executable, '-B', str(ROOT / 'wp/tests/t01' / (name + '.py'))], environment, 120))

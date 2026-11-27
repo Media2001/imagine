@@ -1,5 +1,5 @@
-Fait : A30 terminé en simulation seule ; T03 corrigé étroitement, déclaration A20 retirée et métadonnées vérifiées sans changer ses contrôles ni reçus natifs.
-Prêt à relire : A30 et T03 ; Python Windows 3.14.6 UTF-8/cp1252 25+25 tests, natif classique/HPOS 122 contrôles par contexte + 7 purs ; lint et PSR-12 : 0 erreur/avertissement.
-À arbitrer : trois options métier restent false et true est refusé ; rapprochement neutralisé inconnu, pas de sixième issue ; aucun import, compte/site, réel, A29 ou gardien modifié.
-Bloqué : aucun sur ces deux lots ; collisions de rejeux extérieurs conservées rouges hors dépôt, puis preuve neuve exit 0 ; A22 reste non clos ; hors rejeu actuel : A-20 (declaration absente), A-31 (journaux absents).
-Ensuite : relecture ; image et gates globales 0, neuf paquets verts, mutant A28 seul PACKAGE_DRIFT avec REJEU : 1153 tests, 36075 assertions, 0 échecs, 0 erreurs, 0 ignorés — PASS ; handle proc_acdb95e08fb8=0, nettoyages relus, verrou rafraîchi non libéré.
+Fait : corrections T-03 C1/S1 appliquées ; échéance PHP commune, deux flux bornés en lecture et groupes descendants arrêtés ; six instructions tracées dans RECEPTION-CORRECTIONS.md.
+Prêt à recevoir par le parent, pas PRET : RED réels conservés en Scratch, GREEN conteneur et consoles UTF-8/cp1252 à relire avec le paquet candidat courant.
+À arbitrer : aucun GO ; A-20 reste hors rejeu, declaration absente ; requalification sans argument reportée sans changer ses contrôles ni reçus natifs.
+Bloqué pour clôture : dernières gates et preuve nominale/un octet attendues du parent après A-30 ; aucun rescellage d'A-26/A-27/A-30/A-31 par cet auteur.
+Ensuite : commandes dans RECEPTION-CORRECTIONS.md ; timeout extérieur 600, montages et limites intacts ; import/gardien gelés ; verrou conservé, aucun Git/site/compte/réel/A29/voie2.

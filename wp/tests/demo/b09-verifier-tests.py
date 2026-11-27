@@ -45,6 +45,7 @@ cases=[
  ('observateur_toujours_zero',receipt('recette-finale.json',lambda d:d.update(positive_observers={'ambiance_mail':0,'ambiance_http':0})),True),
  ('email_tente',receipt('recette-finale.json',lambda d:d.update(observations={'b09_mail':1})),True),
  ('regression_rouge',receipt('regression-finale.json',lambda d:d['results'][0].update(pass_=False,errors=1)),True),
+ ('paquet_B09_rouge',receipt('regression-finale.json',lambda d:d['results'][0]['packets']['failures'].append({'lot':'B-09','control':'ECHEC_TEMOIN'})),True),
  ('residu_contact',receipt('readback-final.json',lambda d:d['native'].update(contact_meta=1)),True),
  ('interruption_absente',receipt('pages-reprise-finale.json',lambda d:d.update(interrupted_exit=0)),True),
  ('pas_item_orphelin',receipt('pages-reprise-finale.json',lambda d:d['partial'].update(attached=3)),True),

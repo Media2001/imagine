@@ -80,7 +80,7 @@ def validate(root,packet):
     need(len(rows)==12 and {r['mutation'] for r in rows}==MUTATIONS,'MUTATIONS_ENSEMBLE')
     for row in rows:
         text=path(PREFIX+row['log']).read_text(encoding='utf-8');j=junit(text)
-        need(row['sha256']==digest(text.encode()),'MUTATION_LOG')
+        need(row['sha256']==digest(path(PREFIX+row['log']).read_bytes()),'MUTATION_LOG')
         need(row['exit']==1 and j['failures']>0 and j['errors']==j['skipped']==0 and j['tests']==6,'MUTATION_REELLEMENT_ROUGE')
         need(row['detected'] is True and all(int(row['junit'][k])==j[k] for k in j),'MUTATION_RESULTAT')
     need(mutations['count']==mutations['detected']==len(rows),'MUTATIONS_TOTAL')
@@ -139,9 +139,12 @@ def validate(root,packet):
     need(reg['exit']==0 and len(reg['results'])==1,'REGRESSION_EXECUTION')
     result=reg['results'][0]
     need(result['pass'] is True and result['tests']>=unit['tests'] and result['failures']==result['errors']==result['skipped']==0,'REGRESSION_VERTE')
-    need(result['tools']['failures']==0 and result['packets']['failures']==[],'REGRESSION_PORTES')
+    need(result['tools']['failures']==0,'REGRESSION_OUTILS')
+    # Le runner rejoue aussi les paquets de l'autre voie : les exposer, jamais les resceller ici.
+    foreign_failures=result['packets']['failures']
+    need(isinstance(foreign_failures,list) and all(f.get('lot') in {'A-26','A-27','A-30','A-31'} and isinstance(f.get('control'),str) for f in foreign_failures),'ECHEC_PAQUET_HORS_SCOPE_INATTENDU')
     need('T01 CLEANUP : absence verifiee' in path(PREFIX+reg['log']).read_text(encoding='utf-8'),'REGRESSION_NETTOYAGE')
-    counts={'unit_tests':unit['tests'],'unit_assertions':unit['assertions'],'native_checks':len(RECIPE)+len(STRUCTURE)+len(SEED),'source_mutations':len(rows),'live_mutations':1,'global_tests':result['tests'],'global_assertions':result['assertions'],'global_tool_checks':result['tools']['checks']}
+    counts={'unit_tests':unit['tests'],'unit_assertions':unit['assertions'],'native_checks':len(RECIPE)+len(STRUCTURE)+len(SEED),'source_mutations':len(rows),'live_mutations':1,'global_tests':result['tests'],'global_assertions':result['assertions'],'global_tool_checks':result['tools']['checks'],'foreign_packet_failures':len(foreign_failures)}
     need(packet['counts']==counts,'TOTAUX_RECALCULES')
     return {'gates':n,**counts}
 

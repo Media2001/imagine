@@ -48,6 +48,12 @@ Les pages et menus ne sont pas des messages : option `imagine_b09_pages` (cinq I
 - Les mutations de sources sont jouées dans des copies éphémères hors réseau ; celles d’email et HTTP prouvent que les compteurs ne sont pas constamment à zéro. Les coupe-circuits B-00 sont conservés pendant toutes les tentatives positives.
 - Le brouillon `Privacy Policy` natif préexistant est conservé intégralement ; seule la désignation de politique pointe désormais sur la page B-09 publiée et vide. Une politique existante différente du brouillon natif attendu est refusée par le seed.
 
+## Incidents de preuve et bilan transversal
+
+Le premier rejeu général a perdu son conteneur avant l’inspection finale : reçu conservé rouge, nouvelle tentative après cinq minutes. La dernière préparation d’image a réussi. Le dernier rejeu a réellement exécuté **1 159 tests PHP / 36 263 assertions**, plus **22 outils / 584 contrôles**, sans échec de ces suites. Il a également signalé **quatre échecs de paquets de la voie 1** : A-26 et A-27 `SEALED_VERIFICATION_FAILED`, A-30 `PACKAGE_DRIFT`, A-31 `A31_PARENT_GATES_MISSING`. Ils sont conservés dans le reçu et le compteur `foreign_packet_failures` ; aucun « tout le dépôt est vert » n’est revendiqué. Le PRET porte sur B-09 complet, pas sur ces autres paquets, que ce worker n’a ni corrigés ni rescellés. Le vérificateur refuse toujours un échec de B-09 ou des tests PHP eux-mêmes.
+
+Le premier rejeu stable a révélé une actualisation native des dates des **seuls cinq items B-09** : le premier reçu porte bien `business_preserved=false`. Un test rouge a imposé l’absence de cette écriture, puis le seed a été corrigé pour ne pas réenregistrer un item déjà identique. La preuve initiale a été retirée par ses IDs et marqueurs, sans toucher aux autres contenus ; le contrôle attendait à tort la disparition de l’emplacement, alors que WordPress laisse sa valeur à zéro. La fixture finale a ensuite été recréée, réellement interrompue/reprise avec les sources finales, et tous les readbacks ont été rejoués. Les reçus anciens ne sont pas rebaptisés verts.
+
 ## Limites assumées — pas de PRET partiel de fonctionnalité
 
 Squelette seulement : aucun texte juridique, aucune réponse FAQ, aucun design, aucun bandeau cookies ni décision d’outil. Les pages vides ne constituent pas une conformité juridique ni une publication réelle. Le consentement facultatif n’inscrit à aucune newsletter. Aucun email, HTTP extérieur, paiement ou tiers n’est raccordé.
