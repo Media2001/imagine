@@ -1,0 +1,32 @@
+{
+  "correction_scope": true,
+  "owned_import_changes": [
+    "wp/outils/staging-court/inside.py",
+    "wp/outils/staging-court/run.py",
+    "wp/outils/staging/engine.php",
+    "wp/outils/staging/form-decision-refused.php",
+    "wp/outils/staging/guard.php",
+    "wp/outils/staging/lib.php",
+    "wp/outils/staging/store.php"
+  ],
+  "allowed_import_changes": [
+    "wp/outils/staging-court/inside.py",
+    "wp/outils/staging-court/run.py",
+    "wp/outils/staging/engine.php",
+    "wp/outils/staging/form-decision-refused.php",
+    "wp/outils/staging/guard.php",
+    "wp/outils/staging/lib.php",
+    "wp/outils/staging/store.php"
+  ],
+  "readme_owned_lines_and_commands": true,
+  "other_lots_executed_or_resealed": false,
+  "concurrent_roots_not_pinned": [
+    "voie2",
+    "A26",
+    "A27",
+    "T03",
+    "A30"
+  ],
+  "historical_packet": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a28-correction-20261127-0258\\old-production",
+  "measured_utc": "2026-11-27T02:36:31.973440+00:00"
+}

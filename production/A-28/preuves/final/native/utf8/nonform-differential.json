@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "exact_nonform_tables_and_report_and_historical_refusals": true,
+  "only_report_addition": {
+    "form_message_residues": 0
+  },
+  "runs": [
+    {
+      "root": "/reference",
+      "exit": 0,
+      "stdout_sha256": "bb645278e688146f96e5f7e5d7a8f263ecf08551f3bbb783c512611e723cf436",
+      "added_count": null
+    },
+    {
+      "root": "/subject",
+      "exit": 0,
+      "stdout_sha256": "bb645278e688146f96e5f7e5d7a8f263ecf08551f3bbb783c512611e723cf436",
+      "added_count": 0
+    }
+  ]
+}

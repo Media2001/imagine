@@ -68,9 +68,11 @@ def scope():
     changed = []
     for folder, saved in [('wp/outils/staging', 'old-staging'), ('wp/outils/staging-court', 'old-court')]:
         previous = {p.relative_to(SCRATCH / saved).as_posix(): digest(p)
-            for p in (SCRATCH / saved).rglob('*') if p.is_file() and '__pycache__' not in p.parts and p.suffix != '.pyc'}
+            for p in (SCRATCH / saved).rglob('*') if p.is_file() and '__pycache__' not in p.parts and p.suffix != '.pyc'
+            and not (folder == 'wp/outils/staging-court' and p.name == 'README.md')}
         current = {p.relative_to(ROOT / folder).as_posix(): digest(p)
-            for p in (ROOT / folder).rglob('*') if p.is_file() and '__pycache__' not in p.parts and p.suffix != '.pyc'}
+            for p in (ROOT / folder).rglob('*') if p.is_file() and '__pycache__' not in p.parts and p.suffix != '.pyc'
+            and not (folder == 'wp/outils/staging-court' and p.name == 'README.md')}
         changed += [folder + '/' + rel for rel in sorted(set(previous) | set(current)) if previous.get(rel) != current.get(rel)]
     contract = v.load(BASE / 'readme-contract.json')
     v.readme_contract((ROOT / 'wp/outils/staging-court/README.md').read_bytes(), contract['lines'], contract['commands'])
