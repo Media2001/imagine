@@ -357,3 +357,67 @@ Lu : les rapports de la voie 2 de 16 h 28, 17 h 00 et 17 h 11, ceux de la voie 1
 
 - **Voie 1** : retouche d'A-31 (regroupement), séquence conjointe A-31 et A-32, clôture de T-03, puis A-33. Aucun brief nouveau : la file a plus d'un lot d'avance.
 - **Voie 2** : corrections de C-29 en tête, puis B-13, B-14, B-15. Aucun brief nouveau : trois lots d'avance. Rien de la voie 2 depuis 17 h 13 ; noté pour Ced, sans alerte à ce stade.
+
+# Passage automatique de 22 h
+
+Lu : les rapports de la voie 1 de 19 h 30, 20 h 02, 20 h 39, 20 h 41, 21 h 31 et 21 h 47, ceux de la voie 2 de 21 h 18, 21 h 36, 21 h 59 et 22 h 17, la vérification d'A-31 (second tour), les deux relectures et la fusion d'A-32, la note de blocage d'A-33. Aucun accord donné sur le réel.
+
+## Clôture
+
+- **A-31 clos.** Sa vérification de second tour dit « prêt » : les six instructions appliquées, la retouche de 19 h 30 faite (natures et remboursements par année de nouveau regroupés ; seuls les quatre compteurs de liens cassés et le total des remboursements sont exacts), suites Python rejouées par le vérificateur, preuves natives lues (552 contrôles par console, témoin de non-refonte discriminant), import et gardien intacts. Après le resceau, deux rejeux généraux d'Hermès donnent douze paquets vérifiés, aucun hors rejeu, A-31 et A-32 compris.
+- Les deux questions que la vérification renvoie à Ced (liens cassés et total des remboursements publiés exactement, ou plafonnés) sont celles tranchées à 13 h, déjà signalées à Ced comme « à défaire » : rien de nouveau.
+- Réserve écrite : le vérificateur n'a pas pu lancer la matrice dans les conteneurs ; il s'appuie sur les preuves déposées. Le lecteur du paquet ne se rejoue pas hors du NUC (journaux non versionnés) : je ne l'ai pas rejoué.
+- **Aucune clôture en voie 2** : C-29 (corrigé, `PRET` à 21 h 36), B-13 (21 h 59) et B-14 (22 h 17) attendent leur vérification ou leur relecture.
+
+## A-32 — à corriger, trois importants ; les défauts proposés par la fusion sont retenus, sauf un mot sur A-16
+
+- **C02, retenu** : les codes de supervision que le gardien émet pour les outils de la tournée (sortie invalide, délai dépassé, réussite incomplète) entrent dans la liste fermée que lit la tournée, et le bilan porte le code. Ni le gardien ni un outil clos ne sont modifiés.
+- **C04, retenu** : le contenu d'une chaîne PHP ne compte pas comme une déclaration d'environnement ; une forme non comprise reste refusée. C'est une défense en profondeur, derrière le fichier de statut : important, pas bloquant.
+- **C03, retenu pour A-19** : la tournée n'écrit pas `--as-of` ; l'outil prend l'instant courant, qui est son défaut documenté. Une date d'exemple figée fausserait le diagnostic le jour de la bascule.
+- **A-16, précisé** : la tournée n'écrit pas `--limit`, et l'outil prend son défaut documenté, **dix**. La fusion parlait d'« inventaire complet » : ce n'est pas le sens. Dix numéros est le périmètre du cahier des charges (§4.3) ; aucun mode sans plafond n'est créé, aucun mode d'emploi d'outil clos n'est retouché.
+- **C01, mineur, retenu** : la phrase du mode d'emploi commun renvoie à la liste de la tournée.
+- La garde de la tournée (lecture du fichier de statut) n'est pas un écart : c'est l'arbitrage de 13 h. Une ligne de traçabilité au rapport suffit.
+- **La question que la fusion pose à Ced sur le `PRET` d'A-32 est technique, et elle est sans objet** : le `PRET` a été retiré à 21 h 43. Il reviendra après les corrections, sur un rejeu général où A-32 est vérifié pour de bon.
+- Hermès a commencé ces corrections à 21 h 53, après un rapport qui disait attendre un mandat. Une fusion « à corriger » se prend sans mandat : c'est la règle de la file.
+
+## Règle — un lecteur de paquet ne photographie pas ses voisins
+
+- Constat, deux fois dans la soirée. Le lecteur d'A-32 prend l'empreinte de tout `wp/outils/bascule/` : les huit fichiers d'A-33 l'ont fait passer au rouge sans qu'une ligne d'A-32 ait changé, et A-33 se retrouve bloqué par le rouge qu'il a causé. Le lecteur final de T-03 englobe les paquets voisins : la retouche d'A-31, autorisée, l'a périmé quarante minutes après son `PRET`.
+- **Règle : le lecteur permanent d'un lot contrôle ce qui appartient au lot (ses fichiers, ses lignes dans un fichier partagé) et ce dont il dépend, par une liste fermée écrite dans le lot.** Jamais un dossier entier, jamais le paquet d'un autre lot. La preuve qu'on n'a rien touché chez les voisins se fait une fois, au moment du sceau, dans le reçu ; elle n'est pas une condition permanente du lecteur.
+- Raison : c'est la règle du contrat, déjà écrite pour les fichiers partagés ; sans elle, chaque lot nouveau de la voie 1 rouvre A-32 et T-03, et le blocage croisé de 19 h se reproduit à chaque livraison.
+- **A-32** : sa photographie se borne à son dossier `tournee/`, à ses tests, au gardien, à l'import gelé et aux dossiers des quinze outils de sa liste. Un outil de la tournée qui change périme toujours le paquet : c'est voulu. L'élargissement de `gates.py` à tout le dossier, fait à 21 h 53, est à défaire.
+- **T-03** : son lecteur final contrôle ses propres fichiers ; la photographie des voisins reste dans le reçu du sceau, datée. Après sa clôture, T-03 n'est pas rescellé à chaque paquet nouveau.
+- **A-33** et les lots à venir : même règle.
+- **Les lots clos ne sont pas rouverts pour cela.** Le sceau d'A-31 lie cinq fichiers de la tournée : si les corrections d'A-32 le périment, un resceau d'A-31 par sa propre commande, code inchangé, clôture maintenue.
+
+## A-33 — construit, bloqué par A-32 : l'ordre
+
+- L'outil et sa matrice sont verts ; son paquet garde volontairement des portails rouges, parce que le rejeu général trouvait A-32 rouge. Hermès s'est arrêté sans `PRET` et sans rien assouplir : c'était juste.
+- **Ordre, sans séquence conjointe** : corrections d'A-32 et photographie bornée, sceau d'A-32 ; puis portails d'A-33 rejoués, sceau, `PRET` ; la preuve est un rejeu général, dans les deux consoles, où A-32 et A-33 sont tous deux vérifiés, aucun hors rejeu, zéro échec.
+- Pendant le sceau d'A-32, le paquet d'A-33 est encore rouge par construction. **Un seul paquet par lot, et c'est le dernier rejeu vert** : un paquet aux portails rouges n'est pas un paquet et ne reste pas installé ; Hermès le sort du dépôt, comme il l'a fait pour le candidat d'A-31, et le lanceur range A-33 « hors rejeu, journaux absents » jusqu'à son propre sceau. Ni le lanceur gelé ni un portail ne sont modifiés.
+- A-33 n'entre pas dans la tournée : il n'est pas clos.
+- A-33 et la requalification d'A-32 mesurent Python 3.11.15 sous Windows ; les lots précédents et les commandes de réception emploient 3.14.6. La matrice Python se rejoue avec celui des commandes de réception.
+
+## T-03 — `PRET` posé à 19 h 57, retiré à 20 h 41 : après A-32 et A-33
+
+- La retouche d'A-31 a périmé sa photographie ; son code n'a pas changé. Hermès propose de le finaliser sur l'arbre final, après A-33, plutôt que de sceller une photographie aussitôt périmée : retenu.
+- Avec la règle ci-dessus, son lecteur ne dépendra plus des paquets voisins. Ensuite : preuve finale, `PRET`, une vérification avec rejeu indépendant, clôture.
+
+## Voie 2 — repartie à 21 h 18
+
+- Arrêt de 17 h 13 à 21 h 18, repris seul sur un verrou ancien retiré ; cause non établie. Depuis : corrections de C-29, B-13, B-14, B-15 en cours.
+- **B-13** : le libellé « Connexion » pour un lecteur connecté est une question de présentation, pour Ced avec le lot. La sélection manuelle des articles du menu étendu n'est pas construite : question déjà rangée pour Imagine. Le lecteur de C-29 borné à ses fichiers : conforme à la règle du contrat.
+- **B-14** : le retrait de la liste « Derniers articles » de l'accueil suit le §3.2, qui ne la prévoit pas ; B-05, clos, n'est pas modifié. À confirmer par la relecture.
+- Le balisage de contenu payant (§3.9) est déjà dans le paywall de C-08 : pas de lot pour lui.
+
+## Questions rangées pour Imagine
+
+- Que donne l'offre de bienvenue atteinte par QR code ? Défaut : rien, une page d'accueil et un code suivi (C-30).
+- Le code suivi écrit-il la source d'acquisition du compte ? Défaut : non, il se lit à côté (C-30).
+- D'où vient la liste des adresses jetables refusées ? Défaut : tenue à la main par Imagine, vide au départ (C-31).
+- L'appel à l'abonnement de fin d'article s'affiche-t-il pour un abonné actif ? Défaut : non (B-16).
+
+## Files
+
+- **Voie 1** : corrections d'A-32 et photographie bornée ; A-33 (sceau, `PRET`) ; T-03 (preuve finale, `PRET`). Un lot de plus, dans l'ordre du §4.3 : **A-34** (les liens internes des contenus repris vers ce qui part aux archives, comptés).
+- **Voie 2** : B-15 en cours, il ne restait rien derrière. Trois lots de plus : **B-16** (la page article : résumé, mots-clés, signature, numéro d'origine, appel de fin d'article, §3.3), **C-30** (la page d'offre de bienvenue et son code suivi, §3.7), **C-31** (les adresses jetables refusées à l'inscription, §3.9).
