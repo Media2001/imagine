@@ -21,24 +21,24 @@ def verify(live=False):
     assert bootstrap.count(receipt['bootstrap_block'])==1,'Raccord B10 absent ou dupliqué'
     readme=(ROOT/'wp/plugins/imagine-site/README.md').read_text(encoding='utf-8')
     assert receipt['readme_section'] in readme,'Section B10 du README divergente'
-    recipe=json.loads((OUT/'recette-finale.json').read_text(encoding='utf-8'))
+    recipe=json.loads((OUT/'recette-reception.json').read_text(encoding='utf-8'))
     assert recipe['checks'] and all(v is True for v in recipe['checks'].values())
     assert len(recipe['fixture_ids'])==len(set(recipe['fixture_ids']))==30
     assert set(recipe['map_observations'])=={'0','1'}
     for value,observation in recipe['map_observations'].items():
         assert observation['placeholder']==int(value) and observation['requests'] and observation['third_party']==[]
-    native=json.loads((OUT/'natif-final.json').read_text(encoding='utf-8'))
+    native=json.loads((OUT/'natif-reception.json').read_text(encoding='utf-8'))
     assert native['code']==0 and native['stderr']=='' and native['restored'] and native['transaction_rollback']
     native_checks=json.loads(native['stdout'])['checks']
     assert native_checks and all(v is True for v in native_checks.values())
-    unit=(OUT/'unitaire-final.log').read_text(encoding='utf-8')
-    assert 'OK (5 tests, 26 assertions)' in unit
-    prep=(OUT/'preparation-image.log').read_text(encoding='utf-8-sig')
+    unit=(OUT/'unitaire-reception.log').read_text(encoding='utf-8')
+    assert 'OK (6 tests, 27 assertions)' in unit
+    prep=(OUT/'preparation-reception.log').read_text(encoding='utf-8-sig')
     assert 'T01 IMAGE READY' in prep and 'PREPARATION T01 : image verifiee sha256:' in prep
-    global_log=(OUT/'regression-globale.log').read_text(encoding='utf-8-sig')
+    global_log=(OUT/'regression-reception.log').read_text(encoding='utf-8-sig')
     global_result=json.loads(re.search(r'^T01_RESULT (.+)$',global_log,re.M)[1])
     assert global_result['pass'] and global_result['tests']>0 and global_result['failures']==global_result['errors']==0
-    cleanup=json.loads((OUT/'recette-finale-nettoyage.json').read_text(encoding='utf-8'))
+    cleanup=json.loads((OUT/'recette-reception-nettoyage.json').read_text(encoding='utf-8'))
     assert cleanup=={'observer_removed':True,'sessions_restored':True}
     if live:
         sys.path.insert(0,str(ROOT/'wp/outils/demo'))
@@ -54,7 +54,7 @@ def verify(live=False):
         seed=json.loads((OUT/'page-navigation.json').read_text(encoding='utf-8'))
         assert b10.navigation()==seed['after']
         print('B10 LIVE PASS : 30 commerces fictifs, carte OFF, fichiers et navigation relus')
-    print('B10 PASS :',checked,'empreintes ; 5 tests unitaires ;',len(native_checks),'contrôles natifs ;',len(recipe['checks']),'contrôles navigateur')
+    print('B10 PASS :',checked,'empreintes ; 6 tests unitaires ;',len(native_checks),'contrôles natifs ;',len(recipe['checks']),'contrôles navigateur')
     print('GLOBAL :',global_result['tests'],'tests ;',global_result['tools']['checks'],'contrôles outils ; paquets hors B10 :',global_result['packets']['failures'])
 
 

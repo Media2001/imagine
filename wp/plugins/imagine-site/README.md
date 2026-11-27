@@ -481,5 +481,25 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/rejouer.ps1
 
 Le vérificateur sans argument est local, hors réseau, Python 3.11 standard. Les sept tests PHPUnit sont découverts par le paquet racine existant. Recettes réellement mutantes sur le seul site fictif gardé : `python -B wp/outils/demo/c27-native.py LABEL-NEUF` puis `python -B wp/outils/demo/c27-recette.py LABEL-NEUF`. Préimages privées durables, sept commandes fictives jetables dont un vrai brouillon C16, profils/commandes/options/actions natifs restaurés exactement et relus. La boutique de démo reste nativement « À venir » : la recette emploie le filtre Woo de prévisualisation uniquement pour ses requêtes marquées et retire son observateur, sans ouvrir la boutique ni changer ses réglages. Adresses, commandes parent et limites : `production/C-27/{A-VOIR.md,NOTE.md,final-V2.json}`. Aucun paiement réel ni email ; PRET technique n’est pas validation visuelle ou GO sur le réel.
 
+## B-10 — points de vente
+
+Type privé natif `imagine_vente`, titre + métadonnée `imagine_vente_ligne` ; option non autoloadée `imagine_vente_actifs` pour la liste publiée. Une page WordPress ordinaire restitue le formulaire et la liste, sans nouveau gabarit ni CSS. Le pied de page natif B09 reçoit un lien ; son menu et les items existants sont conservés, le principal ne change pas. Les cinq lignes de choix standard et les trois lignes pour la carte future sont dans `production/B-10/NOTE.md`.
+
+**Réglages → Points de vente** (`manage_options`, POST et nonce natif) : correspondance JSON et séparateur `;`, `,` ou tabulation ; charger un CSV UTF-8 avec en-tête remplace la liste. Mapping requis : `nom`, `adresse`, `localite`, `postal` ; `personne` et `telephone` uniquement sur correspondance explicite et toujours échappés. Retirer leur mapping masque immédiatement leur affichage, même avant un nouvel import. Les autres colonnes ne sont ni rangées ni affichées. Le CSV n’est pas ajouté aux médias et n’est pas conservé. Réglages techniques d’import sur leur écran dédié : l’écran C10 clos reste inchangé.
+
+`imagine_vente_configuration` contient `mapping`, `separateur`, `carte`. `carte=0|1`, défaut `0` ; valeur inconnue fermée. À `1`, simple emplacement textuel sans fournisseur, géocodage, image, iframe ou script. Recherche exacte sur localité ou code postal, insensible aux accents/casse, sans préfixe ni rayon ; liste entière triée par localité puis nom quand la recherche est vide.
+
+Un rejeu identique conserve les IDs, sans doublons ; une nouvelle liste est préparée avant bascule puis l’ancienne est retirée. Refus : compte, numéro physique initial, motif fixe (`nombre_colonnes`, `syntaxe_csv`, `champ_requis`, `champ_invalide`, `doublon`), jamais la donnée. En-tête invalide ou aucune ligne acceptée : ancienne liste conservée ; dans le second cas, les numéros/motifs des lignes sont tout de même rendus. Plafonds techniques : 2 Mio, 2 000 commerces acceptés, 500 caractères par champ. Un arrêt brutal peut laisser un verrou d’import à retirer après diagnostic ; pas de reprise automatique ni géocodage ajouté.
+
+```text
+python -B wp/tests/demo/b10-verifier.py
+python -B wp/tests/demo/b10-verifier.py --live
+python -B wp/outils/demo/b10-local.py LABEL-NEUF
+python -B wp/outils/demo/b10.py runtime LABEL-NEUF
+python -B wp/outils/demo/b10-recette.py LABEL-NEUF
+```
+
+Le premier vérificateur est autonome et hors réseau, le second lit uniquement imagine-test-demo. Les six tests PHPUnit sont inclus dans le paquet racine et dans le rejeu T01 ; la recette native utilise WordPress et un rollback InnoDB, sans bouchon d’écriture. La recette navigateur charge/recharge réellement le CSV par multipart, refuse la ligne 32 et un nonce invalide, exerce accent/casse/postal et les deux valeurs de carte. Observations positives des détecteurs ; aucun tiers sur les deux rendus publics, aucune tentative email/HTTP issue de B10. Les avatars Gravatar de l’administration native sont détectés et bloqués avant transport par la recette, séparément du rendu public. Sessions et observateur retirés puis relus ; 30 commerces manifestement fictifs laissés pour Ced, carte OFF. Sources, preuves finales, adresses et limites : `production/B-10/`. Rebuild `wp/tests/preparer-image.ps1` effectué avant PRET ; aucun B11/C28 ni bibliothèque close modifié.
+
 
 

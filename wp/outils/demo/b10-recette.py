@@ -62,9 +62,9 @@ def run(label):
             second=upload()
             checks['rechargement_30_ids_identiques']=ids==b10.wp('echo wp_json_encode(get_option(Imagine\\Site\\PointsVente::ACTIFS));') and '30 lignes prises ; 1 refusées.' in second
             malformed=upload('colonne;inconnue\nseulement;fictif\n')
-            checks['mauvaise_entete_conserve_liste']='Opération refusée' in malformed and ids==b10.wp('echo wp_json_encode(get_option(Imagine\\\\Site\\\\PointsVente::ACTIFS));')
+            checks['mauvaise_entete_conserve_liste']='Opération refusée' in malformed and ids==b10.wp('echo wp_json_encode(get_option(Imagine\\Site\\PointsVente::ACTIFS));')
             refused=upload('enseigne;rue;ville;cp;personne;telephone\nSECRET;incomplet\n')
-            checks['tous_refuses_comptes_numerotes_sans_remplacement']='0 lignes prises ; 1 refusées.' in refused and 'Ligne 2 : nombre_colonnes' in refused and 'SECRET' not in refused and ids==b10.wp('echo wp_json_encode(get_option(Imagine\\\\Site\\\\PointsVente::ACTIFS));')
+            checks['tous_refuses_comptes_numerotes_sans_remplacement']='0 lignes prises ; 1 refusées.' in refused and 'Ligne 2 : nombre_colonnes' in refused and 'SECRET' not in refused and ids==b10.wp('echo wp_json_encode(get_option(Imagine\\Site\\PointsVente::ACTIFS));')
             # Vrai POST avec nonce invalide, configuration inchangée.
             page.goto(settings)
             page.locator('form').filter(has=page.locator('textarea[name=mapping]')).locator('input[name=_b10]').evaluate("e=>e.value='invalide'")
