@@ -131,8 +131,8 @@ def run(label):
         checks['deux_POST_concurrents_une_reponse']=sorted(results)==[200,403] and first['choix'] in choices and first['libelle']==choices[first['choix']] and first['compte']==28 and first['commande']==paid['id'] and re.fullmatch(r'\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ',first['date']) is not None
         checks['double_envoi_refuse_immuable']=post(paid,'lune',signed=signed)[0]==403 and record(paid)==first
         checks['source_compte_vide_initialisee']=c27.wp('echo wp_json_encode(get_user_meta(28,Imagine\\Site\\Acquisition::SOURCE,true));')==first
-        post(second,'mars')
-        checks['deuxieme_commande_source_non_ecrasee']=record(second)['choix']=='mars' and c27.wp('echo wp_json_encode(get_user_meta(28,Imagine\\Site\\Acquisition::SOURCE,true));')==first
+        post(second,'lune')
+        checks['deuxieme_commande_source_non_ecrasee']=record(second)['choix']=='lune' and c27.wp('echo wp_json_encode(get_user_meta(28,Imagine\\Site\\Acquisition::SOURCE,true));')==first
         post(third,'mars',role='tiers');foreign_record=record(third)
         checks['compte_tiers_temoin_reel']=foreign_record['compte']==29
         _,skipform,_=http(skip['url'],role='lecteur')
@@ -177,7 +177,7 @@ def run(label):
         checks['chiffres_droits_C19_refus_lecteur']='imagine-acquisition-nombres' not in denied[1]
         privacy=c27.wp('$e=apply_filters("wp_privacy_personal_data_exporters",[]);$r=apply_filters("wp_privacy_personal_data_erasers",[]);$u=get_userdata(28);echo wp_json_encode(["exporteur"=>isset($e["imagine-acquisition"]),"effaceur"=>isset($r["imagine-acquisition"]),"export"=>call_user_func($e["imagine-acquisition"]["callback"],$u->user_email,1)]);')
         exported=privacy['export'];export_text=json.dumps(exported,ensure_ascii=False)
-        checks['export_natif_C21_reponses_date_source_sans_tiers']=privacy['exporteur'] and privacy['effaceur'] and exported['done'] and any(r['item_id']=='imagine-acquisition-reponse-'+str(paid['id']) for r in exported['data']) and any(r['item_id']=='imagine-acquisition-reponse-'+str(second['id']) for r in exported['data']) and all(r['item_id']!='imagine-acquisition-reponse-'+str(third['id']) for r in exported['data']) and first['date'] in export_text and any(r['item_id']=='imagine-acquisition-compte' for r in exported['data'])
+        checks['export_natif_C21_reponses_date_source_sans_tiers']=privacy['exporteur'] and privacy['effaceur'] and exported['done'] and any(r['item_id']=='imagine-acquisition-reponse-'+str(paid['id']) for r in exported['data']) and any(r['item_id']=='imagine-acquisition-reponse-'+str(second['id']) for r in exported['data']) and all(r['item_id']!='imagine-acquisition-reponse-'+str(third['id']) for r in exported['data']) and first['date'] in export_text and choices['lune'] in [field['value'] for row in exported['data'] for field in row['data']] and any(r['item_id']=='imagine-acquisition-compte' for r in exported['data'])
         checks['projection_newsletter_et_preferences_inchangees']=before_projection==c27.wp('echo wp_json_encode([Imagine\\Site\\Personnalisation::attributsConnecteur(28),Imagine\\Site\\Newsletters::preferences(28)]);')
         commerce=c27.wp('$o=wc_get_order('+str(paid['id'])+');echo wp_json_encode($o->get_data());')
         checks['declaration_hors_payload_commande_Odoo']='imagine_acquisition' not in json.dumps(commerce) and first['libelle'] not in json.dumps(commerce,ensure_ascii=False)

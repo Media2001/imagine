@@ -1,0 +1,18 @@
+{
+  "name": "global-utf8",
+  "command": [
+    "powershell.exe",
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "wp/tests/rejouer.ps1"
+  ],
+  "start": "2026-11-27T08:07:56.832960+01:00",
+  "end": "2026-11-27T08:09:16.266499+01:00",
+  "exit_code": 0,
+  "stdout": "global-utf8.log",
+  "stderr": "global-utf8.stderr.log",
+  "stdout_sha256": "234f93b27a94e69ddaa5ffefab50f3934fa19af64766748a5d461b6ad392b2f3",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

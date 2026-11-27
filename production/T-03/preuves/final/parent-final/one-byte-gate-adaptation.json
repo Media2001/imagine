@@ -1,0 +1,29 @@
+{
+  "at": "2026-11-27T07:42:24.211678+01:00",
+  "original": "production/T-03/native-copy-proof.ps1",
+  "original_sha256": "9f32424dbb84dc55404676ff2e7e6578d4bdbb5b728682ef00749cd30862d4f9",
+  "scratch_gate_sha256": "fd4cbfe60b0256629789fa30911e81bfec9c237dc0b92bc5bdda33a40175d065",
+  "scope": "Packaging selection updated to file7h30 eleven current lots; all one-byte/counters/cleanup checks retained; no T03 source changed",
+  "replacements": [
+    [
+      "$root = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../..'))",
+      "$root = 'C:/Users/Ced/imagine'"
+    ],
+    [
+      "$expectedLots = @('A-21',",
+      "$expectedLots = @('A-20', 'A-21',"
+    ],
+    [
+      "$a20 = @($packets.excluded | Where-Object { $_.lot -eq 'A-20' -and $_.reason -eq 'declaration absente' })",
+      "$a20 = @($packets.excluded | Where-Object { $_.lot -eq 'A-20' })"
+    ],
+    [
+      "if ($a20.Count -ne 1 -or (Test-Path -LiteralPath (Join-Path $copy 'production/A-20/rejeu.json'))) { throw 'A20_MUST_REMAIN_OUTSIDE_REPLAY' }",
+      "if ($a20.Count -ne 0 -or -not (Test-Path -LiteralPath (Join-Path $copy 'production/A-20/rejeu.json'))) { throw 'A20_MUST_BE_DECLARED_AND_REPLAYED' }"
+    ],
+    [
+      "real_green_A21_to_A28_and_A30_A20_excluded",
+      "real_green_A20_to_A28_and_A30_A31_all_eleven"
+    ]
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "scope": "imagine-test-demo",
+  "consultation": "2026-11-27",
+  "method": "Pages officielles ouvertes et lues dans le navigateur ; extraction directe indisponible, aucun texte synthétisé comme résultat distant.",
+  "sources": [
+    {"url": "https://woocommerce.com/document/order-attribution-tracking/", "contract": "L’origine native est déduite de la navigation (référent/UTM/cookies de session), pas d’une réponse déclarative ; C27 ne la remplace ni ne l’active."},
+    {"url": "https://developer.woocommerce.com/docs/best-practices/data-management/crud-objects/", "contract": "Lire les commandes par les objets CRUD et leurs getters, sans dépendre du stockage classique/HPOS."},
+    {"url": "https://developer.wordpress.org/plugins/privacy/adding-the-personal-data-exporter-to-your-plugin/", "contract": "Déclarer un callback wp_privacy_personal_data_exporters par email/page ; retourner data et done."},
+    {"url": "https://developer.wordpress.org/plugins/privacy/adding-the-personal-data-eraser-to-your-plugin/", "contract": "Déclarer un callback wp_privacy_personal_data_erasers par email/page ; retourner items_removed, items_retained, messages, done."},
+    {"url": "https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/templates/checkout/thankyou.php", "contract": "Contrat woocommerce_thankyou également relu dans le fichier de la version réellement installée, sans aucune modification tierce."},
+    {"url": "https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/src/Blocks/BlockTypes/OrderConfirmation/AdditionalInformation.php", "contract": "Le bloc de confirmation Woo appelle le hook woocommerce_thankyou après vérification des permissions. Fichier installé réellement lu ; parcours HTTP du bloc réellement exécuté."}
+  ],
+  "not_claimed": ["Aucune attribution marketing réelle mesurée", "Aucun paiement bancaire", "Aucun envoi de données à un tiers", "Aucun second parcours HTTP classique"]
+}

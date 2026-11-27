@@ -102,7 +102,7 @@ def validate(root,packet):
     seed=receipt(names['seed']);need(seed['choices']==CHOICES and seed['idempotent'] is True and seed['existing_nonvolatile_options_preserved'] is True and seed['volatile_options_excluded']==['_transient_timeout_wcs_woocommerce_active_version'],'LISTE_DEMO')
     need(all(v is True for k,v in seed['restoration_except_new_setting'].items() if k!='options_metier'),'SEED_AUCUN_PROFIL_OU_COMMANDE_CHANGE')
     final=receipt(names['readback']);bound(final,CORE+['wp/outils/demo/c27-readback.py'])
-    need(final['configuration']==CHOICES and final['answers']==final['seen']==[],'FINAL_CONFIG_SANS_DONNEES_RECETTE')
+    need(final['baseline_receipt']==names['recipe'] and final['configuration']==CHOICES and final['answers']==final['seen']==[],'FINAL_CONFIG_SANS_DONNEES_RECETTE')
     need(set(final['remote_hashes'])=={n.removeprefix('wp/') for n in CORE},'FINAL_FICHIERS')
     for name,sha in final['remote_hashes'].items():need(sha==digest(path('wp/'+name).read_bytes()),'FINAL_SOURCE_DISTANTE')
     need(final['temporary_files'] and all(v is False for v in final['temporary_files'].values()),'FINAL_TEMPORAIRES_RETIRES')

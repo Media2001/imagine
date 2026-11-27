@@ -4,7 +4,7 @@ sys.dont_write_bytecode=True
 import importlib.util,json,hashlib
 import c27
 spec=importlib.util.spec_from_file_location('verify',c27.PROOF/'verifier.py');verify=importlib.util.module_from_spec(spec);spec.loader.exec_module(verify)
-NAMES={'unit':'unitaire-final.json','native':'native-livraison.json','recipe':'recette-livraison.json','mutations':'mutations-finales.json','prepare':'preparation-finale.json','regression':'regression-reprise-finale.json','seed':'liste-demo.json','readback':'readback-final.json','style':'style-final.json'}
+NAMES={'unit':'unitaire-final.json','native':'native-livraison.json','recipe':'recette-antislash-livraison.json','mutations':'mutations-finales.json','prepare':'preparation-finale.json','regression':'regression-reprise-finale.json','seed':'liste-demo.json','readback':'readback-livraison.json','style':'style-final.json'}
 if len(sys.argv)!=1:raise SystemExit('Aucun argument attendu')
 path=c27.PROOF/'final-V2.json';assert not path.exists(),path
 files={'verifier.py','A-VOIR.md','NOTE.md','sources-officielles.json',*NAMES.values()}
