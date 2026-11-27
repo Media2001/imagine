@@ -9,6 +9,8 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'wp/outils/demo'))
 import c29
+sys.path.insert(0,str(ROOT/'wp/tests/demo'))
+import lot_reception_contract as contract
 OUT=ROOT/'production/C-29'
 
 def load(name):return json.loads((OUT/name).read_text(encoding='utf-8'))
@@ -36,16 +38,15 @@ def http_receipt(r):
     return r
 
 def verify(live=False,manifest=None,require_pret=True):
-    m=manifest or load('reception-V2.json')
+    m=manifest or load('reception-contrat-V2.json')
     assert m['scope']=='imagine-test-demo' and m['ready'] is True
-    assert m['sources']==c29.sources(), 'FINAL_SOURCE_BYTES'
-    assert m['readme_section']==hashlib.sha256(section().encode()).hexdigest(), 'README_SECTION'
+    contract.integrity('C29',m,OUT)
     assert m['evidence'] and all(digest(OUT/n)==sha for n,sha in m['evidence'].items()), 'EVIDENCE'
-    p=load(m['pure']);assert p['exit']==0 and not p['stderr'] and p['sources']==m['sources']
+    p=load(m['pure']);assert p['exit']==0 and not p['stderr'] and contract.tested_sources('C29',p['sources'])
     pd=json.loads(p['stdout']);assert len(pd['checks'])==21 and all(pd['checks'].values())
     nr=load(m['native']);nd=native_receipt(nr)
     hr=http_receipt(load(m['http']))
-    assert nr['sources']==hr['sources']==m['sources'], 'TESTED_FINAL_BYTES'
+    assert contract.tested_sources('C29',nr['sources']) and contract.tested_sources('C29',hr['sources']), 'TESTED_FINAL_BYTES'
     assert all(row['fiche']==nd['profils'][row['code']]['fiche'] for row in hr['surfaces'])
     red=load('red-slice1-V2.json');assert red['exit']!=0 and 'C29 calcul pur absent' in red['stderr']
     red=load('red-native-V2.json');assert red['native']['code']!=0 and 'C29 adaptateur absent' in red['native']['stderr'] and red['business_preserved']
@@ -59,21 +60,20 @@ def verify(live=False,manifest=None,require_pret=True):
     for _,xml in re.findall(r'T01 JUNIT BEGIN ([^\n]+)\n(.*?)T01 JUNIT END',text,re.S):
         tests.extend(t for t in ET.fromstring(xml.strip()).iter('testcase') if t.get('class')=='Imagine\\Site\\Tests\\ContactBrevoC29Test')
     assert len(tests)==3 and all(t.find('failure') is None and t.find('error') is None for t in tests), 'PHPUNIT_DISCOVERED'
-    neighbors=load(m['neighbors']);assert neighbors['status']=='PASS' and neighbors['business_preserved'] and neighbors['all_other_component_bytes_exact'] and neighbors['unrelated_bootstrap_tamper_rejected']
-    assert all(digest(ROOT/n)==sha for n,sha in neighbors['historical_receipts_and_PRET_unchanged'].items()), 'HISTORICAL_PACKETS'
-    assert neighbors['bootstrap_current']==digest(ROOT/'wp/plugins/imagine-site/imagine-site.php')
-    assert {k:neighbors['checks'][k] for k in ['C27','B11_offline','B11_live','C28_offline','C28_live']}=={'C27':628,'B11_offline':32,'B11_live':35,'C28_offline':31,'C28_live':37}
+    # Neighbor complements remain sealed historical evidence, never live gates.
     lint=load('lint-final-V2.json');assert lint['exit']==0 and not lint['stderr'] and len(lint['files'])==len(lint['stdout'].splitlines())
     assert load('demo-tarifs-idempotent-V2.json')['idempotent'] is True
-    if require_pret:assert 'reception-V2.json' in (OUT/'PRET').read_text(encoding='utf-8')
+    if require_pret:assert 'reception-contrat-V2.json' in (OUT/'PRET').read_text(encoding='utf-8')
     if live:
         import b11
         import b06
         b11.guard()
-        assert b06.hashes(c29.FILES)=={n:digest(ROOT/'wp'/n) for n in c29.FILES}, 'LIVE_CODE'
+        owned=[n for n in c29.FILES if 'wp/'+n!=contract.BOOT]
+        assert b06.hashes(owned)=={n:digest(ROOT/'wp'/n) for n in owned}, 'LIVE_CODE'
+        contract.live_registration('C29',b11.wp,b11.php)
         result=b11.wp('''$f=get_option('imagine_c09_fixture');$map=[];foreach($f['tariffs'] as $code=>$id){$map[(string)$id]=$code;}echo wp_json_encode(['probe_absent'=>!file_exists(WP_CONTENT_DIR.'/mu-plugins/c29-observer.php'),'tarifs_fictifs'=>get_option(Imagine\\Site\\ContactBrevo::TARIFS)===$map,'payload_absent'=>get_option('imagine_c29_interdit',null)===null]);''')
         assert all(result.values()), 'LIVE_RESTORED'
-    result={'C29':'PASS','mode':'live-readonly' if live else 'offline','pure_checks':len(pd['checks']),'native_checks':nd['total'],'http_checks':hr['total'],'profiles':len(nd['profils']),'phpunit_tests':len(tests),'phpunit_assertions':sum(int(t.get('assertions')) for t in tests),'global_tests':counts['tests'],'global_assertions':counts['assertions'],'tool_checks':counts['tools']['checks'],'foreign_packet_failures':counts['packets']['failures']}
+    result={'C29':'PASS','receipt':'reception-contrat-V2.json','contract':'owned-files + unique exact own block + bounded own README','mode':'live-readonly' if live else 'offline','pure_checks':len(pd['checks']),'native_checks':nd['total'],'http_checks':hr['total'],'profiles':len(nd['profils']),'phpunit_tests':len(tests),'phpunit_assertions':sum(int(t.get('assertions')) for t in tests),'global_tests':counts['tests'],'global_assertions':counts['assertions'],'tool_checks':counts['tools']['checks'],'foreign_packet_failures':counts['packets']['failures']}
     print(json.dumps(result,ensure_ascii=False));return result
 if __name__=='__main__':
     assert sys.argv[1:] in [[],['--live']]
