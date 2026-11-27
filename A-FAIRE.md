@@ -2,7 +2,7 @@
 
 Tenu à jour par Claude à chaque session avec Ced. **Hermès ne modifie pas ce fichier** : il signale dans son rapport ce qu'il a fait et ce qui bloque, et la consigne passe en « Terminé » à la session suivante.
 
-Mis à jour le 27 novembre 2026, 7 h 30 (passage automatique).
+Mis à jour le 27 novembre 2026, 13 h 30 (passage automatique).
 
 **Deux voies depuis le 23/11.** Ce fichier est la file de la voie 1. Une deuxième session d'Hermès suit `A-FAIRE-2.md` (site de démonstration, squelette du thème, paywall sur article, profils, écran de réglages). Lis la section « Les deux voies » de la consigne permanente. Ne touche ni au site `imagine-test-demo`, ni aux dossiers `wp/themes/imagine/`, `wp/plugins/imagine-site/`, `wp/outils/demo/`, `wp/tests/demo/`.
 
@@ -12,26 +12,32 @@ Le projet a trois chantiers indépendants. Un lot porte la lettre de son chantie
 
 ## Consignes actives, par ordre de priorité
 
-File du 27/11, 7 h 30. Tes rapports de 5 h 03, 5 h 14, 5 h 53, 6 h 44 et celui des corrections de T-03 sont lus, merci. **Clos ce passage : A-28, A-22, A-23, A-24, A-25.** A-21 reste clos (vérification n° 3). La requalification est partie une fois, au bon moment. Retirer le `PRET` d'A-26 et d'A-27 plutôt que changer une empreinte : c'était le bon réflexe. Arbitrages : `docs/arbitrages-2026-11-27.md`, passage de 7 h.
+File du 27/11, 13 h 30. Tes rapports de 7 h 34, 8 h 18, 8 h 42 et 12 h 50 sont lus, merci. **Clos ce passage : A-26, A-27, A-30.** Le resceau est fait, une seule fois, comme demandé. T-03 : fond vérifié, pas clos (consigne 1). S'arrêter sur A-32 sans ajouter de garde ni toucher aux outils clos : c'était juste, et l'erreur était dans mon brief (consigne 2). Arbitrages : `docs/arbitrages-2026-11-27.md`, passage de 13 h.
 
 **L'import est gelé**, à l'état scellé par A-28 : plus aucun changement de `wp/outils/staging/` ni de `wp/outils/staging-court/` sans une consigne de cette file, ni fonction, ni correction, ni mise en forme.
 
-**Le lanceur de rejeu est gelé de la même façon, dès maintenant** : `wp/tests/t01/` et `wp/tests/rejouer.ps1`, dans l'état de tes corrections de T-03. Ces corrections étaient demandées, mais elles ont périmé trois paquets (A-26, A-27, A-31) : on ne le refait pas. Si la preuve finale de T-03 révèle un défaut du lanceur, écris-le et arrête-toi sur ce point ; je trancherai.
+**Le lanceur de rejeu est gelé de la même façon** : `wp/tests/t01/` et `wp/tests/rejouer.ps1`. **Gelé veut dire : pas modifié.** Tu peux les lancer, et lancer `wp/tests/preparer-image.ps1` après avoir ajouté des tests, autant qu'il le faut. Un rejeu qui se heurte à celui de l'autre voie est un aléa : attends, rejoue, ne répare rien.
 
 **Règle : une correction ne restructure pas un fichier commun.**
 
-**0. Le resceau, une seule fois, sur l'import et le lanceur gelés** : A-26, A-27, A-30, A-31. Des matrices réelles, jamais un changement d'empreinte.
-   - A-26, A-27 : vérifiés « prêt » ce matin, code inchangé. Paquet refait, `PRET`. Ils se closent sur une ligne `PAQUETS` verte lue par un relecteur, sans nouveau tour de fond ;
-   - A-30 (`corrections/A-30.md`) : tes corrections sont faites ; matrice native, paquet neuf, `PRET`, second tour. Confirmés : dossier temporaire standard de Python, refus s'il tombe dans le dépôt ; l'axe produit garde sa clé `0` ;
-   - A-31 : paquet refait, `PRET`, première relecture ;
-   - **A-20 entre dans le rejeu** au même moment : un point d'entrée sans argument dans `production/A-20/` et sa déclaration `rejeu.json`. Si l'ajout périme son paquet, tu le refais par sa matrice réelle. Aucun contrôle changé. A-20 reste clos ; il ne se rouvre que si sa matrice est rouge ;
-   - « repartir d'un arbre propre » (A-30, instruction 5) : ni Git, ni remise à zéro. Tu mesures les comptes obtenus et tu les écris. Un compte global qui bouge parce que la voie 2 livre n'est pas un défaut de ton lot.
+**0. Les corrections d'A-31** (`corrections/A-31.md`), en cours. Les deux questions que la fusion posait à Ced sont techniques, et tranchées : **les quatre compteurs de liens cassés sont publiés exactement**, de 0 à 4 compris ; le regroupement des petits nombres reste sur les années et les années par état ; **le total des remboursements est exact**. Applique les six instructions sur ce défaut, sans attendre. Puis paquet neuf, `PRET`, second tour.
 
-**1. T-03, la preuve finale et le `PRET`** (`production/T-03/RECEPTION-CORRECTIONS.md`, §4), après le resceau : la ligne `PAQUETS` avec tous les paquets déclarés verts, puis un octet changé dans A-28 sur copie, qui ne rougit que lui. Défauts de la fusion confirmés : le montage de la racine reste tel quel, les tests de contrat de T-03 ne s'ajoutent pas à la commande des relecteurs. La ligne `OUTILS` donne le nombre réellement observé.
+**1. T-03, une seule version : celle de la clôture.** La vérification confirme tes six corrections, mais trouve dans le même commit un `PRET` avec sa preuve finale verte et des documents restés à l'état de candidat (`manifest.json`, `RAPPORT.md`, `RECEPTION-CORRECTIONS.md`, `CONVENTION.md`), au point que `verify-corrections.py` refuserait l'arbre.
+   - Aligne ces documents sur l'état réel : `PRET` posé, **A-20 dans le rejeu**. A-20 y est entré par ma consigne de 7 h 30, postérieure à la fusion : ce n'est pas une divergence, écris-le dans la réception ;
+   - `verify-corrections.py` : il dit qu'il ne vaut qu'avant le `PRET`, ou il accepte l'état final. À ton choix, le plus simple ;
+   - **rien dans `wp/tests/t01/` ni dans `wp/tests/rejouer.ps1`**. Si le paquet de T-03 gèle ces documents, refais son sceau par ses propres contrôles, jamais par un changement d'empreinte à la main ;
+   - `PRET` redéposé, puis une vérification avec un rejeu indépendant. Une heure.
 
-**2. A-29** : la consigne tient. Une sortie 255 n'est pas un succès. **Un réveil de diagnostic, pas plus**, sans retirer ni canari ni compteur, sans toucher à l'import, au gardien ni au lanceur. S'il n'aboutit pas : dix lignes dans ton rapport (ce qui est établi, ce qui ne l'est pas, tes deux hypothèses) et tu passes à la suite ; je trancherai. A-29 ne bloque personne.
+**2. A-32, débloqué** (`briefs/A-32-la-tournee-des-inventaires.md`, et ce qui suit, qui le corrige). Le brief disait que les outils refusent un site non vérifié : c'est faux pour les inventaires, tu l'as prouvé.
+   - **Tu ne modifies aucun outil clos, ni le gardien.** Ils restent en lecture seule, sans contrôle de statut ;
+   - **l'interdiction d'ajouter un contrôle d'accès est levée, pour la tournée seule.** Avant de lancer quoi que ce soit, la tournée lit `.imagine-staging-verified.json` à la racine du site, **comme A-05 le lit** (même fichier, mêmes champs exigés, aucun format nouveau ; si la lecture d'A-05 ne se réemploie pas sans modifier A-05, recopie sa règle dans la tournée et dis-le). Fichier absent, invalide, ou environnement déclaré « production » : la tournée entière est refusée, d'un seul code de refus, **aucun outil lancé**. Aucune option pour passer outre ;
+   - preuve négative : sans le fichier, zéro outil lancé, base et fichiers identiques ; avec, la tournée complète. Tes doubles d'A-10 et d'A-11 restent ;
+   - **A-26 et A-27 sont clos : une ligne chacun dans la liste.** A-30 reste dehors (fichier d'Imagine), A-29 et A-31 aussi (pas clos) ;
+   - puis la matrice complète, le paquet unique, `PRET`. Le mode d'emploi dit en une phrase que la tournée ne tourne que sur une copie vérifiée, et que lancer un outil seul reste la décision de Ced.
 
-**3. `briefs/A-32-la-tournee-des-inventaires.md`** — une commande qui enchaîne, en lecture seule, les outils d'inventaire clos, chacun par la commande de son mode d'emploi, et rend un bilan d'une page (réussi, refusé, en échec) sans recopier un seul nombre. Elle ne change aucun outil. À commencer après le `PRET` de T-03. Trois heures.
+**3. A-29** : la consigne tient, en dernier. Une sortie 255 n'est pas un succès. **Un réveil de diagnostic, pas plus**, sans retirer ni canari ni compteur, sans toucher à l'import, au gardien ni au lanceur. S'il n'aboutit pas : dix lignes dans ton rapport (ce qui est établi, ce qui ne l'est pas, tes deux hypothèses) et tu passes à la suite ; je trancherai. A-29 ne bloque personne.
+
+**4. `briefs/A-33-le-poids-des-archives.md`** — ce qui reste hors des dix derniers numéros, compté : contenus par type et par année, fichiers joints en nombre et en poids, fichiers sans parent. Lecture seule, des nombres. **À commencer après les `PRET` d'A-31 et d'A-32**, pas avant. Une demi-journée.
 
 **Règle nouvelle, venue d'A-30 : une suite Python passe sur une session Windows propre.** Sans `TMPDIR` : la matrice retire la variable aux processus fils et le prouve. Vaut pour les lots à venir et pour ceux que tu corriges.
 
@@ -137,9 +143,10 @@ Tu n'ouvres toujours pas l'archive d'Imagine ; c'est Ced qui lance le diagnostic
 | A-23 Les comptes des abonnés | 26/11, corrigé le 26/11, paquet refait le 27/11 | **Clos le 27/11** (vérification n° 2, code inchangé, paquet revu au vert par le rejeu indépendant). Sur une copie neutralisée, ces nombres valent « inconnu » |
 | A-24 Les adresses d'expédition | 26/11, corrigé le 26/11, paquet refait le 27/11 | **Clos le 27/11** (vérification n° 2, rapport et « Portée » à jour). Sur une copie neutralisée, presque tous ces nombres valent « inconnu » ; la lecture sur la source est une décision de Ced |
 | A-25 Ce que le site garde sur ses visiteurs | 26/11, corrigé le 26/11, paquet refait le 27/11 | **Clos le 27/11** (vérification n° 2 : banc adapté au refus du `garder` et à la purge) |
-| A-26 Ce que le site charge chez des tiers | 26/11, corrigé le 27/11 | Vérifié « prêt » le 27/11, **pas clos** : paquet périmé par les corrections de T-03, à refaire une fois (consigne 0) |
-| A-27 Les moyens de paiement enregistrés | 26/11, corrigé le 27/11 | Vérifié « prêt » le 27/11, **pas clos** : paquet périmé par les corrections de T-03, à refaire une fois (consigne 0) |
+| A-26 Ce que le site charge chez des tiers | 26/11, corrigé le 27/11, paquet refait le 27/11 | **Clos le 27/11** (vérification n° 2 : matrice réelle rejouée, code inchangé, ligne `PAQUETS` verte lue par le rejeu indépendant du relecteur). Des nombres par famille, aucune adresse |
+| A-27 Les moyens de paiement enregistrés | 26/11, corrigé le 27/11, paquet refait le 27/11 | **Clos le 27/11** (vérification n° 2, même condition). Sur une copie neutralisée, tous ces nombres valent « inconnu » ; le compte sur la source serait une décision de Ced |
 | A-28 Les messages de formulaires et l'import | 27/11, corrigé le 27/11 | **Clos le 27/11** (cinq corrections vérifiées, découpage du fichier de l'import regardé par la vérification et rejoué par sept matrices). Import gelé. Ce n'est pas un accord d'import |
+| A-30 L'import à blanc des abonnés hors ligne | 27/11, corrigé le 27/11 | **Clos le 27/11** (cinq instructions vérifiées : suite rejouée sur une session Windows propre, 38 tests en UTF-8 et en cp1252 ; paquet refait après T-03). Rien n'est écrit ; trois règles laissées fermées pour Imagine |
 | A-07 Retouches de rédaction | 26/11 | Sept retouches vérifiées ; constat du 20/11 annoté, rien de rejoué. Reste clos |
 | T-01 Commande de rejeu | 23/11, corrigé le 23/11 | **Clos le 23/11** ; autorisation ajoutée au script de relecture |
 | A-02 Script d'audit | 23/11, corrigé le 23/11 | **Clos le 23/11** (outil et banc fictif). L'audit réel reste à lancer |

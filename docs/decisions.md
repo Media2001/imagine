@@ -91,6 +91,11 @@ Issues des lots, au 26/11 à 10 h (chacune est un réglage au défaut prudent, a
 | Combien de temps le site garde-t-il un message envoyé par le formulaire de contact ? | Aucune suppression automatique : le message reste jusqu'à ce que l'administration l'efface ou que la personne demande l'effacement de ses données | Pas de réglage pour l'instant ; à arrêter avant l'ouverture au public (B-09) |
 | Le sommaire audio d'un numéro (§3.3) est-il réservé à ceux qui ont droit au numéro, ou ouvert à tous ? | Réservé, comme le PDF du numéro | Pas de réglage : il suit la décision d'accès du numéro (B-11) |
 | Pack thématique (§3.3) : si la rédaction ajoute ou retire un numéro après un achat, que garde l'acheteur ? | Les numéros que le pack contenait au moment du paiement, ni plus ni moins | Pas de réglage : règle de l'achat (C-28) |
+| Points de vente (§3.14) : la recherche porte-t-elle sur une localité ou un code postal exacts, ou faut-il aussi un début de code postal, un rayon ? | Localité ou code postal exacts, sans tenir compte de la casse ni des accents | Pas de réglage pour l'instant (B-10) |
+| Un pack thématique (§3.3, « produits groupés ») est-il bien un produit à prix unique pour l'ensemble, et non le « produit groupé » natif de WooCommerce, où chaque numéro s'ajoute et se paie séparément ? | Produit simple à prix unique | Pas de réglage : forme du produit (C-28) |
+| Pack thématique dont un numéro a été dépublié : le pack est-il retiré de la vente en entier, ou vendu sans ce numéro à un prix recalculé ? | Retiré de la vente en entier, refusé au panier et à la commande ; aucun prix recalculé | Pas de réglage (C-28) |
+| Menu étendu des thématiques (§3.1, « une sélection d'articles illustrés ») : la sélection est-elle choisie par la rédaction, ou faite des articles les plus récents ? | Les articles les plus récents de la thématique | Nombre d'articles en réglage (B-13) |
+| Brevo (§3.10) : quels noms d'attributs le compte Brevo d'Imagine attend-il, et quel statut porte le bénéficiaire d'un abonnement offert ou groupé ? | Clés internes du site ; statut « inconnu » pour un bénéficiaire. Rien n'est transmis | Correspondance des noms à mettre en réglage au branchement (C-29) |
 
 Rappel de règle, sans question : un abonnement actif dans l'administration mais **sans paiement validé** ne figure pas dans la liste d'envoi.
 
