@@ -105,9 +105,15 @@ final class Acquisition
         $key = self::REPONSE . $id;
         try {
             wp_cache_delete($key, 'options');
+            wp_cache_delete(self::VUE . $id, 'options');
             wp_cache_delete('notoptions', 'options');
             wp_cache_delete($actor, 'user_meta');
             $choices = self::configuration();
+            $wpdb->last_error = '';
+            $seen = get_option(self::VUE . $id, null);
+            if ($wpdb->last_error !== '' || (is_array($seen) && ($seen['etat'] ?? '') === 'effacee')) {
+                return new \WP_Error('imagine_acquisition_refuse');
+            }
             if (!self::eligible(wc_get_order($id), $actor) || !isset($choices[$choice]) || get_option($key, null) !== null) {
                 return new \WP_Error('imagine_acquisition_refuse');
             }

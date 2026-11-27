@@ -17,7 +17,10 @@ foreach (discoverT01Packages('/repo/wp')['packages'] as $package) {
             'avant-paiement' => ['AcquisitionRegles.php', '$paid && $dated', 'true'],
             'tiers' => ['AcquisitionRegles.php', '$actor === $owner', 'true'],
             'operateur' => ['AcquisitionRegles.php', "\$via !== 'imagine-c16'", 'true'],
-            'source-ecrasee' => ['Acquisition.php', "get_user_meta(\$actor, self::SOURCE, true) === ''", 'true'],
+            'source-ecrasee' => ['Acquisition.php', '$source === []', 'true'],
+            'source-lecture-incertaine' => ['Acquisition.php', '$source = self::sourceFiable($actor);', "\$source = get_user_meta(\$actor, self::SOURCE, true) === '' ? [] : [get_user_meta(\$actor, self::SOURCE, true)];"],
+            'vue-effacee' => ['Acquisition.php', "(is_array(\$seen) && (\$seen['etat'] ?? '') === 'effacee')", 'false'],
+            'effacement-cache' => ['AcquisitionConfidentialite.php', 'Acquisition::sourceFiable($owner)', "(get_user_meta(\$owner, Acquisition::SOURCE, true) === '' ? [] : [get_user_meta(\$owner, Acquisition::SOURCE, true)])"],
             'export' => ['AcquisitionConfidentialite.php', "'data' => array_slice(\$data, (max(1, \$page) - 1) * 50, 50)", "'data' => []"],
             'effacement' => ['AcquisitionConfidentialite.php', 'update_option($key, $tombstone, false);', '// effacement retiré'],
             'export-tiers' => ['AcquisitionConfidentialite.php', '$owner === null || $data[\'compte\'] === $owner', 'true'],
@@ -29,7 +32,7 @@ foreach (discoverT01Packages('/repo/wp')['packages'] as $package) {
         [$file, $old, $new] = $mutants[$mutation];
         $path = $dest . '/' . $file;
         $raw = file_get_contents($path);
-        if (substr_count($raw, $old) !== 1) {
+        if (substr_count($raw, $old) !== ($mutation === 'effacement-cache' ? 3 : 1)) {
             throw new RuntimeException('Cible ambiguë');
         }
         file_put_contents($path, str_replace($old, $new, $raw));
