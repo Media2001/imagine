@@ -149,3 +149,15 @@ Toute demande hors cahier des charges, toute contradiction interne au cahier des
 - **C-27 · une lecture en échec prise pour une absence.** Deux corrections importantes en file.
 - **C-28 · concurrence et arrêt en plein paiement non qualifiés.** La correction demandée couvre l'arrêt après le paiement.
 - **A-30 · comptes globaux relevés pendant que l'autre voie livrait.** Ils ne se comparent pas d'un rapport à l'autre.
+
+## 27 novembre 2026, 16 h — lots B-11, B-12, C-28, C-27, A-29, voie 1
+
+- **Voie 1 · muette depuis 13 h 33.** File pleine, aucune question posée. Un worker d'A-31 a été interrompu par une erreur 401 (« jeton fournisseur expiré ») ; cause de l'arrêt non établie. Signalé à Ced.
+- **Extension du site · le fichier d'amorçage partagé périme les réceptions des lots voisins.** B-12 a périmé B-11, C-29 a périmé B-12, sans qu'aucun code de ces lots ait bougé. Règle : contrôle par contrat, sur les lignes du lot. Les lots code clos ne sont pas rouverts.
+- **B-11 · vérification « remonte à Ced » tranchée sans Ced.** Les deux points étaient techniques ; la saisie dans l'éditeur réel reste à faire par Ced avec la validation visuelle.
+- **B-12 · le verrou se contournait par la casse de la route d'aperçu.** Bloquant, en correction ; il fallait un rédacteur connecté.
+- **B-12 · le verrou dépend de l'ordre interne des appels du cœur de WordPress.** Vrai en 7.0.9, non garanti. Matrice native à rejouer à chaque montée de version ; elle n'est pas dans la suite scellée.
+- **C-28 · second tour sans rejeu indépendant de la suite Docker.** Clos sur le rejeu du premier tour, l'intégrité des preuves et le rejeu général d'un autre vérificateur.
+- **C-28 · une clé écrite en toutes lettres dans le fichier de C-14** au lieu de la constante. Sans effet ; repris au gel du code.
+- **C-27 · effacement et réponse simultanés non qualifiés.** Le verrou est symétrique et testé ; l'entrelacement réel ne l'est pas.
+- **A-29 · sortie 255 après un succès sur une copie neutralisée, cause non établie.** Lot rangé sans `PRET`, hors de la tournée ; le gardien refuse, aucun faux succès.

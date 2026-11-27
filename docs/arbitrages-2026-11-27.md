@@ -263,3 +263,45 @@ Lu : les rapports de 7 h 34 à 12 h 58 (les deux voies), les vérifications de T
 
 - **Voie 1** : corrections d'A-31 (en cours), mise en cohérence de T-03, A-32 débloqué, A-29. Un lot de plus : **A-33, le poids des archives** (ce qui reste hors des dix derniers numéros, compté), à commencer après les `PRET` d'A-31 et d'A-32.
 - **Voie 2** : corrections de C-28 (en cours), corrections de C-27, reprise de la preuve de B-11. Trois lots de plus : **B-12** (aucun appel sortant depuis le corps d'un contenu), **C-29** (la fiche du contact pour Brevo, sans Brevo), **B-13** (menu principal et menu étendu des thématiques).
+
+# Passage automatique de 16 h
+
+Lu : les rapports de la voie 2 de 13 h 35, 14 h 07, 14 h 45 et 15 h 20, les vérifications de B-11, C-27 et C-28, les deux relectures et la fusion de B-12, le diagnostic d'A-29, la note de reprise d'A-31. Aucun rapport de la voie 1 depuis 12 h 50. Aucun accord donné sur le réel.
+
+## Clôtures
+
+- **C-27 code clos.** Sa vérification dit « prêt » : les cinq instructions appliquées (une lecture en échec n'est plus une absence, à l'écriture de la source comme à l'effacement ; une proposition vue puis effacée ne se redépose pas), vérificateur du lot rejoué par le relecteur (628 portes), quatorze contre-exemples verts. La place de la section dans l'écran de réglages reste la question déjà posée à Ced. Validation visuelle attendue.
+- **C-28 code clos.** Sa vérification dit « prêt » : le pack indisponible est refusé par le serveur à l'ajout et à la validation, l'instantané ne se reconstruit plus après coup, empreintes des sources livrées égales au sceau, vérificateur hors ligne rejoué (31 contrôles). Réserve du relecteur acceptée : au second tour il n'a pas pu relancer la suite Docker ; il l'avait rejouée au premier, et les mêmes tests sont verts dans le rejeu fait par le vérificateur de B-11 (1 201 tests). Les deux questions du lot sont chez Imagine, sur leur défaut prudent. Validation visuelle attendue.
+
+## B-11 — vérifié « remonte à Ced » : rien pour Ced, une règle
+
+- La vérification confirme le fond : six instructions appliquées, code fonctionnel identique à la réception, empreinte par empreinte, suite rejouée au vert par le relecteur. Elle remonte deux points à Ced. Aucun n'est visuel, métier ou réel au sens de la doctrine : tranchés ici.
+- **La réception est de nouveau périmée, par une ligne d'un autre lot.** B-12 a ajouté son enregistrement dans `imagine-site.php` après le scellé de B-11 ; C-29 a fait de même à B-12 une heure plus tard. Tant que chaque lot scelle l'empreinte entière du fichier d'amorçage, chaque lot suivant périme tous ses voisins. Décision : **le fichier d'amorçage partagé de l'extension se contrôle par contrat, sur les lignes du lot, jamais par son empreinte entière.** C'est la règle qui vaut déjà en voie 1 pour un mode d'emploi commun. Le vérificateur d'un lot contrôle l'empreinte de ses propres fichiers, et la présence dans l'amorçage de son bloc d'enregistrement, tel qu'il l'a livré. Vaut pour B-11, B-12, C-29 et les lots à venir ; les lots code clos ne sont pas rouverts, leurs paquets sont de l'historique. Raison : le choix le plus simple, et le seul qui arrête la récurrence sans geler le fichier.
+- **La saisie dans l'éditeur réel revient à Ced** : c'est la décision de 13 h, que le relecteur ne pouvait pas lire dans la fusion. Elle tient. La boîte est proposée par l'éditeur livré (11 sur 11), la persistance est prouvée sur le vrai WordPress ; le geste reste trois lignes dans `A-VOIR.md`, à faire avec la validation visuelle.
+- B-11 n'est pas clos : une réception par contrat, puis une vérification. Rien à réécrire dans le code du lot.
+
+## B-12 — à corriger, un bloquant
+
+- Verdict de fusion retenu. Le garde de l'aperçu compare la route à une chaîne exacte, alors que le routeur de WordPress ne tient pas compte de la casse : une variante de casse atteint le service natif sans passer par le verrou. Il faut être un rédacteur connecté pour l'emprunter, et le site de démonstration bloque de toute façon le transport ; mais le lot est le verrou, donc bloquant.
+- Défauts de la fusion confirmés : reconnaître la route comme le routeur le fait ; la matrice native n'entre pas dans la suite scellée (elle demande un vrai WordPress), elle se rejoue à chaque montée de version du cœur, condition écrite dans le README.
+- **L'instruction 3 de la fusion est remplacée par la règle ci-dessus.** Elle demandait une réception complémentaire couvrant la ligne de C-29 ; B-13 la périmerait de nouveau. Le vérificateur de B-12 passe au contrat. L'assertion sur les sources n'est pas neutralisée : elle porte sur les fichiers du lot et sur son bloc d'amorçage.
+
+## A-29 — diagnostic fait, cause non établie : le lot est rangé
+
+- Le réveil de diagnostic a eu lieu. Établi : sur une base non neutralisée, l'outil passe (classique et HPOS) ; sur les deux copies neutralisées, le processus sort en 255 après avoir écrit un succès, le gardien refuse, la sortie publique est vide, aucun faux succès. Non établi : la cause. Deux hypothèses, aucune prouvée (un rappel de fin de requête, ou un destructeur, qui échoue sous l'interdiction d'écrire).
+- Décision : **A-29 est rangé, sans `PRET`, hors de la tournée.** Raison : sur une copie neutralisée, ses six nombres vaudraient « inconnu » ; un vert n'y apprendrait rien, et chercher la cause demande une trace de fin de processus que le lot ne justifie pas aujourd'hui. Rien n'est assoupli : une sortie 255 reste un refus, aucun canari ni compteur n'est retiré.
+- Il sera repris si Ced veut cet inventaire sur la source, ou le jour où un staging vérifié permet d'observer la fin du processus en vrai. Un outil sans `PRET` n'est pas proposé à Ced.
+
+## Voie 1 — muette depuis 13 h 33
+
+- Dernier fichier de la voie 1 : 13 h 33 (reprise d'A-31, diagnostic d'A-29). Depuis, ni rapport, ni preuve, ni `PRET`, file pleine, aucune question posée. La note de reprise d'A-31 dit que son worker a été interrompu par une erreur 401, « jeton fournisseur expiré », et que le parent reprenait.
+- La voie 2 a travaillé pendant ce temps : le NUC et la synchronisation fonctionnent. Je ne peux ni relancer une session ni renouveler un jeton : signalé à Ced en tête d'`ETAT.md`. Aucune consigne nouvelle n'y changerait rien ; la file de la voie 1 est laissée telle quelle, A-29 en moins.
+
+## Questions rangées pour Imagine
+
+- « Point de vente le plus proche » dans le pied de page (§3.2) : par géolocalisation du visiteur, ou un lien vers la recherche ? Défaut : un lien, aucune géolocalisation (B-15).
+
+## Files
+
+- **Voie 1** : inchangée (corrections d'A-31, mise en cohérence de T-03, A-32, puis A-33) ; A-29 en sort.
+- **Voie 2** : corrections de B-12 et passage au contrat pour B-11, B-12 et C-29, C-29 (en cours), B-13. Deux lots de plus, dans l'ordre du §3.2 : **B-14** (la page d'accueil, contenu et ordre, sans la forme), **B-15** (le pied de page, cinq zones, sans géolocalisation).
