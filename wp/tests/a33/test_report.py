@@ -19,7 +19,7 @@ spec.loader.exec_module(r)
 def valid():
     empty = {'count': 0, 'present': 0, 'missing': 0, 'known_bytes': 0, 'total_bytes': 0}
     return {'schema': 'imagine-a33-archives-v1', 'read_only': True, 'imported': False, 'selected_issues': 10,
-            'published_outside': [{'type': 'article', 'year': 2010, 'count': 2}],
+            'published_outside': [{'type': 'article', 'type_group': 0, 'year': 2010, 'count': 2}],
             'outside_media_by_year': [{'year': 2010, 'files': {'count': 2, 'present': 1, 'missing': 1, 'known_bytes': 7, 'total_bytes': 'inconnu fichiers absents'}}],
             'orphan_media': dict(empty), 'recent_media': dict(empty), 'other_media': dict(empty),
             'excluded_directories_bytes': 'non évalué', 'audit_sha256': 'a' * 64, 'mapping_sha256': 'b' * 64}
@@ -28,6 +28,13 @@ def valid():
 class ReportTests(unittest.TestCase):
     def test_nominal(self):
         self.assertTrue(r.projection(valid(), 'a' * 64, 'b' * 64))
+
+    def test_distinct_unknown_types_not_merged(self):
+        d = valid()
+        d['published_outside'] = [{'type': 'autre', 'type_group': i, 'year': 2023, 'count': 1} for i in (1, 2)]
+        self.assertTrue(r.projection(d, 'a' * 64, 'b' * 64))
+        d['published_outside'][1]['type_group'] = 1
+        self.assertFalse(r.projection(d, 'a' * 64, 'b' * 64))
 
     def test_imported_unknown_not_zero(self):
         d = valid()

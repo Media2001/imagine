@@ -6,6 +6,20 @@ namespace Imagine\ArchiveWeight;
 
 final class Analysis
 {
+    public const NON_EDITORIAL = ['attachment', 'revision', 'shop_order', 'shop_order_refund',
+        'shop_order_placehold', 'shop_subscription', 'shop_coupon', 'wc_user_membership'];
+
+    public static function editorial(array $mapping): void
+    {
+        $types = [$mapping['article_type']];
+        if (($mapping['numero_source'] ?? 'post_type') === 'post_type') {
+            $types[] = $mapping['numero_type'];
+        }
+        if (array_intersect($types, self::NON_EDITORIAL)) {
+            throw new \RuntimeException('A33_NONEDITORIAL_MAPPING_UNSUPPORTED');
+        }
+    }
+
     public static function files(array $sizes, bool $imported): array
     {
         $present = count(array_filter($sizes, static fn ($size): bool => $size !== null));

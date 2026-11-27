@@ -37,7 +37,7 @@ def projection(d, audit_hash, mapping_hash):
     for key in ('orphan_media', 'recent_media', 'other_media'):
         if not media(d[key], d['imported']):
             return False
-    for key, fields in [('published_outside', {'type', 'year', 'count'}), ('outside_media_by_year', {'year', 'files'})]:
+    for key, fields in [('published_outside', {'type', 'type_group', 'year', 'count'}), ('outside_media_by_year', {'year', 'files'})]:
         if type(d[key]) is not list:
             return False
         seen = []
@@ -47,7 +47,9 @@ def projection(d, audit_hash, mapping_hash):
             if key == 'published_outside':
                 if r['type'] not in TYPES or not number(r['count']) or r['count'] == 0:
                     return False
-                seen.append((r['type'], str(r['year'])))
+                if not number(r['type_group']) or (r['type_group'] > 0) != (r['type'] == 'autre'):
+                    return False
+                seen.append((r['type'], str(r['type_group']), str(r['year'])))
             else:
                 if not media(r['files'], d['imported']) or r['files']['count'] == 0:
                     return False

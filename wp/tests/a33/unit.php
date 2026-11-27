@@ -13,6 +13,18 @@ $check('analysis_exists', is_file($source));
 if (is_file($source)) {
     require $source;
     $class = \Imagine\ArchiveWeight\Analysis::class;
+    $check('editorial_policy_exists', method_exists($class, 'editorial'));
+    if (method_exists($class, 'editorial')) {
+        foreach (['shop_order', 'shop_order_refund', 'shop_subscription', 'shop_coupon', 'wc_user_membership'] as $type) {
+            $refused = false;
+            try {
+                $class::editorial(['article_type' => $type, 'numero_type' => 'post']);
+            } catch (\RuntimeException $error) {
+                $refused = $error->getMessage() === 'A33_NONEDITORIAL_MAPPING_UNSUPPORTED';
+            }
+            $check('no_commerce_mapping_' . $type, $refused);
+        }
+    }
     $empty = $class::files([], false);
     $check('empty_is_exact_zero', $empty === ['count' => 0, 'present' => 0,
         'missing' => 0, 'known_bytes' => 0, 'total_bytes' => 0]);
@@ -28,7 +40,8 @@ if (is_file($source)) {
     $mapping = ['numero_type' => 'secret_numero', 'article_type' => 'secret_article'];
     foreach (
         ['secret_numero' => 'numero', 'secret_article' => 'article', 'post' => 'post', 'page' => 'page',
-        'product' => 'product', 'product_variation' => 'product_variation', 'PRIVATE_CANARY' => 'autre'] as $raw => $expected
+        'product' => 'product', 'product_variation' => 'product_variation',
+        'PRIVATE_CANARY' => 'autre'] as $raw => $expected
     ) {
         $check('closed_type_' . $expected, $class::type($raw, $mapping) === $expected);
     }

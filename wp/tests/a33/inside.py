@@ -56,6 +56,7 @@ def run_storage(storage):
 register_post_type('a16_numero', ['public'=>false]);
 register_post_type('a16_article', ['public'=>false]);
 register_post_type('PRIVATE_TYPE_CANARY', ['public'=>false]);
+register_post_type('OTHER_TYPE_CANARY', ['public'=>false]);
 register_taxonomy('a16_theme', 'a16_article');
 register_taxonomy('a16_issue', 'a16_article');
 if (getenv('A33_CONFINED') === '1') {
@@ -113,7 +114,7 @@ if (getenv('A33_CONFINED') === '1') {
     check('native_success', p.returncode == 0 and p.stdout == 'A33_OK archives.json archives.md\n' and p.stderr == '', {'exit': p.returncode, 'stderr_sha256': hashlib.sha256(p.stderr.encode()).hexdigest()})
     d = json.loads((out / 'archives.json').read_text(encoding='utf-8'))
     check('twelve_selects_ten_exact', d['selected_issues'] == 10 and len(oracle['issues']) == 12)
-    expected = [{'type': 'article', 'year': 2010, 'count': 1}, {'type': 'article', 'year': 2011, 'count': 1}, {'type': 'autre', 'year': 2023, 'count': 1}, {'type': 'numero', 'year': 2010, 'count': 1}, {'type': 'numero', 'year': 2011, 'count': 1}, {'type': 'post', 'year': 2022, 'count': 1}]
+    expected = [{'type': 'article', 'type_group': 0, 'year': 2010, 'count': 1}, {'type': 'article', 'type_group': 0, 'year': 2011, 'count': 1}, {'type': 'autre', 'type_group': 1, 'year': 2023, 'count': 1}, {'type': 'autre', 'type_group': 2, 'year': 2023, 'count': 1}, {'type': 'numero', 'type_group': 0, 'year': 2010, 'count': 1}, {'type': 'numero', 'type_group': 0, 'year': 2011, 'count': 1}, {'type': 'post', 'type_group': 0, 'year': 2022, 'count': 1}]
     check('published_outside_exact_closed_types_years', d['published_outside'] == expected, d['published_outside'])
     check('outside_files_exact_years_missing_not_zero', d['outside_media_by_year'] == [{'year': 2010, 'files': weight(3, 2, 1, 18)}, {'year': 2011, 'files': weight(1, 1, 0, 13)}, {'year': 2022, 'files': weight(1, 1, 0, 0)}])
     check('orphan_zero_and_missing_parent', d['orphan_media'] == weight(2, 2, 0, 52))
@@ -147,6 +148,12 @@ if (getenv('A33_CONFINED') === '1') {
             check('a16_variant_parent_exact', q.returncode == 0 and all(variant.get(k) == d[k] for k in d if k != 'mapping_sha256'))
         else:
             check('a16_variant_taxonomy_ten_no_term_post_id_inference', q.returncode == 0 and variant.get('selected_issues') == 10 and variant.get('recent_media') == weight(1, 1, 0, 19))
+    forbidden_map = json.loads(mapping.read_bytes())
+    forbidden_map['article_type'] = 'shop_order'
+    forbidden_config = OUT / 'noneditorial.json'
+    forbidden_config.write_text(json.dumps(forbidden_map), encoding='utf-8')
+    bad, dest = inventory('noneditorial', forbidden_config)
+    check('no_commerce_mapping_bootstrap', (bad.returncode, bad.stdout, bad.stderr) == (1, '', 'A33_NONEDITORIAL_MAPPING_UNSUPPORTED\n') and not dest.exists())
     for field in ['numero_type', 'thematique', 'pdf_cle', 'liaison.cle', 'article_type', 'date_cle']:
         m = json.loads(mapping.read_bytes())
         if field == 'liaison.cle':

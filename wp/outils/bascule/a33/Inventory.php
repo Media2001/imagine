@@ -69,6 +69,7 @@ final class Inventory
             . "WHERE BINARY post_type NOT IN $excluded ORDER BY ID");
         $outside = [];
         $counts = [];
+        $anonymousTypes = [];
         foreach ($contents as $content) {
             $id = (int) $content['ID'];
             $keep = !$taxonomy && isset($recent[$id]);
@@ -92,8 +93,13 @@ final class Inventory
                 $year = Analysis::year($content['post_date_gmt']);
                 $outside[$id] = $year;
                 $type = Analysis::type($content['post_type'], $mapping);
-                $key = $type . ':' . $year;
-                $counts[$key] ??= ['type' => $type, 'year' => $year, 'count' => 0];
+                $group = 0;
+                if ($type === 'autre') {
+                    $anonymousTypes[$content['post_type']] ??= count($anonymousTypes) + 1;
+                    $group = $anonymousTypes[$content['post_type']];
+                }
+                $key = $type . ':' . $group . ':' . $year;
+                $counts[$key] ??= ['type' => $type, 'type_group' => $group, 'year' => $year, 'count' => 0];
                 $counts[$key]['count']++;
             }
         }

@@ -97,7 +97,7 @@ def native_valid(folder, root=ROOT):
     if not report.complete_report(nominal, folder / 'audit/audit.json', root / 'wp/outils/bascule/a33/correspondance.exemple.json'):
         return False
     d = read(nominal / 'archives.json')
-    expected = [{'type': 'article', 'year': 2010, 'count': 1}, {'type': 'article', 'year': 2011, 'count': 1}, {'type': 'autre', 'year': 2023, 'count': 1}, {'type': 'numero', 'year': 2010, 'count': 1}, {'type': 'numero', 'year': 2011, 'count': 1}, {'type': 'post', 'year': 2022, 'count': 1}]
+    expected = [{'type': 'article', 'type_group': 0, 'year': 2010, 'count': 1}, {'type': 'article', 'type_group': 0, 'year': 2011, 'count': 1}, {'type': 'autre', 'type_group': 1, 'year': 2023, 'count': 1}, {'type': 'autre', 'type_group': 2, 'year': 2023, 'count': 1}, {'type': 'numero', 'type_group': 0, 'year': 2010, 'count': 1}, {'type': 'numero', 'type_group': 0, 'year': 2011, 'count': 1}, {'type': 'post', 'type_group': 0, 'year': 2022, 'count': 1}]
     return (d['selected_issues'] == 10 and d['published_outside'] == expected
             and d['outside_media_by_year'] == [{'year': 2010, 'files': {'count': 3, 'present': 2, 'missing': 1, 'known_bytes': 18, 'total_bytes': 'inconnu fichiers absents'}}, {'year': 2011, 'files': {'count': 1, 'present': 1, 'missing': 0, 'known_bytes': 13, 'total_bytes': 13}}, {'year': 2022, 'files': {'count': 1, 'present': 1, 'missing': 0, 'known_bytes': 0, 'total_bytes': 0}}]
             and d['orphan_media'] == {'count': 2, 'present': 2, 'missing': 0, 'known_bytes': 52, 'total_bytes': 52}

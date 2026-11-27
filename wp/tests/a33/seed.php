@@ -7,6 +7,7 @@ namespace Imagine\ArchiveTests;
 register_post_type('a16_numero', ['public' => false]);
 register_post_type('a16_article', ['public' => false]);
 register_post_type('PRIVATE_TYPE_CANARY', ['public' => false]);
+register_post_type('OTHER_TYPE_CANARY', ['public' => false]);
 register_taxonomy('a16_theme', 'a16_article');
 register_taxonomy('a16_issue', 'a16_article');
 update_option('active_plugins', []);
@@ -38,6 +39,9 @@ wp_insert_post(['post_type' => 'PRIVATE_TYPE_CANARY', 'post_status' => 'publish'
     'post_title' => 'A33_OTHER_CANARY', 'post_date' => '2023-01-01 12:00:00',
     'post_date_gmt' => '2023-01-01 12:00:00']);
 $draft = wp_insert_post(['post_type' => 'page', 'post_status' => 'draft']);
+wp_insert_post(['post_type' => 'OTHER_TYPE_CANARY', 'post_status' => 'publish',
+    'post_title' => 'A33_TYPE2_CANARY', 'post_date' => '2023-02-01 12:00:00',
+    'post_date_gmt' => '2023-02-01 12:00:00']);
 $media = [];
 foreach (
     [[$issues[0], 7], [$articles[0], 11], [$articles[0], null], [$articles[1], 13],
