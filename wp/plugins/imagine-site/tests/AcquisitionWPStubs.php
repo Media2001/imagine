@@ -30,17 +30,45 @@ namespace Imagine\Site {
     }
     function update_option(string $key, mixed $value, bool $autoload = true): bool { $GLOBALS['c27_options'][$key] = $value; return true; }
     function delete_option(string $key): bool { unset($GLOBALS['c27_options'][$key]); return true; }
-    function get_user_meta(int $id, string $key, bool $single): mixed { return $GLOBALS['c27_meta'][$id][$key] ?? ''; }
+    function c27_source_rows(int $id, string $key): ?array
+    {
+        global $wpdb;
+        $GLOBALS['c27_source_reads'] = ($GLOBALS['c27_source_reads'] ?? 0) + 1;
+        if (in_array($GLOBALS['c27_source_reads'], $GLOBALS['c27_source_fail_reads'] ?? [], true)) {
+            $wpdb->last_error = 'première lecture SOURCE fictive en échec';
+            return null;
+        }
+        $wpdb->last_error = '';
+        return isset($GLOBALS['c27_meta'][$id][$key]) ? [['meta_value' => serialize($GLOBALS['c27_meta'][$id][$key])]] : [];
+    }
+    function get_user_meta(int $id, string $key, bool $single): mixed
+    {
+        if (!array_key_exists($id, $GLOBALS['c27_meta_cache'] ?? [])) {
+            $rows = c27_source_rows($id, $key);
+            // WordPress met aussi un ensemble vide en cache si la requête a échoué.
+            $GLOBALS['c27_meta_cache'][$id] = $rows ? [$key => unserialize($rows[0]['meta_value'])] : [];
+        }
+        return $GLOBALS['c27_meta_cache'][$id][$key] ?? '';
+    }
     function update_user_meta(int $id, string $key, mixed $value): bool
     {
         // WordPress déséchappe réellement les métadonnées, contrairement aux options.
         $GLOBALS['c27_meta'][$id][$key] = wp_unslash($value);
+        unset($GLOBALS['c27_meta_cache'][$id]);
         return true;
     }
-    function delete_user_meta(int $id, string $key): bool { unset($GLOBALS['c27_meta'][$id][$key]); return true; }
+    function delete_user_meta(int $id, string $key): bool
+    {
+        if (!empty($GLOBALS['c27_delete_fail'])) { return false; }
+        unset($GLOBALS['c27_meta'][$id][$key], $GLOBALS['c27_meta_cache'][$id]);
+        return true;
+    }
     function wp_slash(mixed $value): mixed { return is_array($value) ? array_map(__NAMESPACE__ . '\\wp_slash', $value) : (is_string($value) ? addslashes($value) : $value); }
     function wp_unslash(mixed $value): mixed { return is_array($value) ? array_map(__NAMESPACE__ . '\\wp_unslash', $value) : (is_string($value) ? stripslashes($value) : $value); }
-    function wp_cache_delete(mixed $key, string $group): void {}
+    function wp_cache_delete(mixed $key, string $group): void
+    {
+        if ($group === 'user_meta') { unset($GLOBALS['c27_meta_cache'][$key]); }
+    }
     function is_wp_error(mixed $value): bool { return $value instanceof \WP_Error; }
     function __(string $text, string $domain = ''): string { return $text; }
     function is_email(string $email): bool { return str_ends_with($email, '@example.org'); }

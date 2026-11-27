@@ -20,12 +20,17 @@ final class AcquisitionAdapterTest extends TestCase
         require __DIR__ . '/AcquisitionWPStubs.php';
         $GLOBALS['c27_options'] = [Acquisition::OPTION => ['lune' => 'Radio fictive \\ lune', 'mars' => 'Journal fictif']];
         $GLOBALS['c27_meta'] = [];
+        $GLOBALS['c27_meta_cache'] = [];
+        $GLOBALS['c27_source_reads'] = 0;
+        $GLOBALS['c27_source_fail_reads'] = [];
+        $GLOBALS['c27_delete_fail'] = false;
         $GLOBALS['c27_orders'] = [1 => new \WC_Order(), 2 => new \WC_Order(), 3 => new \WC_Order(owner: 29)];
         $GLOBALS['c27_user_sql_fail'] = false;
         $GLOBALS['wpdb'] = new class {
             public string $last_error = '';
             public string $prefix = 'fictif_';
             public string $options = 'fictif_options';
+            public string $usermeta = 'fictif_usermeta';
             public bool $fail = false;
             private ?array $transaction = null;
             public function prepare(string $query, mixed ...$args): array { return [$query, $args]; }
@@ -40,6 +45,9 @@ final class AcquisitionAdapterTest extends TestCase
             }
             public function get_results(array $query, mixed $format): ?array
             {
+                if (str_contains($query[0], $this->usermeta)) {
+                    return \Imagine\Site\c27_source_rows($query[1][0], $query[1][1]);
+                }
                 if ($this->fail) { $this->last_error = 'lecture fictive refusée'; return null; }
                 $this->last_error = '';
                 $prefix = stripslashes(substr($query[1][0], 0, -1));
@@ -51,6 +59,73 @@ final class AcquisitionAdapterTest extends TestCase
             }
         };
         if (!defined('ARRAY_A')) { define('ARRAY_A', 'ARRAY_A'); }
+    }
+
+    public function testPremiereLectureSourceEnEchecAnnuleLaDeclarationSansEcraser(): void
+    {
+        $previous = ['commande' => 99, 'libelle' => 'Origine fictive'];
+        $GLOBALS['c27_meta'][28][Acquisition::SOURCE] = $previous;
+        $GLOBALS['c27_source_fail_reads'] = [1];
+        $before = $GLOBALS['c27_options'];
+        self::assertInstanceOf(\WP_Error::class, Acquisition::repondre(1, 28, 'lune'));
+        self::assertSame($previous, $GLOBALS['c27_meta'][28][Acquisition::SOURCE]);
+        self::assertSame($before, $GLOBALS['c27_options']);
+        self::assertSame(1, $GLOBALS['c27_source_reads']);
+        self::assertTrue(Acquisition::repondre(1, 28, 'lune'));
+        self::assertSame($previous, $GLOBALS['c27_meta'][28][Acquisition::SOURCE]);
+    }
+
+    public function testEffacementPremiereLectureSourceEnEchecResteIncompletPuisReprend(): void
+    {
+        self::assertTrue(Acquisition::repondre(1, 28, 'lune'));
+        $before = [$GLOBALS['c27_meta'], $GLOBALS['c27_options']];
+        $GLOBALS['c27_source_reads'] = 0;
+        $GLOBALS['c27_source_fail_reads'] = [1];
+        $result = AcquisitionConfidentialite::effacer('lecteur@example.org');
+        self::assertFalse($result['done']);
+        self::assertTrue($result['items_retained']);
+        self::assertSame($before, [$GLOBALS['c27_meta'], $GLOBALS['c27_options']]);
+        $GLOBALS['c27_source_fail_reads'] = [];
+        self::assertTrue(AcquisitionConfidentialite::effacer('lecteur@example.org')['done']);
+        self::assertArrayNotHasKey(Acquisition::SOURCE, $GLOBALS['c27_meta'][28]);
+    }
+
+    public function testEffacementCacheVideEmpoisonneEtSuppressionEnEchecNeDitPasDone(): void
+    {
+        self::assertTrue(Acquisition::repondre(1, 28, 'lune'));
+        $previous = $GLOBALS['c27_meta'][28][Acquisition::SOURCE];
+        $GLOBALS['c27_meta_cache'][28] = [];
+        $GLOBALS['c27_delete_fail'] = true;
+        $result = AcquisitionConfidentialite::effacer('lecteur@example.org');
+        self::assertFalse($result['done']);
+        self::assertTrue($result['items_retained']);
+        self::assertSame($previous, $GLOBALS['c27_meta'][28][Acquisition::SOURCE]);
+        $GLOBALS['c27_delete_fail'] = false;
+        self::assertTrue(AcquisitionConfidentialite::effacer('lecteur@example.org')['done']);
+    }
+
+    public function testEffacementRelectureFinaleSourceEnEchecNeDitPasDone(): void
+    {
+        self::assertTrue(Acquisition::repondre(1, 28, 'lune'));
+        $GLOBALS['c27_source_reads'] = 0;
+        $GLOBALS['c27_source_fail_reads'] = [3];
+        $result = AcquisitionConfidentialite::effacer('lecteur@example.org');
+        self::assertFalse($result['done']);
+        self::assertTrue($result['items_retained']);
+        self::assertSame(3, $GLOBALS['c27_source_reads']);
+    }
+
+    public function testPropositionVueSeuleEffaceeRefuseUnAncienFormulaire(): void
+    {
+        $GLOBALS['c27_options'][Acquisition::VUE . '1'] = [
+            'commande' => 1, 'compte' => 28, 'date' => '2026-11-27T12:00:00Z',
+        ];
+        $result = AcquisitionConfidentialite::effacer('lecteur@example.org');
+        self::assertTrue($result['done']);
+        self::assertSame(['commande' => 1, 'etat' => 'effacee'], $GLOBALS['c27_options'][Acquisition::VUE . '1']);
+        $before = [$GLOBALS['c27_meta'], $GLOBALS['c27_options']];
+        self::assertInstanceOf(\WP_Error::class, Acquisition::repondre(1, 28, 'lune'));
+        self::assertSame($before, [$GLOBALS['c27_meta'], $GLOBALS['c27_options']]);
     }
 
     public function testReponseUniqueTiersEtC16FermesSourceNonEcrasee(): void

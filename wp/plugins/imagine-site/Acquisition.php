@@ -119,10 +119,14 @@ final class Acquisition
             if (!add_option($key, $record, '', false) || get_option($key) !== $record) {
                 throw new \RuntimeException('Réponse non enregistrée');
             }
-            // update_user_meta déséchappe : la liste et son journal d'options ne le font pas.
-            if (get_user_meta($actor, self::SOURCE, true) === '') {
+            $source = self::sourceFiable($actor);
+            if (is_wp_error($source)) {
+                throw new \RuntimeException('Lecture de la source impossible');
+            }
+            // Une ligne existante, même vide, n'est jamais remplacée. Lecture hors cache.
+            if ($source === []) {
                 update_user_meta($actor, self::SOURCE, wp_slash($record));
-                if (get_user_meta($actor, self::SOURCE, true) !== $record) {
+                if (self::sourceFiable($actor) !== [$record]) {
                     throw new \RuntimeException('Source non enregistrée');
                 }
             }
@@ -139,5 +143,22 @@ final class Acquisition
         } finally {
             $wpdb->get_var($wpdb->prepare('SELECT RELEASE_LOCK(%s)', $lock));
         }
+    }
+
+    /** [] signifie absence SQL prouvée ; une erreur n'est jamais une absence. */
+    public static function sourceFiable(int $owner): array|\WP_Error
+    {
+        global $wpdb;
+        wp_cache_delete($owner, 'user_meta');
+        $wpdb->last_error = '';
+        $rows = $wpdb->get_results($wpdb->prepare(
+            "SELECT meta_value FROM {$wpdb->usermeta} WHERE user_id = %d AND meta_key = %s",
+            $owner,
+            self::SOURCE
+        ), ARRAY_A);
+        if ($wpdb->last_error !== '' || !is_array($rows)) {
+            return new \WP_Error('imagine_acquisition_source_lecture');
+        }
+        return array_map(static fn (array $row): mixed => maybe_unserialize($row['meta_value']), $rows);
     }
 }

@@ -149,6 +149,10 @@ final class AcquisitionConfidentialite
             if ($wpdb->query('START TRANSACTION') === false) {
                 throw new \RuntimeException('Transaction impossible');
             }
+            $source = Acquisition::sourceFiable($owner);
+            if (is_wp_error($source)) {
+                throw new \RuntimeException('Lecture de la source impossible');
+            }
             foreach ($keys as $key => $row) {
                 // La commande ne pourra pas être interrogée à nouveau ; plus de réponse ni de compte.
                 $tombstone = ['commande' => $row['commande'], 'etat' => 'effacee'];
@@ -158,19 +162,20 @@ final class AcquisitionConfidentialite
                 }
                 $result['items_removed'] = true;
             }
-            if (get_user_meta($owner, Acquisition::SOURCE, true) !== '') {
+            if ($source !== []) {
                 delete_user_meta($owner, Acquisition::SOURCE);
                 $result['items_removed'] = true;
             }
-            if (get_user_meta($owner, Acquisition::SOURCE, true) !== '' || $wpdb->query('COMMIT') === false) {
+            if (Acquisition::sourceFiable($owner) !== [] || $wpdb->query('COMMIT') === false) {
                 throw new \RuntimeException('Source non effacée');
             }
             $remaining = self::lignes($owner);
             $remainingSeen = self::lignes($owner, true);
-            $result['done'] = $remaining === [] && $remainingSeen === [];
-            if (is_wp_error($remaining) || is_wp_error($remainingSeen)) {
+            $remainingSource = Acquisition::sourceFiable($owner);
+            if (is_wp_error($remaining) || is_wp_error($remainingSeen) || $remainingSource !== []) {
                 throw new \RuntimeException('Relecture impossible');
             }
+            $result['done'] = $remaining === [] && $remainingSeen === [] && $remainingSource === [];
         } catch (\Throwable) {
             $wpdb->query('ROLLBACK');
             foreach (array_keys($keys) as $key) {
@@ -178,6 +183,7 @@ final class AcquisitionConfidentialite
             }
             wp_cache_delete($owner, 'user_meta');
             $result['items_retained'] = true;
+            $result['items_removed'] = false;
             $result['done'] = false;
             $result['messages'][] = __('Effacement incomplet : réessayez.', 'imagine-site');
         } finally {
