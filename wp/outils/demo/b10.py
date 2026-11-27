@@ -17,6 +17,14 @@ BLOCK="// B10 — points de vente locaux, sans fournisseur de carte.\nrequire_on
 FILES=['plugins/imagine-site/PointsVenteRegles.php','plugins/imagine-site/PointsVente.php','plugins/imagine-site/imagine-site.php']
 
 
+def recette_state():
+    """Les remplacements B10 changent légitimement leurs IDs ; tous les autres objets restent exacts."""
+    value=state()
+    fingerprints=wp('''global $wpdb;$out=[];foreach(['posts'=>"SELECT * FROM {$wpdb->posts} WHERE post_type<>'imagine_vente'",'postmeta'=>"SELECT * FROM {$wpdb->postmeta} WHERE post_id NOT IN (SELECT ID FROM {$wpdb->posts} WHERE post_type='imagine_vente')"] as $key=>$sql){$rows=$wpdb->get_results($sql,ARRAY_A);$hashes=array_map(static fn($r)=>hash('sha256',serialize($r)),$rows);sort($hashes);$out[$key]=['count'=>count($hashes),'sha256'=>hash('sha256',serialize($hashes))];}echo wp_json_encode($out);''')
+    value['native']['native_fingerprints'].update(fingerprints)
+    return value
+
+
 def save(label,data):
     p=OUT/(label+'.json')
     assert not p.exists(),p

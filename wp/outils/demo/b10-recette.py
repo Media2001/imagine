@@ -9,7 +9,7 @@ import b10
 
 
 def run(label):
-    identity=b10.guard();business=b10.state();nav=b10.navigation()
+    identity=b10.guard();business=b10.recette_state();nav=b10.navigation()
     observer='mu-plugins/b10-observer.php'
     assert not (b10.OUT/(label+'.json')).exists()
     assert b10.wp('echo wp_json_encode(file_exists(WP_CONTENT_DIR."/'+observer+'"));') is False
@@ -149,7 +149,7 @@ def run(label):
         absent=b10.wp('echo wp_json_encode(!file_exists(WP_CONTENT_DIR."/'+observer+'")&&get_option("imagine_b10_observations",null)===null);')
         assert absent
         b10.save(label+'-nettoyage',{'observer_removed':absent,'sessions_restored':True})
-    after_business=b10.state()
+    after_business=b10.recette_state()
     checks['etat_metier_apres_restauration_sessions']=after_business==business
     if after_business!=business:
         # Résumé sans données : isoler le type de dérive, pas accepter un état inconnu.
