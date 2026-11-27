@@ -183,8 +183,8 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         }
     ],
     "update_source": "local_cache_only_not_a_live_check",
-    "plugin_cache_checked_epoch": 1795729838,
-    "theme_cache_checked_epoch": 1795729838
+    "plugin_cache_checked_epoch": 1795739900,
+    "theme_cache_checked_epoch": 1795739900
 }
 ```
 
@@ -809,7 +809,7 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         {
             "name": "wp_fluentform_submissions",
             "bytes": 16384,
-            "rows": 2,
+            "rows": 0,
             "ownership": "unattributed_candidate"
         },
         {

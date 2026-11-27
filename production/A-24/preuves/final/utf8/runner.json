@@ -1,8 +1,8 @@
 {
   "suite": "A24-owned-runner",
-  "container": "imagine-a24-addresses-8b8ee6009476",
+  "container": "imagine-a24-addresses-d420b32bdb8a",
   "image": "sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2",
-  "at": "2026-11-26T21:40:22.664517+00:00",
+  "at": "2026-11-27T00:33:04.971076+00:00",
   "checks": [
     {
       "check": "isolation_before",

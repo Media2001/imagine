@@ -31,5 +31,5 @@
         "clear_messages_after_import": true,
         "clear_messages_after_import_label": "avertissement éditorial permanent, non mesuré sur la copie inspectée"
     },
-    "audit_sha256": "0cfba56aebd683939ccc8f8b457bb247727f3465d86623d3f6521ca7e1e71f0e"
+    "audit_sha256": "e09ac4ba29a08d4c8df18e5e51ef31c5887574377530bad27f3496b06df7af55"
 }

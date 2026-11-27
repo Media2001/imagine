@@ -7,7 +7,7 @@ Comptes uniquement ; aucune valeur ni decision de suppression.
     "schema": "imagine-a19-coherence-v1",
     "read_only": true,
     "storage": "classic",
-    "as_of_utc": "2026-11-26T17:37:42Z",
+    "as_of_utc": "2026-11-27T00:14:27Z",
     "counts": {
         "cross": [
             {
@@ -86,6 +86,6 @@ Comptes uniquement ; aucune valeur ni decision de suppression.
     "payment_reference_basis": "Reference Woo liee ou champs du schema natif de passerelle ; sinon inconnu.",
     "mode_basis": "Drapeau manuel enregistre, pas bascule manuelle effective du staging.",
     "scope": "Magasin natif faisant autorite ; liens explicites ; aucun rapprochement par identite.",
-    "audit_sha256": "d001400958dde054ebef983604823de1f3b5ee4975b9ff442bd75c75685d0e3c"
+    "audit_sha256": "d299cda31e5ee5e1a32d61b18fcaf7abbfe4b7bb22a1ac80fd8c6850d0f92f45"
 }
 ```

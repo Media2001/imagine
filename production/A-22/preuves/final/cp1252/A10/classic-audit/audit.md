@@ -183,8 +183,8 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         }
     ],
     "update_source": "local_cache_only_not_a_live_check",
-    "plugin_cache_checked_epoch": 1795714775,
-    "theme_cache_checked_epoch": 1795714775
+    "plugin_cache_checked_epoch": 1795738531,
+    "theme_cache_checked_epoch": 1795738531
 }
 ```
 
@@ -1207,7 +1207,7 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         },
         {
             "name": "cron",
-            "bytes": 2235
+            "bytes": 2216
         },
         {
             "name": "widget_block",
@@ -1376,79 +1376,79 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
             "hook": "a02_fixture_cron",
             "schedule": "daily",
             "count": 1,
-            "next_epoch": 1795718375
+            "next_epoch": 1795742131
         },
         {
             "hook": "action_scheduler_run_queue",
             "schedule": "every_minute",
             "count": 1,
-            "next_epoch": 1795714765
+            "next_epoch": 1795738522
         },
         {
             "hook": "do_pings",
             "schedule": "single",
             "count": 1,
-            "next_epoch": 1795714773
+            "next_epoch": 1795738529
         },
         {
             "hook": "jetpack_clean_nonces",
             "schedule": "hourly",
             "count": 1,
-            "next_epoch": 1795714768
+            "next_epoch": 1795738525
         },
         {
             "hook": "jetpack_v2_heartbeat",
             "schedule": "daily",
             "count": 1,
-            "next_epoch": 1795714768
+            "next_epoch": 1795738525
         },
         {
             "hook": "recovery_mode_clean_expired_keys",
             "schedule": "daily",
             "count": 1,
-            "next_epoch": 1795714764
+            "next_epoch": 1795738521
         },
         {
             "hook": "wc_admin_process_orders_milestone",
             "schedule": "hourly",
             "count": 1,
-            "next_epoch": 1795714769
+            "next_epoch": 1795738525
         },
         {
             "hook": "wc_memberships_jobs_cleanup",
             "schedule": "daily",
             "count": 1,
-            "next_epoch": 1795738500
+            "next_epoch": 1795824900
         },
         {
             "hook": "wp_privacy_delete_old_export_files",
             "schedule": "hourly",
             "count": 1,
-            "next_epoch": 1795714765
+            "next_epoch": 1795738521
         },
         {
             "hook": "wp_site_health_scheduled_check",
             "schedule": "weekly",
             "count": 1,
-            "next_epoch": 1795801164
+            "next_epoch": 1795824921
         },
         {
             "hook": "wp_update_plugins",
             "schedule": "twicedaily",
             "count": 1,
-            "next_epoch": 1795720164
+            "next_epoch": 1795743921
         },
         {
             "hook": "wp_update_themes",
             "schedule": "twicedaily",
             "count": 1,
-            "next_epoch": 1795721964
+            "next_epoch": 1795745721
         },
         {
             "hook": "wp_version_check",
             "schedule": "twicedaily",
             "count": 1,
-            "next_epoch": 1795718364
+            "next_epoch": 1795742121
         }
     ],
     "arguments_excluded": true

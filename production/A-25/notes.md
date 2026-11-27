@@ -1,18 +1,5 @@
-# État actif — qualification finale 2026-11-26T22:56:39.447669+01:00
+# Requalification technique A-25 après dépendance A28 — 2026-11-27T01:42:14.893754+01:00
 
-Voir `FINALISATION.md` : matrices natives complètes et gates communes réellement vertes sur le gel **2026-11-26T22:56:09.803345+01:00**. Un seul paquet retenu `preuves/final`, vérification sans argument ; anciens paragraphes et chiffres ci-dessous **historiques**, pas une nouvelle attestation. Clé primaire submission_id comptée, vraie table-fille exclue, variante pk-only sans zéro silencieux et ambiguïté fermée réellement prouvées sur classique/HPOS. L'étiquette éditoriale et la source Fluent Forms restent explicites ; import inchangé.
+Matrice neuve réellement exécutée sur import courant, deux consoles Windows 3.14.6. Sources métier A21–A27 et gardien inchangés ; seules adaptations banc A25 autorisées. A25 : purge native obligatoire des deux messages Fluent Forms ; inconnus conservés séparément. Avertissement du rapport permanent et historique, pas une preuve de conservation actuelle des familles connues. 
 
----
-
-# A-25 — checkpoints
-
-- Début 26/11/2026 17:08 CET ; échéance ferme 20:08 CET.
-- Brief entier, consigne permanente, doctrine révision 22/11, file voie 1 de 16h30, arbitrages du 26/11 passage 16h et CDC §4.4 lus. Délégation : aucun verrou, PRET, fichier partagé ou porte globale modifiés.
-- RED lanceur observé (5 tests échouent : lanceur absent), puis GREEN 5/5. RED moteur pur observé en conteneur jetable (Analysis absent), nettoyage exact relu ; GREEN 15 règles, inclusion pure sans extensions ni écritures. Essais intermédiaires sous scratch seulement.
-- Décision prudente : liste de formulaires bornée à Fluent Forms ; inconnues reconnues par structure, couverture non exhaustive déclarée. Année 0 fermée pour date absente. Commande sans compte = getter client natif 0, pas preuve de l'authentification historique du navigateur.
-- Import inchangé lu : email des commentaires remplacé même vide, IP effacée ; textes de tables de formulaires inconnues conservés si décision garder. Les comptes faussés deviennent inconnus, jamais zéro ; aucune correction de l'import.
-- Matrice native exploratoire 01 démarrée ; aucune preuve finale ni readiness revendiquée.
-- 17:19 CET : exploratoire 02 verte classique/HPOS ; tous canaux et empreintes exercés. L'exploratoire 01 avait un sélecteur de codes de refus resté A23 dans le seul harnais, corrigé dans A25 ; sources communes intactes.
-- 17:29 CET : RED réel de la variante inconnue sans date : GROUP BY 0 refusé par MariaDB ; correction minimale en GROUP BY 1. RED conservé uniquement sous scratch. PSR-12 initial : avertissements de longueur et mélange symbole/effets dans deux fixtures ; corrigés sans ignorer les avertissements.
-- 17:37 CET : matrice finale 01 à code 0, UTF-8 et cp1252 Windows mesurés ; 21 Python, 15 purs, 9 qualifications natives, 194 contrôles natifs (93 par magasin, plus 8 contrôles communs), 9 runner dans chaque contexte ; PSR-12 zéro erreur/avertissement. Toutes sources exécutées et dépendances identiques aux fichiers courants. Seul paquet final copié sous production/A-25/preuves/final.
-- Quatre mutations de paquet sous scratch refusées par le vrai vérificateur. Scan des 185 artefacts final : aucun canari, email fictif ou IP visiteur. Aucune source commune, donnée réelle ou porte parent touchée. Sceau relu : 214 entrées du seul lot, vérificateur complet 90/90 à code 0 en UTF-8 et cp1252 ; état candidat, aucune readiness globale revendiquée.
+Le paquet courant preuves/final désigne ces nouvelles exécutions. Anciennes preuves et notes intégrales conservées hors dépôt : C:/Users/Ced/AppData/Local/hermes/cache/scratch/a2129-parent-20261127/historical/A-25/ ; octets comparés exactement. Les gates et la disponibilité sont liées séparément dans parent-gates.json ; seul PRET atteste une réception technique finale après toutes les gates. Aucun GO réel. A22 demeure non clos, réserve de relecture indépendante inchangée.

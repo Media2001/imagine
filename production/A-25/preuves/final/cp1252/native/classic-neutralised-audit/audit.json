@@ -1,6 +1,6 @@
 {
     "schema": "imagine-a02-audit-v1",
-    "generated_at_utc": "2026-11-26T21:52:13+00:00",
+    "generated_at_utc": "2026-11-27T00:39:54+00:00",
     "read_only": true,
     "privacy": "structural_identifiers_versions_numeric_counts_only; no_titles_contacts_settings_arguments_or_raw_logs",
     "sections": {
@@ -182,8 +182,8 @@
                 }
             ],
             "update_source": "local_cache_only_not_a_live_check",
-            "plugin_cache_checked_epoch": 1795729907,
-            "theme_cache_checked_epoch": 1795729907
+            "plugin_cache_checked_epoch": 1795739968,
+            "theme_cache_checked_epoch": 1795739968
         },
         "commerce": {
             "order_storage": "classic",
@@ -860,7 +860,7 @@
                 {
                     "name": "wp_fluentform_submissions",
                     "bytes": 16384,
-                    "rows": 2,
+                    "rows": 0,
                     "ownership": "unattributed_candidate"
                 },
                 {

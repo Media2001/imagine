@@ -7,9 +7,10 @@
   "wp/outils/bascule/a25/README.md": "39f7d7fa50504881b063332f9e35c1348054c1b9a19fb25929e4cac9d2c056f6",
   "wp/outils/bascule/a25/refusals.json": "850eeb7e586b6a8650dcaf91eedf35f871b9d24d763608fcfd5671af311470b4",
   "wp/outils/bascule/a25/report.py": "e8f53278b0591f74418c3b37264f214660b893696c2d7c318462e88e3c7ca1d2",
-  "wp/tests/a25/inside.py": "ff378e65a44931499cb169b9f74b8e250acb4f78fcdb02b83ed6b20e3aa33930",
+  "wp/tests/a25/inside.py": "8deaf0a02c206945fbaff54a4a68a9e709816ab7c6517822e578e0fc52978db3",
   "wp/tests/a25/matrix.py": "46dfd842310b380d67005e5be1a8b90992714ded0488b24f3330e446b33fd354",
-  "wp/tests/a25/neutralise.php": "e91496aeb47e63fe33d45b2e812a2ed2cd672d2e6c28932825fc12182dfc5125",
+  "wp/tests/a25/neutralise-keep-red.php": "162b3213c6ae8427ff26c7552ccca30b0d69e96cdd6136ec5ba3c45cccaf9c5b",
+  "wp/tests/a25/neutralise.php": "93d456d396f4e9067740e7750c7df67341be0483a627d3a1412f36cc07377f82",
   "wp/tests/a25/pure-probe.php": "f3b90c3fcfffb03b54b44e8065905076a8ce3f210adfe6f3992850af78b1ec02",
   "wp/tests/a25/run.py": "6e80bd9306f0bc9d1a17e51d1f6e002f78f54f9311c416bfc5db2f246de1b3ef",
   "wp/tests/a25/seed-five.php": "70b7ff1cb28c3c491926b1c7008bcb1f32408bc8683690a87e8460ac1663c8d1",
@@ -17,9 +18,10 @@
   "wp/tests/a25/standard.php": "04a8ac5acc45f82b30a641fd4190c84927674d740dd5254b72de929ffd8b36c4",
   "wp/tests/a25/style.py": "158c23b7e9a254abae19b323f038a14c0a54a0312c2d45aaade58ceab26a1aae",
   "wp/tests/a25/test_corrections.py": "9153e5d430687fef3016fe04bb95d556a7cdf18103aa635c50da11be4eb139e7",
+  "wp/tests/a25/test_import_purge.py": "43c55871c9f21250cff60664f4b6c220bfb87ebed1dbe0011a361620e71cbbf9",
   "wp/tests/a25/test_launcher.py": "b011d8e5435978c6ad024bb2a18aa9b3bcdbd5344def7ca15cb6ff44c178895c",
   "wp/tests/a25/test_report.py": "298797cf5a2b43a740951eedce44c18e233ec076515935080eee02e7f71f580f",
   "wp/tests/a25/test_verify.py": "17e75dd0dab5a7f3d1ad0a39bb9b2a636602a463371fcfff952cda6704d855f2",
   "wp/tests/a25/unit.php": "a3fd41cc03df2962298e3c7af6c038f6d6e14d51142b52d0792005613ab7d40c",
-  "wp/tests/a25/verify.py": "7cfa32e9724f83505d59c163367dd198cd70550f7408804b596fb8f80f373a16"
+  "wp/tests/a25/verify.py": "bdb2828734de72a9c1034f5fc6643cc7a7d28bbd7ee3fe124da0b00b387602e0"
 }

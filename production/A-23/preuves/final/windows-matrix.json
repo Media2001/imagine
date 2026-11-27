@@ -16,7 +16,7 @@
       "console": "utf-8",
       "exit_code": 0,
       "log": "utf8/python-tests.log",
-      "log_sha256": "5d6a95a06e27c8df4ab1ac1aca04145fa5d8cff98559c0131ffa32636e91e332",
+      "log_sha256": "4e722d03f0ceb331651a55d8ee15854e293eeb29a6aebfb843b047fb7c6cd5e6",
       "tests_run": 30,
       "all_pass": true
     },
@@ -25,12 +25,12 @@
         "C:\\Python314\\python.exe",
         "-B",
         "wp/tests/a23/run.py",
-        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126\\a23-matrix-02\\utf8\\native"
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2129-parent-20261127\\a23-matrix-01\\utf8\\native"
       ],
       "console": "utf-8",
       "exit_code": 0,
       "log": "utf8/runner-console.log",
-      "log_sha256": "aa346c91921d4d581f40565ae5709ae1a594e6b76b5307c6ba09e1c36c8d30de"
+      "log_sha256": "d647607601ca44dcc08389d5623da64321ad4058e52bc255a78628af5b3d0a44"
     },
     {
       "command": [
@@ -48,7 +48,7 @@
       "console": "cp1252",
       "exit_code": 0,
       "log": "cp1252/python-tests.log",
-      "log_sha256": "c2b15d2faabc4b4f1151a82b13e9f4147713d10da48b9e7c4622ff5ecd5964b4",
+      "log_sha256": "c2bdfc9a6326d7a7d5ee3585505e9ebc7dd4e710f4a05b1bc8c1da2629cca7a7",
       "tests_run": 30,
       "all_pass": true
     },
@@ -57,24 +57,24 @@
         "C:\\Python314\\python.exe",
         "-B",
         "wp/tests/a23/run.py",
-        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126\\a23-matrix-02\\cp1252\\native"
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2129-parent-20261127\\a23-matrix-01\\cp1252\\native"
       ],
       "console": "cp1252",
       "exit_code": 0,
       "log": "cp1252/runner-console.log",
-      "log_sha256": "d2b54527fe092b2ace0587bc65ade229c3fd6c46b38763131dd52a34ac34bdf8"
+      "log_sha256": "dbe30194f5e9e7097994034b5812ebfa2a7810414118253d4bc8a6671dfdfc30"
     },
     {
       "command": [
         "C:\\Python314\\python.exe",
         "-B",
         "wp/tests/a23/style.py",
-        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126\\a23-matrix-02\\style"
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2129-parent-20261127\\a23-matrix-01\\style"
       ],
       "console": "utf-8",
       "exit_code": 0,
       "log": "style-console.log",
-      "log_sha256": "6545294fb0e1d4395e5aba1074f7677078af4d26bab249a1eb40f8dc3f28872a"
+      "log_sha256": "36e27b21c087c5a6a27e1efa662a3754358b8a6439a5b02695340c397a522a3e"
     }
   ],
   "exit_code": 0

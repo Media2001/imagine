@@ -1,15 +1,15 @@
 ﻿ancienne;nature;type_contenu;etat_publication;derniere_modification_utc;autres_contextes
 /magazine;"archive de type de contenu";post;public;;
-/magazine/?attachment_id=37;"pièce jointe";attachment;inherit;2026-11-26T17:26:26Z;
+/magazine/?attachment_id=37;"pièce jointe";attachment;inherit;2026-11-27T00:09:31Z;
 /magazine/a11-category/a11-article/;article;post;publish;2025-02-03T12:00:00Z;
-/magazine/a11-category/a11-article/attachment/a11-attachment/;"pièce jointe";attachment;inherit;2026-11-26T17:26:26Z;
+/magazine/a11-category/a11-article/attachment/a11-attachment/;"pièce jointe";attachment;inherit;2026-11-27T00:09:31Z;
 /magazine/a11-parent/;page;page;publish;2025-02-03T12:00:00Z;
 /magazine/a11-parent/a11-child/;page;page;publish;2025-02-03T12:00:00Z;
 /magazine/a11-shop/;page;page;publish;2025-02-03T12:00:00Z;"archive de type de contenu : product"
-/magazine/a11-unattached/;"pièce jointe";attachment;inherit;2026-11-26T17:26:26Z;
+/magazine/a11-unattached/;"pièce jointe";attachment;inherit;2026-11-27T00:09:31Z;
 /magazine/author/a11-product-writer/;"archive d'auteur";author;public;;
 /magazine/author/a11-writer/;"archive d'auteur";author;public;;
-/magazine/boutique/a11-product_cat/a11-product/;produit;product;publish;2026-11-26T17:26:26Z;
+/magazine/boutique/a11-product_cat/a11-product/;produit;product;publish;2026-11-27T00:09:31Z;
 /magazine/etiquettes/a11-empty-product_tag/;"terme de taxonomie";product_tag;public;;
 /magazine/etiquettes/a11-product_tag/;"terme de taxonomie";product_tag;public;;
 /magazine/familles/a11-empty-product_cat/;"terme de taxonomie";product_cat;public;;

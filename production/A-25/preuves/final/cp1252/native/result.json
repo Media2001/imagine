@@ -398,7 +398,27 @@
       "detail": null
     },
     {
-      "check": "classic:actual_import_comments_changed_forms_clear",
+      "check": "classic:actual_old_keep_refused_red",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:old_keep_refusal_database_unchanged",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:actual_import_comments_anonymised",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:actual_import_known_forms_purged",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:actual_import_unknown_forms_kept_separately",
       "status": "PASS",
       "detail": null
     },
@@ -922,7 +942,27 @@
       "detail": null
     },
     {
-      "check": "hpos:actual_import_comments_changed_forms_clear",
+      "check": "hpos:actual_old_keep_refused_red",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:old_keep_refusal_database_unchanged",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:actual_import_comments_anonymised",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:actual_import_known_forms_purged",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:actual_import_unknown_forms_kept_separately",
       "status": "PASS",
       "detail": null
     },

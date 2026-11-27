@@ -282,8 +282,8 @@
       "check": "classic:db_identical",
       "status": "PASS",
       "detail": {
-        "before": "274daf9e99f9e853a3e60c730f4eb2d5c0b5c6dce0bd06f6538655a968c0a919",
-        "after": "274daf9e99f9e853a3e60c730f4eb2d5c0b5c6dce0bd06f6538655a968c0a919",
+        "before": "99e2aaea561ae6c83b353bc08571d775948ede605a64c56b9dfe25fa796cd3a9",
+        "after": "99e2aaea561ae6c83b353bc08571d775948ede605a64c56b9dfe25fa796cd3a9",
         "tables": 55
       }
     },
@@ -599,8 +599,8 @@
       "check": "hpos:db_identical",
       "status": "PASS",
       "detail": {
-        "before": "79c1d1e9440982c21ce1e29c0e3145ba538048ef82a26e0ee6cc2dba1c38a0a6",
-        "after": "79c1d1e9440982c21ce1e29c0e3145ba538048ef82a26e0ee6cc2dba1c38a0a6",
+        "before": "bafd489f9c02f8e3cf4fceed6c59ba384da4685d48098ab2e8de09c0d38f5706",
+        "after": "bafd489f9c02f8e3cf4fceed6c59ba384da4685d48098ab2e8de09c0d38f5706",
         "tables": 55
       }
     },

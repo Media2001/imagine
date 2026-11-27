@@ -5,7 +5,7 @@
   "native_calls": [
     [
       "exec",
-      "imagine-a12-content-ccac2865d2dd",
+      "imagine-a12-content-3be74c5e447f",
       "python3",
       "/opt/a12/inside.py"
     ]

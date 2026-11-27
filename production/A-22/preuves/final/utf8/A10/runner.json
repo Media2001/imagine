@@ -1,9 +1,9 @@
 {
-  "run_id": "44737c112f19",
+  "run_id": "f983d62cdbd7",
   "phase": "final",
   "mode": "native",
-  "container": "imagine-a10-coupons-44737c112f19",
-  "at_utc": "2026-11-26T17:17:30.408050+00:00",
+  "container": "imagine-a10-coupons-f983d62cdbd7",
+  "at_utc": "2026-11-27T00:00:59.073578+00:00",
   "checks": [
     {
       "check": "isolation_before",

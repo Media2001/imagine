@@ -1,7 +1,7 @@
 {
-  "run_id": "8cdc626379c0",
-  "container": "imagine-a11-addresses-8cdc626379c0",
-  "at_utc": "2026-11-26T17:39:13.783597+00:00",
+  "run_id": "ce9d907f8b80",
+  "container": "imagine-a11-addresses-ce9d907f8b80",
+  "at_utc": "2026-11-27T00:16:16.497944+00:00",
   "checks": [
     {
       "check": "isolation_before",

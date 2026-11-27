@@ -38,6 +38,7 @@ $checks = [
     'native_as_db_store' => str_contains($sources['as_store'], 'ActionScheduler_DBStore')
         && str_contains($sources['as_store'], 'function mark_failure('),
     'native_email_queue_hook_composition' => str_contains($sources['email'], "'wc_emailer'")
+        && str_contains($sources['email'], 'extends WC_Background_Process')
         && str_contains($sources['email'], 'get_current_blog_id()')
         && str_contains($sources['background'], 'extends WP_Background_Process')
         && str_contains($sources['native_process'], 'extends WP_Async_Request')
