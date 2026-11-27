@@ -22,7 +22,7 @@ def pure(label):
     r = docker('run','--rm','--pull','never','--network','none','--read-only',
         '--mount','type=bind,source=/mnt/c/Users/Ced/imagine/wp,target=/repo/wp,readonly',
         '--entrypoint','php','imagine-tests-t01:1','/repo/wp/tests/demo/c29-pure.php')
-    save(label, {'exit':r.returncode,'stdout':r.stdout,'stderr':r.stderr})
+    save(label, {'exit':r.returncode,'stdout':r.stdout,'stderr':r.stderr,'sources':sources()})
     print(r.stdout,r.stderr)
     return r.returncode
 
@@ -51,7 +51,7 @@ def native(label):
     r = b11.b10.b09.b08.c25.b06.profils.b00.wp('eval',code,check=False)
     after = c19.state()
     restored = after == before
-    save(label, {'identity':identity,'native':r,'business_preserved':restored,'strict_before':before,'strict_after':after})
+    save(label, {'identity':identity,'native':r,'business_preserved':restored,'strict_before':before,'strict_after':after,'sources':sources()})
     if r['code']==0:
         data=json.loads(r['stdout']); print(json.dumps({'exit':0,'total':data['total'],'checks':data['checks'],'restored':restored},ensure_ascii=False))
     else: print(json.dumps(r,ensure_ascii=False))

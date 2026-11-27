@@ -137,7 +137,7 @@ def run(label):
         after=c29.state();restored=before==after
         # Explicit session equality; C19's generic native fingerprint excludes session tokens.
         session_ok=wp('global $wpdb;$old='+php(old['meta'])+';$ids='+php(ids)+''';$expected=array_values(array_filter($old,static fn($r)=>$r['meta_key']==='session_tokens'));$actual=$wpdb->get_results('SELECT * FROM '.$wpdb->usermeta.' WHERE user_id IN ('.implode(',',$ids).") AND meta_key='session_tokens' ORDER BY umeta_id",ARRAY_A);usort($expected,static fn($a,$b)=>(int)$a['umeta_id']<=>(int)$b['umeta_id']);echo wp_json_encode($actual===$expected);''')
-        c29.save(label,{'identity':identity,'checks':checks,'total':len(checks),'observations':observations,'surfaces':surfaces,'witness':locals().get('witness'),'external_browser':external,'business_preserved':restored,'sessions_restored':session_ok,'probe_removed':removed,'strict_before':before,'strict_after':after,'error':error})
+        c29.save(label,{'identity':identity,'checks':checks,'total':len(checks),'observations':observations,'surfaces':surfaces,'witness':locals().get('witness'),'external_browser':external,'business_preserved':restored,'sessions_restored':session_ok,'probe_removed':removed,'strict_before':before,'strict_after':after,'error':error,'sources':c29.sources()})
     print(json.dumps({'checks':len(checks),'failed':[k for k,v in checks.items() if not v],'restored':restored,'sessions_restored':session_ok,'probe_removed':removed,'error':error},ensure_ascii=False))
     assert not error and checks and all(checks.values()) and restored and session_ok and removed
 if __name__=='__main__':run(sys.argv[1])

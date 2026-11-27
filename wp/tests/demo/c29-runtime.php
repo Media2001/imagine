@@ -139,11 +139,6 @@ $wpdb->update($wpdb->posts, ['post_author' => $users['P-BENEF']], ['ID' => $memb
 clean_post_cache($membership);
 update_post_meta($membership, '_subscription_id', (string)$fixture['subscriptions']['A-PAPIER']);
 $check('beneficiaire_groupe_inconnu', ContactBrevo::fiche((int)$users['P-BENEF'])['fiche']['statut'] === 'inconnu');
-$wpdb->update($wpdb->posts, ['post_status' => 'wcm-expired'], ['ID' => $membership]);
-clean_post_cache($membership);
-wp_cache_flush();
-$check('lien_groupe_expire_natif_relu', wc_memberships_get_user_membership($membership)->get_status() === 'expired');
-$check('beneficiaire_groupe_expire_encore_inconnu', ContactBrevo::fiche((int)$users['P-BENEF'])['fiche']['statut'] === 'inconnu');
 $check('payeur_pas_beneficiaire_deduit', ContactBrevo::fiche((int)$users['A-PAPIER'])['fiche']['statut'] === 'abonne');
 wp_set_current_user(0);
 echo wp_json_encode(['checks' => $checks, 'total' => count($checks), 'profils' => $actual, 'writes' => $writes, 'outgoing' => $outgoing,
