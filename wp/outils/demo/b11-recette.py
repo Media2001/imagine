@@ -117,6 +117,8 @@ def run(label):
             for role in ['anon','reader']:
                 r=get(role,'/numeros/demo-2026-t1/')
                 check('page_numero_sans_adresse_audio_'+role,b'imagine_audio=' not in r[2] and b'Sommaire audio' in r[2])
+                rest=get(role,'/wp-json/wp/v2/imagine_numero/'+str(fixture['issue']))
+                check('REST_numero_sans_adresse_audio_'+role,rest[0]==200 and json.loads(rest[2]).get('id')==fixture['issue'] and b'imagine_audio' not in rest[2] and b'_imagine_audio_blob' not in rest[2])
             # Mutation réelle B11 seulement : garde article ôtée, puis remise et relue.
             name='plugins/imagine-site/Medias.php';original=(b11.ROOT/'wp'/name).read_bytes()
             token=b"&& !Paywall::decision($post)['complet']"
@@ -155,7 +157,9 @@ def run(label):
             setting('0')
             browser.close()
         observations=b11.wp('echo wp_json_encode(get_option("imagine_b11_observations",[]));')
-        check('save_render_zero_HTTP_oembed_mail',not any(v for k,v in (observations.items() if isinstance(observations,dict) else []) if not k.startswith('ambiance_')))
+        destinations=observations.get('destinations',[]) if isinstance(observations,dict) else []
+        check('save_render_B11_zero_HTTP_oembed_mail',not any(d['subject_b11'] for d in destinations) and not any(v for k,v in (observations.items() if isinstance(observations,dict) else []) if k.endswith(('_oembed','_mail')) and not k.startswith('ambiance_')))
+        check('tentatives_ambiance_qualifiees_bloquees_B00',all(d['ambient_novamira_update'] and d['host']=='license.dynamic.ooo' for d in destinations))
         check('seuls_gravatars_admin_bloques',all(urlsplit(u).netloc=='secure.gravatar.com' for u in external))
     except Exception as exc:
         error=type(exc).__name__+': '+str(exc)

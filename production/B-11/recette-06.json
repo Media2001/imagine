@@ -1325,7 +1325,6 @@
     "destinations": [
       {
         "phase": "settings-save",
-        "url": "https://license.dynamic.ooo/novamira-pro/info.php?domain=192.168.129.32:8085&version=1.1.1&licence_key=nvp-0010a06c-31bdf88c-d231a1bb&beta=false",
         "stack": [
           "class-wp-hook.php:{closure}",
           "plugin.php:apply_filters",
@@ -1342,11 +1341,11 @@
           "menu.php:wp_get_update_data",
           "admin.php:require",
           "options.php:require_once"
-        ]
+        ],
+        "host": "license.dynamic.ooo"
       },
       {
         "phase": "settings-save",
-        "url": "https://license.dynamic.ooo/novamira-pro/info.php?domain=192.168.129.32:8085&version=1.1.1&licence_key=nvp-0010a06c-31bdf88c-d231a1bb&beta=false",
         "stack": [
           "class-wp-hook.php:{closure}",
           "plugin.php:apply_filters",
@@ -1364,11 +1363,11 @@
           "menu.php:wp_get_update_data",
           "admin.php:require",
           "options.php:require_once"
-        ]
+        ],
+        "host": "license.dynamic.ooo"
       },
       {
         "phase": "settings-save",
-        "url": "https://license.dynamic.ooo/novamira-pro/info.php?domain=192.168.129.32:8085&version=1.1.1&licence_key=nvp-0010a06c-31bdf88c-d231a1bb&beta=false",
         "stack": [
           "class-wp-hook.php:{closure}",
           "plugin.php:apply_filters",
@@ -1387,11 +1386,11 @@
           "plugin.php:do_action",
           "admin.php:do_action",
           "options.php:require_once"
-        ]
+        ],
+        "host": "license.dynamic.ooo"
       },
       {
         "phase": "mode0-save",
-        "url": "https://license.dynamic.ooo/novamira-pro/info.php?domain=192.168.129.32:8085&version=1.1.1&licence_key=nvp-0010a06c-31bdf88c-d231a1bb&beta=false",
         "stack": [
           "class-wp-hook.php:{closure}",
           "plugin.php:apply_filters",
@@ -1408,11 +1407,11 @@
           "menu.php:wp_get_update_data",
           "admin.php:require",
           "post.php:require_once"
-        ]
+        ],
+        "host": "license.dynamic.ooo"
       },
       {
         "phase": "mode0-save",
-        "url": "https://license.dynamic.ooo/novamira-pro/info.php?domain=192.168.129.32:8085&version=1.1.1&licence_key=nvp-0010a06c-31bdf88c-d231a1bb&beta=false",
         "stack": [
           "class-wp-hook.php:{closure}",
           "plugin.php:apply_filters",
@@ -1430,11 +1429,11 @@
           "menu.php:wp_get_update_data",
           "admin.php:require",
           "post.php:require_once"
-        ]
+        ],
+        "host": "license.dynamic.ooo"
       },
       {
         "phase": "mode0-save",
-        "url": "https://license.dynamic.ooo/novamira-pro/info.php?domain=192.168.129.32:8085&version=1.1.1&licence_key=nvp-0010a06c-31bdf88c-d231a1bb&beta=false",
         "stack": [
           "class-wp-hook.php:{closure}",
           "plugin.php:apply_filters",
@@ -1453,11 +1452,11 @@
           "plugin.php:do_action",
           "admin.php:do_action",
           "post.php:require_once"
-        ]
+        ],
+        "host": "license.dynamic.ooo"
       },
       {
         "phase": "mode0-save",
-        "url": "https://license.dynamic.ooo/novamira-pro/info.php?domain=192.168.129.32:8085&version=1.1.1&licence_key=nvp-0010a06c-31bdf88c-d231a1bb&beta=false",
         "stack": [
           "class-wp-hook.php:{closure}",
           "plugin.php:apply_filters",
@@ -1474,11 +1473,11 @@
           "menu.php:wp_get_update_data",
           "admin.php:require",
           "post.php:require_once"
-        ]
+        ],
+        "host": "license.dynamic.ooo"
       },
       {
         "phase": "mode0-save",
-        "url": "https://license.dynamic.ooo/novamira-pro/info.php?domain=192.168.129.32:8085&version=1.1.1&licence_key=nvp-0010a06c-31bdf88c-d231a1bb&beta=false",
         "stack": [
           "class-wp-hook.php:{closure}",
           "plugin.php:apply_filters",
@@ -1496,11 +1495,11 @@
           "menu.php:wp_get_update_data",
           "admin.php:require",
           "post.php:require_once"
-        ]
+        ],
+        "host": "license.dynamic.ooo"
       },
       {
         "phase": "mode0-save",
-        "url": "https://license.dynamic.ooo/novamira-pro/info.php?domain=192.168.129.32:8085&version=1.1.1&licence_key=nvp-0010a06c-31bdf88c-d231a1bb&beta=false",
         "stack": [
           "class-wp-hook.php:{closure}",
           "plugin.php:apply_filters",
@@ -1519,11 +1518,11 @@
           "plugin.php:do_action",
           "admin.php:do_action",
           "post.php:require_once"
-        ]
+        ],
+        "host": "license.dynamic.ooo"
       },
       {
         "phase": "settings-save",
-        "url": "https://license.dynamic.ooo/novamira-pro/info.php?domain=192.168.129.32:8085&version=1.1.1&licence_key=nvp-0010a06c-31bdf88c-d231a1bb&beta=false",
         "stack": [
           "class-wp-hook.php:{closure}",
           "plugin.php:apply_filters",
@@ -1540,11 +1539,11 @@
           "menu.php:wp_get_update_data",
           "admin.php:require",
           "options.php:require_once"
-        ]
+        ],
+        "host": "license.dynamic.ooo"
       },
       {
         "phase": "settings-save",
-        "url": "https://license.dynamic.ooo/novamira-pro/info.php?domain=192.168.129.32:8085&version=1.1.1&licence_key=nvp-0010a06c-31bdf88c-d231a1bb&beta=false",
         "stack": [
           "class-wp-hook.php:{closure}",
           "plugin.php:apply_filters",
@@ -1562,11 +1561,11 @@
           "menu.php:wp_get_update_data",
           "admin.php:require",
           "options.php:require_once"
-        ]
+        ],
+        "host": "license.dynamic.ooo"
       },
       {
         "phase": "settings-save",
-        "url": "https://license.dynamic.ooo/novamira-pro/info.php?domain=192.168.129.32:8085&version=1.1.1&licence_key=nvp-0010a06c-31bdf88c-d231a1bb&beta=false",
         "stack": [
           "class-wp-hook.php:{closure}",
           "plugin.php:apply_filters",
@@ -1585,11 +1584,11 @@
           "plugin.php:do_action",
           "admin.php:do_action",
           "options.php:require_once"
-        ]
+        ],
+        "host": "license.dynamic.ooo"
       },
       {
         "phase": "mode1-save",
-        "url": "https://license.dynamic.ooo/novamira-pro/info.php?domain=192.168.129.32:8085&version=1.1.1&licence_key=nvp-0010a06c-31bdf88c-d231a1bb&beta=false",
         "stack": [
           "class-wp-hook.php:{closure}",
           "plugin.php:apply_filters",
@@ -1606,11 +1605,11 @@
           "menu.php:wp_get_update_data",
           "admin.php:require",
           "post.php:require_once"
-        ]
+        ],
+        "host": "license.dynamic.ooo"
       },
       {
         "phase": "mode1-save",
-        "url": "https://license.dynamic.ooo/novamira-pro/info.php?domain=192.168.129.32:8085&version=1.1.1&licence_key=nvp-0010a06c-31bdf88c-d231a1bb&beta=false",
         "stack": [
           "class-wp-hook.php:{closure}",
           "plugin.php:apply_filters",
@@ -1628,11 +1627,11 @@
           "menu.php:wp_get_update_data",
           "admin.php:require",
           "post.php:require_once"
-        ]
+        ],
+        "host": "license.dynamic.ooo"
       },
       {
         "phase": "mode1-save",
-        "url": "https://license.dynamic.ooo/novamira-pro/info.php?domain=192.168.129.32:8085&version=1.1.1&licence_key=nvp-0010a06c-31bdf88c-d231a1bb&beta=false",
         "stack": [
           "class-wp-hook.php:{closure}",
           "plugin.php:apply_filters",
@@ -1651,11 +1650,11 @@
           "plugin.php:do_action",
           "admin.php:do_action",
           "post.php:require_once"
-        ]
+        ],
+        "host": "license.dynamic.ooo"
       },
       {
         "phase": "mode1-save",
-        "url": "https://license.dynamic.ooo/novamira-pro/info.php?domain=192.168.129.32:8085&version=1.1.1&licence_key=nvp-0010a06c-31bdf88c-d231a1bb&beta=false",
         "stack": [
           "class-wp-hook.php:{closure}",
           "plugin.php:apply_filters",
@@ -1672,11 +1671,11 @@
           "menu.php:wp_get_update_data",
           "admin.php:require",
           "post.php:require_once"
-        ]
+        ],
+        "host": "license.dynamic.ooo"
       },
       {
         "phase": "mode1-save",
-        "url": "https://license.dynamic.ooo/novamira-pro/info.php?domain=192.168.129.32:8085&version=1.1.1&licence_key=nvp-0010a06c-31bdf88c-d231a1bb&beta=false",
         "stack": [
           "class-wp-hook.php:{closure}",
           "plugin.php:apply_filters",
@@ -1694,11 +1693,11 @@
           "menu.php:wp_get_update_data",
           "admin.php:require",
           "post.php:require_once"
-        ]
+        ],
+        "host": "license.dynamic.ooo"
       },
       {
         "phase": "mode1-save",
-        "url": "https://license.dynamic.ooo/novamira-pro/info.php?domain=192.168.129.32:8085&version=1.1.1&licence_key=nvp-0010a06c-31bdf88c-d231a1bb&beta=false",
         "stack": [
           "class-wp-hook.php:{closure}",
           "plugin.php:apply_filters",
@@ -1717,11 +1716,11 @@
           "plugin.php:do_action",
           "admin.php:do_action",
           "post.php:require_once"
-        ]
+        ],
+        "host": "license.dynamic.ooo"
       },
       {
         "phase": "bad-host-save",
-        "url": "https://license.dynamic.ooo/novamira-pro/info.php?domain=192.168.129.32:8085&version=1.1.1&licence_key=nvp-0010a06c-31bdf88c-d231a1bb&beta=false",
         "stack": [
           "class-wp-hook.php:{closure}",
           "plugin.php:apply_filters",
@@ -1738,11 +1737,11 @@
           "menu.php:wp_get_update_data",
           "admin.php:require",
           "post.php:require_once"
-        ]
+        ],
+        "host": "license.dynamic.ooo"
       },
       {
         "phase": "bad-host-save",
-        "url": "https://license.dynamic.ooo/novamira-pro/info.php?domain=192.168.129.32:8085&version=1.1.1&licence_key=nvp-0010a06c-31bdf88c-d231a1bb&beta=false",
         "stack": [
           "class-wp-hook.php:{closure}",
           "plugin.php:apply_filters",
@@ -1760,11 +1759,11 @@
           "menu.php:wp_get_update_data",
           "admin.php:require",
           "post.php:require_once"
-        ]
+        ],
+        "host": "license.dynamic.ooo"
       },
       {
         "phase": "bad-host-save",
-        "url": "https://license.dynamic.ooo/novamira-pro/info.php?domain=192.168.129.32:8085&version=1.1.1&licence_key=nvp-0010a06c-31bdf88c-d231a1bb&beta=false",
         "stack": [
           "class-wp-hook.php:{closure}",
           "plugin.php:apply_filters",
@@ -1783,11 +1782,11 @@
           "plugin.php:do_action",
           "admin.php:do_action",
           "post.php:require_once"
-        ]
+        ],
+        "host": "license.dynamic.ooo"
       },
       {
         "phase": "backslash-save",
-        "url": "https://license.dynamic.ooo/novamira-pro/info.php?domain=192.168.129.32:8085&version=1.1.1&licence_key=nvp-0010a06c-31bdf88c-d231a1bb&beta=false",
         "stack": [
           "class-wp-hook.php:{closure}",
           "plugin.php:apply_filters",
@@ -1804,11 +1803,11 @@
           "menu.php:wp_get_update_data",
           "admin.php:require",
           "post.php:require_once"
-        ]
+        ],
+        "host": "license.dynamic.ooo"
       },
       {
         "phase": "backslash-save",
-        "url": "https://license.dynamic.ooo/novamira-pro/info.php?domain=192.168.129.32:8085&version=1.1.1&licence_key=nvp-0010a06c-31bdf88c-d231a1bb&beta=false",
         "stack": [
           "class-wp-hook.php:{closure}",
           "plugin.php:apply_filters",
@@ -1826,11 +1825,11 @@
           "menu.php:wp_get_update_data",
           "admin.php:require",
           "post.php:require_once"
-        ]
+        ],
+        "host": "license.dynamic.ooo"
       },
       {
         "phase": "backslash-save",
-        "url": "https://license.dynamic.ooo/novamira-pro/info.php?domain=192.168.129.32:8085&version=1.1.1&licence_key=nvp-0010a06c-31bdf88c-d231a1bb&beta=false",
         "stack": [
           "class-wp-hook.php:{closure}",
           "plugin.php:apply_filters",
@@ -1849,11 +1848,11 @@
           "plugin.php:do_action",
           "admin.php:do_action",
           "post.php:require_once"
-        ]
+        ],
+        "host": "license.dynamic.ooo"
       },
       {
         "phase": "settings-save",
-        "url": "https://license.dynamic.ooo/novamira-pro/info.php?domain=192.168.129.32:8085&version=1.1.1&licence_key=nvp-0010a06c-31bdf88c-d231a1bb&beta=false",
         "stack": [
           "class-wp-hook.php:{closure}",
           "plugin.php:apply_filters",
@@ -1870,11 +1869,11 @@
           "menu.php:wp_get_update_data",
           "admin.php:require",
           "options.php:require_once"
-        ]
+        ],
+        "host": "license.dynamic.ooo"
       },
       {
         "phase": "settings-save",
-        "url": "https://license.dynamic.ooo/novamira-pro/info.php?domain=192.168.129.32:8085&version=1.1.1&licence_key=nvp-0010a06c-31bdf88c-d231a1bb&beta=false",
         "stack": [
           "class-wp-hook.php:{closure}",
           "plugin.php:apply_filters",
@@ -1892,11 +1891,11 @@
           "menu.php:wp_get_update_data",
           "admin.php:require",
           "options.php:require_once"
-        ]
+        ],
+        "host": "license.dynamic.ooo"
       },
       {
         "phase": "settings-save",
-        "url": "https://license.dynamic.ooo/novamira-pro/info.php?domain=192.168.129.32:8085&version=1.1.1&licence_key=nvp-0010a06c-31bdf88c-d231a1bb&beta=false",
         "stack": [
           "class-wp-hook.php:{closure}",
           "plugin.php:apply_filters",
@@ -1915,7 +1914,8 @@
           "plugin.php:do_action",
           "admin.php:do_action",
           "options.php:require_once"
-        ]
+        ],
+        "host": "license.dynamic.ooo"
       }
     ],
     "mode0-save_http": 6,
@@ -2403,5 +2403,6 @@
     "file": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\b11-private-wj0qw4qc\\snapshot.json",
     "sha256": "a80e54e178cd2257d81c3011ff554e77053a73757945605c0e73be331a0dd985",
     "private": true
-  }
+  },
+  "security_note": "Destinations conservées par hôte uniquement ; paramètres de licence tiers supprimés avant livraison."
 }

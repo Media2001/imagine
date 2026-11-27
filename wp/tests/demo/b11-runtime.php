@@ -51,4 +51,20 @@ $bytes = file_get_contents($path);
 $check('silence_wave_3_secondes', strlen($bytes) === 48044 && substr($bytes, 0, 4) === 'RIFF' && substr($bytes, 8, 4) === 'WAVE' && substr($bytes, 44) === str_repeat("\0", 48000));
 wp_set_current_user(0);
 $check('audio_anonyme_sans_adresse', !str_contains(AudioNumero::lecteur(get_post($issue)), 'imagine_audio'));
+$originalName = get_post_meta($issue, AudioNumero::META, true);
+$throws = static function (callable $action): bool {
+    try {
+        $action();
+        return false;
+    } catch (RuntimeException) {
+        return true;
+    }
+};
+$check('source_publique_refusee_avant_lecture', $throws(static fn () => AudioNumero::proteger($issue, WP_PLUGIN_DIR . '/imagine-site/Medias.php')));
+update_post_meta($issue, AudioNumero::META, '../secret.wav');
+$check('reference_traversal_refusee', $throws(static fn () => AudioNumero::path($issue)));
+update_post_meta($issue, AudioNumero::META, str_repeat('0', 32) . '.wav');
+$check('blob_absent_refuse', $throws(static fn () => AudioNumero::path($issue)));
+update_post_meta($issue, AudioNumero::META, $originalName);
+$check('blob_positif_retabli', AudioNumero::path($issue) === $path);
 echo wp_json_encode(['checks' => $checks, 'total' => count($checks)]);
