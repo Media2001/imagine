@@ -75,6 +75,20 @@ def seed(site, cfg, repeats=1):
     try:
         q = b.wp(site, ['eval-file', '/opt/a29/seed.php', '--use-include'], env={'A29_REPETITIONS': str(repeats)})
         b.check(site.name + ':native_seed_' + str(repeats), q.stdout == 'A29_SEED_OK\n' and not q.stderr)
+        rows = b.sql('a02_' + site.name,
+                     'SELECT status,COUNT(*) AS n FROM wp_actionscheduler_actions GROUP BY status ORDER BY status').stdout.splitlines()[1:]
+        observed = {}
+        for line in rows:
+            status, number = line.split('\t')
+            if status not in {'pending', 'failed'}:
+                raise RuntimeError('A29_FIXTURE_SCHEDULER_EXTRA_STATUS')
+            observed[status] = int(number)
+        expected = {'pending': 12 * repeats, 'failed': repeats}
+        receipt = {'scope': 'native_seed_after_php_shutdown', 'counts': observed, 'expected': expected,
+                   'exit_code': int(observed != expected)}
+        (OUT / (site.name + '-seed-shutdown-' + str(repeats) + '.json')).write_text(
+            json.dumps(receipt, indent=2) + '\n', encoding='utf-8')
+        b.check(site.name + ':native_seed_after_shutdown_' + str(repeats), observed == expected)
     finally:
         (site / 'wp-config.php').write_text(cfg, encoding='utf-8')
 
@@ -105,7 +119,7 @@ def run_storage(storage):
     # supported native DBStore explicitly through its installed factory filter;
     # never run a migration job and never weaken the subject's store refusal.
     datastore_mu = site / 'wp-content/mu-plugins/a29-datastore.php'
-    dbstore_fixture = "<?php\nadd_filter('action_scheduler_store_class', static fn(): string => 'ActionScheduler_DBStore', PHP_INT_MAX);\n"
+    dbstore_fixture = "<?php\nadd_filter('action_scheduler_store_class', static fn(): string => 'ActionScheduler_DBStore', 0);\n"
     datastore_mu.write_text(dbstore_fixture, encoding='utf-8')
     q = cmd(['php', '/opt/a29/standard.php', str(site)], check=False)
     b.check(storage + ':installed_standard_before_subject', q.returncode == 0 and q.stdout == q.stderr == '')
@@ -163,7 +177,7 @@ if (getenv('A29_CONFINED') === '1') {
     # Real native HybridStore remains unsupported: reading its query API can
     # migrate actions. Refuse it rather than guessing that DB tables are complete.
     hybrid_before = b.fingerprint(db)
-    datastore_mu.write_text(dbstore_fixture.replace('ActionScheduler_DBStore', 'ActionScheduler_HybridStore'), encoding='utf-8')
+    datastore_mu.write_text('<?php\n// Native default store: no fixture override.\n', encoding='utf-8')
     try:
         hybrid_files = b.files(site)
         unsupported = OUT / (storage + '-hybrid-refused')

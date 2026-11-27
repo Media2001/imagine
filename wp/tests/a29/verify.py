@@ -169,7 +169,8 @@ def verify(packet, python_only=False):
                          'all_tables_scheduler_unchanged', 'site_files_unchanged', 'config_never_executed',
                          'actual_import_erases_cron_cancels_pending_deletes_failed', 'neutral_success',
                          'neutral_all_unknown_no_useful_number', 'neutral_db_files_unchanged',
-                         'native_seed_5', 'five_success', 'five_exact_families_utc_boundaries',
+                         'native_seed_5', 'native_seed_after_shutdown_1', 'native_seed_after_shutdown_5',
+                         'five_success', 'five_exact_families_utc_boundaries',
                          'five_db_files_unchanged', 'all_retained_files_clean']
             mandatory += ['native_hybrid_store_refused', 'native_hybrid_refusal_database_files_unchanged']
             mandatory += ['guard_' + key for key in ('exists', 'site', 'repo', 'ancestor', 'root')]
@@ -178,6 +179,12 @@ def verify(packet, python_only=False):
             mandatory += ['shutdown_mutation_still_valid_json_markdown']
             mandatory += ['mutation_witness_' + key for key in WITNESSES]
             check(prefix + ':required_native_cases', all(storage + ':' + key in actual for key in mandatory))
+            for repeats in (1, 5):
+                check(prefix + ':post_shutdown_seed_' + str(repeats),
+                      read(native / (storage + '-seed-shutdown-' + str(repeats) + '.json')) == {
+                          'scope': 'native_seed_after_php_shutdown',
+                          'counts': {'pending': 12 * repeats, 'failed': repeats},
+                          'expected': {'pending': 12 * repeats, 'failed': repeats}, 'exit_code': 0})
             for variant in ('', '-neutral', '-five'):
                 stem = storage + variant
                 before = read(native / (stem + '-db-before.json'))

@@ -75,6 +75,12 @@ class ContractTests(unittest.TestCase):
         self.assertIn("required=True)", runner)
         self.assertIn("'preparation'", (folder / 'gates.py').read_text(encoding='utf-8'))
 
+    def test_native_fixture_store_selection_precedes_migration_controller(self):
+        native = (ROOT / 'wp/tests/a29/inside.py').read_text(encoding='utf-8')
+        self.assertIn("'ActionScheduler_DBStore', 0)", native)
+        self.assertIn('native_seed_after_shutdown_', native)
+        self.assertIn('native_seed_after_shutdown_1', (ROOT / 'wp/tests/a29/verify.py').read_text(encoding='utf-8'))
+
     def test_fixture_datastore_is_explicit_and_hybrid_is_refused(self):
         native = (ROOT / 'wp/tests/a29/inside.py').read_text(encoding='utf-8')
         for token in ('a29-datastore.php', 'action_scheduler_store_class', 'native_hybrid_store_refused',
