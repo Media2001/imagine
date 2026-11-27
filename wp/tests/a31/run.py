@@ -16,7 +16,8 @@ spec = importlib.util.spec_from_file_location('a02_runner', ROOT / 'wp/tests/a02
 b = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(b)
 b.LABEL = 'org.imagine.a31-history'
-OWN = ['wp/outils/bascule/a31', 'wp/tests/a31']
+OWN = ['wp/outils/bascule/a31', 'wp/tests/a31', 'production/A-31/verify.py',
+       'production/A-31/rejeu.json', 'production/A-31/readme-ajout.txt']
 SHARED = ['audit', 'a11', 'a12', 'stream_guard.py', 'stream_refusals.json']
 DEPS = ['wp/outils/bascule/' + f for f in SHARED] + [
     'wp/tests/a02-audit/' + f for f in ['run.py', 'inside.py', 'seed.php', 'fingerprint.php', 'unit.php', 'readonly-probe.php']

@@ -1,0 +1,73 @@
+{
+  "schema": "imagine-a30-dry-run-v1",
+  "read_only": true,
+  "storage": "classic",
+  "total": 25,
+  "matching": "observe",
+  "accounts": {
+    "groups": [
+      {
+        "key": "compte_a_creer",
+        "count": 5
+      },
+      {
+        "key": "compte_existant",
+        "count": 5
+      }
+    ],
+    "autres": 0
+  },
+  "issues": {
+    "groups": [
+      {
+        "key": "compte_a_creer",
+        "count": 5
+      },
+      {
+        "key": "compte_existant",
+        "count": 5
+      },
+      {
+        "key": "refuse_a13",
+        "count": 5
+      },
+      {
+        "key": "sans_email",
+        "count": 5
+      },
+      {
+        "key": "type_a_decider",
+        "count": 5
+      }
+    ],
+    "autres": 0
+  },
+  "products": {
+    "groups": [
+      {
+        "key": 0,
+        "count": 5
+      },
+      {
+        "key": 24,
+        "count": 20
+      }
+    ],
+    "autres": 0
+  },
+  "payments": {
+    "groups": [
+      {
+        "key": "virement",
+        "count": 25
+      }
+    ],
+    "autres": 0
+  },
+  "unresolved_matching": 0,
+  "business_options": {
+    "importer_echus": false,
+    "resoudre_doublons": false,
+    "calculer_prochaine_echeance": false
+  }
+}

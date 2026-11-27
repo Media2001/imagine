@@ -1,0 +1,14 @@
+{
+  "command": [
+    "C:/Python314/python.exe",
+    "-B",
+    "wp/tests/a30/matrix.py",
+    "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-t03-20261127\\final-matrix",
+    "--with-native"
+  ],
+  "start": "2026-11-27T05:35:14.946570+01:00",
+  "end": "2026-11-27T05:38:11.662115+01:00",
+  "exit_code": 0,
+  "stdout_sha256": "35646e56d4c2fb55989d8f7fc077ae3cd587a4e834d37fa9fd8794b5826266e8",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

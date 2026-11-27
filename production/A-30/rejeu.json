@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "entrypoint": "verify.py",
+  "requires": [],
+  "logs": [
+    "production/A-30/preuves/final/cp1252/native/classic-seed-command.log",
+    "production/A-30/preuves/final/cp1252/native/hpos-seed-command.log",
+    "production/A-30/preuves/final/cp1252/native/lint-Analysis.php.log",
+    "production/A-30/preuves/final/cp1252/native/lint-Inventory.php.log",
+    "production/A-30/preuves/final/cp1252/native/lint-neutralise.php.log",
+    "production/A-30/preuves/final/cp1252/native/lint-observer.php.log",
+    "production/A-30/preuves/final/cp1252/native/lint-seed.php.log",
+    "production/A-30/preuves/final/cp1252/native/lint-unit.php.log",
+    "production/A-30/preuves/final/cp1252/native/native.log",
+    "production/A-30/preuves/final/cp1252/python-tests.log",
+    "production/A-30/preuves/final/cp1252/runner-console.log",
+    "production/A-30/preuves/final/matrix.log",
+    "production/A-30/preuves/final/matrix.stderr.log",
+    "production/A-30/preuves/final/style-console.log",
+    "production/A-30/preuves/final/style-console.stderr.log",
+    "production/A-30/preuves/final/style/stderr.log",
+    "production/A-30/preuves/final/utf8/native/classic-seed-command.log",
+    "production/A-30/preuves/final/utf8/native/hpos-seed-command.log",
+    "production/A-30/preuves/final/utf8/native/lint-Analysis.php.log",
+    "production/A-30/preuves/final/utf8/native/lint-Inventory.php.log",
+    "production/A-30/preuves/final/utf8/native/lint-neutralise.php.log",
+    "production/A-30/preuves/final/utf8/native/lint-observer.php.log",
+    "production/A-30/preuves/final/utf8/native/lint-seed.php.log",
+    "production/A-30/preuves/final/utf8/native/lint-unit.php.log",
+    "production/A-30/preuves/final/utf8/native/native.log",
+    "production/A-30/preuves/final/utf8/python-tests.log",
+    "production/A-30/preuves/final/utf8/runner-console.log"
+  ],
+  "controls": [
+    "NO_ARGUMENTS",
+    "PACKAGE_DRIFT",
+    "NATIVE_PACKET_INVALID"
+  ]
+}

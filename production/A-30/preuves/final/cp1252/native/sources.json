@@ -1,0 +1,22 @@
+{
+  "wp/outils/bascule/a30/Analysis.php": "f62377e65d85039428e93c6f7402ed7c5380a7cb2ea7f875da6f7db459944e8c",
+  "wp/outils/bascule/a30/confine.py": "4e128589f70520d23582fc9fcbbc65a4a8476ed1c1444c9fa26f782d1642a374",
+  "wp/outils/bascule/a30/core.py": "38b54178561f48cf2703600bb905cdf67b9fc3e8a4a6bd2c77953c781573bf81",
+  "wp/outils/bascule/a30/Inventory.php": "539cfed8a52e49f3039100ad5ef28107655a3639cb2f6670d6ef99ea79304b34",
+  "wp/outils/bascule/a30/observer.php": "85601e2e5bc80b4e0ab1f39afbd403f2144fbfdc328aed50f7238a708e587d09",
+  "wp/outils/bascule/a30/README.md": "0cc2bd9107ef341980043619833755f60231617b7231e50c180b7c5db582f36b",
+  "wp/outils/bascule/a30/types.exemple.json": "0ec16f6fd1a84f6772530e7c5904542590dab29f0e6defb36a428a48a43c95cf",
+  "wp/tests/a30/cases.py": "887d6c27ce4d282be75de526e4dfdde92e89bdc7b9e349e302e7a17e174614a6",
+  "wp/tests/a30/inside.py": "31617c2f749384c7d08e77270e7d1e93095321560540bfb34cb5fa6e5acbec73",
+  "wp/tests/a30/matrix.py": "9342b1bfdbebbbb00d7f2bb49855d52ca83c36c8af09310ceaf7778045fde9c7",
+  "wp/tests/a30/neutralise.php": "d497893b7630b965b48d34c620635d642655ec62b076f367d34bc71708e81a3e",
+  "wp/tests/a30/run.py": "22013763eaa5a439766135aa3466398dd018b531b8da2bb81815d84ad59737cb",
+  "wp/tests/a30/seed.php": "8a0830f935a6757b55d3f6777a0032493f54af5430a76aad3bbf9e96aa66e5ca",
+  "wp/tests/a30/style.py": "b3e0b456c0e149ef65af22c7aee301de8f5f8a3bf1a001535374e0e35adc5cb4",
+  "wp/tests/a30/test_boundary.py": "2ad6165dab161da9e35193a4ed36817eb6ea9a2dbb24805ba2d3cd141b21e3b5",
+  "wp/tests/a30/test_cli.py": "56593a307b22994f98c1851e47b6a25dd4b24d829d15d662c3543d5e33636c5e",
+  "wp/tests/a30/test_core.py": "8aa1e5e2404509abde1e13441fff69a5f1c5d1c903bb13140ad5ca27ea4e289c",
+  "wp/tests/a30/test_verify.py": "9d3e9f7b424b67c09130fae31c15028419f237e355dea4233112c08dbb647c1e",
+  "wp/tests/a30/unit.php": "bd19fb76fcc0bdd413e83e24353c9afdd80bbcc72d59dbf0fbc7cdbaf18fc57b",
+  "wp/tests/a30/verify.py": "ee6fd7c3b9d289b37fb65e9bde4b6cdc2efe4e71268a0314f36114067163c601"
+}

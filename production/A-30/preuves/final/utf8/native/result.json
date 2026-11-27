@@ -1,0 +1,651 @@
+{
+  "suite": "A02-real-commercial-fixture",
+  "checks": [
+    {
+      "check": "lint:audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:seed.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:fingerprint.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:unit.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:readonly-probe.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:commercial_fixture",
+      "status": "PASS",
+      "detail": {
+        "versions": {
+          "wordpress": "7.0.9",
+          "woocommerce": "11.1.1",
+          "subscriptions": "9.4.1",
+          "memberships": "1.30.3"
+        },
+        "hpos": false,
+        "subscriptions": 3,
+        "rules": 2,
+        "restriction_real": true
+      }
+    },
+    {
+      "check": "classic:native_seed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:audit_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:confined_success",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "stdout": "A30_OK\n",
+        "stderr": ""
+      }
+    },
+    {
+      "check": "classic:five_issues_exact_lines",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:counts_k5",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_private_values",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:input_immutable",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:replay_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:existing_output_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:documented_command",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:a13_fixture:clean",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:a13_exact_lines:clean",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:input_immutable:clean",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:a13_fixture:dirty",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:a13_exact_lines:dirty",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:input_immutable:dirty",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:a13_exact_refusal:iban",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:input_immutable:iban",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:a13_exact_refusal:encoding",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:input_immutable:encoding",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:direct_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_retained_payload:direct_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:direct_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_retained_payload:direct_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:display_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_retained_payload:display_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:shutdown_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_retained_payload:shutdown_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:shutdown_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_retained_payload:shutdown_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:shutdown_display",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_retained_payload:shutdown_display",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:silent_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_retained_payload:silent_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:forged_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_retained_payload:forged_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:invalid_utf8",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_retained_payload:invalid_utf8",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:oversize",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_retained_payload:oversize",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:shutdown_valid_json",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_retained_payload:shutdown_valid_json",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:shutdown_extra_string",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_retained_payload:shutdown_extra_string",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:shutdown_extra_file",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_retained_payload:shutdown_extra_file",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:shutdown_partial",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_retained_payload:shutdown_partial",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:all_sql_tables_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:site_files_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:config_never_executed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:actual_neutralisation",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:neutral_audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:neutral_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:neutral_unknown_never_zero",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:neutral_sql_files_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:commercial_fixture",
+      "status": "PASS",
+      "detail": {
+        "versions": {
+          "wordpress": "7.0.9",
+          "woocommerce": "11.1.1",
+          "subscriptions": "9.4.1",
+          "memberships": "1.30.3"
+        },
+        "hpos": true,
+        "subscriptions": 3,
+        "rules": 2,
+        "restriction_real": true
+      }
+    },
+    {
+      "check": "hpos:native_seed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:audit_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:confined_success",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "stdout": "A30_OK\n",
+        "stderr": ""
+      }
+    },
+    {
+      "check": "hpos:five_issues_exact_lines",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:counts_k5",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_private_values",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:input_immutable",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:replay_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:existing_output_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:documented_command",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:a13_fixture:clean",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:a13_exact_lines:clean",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:input_immutable:clean",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:a13_fixture:dirty",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:a13_exact_lines:dirty",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:input_immutable:dirty",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:a13_exact_refusal:iban",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:input_immutable:iban",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:a13_exact_refusal:encoding",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:input_immutable:encoding",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:direct_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_retained_payload:direct_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:direct_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_retained_payload:direct_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:display_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_retained_payload:display_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:shutdown_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_retained_payload:shutdown_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:shutdown_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_retained_payload:shutdown_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:shutdown_display",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_retained_payload:shutdown_display",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:silent_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_retained_payload:silent_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:forged_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_retained_payload:forged_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:invalid_utf8",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_retained_payload:invalid_utf8",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:oversize",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_retained_payload:oversize",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:shutdown_valid_json",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_retained_payload:shutdown_valid_json",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:shutdown_extra_string",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_retained_payload:shutdown_extra_string",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:shutdown_extra_file",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_retained_payload:shutdown_extra_file",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:shutdown_partial",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_retained_payload:shutdown_partial",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:all_sql_tables_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:site_files_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:config_never_executed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:actual_neutralisation",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:neutral_audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:neutral_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:neutral_unknown_never_zero",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:neutral_sql_files_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "network_interfaces",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "no_listener:tcp",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "no_listener:tcp6",
+      "status": "PASS",
+      "detail": null
+    }
+  ],
+  "exit_code": 0,
+  "licensed_sha256": {
+    "woocommerce-subscriptions.zip": "ed8c529d1382e2d06fa6e605e799c9db5607d8459806c229e74a20571f871083",
+    "woocommerce-memberships.zip": "d3a858a8d6ebc7153248a10d665c6752948ea4fa8a1836d6bdd8a8f267ee3285"
+  },
+  "no_real_site": true
+}

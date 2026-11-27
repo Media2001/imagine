@@ -1,0 +1,13 @@
+{
+  "command": [
+    "C:/Python314/python.exe",
+    "-B",
+    "wp/tests/a30/style.py",
+    "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-t03-20261127\\final-style"
+  ],
+  "start": "2026-11-27T05:35:12.540450+01:00",
+  "end": "2026-11-27T05:35:14.946113+01:00",
+  "exit_code": 0,
+  "stdout_sha256": "cf9e4c3b22b087f1dbcf99cd9060867c0aa5098e8163e65d905f006b81961e9e",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

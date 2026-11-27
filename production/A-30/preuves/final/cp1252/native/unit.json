@@ -1,0 +1,32 @@
+{
+    "checks": [
+        {
+            "check": "five_closed_issues_exact_lines",
+            "status": "PASS"
+        },
+        {
+            "check": "no_row_values",
+            "status": "PASS"
+        },
+        {
+            "check": "neutralised_no_guessed_matching",
+            "status": "PASS"
+        },
+        {
+            "check": "missing_native_product_type_to_decide",
+            "status": "PASS"
+        },
+        {
+            "check": "duplicate_existing_refused_not_resolved",
+            "status": "PASS"
+        },
+        {
+            "check": "reject_precedes_email_and_mapping",
+            "status": "PASS"
+        },
+        {
+            "check": "no_email_precedes_mapping",
+            "status": "PASS"
+        }
+    ]
+}

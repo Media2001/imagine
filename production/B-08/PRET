@@ -1,0 +1,11 @@
+B-08 — corrections prêtes à relire, 27 novembre 2026, 05 h 39 CET.
+
+Paquet courant : corrections-final.json
+SHA-256 : 834adeacaaef1acce1a509bf20b981222900f47e9ed4e559e40a280de7d578b0
+Vérification sans argument : python -B production/B-08/verifier.py
+
+8 tests / 194 assertions ; 14 mutations PHP et 2 mutations seed détectées ; 35 contrôles HTTP réels et 22 contrôles seed réels ; 18 gardes de livraison vertes. Suite canonique : 1153 tests / 36075 assertions, 0 échec/erreur/ignoré ; 22 outils / 582 contrôles ; 9 paquets vérifiés (A-30 hors rejeu : déclaration absente, constat du runner inchangé).
+Préparation réelle wp/tests/preparer-image.ps1 terminée avec code 0 avant ce PRET. État fictif relu : dix pages et quinze items conservés, aucune proposition d’essai, don OFF, URL vide, observateur et seed temporaires retirés ; comptes, commandes, options et actions métier préservés.
+
+Bouchon WordPress corrigé avant le rouge antislash ; métadonnées slashées seulement à l’écriture, détail admin et export identiques. Menu/items repris après deux interruptions ; collisions étrangères refusées ; HTTPS seul ; cibles absentes sans URL ; README B06/B07/B08 complété. Colonne admin optionnelle non ajoutée.
+Validation visuelle de Ced attendue. Aucun Git, verrou/file, site réel, compte réel, paiement, email ou déploiement production. C-26 reste une qualification séparée.

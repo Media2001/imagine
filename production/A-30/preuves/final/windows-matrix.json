@@ -15,9 +15,21 @@
         "-v"
       ],
       "exit_code": 0,
-      "tests_run": 22,
+      "tests_run": 25,
       "all_pass": true,
-      "log_sha256": "587aad236584c090ddf29a87001fdb2fd817a35af65759d53836f5cdacd05fd1"
+      "log_sha256": "1b95a764b868045348a7bb0d0421461c335856d6fe2890788b0767e10932e920"
+    },
+    {
+      "console": "utf-8",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "C:\\Users\\Ced\\imagine\\wp\\tests\\a30\\run.py",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-t03-20261127\\final-matrix\\utf8\\native"
+      ],
+      "exit_code": 0,
+      "kind": "native",
+      "executed": true
     },
     {
       "console": "cp1252",
@@ -34,9 +46,21 @@
         "-v"
       ],
       "exit_code": 0,
-      "tests_run": 22,
+      "tests_run": 25,
       "all_pass": true,
-      "log_sha256": "d165d824fd3cb57f9455704642a10992d9a53d9770c2ca326aa49f673fb29acd"
+      "log_sha256": "f351d6c995cd94f2a8290ff540f62118823bbbc0e091094f746cbc7b054420f2"
+    },
+    {
+      "console": "cp1252",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "C:\\Users\\Ced\\imagine\\wp\\tests\\a30\\run.py",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a30-t03-20261127\\final-matrix\\cp1252\\native"
+      ],
+      "exit_code": 0,
+      "kind": "native",
+      "executed": true
     }
   ],
   "exit_code": 0

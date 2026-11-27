@@ -1,0 +1,40 @@
+{
+  "schema": "imagine-a30-lines-v1",
+  "issues": {
+    "compte_a_creer": "inconnu après neutralisation",
+    "compte_existant": "inconnu après neutralisation",
+    "sans_email": [
+      12,
+      13,
+      14,
+      15,
+      16
+    ],
+    "type_a_decider": [
+      17,
+      18,
+      19,
+      20,
+      21
+    ],
+    "refuse_a13": [
+      22,
+      23,
+      24,
+      25,
+      26
+    ]
+  },
+  "rapprochement_inconnu": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ]
+}
