@@ -10,10 +10,10 @@ $checks = [];
 $events = [];
 $transport = 0;
 $phase = 'boot';
-$check = static function (string $name, bool $ok) use (&$checks): void {
+$check = static function (string $name, bool $ok) use (&$checks, &$events): void {
     $checks[$name] = $ok;
     if (!$ok) {
-        throw new RuntimeException('B12: ' . $name);
+        throw new RuntimeException('B12: ' . $name . ' events=' . wp_json_encode($events));
     }
 };
 $observe = static function ($pre, $args, $url) use (&$events, &$phase) {

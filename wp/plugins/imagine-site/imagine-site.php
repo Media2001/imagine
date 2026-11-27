@@ -171,6 +171,10 @@ require_once __DIR__ . '/AudioNumero.php';
 Medias::register();
 AudioNumero::register();
 
+// B12 — aucune résolution externe du corps sans consentement.
+require_once __DIR__ . '/IntegrationsCorps.php';
+IntegrationsCorps::register();
+
 // C28 — instantané du pack au paiement, décision et remboursements C14 inchangés.
 require_once __DIR__ . '/PacksRegles.php';
 require_once __DIR__ . '/PacksThematiques.php';

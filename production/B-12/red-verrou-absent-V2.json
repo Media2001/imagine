@@ -1,0 +1,24 @@
+{
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "native": {
+    "code": 1,
+    "stdout": "",
+    "stderr": "[27-Nov-2026 13:53:38 UTC] PHP Fatal error:  Uncaught RuntimeException: B12: apercu_0_lien in /var/www/html/wp-content/imagine-demo-build/b12-runtime.php:16\nStack trace:\n#0 /var/www/html/wp-content/imagine-demo-build/b12-runtime.php(62): Eval_Command::{closure}('apercu_0_lien', false)\n#1 phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/Eval_Command.php(39) : eval()'d code(1): require('/var/www/html/w...')\n#2 phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/Eval_Command.php(39): eval()\n#3 [internal function]: Eval_Command->__invoke(Array, Array)\n#4 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Dispatcher/CommandFactory.php(100): call_user_func(Array, Array, Array)\n#5 [internal function]: WP_CLI\\Dispatcher\\CommandFactory::WP_CLI\\Dispatcher\\{closure}(Array, Array)\n#6 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Dispatcher/Subcommand.php(497): call_user_func(Object(Closure), Array, Array)\n#7 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(470): WP_CLI\\Dispatcher\\Subcommand->invoke(Array, Array, Array)\n#8 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(493): WP_CLI\\Runner->run_command(Array, Array)\n#9 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(136): WP_CLI\\Runner->run_command_and_exit()\n#10 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(1228): WP_CLI\\Runner->do_early_invoke('before_wp_load')\n#11 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Bootstrap/LaunchRunner.php(28): WP_CLI\\Runner->start()\n#12 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/bootstrap.php(84): WP_CLI\\Bootstrap\\LaunchRunner->process(Object(WP_CLI\\Bootstrap\\BootstrapState))\n#13 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/wp-cli.php(35): WP_CLI\\bootstrap()\n#14 phar:///usr/local/bin/wp/php/boot-phar.php(20): include('phar:///usr/loc...')\n#15 /usr/local/bin/wp(4): include('phar:///usr/loc...')\n#16 {main}\n  thrown in /var/www/html/wp-content/imagine-demo-build/b12-runtime.php on line 16\nFatal error: Uncaught RuntimeException: B12: apercu_0_lien in /var/www/html/wp-content/imagine-demo-build/b12-runtime.php:16\nStack trace:\n#0 /var/www/html/wp-content/imagine-demo-build/b12-runtime.php(62): Eval_Command::{closure}('apercu_0_lien', false)\n#1 phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/Eval_Command.php(39) : eval()'d code(1): require('/var/www/html/w...')\n#2 phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/Eval_Command.php(39): eval()\n#3 [internal function]: Eval_Command->__invoke(Array, Array)\n#4 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Dispatcher/CommandFactory.php(100): call_user_func(Array, Array, Array)\n#5 [internal function]: WP_CLI\\Dispatcher\\CommandFactory::WP_CLI\\Dispatcher\\{closure}(Array, Array)\n#6 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Dispatcher/Subcommand.php(497): call_user_func(Object(Closure), Array, Array)\n#7 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(470): WP_CLI\\Dispatcher\\Subcommand->invoke(Array, Array, Array)\n#8 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(493): WP_CLI\\Runner->run_command(Array, Array)\n#9 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(136): WP_CLI\\Runner->run_command_and_exit()\n#10 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(1228): WP_CLI\\Runner->do_early_invoke('before_wp_load')\n#11 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Bootstrap/LaunchRunner.php(28): WP_CLI\\Runner->start()\n#12 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/bootstrap.php(84): WP_CLI\\Bootstrap\\LaunchRunner->process(Object(WP_CLI\\Bootstrap\\BootstrapState))\n#13 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/wp-cli.php(35): WP_CLI\\bootstrap()\n#14 phar:///usr/local/bin/wp/php/boot-phar.php(20): include('phar:///usr/loc...')\n#15 /usr/local/bin/wp(4): include('phar:///usr/loc...')\n#16 {main}\n  thrown in /var/www/html/wp-content/imagine-demo-build/b12-runtime.php on line 16\nError: Il y a eu une erreur critique sur ce site.En apprendre plus sur le débogage de WordPress. Il y a eu une erreur critique sur ce site.\n"
+  },
+  "business_preserved": true,
+  "probe_removed": true,
+  "sources": {
+    "wp/outils/demo/b12.py": "4719c08a1cfb42aed237328083e05ea77b0027213924a5c5155737a193aeb700",
+    "wp/plugins/imagine-site/imagine-site.php": "084a83833c81f81fff8da28395e93bd1c7216a0506109d9b1a0c862a6ae1aaa4",
+    "wp/tests/demo/b12-runtime.php": "51bc45753a0c9c8d87b48cb855e5154710cf9ff50415275fba7348bc3082725e"
+  }
+}
