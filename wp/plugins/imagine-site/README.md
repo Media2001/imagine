@@ -1,5 +1,21 @@
 # Imagine — site (B-00, modèle provisoire)
 
+## C-30 — bienvenue et codes suivis
+
+Le standard d'abord (sources officielles livrées par WooCommerce, lues sur la seule démo : `production/C-30/standard2-V2.json`).
+L'attribution native utilise Sourcebuster, ses cookies `sbjs_*` et les métadonnées d'origine de commande ; elle n'est pas un catalogue de codes imprimés.
+`OrderAttributionController.php` porte l'origine/UTM et une session d'attribution de 30 minutes ; aucun de ses traceurs n'est ajouté par ce lot.
+Le code imprimé est une liste fermée distincte, sans JavaScript, prix, coupon, source du compte ni transmission.
+`WC_Session_Handler` conserve la sélection côté serveur ; le navigateur ne reçoit que son cookie de session opaque HTTPOnly, à la durée native Woo, sans nouveau cookie de pistage.
+
+`/bienvenue/?code=fictif-affiche` : page native, texte d'Imagine laissé vide, seul lien vers `Navigation::abonnementUrl()`. Seed idempotent `wp/outils/demo/c30-seed.py`, trois codes FICTIF. Réglages propres « Réglages → Codes suivis », capacité/nonce Settings API et journal C10 ; sur échec du journal relu sans cache, ancienne liste restaurée. Identifiants minuscules de 1 à 40 caractères, libellé interne de 80 caractères ; liste vide par défaut.
+
+Dernier code valide visité avant la commande gagne ; inconnu/absent ne remplace rien et ne démarre aucune session pour ce lot. Au checkout classique, le candidat validé est conservé **provisoirement** en métadonnée privée `_imagine_code_suivi_candidat` : nécessaire aux paiements asynchrones sans navigateur. Il n'est jamais compté comme conversion. Au premier état payé avec date native, transfert vers `_imagine_code_suivi`, suppression du candidat et sceau sous verrou SQL par commande. Le code devient immuable, même si la liste ou la session change. C16 (`created_via=imagine-c16`) exclu. Le checkout Blocks n'est pas raccordé par ce squelette ; aucun tunnel réel livré. Aucun prix recalculé et aucun avantage inventé.
+
+« Imagine → Codes suivis » : nombres des commandes processing/completed, date de paiement UTC bornes incluses, à côté des réponses volontaires de C27 sur leur propre date. Aucune identité affichée. CRUD Woo paginé, lecture en échec non prise pour zéro. Export/effacement natifs C21 déclarés par callbacks additionnels ; candidat inclus ; sceau technique conservé après effacement pour empêcher la recréation. Aucun fichier C21/C27/C19 clos modifié.
+
+Tests : `python -B production/C-30/verifier.py` (puis `--live`) ; natif/Woo, sessions et HTTP, mutation inconnue PHPUnit, restauration après tests. La recette ne déclenche aucun paiement ni email : états/date payés sur objets fictifs puis rollback. Voir `production/C-30/A-VOIR.md`.
+
 ## B-16 — enveloppe de la page article
 
 Résumé : `post_excerpt` natif saisi, lu brut, jamais `get_the_excerpt()` ni génération depuis le corps ; vide, omis.

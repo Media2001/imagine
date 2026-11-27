@@ -1,0 +1,193 @@
+{
+  "scope": "imagine-test-demo",
+  "includes/class-wc-session-handler.php": {
+    "sha256": "93020272fe06b6e24624c4288d915b00a3fbc3447e3a324b7d200840c47f059b",
+    "hits": [
+      {
+        "line": 38,
+        "text": "protected $_session_expiring = 0; // phpcs:ignore PSR2.Classes.PropertyDeclaration.Underscore"
+      },
+      {
+        "line": 45,
+        "text": "protected $_session_expiration = 0; // phpcs:ignore PSR2.Classes.PropertyDeclaration.Underscore"
+      },
+      {
+        "line": 74,
+        "text": "$this->set_session_expiration();"
+      },
+      {
+        "line": 176,
+        "text": "$this->_session_expiration = (int) $cookie[1];"
+      },
+      {
+        "line": 177,
+        "text": "$this->_session_expiring   = (int) $cookie[2];"
+      },
+      {
+        "line": 195,
+        "text": "if ( $this->is_session_expiring() ) {"
+      },
+      {
+        "line": 196,
+        "text": "$this->set_session_expiration();"
+      },
+      {
+        "line": 197,
+        "text": "$this->update_session_timestamp( $this->get_customer_id(), $this->_session_expiration );"
+      },
+      {
+        "line": 241,
+        "text": "$this->set_session_expiration();"
+      },
+      {
+        "line": 242,
+        "text": "$this->update_session_timestamp( $this->get_customer_id(), $this->_session_expiration );"
+      },
+      {
+        "line": 281,
+        "text": "if ( time() > $this->_session_expiration ) {"
+      },
+      {
+        "line": 342,
+        "text": "$cookie_hash  = $this->hash( $this->get_customer_id() . '|' . (string) $this->_session_expiration );"
+      },
+      {
+        "line": 343,
+        "text": "$cookie_value = $this->get_customer_id() . '|' . (string) $this->_session_expiration . '|' . (string) $this->_session_expiring . '|' . $cookie_hash;"
+      },
+      {
+        "line": 346,
+        "text": "wc_setcookie( $this->_cookie, $cookie_value, $this->_session_expiration, $this->use_secure_cookie(), true );"
+      },
+      {
+        "line": 384,
+        "text": "private function is_session_expiring() {"
+      },
+      {
+        "line": 385,
+        "text": "return time() > $this->_session_expiring;"
+      },
+      {
+        "line": 391,
+        "text": "public function set_session_expiration() {"
+      },
+      {
+        "line": 392,
+        "text": "$default_expiring_seconds   = DAY_IN_SECONDS;"
+      },
+      {
+        "line": 393,
+        "text": "$default_expiration_seconds = is_user_logged_in() ? WEEK_IN_SECONDS : 2 * DAY_IN_SECONDS;"
+      },
+      {
+        "line": 404,
+        "text": "$expiring_seconds = intval( apply_filters( 'wc_session_expiring', $default_expiring_seconds ) ) ?: $default_expiring_seconds; // phpcs:ignore Universal.Operators.DisallowShortTernary.Found"
+      },
+      {
+        "line": 415,
+        "text": "$expiration_seconds = intval( apply_filters( 'wc_session_expiration', $default_expiration_seconds ) ) ?: $default_expiration_seconds; // phpcs:ignore Universal.Operators.DisallowShortTernary.Found"
+      },
+      {
+        "line": 427,
+        "text": "'Keeping sessions for longer than %d days can cause performance issues and larger session tables. Monitor usage and adjust lifetimes via the wc_session_expiring and wc_session_expiration filters as needed.',"
+      },
+      {
+        "line": 441,
+        "text": "$this->_session_expiring   = time() + $expiring_seconds;"
+      },
+      {
+        "line": 442,
+        "text": "$this->_session_expiration = time() + $expiration_seconds;"
+      },
+      {
+        "line": 508,
+        "text": "list( $customer_id, $session_expiration, $session_expiring, $cookie_hash ) = $parsed_cookie;"
+      },
+      {
+        "line": 514,
+        "text": "$verify_hash = $this->verify_hash( $customer_id . '|' . $session_expiration, $cookie_hash );"
+      },
+      {
+        "line": 520,
+        "text": "return array( $customer_id, $session_expiration, $session_expiring, $cookie_hash );"
+      },
+      {
+        "line": 563,
+        "text": "$this->_session_expiration"
+      },
+      {
+        "line": 566,
+        "text": "wp_cache_set( $this->get_cache_prefix() . $this->get_customer_id(), $this->_data, WC_SESSION_CACHE_GROUP, $this->_session_expiration - time() );"
+      },
+      {
+        "line": 586,
+        "text": "$this->set_session_expiration();"
+      },
+      {
+        "line": 674,
+        "text": "$cache_duration = $this->_session_expiration - time();"
+      }
+    ]
+  },
+  "src/Internal/Orders/OrderAttributionController.php": {
+    "sha256": "0d450d009d25042372fa8cf333d721696c3f945a73e9a99e3816f90b045bc44c",
+    "hits": [
+      {
+        "line": 63,
+        "text": "* When wc_order_attribution_allow_multiple_elements filter returns false,"
+      },
+      {
+        "line": 143,
+        "text": "'wc_order_attribution_stamp_checkout_html_actions',"
+      },
+      {
+        "line": 273,
+        "text": "'sourcebuster-js',"
+      },
+      {
+        "line": 274,
+        "text": "plugins_url( \"assets/js/sourcebuster/sourcebuster{$this->get_script_suffix()}.js\", WC_PLUGIN_FILE ),"
+      },
+      {
+        "line": 286,
+        "text": "array( 'sourcebuster-js' ),"
+      },
+      {
+        "line": 296,
+        "text": "* @param float $lifetime The lifetime of the Sourcebuster cookies in months."
+      },
+      {
+        "line": 298,
+        "text": "* The default value forces Sourcebuster into making the cookies valid for the current session only."
+      },
+      {
+        "line": 300,
+        "text": "$lifetime = (float) apply_filters( 'wc_order_attribution_cookie_lifetime_months', 0.00001 );"
+      },
+      {
+        "line": 309,
+        "text": "$session_length = (int) apply_filters( 'wc_order_attribution_session_length_minutes', 30 );"
+      },
+      {
+        "line": 318,
+        "text": "$use_base64_cookies = apply_filters( 'wc_order_attribution_use_base64_cookies', false );"
+      },
+      {
+        "line": 327,
+        "text": "$allow_tracking = wc_bool_to_string( apply_filters( 'wc_order_attribution_allow_tracking', true ) );"
+      },
+      {
+        "line": 342,
+        "text": "wp_localize_script( 'wc-order-attribution', 'wc_order_attribution', $namespace );"
+      },
+      {
+        "line": 430,
+        "text": "$allow_multiple = apply_filters( 'wc_order_attribution_allow_multiple_elements', true );"
+      },
+      {
+        "line": 496,
+        "text": "if ( 'yes' !== apply_filters( 'wc_order_attribution_debug_mode_enabled', 'no' ) ) {"
+      }
+    ]
+  }
+}

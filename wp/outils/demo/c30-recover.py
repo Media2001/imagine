@@ -13,7 +13,7 @@ after={r['session_key']:r for r in current}
 changed=[k for k in before.keys()|after.keys() if before.get(k)!=after.get(k)]
 print('sessions changées à restaurer',len(changed))
 for key in changed:
-    print('identité numérique' if key.isdigit() else 'session invitée', 'préexistante', key in before, 'actuelle',key in after,'champs', [k for k in (before.get(key) or after[key]) if (before.get(key) or {}).get(k)!=(after.get(key) or {}).get(k)])
+    print('identité numérique' if key.isdigit() else 'session invitée', 'préexistante', key in before, 'actuelle',key in after,'champs', [k for k in (before.get(key) or after[key]) if (before.get(key) or {}).get(k)!=(after.get(key) or {}).get(k)], 'code_present', 'imagine_code_suivi' in after.get(key,{}).get('session_value',''), 'taille',len(after.get(key,{}).get('session_value','')))
 for key in changed:
     row=before.get(key)
     code='global $wpdb;$wpdb->delete($wpdb->prefix."woocommerce_sessions",["session_key"=>'+b13.php(key)+']);'

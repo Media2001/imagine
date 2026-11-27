@@ -1,0 +1,27 @@
+{
+  "scope": "imagine-test-demo",
+  "restored": true,
+  "private": {
+    "file": "C:\\Users\\Ced\\AppData\\Local\\Temp\\b11-private-mb4x79qc\\snapshot.json",
+    "sha256": "fc5ac52ec5b769a8c26e44f8cfec41d93698240560cf6be965a3db8584c8fe30",
+    "private": true
+  },
+  "sources": {
+    "production/C-30/verifier.py": "ddb9c6eff1a70449a345ca4bd38c99de4f943c3cbf054bed47baa9ff7f466a3f",
+    "wp/outils/demo/b13-browser.py": "02a69cab956e503b2a79625df2b084858df9e6b417af638fa503240ebc0d3de0",
+    "wp/outils/demo/b13.py": "3960057fde352c412024678a14d06a7ed6dec04c8d1bff378f7e5305420a5357",
+    "wp/outils/demo/c30-browser.py": "56a6d00832ffd0333e395718653c472a839e2e7d29216e978df1b5a2290e7952",
+    "wp/outils/demo/c30-recover.py": "00072824f754bcdf1428f82cee157cf97086a4470f051e65d1dbe3b36fda566d",
+    "wp/outils/demo/c30-seed.py": "dd3f7726ae247594f0d8be61fa8cd0434ffff6d7502037cbaf03b4c1b0f38317",
+    "wp/outils/demo/c30-standard.py": "095c9346c3d87291c3debf0c89d150062f65f8f4c66991691692b79206094dae",
+    "wp/outils/demo/c30.py": "d34686c125c70e4359593efa0dfecd59847cdb04dd22c3194bbe68fdf5caa00e",
+    "wp/plugins/imagine-site/CodesSuivis.php": "2e91d95dd4a29948527fd68e0974aa6a00bfe6ec353dc31d7f2c566d23be3b60",
+    "wp/plugins/imagine-site/CodesSuivisAdmin.php": "45f6716689531d2977e742408c965840cf4b618a35b9e205d2da078216911223",
+    "wp/plugins/imagine-site/CodesSuivisConfidentialite.php": "12ba2bb1166a55c5ab685b07790caa52407c34bf9b94eaf353986f8614894d83",
+    "wp/plugins/imagine-site/CodesSuivisRegles.php": "952aee67637fb12d8aec83bf8d9f31476b7176ea7dae8f33cfc376115fadb92a",
+    "wp/plugins/imagine-site/tests/CodesSuivisC30Test.php": "291e33f6a00eb15820e78745b40039c27031c5da64942efcd401c5bbce538f3e",
+    "wp/tests/demo/b13-contract.py": "ebdb04de4f948ec77ec5214bdf7c17f03c0366a02ad97722cfef9c6b1d9ebe63",
+    "wp/tests/demo/b13-observer.php": "72d46a7ab527893be8d4e7aa8a0e04073bcd9f0c38c655620a1e603290a6c03f",
+    "wp/tests/demo/c30-runtime.php": "f727d0174e69392f4a87ad048b39b3548011436a13b3b15a2fc46bb59e349b3c"
+  }
+}

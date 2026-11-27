@@ -36,7 +36,7 @@ finally:
     current=b13.wp('global $wpdb;echo wp_json_encode($wpdb->get_results("SELECT * FROM {$wpdb->prefix}woocommerce_sessions ORDER BY session_key",ARRAY_A));')
     now={r['session_key']:r for r in current}
     changed={k for k in by_key.keys()|now.keys() if by_key.get(k)!=now.get(k)}
-    assert all(k in keys or 'imagine_code_suivi' in now.get(k,{}).get('session_value','') for k in changed), 'Session étrangère non restaurée'
+    assert all(k in keys or (k not in by_key and not k.isdigit()) or 'imagine_code_suivi' in now.get(k,{}).get('session_value','') for k in changed), 'Session préexistante étrangère non restaurée'
     for key in changed:
         code='global $wpdb;$wpdb->delete($wpdb->prefix."woocommerce_sessions",["session_key"=>'+b13.php(key)+']);'
         if key in by_key:code+='$wpdb->insert($wpdb->prefix."woocommerce_sessions",'+b13.php(by_key[key])+');'
