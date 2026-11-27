@@ -641,6 +641,16 @@ Le produit du numéro courant n'est pas en vente dans la démo : le bouton Achet
 
 Réception : `production/B-14/reception-V2.json`, `A-VOIR.md` ; `python -B production/B-14/verifier.py` (`--live` = lecture seule). Tests natifs transactionnels, vrai HTTP anonyme/A-PAPIER, contrôle Partenariat de B05 conservé, témoins C26 et mutations témoins ; matrice C26 inchangée. Socle et banc B13 inchangés, contrat propre uniquement pour l'amorçage/README. Aucune bibliothèque close modifiée, aucun contenu réservé rendu, aucun message de visiteur nouveau. Validation visuelle attendue, aucun GO réel.
 
+### Corrections B14 — ancre, contrat rejouable et reportage partagé
+
+Réception courante `production/B-14/reception-corrections-V2.json`. `imagine-abonnement` est rétabli sur la conversion qui contient réellement S'abonner ; `imagine-agenda` est également conservé pour les anciennes entrées. Le navigateur clique le vrai lien d'un paywall anonyme et vérifie l'arrivée sur cette cible unique avec son CTA. Un second test PHPUnit, exécuté en processus séparé avec bouchons minimaux, appelle **le vrai `Accueil::rendre`** et verrouille ordre des neuf sections, unique eager/high, cible d'abonnement et absence vidéo/iframe/corps réservé : il est bien dans le JUnit canonique.
+
+`imagine_issue_free_article($issue)` dans `inc/catalogue.php` est l'unique sélection, appelée par B04 et `Accueil::libre`. Deux articles libres temporaires d'ordres distincts puis égaux prouvent l'identité et le départage par ID. L'extraction touche `single-imagine_numero.php`, également scellé par B11 : complément natif B11 de 23 contrôles sous B14 et preuve du diff strict limité au choix du libre ; aucun octet média/audio changé, aucun reçu B11 réécrit silencieusement. Les empreintes historiques du gabarit B11 restent celles de son époque, avec ce complément explicite.
+
+Les deux anciennes recettes B01 ont été **réellement tentées mais ne sont pas vertes** : le test statique exige encore l'ancien token `imagine_pdf_id` et aucun JavaScript (incompatible avec C11/B03 déjà clos), et la recette démo refuse l'inventaire étendu avant même sa première requête HTTP (articles ajoutés depuis B00/C08). Ces rouges sont conservés dans B14, sans modifier B01 ; le contrat d'ancre courant est prouvé nativement et par clic réel. Modules Python html5lib/BeautifulSoup uniquement en scratch isolé pour ce rejeu, rien installé dans le dépôt ou sur un site.
+
+La dérive 1206 → 1208 n'est **pas** imputable à A32/A33 : la comparaison des vrais JUnit trouve exactement les deux tests B15 et cinq assertions ajoutées, aucune suppression. `derive-comptage-V2.json` fait foi. Le nouveau garde-fou B14 ajoute ensuite son propre test. Les absences de pages cibles restent la question non bloquante de la fusion : aucun nouveau repli inventé, dépendances de la démonstration présentes.
+
 ## B-15 — pied de page identique sur toutes les pages
 
 ### Le standard d'abord — trois lignes

@@ -1,5 +1,15 @@
 # B14 — à ouvrir sur imagine-test-demo seulement
 
+## Réception corrigée de la fusion B14
+
+Référence courante : `reception-corrections-V2.json`, capture `browser-corrections-final-V2.png`. **22 contrôles natifs, 52 navigateur**, clic réel depuis le paywall vers `/#imagine-abonnement`, cible unique avec S'abonner. Helper unique de sélection du libre partagé par B04/B14 ; deux libres d'ordres distincts puis égaux testés avec comparaison d'IDs. Nouveau vrai rendu `Accueil::rendre` sous bouchons minimaux en processus PHPUnit séparé : garde-fou structurel rejouable, découvert dans le JUnit (2 tests B14).
+
+**Partage modifié explicitement :** `single-imagine_numero.php` et `inc/catalogue.php`. Complément B11 de 23 contrôles natifs et diff strict limité à l'extraction du libre dans `complement-B11-corrections-V2*.json`. Aucun rendu média/audio changé ; anciens reçus B11 conservés, leur empreinte historique du gabarit n'est pas prétendue courante.
+
+**Limite honnête B01 :** les deux recettes demandées ont été exécutées, mais restent rouges sur contrats historiques (token PDF et absence de JS, inventaire limité à B00/C08). Voir `legacy-B01-corrections-V2.json`, pas un succès fabriqué ni une réécriture de B01. L'ancre courante est prouvée par le vrai chemin HTTP. Première tentative bloquée par html5lib absent, reçue en log ; dépendances ajoutées uniquement dans scratch privé, puis vrais essais. La dérive 1206→1208 vient exactement des deux tests B15 / cinq assertions, **pas** d'A32/A33 : `derive-comptage-V2.json`.
+
+Dernier rejeu corrigé : **1209 tests / 36693 assertions PASS**, 23 outils / 852 contrôles / 0 échec, 13 paquets / 0 échec. Les paragraphes suivants restent l'historique de la première livraison. Question de repli si pages absentes conservée non bloquante, aucune règle visuelle nouvelle inventée.
+
 Accueil : http://192.168.129.32:8085/
 
 Sous le menu B13, regarder dans l'ordre : numéro en cours (couverture fixe, titre, date, résumé), conversion, reportage en accès libre, newsletter par lien, thématiques, événements futurs (maximum trois), Soutenir, coopérative, partenaire du mois avec **Partenariat**. Les Derniers articles de B01 sont retirés. Aucun habillage, vidéo, iframe ni animation ajouté. L'ancre Thématiques du menu reste valide.

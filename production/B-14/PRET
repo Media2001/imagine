@@ -1,0 +1,5 @@
+B14 PRET technique — reception-corrections-V2.json, A-VOIR.md.
+22 contrôles natifs, 52 navigateur ; ancre paywall réelle, helper partagé, garde-fou de structure découvert dans les 2 tests PHPUnit B14.
+REJEU 1209/36693 PASS ; OUTILS 23/852/0 ; 13 paquets/0.
+Deux anciennes recettes B01 restent rouges sur contrats historiques : limites détaillées ; complément B11 natif23 + diff strict du gabarit sous B14, aucun reçu voisin réécrit.
+Ni clôture, validation visuelle ni GO réel.
