@@ -13,6 +13,7 @@ from delivery import BASE, EXCLUDE, OWN, ROOT, digest, inventory, load, read
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--output', required=True, type=Path)
+    ap.add_argument('--blocked', action='store_true', help='Authentic packet is expected to remain a canonical gate refusal')
     a = ap.parse_args()
     out = a.output.resolve()
     if out.is_relative_to(ROOT) or ROOT.is_relative_to(out):
@@ -61,7 +62,8 @@ def main():
         return change
 
     try:
-        execute('authentic_packet')
+        baseline = 'A33_GATES_INVALID' if a.blocked else None
+        execute('authentic_packet', baseline)
         execute('unexpected_argument', 'A33_ARGUMENTS_REFUSED', ['--A33_ARG_CANARY=private'])
         folder = BASE + '/preuves/final/'
         mutate('resealed_missing_file_channel', folder + 'utf8/native/result.json', change_json(lambda d: d['checks'].__setitem__(slice(None), [r for r in d['checks'] if r['check'] != 'channel_file'])), 'A33_PARTIAL_EVIDENCE')
@@ -71,7 +73,7 @@ def main():
         mutate('resealed_incomplete_missing_as_zero', folder + 'utf8/native/r1-nominal/archives.json', change_json(lambda d: d['outside_media_by_year'][0]['files'].update(total_bytes=0)), 'A33_PARTIAL_EVIDENCE')
         mutate('resealed_executed_source_changed', 'wp/outils/bascule/a33/Analysis.php', lambda p: p.write_bytes(p.read_bytes() + b'\n'), 'A33_PARTIAL_EVIDENCE')
         contract = (mirror / BASE / 'readme-ajout.txt').read_bytes().splitlines(keepends=True)
-        mutate('readme_unrelated_append_allowed', 'wp/outils/bascule/README.md', lambda p: p.write_bytes(p.read_bytes() + b'Other owned lot appendix\n'), None)
+        mutate('readme_unrelated_append_allowed', 'wp/outils/bascule/README.md', lambda p: p.write_bytes(p.read_bytes() + b'Other owned lot appendix\n'), baseline)
         mutate('readme_owned_duplicate_refused', 'wp/outils/bascule/README.md', lambda p: p.write_bytes(p.read_bytes() + contract[-1]), 'A33_README_CONTRACT_DRIFT')
         # Forge an internally rehashed log, not merely a broken outer digest.
         command_path = mirror / folder / 'gates/commands.json'
@@ -90,14 +92,16 @@ def main():
             next(r for r in commands if r['name'] == 'global-utf8')['stdout_sha256'] = digest(log_path)
             command_path.write_text(json.dumps(commands, indent=2) + '\n', encoding='utf-8')
             reseal()
-            execute('resealed_rehashed_global_packet_red', 'A33_GATES_INVALID')
+            if not a.blocked:
+                execute('resealed_rehashed_global_packet_red', 'A33_GATES_INVALID')
         finally:
             for p, data in zip((command_path, log_path, mirror / BASE / 'manifest.json'), originals):
                 p.write_bytes(data)
-        execute('restored_authentic_packet')
+        execute('restored_authentic_packet', baseline)
     finally:
         shutil.rmtree(mirror)
-    result = {'exit_code': int(any(r['status'] != 'PASS' for r in rows)), 'checks': rows, 'mirror_removed': not mirror.exists()}
+    result = {'exit_code': int(any(r['status'] != 'PASS' for r in rows)), 'checks': rows, 'mirror_removed': not mirror.exists(),
+              'packet_status': 'blocked' if a.blocked else 'accepted', 'global_mutant_unexercised_red_baseline': a.blocked}
     (out / 'probes.json').write_text(json.dumps(result, indent=2) + '\n', encoding='utf-8')
     print(json.dumps(result, indent=2))
     return result['exit_code']

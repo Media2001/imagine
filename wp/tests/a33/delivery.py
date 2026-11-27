@@ -153,6 +153,26 @@ def global_valid(d, require_self=False):
             and len(lots) == len(set(lots)) and PREVIOUS <= set(lots) and (not require_self or 'A-33' in lots))
 
 
+def gates_recorded(folder, root=ROOT):
+    """Collection integrity only; deliberately never grants acceptance/readiness."""
+    runner = load('a33_collected_gate_snapshot', root / 'wp/tests/a33/run.py')
+    if read(folder / 'sources.json') != inventory(runner.OWN + runner.DEPS, root):
+        return False
+    rows = read(folder / 'commands.json')
+    if [r.get('name') for r in rows] != ['prepare-image', 'global-utf8', 'global-cp1252']:
+        return False
+    for row in rows:
+        script = 'wp/tests/preparer-image.ps1' if row['name'] == 'prepare-image' else 'wp/tests/rejouer.ps1'
+        if row.get('command') != ['powershell.exe', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', script]:
+            return False
+        if type(row.get('exit_code')) is not int or row.get('tmpdir_present') is not False or row.get('sources_stable') is not True:
+            return False
+        for stream in ('stdout', 'stderr'):
+            if digest(folder / row[stream]) != row[stream + '_sha256']:
+                return False
+    return True
+
+
 def gates_valid(folder, require_self=False, root=ROOT):
     runner = load('a33_gate_snapshot', root / 'wp/tests/a33/run.py')
     if read(folder / 'sources.json') != inventory(runner.OWN + runner.DEPS, root):

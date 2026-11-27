@@ -33,12 +33,14 @@ def main():
             row[key], row[key + '_sha256'] = path.name, digest(path)
         rows.append(row)
         print(json.dumps({'gate': name, 'exit_code': p.returncode}), flush=True)
-        if p.returncode:
-            break
+        # Preserve both real console receipts even when the first gate is red.
     stable = before == inventory(r.OWN + r.DEPS)
     for filename, value in [('commands.json', rows), ('sources.json', before), ('result.json', {'exit_code': int(not stable or len(rows) != 3 or any(x['exit_code'] != 0 for x in rows)), 'sources_stable': stable})]:
         (out / filename).write_text(json.dumps(value, indent=2) + '\n', encoding='utf-8')
     valid = gates_valid(out)
+    if not valid:
+        (out / 'result.json').write_text(json.dumps({'exit_code': 1, 'sources_stable': stable,
+            'checks': [{'check': 'A33_CANONICAL_GATES', 'status': 'FAIL'}]}, indent=2) + '\n', encoding='utf-8')
     print(json.dumps({'exit_code': int(not valid), 'canonical_gates_verified': valid}))
     return int(not valid)
 

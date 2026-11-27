@@ -6,7 +6,7 @@ from pathlib import Path
 import shutil
 import sys
 sys.dont_write_bytecode = True
-from delivery import BASE, EXCLUDE, OWN, ROOT, gates_valid, inventory, local_valid, verify
+from delivery import BASE, EXCLUDE, OWN, ROOT, gates_recorded, gates_valid, inventory, local_valid, verify
 
 VERIFIER = '''"""A33 read-only packet verifier; no arguments, no writes or subprocess."""
 import importlib.util
@@ -45,9 +45,12 @@ def main():
     ap.add_argument('--gates', type=Path)
     ap.add_argument('--archive-gates', type=Path)
     ap.add_argument('--ready', action='store_true')
+    ap.add_argument('--blocked', action='store_true', help='Preserve a real failed gate packet; verifier stays red, never PRET')
     a = ap.parse_args()
     base = ROOT / BASE
     packet = base / 'preuves/final'
+    if a.blocked and (a.ready or not a.evidence or not a.gates):
+        raise ValueError('A33_BLOCKED_SCOPE_INVALID')
     if (base / 'PRET').exists():
         raise ValueError('A33_PRET_EXISTS')
     if a.evidence:
@@ -55,7 +58,7 @@ def main():
         if not local_valid(evidence) or packet.exists() or a.gates is None:
             raise ValueError('A33_PARTIAL_EVIDENCE')
         gates = outside(a.gates)
-        if not gates_valid(gates):
+        if not gates_recorded(gates) or (not a.blocked and not gates_valid(gates)):
             raise ValueError('A33_GATES_INVALID')
         shutil.copytree(evidence, packet)
         shutil.copytree(gates, packet / 'gates')
@@ -76,10 +79,15 @@ def main():
         shutil.copytree(gates, packet / 'gates')
     if a.ready and not gates_valid(packet / 'gates', True):
         raise ValueError('A33_GATES_INVALID')
-    if not local_valid(packet) or not gates_valid(packet / 'gates'):
+    if not local_valid(packet) or not gates_recorded(packet / 'gates') or (not a.blocked and not gates_valid(packet / 'gates')):
         raise ValueError('A33_PARTIAL_EVIDENCE')
     (base / 'manifest.json').write_text(json.dumps({'lot': 'A-33', 'files': inventory(OWN, ROOT, EXCLUDE)}, indent=2) + '\n', encoding='utf-8')
     code = verify()
+    if a.blocked:
+        if code != 'A33_GATES_INVALID' or gates_valid(packet / 'gates'):
+            raise ValueError('A33_BLOCKED_VERDICT_INVALID')
+        print(json.dumps({'exit_code': 1, 'sealed': True, 'ready': False, 'local_matrix_verified': True, 'code': code}))
+        return 1
     if code is not None:
         raise ValueError(code)
     if a.ready:

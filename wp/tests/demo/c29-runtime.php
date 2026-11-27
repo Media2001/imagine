@@ -142,6 +142,9 @@ foreach (['active' => 'wcm-active', 'paused' => 'wcm-paused'] as $expectedStatus
     $wpdb->update($wpdb->posts, ['post_status' => $postStatus], ['ID' => $membership]);
     clean_post_cache($membership);
     wp_cache_flush();
+    // Le magasin Memberships conserve aussi les WP_Post en mémoire privée.
+    $nativeCache = new ReflectionProperty(wc_memberships()->get_user_memberships_instance(), 'user_membership_post_by_id');
+    $nativeCache->setValue(wc_memberships()->get_user_memberships_instance(), []);
     $nativeMembership = wc_memberships_get_user_membership($membership);
     $check('groupe_etat_natif_relu_' . $expectedStatus, $nativeMembership->get_status() === $expectedStatus);
     $relation = Imagine\Site\EnvoiRelations::beneficiaires(wcs_get_subscription((int)$fixture['subscriptions']['A-PAPIER']));
