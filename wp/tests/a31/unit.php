@@ -16,10 +16,16 @@ $order = static fn (string $nature, int $year = 2020): array => [
 ];
 $one = Analysis::analyse([$order('renewal')], [], []);
 $check('rare_one_no_label', $one['years'] === ['groups' => [], 'autres' => 1]);
-$check('rare_nature_one_exact', $one['natures'] === ['groups' => [['nature' => 'renewal', 'count' => 1]], 'autres' => 0]);
+$check(
+    'rare_nature_one_exact',
+    $one['natures'] === ['groups' => [['nature' => 'renewal', 'count' => 1]], 'autres' => 0]
+);
 $four = Analysis::analyse(array_fill(0, 4, $order('renewal')), [], []);
 $check('rare_four_no_label', $four['years'] === ['groups' => [], 'autres' => 4]);
-$check('rare_nature_four_exact', $four['natures'] === ['groups' => [['nature' => 'renewal', 'count' => 4]], 'autres' => 0]);
+$check(
+    'rare_nature_four_exact',
+    $four['natures'] === ['groups' => [['nature' => 'renewal', 'count' => 4]], 'autres' => 0]
+);
 $check('oldest_four_suppressed', $four['oldest_year'] === 'fusionne');
 $check('oldest_rare_suppressed', $one['oldest_year'] === 'fusionne');
 $five = Analysis::analyse(array_fill(0, 5, $order('renewal')), [], []);
