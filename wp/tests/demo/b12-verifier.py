@@ -179,6 +179,7 @@ def verify_contract(live=False,manifest=None,require_pret=True):
     for _,xml in re.findall(r'T01 JUNIT BEGIN ([^\n]+)\n(.*?)T01 JUNIT END',text,re.S):
         tests.extend(t for t in ET.fromstring(xml.strip()).iter('testcase') if t.get('class')=='Imagine\\Site\\Tests\\IntegrationsCorpsB12Test')
     assert len(tests)==6 and all(t.find('failure') is None and t.find('error') is None for t in tests), 'PHPUNIT_CASE_TEST'
+    lint=load(m['lint']);assert lint['exit']==0 and not lint['stderr'] and len(lint['files'])==len(lint['stdout'].splitlines()), 'LINT'
     if require_pret:assert 'reception-contrat-V2.json' in (OUT/'PRET').read_text(encoding='utf-8'), 'CURRENT_PRET'
     if live:
         b12.guard()

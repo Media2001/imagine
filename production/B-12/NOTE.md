@@ -1,6 +1,16 @@
 # B-12 — verrou du corps, avant consentement
 
-## Corrections du 27 novembre — réception courante
+## Réception actuelle — arbitrage de 16h30 appliqué
+
+**Réception actuelle : `reception-contrat-V2.json` ; le lecteur sans argument et `--live` utilisent ce contrat.** La file a changé pendant ce travail : l'instruction 3 de la fusion est remplacée. Le bootstrap partagé n'est **plus scellé intégralement** : `SOURCES` reste l'égalité stricte des fichiers propres B12 ; son **unique bloc d'enregistrement exact** est contrôlé séparément. Le README se limite à la section B12, bornée avant le titre du lot suivant. Une ligne d'un futur lot ne périme plus B12 ; suppression, altération ou duplication du bloc B12 et source B12 changée restent refusées. **7 tests de contrat** ajoutés aux 6 historiques et 11 tests de correction. En live, empreinte du vrai fichier fonctionnel B12 et bloc B12 exact relus, aucun contrôle du bootstrap entier ni du PRET voisin.
+
+La correction fonctionnelle reste une seule comparaison `strcasecmp`, permissions intactes. Après le dernier changement des outils de preuve : nouveaux reçus `contrat-native-final-V2.json`, `contrat-mutation-final-V2.json`, `contrat-routes-final-V2.json`, image et rejeu `contrat-image-V2*` / `contrat-replay-V2*`. Résultats frais : **56 + 52 contrôles natifs**, zéro tentative avec verrou ; mutation 15 contrôles / 6 tentatives B00 avant transport, corps/essais/options restaurés. Rejeu **1 204 tests / 36 667 assertions**, B12 **6 tests / 47 assertions**, 22 outils / 720 contrôles sans échec ; A31/A32 rouges inchangés. Syntaxe de 6 fichiers PHP vérifiée. Limites : WP-CLI/REST en processus et non capture UI/HTTP navigateur ; B11 `UI_save_verified=false` ; AUTO_INCREMENT peut avancer malgré rollback.
+
+Le complément C29 avait été vérifié avant l'arrivée de cet arbitrage et reste conservé **comme preuve historique**, avec `reception-corrections-V2.json` et les PRET précédents. **Il n'est pas une dépendance du contrat courant et aucune réception complémentaire de voisin n'est désormais requise pour une ligne d'amorçage.** Les lecteurs historiques B11/C28/C29 peuvent rester rouges, règle expressément acceptée à 16h30 ; aucun resceau silencieux. B11 et C29 doivent passer eux aussi au contrat : à faire par le parent, hors du périmètre d'écriture de ce sous-agent. Ni code fonctionnel ni dossier de production de ces voisins modifié.
+
+À chaque montée de version WordPress, rejouer les deux matrices natives et leurs mutations avant clôture ; les doublures scellées ne prouvent pas le pipeline réel. Ancien PRET B12 conservé dans `PRET-avant-corrections-V2` ; PRET de la correction avant arbitrage conservé dans `PRET-avant-contrat-V2`. Le PRET courant nomme seulement `reception-contrat-V2.json`.
+
+## Checkpoint de correction avant lecture de la nouvelle file — historique, non réception actuelle
 
 **Six instructions de `corrections/B-12.md` appliquées ; réception courante `reception-corrections-V2.json`.** Le bootstrap C29 n'a pas été modifié. La seule correction fonctionnelle est `strcasecmp` sur la route proxy ; URL, erreurs et permission `edit_posts` gardent leurs gardes.
 

@@ -1,0 +1,43 @@
+{
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "native": {
+    "code": 0,
+    "stdout": "{\"mutant\":true,\"checks\":{\"fixture_fictive_existante\":true,\"article_0_cree\":true,\"corps_0_exact_save\":true,\"route_0_executee\":true,\"corps_0_exact_apres\":true,\"article_1_cree\":true,\"corps_1_exact_save\":true,\"route_1_executee\":true,\"corps_1_exact_apres\":true,\"mutation_save_tentative\":true,\"mutation_render_tentative\":true,\"mutation_preview_tentative\":true,\"mutation_B00_avant_transport\":true,\"essai_4074_retire\":true,\"essai_4075_retire\":true},\"total\":15,\"events\":[{\"phase\":\"save_0\",\"url\":\"https:\\/\\/www.youtube.com\\/oembed?maxwidth=500&maxheight=750&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DB12FICTIF01&dnt=1&format=json\",\"blocked\":true},{\"phase\":\"render_0\",\"url\":\"https:\\/\\/www.youtube.com\\/oembed?maxwidth=500&maxheight=750&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DB12FICTIF01&dnt=1&format=json\",\"blocked\":true},{\"phase\":\"preview_0\",\"url\":\"https:\\/\\/www.youtube.com\\/oembed?maxwidth=600&maxheight=750&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DB12FICTIF01%26b12%3D0&dnt=1&format=json\",\"blocked\":true},{\"phase\":\"save_1\",\"url\":\"https:\\/\\/www.youtube.com\\/oembed?maxwidth=500&maxheight=750&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DB12FICTIF01&dnt=1&format=json\",\"blocked\":true},{\"phase\":\"render_1\",\"url\":\"https:\\/\\/www.youtube.com\\/oembed?maxwidth=500&maxheight=750&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DB12FICTIF01&dnt=1&format=json\",\"blocked\":true},{\"phase\":\"preview_1\",\"url\":\"https:\\/\\/www.youtube.com\\/oembed?maxwidth=600&maxheight=750&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DB12FICTIF01%26b12%3D1&dnt=1&format=json\",\"blocked\":true}],\"transport\":0,\"ids_removed\":[4074,4075]}",
+    "stderr": ""
+  },
+  "business_preserved": true,
+  "probe_removed": true,
+  "sources": {
+    "wp/outils/demo/b12-contract.py": "e0c074f20af5c4d364abc9abd099453c79734c535901c83f5b2d72dcdad272f2",
+    "wp/outils/demo/b12-corrections.py": "e2bfc44ae2bdcf863315fa2a08beb78fe1773be3018597da68eaddfe75863a1b",
+    "wp/outils/demo/b12-finaliser.py": "f8b902868f7abca331f5376b0cba6cda229c39aa3d592f692b7af797d333ad96",
+    "wp/outils/demo/b12-inspect.py": "19e81d4a0825e3c38810937e1ed99cbd5622f754edf2ef06aeee64cea068886d",
+    "wp/outils/demo/b12-neighbors.py": "13480fed252c8f0103d4c65dc499c3a8871d0e2f2fdcc3309dcaf90f1206cc81",
+    "wp/outils/demo/b12-standard.py": "d81485e72eaa4047b883dbb6820eb17942a8b7be6323ccbf66f223c2edc86ca4",
+    "wp/outils/demo/b12.py": "313dbf838d13d8c491c4db9151db05c6fe4371a95347d4eba92d9f6c48dcd0b5",
+    "wp/plugins/imagine-site/imagine-site.php": "e27ee706324066048c5610730c7b945b945a7b55e66200325147d0b8dcf00780",
+    "wp/plugins/imagine-site/IntegrationsCorps.php": "242bfd18f5bf9d3765be11f0278ab31f03c368feaab628ed7e7011ef408eddc0",
+    "wp/plugins/imagine-site/tests/IntegrationsCorpsB12Stubs.php": "ff635a352975fb7f4c278f1eb56ff9ab6bacbf567f300b3564b31752c02bf229",
+    "wp/plugins/imagine-site/tests/IntegrationsCorpsB12Test.php": "2ab5050c5890966e79c955b025cc8c01c50caed4cbed8ec49cd40c3807fb8046",
+    "wp/tests/demo/b12-contract-proof-tests.py": "afce260816ed02fa031c15f9e714073e68fb4bd07acb710dffc874c7378e42d2",
+    "wp/tests/demo/b12-correction-proof-tests.py": "3e4aba9ddced2731108922909da767502fd82480959c4fc02d08afa2fa8fa2b2",
+    "wp/tests/demo/b12-proof-tests.py": "67aacb987be429eabe1c5c35ee6f8c9182720940ac74c9685d283e7f84ab67cd",
+    "wp/tests/demo/b12-routes-runtime.php": "2da845391befb565253b5fefe2270c2512a7182c399e17fde711d32743ee5887",
+    "wp/tests/demo/b12-runtime.php": "c548afd7e9d6372acc179e8c5cb2abf739bbf4eddffa61c94ea183f50a626dde",
+    "wp/tests/demo/b12-verifier.py": "4d8837034e065b2e7a26810acf2a385ff41f9d3b9a5015c1d6bab74b4b018b69"
+  },
+  "bootstrap_contract": {
+    "block": "// B12 — aucune résolution externe du corps sans consentement.\nrequire_once __DIR__ . '/IntegrationsCorps.php';\nIntegrationsCorps::register();\n\n",
+    "sha256": "97e1f3775eaf0a9f291acc232f4edc78704f6b45b232186430ff9c801a064f8c",
+    "occurrences": 1
+  }
+}

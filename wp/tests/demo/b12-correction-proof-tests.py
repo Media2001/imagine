@@ -30,15 +30,15 @@ class Corrections(unittest.TestCase):
     def test_thumbnail_not_link(self):
         r = self.green(); d = json.loads(r['native']['stdout']); d['cases'][3]['data']['thumbnail_url'] = 'https://example.invalid/a.jpg'; r['native']['stdout'] = json.dumps(d)
         with self.assertRaisesRegex(AssertionError, 'ROUTE_LINK_ONLY'): v.routes(r)
-    def test_exact_bootstrap_current(self): self.assertTrue(v.bootstrap()['B12_registration_exact'])
-    def test_unrelated_bootstrap_byte_rejected(self):
+    def test_exact_bootstrap_current(self): self.assertEqual(v.b12.contract_block()['occurrences'], 1)
+    def test_unrelated_bootstrap_byte_accepted(self):
         raw = (ROOT/v.BOOT).read_bytes()
-        with self.assertRaisesRegex(AssertionError, 'CURRENT_BOOTSTRAP'): v.bootstrap(raw + b'\n')
-    def test_C29_block_changed_rejected(self):
+        self.assertEqual(v.b12.contract_block(raw + b'\n'), v.b12.contract_block(raw))
+    def test_C29_block_change_not_owned_by_B12(self):
         raw = (ROOT/v.BOOT).read_bytes().replace(b'ContactBrevo::register();', b'//ContactBrevo::register();')
-        with self.assertRaisesRegex(AssertionError, 'C29_EXACT_BLOCK'): v.bootstrap(raw)
+        self.assertEqual(v.b12.contract_block(raw), v.b12.contract_block())
     def test_B12_registration_changed_rejected(self):
         raw = (ROOT/v.BOOT).read_bytes().replace(b'IntegrationsCorps::register();', b'//IntegrationsCorps::register();')
-        with self.assertRaisesRegex(AssertionError, 'B12_EXACT_REGISTRATION'): v.bootstrap(raw)
+        with self.assertRaisesRegex(AssertionError, 'B12_BOOTSTRAP_CONTRACT'): v.b12.contract_block(raw)
 
 if __name__ == '__main__': unittest.main(verbosity=2)

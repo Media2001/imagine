@@ -1,0 +1,12 @@
+{
+  "command": [
+    "powershell.exe",
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "C:\\Users\\Ced\\imagine\\wp\\tests\\rejouer.ps1"
+  ],
+  "exit": 0,
+  "log": "contrat-replay-V2.log"
+}

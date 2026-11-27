@@ -36,8 +36,8 @@ def contract_sources():
     return values
 
 
-def readme_section():
-    text = (ROOT/'wp/plugins/imagine-site/README.md').read_text(encoding='utf-8')
+def readme_section(text=None):
+    text = (ROOT/'wp/plugins/imagine-site/README.md').read_text(encoding='utf-8') if text is None else text
     return text.split('## B-12 — aucun appel sortant depuis le corps', 1)[1].split('\n## ', 1)[0].strip()
 
 

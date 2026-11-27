@@ -17,7 +17,13 @@ class Contract(unittest.TestCase):
         self.assertNotIn(v.BOOT, own)
         self.assertIn('wp/plugins/imagine-site/IntegrationsCorps.php', own)
         self.assertGreater(len(own), 10)
-    def test_current_block_exact(self): self.assertEqual(b12.contract_block()['occurrences'], 1)
+    def test_current_block_exact(self):
+        self.assertEqual(b12.contract_block()['occurrences'], 1)
+        text = (ROOT/'wp/plugins/imagine-site/README.md').read_text(encoding='utf-8')
+        own = b12.readme_section(text)
+        self.assertTrue(own)
+        self.assertEqual(b12.readme_section(text + '\n## FUTUR LOT\nsection voisine\n'), own)
+        self.assertNotEqual(b12.readme_section(text.replace('WordPress traite URL seule', 'MUTATION B12 WordPress traite URL seule')), own)
     def test_successor_registration_does_not_invalidate_own_block(self):
         raw = (ROOT/v.BOOT).read_bytes()
         self.assertEqual(b12.contract_block(raw + b'\n// Unrelated future lot bootstrap addition.\n'), b12.contract_block(raw))
