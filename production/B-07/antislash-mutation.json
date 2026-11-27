@@ -1,0 +1,42 @@
+{
+  "scope": "B07-complement-antislash",
+  "command": [
+    "wsl.exe",
+    "-d",
+    "Ubuntu",
+    "--",
+    "docker",
+    "run",
+    "--rm",
+    "--pull",
+    "never",
+    "--network",
+    "none",
+    "--read-only",
+    "--user",
+    "65534:65534",
+    "--cap-drop",
+    "ALL",
+    "--security-opt",
+    "no-new-privileges",
+    "--mount",
+    "type=bind,source=/mnt/c/Users/Ced/imagine/wp,target=/repo/wp,readonly",
+    "--tmpfs",
+    "/tmp:rw,nosuid,nodev,size=512m,mode=1777",
+    "--entrypoint",
+    "php",
+    "imagine-tests-t01:1",
+    "/repo/wp/tests/demo/b07-antislash-horslive.php",
+    "sans-echappement"
+  ],
+  "exit": 1,
+  "sources": {
+    "wp/plugins/imagine-site/Agenda.php": "88c3fadd074d8d7eac0d27ee61c490e3f138225dfa1e9ca8690ebf0c2c443482",
+    "wp/plugins/imagine-site/tests/AgendaWPStubs.php": "131a0f50e1f5ec5d36341df50a00a7745c680ef7a6f170d70c756c9835ce2840",
+    "wp/plugins/imagine-site/tests/AgendaAdapterTest.php": "c2e7445ff9617319b9148dd02479711ac2eff06f3d6634580c7a7fe2fb13befb",
+    "wp/tests/demo/b07-antislash-horslive.php": "026e5153dcfb91ab65694803dc361b7466815329ad5f7033d56151ece5059805",
+    "wp/outils/demo/b07-antislash-unit.py": "bd68dd4136cc7f89e9cba081e14b6b81f68b26f3af71ecb0035a5f84269315d0"
+  },
+  "log": "antislash-mutation.log",
+  "log_sha256": "85db36bc2e12edf768f2bde04f663face7b2fa833b6e083c2c3017464efa1eba"
+}

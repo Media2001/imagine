@@ -32,6 +32,58 @@ final class AgendaAdapterTest extends TestCase
         require $this->theme . '/functions.php';
     }
 
+    public function testAntislashSaisieAffichageAdministrationEtExport(): void
+    {
+        $GLOBALS['agenda_meta'][1]['imagine_type'] = 'rencontre';
+        Agenda::boites();
+        AgendaConfidentialite::register();
+        $exporters = apply_filters('wp_privacy_personal_data_exporters', []);
+        $noms = ['Fictif \\ Atelier', 'Fictif \\\\ double', "Fictif O'Exemple \\ & Atelier", 'Fictif sans antislash'];
+        foreach ($noms as $index => $nom) {
+            $email = 'antislash-' . $index . '@example.org';
+            $_SERVER['REQUEST_METHOD'] = 'POST';
+            // WordPress échappe les superglobales avant le handler.
+            $_POST = wp_slash(['evenement' => '1', 'nom' => $nom, 'email' => $email,
+                'consentement' => '1', 'imagine_agenda_nonce' => 'agenda-test-nonce']);
+            for ($attempt = 0; $attempt < 2; $attempt++) {
+                try {
+                    Agenda::recevoir();
+                    self::fail('La réception doit rediriger.');
+                } catch (\AgendaRedirect $redirect) {
+                    self::assertSame(303, $redirect->status);
+                    self::assertSame(get_permalink(1) . '?inscription=enregistree', $redirect->location);
+                } catch (\AgendaRefusal $refusal) {
+                    self::fail('Saisie antislash refusée : HTTP ' . $refusal->getCode());
+                }
+            }
+            $ids = Agenda::inscriptions($email, 1);
+            self::assertCount(1, $ids);
+            self::assertSame($nom, get_post_meta($ids[0], 'imagine_agenda_nom', true));
+            ob_start();
+            $GLOBALS['agenda_boxes']['imagine-agenda-personne'](get_post($ids[0]));
+            $html = ob_get_clean();
+            self::assertStringContainsString('id="imagine-agenda-admin"', $html);
+            self::assertStringContainsString('<dd>' . esc_html($nom) . '</dd>', $html);
+            $export = $exporters['imagine-agenda']['callback']($email, 1);
+            self::assertTrue($export['done']);
+            self::assertCount(1, $export['data']);
+            $fields = array_column($export['data'][0]['data'], 'value', 'name');
+            self::assertSame($nom, $fields['Nom']);
+        }
+    }
+
+    public function testBouchonEcritureMetaDesechappeCommeWordPress(): void
+    {
+        $raw = 'Fictif \\ Atelier';
+        update_post_meta(1, 'temoin', $raw);
+        self::assertSame(stripslashes($raw), get_post_meta(1, 'temoin', true));
+        update_post_meta(1, 'temoin', wp_slash($raw));
+        self::assertSame($raw, get_post_meta(1, 'temoin', true));
+        $id = wp_insert_post(['post_type' => Agenda::INSCRIPTION, 'post_status' => 'private',
+            'post_parent' => 1, 'meta_input' => ['temoin' => $raw]]);
+        self::assertSame(stripslashes($raw), get_post_meta($id, 'temoin', true));
+    }
+
     public function testExportErreurArreteEtRepriseNeSauteAucunePage(): void
     {
         $GLOBALS['agenda_meta'][1]['imagine_type'] = 'rencontre';

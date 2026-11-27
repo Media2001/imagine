@@ -88,7 +88,10 @@ namespace {
     {
         $id = max(array_keys($GLOBALS['agenda_posts'])) + 1;
         $GLOBALS['agenda_posts'][$id] = new WP_Post(ID: $id, post_type: $data['post_type'], post_status: $data['post_status'], post_parent: $data['post_parent']);
-        $GLOBALS['agenda_meta'][$id] = $data['meta_input'];
+        // wp_insert_post transmet meta_input à update_post_meta, qui déséchappe une fois.
+        foreach ($data['meta_input'] ?? [] as $key => $value) {
+            update_post_meta($id, $key, $value);
+        }
         return $id;
     }
     function wp_delete_post(int $id, bool $force = false): bool { unset($GLOBALS['agenda_posts'][$id], $GLOBALS['agenda_meta'][$id]); return true; }
@@ -105,6 +108,30 @@ namespace {
     function add_meta_box(string $id, string $label, callable $callback, string $type): void { $GLOBALS['agenda_boxes'][$id] = $callback; }
     function wp_nonce_field(string $action, string $name): void {}
     function selected(mixed $current, mixed $value, bool $echo = true): string { return $current === $value ? ' selected' : ''; }
+    class AgendaRedirect extends \RuntimeException
+    {
+        public function __construct(public string $location, public int $status) {}
+    }
+    class AgendaRefusal extends \RuntimeException {}
+    function wp_slash(mixed $value): mixed
+    {
+        return is_array($value) ? array_map('wp_slash', $value) : (is_string($value) ? addslashes($value) : $value);
+    }
+    function wp_unslash(mixed $value): mixed
+    {
+        return is_array($value) ? array_map('wp_unslash', $value) : (is_string($value) ? stripslashes($value) : $value);
+    }
+    function update_post_meta(int $id, string $key, mixed $value): bool
+    {
+        $GLOBALS['agenda_meta'][$id][$key] = wp_unslash($value);
+        return true;
+    }
+    function nocache_headers(): void {}
+    function absint(mixed $value): int { return abs((int)$value); }
+    function wp_verify_nonce(string $nonce, string $action): bool { return $nonce === 'agenda-test-nonce'; }
+    function wp_die(string $message, string $title = '', array $args = []): never { throw new AgendaRefusal($message, $args['response'] ?? 0); }
+    function add_query_arg(string $key, string $value, string $url): string { return $url . '?' . urlencode($key) . '=' . urlencode($value); }
+    function wp_safe_redirect(string $url, int $status = 302): never { throw new AgendaRedirect($url, $status); }
     function current_user_can(string $cap): bool { return true; }
 }
 namespace Imagine\Site {

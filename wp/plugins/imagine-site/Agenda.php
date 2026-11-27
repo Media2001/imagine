@@ -129,7 +129,7 @@ final class Agenda
             $new = wp_insert_post(['post_type' => self::INSCRIPTION, 'post_status' => 'private',
                 'post_title' => sprintf(__('Inscription — événement %d', 'imagine-site'), $id),
                 'post_parent' => $id, 'post_author' => 0,
-                'meta_input' => ['imagine_agenda_email' => $email, 'imagine_agenda_nom' => $nom,
+                'meta_input' => ['imagine_agenda_email' => $email, 'imagine_agenda_nom' => wp_slash($nom),
                     'imagine_agenda_consentement' => $consentement ? '1' : '0',
                     'imagine_agenda_date' => gmdate(DATE_ATOM)]], true);
             if (is_wp_error($new) || !$new) { return false; }
