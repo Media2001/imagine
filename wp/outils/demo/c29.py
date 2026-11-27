@@ -109,11 +109,9 @@ def gate(action,label):
     return r.returncode
 
 if __name__ == '__main__':
+    assert sys.argv[1] in ['seed','image','replay','deploy','native','pure'], 'Action C29 inconnue'
     if sys.argv[1]=='seed': seed(sys.argv[2]); raise SystemExit(0)
     if sys.argv[1] in ['image','replay']: raise SystemExit(gate(sys.argv[1],sys.argv[2]))
     if sys.argv[1]=='deploy': deploy(sys.argv[2]); raise SystemExit(0)
     if sys.argv[1]=='native': raise SystemExit(native(sys.argv[2]))
     if sys.argv[1]=='pure': raise SystemExit(pure(sys.argv[2]))
-    if sys.argv[1]=='inspect':
-        r=docker('run','--rm','--pull','never','--network','none','--read-only','--entrypoint','php','imagine-tests-t01:1','-r','echo getcwd(),PHP_EOL; foreach(["/opt","/opt/t01"] as $p){if(is_dir($p)){echo $p,":",implode(",",array_diff(scandir($p),[".",".."])),PHP_EOL;}}')
-        print(r.stdout,r.stderr)
