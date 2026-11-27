@@ -1,0 +1,10 @@
+{
+  "protected_changed": [
+    "wp/outils/bascule/README.md"
+  ],
+  "only_authorized_readme_change": true,
+  "readme_original_bytes_reconstruct": true,
+  "executed_sources_changed": [],
+  "other_lane_not_pinned": true,
+  "native_expected_failure_preserved": true
+}

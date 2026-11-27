@@ -1,6 +1,6 @@
-# B-09 — à ouvrir et à vérifier
+# B-09 — à ouvrir et à vérifier après corrections
 
-**Squelette complet du brief, prêt technique à relire ; validation visuelle de Ced attendue.** Démonstration entièrement fictive `imagine-test-demo`, aucun réel, email, tiers ou paiement. Ni texte juridique ni design livré.
+**Instructions 1–5 appliquées ; prêt technique à relire ; validation visuelle de Ced attendue.** Démonstration entièrement fictive `imagine-test-demo`, aucun réel, email, tiers ou paiement. Ni texte juridique ni design livré.
 
 ## Adresses
 
@@ -22,13 +22,13 @@ Comptes fictifs et connexion : mécanisme existant B-00/C-09, aucun identifiant 
 
 ## Commande de vérification parent — sans argument au script
 
-Depuis `C:\Users\Ced\imagine`, avec le Python 3.11.15 effectivement utilisé :
+Depuis `C:\Users\Ced\imagine`, avec Python standard :
 
 ```powershell
 python -B production/B-09/verifier.py
 ```
 
-Python standard seulement : aucun site, Docker, réseau ou mutation. Il contrôle les empreintes B-09, les contrats des fichiers partagés, les ensembles exacts de contrôles, les compteurs recalculés, les vrais logs rouges de mutations, les inverses et le dernier readback. Le manifeste ne fige ni les files d’orchestration ni les paquets des autres lots.
+Python standard seulement : aucun site, Docker, réseau ou mutation. Il contrôle `corrections-final-V2.json`, les empreintes B-09, les contrats partagés, les ensembles exacts de contrôles, les compteurs, les rouges, la reprise durable et le dernier readback. L'ancien `final-V2.json` reste historique. Ni les files d'orchestration ni les paquets des autres lots ne sont figés.
 
 ## Rejouer les vrais tests
 
@@ -37,31 +37,35 @@ Une étiquette neuve à chaque appel, pour conserver les reçus antérieurs :
 ```powershell
 python -B wp/outils/demo/b09-local.py parent-unitaires-NOM-NEUF
 python -B wp/outils/demo/b09-mutations.py parent-mutations-NOM-NEUF
+python -B wp/outils/demo/b09-local.py parent-meta-NOM-NEUF meta-partielle
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/preparer-image.ps1
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/rejouer.ps1
 ```
 
-Ces deux premiers appels utilisent des conteneurs isolés hors réseau, copies temporaires et dépôt en lecture seule. Les six tests Contact sont également découverts par la suite PHPUnit racine existante, sans manifeste Composer ou bibliothèque close modifié.
+Ces appels utilisent des conteneurs isolés hors réseau, copies temporaires et dépôt en lecture seule. Les sept tests Contact sont découverts par la suite PHPUnit racine existante, sans manifeste Composer ou bibliothèque close modifié. Le mutant `meta-partielle` doit sortir 1 avec un échec PHPUnit, pas une erreur PHP.
 
 Les recettes suivantes utilisent **exclusivement** la démonstration fictive, avec préimages durables privées, nettoyage et readback ; ne pas les confondre avec le vérificateur de paquet :
 
 ```powershell
 python -B wp/outils/demo/b09.py runtime parent-structure-NOM-NEUF
+python -B wp/outils/demo/b09-corrections.py parent-interruption-NOM-NEUF
+python -B wp/outils/demo/b09-correction-live.py partial parent-partiel-NOM-NEUF
 python -B wp/outils/demo/b09.py reseed parent-seed-stable-NOM-NEUF
 python -B wp/outils/demo/b09-recette.py parent-contact-NOM-NEUF
 python -B wp/outils/demo/b09-readback.py parent-readback-NOM-NEUF
 ```
 
-Ne pas rejouer `seed` sur le squelette livré : c’est la recette de **première création** déjà interrompue puis reprise réellement sous trois processus. La preuve finale est `pages-reprise-finale.json` ; `reseed` démontre ensuite l’absence de réécriture sur le squelette complet.
+Ne pas rejouer `seed` sur le squelette livré : c'est la recette de première création historique (`pages-reprise-finale.json`). `b09-corrections.py` interrompt réellement un nouvel item après le marqueur et avant l'option, prouve sa reprise puis restitue l'item initial ; `reseed` prouve ensuite l'absence de réécriture sur le squelette complet.
 
 ## Preuves retenues
 
-- `tests-finaux.log` : **6 tests, 188 assertions**, sans échec ; doubles d’écriture conformes au déséchappement WordPress.
-- `structure-finale-verifiee.json`, `pages-reprise-finale.json`, `recette-finale.json` : ensembles exacts de **16 + 6 + 31 = 53 contrôles natifs**, sans échec. Readback final séparé dans `readback-final.json`.
-- `mutations-finales.json` et ses douze logs : **12 mutations de sources détectées** ; mutation réelle REST/recherche supplémentaire dans `recette-finale.json`, suivie du retour au vert.
-- `reprise-stable-finale.json` : deux rejeux, mêmes IDs et mêmes lignes existantes, état métier conservé ; la première mesure avait révélé une actualisation des dates natives des cinq items. Corrigée, prouvée rouge/verte (`red-seed-stable.json`, `green-seed-stable.json`), puis rejouée sur la fixture finale.
-- `preparation-finale.json/.log` : reconstruction et vérification hors ligne de l’image par **le vrai `wp/tests/preparer-image.ps1`**.
-- `regression-finale.json/.log` : **1 159 tests PHP / 36 263 assertions**, **22 outils / 584 contrôles**, zéro échec de ces suites. **Quatre paquets annexes voie 1 restent rouges** : A-26/A-27 `SEALED_VERIFICATION_FAILED`, A-30 `PACKAGE_DRIFT`, A-31 `A31_PARENT_GATES_MISSING`. Ils sont exposés dans `final-V2.json` (`foreign_packet_failures=4`), non corrigés et non rescellés ici ; le PRET de B-09 ne certifie pas ces paquets. Le premier `regression.json/.log` est un **échec historique** (conteneur disparu avant inspection), jamais un succès ; le rejeu a été refait après cinq minutes, sans modifier le lanceur.
-- `final-V2.json`, `verifier.py` : paquet vérifiable, contrats B-09 du bootstrap/footer/README ; aucun ancien paquet rescellé.
+- `corrections-final-unit.log` : **7 tests / 203 assertions**, zéro échec ; doubles d'écriture conformes au déséchappement. Rouge préalable : `corrections-red-partielle.log`, un vrai échec attendu, post disparu/texte survivant.
+- **61 contrôles natifs verts** : structure 21, HTTP/contact 31, interruption exacte 4, suppression partielle native 5. Reçus `corrections-structure.json`, `corrections-recette.json`, `corrections-green-seed.json`, `corrections-effacement-natif.json`.
+- **14 mutations de sources détectées** : douze rejouées sur le code corrigé (`corrections-final-mutations.json`), relecture des métas retirée (`corrections-final-mutant-meta.log`), scan des marqueurs retiré dans un runner temporaire (`corrections-mutation-scan.json`, cinq contrôles rouges). Les injections natives REST/recherche et suppression partielle sont observées puis inversées.
+- `corrections-stable.json` : deux rejeux, mêmes IDs et lignes, état métier conservé. IDs des pages et menus livrés inchangés.
+- `corrections-preparation.json/.log` : **vrai `wp/tests/preparer-image.ps1`**, image vérifiée.
+- `corrections-final-regression.json/.log` : **1 167 tests / 36 333 assertions**, **22 outils / 584 contrôles**, zéro échec ; **11 paquets vérifiés, zéro échec**, A-32 hors rejeu (journaux absents). Les quatre anciens rouges voie 1 ne sont plus rouges dans ce rejeu ; aucun de leurs fichiers n'a été modifié ici.
+- `corrections-final-readback.json` : aucun contact, aucune méta personnelle, aucune option de reprise ; cinq runners/observateurs temporaires absents, sources distantes relues, état initial hors B-09 conservé.
+- `corrections-final-V2.json`, `verifier.py` : paquet courant vérifiable ; anciens reçus et `final-V2.json` historiques, sans faux resceau.
 
-Stockage pour l’import de la voie 1, dix sources officielles consultées, choix prudents et limites : **`NOTE.md`**. Les callbacks de confidentialité sont réellement exécutés par leur registre natif, pas un nouvel export maison ; le ZIP global WordPress et son email ne sont pas rejoués ici. Pas de prétention de conformité juridique, de validation graphique, d’anti-spam ou de rétention automatique de production. La réception de ce squelette est complète pour B-09, pas une mise en ligne.
+Instructions 1–5 et décisions techniques : **`CORRECTIONS.md`**. Duplication Contact/Sujet et chaîne de succès restent en place par défaut technique. Stockage pour l'import, choix natifs et limites : **`NOTE.md`**. Les callbacks sont exécutés par leur registre natif ; ZIP global et email non rejoués. Aucune conformité juridique, validation graphique, rétention ou anti-spam de production revendiqués. Aucun lot clos étendu.

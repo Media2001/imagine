@@ -1,5 +1,7 @@
 # B-09 — choix natifs, stockage et limites
 
+**Actualisation après fusion du 27/11 : instructions 1–5 appliquées.** Preuves courantes et compteurs : `CORRECTIONS.md` et `A-VOIR.md`, paquet `corrections-final-V2.json`. Les paragraphes de première livraison ci-dessous restent historiques : leurs anciens nombres, fenêtres d'interruption et quatre paquets rouges ne décrivent pas le rejeu corrigé.
+
 ## Le standard d’abord — cinq lignes
 
 1. Les cinq écrans sont des pages WordPress ; pas de type FAQ, constructeur ni table éditoriale supplémentaire.
@@ -33,12 +35,15 @@ Métadonnées des dix pages récupérées (URL, empreinte de la réponse, extrai
 | Date | UTC, format `DATE_ATOM` |
 | Compte du visiteur | aucun rattachement ; aucun `user_id`, rapprochement ou test d’existence au dépôt |
 | C-21 / WordPress | registre `imagine-contacts` ; `ContactConfidentialite::exporter/effacer`, recherche par email normalisé, tranches de 50 |
+| Option technique de reprise d'effacement | `imagine_contact_effacement_<sha256(adresse normalisée)>`, non autoloadée ; seuls IDs connus en attente, écrits et relus avant suppression ; retirée après absence SQL vérifiée des métas. À vider lors d'une future copie, sans rouvrir l'import clos ici |
 
 L’import fermé de la voie 1 **n’est pas modifié**. Lui transmettre ce type et ses cinq clés pour compléter sa politique fermée lors d’un lot autorisé : retirer les posts connus **et leurs postmeta**, y compris les metas orphelines attachées à leurs IDs. Ne pas prétendre que l’import actuel reconnaît déjà B-09. Aucun message d’essai B-09 n’est laissé dans la démonstration.
 
 Les pages et menus ne sont pas des messages : option `imagine_b09_pages` (cinq IDs), marqueur `imagine_b09_page` par page ; option `imagine_b09_menu` (menu + cinq items), marqueur `imagine_b09_menu_item` par item, nom `imagine-b09-footer`, emplacement `imagine-footer`. Ils ne contiennent aucune donnée de visiteur.
 
 ## Preuves et décisions prises à défaut
+
+Correctif courant : scan de tous les marqueurs, y compris détachés/hors option ; refus de type, marqueur, rattachement ou propriété ambigus. Interruption réellement déplacée entre marqueur et option. Effacement : relecture SQL des clés `imagine_contact_*`, `done=false` si une survit, reprise par IDs persistés même sans méta email. Test PHPUnit et injection native d'une suppression partielle, rouges/verts et mutations : `CORRECTIONS.md`. Espaces après casts corrigés dans les fichiers B-09 neufs. Duplication Contact/Sujet et succès par chaîne maintenus, sans modifier Sujet ni autre lot.
 
 - Les cycles rouges puis verts sont conservés : `red-contact.log` (quatre vrais échecs de fonctionnalité absente), `red-structure.json` (seed absent), puis recettes vertes. Les deux tests complémentaires couvrent ensuite capacités/admin et raccord limité à la page de contact.
 - La création initiale a été interrompue réellement par `exit(73)` au troisième item, **avant son rattachement** : deux items attachés et trois IDs marqués en base. Un autre processus WP-CLI a repris les mêmes pages et les trois premiers items, puis un troisième a relu le même résultat. Ce n’est pas une reprise simulée par un reçu inventé.
@@ -49,6 +54,8 @@ Les pages et menus ne sont pas des messages : option `imagine_b09_pages` (cinq I
 - Le brouillon `Privacy Policy` natif préexistant est conservé intégralement ; seule la désignation de politique pointe désormais sur la page B-09 publiée et vide. Une politique existante différente du brouillon natif attendu est refusée par le seed.
 
 ## Incidents de preuve et bilan transversal
+
+**Historique de la première livraison seulement.** Le rejeu courant a 1 167 tests / 36 333 assertions, 22 outils / 584 contrôles verts ; 11 paquets vérifiés, zéro échec, A-32 hors rejeu (journaux absents). Les quatre anciens rouges ci-dessous ont disparu sans aucune intervention de cette voie dans leurs fichiers.
 
 Le premier rejeu général a perdu son conteneur avant l’inspection finale : reçu conservé rouge, nouvelle tentative après cinq minutes. La dernière préparation d’image a réussi. Le dernier rejeu a réellement exécuté **1 159 tests PHP / 36 263 assertions**, plus **22 outils / 584 contrôles**, sans échec de ces suites. Il a également signalé **quatre échecs de paquets de la voie 1** : A-26 et A-27 `SEALED_VERIFICATION_FAILED`, A-30 `PACKAGE_DRIFT`, A-31 `A31_PARENT_GATES_MISSING`. Ils sont conservés dans le reçu et le compteur `foreign_packet_failures` ; aucun « tout le dépôt est vert » n’est revendiqué. Le PRET porte sur B-09 complet, pas sur ces autres paquets, que ce worker n’a ni corrigés ni rescellés. Le vérificateur refuse toujours un échec de B-09 ou des tests PHP eux-mêmes.
 

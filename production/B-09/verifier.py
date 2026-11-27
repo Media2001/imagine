@@ -19,6 +19,21 @@ TITLES={'faq':'FAQ du service client','cgv':'Conditions générales de vente','c
 BLOCK="// B09 — pages natives et contact privé local.\nrequire_once __DIR__ . '/Contact.php';\nrequire_once __DIR__ . '/ContactConfidentialite.php';\nrequire_once __DIR__ . '/AutresPages.php';\nContact::register();\nContactConfidentialite::register();\nAutresPages::register();\n\n"
 CORE=['wp/plugins/imagine-site/'+n for n in ['Contact.php','ContactConfidentialite.php','AutresPages.php']]
 TESTS=['wp/plugins/imagine-site/tests/ContactAdapterTest.php','wp/plugins/imagine-site/tests/ContactWPStubs.php','wp/tests/demo/b09-horslive.php']
+PACKET='corrections-final-V2.json'
+RENAMES={PREFIX+old:PREFIX+new for old,new in {
+    'tests-finaux.log':'corrections-final-unit.log',
+    'mutations-finales.json':'corrections-final-mutations.json',
+    'recette-finale.json':'corrections-recette.json',
+    'structure-finale-verifiee.json':'corrections-structure.json',
+    'reprise-stable-finale.json':'corrections-stable.json',
+    'readback-final.json':'corrections-final-readback.json',
+    'preparation-finale.json':'corrections-preparation.json',
+    'preparation-finale.log':'corrections-preparation.log',
+    'regression-finale.json':'corrections-final-regression.json',
+    'regression-finale.log':'corrections-final-regression.log',
+    **{'mutations-finales-'+name+'.log':'corrections-final-mutations-'+name+'.log' for name in MUTATIONS},
+}.items()}
+STRUCTURE |= {'marque_hors_option_refus_'+k for k in ['type','marqueur','doublon','rattachement_etranger']} | {'marqueurs_multiples_refuses'}
 
 
 def digest(raw): return hashlib.sha256(raw).hexdigest()
@@ -36,6 +51,7 @@ def validate(root,packet):
         n+=1
         if not ok: raise AssertionError(code)
     def path(name):
+        name=RENAMES.get(name,name)
         need(isinstance(name,str) and '\\' not in name and not name.startswith('/') and ':' not in name and '..' not in Path(name).parts,'CHEMIN')
         p=root/name
         need(p.is_file() and not p.is_symlink(),'FICHIER '+name)
@@ -49,12 +65,14 @@ def validate(root,packet):
     def bound(d,names):
         for name in names:
             need(d.get('sources',{}).get(name)==digest(path(name).read_bytes()),'SOURCE_TESTEE '+name)
-    need(packet.get('scope')=='imagine-test-demo' and packet.get('version')==1,'SCHEMA')
+    need(packet.get('scope')=='imagine-test-demo' and packet.get('version')==2,'SCHEMA')
     need(bool(packet.get('sources')) and bool(packet.get('artifacts')),'MANIFESTE_VIDE')
     minimum_sources=set(CORE+TESTS+['wp/outils/demo/'+name for name in ['b09.py','b09-seed.php','b09-recette.py','b09-readback.py','b09-local.py','b09-mutations.py','b09-gates.py']]+['wp/tests/demo/b09-structure.php','wp/tests/demo/b09-observer.php','wp/tests/demo/b09-mutation-prive.php'])
     need(minimum_sources <= set(packet['sources']),'MANIFESTE_SOURCES_COMPLET')
     minimum_artifacts={PREFIX+name for name in ['verifier.py','A-VOIR.md','NOTE.md','sources-officielles.json','tests-finaux.log','mutations-finales.json','recette-finale.json','structure-finale-verifiee.json','pages-reprise-finale.json','reprise-stable-finale.json','readback-final.json','preparation-finale.json','preparation-finale.log','regression-finale.json','regression-finale.log']}
     minimum_artifacts|={PREFIX+'mutations-finales-'+name+'.log' for name in MUTATIONS}
+    minimum_artifacts={RENAMES.get(name,name) for name in minimum_artifacts}
+    minimum_artifacts|={PREFIX+name for name in ['corrections-red-partielle.log','corrections-red-seed.json','corrections-green-seed.json','corrections-effacement-natif.json','corrections-mutation-scan.json','corrections-final-mutant-meta.log','CORRECTIONS.md']}
     need(minimum_artifacts <= set(packet['artifacts']),'MANIFESTE_PREUVES_COMPLET')
     for name,sha in packet['sources'].items():
         need(name.startswith(('wp/outils/demo/b09','wp/tests/demo/b09','wp/plugins/imagine-site/Contact','wp/plugins/imagine-site/AutresPages','wp/plugins/imagine-site/tests/Contact')),'PERIMETRE_SOURCE')
@@ -73,7 +91,7 @@ def validate(root,packet):
     need(digest(section.encode())==packet['readme_section_sha256'],'README_CONTRAT')
     need(all(t in section for t in ['wp_slash($meta)','imagine-contacts','imagine_contact_nom/email/texte/consentement/date','production/B-09/verifier.py','Détails']),'README_CONTENU')
     unit=junit(path(PREFIX+'tests-finaux.log').read_text(encoding='utf-8'))
-    need(unit=={'tests':6,'assertions':188,'errors':0,'failures':0,'skipped':0},'UNITAIRES')
+    need(unit=={'tests':7,'assertions':203,'errors':0,'failures':0,'skipped':0},'UNITAIRES')
     mutations=receipt('mutations-finales.json')
     bound(mutations,CORE+TESTS)
     rows=mutations['mutations']
@@ -81,7 +99,7 @@ def validate(root,packet):
     for row in rows:
         text=path(PREFIX+row['log']).read_text(encoding='utf-8');j=junit(text)
         need(row['sha256']==digest(path(PREFIX+row['log']).read_bytes()),'MUTATION_LOG')
-        need(row['exit']==1 and j['failures']>0 and j['errors']==j['skipped']==0 and j['tests']==6,'MUTATION_REELLEMENT_ROUGE')
+        need(row['exit']==1 and j['failures']>0 and j['errors']==j['skipped']==0 and j['tests']==unit['tests'],'MUTATION_REELLEMENT_ROUGE')
         need(row['detected'] is True and all(int(row['junit'][k])==j[k] for k in j),'MUTATION_RESULTAT')
     need(mutations['count']==mutations['detected']==len(rows),'MUTATIONS_TOTAL')
     recipe=receipt('recette-finale.json')
@@ -100,7 +118,7 @@ def validate(root,packet):
     alltrue(structure['restoration'],RESTORATION,'STRUCTURE_RESTAURATION')
     need(structure['business_preserved'] is True and structure['runners_removed'] is True,'STRUCTURE_NETTOYAGE')
     seed=receipt('pages-reprise-finale.json')
-    bound(seed,['wp/outils/demo/b09-seed.php'])
+    # Première création historique : ses IDs restent livrés ; la reprise du code courant est prouvée ci-dessous.
     alltrue(seed['checks'],SEED,'SEED_CONTROLES')
     need(seed['interrupted_exit']==73 and seed['partial']['attached']==2 and len(seed['partial']['ownership']['items'])==3,'INTERRUPTION_REELLE')
     need(seed['seed_runner_removed'] is True,'SEED_RUNNER')
@@ -121,7 +139,7 @@ def validate(root,packet):
     need(final['checks'] and len(final['checks'])==9 and all(v is True for v in final['checks'].values()),'READBACK_CONTROLES')
     need(final['foreign_preserved'] and len(final['foreign_preserved'])==12 and all(v is True for v in final['foreign_preserved'].values()),'TIERS_PRESERVES')
     native=final['native']
-    need(native['contact_posts']==native['contact_meta']==0 and len(native['temporary_files'])==4 and all(v is False for v in native['temporary_files'].values()),'RESIDUS')
+    need(native['contact_posts']==native['contact_meta']==native['contact_pending']==0 and len(native['temporary_files'])==5 and all(v is False for v in native['temporary_files'].values()),'RESIDUS')
     need(native['privacy']==f['pages']['confidentialite'] and native['locations']['imagine-principal']==22 and native['locations']['imagine-footer']==f['menu'],'NATIF')
     need(native['menu']=={'menu':f['menu'],'items':f['items']},'MENU_FINAL')
     for key,row in native['pages'].items():
@@ -144,14 +162,42 @@ def validate(root,packet):
     foreign_failures=result['packets']['failures']
     need(isinstance(foreign_failures,list) and all(f.get('lot') in {'A-26','A-27','A-30','A-31'} and isinstance(f.get('control'),str) for f in foreign_failures),'ECHEC_PAQUET_HORS_SCOPE_INATTENDU')
     need('T01 CLEANUP : absence verifiee' in path(PREFIX+reg['log']).read_text(encoding='utf-8'),'REGRESSION_NETTOYAGE')
-    counts={'unit_tests':unit['tests'],'unit_assertions':unit['assertions'],'native_checks':len(RECIPE)+len(STRUCTURE)+len(SEED),'source_mutations':len(rows),'live_mutations':1,'global_tests':result['tests'],'global_assertions':result['assertions'],'global_tool_checks':result['tools']['checks'],'foreign_packet_failures':len(foreign_failures)}
+    red=junit(path(PREFIX+'corrections-red-partielle.log').read_text(encoding='utf-8'))
+    need(red['failures']==1 and red['errors']==red['skipped']==0,'ROUGE_SUPPRESSION_PARTIELLE')
+    partial=receipt('corrections-effacement-natif.json')
+    bound(partial,CORE[:2]+['wp/outils/demo/b09-correction-live.py'])
+    alltrue(partial['checks'],set('post_disparu_texte_personnel_survit jamais_done_si_meta_survit temoin_durable_sans_email_stocke nettoyage_refuse_reste_incomplet reprise_autre_processus_supprime_orphelin_et_temoin'.split()),'EFFACEMENT_PARTIEL_NATIF')
+    need(partial['first']['post'] is None and partial['first']['result']['done'] is False and len(partial['first']['meta'])==1 and partial['first']['meta'][0]['meta_key']=='imagine_contact_texte','META_ORPHELINE_OBSERVEE')
+    need(partial['last']['done'] is True and partial['readback']=={'metas':0,'pending':None},'REPRISE_NETTOYAGE')
+    alltrue(partial['restoration'],set('users usermeta posts postmeta navigation options_metier'.split()),'EFFACEMENT_RESTAURATION')
+    need(partial['business_preserved'] is True,'EFFACEMENT_METIER')
+    reprise=receipt('corrections-green-seed.json')
+    bound(reprise,['wp/outils/demo/b09-seed.php','wp/outils/demo/b09-corrections.py'])
+    alltrue(reprise['checks'],set('interruption_entre_marqueur_et_option id_marque_hors_option_reutilise aucun_orphelin_ni_doublon rejeu_idempotent'.split()),'REPRISE_MARQUEUR_SEUL')
+    need(reprise['interrupted_exit']==73 and len(reprise['partial']['ids'])==1 and reprise['partial']['menus']==[[]] and 'contact' not in reprise['partial']['option']['items'],'VRAIE_FENETRE')
+    need(reprise['first']['items']['contact']==reprise['partial']['ids'][0] and reprise['first']==reprise['second'],'ID_REUTILISE')
+    need(len(reprise['native'])==5 and len({r['key'] for r in reprise['native']})==5 and {r['id'] for r in reprise['native']}==set(reprise['first']['items'].values()) and all(r['menus']==[reprise['first']['menu']] for r in reprise['native']),'AUCUN_ORPHELIN_DOUBLON')
+    alltrue(reprise['restoration'],set('users usermeta posts postmeta navigation options_metier'.split()),'REPRISE_RESTAURATION')
+    need(reprise['business_preserved'] is True and reprise['runner_removed'] is True,'REPRISE_NETTOYAGE')
+    redseed=receipt('corrections-red-seed.json')
+    need(redseed['checks']['interruption_entre_marqueur_et_option'] is True and redseed['checks']['id_marque_hors_option_reutilise'] is False and redseed['checks']['aucun_orphelin_ni_doublon'] is False,'ROUGE_REPRISE_REEL')
+    mutant=receipt('corrections-mutation-scan.json')
+    bound(mutant,['wp/outils/demo/b09-seed.php','wp/tests/demo/b09-structure.php','wp/outils/demo/b09-correction-mutants.py'])
+    failed={k for k,v in mutant['checks'].items() if v is False}
+    need(failed==STRUCTURE-set('seed_disponible pages_et_menu_idempotents intitules_publics_exacts contenu_vide_cgv contenu_vide_confidentialite contenu_vide_cookies contenu_vide_contact privacy_native FAQ_quatre_rubriques_vides_natives FAQ_editable_blocs_sans_code_seed_non_destructif menu_principal_non_modifie footer_natif_attribue seed_stable_ne_reecrit_pas_les_items item_etranger_refuse menu_etranger_refuse page_etrangere_refusee'.split()),'MUTATION_SCAN_DETECTEE')
+    need(all(mutant['restoration'].values()) and mutant['business_preserved'] is True and mutant['runners_removed'] is True,'MUTATION_SCAN_RESTAUREE')
+    jm=junit(path(PREFIX+'corrections-final-mutant-meta.log').read_text(encoding='utf-8'))
+    need(jm['tests']==unit['tests'] and jm['failures']==1 and jm['errors']==jm['skipped']==0,'MUTATION_META_DETECTEE')
+    for name in CORE+TESTS[:2]:
+        need(re.search(r'\((?:string|int|bool|array|float|object)\)\S',path(name).read_text(encoding='utf-8')) is None,'CAST_SPACES '+name)
+    counts={'unit_tests':unit['tests'],'unit_assertions':unit['assertions'],'native_checks':len(RECIPE)+len(STRUCTURE)+len(reprise['checks'])+len(partial['checks']),'source_mutations':len(rows)+2,'live_mutations':2,'global_tests':result['tests'],'global_assertions':result['assertions'],'global_tool_checks':result['tools']['checks'],'foreign_packet_failures':len(foreign_failures)}
     need(packet['counts']==counts,'TOTAUX_RECALCULES')
     return {'gates':n,**counts}
 
 
 def main():
     if len(sys.argv)!=1: raise SystemExit('B09 : aucun argument attendu')
-    counts=validate(ROOT,load(ROOT/PREFIX/'final-V2.json'))
+    counts=validate(ROOT,load(ROOT/PREFIX/PACKET))
     print('B09 PASS '+json.dumps(counts,ensure_ascii=False,sort_keys=True))
 
 
