@@ -125,6 +125,29 @@ def seed(label):
     print(json.dumps(result,ensure_ascii=False))
 
 
+def reseed(label):
+    identity=b08.c25.b06.guard()
+    before=b08.snapshot();business=b08.c25.b06.state()
+    durable=b08.c25.private('b09-'+label,{'database':before,'business':business})
+    name='imagine-demo-build/b09-seed.php'
+    source=(ROOT/'wp/outils/demo/b09-seed.php').read_bytes()
+    current=wp('$p=WP_CONTENT_DIR."/'+name+'";echo wp_json_encode(is_file($p)?hash_file("sha256",$p):null);')
+    assert current in [None,hashlib.sha256(source).hexdigest()], 'Seed distant étranger'
+    first=second=None
+    try:
+        b08.c25.b06.profils.b00.upload(name,source)
+        first=wp('require WP_CONTENT_DIR."/'+name+'";')
+        second=wp('require WP_CONTENT_DIR."/'+name+'";')
+        assert first==second
+    finally:
+        remove_remote([name])
+        after=b08.snapshot()
+        exact={k:before[k]==after[k] for k in ['users','usermeta','posts','postmeta','navigation']}
+        state_equal=business==b08.c25.b06.state()
+        save(label,{'identity':identity,'private_snapshot':durable,'fixture':first,'idempotent':first==second if first else False,'unchanged_existing_fixture':exact,'business_preserved':state_equal,'runner_removed':True})
+    print('Seed rejoué deux fois, readback identique')
+
+
 if __name__=='__main__':
-    assert sys.argv[1] in ['inspect','deploy','runtime','seed']
+    assert sys.argv[1] in ['inspect','deploy','runtime','seed','reseed']
     globals()[sys.argv[1]](*sys.argv[2:])

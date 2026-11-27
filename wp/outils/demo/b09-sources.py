@@ -34,8 +34,13 @@ for key,url in urls.items():
     for i,line in enumerate(parts):
         if any(n.lower() in line.lower() for n in needles):
             selected.append(' '.join(parts[max(0,i-1):i+2])[:1600])
-    rows[key]={'url':url,'sha256':hashlib.sha256(raw).hexdigest(),'extraits':selected[:16]}
-    print(key,len(raw),selected[:1])
+    needle={'pages':'non-chronological','blocs':'The Details block displays','privacy':'wp_page_for_privacy_policy','insert':'meta_input','meta':'Post meta values','type':'Whether to exclude posts','menu':'wp_add_nav_menu_item','creation-menu':'do_action','export':'wp_privacy_personal_data_exporters','effacement':'wp_privacy_personal_data_erasers'}[key]
+    matching=next((s for s in parts if needle in s), '')
+    assert matching, key
+    start=max(0,matching.find(needle)-30)
+    excerpt=' '.join(matching[start:].split()[:20])
+    rows[key]={'url':url,'sha256':hashlib.sha256(raw).hexdigest(),'extrait':excerpt}
+    print(key,len(raw),excerpt)
 p=Path(__file__).resolve().parents[3]/'production/B-09/sources-officielles.json'
 assert not p.exists()
 p.write_text(json.dumps(rows,ensure_ascii=False,indent=2),encoding='utf-8')

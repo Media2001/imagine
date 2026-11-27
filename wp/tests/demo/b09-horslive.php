@@ -22,6 +22,8 @@ foreach (discoverT01Packages('/repo/wp')['packages'] as $package) {
         'export' => ['ContactConfidentialite.php', "return ['data' => \$data,", "return ['data' => [],"],
         'effacement' => ['ContactConfidentialite.php', 'wp_delete_post($id, true)', 'true'],
         'lecture' => ['Contact.php', "\$wpdb->last_error !== '' ? null", "\$wpdb->last_error !== '' ? []"],
+        'admin' => ['Contact.php', "if (!current_user_can('manage_options'))", 'if (false)'],
+        'raccord' => ['AutresPages.php', "&& get_the_ID() === (int) (\$pages['contact'] ?? 0)", '&& true'],
         'nonce' => ['Contact.php', "&& wp_verify_nonce(wp_unslash(\$post['_b09']), 'imagine_contact')", '&& true'],
     ];
     if ($mutation !== '') {

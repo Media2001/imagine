@@ -87,6 +87,51 @@ final class ContactAdapterTest extends TestCase
         }
     }
 
+    public function testDetailReserveAAdministrationEtCapacitesNatives(): void
+    {
+        self::assertTrue(Contact::enregistrer('Fictif', 'fictif@example.org', 'B09_TEMOIN_ADMIN', true));
+        Contact::register();
+        foreach ($GLOBALS['b09_hooks']['add_meta_boxes'] as $callback) {
+            $callback();
+        }
+        $render = $GLOBALS['b09_boxes']['imagine-contact-prive'];
+        ob_start();
+        $render(get_post(100));
+        self::assertStringContainsString('B09_TEMOIN_ADMIN', ob_get_clean());
+        $GLOBALS['b09_admin'] = false;
+        ob_start();
+        $render(get_post(100));
+        self::assertSame('', ob_get_clean());
+        Contact::types();
+        $args = $GLOBALS['b09_types'][Contact::TYPE];
+        foreach (['public', 'publicly_queryable', 'show_in_rest', 'can_export'] as $key) {
+            self::assertFalse($args[$key]);
+        }
+        self::assertTrue($args['exclude_from_search']);
+        foreach ($args['capabilities'] as $key => $cap) {
+            self::assertSame($key === 'create_posts' ? 'do_not_allow' : 'manage_options', $cap);
+        }
+    }
+
+    public function testRaccordSeulementContactPrincipalEtMenuFooterNatif(): void
+    {
+        \Imagine\Site\AutresPages::register();
+        foreach ($GLOBALS['b09_hooks']['after_setup_theme'] as $callback) {
+            $callback();
+        }
+        self::assertSame(['imagine-footer' => 'Navigation de pied de page'], $GLOBALS['b09_menus']);
+        $render = $GLOBALS['b09_hooks']['the_content'][0];
+        self::assertStringContainsString('<form id="imagine-contact"', $render('Éditorial natif'));
+        self::assertStringStartsWith('Éditorial natif', $render('Éditorial natif'));
+        foreach (['b09_singular', 'b09_loop', 'b09_main'] as $flag) {
+            $GLOBALS[$flag] = false;
+            self::assertSame('Sans raccord', $render('Sans raccord'));
+            $GLOBALS[$flag] = true;
+        }
+        $GLOBALS['b09_page'] = 4;
+        self::assertSame('FAQ native inchangée', $render('FAQ native inchangée'));
+    }
+
     public function testPrivacyPaginationAdresseTiersErreursEtEffacement(): void
     {
         self::assertTrue(class_exists(ContactConfidentialite::class), 'Privacy B09 absente');

@@ -76,3 +76,9 @@ function current_user_can(string $cap): bool { return $GLOBALS['b09_admin'] ?? t
 function add_settings_error(mixed ...$args): void {}
 function checked(mixed $a, mixed $b = true, bool $echo = true): string { return $a === $b ? ' checked' : ''; }
 function get_privacy_policy_url(): string { return 'https://demo.example.org/privacy/'; }
+function register_nav_menu(string $key, string $label): void { $GLOBALS['b09_menus'][$key] = $label; }
+function is_singular(string $type): bool { return $GLOBALS['b09_singular'] ?? true; }
+function in_the_loop(): bool { return $GLOBALS['b09_loop'] ?? true; }
+function is_main_query(): bool { return $GLOBALS['b09_main'] ?? true; }
+function get_the_ID(): int { return $GLOBALS['b09_page'] ?? 3; }
+

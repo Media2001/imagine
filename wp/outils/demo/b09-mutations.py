@@ -10,7 +10,7 @@ from pathlib import Path
 import b09
 label=sys.argv[1]
 rows=[]
-for name in ['slash','consentement','mail','http','prive','rest','export','effacement','lecture','nonce']:
+for name in ['slash','consentement','mail','http','prive','rest','export','effacement','lecture','nonce','admin','raccord']:
     receipt=label+'-'+name
     p=subprocess.run([sys.executable,'-B',str(b09.ROOT/'wp/outils/demo/b09-local.py'),receipt,name],capture_output=True,encoding='utf-8')
     log=b09.PROOF/(receipt+'.log')
@@ -21,4 +21,4 @@ for name in ['slash','consentement','mail','http','prive','rest','export','effac
     rows.append({'mutation':name,'exit':p.returncode,'detected':detected,'junit':a,'log':log.name,'sha256':hashlib.sha256(log.read_bytes()).hexdigest()})
     print(name,'détectée' if detected else 'ECHEC')
 b09.save(label,{'mutations':rows,'count':len(rows),'detected':sum(r['detected'] for r in rows)})
-assert len(rows)==10 and all(r['detected'] for r in rows)
+assert len(rows)==12 and all(r['detected'] for r in rows)
