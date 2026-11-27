@@ -23,7 +23,7 @@ final class Contact
                 }
                 foreach (self::CHAMPS as $key => $label) {
                     echo '<p><strong>' . esc_html(__($label, 'imagine-site')) . '</strong><br>'
-                        . nl2br(esc_html((string)get_post_meta($post->ID, 'imagine_contact_' . $key, true))) . '</p>';
+                        . nl2br(esc_html((string) get_post_meta($post->ID, 'imagine_contact_' . $key, true))) . '</p>';
                 }
             }, self::TYPE);
         });
@@ -87,7 +87,7 @@ final class Contact
         $message = self::traiter($_POST);
         $ok = $message === __('Votre demande de contact a été enregistrée localement. Aucun email n’est envoyé.', 'imagine-site');
         $pages = get_option('imagine_b09_pages', []);
-        $target = (int)($pages['contact'] ?? 0);
+        $target = (int) ($pages['contact'] ?? 0);
         if (!$target) {
             wp_die(esc_html($message));
         }
@@ -120,6 +120,6 @@ final class Contact
         echo '<p>' . esc_html(__('Ces données sont conservées localement, uniquement pour le traitement de votre demande de contact.', 'imagine-site'))
             . ' <a href="' . esc_url(get_privacy_policy_url()) . '">' . esc_html(__('Confidentialité', 'imagine-site')) . '</a></p>';
         echo '<button type="submit">' . esc_html(__('Enregistrer le message', 'imagine-site')) . '</button></form>';
-        return (string)ob_get_clean();
+        return (string) ob_get_clean();
     }
 }

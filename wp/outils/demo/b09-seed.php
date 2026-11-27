@@ -96,6 +96,27 @@ foreach ($prior['items'] ?? [] as $key => $id) {
         throw new RuntimeException('Item étranger B09');
     }
 }
+// Le marqueur précède l'option et le rattachement dans le cœur : rechercher aussi hors des deux.
+global $wpdb;
+$marked = $wpdb->get_col($wpdb->prepare("SELECT DISTINCT post_id FROM {$wpdb->postmeta} WHERE meta_key=%s ORDER BY post_id", 'imagine_b09_menu_item'));
+if ($wpdb->last_error !== '') {
+    throw new RuntimeException('Lecture items B09 refusée');
+}
+foreach ($marked as $id) {
+    $id = (int) $id;
+    $post = get_post($id);
+    $markers = get_post_meta($id, 'imagine_b09_menu_item', false);
+    $key = $markers[0] ?? '';
+    $menus = wp_get_object_terms($id, 'nav_menu', ['fields' => 'ids']);
+    if (!$post || $post->post_type !== 'nav_menu_item' || count($markers) !== 1
+        || !is_string($key) || !isset($definitions[$key]) || is_wp_error($menus)
+        || array_diff($menus, [(int) $menuId]) !== []
+        || (isset($owned[$key]) && $owned[$key] !== $id)
+        || (isset($prior['items'][$key]) && (int) $prior['items'][$key] !== $id)) {
+        throw new RuntimeException('Item étranger B09');
+    }
+    $owned[$key] = $id;
+}
 $items = [];
 $order = 0;
 foreach ($definitions as $key => [$slug, $title]) {

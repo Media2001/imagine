@@ -74,7 +74,7 @@ def main():
             b.call(['cp', b.local(HERE / f), name + ':/opt/a32/' + f])
         for f in b.LICENSED:
             b.call(['cp', '/home/ced/staging-wp/plugins/' + f, name + ':/opt/a02/' + f])
-        b.call(['exec', name, 'chmod', '-R', 'a-w', '/subject'])
+        b.call(['exec', '--user', '1000:1000', name, 'chmod', '-R', 'a-w', '/subject/wp/outils/bascule', '/subject/wp/outils/staging', '/subject/audit'])
         check('sources_stable_at_copy', baseline == sources())
         p = b.call(['exec', name, 'python3', '/opt/a32/inside.py'], check=False, timeout=4500)
         (out / 'native.log').write_text(p.stdout + p.stderr, encoding='utf-8', newline='\n')

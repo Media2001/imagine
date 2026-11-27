@@ -59,6 +59,8 @@ def run_storage(storage):
     try:
         seeded = b.wp(site, ['eval-file', '/opt/a32/seed16.php', '--use-include'])
         check(storage + ':native_editorial_seed', 'A16_JSON=' in seeded.stdout)
+        normalized = b.wp(site, ['eval', "foreach (get_posts(['post_type'=>'attachment','post_status'=>'inherit','numberposts'=>-1]) as $post) { $value=get_post_meta($post->ID,'_wp_attached_file',true); if (str_starts_with($value,'/scratch/a16-private/')) { update_post_meta($post->ID,'_wp_attached_file','a32-private-'.$post->ID.'.pdf'); } }"])
+        check(storage + ':fixture_absolute_attachments_normalized_before_freeze', normalized.returncode == 0)
     finally:
         (site / 'wp-config.php').write_text(cfg)
     registry = site / 'wp-content/mu-plugins/a32-registry.php'
