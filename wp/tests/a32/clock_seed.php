@@ -10,7 +10,7 @@ foreach (['2026-12-31 23:59:59', '2027-01-01 00:00:00', '2027-01-01 00:00:01'] a
         'billing_interval' => 1, 'start_date' => '2026-01-01 00:00:00',
     ]);
     if (is_wp_error($sub)) {
-        throw new RuntimeException('A32_CLOCK_FIXTURE');
+        throw new RuntimeException('A32_CLOCK_FIXTURE:' . $sub->get_error_code() . ':' . $sub->get_error_message());
     }
     $sub->set_requires_manual_renewal(true);
     $sub->set_payment_method('bacs');

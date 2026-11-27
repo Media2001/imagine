@@ -138,4 +138,43 @@ def local_valid(folder):
                     or clock_rows[3]['actual_count'] != clock_rows[2]['actual_count'] + 1
                     or clock_rows[4]['actual_count'] != clock_rows[3]['actual_count'] + 1):
                 return False
-            if read(na
+            if read(native / (storage + '-complete-a16/numeros.json')).get('limit') != 10:
+                return False
+            channels = read(native / (storage + '-channels.json'))
+            if {r['channel'] for r in channels} != set(CHANNELS) or any(not r['clean'] or not r['immutable'] or r['exit_code'] != 1 for r in channels):
+                return False
+    return True
+
+
+def gates_valid(folder):
+    result, rows = read(folder / 'result.json'), read(folder / 'commands.json')
+    if (result.get('exit_code') != 0 or result.get('sources_stable') is not True
+            or tuple(r['name'] for r in rows) != GATES
+            or read(folder / 'sources.json') != inventory(read(folder / 'source-roots.json'))):
+        return False
+    for row in rows:
+        if row.get('exit_code') != 0 or row.get('sources_stable') is not True or row.get('tmpdir_present') is not False:
+            return False
+        for field in ('stdout', 'stderr'):
+            path = folder / row[field]
+            if not path.resolve().is_relative_to(folder.resolve()) or path.is_symlink() or digest(path) != row[field + '_sha256']:
+                return False
+        if (folder / row['stderr']).read_bytes():
+            return False
+        text = (folder / row['stdout']).read_text(encoding='utf-8')
+        if row['name'].startswith('global-'):
+            matches = re.findall(r'^T01_RESULT (.+)$', text, re.M)
+            if len(matches) != 1:
+                return False
+            data = json.loads(matches[0])
+            if (data.get('pass') is not True or data['failures'] != 0 or data['errors'] != 0 or data['skipped'] != 0
+                    or data['tools']['failures'] != 0 or data['packets']['failures'] != []
+                    or not {'A-22', 'A-28'}.issubset(data['packets']['lots'])):
+                return False
+        elif row['name'].endswith('-readonly'):
+            data = json.loads(text)
+            if data.get('exit_code', data.get('exit')) != 0:
+                return False
+        elif 'T03 IMAGE PYTHON : offline standard-library probe PASS' not in text:
+            return False
+    return True

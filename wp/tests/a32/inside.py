@@ -75,7 +75,9 @@ def run_storage(storage):
         normalized = b.wp(site, ['eval', "foreach (get_posts(['post_type'=>'attachment','post_status'=>'inherit','numberposts'=>-1]) as $post) { $value=get_post_meta($post->ID,'_wp_attached_file',true); if (str_starts_with($value,'/scratch/a16-private/')) { update_post_meta($post->ID,'_wp_attached_file','a32-private-'.$post->ID.'.pdf'); } }"])
         if normalized.returncode != 0:
             raise RuntimeError('A32_FIXTURE_NORMALIZE')
-        clock = b.wp(site, ['eval-file', '/opt/a32/clock_seed.php', '--use-include'])
+        clock = b.wp(site, ['eval-file', '/opt/a32/clock_seed.php', '--use-include'], check=False)
+        if clock.returncode:
+            raise RuntimeError('A32_CLOCK_SETUP:' + clock.stderr[:900])
         clock_oracle = json.loads(next(line[len('A32_CLOCK='):] for line in clock.stdout.splitlines() if line.startswith('A32_CLOCK=')))
         check(storage + ':fixture_absolute_attachments_normalized_before_freeze', normalized.returncode == 0)
     finally:

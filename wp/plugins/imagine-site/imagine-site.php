@@ -184,6 +184,10 @@ ContactBrevo::register();
 require_once __DIR__ . '/Navigation.php';
 Navigation::register();
 
+// B14 — accueil structurel, sans texte réservé.
+require_once __DIR__ . '/Accueil.php';
+Accueil::register();
+
 // C28 — instantané du pack au paiement, décision et remboursements C14 inchangés.
 require_once __DIR__ . '/PacksRegles.php';
 require_once __DIR__ . '/PacksThematiques.php';

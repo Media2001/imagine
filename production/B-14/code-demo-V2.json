@@ -1,0 +1,28 @@
+{
+  "scope": "imagine-test-demo",
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "before": {
+    "plugins/imagine-site/Accueil.php": null,
+    "themes/imagine/front-page.php": "5d1d62a541a785373d5061b9ea194e34a7472febeefae098a58a112bf9cae7b9",
+    "plugins/imagine-site/imagine-site.php": "f25cc0dc7418ce22fa89f861cf6d50381d364f6b0ca079b73a3749f2b9428217"
+  },
+  "readback": {
+    "plugins/imagine-site/Accueil.php": "32555f26b686ec44807cdd96e569b9da7a032cd39a2e12ce013baa05ca83bcea",
+    "themes/imagine/front-page.php": "fb7093445a9e1a216ea24b8686803622a60fa4b59c2732d44f02174ffafd0e8e",
+    "plugins/imagine-site/imagine-site.php": "8c3edc7600ae2b31ce61687082a3bd7068a11c9b09b93972a790456c39008a11"
+  },
+  "private_snapshot": {
+    "file": "C:\\Users\\Ced\\AppData\\Local\\Temp\\b11-private-9l8k6rjb\\snapshot.json",
+    "sha256": "f2f98554e84c554c2140bb1c43696a1e688184b78d31c08a548fa2356ca180a8",
+    "private": true
+  }
+}
