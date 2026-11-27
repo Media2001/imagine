@@ -1,0 +1,7 @@
+B-09 — PRET technique à relire — 27 novembre 2026, 07 h 09 (Europe/Paris).
+Périmètre complet du brief B-09 : FAQ native à quatre rubriques vides éditables, trois pages légales vides dont la vraie politique native, contact privé, export/effacement natifs, footer reprenable sans changer le principal.
+Paquet : final-V2.json ; commande sans argument : python -B production/B-09/verifier.py
+Vérifié : 463 portes, 6 tests / 188 assertions, 53 contrôles natifs, 12 mutations de sources + 1 mutation live REST/recherche, readback final et nettoyage ; qualification du vérificateur : 18 cas dont 16 refus attendus.
+Image reconstruite via wp/tests/preparer-image.ps1. Dernière suite PHP : 1 159 tests / 36 263 assertions ; 22 outils / 584 contrôles verts.
+Réserve transversale exposée, hors B-09 : quatre paquets voie 1 rouges (A-26, A-27, A-30, A-31), ni corrigés ni rescellés ici. Aucun « tout le dépôt est vert » revendiqué.
+Ce PRET n'est ni validation graphique de Ced, ni conformité juridique, ni autorisation d'accès au réel ou de mise en ligne. Voir A-VOIR.md et NOTE.md.

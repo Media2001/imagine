@@ -1,0 +1,179 @@
+{
+  "status": "PASS",
+  "cases": [
+    {
+      "case": "shared-deadline",
+      "command": [
+        "powershell.exe",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\t03-real-l9h2ko7g\\wp\\tests\\rejouer.ps1"
+      ],
+      "elapsed_seconds": 7.406442399951629,
+      "exit_code": 0,
+      "fixture_edits": [
+        {
+          "before": "$t01Deadline = hrtime(true) / 1e9 + 600.0;",
+          "after": "$t01Deadline = hrtime(true) / 1e9 + 7.0;"
+        },
+        {
+          "before": "$t01PacketMargin = 5.0;",
+          "after": "$t01PacketMargin = 1.0;"
+        }
+      ],
+      "checks": {
+        "real_launcher_exit_zero": true,
+        "exactly_one_marker": true,
+        "real_PHPUnit_tests_only": true,
+        "tools_real_receipt": true,
+        "closed_packet_red_only": true,
+        "REJEU_PASS": true,
+        "public_streams_closed": true,
+        "one_packet_summary": true,
+        "runner_absence_read_back": true,
+        "real_remaining_budget_bounded": true
+      },
+      "packet_marker": {
+        "tests": 1,
+        "assertions": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "tools": {
+          "tools": 1,
+          "checks": 1,
+          "failures": 0,
+          "excluded": []
+        },
+        "packets": {
+          "verified": 0,
+          "lots": [],
+          "failures": [
+            {
+              "lot": "T-03",
+              "control": "RUNNER_TIMEOUT"
+            }
+          ],
+          "excluded": []
+        },
+        "pass": true
+      },
+      "status": "PASS",
+      "fixture_absent": true
+    },
+    {
+      "case": "stdout-cap",
+      "command": [
+        "powershell.exe",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\t03-real-2nga22jx\\wp\\tests\\rejouer.ps1"
+      ],
+      "elapsed_seconds": 2.690645500086248,
+      "exit_code": 0,
+      "fixture_edits": [],
+      "checks": {
+        "real_launcher_exit_zero": true,
+        "exactly_one_marker": true,
+        "real_PHPUnit_tests_only": true,
+        "tools_real_receipt": true,
+        "closed_packet_red_only": true,
+        "REJEU_PASS": true,
+        "public_streams_closed": true,
+        "one_packet_summary": true,
+        "runner_absence_read_back": true,
+        "descendant_observer_executed": true
+      },
+      "packet_marker": {
+        "tests": 1,
+        "assertions": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "tools": {
+          "tools": 1,
+          "checks": 1,
+          "failures": 0,
+          "excluded": []
+        },
+        "packets": {
+          "verified": 2,
+          "lots": [
+            "A-01",
+            "A-02"
+          ],
+          "failures": [
+            {
+              "lot": "A-01",
+              "control": "VERIFIER_OUTPUT"
+            }
+          ],
+          "excluded": []
+        },
+        "pass": true
+      },
+      "status": "PASS",
+      "fixture_absent": true
+    },
+    {
+      "case": "stderr-cap",
+      "command": [
+        "powershell.exe",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\t03-real-4q781nhk\\wp\\tests\\rejouer.ps1"
+      ],
+      "elapsed_seconds": 2.8306956000160426,
+      "exit_code": 0,
+      "fixture_edits": [],
+      "checks": {
+        "real_launcher_exit_zero": true,
+        "exactly_one_marker": true,
+        "real_PHPUnit_tests_only": true,
+        "tools_real_receipt": true,
+        "closed_packet_red_only": true,
+        "REJEU_PASS": true,
+        "public_streams_closed": true,
+        "one_packet_summary": true,
+        "runner_absence_read_back": true,
+        "descendant_observer_executed": true
+      },
+      "packet_marker": {
+        "tests": 1,
+        "assertions": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "tools": {
+          "tools": 1,
+          "checks": 1,
+          "failures": 0,
+          "excluded": []
+        },
+        "packets": {
+          "verified": 2,
+          "lots": [
+            "A-01",
+            "A-02"
+          ],
+          "failures": [
+            {
+              "lot": "A-01",
+              "control": "VERIFIER_OUTPUT"
+            }
+          ],
+          "excluded": []
+        },
+        "pass": true
+      },
+      "status": "PASS",
+      "fixture_absent": true
+    }
+  ]
+}
