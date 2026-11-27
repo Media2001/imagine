@@ -22,8 +22,21 @@ def load(name, path):
 
 def documented_commands(path):
     text = path.read_text(encoding='utf-8').replace('\\\n', '')
-    return [' '.join(shlex.split(line)) for line in text.splitlines()
-            if line.startswith(('php ', 'python3 '))]
+    commands = [' '.join(shlex.split(line)) for line in text.splitlines()
+                if line.startswith(('php ', 'python3 '))]
+    # These omissions already have explicit default semantics in the closed
+    # READMEs; they do not introduce a new CLI form or an unlimited A16 mode.
+    defaults = {
+        'wp/outils/bascule/a16/README.md': ('N=10 par défaut, de 1 à 100', '--limit=10'),
+        'wp/outils/bascule/a19/README.md': ('`--as-of` facultatif : instant UTC courant par défaut', '--as-of=2026-11-26T00:00:00Z'),
+    }
+    relative = path.relative_to(ROOT).as_posix()
+    if relative in defaults:
+        phrase, literal = defaults[relative]
+        if phrase in text:
+            commands += [' '.join(arg for arg in shlex.split(line) if arg != literal)
+                         for line in list(commands) if literal in shlex.split(line)]
+    return commands
 
 
 def entries():

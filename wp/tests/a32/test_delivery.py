@@ -46,6 +46,22 @@ class DeliveryTests(unittest.TestCase):
         self.assertNotIn('wp/outils/bascule/README.md', m.sources())
         self.assertIn('wp/outils/bascule/tournee/README.md', m.sources())
 
+    def test_correction_evidence_requires_new_native_cases(self):
+        m = delivery()
+        self.assertTrue({'environment_absent', 'define_in_string', 'define_in_comment'}.issubset(m.GUARD_CASES))
+        self.assertEqual(m.CLOCK_CASES, ('current', 'later', 'year_before', 'equality', 'year_after'))
+
+    def test_common_readme_current_list_and_gate_recursive_sources(self):
+        import ast
+        shared = (ROOT / 'wp/outils/bascule/README.md').read_text(encoding='utf-8')
+        local = (ROOT / 'wp/outils/bascule/tournee/README.md').read_text(encoding='utf-8')
+        self.assertIn('La liste courante des quinze outils et leur ordre sont définis dans `tournee/outils.jsonl`', shared)
+        self.assertNotIn("L'ancienne section du README commun n'est pas réécrite", local)
+        tree = ast.parse((HERE / 'gates.py').read_text(encoding='utf-8'))
+        roots = next(ast.literal_eval(n.value) for n in ast.walk(tree)
+                     if isinstance(n, ast.Assign) and any(isinstance(t, ast.Name) and t.id == 'roots' for t in n.targets))
+        self.assertIn('wp/outils/bascule', roots)
+
     def test_exclusions_are_disjoint_and_keep_unclosed_tools_out(self):
         m = delivery()
         excluded = m.read(ROOT / 'wp/outils/bascule/tournee/exclusions.json')

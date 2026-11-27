@@ -1,5 +1,7 @@
 """Actual whole-tour classic/HPOS exercise. Doubles are limited and named."""
+import datetime
 import importlib.util
+import time
 import json
 import os
 from pathlib import Path
@@ -71,6 +73,10 @@ def run_storage(storage):
         seeded = b.wp(site, ['eval-file', '/opt/a32/seed16.php', '--use-include'])
         check(storage + ':native_editorial_seed', 'A16_JSON=' in seeded.stdout)
         normalized = b.wp(site, ['eval', "foreach (get_posts(['post_type'=>'attachment','post_status'=>'inherit','numberposts'=>-1]) as $post) { $value=get_post_meta($post->ID,'_wp_attached_file',true); if (str_starts_with($value,'/scratch/a16-private/')) { update_post_meta($post->ID,'_wp_attached_file','a32-private-'.$post->ID.'.pdf'); } }"])
+        if normalized.returncode != 0:
+            raise RuntimeError('A32_FIXTURE_NORMALIZE')
+        clock = b.wp(site, ['eval-file', '/opt/a32/clock_seed.php', '--use-include'])
+        clock_oracle = json.loads(next(line[len('A32_CLOCK='):] for line in clock.stdout.splitlines() if line.startswith('A32_CLOCK=')))
         check(storage + ':fixture_absolute_attachments_normalized_before_freeze', normalized.returncode == 0)
     finally:
         (site / 'wp-config.php').write_text(cfg)
@@ -92,6 +98,9 @@ def run_storage(storage):
           and all(r['statut'] == 'réussi' for r in doc['outils']), {'exit': p.returncode, 'rows': doc['outils']})
     (OUT / (storage + '-command.json')).write_text(json.dumps({'command': args, 'exit_code': p.returncode,
                                                               'per_tool_commands': [m.command(e, site, audit / 'audit.json', mapping, Path(r['rapport'])) for e, r in zip(m.entries(), doc['outils'])]}, indent=2))
+    default16 = json.loads((OUT / (storage + '-complete-a16/numeros.json')).read_text())
+    check(storage + ':a16_omitted_limit_still_default_ten', default16.get('limit') == 10
+          and not any(arg.startswith('--limit=') for arg in m.command(next(e for e in m.entries() if e['lot'] == 'A16'), site, audit / 'audit.json', mapping, Path('/report/unused'))))
     check(storage + ':whole_nominal_db_files_immutable', before == b.fingerprint(db) and files_before == b.files(site)
           and private_before == b.files(Path('/scratch/a16-private')))
     # Deliberately named boundary doubles: A10 refusal / A11 exit 255 only.
@@ -113,6 +122,76 @@ def run_storage(storage):
           and mixed_doc['outils'][0]['code'] == 'A10_AUDIT_GUARD' and mixed_doc['outils'][1]['sortie'] == 255)
     (OUT / (storage + '-doubles.json')).write_text(json.dumps({'declared_doubles': {'A10': 'refusal', 'A11': 'exit255'},
                                                              'exit_code': code, 'commands': calls}, indent=2))
+    # C02: real A22 supervisor, named PHP boundary doubles for two outcomes.
+    probe15 = Path('/scratch/a32-timeout.php')
+    probe15.write_text('<?php usleep(5000000);')
+    probe19 = Path('/scratch/a32-incomplete.php')
+    probe19.write_text("<?php foreach($argv as $a){if(str_starts_with($a,'--output=')){$o=substr($a,9);mkdir($o);file_put_contents($o.'/coherence.json','{}');file_put_contents($o.'/coherence.md','incomplete');}} echo \"A19_OK coherence.json coherence.md\\n\";")
+    supervision_codes = {}
+    supervised_calls = []
+    def supervision_executor(args):
+        index = len(supervised_calls)
+        supervised_calls.append(args)
+        entry = m.entries()[index]
+        lot = entry['lot']
+        if lot not in ('A15', 'A19'):
+            return guard.supervise(args, {**os.environ, 'PYTHONDONTWRITEBYTECODE': '1'}, OUT, None, timeout=180)
+        options = dict(arg.split('=', 1) for arg in args[2:])
+        original_supervise = guard.supervise
+        if lot == 'A15':
+            def shortened(command, env, parent, fence, **kwargs):
+                return original_supervise(command, env, parent, fence, **{**kwargs, 'timeout': 0.2})
+            guard.supervise = shortened
+        try:
+            guard.inventory(lot, probe15 if lot == 'A15' else probe19, options)
+            return 0, entry['success'].encode(), b''
+        except RuntimeError as error:
+            message = guard.public_error(error, lot)
+            supervision_codes[lot] = message
+            return 1, b'', (message + '\n').encode('ascii')
+        finally:
+            guard.supervise = original_supervise
+    supervision_target = OUT / (storage + '-supervision-doubles')
+    supervision_exit = m.run(site, audit / 'audit.json', mapping, supervision_target, supervision_executor)
+    supervision_doc = json.loads((supervision_target / 'bilan.json').read_text())
+    expected_codes = {'A15': 'A15_PROCESS_TIMEOUT', 'A19': 'A19_SUCCESS_INCOMPLETE'}
+    check(storage + ':supervision_codes_preserved', supervision_exit == 1 and supervision_codes == expected_codes
+          and len(supervised_calls) == len(m.entries()) and all(
+              r['statut'] == 'refusé' and r.get('code') == expected_codes[r['outil']]
+              if r['outil'] in expected_codes else r['statut'] == 'réussi' for r in supervision_doc['outils']))
+    (OUT / (storage + '-supervision.json')).write_text(json.dumps({'declared_doubles': {'A15': 'PHP sleep; actual A22 timeout=0.2s', 'A19': 'PHP bound files with incomplete schema; actual A22 inventory'}, 'emitted_codes': supervision_codes, 'exit_code': supervision_exit, 'commands': supervised_calls}, indent=2) + '\n')
+    # C03: actual native getters and A19 CLI, no clock mocked or tool changed.
+    a19 = next(e for e in m.entries() if e['lot'] == 'A19')
+    clock_rows = []
+    for label, reference in [('current', None), ('later', None),
+                             ('year_before', '2026-12-31T23:59:59Z'),
+                             ('equality', '2027-01-01T00:00:00Z'),
+                             ('year_after', '2027-01-01T00:00:01Z')]:
+        if label == 'later':
+            time.sleep(1.1)
+        target = OUT / (storage + '-clock-' + label)
+        argv = m.command(a19, site, audit / 'audit.json', mapping, target)
+        if reference is not None:
+            argv.append('--as-of=' + reference)  # explicit fixture boundary, never production default
+        start = int(time.time())
+        rc, stdout, stderr = guard.supervise(argv, {**os.environ, 'PYTHONDONTWRITEBYTECODE': '1'}, OUT, None, timeout=180)
+        stop = int(time.time())
+        report = json.loads((target / 'coherence.json').read_text()) if target.exists() else {}
+        instant = report.get('as_of_utc', '')
+        stamp = int(datetime.datetime.fromisoformat(instant.replace('Z', '+00:00')).timestamp()) if instant else -1
+        expected_count = sum(0 < date < stamp for date in clock_oracle['active_next_native'])
+        actual_count = report.get('counts', {}).get('active_past_next_payment')
+        good = (rc == 0 and stdout == a19['success'].encode() and stderr == b'' and actual_count == expected_count
+                and (instant == reference if reference else start <= stamp <= stop)
+                and (reference is not None or not any(arg.startswith('--as-of=') for arg in argv)))
+        check(storage + ':a19_clock:' + label, good)
+        clock_rows.append({'case': label, 'command': argv, 'exit_code': rc, 'as_of_utc': instant,
+                           'start_utc': start, 'end_utc': stop, 'expected_count': expected_count, 'actual_count': actual_count})
+    check(storage + ':a19_later_replay_advances_utc', clock_rows[1]['as_of_utc'] > clock_rows[0]['as_of_utc'])
+    check(storage + ':a19_equality_and_year_change',
+          clock_rows[3]['actual_count'] == clock_rows[2]['actual_count'] + 1
+          and clock_rows[4]['actual_count'] == clock_rows[3]['actual_count'] + 1)
+    (OUT / (storage + '-clock.json')).write_text(json.dumps({'oracle': clock_oracle, 'rows': clock_rows}, indent=2) + '\n')
     # Each channel is real site code. A10 is SQL-only and never loads these callbacks.
     cases = {
         'stdout': "fwrite(STDOUT,'A32_STREAM_PRIVATE_CANARY');",
@@ -146,7 +225,10 @@ def run_storage(storage):
     # Amended AFAIRE: one tour-side refusal before ANY child, no consumer edits.
     negatives = [('absent', None, cfg), ('invalid', b'[]', cfg),
                  ('fields', b'{"status":"verified","offline_verified":true,"runtime_probe_passed":false}', cfg),
-                 ('production', marker_bytes, cfg.replace("'staging'", "'production'"))]
+                 ('production', marker_bytes, cfg.replace("'staging'", "'production'")),
+                 ('environment_absent', marker_bytes, cfg.replace("define('WP_ENVIRONMENT_TYPE', 'staging');", '')),
+                 ('define_in_string', marker_bytes, cfg.replace("define('WP_ENVIRONMENT_TYPE', 'staging');", '''$note = "define('WP_ENVIRONMENT_TYPE', 'staging');";''')),
+                 ('define_in_comment', marker_bytes, cfg.replace("define('WP_ENVIRONMENT_TYPE', 'staging');", "/* define('WP_ENVIRONMENT_TYPE', 'staging'); */"))]
     for label, payload, config in negatives:
         try:
             marker.unlink(missing_ok=True)

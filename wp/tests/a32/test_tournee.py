@@ -33,6 +33,14 @@ class TourneeTests(unittest.TestCase):
             self.assertEqual(len(argv), len(documented))
             self.assertEqual([x.split('=')[0] for x in argv[2:]], [x.split('=')[0] for x in documented[2:]])
 
+    def test_documented_optional_defaults_not_example_literals(self):
+        m = load()
+        for lot, flag in [('A16', '--limit='), ('A19', '--as-of=')]:
+            entry = next(e for e in m.entries() if e['lot'] == lot)
+            argv = m.command(entry, '/site', '/audit', '/map', '/output')
+            self.assertFalse(any(arg.startswith(flag) for arg in argv), lot)
+            self.assertIn(entry['command'], m.documented_commands(ROOT / entry['readme']))
+
     def test_verified_marker_required_before_any_tool_or_output(self):
         m = load()
         scratch = Path.home() / 'AppData/Local/hermes/cache/scratch'

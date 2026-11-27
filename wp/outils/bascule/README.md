@@ -15,7 +15,7 @@ python3 wp/outils/bascule/tournee/tournee.py --wp-path=/copie-verifiee --audit=/
 A32-CONTRAT : outils clos et ordre fermés dans tournee/outils.jsonl ; chaque commande documentée garde ses seuls arguments, seuls les chemins opérateur changent ; gardien commun inchangé.
 A32-BILAN : bilan.json et bilan.md hors dépôt, statuts et codes fermés, sorties entières et chemins opérateur seuls ; tous les outils continuent, sortie 1 au moindre refus/échec, bilan partiel jamais complet.
 
-La tournée inclut A-10, A-11, A-12, A-15 à A-21, A-23 à A-25. A-13/A-14/A-30 demandent des fichiers Imagine ; A-26/A-27/A-29/A-31 ne sont pas clos dans la file du 27/11 à 7 h 30. A-22 est le gardien, A-28 l'import ; aucun n'est un inventaire autonome. Les exclusions et leur raison fermée sont dans tournee/exclusions.json. Lire production/A-32/RAPPORT.md pour les preuves et wp/tests/a32 pour le rejeu synthétique ; aucune autorisation sur un site réel.
+La liste courante des quinze outils et leur ordre sont définis dans `tournee/outils.jsonl` (A-26/A-27 inclus) ; A-13/A-14/A-30 demandent des fichiers Imagine, A-29/A-31 restent hors tournée. A-22 est le gardien, A-28 l'import ; aucun n'est un inventaire autonome. Les exclusions et leur raison fermée sont dans tournee/exclusions.json. Lire production/A-32/RAPPORT.md pour les preuves et wp/tests/a32 pour le rejeu synthétique ; aucune autorisation sur un site réel.
 
 ## A-33 — Le poids des archives
 

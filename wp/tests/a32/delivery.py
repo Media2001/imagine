@@ -11,6 +11,8 @@ EXCLUDED = {'production/A-32/manifest.json', 'production/A-32/PRET'}
 GATES = ('prepare-image', 'global-utf8', 'global-cp1252', 'a20-readonly', 'a21-readonly', 'a22-readonly', 'a28-readonly')
 TOOLS = ['A10', 'A11', 'A12', 'A15', 'A16', 'A17', 'A18', 'A19', 'A20', 'A21', 'A23', 'A24', 'A25', 'A26', 'A27']
 CHANNELS = ('stdout', 'stderr', 'early_exit', 'silent_exit', 'shutdown_stdout', 'shutdown_stderr', 'report')
+GUARD_CASES = ('absent', 'invalid', 'fields', 'production', 'environment_absent', 'define_in_string', 'define_in_comment')
+CLOCK_CASES = ('current', 'later', 'year_before', 'equality', 'year_after')
 
 
 def load(name, path):
@@ -90,7 +92,9 @@ def local_valid(folder):
             wanted = {storage + ':' + k for k in ('documented_command_exact_complete', 'named_doubles_continue_every_remaining_real_tool',
                       'whole_nominal_db_files_immutable', 'whole_tour_all_tables_scheduler_files_immutable', 'config_never_executed')}
             wanted |= {storage + ':whole_tour_channel:' + c for c in CHANNELS}
-            wanted |= {storage + ':tour_guard_zero_tools:' + c for c in ('absent', 'invalid', 'fields', 'production')}
+            wanted |= {storage + ':tour_guard_zero_tools:' + c for c in GUARD_CASES}
+            wanted |= {storage + ':a19_clock:' + c for c in CLOCK_CASES}
+            wanted |= {storage + ':' + c for c in ('supervision_codes_preserved', 'a16_omitted_limit_still_default_ten', 'a19_later_replay_advances_utc', 'a19_equality_and_year_change')}
             if not wanted.issubset(checks):
                 return False
             doc = read(native / (storage + '-complete/bilan.json'))
@@ -101,48 +105,37 @@ def local_valid(folder):
             if (doubles['declared_doubles'] != {'A10': 'refusal', 'A11': 'exit255'} or len(doubles['commands']) != len(TOOLS)
                     or mixed['tournee'] != 'partielle' or [r['statut'] for r in mixed['outils']] != ['refusé', 'en échec'] + ['réussi'] * 13):
                 return False
-            for label in ('absent', 'invalid', 'fields', 'production'):
+            for label in GUARD_CASES:
                 proof = read(native / (storage + '-unverified-' + label + '-proof.json'))
                 if (proof.get('measurement') != 'real_default_executor_python_audit_subprocess.Popen'
                         or proof['exit_code'] != 1 or proof['stdout_empty'] is not True or proof['stderr'] != 'A32_NOT_VERIFIED\n'
                         or proof['commands'] != [] or proof['tools_launched'] != 0 or proof['output_absent'] is not True
                         or proof['database_before'] != proof['database_after'] or proof['files_before'] != proof['files_after']):
                     return False
-            channels = read(native / (storage + '-channels.json'))
-            if {r['channel'] for r in channels} != set(CHANNELS) or any(not r['clean'] or not r['immutable'] or r['exit_code'] != 1 for r in channels):
+            supervision = read(native / (storage + '-supervision.json'))
+            expected = {'A15': 'A15_PROCESS_TIMEOUT', 'A19': 'A19_SUCCESS_INCOMPLETE'}
+            supervised = read(native / (storage + '-supervision-doubles/bilan.json'))
+            if (supervision['emitted_codes'] != expected or supervision['exit_code'] != 1
+                    or set(supervision['declared_doubles']) != set(expected) or len(supervision['commands']) != len(TOOLS)
+                    or supervised['tournee'] != 'partielle' or [r['outil'] for r in supervised['outils']] != TOOLS
+                    or any((r['statut'] != 'refusé' or r.get('code') != expected[r['outil']]) if r['outil'] in expected
+                           else r['statut'] != 'réussi' for r in supervised['outils'])):
                 return False
-    return True
-
-
-def gates_valid(folder):
-    result, rows = read(folder / 'result.json'), read(folder / 'commands.json')
-    if (result.get('exit_code') != 0 or result.get('sources_stable') is not True
-            or tuple(r['name'] for r in rows) != GATES
-            or read(folder / 'sources.json') != inventory(read(folder / 'source-roots.json'))):
-        return False
-    for row in rows:
-        if row.get('exit_code') != 0 or row.get('sources_stable') is not True or row.get('tmpdir_present') is not False:
-            return False
-        for field in ('stdout', 'stderr'):
-            path = folder / row[field]
-            if not path.resolve().is_relative_to(folder.resolve()) or path.is_symlink() or digest(path) != row[field + '_sha256']:
+            timing = read(native / (storage + '-clock.json'))
+            clock_rows = timing['rows']
+            if tuple(r['case'] for r in clock_rows) != CLOCK_CASES:
                 return False
-        if (folder / row['stderr']).read_bytes():
-            return False
-        text = (folder / row['stdout']).read_text(encoding='utf-8')
-        if row['name'].startswith('global-'):
-            matches = re.findall(r'^T01_RESULT (.+)$', text, re.M)
-            if len(matches) != 1:
+            import datetime
+            for clock in clock_rows:
+                stamp = int(datetime.datetime.fromisoformat(clock['as_of_utc'].replace('Z', '+00:00')).timestamp())
+                expected_count = sum(0 < value < stamp for value in timing['oracle']['active_next_native'])
+                if clock['exit_code'] != 0 or clock['expected_count'] != expected_count or clock['actual_count'] != expected_count:
+                    return False
+                if clock['case'] in ('current', 'later') and (not clock['start_utc'] <= stamp <= clock['end_utc']
+                        or any(arg.startswith('--as-of=') for arg in clock['command'])):
+                    return False
+            if (clock_rows[1]['as_of_utc'] <= clock_rows[0]['as_of_utc']
+                    or clock_rows[3]['actual_count'] != clock_rows[2]['actual_count'] + 1
+                    or clock_rows[4]['actual_count'] != clock_rows[3]['actual_count'] + 1):
                 return False
-            data = json.loads(matches[0])
-            if (data.get('pass') is not True or data['failures'] != 0 or data['errors'] != 0 or data['skipped'] != 0
-                    or data['tools']['failures'] != 0 or data['packets']['failures'] != []
-                    or not {'A-22', 'A-28'}.issubset(data['packets']['lots'])):
-                return False
-        elif row['name'].endswith('-readonly'):
-            data = json.loads(text)
-            if data.get('exit_code', data.get('exit')) != 0:
-                return False
-        elif 'T03 IMAGE PYTHON : offline standard-library probe PASS' not in text:
-            return False
-    return True
+            if read(na

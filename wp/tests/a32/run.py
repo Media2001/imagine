@@ -72,7 +72,7 @@ def main():
         for f in ['inside.py', 'seed.php', 'fingerprint.php', 'unit.php', 'readonly-probe.php']:
             b.call(['cp', b.local(ROOT / 'wp/tests/a02-audit' / f), name + ':/opt/a02/' + f])
         b.call(['cp', b.local(ROOT / 'wp/tests/a16/seed.php'), name + ':/opt/a32/seed16.php'])
-        for f in ['inside.py']:
+        for f in ['inside.py', 'clock_seed.php']:
             b.call(['cp', b.local(HERE / f), name + ':/opt/a32/' + f])
         for f in b.LICENSED:
             b.call(['cp', '/home/ced/staging-wp/plugins/' + f, name + ':/opt/a02/' + f])
