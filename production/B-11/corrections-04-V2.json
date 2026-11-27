@@ -1,0 +1,81 @@
+{
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "checks": {
+    "observateur_relu": true,
+    "observateur_positif_mail_HTTP_oembed": true,
+    "section_reglages_natifs": true,
+    "formulaire_reglages_complet": true,
+    "reglage_0_readback": true,
+    "autres_reglages_conserves_0": false,
+    "reglage_0_reload": true,
+    "valeurs_reellement_changees_0": true
+  },
+  "total": 8,
+  "failures": 1,
+  "error": "TimeoutError: Timeout 20000ms exceeded.",
+  "network": {},
+  "server_observations": {},
+  "C26_witness_inventory": {
+    "file": "production\\C-26\\correction-livraison-V2-inventaire.json",
+    "sha256": "f9370b6dcd848001fc89e454856d4e40dfcced30d863b1ac78c71f0610c128de",
+    "count": 32
+  },
+  "surfaces": [],
+  "mutations": {},
+  "cleanup": {
+    "observer_removed": true,
+    "settings_restored": true,
+    "session_1": true,
+    "session_9": true,
+    "session_28": true,
+    "session_8": true,
+    "session_16": true,
+    "session_15": true,
+    "owned_restored": true,
+    "observer_absent_readback": true,
+    "owned_exact_readback": true,
+    "global_styles_restored": true,
+    "options_restored": true,
+    "mutant_absent_readback": true,
+    "sources_restored": true,
+    "business_preserved": true
+  },
+  "sources": {
+    "wp/outils/demo/b11-diagnostic.py": "9dca0d9fb03426247d85faf6320ebd349907d0c14896bdfd8bddeb63436e8392",
+    "wp/outils/demo/b11-drift.py": "c6cdc5d78e6a66cdc5cce68fe54b1b042bf2393bedd0dc1350554722d6f1c39b",
+    "wp/outils/demo/b11-finaliser.py": "fb82a22670f787d2a2dc25a61bc174795f757b76f8aff48bec1dae02a641a264",
+    "wp/outils/demo/b11-gates.py": "9d6fccb63abe21bb552427af2aa7fd7fa60e664fc5a5bd0957bf7b5eb3841257",
+    "wp/outils/demo/b11-local.py": "6e83b95ffca944b5467fad664550ff99dc2906a2649148af707e91f53f690051",
+    "wp/outils/demo/b11-recette.py": "c4bca2bf97263c106c9e7abcdbf3e55dc1d02f5b57d33b44595117b476981797",
+    "wp/outils/demo/b11-recovery.py": "42970ff3ba3aaa136f629362dc839628c286bfb9a6ceb0c32dfbc29adb7e6c79",
+    "wp/outils/demo/b11-restore-proof.py": "5df9f3b77748a6aadc6a78fa9ab5913ae6f7e1f569763b68d704ac31948ae6e8",
+    "wp/outils/demo/b11-seed.php": "59702f660561af6e573e0c1d1b6094f128d66005c874d3216a9cba0c7794dda1",
+    "wp/outils/demo/b11.py": "3e2dc5ebdae160081e20d4794df6dc6237a083816e1c520c93cb68f00c31c9fe",
+    "wp/plugins/imagine-site/AudioNumero.php": "0cd603323234f1c56de2d3ef0a3d2c3b20a6c3b379ca8b4ae53d21b64545c3a4",
+    "wp/plugins/imagine-site/imagine-site.php": "084a83833c81f81fff8da28395e93bd1c7216a0506109d9b1a0c862a6ae1aaa4",
+    "wp/plugins/imagine-site/Medias.php": "f10574b8ae775b30e9a7a25f0639d1c2ce1bef373878ac534e529af0611e793a",
+    "wp/plugins/imagine-site/MediasRegles.php": "85179039a7c2221ed6cf41fe144a1b9960818ca3586696035178875d7b8f917f",
+    "wp/plugins/imagine-site/tests/MediasB11Test.php": "47014deb4ca094333494c92948c149ad4864470a97d3f271354f872abc1471ed",
+    "wp/tests/demo/b11-horslive.php": "1a17c1a6d3ba996fbcc20ce93903acd127a98b761ab7ab4bce794958ddbc6e9b",
+    "wp/tests/demo/b11-no-persist.php": "f2e6b1467cfc43e69b38729537acfe989d0e24dcb5614b7b50f38e00a6b8f209",
+    "wp/tests/demo/b11-observer.php": "7671a3fbaae495686d4dd8304d4e61e116c98581d3bdab0a8a72434b29873b20",
+    "wp/tests/demo/b11-runtime.php": "398598604d01c808e1a800e864054a544c5d3847b5898d42948e9db2f07bf348",
+    "wp/tests/demo/b11-verifier.py": "21d24725d5e8a0b2d97fad77a7ceff9c6891790e7bc9a264a6583107e53e8ada",
+    "wp/themes/imagine/single-imagine_numero.php": "701a14b4dcf8f04182af4d4f0729cb696fc475d9096dcba9e4ba19d4f2d8fef8",
+    "wp/themes/imagine/single.php": "71b98dcdd3f3a9f537224f8e6c574dc5754760795de78369f7a526a46af0bfad"
+  },
+  "private_snapshot": {
+    "file": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\b11-private-mjbmr490\\snapshot.json",
+    "sha256": "ef0547dd3278f64984018007a3e89a72b54279ea0520b03466c89663eb48bf94",
+    "private": true
+  }
+}

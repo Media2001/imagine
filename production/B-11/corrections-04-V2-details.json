@@ -1,0 +1,80 @@
+{
+  "editors": {},
+  "settings_evidence": [
+    {
+      "mode": "0",
+      "names": [
+        "imagine_acces_reglages",
+        "imagine_decouverte_reglages",
+        "imagine_decouverte_relecture",
+        "imagine_c05_reglages",
+        "imagine_envoi_colonnes_export",
+        "imagine_commande_adresse_nouveau",
+        "imagine_solidaire_categories",
+        "imagine_partenaire_du_mois",
+        "imagine_newsletters_catalogue",
+        "imagine_newsletters_creation",
+        "imagine_personnalisation_questions",
+        "imagine_retractation_reglages",
+        "imagine_acquisition_choix",
+        "imagine_cooperateurs_roles_attribut",
+        "imagine_cooperateurs_roles_lecture",
+        "imagine_medias"
+      ],
+      "others_unchanged": false,
+      "changed_others": [
+        {
+          "name": "imagine_decouverte_reglages",
+          "before_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "after_sha256": "289c3e70205f88c4880845472b370f7a5960b5a8d04ab8f6d30cd2d40b4a8a9b"
+        },
+        {
+          "name": "imagine_decouverte_relecture",
+          "before_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "after_sha256": "7bf978bee621242e1fdf21c4945293edcfd4efea5c7b91ca9c46e7a8e54d5042"
+        },
+        {
+          "name": "imagine_solidaire_categories",
+          "before_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "after_sha256": "f05449e5a21c7dd1e0fa945046f7010fd1290c7bacea16485a322cfca25e3503"
+        },
+        {
+          "name": "imagine_newsletters_creation",
+          "before_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "after_sha256": "0ae443d6a54c2b789e126217e36199ad8e4c197c6755198cc0bc4633a53f04f4"
+        },
+        {
+          "name": "imagine_retractation_reglages",
+          "before_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "after_sha256": "6d0dd1f2cba1f3b31356b8ff8b52ff910a18d9edaeb662c3ca69c8ce84a5f8cc"
+        }
+      ]
+    }
+  ],
+  "external_attempts": [
+    {
+      "url": "https://secure.gravatar.com/avatar/d7c5125f16c5bb00456ad644b5581f52e93ce99e6ae6005cddd634cb613c420c?s=26&d=mm&r=g",
+      "context": "admin",
+      "origin": "http://192.168.129.32:8085/wp-admin/admin.php?page=imagine-reglages",
+      "blocked_before_transport": true
+    },
+    {
+      "url": "https://secure.gravatar.com/avatar/d7c5125f16c5bb00456ad644b5581f52e93ce99e6ae6005cddd634cb613c420c?s=26&d=mm&r=g",
+      "context": "admin",
+      "origin": "http://192.168.129.32:8085/wp-admin/admin.php?page=imagine-reglages",
+      "blocked_before_transport": true
+    },
+    {
+      "url": "https://secure.gravatar.com/avatar/d7c5125f16c5bb00456ad644b5581f52e93ce99e6ae6005cddd634cb613c420c?s=26&d=mm&r=g",
+      "context": "admin",
+      "origin": "http://192.168.129.32:8085/wp-admin/admin.php?page=imagine-reglages",
+      "blocked_before_transport": true
+    },
+    {
+      "url": "https://s.w.org/images/block-editor/welcome-canvas.gif",
+      "context": "admin",
+      "origin": "http://192.168.129.32:8085/wp-admin/post.php?post=11&action=edit&b11_observe=mode0-save",
+      "blocked_before_transport": true
+    }
+  ]
+}

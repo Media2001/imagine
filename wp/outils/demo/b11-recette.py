@@ -98,6 +98,15 @@ def run(label):
                 return ctx
             contexts={role:context(role) for role in ['admin','active','buyer','reader','expired','suspended']}
             contexts['anon']=context()
+            witness_page=contexts['anon'].new_page()
+            response=witness_page.goto(identity['url']+'/b11-article-medias-fictifs/')
+            check('surface_temoin_reseau_identifiee',response.status==200 and witness_page.locator('main').count()==1)
+            n=len(external)
+            witness_page.evaluate("fetch('https://secure.gravatar.com/avatar/b11-public-witness').catch(()=>{})");witness_page.wait_for_timeout(500)
+            witness=external.pop() if len(external)==n+1 else None
+            mutations['gravatar_public']={'event':witness,'zero_tiers_failed':bool(witness and forbidden_external(witness))}
+            check('mutation_gravatar_public_rougit_avant_transport',bool(witness and forbidden_external(witness) and witness['blocked_before_transport']))
+            witness_page.close()
             admin=contexts['admin'];page=admin.new_page()
             def setting(value):
                 page.goto(identity['url']+'/wp-admin/admin.php?page=imagine-reglages');page.wait_for_load_state('networkidle')
@@ -118,9 +127,25 @@ def run(label):
                 check('reglage_'+value+'_reload',page.locator('[name="imagine_medias[integration]"]').input_value()==value)
             def edit(ident,video=VIDEO,podcast=PODCAST,phase='save'):
                 # Parcours livré : aucun changement d'éditeur, de formulaire ou de nonce.
-                page.goto(identity['url']+'/wp-admin/post.php?post='+str(ident)+'&action=edit&b11_observe='+phase);page.wait_for_load_state('networkidle')
+                editors[str(ident)]={'stage':'navigate','forced':False}
+                page.goto(identity['url']+'/wp-admin/post.php?post='+str(ident)+'&action=edit&b11_observe='+phase,wait_until='domcontentloaded');page.wait_for_timeout(4000)
+                editors[str(ident)]['stage']='inspect'
+                dialogs=page.get_by_role('dialog')
+                if dialogs.count():
+                    close=dialogs.get_by_role('button',name=re.compile('Fermer|Close|Ignorer|Dismiss',re.I))
+                    if close.count():close.first.click()
+                guide=page.locator('.components-guide')
+                if guide.count():
+                    guide.locator('button[aria-label]').filter(has_text='').first.click()
+                page.keyboard.press('Escape')
+                panels=page.get_by_role('button',name=re.compile('Boîtes méta|Meta boxes',re.I))
+                if panels.count() and panels.first.get_attribute('aria-expanded')=='false':panels.first.click()
+                page.screenshot(path=str(b11.OUT/(label+'-editor-'+str(ident)+'.png')))
                 box=next((f for f in page.frames if f.locator('#b11-video').count()),None)
                 check('metabox_'+str(ident),box is not None and box.locator('#b11-podcast').count()==1)
+                if not box.locator('#b11-video').is_visible():
+                    toggle=box.locator('#imagine-medias .handlediv')
+                    if toggle.count():toggle.click()
                 block=page.locator('.block-editor').count()>0
                 editors[str(ident)]={'kind':'block' if block else 'classic','forced':False,'metabox_frame':box!=page.main_frame}
                 box.locator('#b11-video').fill(video);box.locator('#b11-podcast').fill(podcast)
