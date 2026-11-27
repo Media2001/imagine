@@ -1,0 +1,138 @@
+{
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "private_snapshot": {
+    "file": "c25-private-q3d_dajb/snapshot.json",
+    "sha256": "bd38f28c50d3d4fddc8eb7c9ca7fc4d110d3a3e977f9cb3f17701c4582bb20a0",
+    "private": true
+  },
+  "fixture": {
+    "id": 46,
+    "url": "http://192.168.129.32:8085/evenements/demo-events-1/",
+    "open": true
+  },
+  "before_agenda_sha256": "70e940beb68e95379a81793b5e8aeb0c34d20d2a6efdbd9d5b2dd09e3290c9bb",
+  "agenda_sha256": "88c3fadd074d8d7eac0d27ee61c490e3f138225dfa1e9ca8690ebf0c2c443482",
+  "sources": {
+    "wp/outils/demo/b07-antislash-native.py": "6902b7576a979d27487c1e15b5d22599755afe2902b9707ae5a14ab94c46dd50",
+    "wp/tests/demo/b07-antislash-observer.php": "cdaa567ace027a7b90c37c83b11b32cc6b94e919c4fc88c31fcd0fa4f2c70c24"
+  },
+  "observer_witness": {
+    "blocked_by_existing_guard": true,
+    "mail_and_http_detected": true
+  },
+  "native_red": {
+    "http": 400,
+    "no_registration": true
+  },
+  "cases": [
+    {
+      "name": "Fictif \\ Atelier",
+      "email": "b07-antislash-0@example.org",
+      "post": [
+        {
+          "http": 303,
+          "location": "http://192.168.129.32:8085/evenements/demo-events-1/?inscription=enregistree"
+        },
+        {
+          "http": 303,
+          "location": "http://192.168.129.32:8085/evenements/demo-events-1/?inscription=enregistree"
+        }
+      ],
+      "unique_registration": true,
+      "stored_exact": true,
+      "admin_display_exact": true,
+      "native_export_exact": true
+    },
+    {
+      "name": "Fictif \\\\ double",
+      "email": "b07-antislash-1@example.org",
+      "post": [
+        {
+          "http": 303,
+          "location": "http://192.168.129.32:8085/evenements/demo-events-1/?inscription=enregistree"
+        },
+        {
+          "http": 303,
+          "location": "http://192.168.129.32:8085/evenements/demo-events-1/?inscription=enregistree"
+        }
+      ],
+      "unique_registration": true,
+      "stored_exact": true,
+      "admin_display_exact": true,
+      "native_export_exact": true
+    },
+    {
+      "name": "Fictif O'Exemple \\ & Atelier",
+      "email": "b07-antislash-2@example.org",
+      "post": [
+        {
+          "http": 303,
+          "location": "http://192.168.129.32:8085/evenements/demo-events-1/?inscription=enregistree"
+        },
+        {
+          "http": 303,
+          "location": "http://192.168.129.32:8085/evenements/demo-events-1/?inscription=enregistree"
+        }
+      ],
+      "unique_registration": true,
+      "stored_exact": true,
+      "admin_display_exact": true,
+      "native_export_exact": true
+    },
+    {
+      "name": "Fictif sans antislash",
+      "email": "b07-antislash-3@example.org",
+      "post": [
+        {
+          "http": 303,
+          "location": "http://192.168.129.32:8085/evenements/demo-events-1/?inscription=enregistree"
+        },
+        {
+          "http": 303,
+          "location": "http://192.168.129.32:8085/evenements/demo-events-1/?inscription=enregistree"
+        }
+      ],
+      "unique_registration": true,
+      "stored_exact": true,
+      "admin_display_exact": true,
+      "native_export_exact": true
+    }
+  ],
+  "cleanup": {
+    "registrations_removed": true,
+    "mu-plugins/imagine-b07-antislash-observer.php": true,
+    "imagine-demo-build/b07-antislash-observations.jsonl": true
+  },
+  "restoration": {
+    "users": true,
+    "usermeta": true,
+    "posts": true,
+    "postmeta": true,
+    "comments": true,
+    "commentmeta": true,
+    "wc_orders": true,
+    "wc_order_addresses": true,
+    "wc_orders_meta": true,
+    "wc_order_operational_data": true,
+    "woocommerce_order_items": true,
+    "woocommerce_order_itemmeta": true,
+    "actionscheduler_actions": true,
+    "actionscheduler_logs": true,
+    "actionscheduler_groups": true,
+    "actionscheduler_claims": true,
+    "navigation": true,
+    "options_metier": true
+  },
+  "business_preserved": true,
+  "corrected_agenda_deployed": true,
+  "final_remote_sha256": "88c3fadd074d8d7eac0d27ee61c490e3f138225dfa1e9ca8690ebf0c2c443482"
+}
