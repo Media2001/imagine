@@ -97,6 +97,9 @@ Issues des lots, au 26/11 à 10 h (chacune est un réglage au défaut prudent, a
 | Menu étendu des thématiques (§3.1, « une sélection d'articles illustrés ») : la sélection est-elle choisie par la rédaction, ou faite des articles les plus récents ? | Les articles les plus récents de la thématique | Nombre d'articles en réglage (B-13) |
 | Brevo (§3.10) : quels noms d'attributs le compte Brevo d'Imagine attend-il, et quel statut porte le bénéficiaire d'un abonnement offert ou groupé ? | Clés internes du site ; statut « inconnu » pour un bénéficiaire. Rien n'est transmis | Correspondance des noms à mettre en réglage au branchement (C-29) |
 | Pied de page (§3.2, « point de vente le plus proche ») : le site cherche-t-il le point de vente le plus proche du visiteur, par géolocalisation, ou renvoie-t-il vers la recherche par localité ? | Un lien vers la recherche ; aucune géolocalisation, ni par le navigateur, ni par l'adresse IP | Pas de réglage pour l'instant (B-15) |
+| Brevo (§3.10) : un lecteur s'est désinscrit d'une newsletter, puis cette newsletter est retirée du catalogue. Reste-t-il signalé « à retirer » de l'outil d'envoi ? | Oui : un refus explicite est conservé, la fiche reste « à retirer » ; la suppression d'une lettre encore choisie ne vaut pas désinscription. Rien n'est transmis | Pas de réglage (C-29) |
+| Brevo (§3.10) : le bénéficiaire d'un abonnement groupé dont l'adhésion est suspendue est-il « inconnu » ou « non abonné » ? | « Inconnu » dès qu'il est identifié comme bénéficiaire, adhésion active ou non | Pas de réglage (C-29) |
+| Brevo (§3.10) : au branchement, le contact à retirer est-il identifié par le compte du site, ou par une adresse portée dans la fiche ? | Par le compte ; la fiche « à retirer » ne porte rien d'autre | À arrêter avec la correspondance Brevo (C-29) |
 
 Rappel de règle, sans question : un abonnement actif dans l'administration mais **sans paiement validé** ne figure pas dans la liste d'envoi.
 

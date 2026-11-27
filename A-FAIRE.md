@@ -2,7 +2,7 @@
 
 Tenu à jour par Claude à chaque session avec Ced. **Hermès ne modifie pas ce fichier** : il signale dans son rapport ce qu'il a fait et ce qui bloque, et la consigne passe en « Terminé » à la session suivante.
 
-Mis à jour le 27 novembre 2026, 16 h 30 (passage automatique).
+Mis à jour le 27 novembre 2026, 19 h 30 (passage automatique).
 
 **Deux voies depuis le 23/11.** Ce fichier est la file de la voie 1. Une deuxième session d'Hermès suit `A-FAIRE-2.md` (site de démonstration, squelette du thème, paywall sur article, profils, écran de réglages). Lis la section « Les deux voies » de la consigne permanente. Ne touche ni au site `imagine-test-demo`, ni aux dossiers `wp/themes/imagine/`, `wp/plugins/imagine-site/`, `wp/outils/demo/`, `wp/tests/demo/`.
 
@@ -12,9 +12,7 @@ Le projet a trois chantiers indépendants. Un lot porte la lettre de son chantie
 
 ## Consignes actives, par ordre de priorité
 
-**Passage de 16 h 30 : rien de toi depuis 13 h 33** (ni rapport, ni preuve, ni `PRET`). La file ci-dessous tient telle quelle, dans l'ordre, sauf A-29 (consigne 3, tranchée). Si tu reprends après une interruption, commence par un rapport de cinq lignes dans `files/rapports/` : ce qui t'a arrêté, où tu en es. Ton diagnostic d'A-29 et ta note de reprise d'A-31 sont lus, merci.
-
-File du 27/11, 13 h 30. Tes rapports de 7 h 34, 8 h 18, 8 h 42 et 12 h 50 sont lus, merci. **Clos ce passage : A-26, A-27, A-30.** Le resceau est fait, une seule fois, comme demandé. T-03 : fond vérifié, pas clos (consigne 1). S'arrêter sur A-32 sans ajouter de garde ni toucher aux outils clos : c'était juste, et l'erreur était dans mon brief (consigne 2). Arbitrages : `docs/arbitrages-2026-11-27.md`, passage de 13 h.
+File du 27/11, 19 h 30. Tes rapports de 17 h 34, 17 h 38, 18 h 20 et 18 h 42 sont lus, merci : la reprise, les corrections d'A-31, la mise en cohérence de T-03, et l'arrêt sans `PRET` devant le blocage croisé, sans rien assouplir. C'était juste. Arbitrages : `docs/arbitrages-2026-11-27.md`, passage de 19 h.
 
 **L'import est gelé**, à l'état scellé par A-28 : plus aucun changement de `wp/outils/staging/` ni de `wp/outils/staging-court/` sans une consigne de cette file, ni fonction, ni correction, ni mise en forme.
 
@@ -22,24 +20,26 @@ File du 27/11, 13 h 30. Tes rapports de 7 h 34, 8 h 18, 8 h 42 et 12 h 50 sont l
 
 **Règle : une correction ne restructure pas un fichier commun.**
 
-**0. Les corrections d'A-31** (`corrections/A-31.md`), en cours. Les deux questions que la fusion posait à Ced sont techniques, et tranchées : **les quatre compteurs de liens cassés sont publiés exactement**, de 0 à 4 compris ; le regroupement des petits nombres reste sur les années et les années par état ; **le total des remboursements est exact**. Applique les six instructions sur ce défaut, sans attendre. Puis paquet neuf, `PRET`, second tour.
+**0. A-31, une retouche avant le sceau : le regroupement des petits nombres.** L'erreur est dans ma file de 13 h 30, pas chez toi : elle disait « le regroupement reste sur les années et les années par état », et tu l'as appliquée à la lettre. Ce qui était décidé est plus étroit.
+   - **Sortent du regroupement, et rien d'autre** : les quatre compteurs de liens cassés (exacts de 0 à 4 compris), et le total des remboursements ;
+   - **les natures et les remboursements par année reviennent sous le regroupement**, comme au premier tour ; les années et les années par état y restent ;
+   - analyse, schéma, rapport et attendus alignés ; la matrice rejouée une fois. Tes cinq autres corrections ne bougent pas.
+   - Si le sceau d'A-31 est déjà posé quand tu lis ceci : retire le `PRET`, fais la retouche, et rescelle par la commande du lot. Une heure.
 
-**1. T-03, une seule version : celle de la clôture.** La vérification confirme tes six corrections, mais trouve dans le même commit un `PRET` avec sa preuve finale verte et des documents restés à l'état de candidat (`manifest.json`, `RAPPORT.md`, `RECEPTION-CORRECTIONS.md`, `CONVENTION.md`), au point que `verify-corrections.py` refuserait l'arbre.
-   - Aligne ces documents sur l'état réel : `PRET` posé, **A-20 dans le rejeu**. A-20 y est entré par ma consigne de 7 h 30, postérieure à la fusion : ce n'est pas une divergence, écris-le dans la réception ;
-   - `verify-corrections.py` : il dit qu'il ne vaut qu'avant le `PRET`, ou il accepte l'état final. À ton choix, le plus simple ;
-   - **rien dans `wp/tests/t01/` ni dans `wp/tests/rejouer.ps1`**. Si le paquet de T-03 gèle ces documents, refais son sceau par ses propres contrôles, jamais par un changement d'empreinte à la main ;
-   - `PRET` redéposé, puis une vérification avec un rejeu indépendant. Une heure.
+**1. A-31 et A-32 : la séquence conjointe de `production/A-32/FINALISATION.md` est autorisée, une fois.** Le blocage croisé est réel (chaque portail exige un rejeu sans paquet rouge, et chacun des deux lots est le rouge de l'autre). Ta séquence le lève sans toucher au lanceur, aux portails ni aux vérificateurs : fais-la telle que tu l'as écrite, après la retouche de la consigne 0.
+   - **Rien dans `wp/tests/t01/` ni `wp/tests/rejouer.ps1`**, aucun portail assoupli, aucune empreinte changée à la main ;
+   - **la preuve qui compte est l'étape 4** : le rejeu général après les deux sceaux, dans les deux consoles, avec A-31 et A-32 parmi les paquets vérifiés, aucun des deux hors rejeu, zéro échec. Ton rapport cite cette ligne `PAQUETS`, et dit en une phrase que les portails joués pendant la séquence l'ont été avec les deux lots hors rejeu ;
+   - alors seulement les deux `PRET`. A-31 part au second tour, A-32 en relecture ;
+   - une étape rouge : arrêt sans `PRET`, rien d'assoupli, un rapport de cinq lignes.
+   - A-32 : le reste de la consigne de 13 h 30 tient (la tournée lit le fichier de statut comme A-05, aucun outil clos modifié, A-26 et A-27 dans la liste, A-29, A-30 et A-31 dehors).
 
-**2. A-32, débloqué** (`briefs/A-32-la-tournee-des-inventaires.md`, et ce qui suit, qui le corrige). Le brief disait que les outils refusent un site non vérifié : c'est faux pour les inventaires, tu l'as prouvé.
-   - **Tu ne modifies aucun outil clos, ni le gardien.** Ils restent en lecture seule, sans contrôle de statut ;
-   - **l'interdiction d'ajouter un contrôle d'accès est levée, pour la tournée seule.** Avant de lancer quoi que ce soit, la tournée lit `.imagine-staging-verified.json` à la racine du site, **comme A-05 le lit** (même fichier, mêmes champs exigés, aucun format nouveau ; si la lecture d'A-05 ne se réemploie pas sans modifier A-05, recopie sa règle dans la tournée et dis-le). Fichier absent, invalide, ou environnement déclaré « production » : la tournée entière est refusée, d'un seul code de refus, **aucun outil lancé**. Aucune option pour passer outre ;
-   - preuve négative : sans le fichier, zéro outil lancé, base et fichiers identiques ; avec, la tournée complète. Tes doubles d'A-10 et d'A-11 restent ;
-   - **A-26 et A-27 sont clos : une ligne chacun dans la liste.** A-30 reste dehors (fichier d'Imagine), A-29 et A-31 aussi (pas clos) ;
-   - puis la matrice complète, le paquet unique, `PRET`. Le mode d'emploi dit en une phrase que la tournée ne tourne que sur une copie vérifiée, et que lancer un outil seul reste la décision de Ced.
+**2. T-03, la clôture.** Ta mise en cohérence est lue et retenue : documents alignés, A-20 dans le rejeu par ma consigne de 7 h 30, `verify-corrections.py` déclaré « avant `PRET` seulement », `PRET` retiré le temps du travail. Dès que la ligne `PAQUETS` est verte (consigne 1) : la preuve finale sur cette base verte, le sceau par ses propres contrôles, `PRET`, puis une vérification avec un rejeu indépendant. Le lanceur reste gelé.
 
-**3. A-29 : rangé, tu n'y touches plus.** Ton diagnostic est lu : dix lignes nettes, rien d'assoupli, c'était juste. La cause du 255 n'est pas établie ; sur une copie neutralisée ses six nombres vaudraient « inconnu », et un vert n'y apprendrait rien. Pas de `PRET`, pas de nouvel essai, pas de trace de fin de processus, hors de la tournée d'A-32. Le code et les preuves restent où ils sont. Il sera repris par une consigne de cette file, pas avant.
+**3. A-29 : rangé, tu n'y touches plus.** Pas de `PRET`, pas de nouvel essai, hors de la tournée d'A-32. Il sera repris par une consigne de cette file, pas avant.
 
 **4. `briefs/A-33-le-poids-des-archives.md`** — ce qui reste hors des dix derniers numéros, compté : contenus par type et par année, fichiers joints en nombre et en poids, fichiers sans parent. Lecture seule, des nombres. **À commencer après les `PRET` d'A-31 et d'A-32**, pas avant. Une demi-journée.
+
+**À savoir : la clôture d'un lot de la voie 2 ne dépend pas de tes paquets en cours.** Un paquet rouge sur la ligne `PAQUETS` ne bloque un autre lot que s'il appartient à un lot clos ou porteur d'un `PRET`. Raison de plus pour ne déposer un `PRET` qu'avec un paquet vert.
 
 **Règle nouvelle, venue d'A-30 : une suite Python passe sur une session Windows propre.** Sans `TMPDIR` : la matrice retire la variable aux processus fils et le prouve. Vaut pour les lots à venir et pour ceux que tu corriges.
 

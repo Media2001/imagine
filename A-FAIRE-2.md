@@ -2,7 +2,7 @@
 
 File de la **deuxième session d'Hermès**. Tenue par Claude. **Hermès ne modifie pas ce fichier.**
 
-Mis à jour le 27 novembre 2026, 16 h 30 (passage automatique).
+Mis à jour le 27 novembre 2026, 19 h 30 (passage automatique).
 
 Consigne permanente : `prompts/consigne-permanente.md` (section « Les deux voies »). Doctrine : `doctrine/doctrine.md`.
 
@@ -10,28 +10,27 @@ La voie 1 (`A-FAIRE.md`) s'occupe de l'existant : import, audit, mise à jour. L
 
 ## Consignes actives, par ordre de priorité
 
-File du 27/11, 16 h 30. Tes rapports de 13 h 35, 14 h 07, 14 h 45 et 15 h 20 sont lus, merci. **C-27 et C-28 : code clos.** B-11 : fond vérifié, pas clos (consigne 0). B-12 : relu « à corriger », un bloquant (consigne 0). Arbitrages : `docs/arbitrages-2026-11-27.md`, passage de 16 h.
+File du 27/11, 19 h 30. Tes rapports de 16 h 28, 17 h 00 et 17 h 11 sont lus, merci. **B-11 et B-12 : code clos**, sur leur réception par contrat. C-29 : relu « à corriger », deux importants (consigne 0). Arbitrages : `docs/arbitrages-2026-11-27.md`, passage de 19 h. Rien de toi depuis 17 h 13 : si tu reprends après une interruption, commence par un rapport de cinq lignes.
 
-Les paquets de la voie 1 que ton rejeu trouve rouges (A-31, A-32) ne sont pas à toi : continue à les signaler sans y toucher.
+Les paquets de la voie 1 que ton rejeu trouve rouges (A-31, A-32) ne sont pas à toi : continue à les signaler sans y toucher. **Ils ne bloquent pas la clôture de tes lots** : un lot se clôt sur la ligne `REJEU … PASS`, la ligne `OUTILS` sans échec et son propre vérificateur ; un paquet rouge ne bloque que s'il appartient au lot, ou à un lot clos ou porteur d'un `PRET`.
 
-**Règle nouvelle : le fichier d'amorçage partagé se contrôle par contrat, jamais par son empreinte entière.** B-12 a périmé la réception de B-11 en ajoutant sa ligne dans `imagine-site.php`, puis C-29 a périmé celle de B-12 de la même façon. Désormais, le vérificateur d'un lot contrôle l'empreinte de **ses** fichiers, et la présence dans l'amorçage de **son** bloc d'enregistrement, tel que livré. Même chose pour le README partagé : la section du lot. Vaut pour B-11, B-12, C-29 et tous les lots à venir. **Tu ne rouvres aucun lot code clos pour cela** : leurs paquets sont de l'historique, leurs anciens vérificateurs peuvent rester rouges sur l'empreinte entière, et tu ne refais plus de réception complémentaire des voisins pour une simple ligne d'amorçage. La règle « un fichier partagé changé pour un lot se rejoue avant de rendre » reste pour tout le reste (un appel ajouté dans le fichier d'un autre lot, un bouchon commun).
+**Règle du contrat (16 h 30), qui reste : le fichier d'amorçage partagé se contrôle par contrat, jamais par son empreinte entière.** Le vérificateur d'un lot contrôle l'empreinte de **ses** fichiers, la présence dans `imagine-site.php` de **son** bloc d'enregistrement, tel que livré, une seule fois, et **sa** section du README. Tu ne rouvres aucun lot code clos pour cela, et tu ne refais plus de réception complémentaire des voisins pour une simple ligne d'amorçage. Le petit socle commun que tu as écrit pour cela (`lot_reception_contract.py`) est bien : les lots suivants s'en servent, sans l'étendre. La règle « un fichier partagé changé pour un lot se rejoue avant de rendre » reste pour tout le reste (un appel ajouté dans le fichier d'un autre lot, un bouchon commun).
 
-**0. Les corrections de B-12** (`corrections/B-12.md`), avant tout, et dans le même réveil le passage au contrat.
-   - **B12-01, bloquant** : reconnaître la route d'aperçu comme le routeur le fait (la route canonique reçue du dispatch, ou une comparaison sans casse) ; permissions natives inchangées. Tests avec les variantes de casse, cache absent puis ancien HTML en cache : zéro tentative sortante, et un simple lien ;
-   - **l'instruction 3 de la fusion est remplacée** par la règle ci-dessus : pas de réception complémentaire couvrant C-29 ; le vérificateur de B-12 passe au contrat. L'assertion sur les sources n'est pas neutralisée : elle porte sur les fichiers du lot et sur son bloc ;
-   - instructions 4 à 6 telles quelles (le README dit que la suite scellée tourne sur des doublures ; compteurs alignés ; matrice native à rejouer à chaque montée de version du cœur). La matrice native n'entre pas dans la suite scellée ;
-   - **B-11, la même chose et rien d'autre** : son vérificateur courant passe au contrat, réception neuve, `PRET` redéposé. Aucun code de B-11 ne change. La saisie dans l'éditeur reste à Ced, comme décidé à 13 h : c'était juste ;
-   - `PRET` pour B-12 et pour B-11 ; chacun aura une vérification.
+**0. Les corrections de C-29** (`corrections/C-29.md`), avant tout.
+   - **C29-01, tranché, ne l'attends pas de Ced** : un refus explicite du lecteur (`choix=false`, origine lecteur) est conservé même si sa lettre est sortie du catalogue ; sans aucune inscription active et avec au moins un refus conservé, la fiche reste « à retirer ». La suppression administrative d'une lettre encore choisie ne vaut jamais désinscription. Les deux cas d'essai de l'instruction 1 ;
+   - **C29-02** : un bénéficiaire de groupe identifié par un lien natif est « inconnu », adhésion active ou suspendue. La correction se fait dans C-29 ; **tu ne touches pas aux règles postales de C-13** (`EnvoiRelations`). Le test de l'instruction 2, état natif relu avant l'assertion ;
+   - instructions 3 et 4 telles quelles (appels multilignes du fichier neuf en PSR-12, libellés traduisibles sur des chaînes littérales) ; aucun changement de comportement ;
+   - **l'instruction 5 est remplacée** par la règle de clôture ci-dessus : tu n'attends pas A-31 ni A-32 ;
+   - la fiche « à retirer » reste telle quelle, sans identifiant : question rangée pour Imagine ;
+   - réception par contrat, `PRET` redéposé, une vérification.
 
-**1. C-29** (`briefs/C-29-la-fiche-du-contact-pour-brevo.md`), en cours : termine-le, son vérificateur au contrat dès la livraison.
+**1. `briefs/B-13-menu-principal-et-menu-etendu.md`** — §3.1 : les huit entrées du menu dans l'ordre, et le menu étendu des thématiques avec une sélection d'articles (titre, image, lien). Structure seule, sans style ; rien de réservé n'y sort. Une demi-journée.
 
-**2. `briefs/B-13-menu-principal-et-menu-etendu.md`** — §3.1 : les huit entrées du menu dans l'ordre, et le menu étendu des thématiques avec une sélection d'articles (titre, image, lien). Structure seule, sans style ; rien de réservé n'y sort. Une demi-journée.
+**2. `briefs/B-14-page-d-accueil-structure.md`** — §3.2 : l'accueil dans l'ordre du cahier des charges (numéro en cours, bloc de conversion, reportage en accès libre, newsletter, puis thématiques, événements, Soutenir, coopérative, partenaire du mois). Contenu et ordre, pas la forme ; une seule image chargée en priorité, ni vidéo ni carrousel. Une demi-journée.
 
-**3. `briefs/B-14-page-d-accueil-structure.md`** — §3.2 : l'accueil dans l'ordre du cahier des charges (numéro en cours, bloc de conversion, reportage en accès libre, newsletter, puis thématiques, événements, Soutenir, coopérative, partenaire du mois). Contenu et ordre, pas la forme ; une seule image chargée en priorité, ni vidéo ni carrousel. Une demi-journée.
+**3. `briefs/B-15-pied-de-page.md`** — §3.2 : cinq zones identiques sur toutes les pages (abonnement, newsletter, numéro en cours, point de vente, mentions). **Aucune géolocalisation** : un lien vers la recherche de B-10. Deux à trois heures.
 
-**4. `briefs/B-15-pied-de-page.md`** — §3.2 : cinq zones identiques sur toutes les pages (abonnement, newsletter, numéro en cours, point de vente, mentions). **Aucune géolocalisation** : un lien vers la recherche de B-10. Deux à trois heures.
-
-**Le test d'étanchéité vivant est celui de C-26.** B-12, C-29, B-13, B-14 et B-15 ne l'étendent pas ; B-13, B-14 et B-15 prouvent leur étanchéité avec les témoins de C-26. La matrice sera étendue une fois, plus tard, par un lot.
+**Le test d'étanchéité vivant est celui de C-26.** C-29, B-13, B-14 et B-15 ne l'étendent pas ; B-13, B-14 et B-15 prouvent leur étanchéité avec les témoins de C-26. La matrice sera étendue une fois, plus tard, par un lot.
 
 **Règle venue de C-28 et de B-11 : un fichier partagé changé pour un lot se rejoue avant de rendre.** L'appel ajouté dans `AchatsNumeros.php` a fait échouer un test de B-04 et périmé la réception de B-11, qui n'avait pas bougé. Quand un lot touche un fichier qu'un autre lot non clos a scellé, tu le dis en tête du rapport et tu refais la réception du voisin dans le même réveil, historiques conservés. **Exception depuis 16 h 30 : la ligne d'enregistrement d'un lot dans l'amorçage et sa section du README**, contrôlées par contrat (règle en tête).
 
@@ -104,3 +103,5 @@ Les liens « offert » et « groupé » absents des profils (C-13 et B-02 en mod
 | B-07 Complément : antislash de l'agenda | 27/11 | Rouge reproduit, corrigé à la seule frontière d'écriture, reçu déposé. B-07 reste code clos |
 | C-27 « Comment nous avez-vous connus ? » | 27/11, corrigé le 27/11 | **Code clos le 27/11** : cinq corrections vérifiées (une lecture en échec n'est plus prise pour une absence, à l'écriture de la source comme à l'effacement ; une proposition vue puis effacée ne se redépose pas). Validation visuelle de Ced attendue, avec la question de la section sous le bouton « Enregistrer » |
 | C-28 Packs thématiques | 27/11, corrigé le 27/11 | **Code clos le 27/11** : quatre corrections vérifiées (un pack dont un numéro est dépublié est refusé par le serveur, à l'ajout et à la validation ; un instantané manquant ne se reconstruit jamais après coup). Produit simple à prix unique et blocage du pack entier : défauts, questions chez Imagine. Validation visuelle de Ced attendue |
+| B-11 Vidéos, podcasts, sommaire audio | 27/11, preuve reprise deux fois le 27/11 | **Code clos le 27/11** : six instructions vérifiées, code inchangé depuis, réception par contrat rejouée au vert par le relecteur. La saisie dans l'éditeur n'est pas prouvée par l'automate : trois lignes à faire par Ced (`production/B-11/A-VOIR-contrat-V2.md`). Validation visuelle de Ced attendue |
+| B-12 Aucun appel sortant depuis le corps | 27/11, corrigé le 27/11 | **Code clos le 27/11** : le verrou ne se contourne plus par la casse de la route d'aperçu (matrice native, cache absent puis ancien, zéro tentative, un simple lien). Réserve permanente : matrice native hors de la suite scellée, à rejouer à chaque montée de version du cœur. Validation visuelle de Ced attendue |
