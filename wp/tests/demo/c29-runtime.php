@@ -77,4 +77,62 @@ try {
     remove_filter('pre_http_request', $http, PHP_INT_MAX);
     remove_filter('pre_wp_mail', $mail, PHP_INT_MAX);
 }
-echo wp_json_encode(['checks' => $checks, 'total' => count($checks), 'profils' => $actual, 'writes' => $writes, 'outgoing' => $outgoing]);
+// Après le positif littéral ci-dessus, retrait du consentement DISTINCT uniquement.
+update_user_meta($users['A-CARTE'], Personnalisation::CONSENTEMENT, ['accord' => false, 'date_utc' => $date]);
+add_filter('query', $guard, PHP_INT_MAX);
+add_filter('pre_http_request', $http, PHP_INT_MAX);
+add_filter('pre_wp_mail', $mail, PHP_INT_MAX);
+try {
+    $negative = ContactBrevo::fiche((int)$users['A-CARTE']);
+    $check('consentement_distinct_retire_attributs_absents', $negative['fiche']['personnalisation'] === []);
+    $raw = file_get_contents(WP_PLUGIN_DIR . '/imagine-site/ContactBrevo.php');
+    $mutant = str_replace('final class ContactBrevo', 'final class ContactBrevoC29Mutant', $raw);
+    $mutant = str_replace('Personnalisation::attributsConnecteur($id)', 'Personnalisation::reponses($id)', $mutant, $hits);
+    $check('mutation_source_unique', $hits === 1);
+    eval(substr($mutant, 5));
+    $leak = Imagine\Site\ContactBrevoC29Mutant::fiche((int)$users['A-CARTE']);
+    $check('mutation_temoin_absence_refusee', $leak['fiche']['personnalisation'] !== [] && $negative['fiche']['personnalisation'] === []);
+    foreach (['imagine_extraire_abonnes', 'imagine_gerer_echeances'] as $cap) {
+        $deny = static function (array $caps) use ($cap): array { $caps[$cap] = false; return $caps; };
+        add_filter('user_has_cap', $deny, PHP_INT_MAX);
+        $check('droit_C19_revoque_' . $cap, !Imagine\Site\TableauBordAdmin::autorise());
+        remove_filter('user_has_cap', $deny, PHP_INT_MAX);
+    }
+    $check('droit_C19_referent', Imagine\Site\TableauBordAdmin::autorise());
+    $faultHits = 0;
+    $fault = static function () use (&$faultHits): never { $faultHits++; throw new RuntimeException('Essai source'); };
+    add_filter('woocommerce_get_subscriptions_query_args', $fault, PHP_INT_MAX);
+    ob_start(); ContactBrevo::page(); $faultHtml = ob_get_clean();
+    remove_filter('woocommerce_get_subscriptions_query_args', $fault, PHP_INT_MAX);
+    $check('source_absente_aucun_faux_zero', $faultHits > 0 && str_contains($faultHtml, 'data-brevo-indisponible') && !str_contains($faultHtml, 'data-brevo-total'));
+    $caught = false;
+    try { update_option('imagine_c29_interdit', 'interdit', false); } catch (RuntimeException) { $caught = true; }
+    $check('temoin_ecriture_interceptee', $caught && count($writes) === 1);
+    $writes = [];
+    try { wp_remote_get('https://example.invalid/'); } catch (RuntimeException) {}
+    try { wp_mail('fictif@example.org', 'FICTIF', 'FICTIF'); } catch (RuntimeException) {}
+    $check('temoins_HTTP_mail_bloques_avant_transport', $outgoing === ['http', 'mail']);
+    $outgoing = [];
+} finally {
+    remove_filter('query', $guard, PHP_INT_MAX);
+    remove_filter('pre_http_request', $http, PHP_INT_MAX);
+    remove_filter('pre_wp_mail', $mail, PHP_INT_MAX);
+}
+// Mise en place transactionnelle sur le magasin CPT constaté de la seule démo ;
+// pas de save WCS : son cache de rapports se programme au shutdown, hors transaction.
+$giftSub = (int)$fixture['subscriptions']['A-CARTE'];
+$check('magasin_CPT_fixture', get_post_type($giftSub) === 'shop_subscription');
+update_post_meta($giftSub, '_recipient_user', (string)$users['P-OFFERT']);
+$check('beneficiaire_offert_inconnu', ContactBrevo::fiche((int)$users['P-OFFERT'])['fiche']['statut'] === 'inconnu');
+delete_post_meta($giftSub, '_recipient_user');
+update_option('imagine_acces_plans', [$fixture['plan'] => 'groupe'], false);
+$membership = (int)$fixture['memberships']['P-SOL-OK'];
+global $wpdb;
+$wpdb->update($wpdb->posts, ['post_author' => $users['P-BENEF']], ['ID' => $membership]);
+clean_post_cache($membership);
+update_post_meta($membership, '_subscription_id', (string)$fixture['subscriptions']['A-PAPIER']);
+$check('beneficiaire_groupe_inconnu', ContactBrevo::fiche((int)$users['P-BENEF'])['fiche']['statut'] === 'inconnu');
+$check('payeur_pas_beneficiaire_deduit', ContactBrevo::fiche((int)$users['A-PAPIER'])['fiche']['statut'] === 'abonne');
+wp_set_current_user(0);
+echo wp_json_encode(['checks' => $checks, 'total' => count($checks), 'profils' => $actual, 'writes' => $writes, 'outgoing' => $outgoing,
+    'mutation' => ['positive' => $actual['A-CARTE']['fiche']['personnalisation'], 'negative' => $negative['fiche']['personnalisation'], 'leak_mutant' => $leak['fiche']['personnalisation']], 'membership_removed_by_rollback' => $membership]);

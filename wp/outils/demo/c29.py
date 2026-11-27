@@ -29,15 +29,20 @@ def pure(label):
 def native(label):
     import b11
     identity = b11.guard()
-    before = b11.state()
+    import c19
+    before = c19.state()
     source = (ROOT/'wp/tests/demo/c29-runtime.php').read_text(encoding='utf-8').split('<?php',1)[1]
     expected = (ROOT/'wp/tests/demo/c29-attendus.php').read_text(encoding='utf-8').split('<?php',1)[1]
     source = source.replace("require __DIR__ . '/c29-attendus.php'", 'eval('+b11.php(expected)+')')
-    code = 'global $wpdb;$wpdb->query("START TRANSACTION");try{eval('+b11.php(source)+');}finally{$wpdb->query("ROLLBACK");wp_cache_flush();}'
+    code = 'global $wpdb;if(wp_using_ext_object_cache()){throw new RuntimeException("Cache externe refuse");}foreach([$wpdb->posts,$wpdb->postmeta,$wpdb->options,$wpdb->usermeta] as $t){$s=$wpdb->get_row($wpdb->prepare("SHOW TABLE STATUS WHERE Name=%s",$t),ARRAY_A);if($s["Engine"]!=="InnoDB"){throw new RuntimeException("InnoDB requis");}}$wpdb->query("START TRANSACTION");try{eval('+b11.php(source)+');}finally{$wpdb->query("ROLLBACK");wp_cache_flush();}'
     r = b11.b10.b09.b08.c25.b06.profils.b00.wp('eval',code,check=False)
-    restored = b11.state() == before
-    save(label, {'identity':identity,'native':r,'business_preserved':restored})
-    print(json.dumps(r,ensure_ascii=False)); assert restored
+    after = c19.state()
+    restored = after == before
+    save(label, {'identity':identity,'native':r,'business_preserved':restored,'strict_before':before,'strict_after':after})
+    if r['code']==0:
+        data=json.loads(r['stdout']); print(json.dumps({'exit':0,'total':data['total'],'checks':data['checks'],'restored':restored},ensure_ascii=False))
+    else: print(json.dumps(r,ensure_ascii=False))
+    assert restored
     return r['code']
 
 def deploy(label):

@@ -1,0 +1,12 @@
+{
+  "result": {
+    "exact_prior_actions_and_logs": true
+  },
+  "strict_restoration": true,
+  "removed_action": 9356,
+  "removed_logs": [
+    17821,
+    17822
+  ],
+  "restored_action": 9355
+}
