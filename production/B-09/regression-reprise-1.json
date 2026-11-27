@@ -1,0 +1,72 @@
+{
+  "scope": "imagine-test-demo",
+  "sources": {
+    "wp/outils/demo/b09-gates.py": "364a06abcb2f2a4b18179f498d2640725c3ebd3b51b16baef2b6039dfdbce1ad",
+    "wp/outils/demo/b09-local.py": "725cc7310b0cf99b0d4fa2888f20a15215e6301b36a41f4742db78800a4e7eb3",
+    "wp/outils/demo/b09-mutations.py": "a7b80e7d6b1029ff86450bd43afe3d7978a15f299129739a4b5954cbd2aa7785",
+    "wp/outils/demo/b09-recette.py": "ff1aac115a03a3f0045d5268ff285473ca5441201fe19f9959c1fb46cfb07cc1",
+    "wp/outils/demo/b09-seed.php": "7dac91f834b774a16cf55648f6de2f26aa269a28603447aa9c8961c9fc746afd",
+    "wp/outils/demo/b09-sources.py": "758250271b7a9b7450f6c2c9a99da9bcfe78a2baf46f1fe5f4cd940760eaae18",
+    "wp/outils/demo/b09.py": "b1eec14d058c9fdee654d00e756f329f2140ef7ed4f111805c4c5fe00a77e67c",
+    "wp/plugins/imagine-site/AutresPages.php": "ceed48252b70041d8f966beb0140a83d8fe147663ecae5340feb91f498839b0e",
+    "wp/plugins/imagine-site/Contact.php": "1f6ac635a0461ceeb8ac8326354b9a0d5a887093e4d7e29e979fca1162cee8cf",
+    "wp/plugins/imagine-site/ContactConfidentialite.php": "6ccaad031dc0b483cec90d81f903476c53e65cd3ebb4a00c08848eaa54fb3828",
+    "wp/plugins/imagine-site/tests/ContactAdapterTest.php": "cc50c8ccf5e9c5b9dc5571d2ff5aef07cd28ca18405e45b641bd9b1b39e9d8c1",
+    "wp/plugins/imagine-site/tests/ContactWPStubs.php": "ea13a23b98edb5a1b98102d95f7db9d1a912f858317b9732db775f9683fd126f",
+    "wp/tests/demo/b09-horslive.php": "7b8d15b0fd6b6663f97ce39ee5228d731ed26af44e44c6ca6c9cdbf45c13a1bc",
+    "wp/tests/demo/b09-mutation-prive.php": "3e7722257c0b0c15e4ecf464498b6e5a21f42d5998201d2ec192e2ab9632b54f",
+    "wp/tests/demo/b09-observer.php": "162135100f71b3b3d31e0ef294c8a49e00856a20bb29daf79b051e6084068d7d",
+    "wp/tests/demo/b09-structure.php": "400c2da4a0a70c7a100fef7981e08d19292f0a5de754a8cc751e7f4281da4585",
+    "wp/themes/imagine/footer.php": "33c8f45ac3c8b199b84b2f83c2fddcccbb401ab18faa57d683ed81e2fea8cbc9"
+  },
+  "command": [
+    "powershell.exe",
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "wp/tests/rejouer.ps1"
+  ],
+  "python": "3.11.15 (main, Jun 23 2026, 15:20:37) [MSC v.1944 64 bit (AMD64)]",
+  "exit": 0,
+  "log": "regression-reprise-1.log",
+  "sha256": "c6cd452500b2273971fffbbf80c9a84517517ff6dc11e2e85fa2251554ccea3d",
+  "results": [
+    {
+      "tests": 1159,
+      "assertions": 36263,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "tools": {
+        "tools": 22,
+        "checks": 584,
+        "failures": 0,
+        "excluded": []
+      },
+      "packets": {
+        "verified": 10,
+        "lots": [
+          "A-21",
+          "A-22",
+          "A-23",
+          "A-24",
+          "A-25",
+          "A-26",
+          "A-27",
+          "A-28",
+          "A-30",
+          "A-31"
+        ],
+        "failures": [],
+        "excluded": [
+          {
+            "lot": "A-20",
+            "reason": "declaration absente"
+          }
+        ]
+      },
+      "pass": true
+    }
+  ]
+}

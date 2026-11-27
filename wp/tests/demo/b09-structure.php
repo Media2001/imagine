@@ -65,6 +65,14 @@ try {
     unset($old['imagine-footer']);
     $checks['menu_principal_non_modifie'] = $now === $old;
     $checks['footer_natif_attribue'] = get_nav_menu_locations()['imagine-footer'] === $first['menu'];
+    foreach ($first['items'] as $item) {
+        $wpdb->update($wpdb->posts, ['post_modified' => '2001-01-01 00:00:00', 'post_modified_gmt' => '2001-01-01 00:00:00'], ['ID' => $item]);
+        clean_post_cache($item);
+    }
+    $ids = implode(',', array_map('intval', array_values($first['items'])));
+    $stable = $wpdb->get_results("SELECT * FROM {$wpdb->posts} WHERE ID IN ($ids) ORDER BY ID", ARRAY_A);
+    $execute();
+    $checks['seed_stable_ne_reecrit_pas_les_items'] = $stable === $wpdb->get_results("SELECT * FROM {$wpdb->posts} WHERE ID IN ($ids) ORDER BY ID", ARRAY_A);
     $foreign = wp_update_nav_menu_item($first['menu'], 0, ['menu-item-title' => 'Étranger fictif B09',
         'menu-item-type' => 'custom', 'menu-item-url' => home_url('/'), 'menu-item-status' => 'publish']);
     try {
