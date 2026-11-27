@@ -1,0 +1,38 @@
+{
+  "shared_surface_changed": "README.md B11 section only; no functional plugin change",
+  "readme_sha256": "5ca9c54b222e0c19aa8af1396073b319f6e257087d60607ea3a77ae52cd9f4d5",
+  "results": [
+    {
+      "command": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "-B",
+        "production/C-27/verifier.py"
+      ],
+      "code": 0,
+      "stdout": "C27 PASS {\"foreign_packet_failures\": 2, \"gates\": 628, \"global_assertions\": 36573, \"global_tests\": 1195, \"live_mutations\": 5, \"native_checks\": 56, \"source_mutations\": 11, \"tool_checks\": 720, \"unit_assertions\": 80, \"unit_tests\": 12}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "-B",
+        "wp/tests/demo/c28-verifier.py"
+      ],
+      "code": 0,
+      "stdout": "{\"C28\": \"PASS\", \"mode\": \"offline\", \"checks\": 31, \"success\": true}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "-B",
+        "wp/tests/demo/c28-verifier.py",
+        "--live"
+      ],
+      "code": 0,
+      "stdout": "{\"C28\": \"PASS\", \"mode\": \"live-readonly\", \"checks\": 37, \"success\": true}\n",
+      "stderr": ""
+    }
+  ],
+  "all_pass": true
+}

@@ -514,7 +514,7 @@ Option `imagine_medias` : `hosts` liste fermée d'hôtes exacts (vide par défau
 ```text
 python -B wp/outils/demo/b11-local.py LABEL-NEUF
 python -B wp/outils/demo/b11.py runtime LABEL-NEUF
-python -B wp/outils/demo/b11-recette.py LABEL-NEUF
+python -B wp/outils/demo/b11-recette.py LABEL-NEUF --policy-1330
 python -B wp/tests/demo/b11-verifier.py
 python -B wp/tests/demo/b11-verifier.py --live
 ```

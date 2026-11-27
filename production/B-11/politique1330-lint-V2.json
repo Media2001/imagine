@@ -1,0 +1,40 @@
+{
+  "results": [
+    {
+      "file": "wp/tests/demo/b11-editor-audit.php",
+      "code": 0,
+      "output": "No syntax errors detected in /repo/wp/tests/demo/b11-editor-audit.php\n"
+    },
+    {
+      "file": "wp/tests/demo/b11-horslive.php",
+      "code": 0,
+      "output": "No syntax errors detected in /repo/wp/tests/demo/b11-horslive.php\n"
+    },
+    {
+      "file": "wp/tests/demo/b11-no-persist.php",
+      "code": 0,
+      "output": "No syntax errors detected in /repo/wp/tests/demo/b11-no-persist.php\n"
+    },
+    {
+      "file": "wp/tests/demo/b11-observer.php",
+      "code": 0,
+      "output": "No syntax errors detected in /repo/wp/tests/demo/b11-observer.php\n"
+    },
+    {
+      "file": "wp/tests/demo/b11-option-snapshot.php",
+      "code": 0,
+      "output": "No syntax errors detected in /repo/wp/tests/demo/b11-option-snapshot.php\n"
+    },
+    {
+      "file": "wp/tests/demo/b11-runtime.php",
+      "code": 0,
+      "output": "No syntax errors detected in /repo/wp/tests/demo/b11-runtime.php\n"
+    },
+    {
+      "file": "wp/tests/demo/b11-write-witness.php",
+      "code": 0,
+      "output": "No syntax errors detected in /repo/wp/tests/demo/b11-write-witness.php\n"
+    }
+  ],
+  "all_pass": true
+}
