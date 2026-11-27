@@ -66,5 +66,17 @@ def deploy(label):
     print('C28 sources relues :', len(expected))
 
 
+def seed(label):
+    identity = guard()
+    prior = state()
+    snap = private('C28-'+label, {'business':prior})
+    src = (ROOT/'wp/outils/demo/c28-seed.php').read_text(encoding='utf-8').split('<?php', 1)[1]
+    first = wp(src)
+    second = wp(src)
+    assert first == second
+    save(label, {'identity':identity, 'fixture':first, 'idempotent':True, 'before':prior, 'after':state(), 'private_snapshot':snap})
+    print(json.dumps(first, ensure_ascii=False))
+
+
 if __name__ == '__main__':
     globals()[sys.argv[1]](sys.argv[2])

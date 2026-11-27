@@ -35,6 +35,25 @@ $order->save();
 $item = $order->get_item($itemId);
 $check('pas_instantane_avant_paiement', !$item->meta_exists(Packs::LIGNE));
 $check('C14_pas_droit_avant_paiement', AchatsNumeros::droits($buyer) === []);
+$failSave = static function ($saving) use ($order): void {
+    if ($saving instanceof WC_Order && $saving->get_id() === $order->get_id()) {
+        throw new RuntimeException('C28 paiement non persisté témoin');
+    }
+};
+add_action('woocommerce_before_order_object_save', $failSave, 99);
+try {
+    $order->set_date_paid(time());
+    $order->set_status('processing');
+    $order->save();
+} catch (RuntimeException $e) {
+    if ($e->getMessage() !== 'C28 paiement non persisté témoin') {
+        throw $e;
+    }
+} finally {
+    remove_action('woocommerce_before_order_object_save', $failSave, 99);
+}
+$order = wc_get_order($order->get_id());
+$check('paiement_non_persiste_pas_instantane', !$order->get_item($itemId)->meta_exists(Packs::LIGNE));
 // La liste du panier n'est PAS la liste acquise : ajout effectué avant paiement.
 $product->update_meta_data(Packs::PRODUIT, [11, 18, 32]);
 $product->save();

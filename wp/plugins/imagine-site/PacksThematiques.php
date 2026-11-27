@@ -41,7 +41,7 @@ final class PacksThematiques
         }
     }
 
-    /** Avant la persistance du paiement, une seule écriture par ligne ; relit le produit. */
+    /** Après la persistance du paiement, une seule écriture par ligne ; relit le produit. */
     public static function payer($order): void
     {
         if (!$order instanceof \WC_Order || $order->get_type() !== 'shop_order'

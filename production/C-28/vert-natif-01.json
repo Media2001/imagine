@@ -1,0 +1,20 @@
+{
+  "native": {
+    "code": 0,
+    "stdout": "{\"checks\":{\"adaptateur_pack_present\":true,\"pas_instantane_avant_paiement\":true,\"C14_pas_droit_avant_paiement\":true,\"instantane_AU_paiement_pas_au_panier\":true,\"date_instantane_date_paiement\":true,\"trois_achats_via_C14\":true,\"C06_numero_achete_11\":true,\"C06_numero_achete_18\":true,\"C06_numero_achete_32\":true,\"ajout_retrait_sans_retrooctroi\":true,\"instantane_immuable_apres_resauvegarde\":true,\"anonyme_pas_droit\":true,\"tiers_pas_droit\":true,\"remboursement_natif_sans_passerelle\":true,\"C14_commande_partiel_ferme_pack\":true,\"C14_ligne_non_ventile_conserve_pack\":true,\"C14_ligne_pack_remboursee_ferme_tous_ses_numeros\":true},\"total\":17,\"failures\":0}",
+    "stderr": ""
+  },
+  "business_preserved": true,
+  "sources": {
+    "wp/outils/demo/c28-local.py": "1f91a4e6633f2e22bad076b8bbbb7ee6fa31f11a50eb1f7341c3663c179730aa",
+    "wp/outils/demo/c28.py": "3b36c4490ca3f0b990f933b512e7ee9871948a50c9a347986ad01e8f1cfc0553",
+    "wp/plugins/imagine-site/AchatsNumeros.php": "42cbe06e5035571e607d96e8ca3f0dd4c28fb1caaddbb1fe69bc01178a494615",
+    "wp/plugins/imagine-site/imagine-site.php": "084a83833c81f81fff8da28395e93bd1c7216a0506109d9b1a0c862a6ae1aaa4",
+    "wp/plugins/imagine-site/PacksRegles.php": "f6293429a31bce02f30c2b68072fe6e1274b49c5efde60edd126d73f7a5789cd",
+    "wp/plugins/imagine-site/PacksThematiques.php": "18092fb95d1994a5d638f9f1827d9c0e48438ab8574b6d48b7e6d7d098db847f",
+    "wp/plugins/imagine-site/tests/PacksC28Test.php": "f65026c24c26b5cbecca3320cf199461384846f8e38a48b265cedfa32d0651a6",
+    "wp/tests/demo/c28-horslive.php": "aea8609f8606c4e75153be8b6e59cf83a305fd635884d1b50066d03625fa8914",
+    "wp/tests/demo/c28-runtime.php": "73f1ee4def8f3b25709bb61561ae4836cccdb011768f442ff0ea9529c4f09acf",
+    "wp/themes/imagine/single-product.php": "6a44efbbd3b37ef861a91f4830418e10a660386ca350c6345dc93ca018f78b5f"
+  }
+}
