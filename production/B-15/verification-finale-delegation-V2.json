@@ -1,0 +1,166 @@
+{
+  "at": "2026-11-27T23:30:03.215540+01:00",
+  "scope": "imagine-test-demo",
+  "owned_acceptance_checks": [
+    {
+      "command": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "-B",
+        "production/C-29/verifier.py"
+      ],
+      "exit": 0,
+      "stdout": "{\"C29\": \"PASS\", \"receipt\": \"reception-corrections-V2.json\", \"pure\": 23, \"native\": 57, \"http\": 73, \"profiles\": 27, \"phpunit_tests\": 3, \"foreign_packet_failures\": [{\"lot\": \"A-32\", \"control\": \"A32_PARTIAL_EVIDENCE\"}, {\"lot\": \"A-33\", \"control\": \"A33_GATES_INVALID\"}]}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "-B",
+        "production/C-29/verifier.py",
+        "--live"
+      ],
+      "exit": 0,
+      "stdout": "{\"C29\": \"PASS\", \"receipt\": \"reception-corrections-V2.json\", \"pure\": 23, \"native\": 57, \"http\": 73, \"profiles\": 27, \"phpunit_tests\": 3, \"foreign_packet_failures\": [{\"lot\": \"A-32\", \"control\": \"A32_PARTIAL_EVIDENCE\"}, {\"lot\": \"A-33\", \"control\": \"A33_GATES_INVALID\"}]}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "-B",
+        "production/B-13/verifier.py"
+      ],
+      "exit": 0,
+      "stdout": "{\"B13\": \"PASS\", \"native\": 34, \"browser\": 123, \"surfaces\": 6, \"phpunit\": 1, \"replay_tests\": 1208, \"replay_assertions\": 36685, \"tools\": {\"tools\": 23, \"checks\": 852, \"failures\": 0, \"excluded\": []}, \"foreign_packets\": []}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "-B",
+        "production/B-13/verifier.py",
+        "--live"
+      ],
+      "exit": 0,
+      "stdout": "{\"B13\": \"PASS\", \"native\": 34, \"browser\": 123, \"surfaces\": 6, \"phpunit\": 1, \"replay_tests\": 1208, \"replay_assertions\": 36685, \"tools\": {\"tools\": 23, \"checks\": 852, \"failures\": 0, \"excluded\": []}, \"foreign_packets\": []}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "-B",
+        "production/B-14/verifier.py"
+      ],
+      "exit": 0,
+      "stdout": "{\"B14\": \"PASS\", \"native\": 22, \"browser\": 52, \"surfaces\": 2, \"phpunit\": 2, \"replay_tests\": 1209, \"replay_assertions\": 36693, \"tools\": {\"tools\": 23, \"checks\": 852, \"failures\": 0, \"excluded\": []}, \"foreign_packets\": [], \"legacy_B01\": \"2 legacy commands failed on prior contracts; current anchor HTTP PASS\", \"B11_native_complement\": 23}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "-B",
+        "production/B-14/verifier.py",
+        "--live"
+      ],
+      "exit": 0,
+      "stdout": "{\"B14\": \"PASS\", \"native\": 22, \"browser\": 52, \"surfaces\": 2, \"phpunit\": 2, \"replay_tests\": 1209, \"replay_assertions\": 36693, \"tools\": {\"tools\": 23, \"checks\": 852, \"failures\": 0, \"excluded\": []}, \"foreign_packets\": [], \"legacy_B01\": \"2 legacy commands failed on prior contracts; current anchor HTTP PASS\", \"B11_native_complement\": 23}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "-B",
+        "production/B-15/verifier.py"
+      ],
+      "exit": 0,
+      "stdout": "{\"B15\": \"PASS\", \"pure\": 4, \"native\": 15, \"browser\": 155, \"surfaces\": 10, \"identical_raw_footer\": true, \"phpunit\": 2, \"replay_tests\": 1208, \"replay_assertions\": 36685, \"tools\": {\"tools\": 23, \"checks\": 852, \"failures\": 0, \"excluded\": []}, \"foreign_packets\": []}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "-B",
+        "production/B-15/verifier.py",
+        "--live"
+      ],
+      "exit": 0,
+      "stdout": "{\"B15\": \"PASS\", \"pure\": 4, \"native\": 15, \"browser\": 155, \"surfaces\": 10, \"identical_raw_footer\": true, \"phpunit\": 2, \"replay_tests\": 1208, \"replay_assertions\": 36685, \"tools\": {\"tools\": 23, \"checks\": 852, \"failures\": 0, \"excluded\": []}, \"foreign_packets\": []}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "-B",
+        "production/B-13/qualifier.py",
+        "B-13"
+      ],
+      "exit": 0,
+      "stdout": "{'lot': 'B-13', 'checks': 9, 'PASS': True, 'results': {'fichier_propre_modifie_refuse': True, 'bloc_absent_refuse': True, 'bloc_duplique_refuse': True, 'bloc_modifie_refuse': True, 'bloc_etranger_accepte': True, 'section_propre_modifiee_refusee': True, 'section_absente_refusee': True, 'section_dupliquee_refusee': True, 'section_etrangere_acceptee': True}}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "-B",
+        "production/B-13/qualifier.py",
+        "B-14"
+      ],
+      "exit": 0,
+      "stdout": "{'lot': 'B-14', 'checks': 9, 'PASS': True, 'results': {'fichier_propre_modifie_refuse': True, 'bloc_absent_refuse': True, 'bloc_duplique_refuse': True, 'bloc_modifie_refuse': True, 'bloc_etranger_accepte': True, 'section_propre_modifiee_refusee': True, 'section_absente_refusee': True, 'section_dupliquee_refusee': True, 'section_etrangere_acceptee': True}}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "-B",
+        "production/B-13/qualifier.py",
+        "B-15"
+      ],
+      "exit": 0,
+      "stdout": "{'lot': 'B-15', 'checks': 9, 'PASS': True, 'results': {'fichier_propre_modifie_refuse': True, 'bloc_absent_refuse': True, 'bloc_duplique_refuse': True, 'bloc_modifie_refuse': True, 'bloc_etranger_accepte': True, 'section_propre_modifiee_refusee': True, 'section_absente_refusee': True, 'section_dupliquee_refusee': True, 'section_etrangere_acceptee': True}}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "-B",
+        "wp/tests/demo/c29-proof-tests.py"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": "test_blocked_attempt_is_not_zero (__main__.ProofTests.test_blocked_attempt_is_not_zero) ... ok\ntest_http_observer_must_enter_callback (__main__.ProofTests.test_http_observer_must_enter_callback) ... ok\ntest_http_write_cannot_hide_under_all_true_checks (__main__.ProofTests.test_http_write_cannot_hide_under_all_true_checks) ... ok\ntest_missing_profile (__main__.ProofTests.test_missing_profile) ... ok\ntest_native_restoration_required (__main__.ProofTests.test_native_restoration_required) ... ok\ntest_no_positive_consent_witness (__main__.ProofTests.test_no_positive_consent_witness) ... ok\ntest_real_http (__main__.ProofTests.test_real_http) ... ok\ntest_real_native (__main__.ProofTests.test_real_native) ... ok\ntest_sessions_must_restore (__main__.ProofTests.test_sessions_must_restore) ... ok\n\n----------------------------------------------------------------------\nRan 9 tests in 0.039s\n\nOK\n"
+    }
+  ],
+  "owned_acceptance_pass": true,
+  "historical_B11_diagnostic": {
+    "command": [
+      "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+      "-B",
+      "wp/tests/demo/b11-verifier1330.py"
+    ],
+    "exit": 1,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"C:\\Users\\Ced\\imagine\\wp\\tests\\demo\\b11-verifier1330.py\", line 84, in <module>\n    verify(bool(sys.argv[1:]))\n  File \"C:\\Users\\Ced\\imagine\\wp\\tests\\demo\\b11-verifier1330.py\", line 28, in verify\n    contract.integrity('B11',manifest,out)\n  File \"C:\\Users\\Ced\\imagine\\wp\\tests\\demo\\lot_reception_contract.py\", line 90, in integrity\n    assert manifest['sources'] == sources(lot), 'OWNED_SOURCES'\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: OWNED_SOURCES\n",
+    "qualification": "historical B11 whole owned template hash; explicit B14 complement native23 and exact diff; no B11 receipt rewritten"
+  },
+  "ready_markers": {
+    "C-29": true,
+    "B-13": true,
+    "B-14": true,
+    "B-15": true
+  },
+  "protected": {
+    "EnvoiRelations_unchanged": true,
+    "contract_core_unchanged": true
+  },
+  "queue_revision": "Mis à jour le 27 novembre 2026, 22 h 30 (passage automatique).",
+  "remaining_queue_outside_initial_named_delegation": [
+    "B-16",
+    "C-30",
+    "C-31"
+  ],
+  "applied_corrections_sha256": {
+    "C-29": "8f17d88b4c43551b07d09d1a5ed05eea658e1ad3c5373aa240aec23ba0e51232",
+    "B-13": "64f15c52f7308f5886dc727a232a9aee6c7cd50e95c58bf289b0a25956b058f8",
+    "B-14": "d7ad4035830aa2a2a038fb268f0b9aee0d0709c24f03a102e5517da0861fec4f"
+  }
+}
