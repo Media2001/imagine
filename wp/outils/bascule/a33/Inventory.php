@@ -58,8 +58,8 @@ final class Inventory
         $a16 = (new \Imagine\IssueInventory\Inventory($site))->collect($mapping, 10);
         $recentIds = array_column($a16['issues'], 'id');
         global $wpdb;
-        $recent = array_fill_keys($recentIds, true);
         $taxonomy = ($mapping['numero_source'] ?? 'post_type') === 'taxonomy';
+        $recent = $taxonomy ? [] : array_fill_keys($recentIds, true);
         $p = $wpdb->posts;
         $m = $wpdb->postmeta;
         // Never enumerate an order store or read a commerce object's values.

@@ -1,0 +1,61 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+namespace Imagine\ArchiveWeight;
+
+ini_set('display_errors', '0');
+ini_set('log_errors', '0');
+set_error_handler(static function (int $severity): bool {
+    if (error_reporting() & $severity) {
+        throw new \RuntimeException('A33_RUNTIME_WARNING');
+    }
+    return true;
+});
+$level = ob_get_level();
+ob_start();
+try {
+    require dirname(__DIR__) . '/a12/AuditLibrary.php';
+    \Imagine\ContentInventory\AuditLibrary::load();
+    require dirname(__DIR__) . '/a11/Runtime.php';
+    require dirname(__DIR__) . '/a12/Command.php';
+    require dirname(__DIR__) . '/a16/Mapping.php';
+    require dirname(__DIR__) . '/a16/Inventory.php';
+    require __DIR__ . '/Analysis.php';
+    require __DIR__ . '/Inventory.php';
+    require __DIR__ . '/Command.php';
+    $code = Command::main($argv);
+    while (ob_get_level() > $level) {
+        ob_end_clean();
+    }
+    fwrite(STDOUT, "A33_OK archives.json archives.md\n");
+    $directory = '';
+    foreach (array_slice($argv, 1) as $argument) {
+        if (str_starts_with($argument, '--output=')) {
+            $directory = substr($argument, 9);
+        }
+    }
+    $binding = [];
+    foreach (['archives.json', 'archives.md'] as $name) {
+        $binding[$name] = hash_file('sha256', $directory . '/' . $name);
+    }
+    fwrite(STDOUT, 'A33_FINAL ' . json_encode($binding, JSON_THROW_ON_ERROR) . "\n");
+    exit($code);
+} catch (\Throwable $error) {
+    while (ob_get_level() > $level) {
+        ob_end_clean();
+    }
+    $known = json_decode(file_get_contents(__DIR__ . '/refusals.json'), true, 32, JSON_THROW_ON_ERROR);
+    $code = in_array($error->getMessage(), $known, true) ? $error->getMessage() : 'A33_INVENTORY_FAILED';
+    $message = class_exists(\Imagine\PublicAddresses\Runtime::class)
+        ? \Imagine\PublicAddresses\Runtime::refusalMessage($error, $code) : $code;
+    if (
+        $error instanceof \Imagine\PublicAddresses\RuntimeRefusal && $code === 'A16_MAPPING_KEY_ABSENT'
+        && in_array($error->details['field'] ?? null, ['numero_type', 'thematique', 'pdf_cle', 'liaison.cle'], true)
+    ) {
+        $message = $code . ' ' . json_encode(['field' => $error->details['field']], JSON_THROW_ON_ERROR);
+    }
+    fwrite(STDERR, $message . "\n");
+    exit(1);
+}

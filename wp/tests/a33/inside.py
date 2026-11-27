@@ -131,6 +131,17 @@ if (getenv('A33_CONFINED') === '1') {
         documented[i] = token
     documented_run = cmd(documented, check=False)
     check('readme_only_exact_arguments', documented_run.returncode == 0 and json.loads((docout / 'archives.json').read_bytes()) == d, {'arguments': [s.split('=')[0] for s in documented[2:]]})
+    for label, update in [('parent', {'liaison': {'source': 'post_parent', 'cle': 'post_parent'}}), ('taxonomy', {'numero_source': 'taxonomy', 'numero_type': 'a16_issue', 'date_cle': '_a33_date', 'liaison': {'source': 'taxonomy', 'cle': 'a16_issue'}})]:
+        m = json.loads(mapping.read_bytes())
+        m.update(update)
+        config = OUT / ('variant-' + label + '.json')
+        config.write_text(json.dumps(m), encoding='utf-8')
+        q, dest = inventory('variant-' + label, config)
+        variant = json.loads((dest / 'archives.json').read_bytes()) if dest.exists() else {}
+        if label == 'parent':
+            check('a16_variant_parent_exact', q.returncode == 0 and all(variant.get(k) == d[k] for k in d if k != 'mapping_sha256'))
+        else:
+            check('a16_variant_taxonomy_ten_no_term_post_id_inference', q.returncode == 0 and variant.get('selected_issues') == 10 and variant.get('recent_media') == weight(1, 1, 0, 19))
     for field in ['numero_type', 'thematique', 'pdf_cle', 'liaison.cle', 'article_type', 'date_cle']:
         m = json.loads(mapping.read_bytes())
         if field == 'liaison.cle':

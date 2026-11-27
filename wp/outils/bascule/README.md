@@ -17,3 +17,12 @@ A32-BILAN : bilan.json et bilan.md hors dépôt, statuts et codes fermés, sorti
 
 La tournée inclut A-10, A-11, A-12, A-15 à A-21, A-23 à A-25. A-13/A-14/A-30 demandent des fichiers Imagine ; A-26/A-27/A-29/A-31 ne sont pas clos dans la file du 27/11 à 7 h 30. A-22 est le gardien, A-28 l'import ; aucun n'est un inventaire autonome. Les exclusions et leur raison fermée sont dans tournee/exclusions.json. Lire production/A-32/RAPPORT.md pour les preuves et wp/tests/a32 pour le rejeu synthétique ; aucune autorisation sur un site réel.
 
+## A-33 — Le poids des archives
+
+A33-PORTEE : lecture seule sur copie vérifiée ; correspondance et refus A-16 inchangés, dix numéros ; publications hors dix par rôle/type fermé et année UTC ; originaux mesurés par stat sans ouverture, absents séparés, totaux incomplets inconnus et dossiers exclus inconnus après import. Aucun nom, titre ni chemin du site en sortie. Détails et limites : a33/README.md.
+
+```sh
+python3 wp/outils/bascule/a33/confine.py --wp-path=/copie-verifiee --audit=/hors-web/audit-date/audit.json --correspondance=/hors-web/correspondance.json --output=/hors-web/archives-date
+```
+
+
