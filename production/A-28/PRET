@@ -1,0 +1,5 @@
+A-28 — PRET technique après correction de la fusion.
+Vérification directe sans argument : PASS, sortie 0, le 2026-11-27T03:51:54.326352+01:00 ; dix portes à sortie 0, PSR-12 strict sans erreur ni avertissement, matrices natives classique/HPOS sous UTF-8 et cp1252.
+Paquet unique : preuves/final ; manifest SHA-256 93384d3f8adc803faeed38d2138cba4f04722aea799241d3b8db30429c6abdf9.
+Import gelé à 2026-11-27T02:27:55.365898+00:00 ; hashes et invalidations A-21 à A-27 dans preuves/final/dependency-invalidations.json. Aucun de ces lots requalifié ici ; verrou parent conservé.
+Limites : deux suffixes documentaires en doute explicite, types hors liste conservés, T03 a listé A-28 hors rejeu (déclaration absente) ; le vérificateur a été réellement lancé directement. Ni clôture indépendante, ni GO sur le réel.

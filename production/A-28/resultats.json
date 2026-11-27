@@ -1,43 +1,45 @@
 {
-  "measured_utc": "2026-11-26T23:52:30.346329+00:00",
+  "measured_utc": "2026-11-27T02:51:15.329249+00:00",
   "contexts": {
     "utf8": {
-      "native_checks": 172,
+      "native_checks": 190,
       "native_failures": 0,
-      "native_cases": 8,
-      "unit_checks": 62,
+      "native_cases": 10,
+      "unit_checks": 82,
       "A01_data_cases": 9,
       "A01_data_assertions": 337,
-      "lint_files": 12,
+      "lint_files": 16,
       "residue_mutations": 16,
+      "postmeta_purge_mutations": 2,
       "native_keep_refusals": 12,
       "runner_commands": 9,
       "cleanup": {
-        "name": "imagine-test-a28-982fac8b70f1",
+        "name": "imagine-test-a28-56a6753730e3",
         "absent": true
       },
       "A01_python_native_tests": 109
     },
     "cp1252": {
-      "native_checks": 172,
+      "native_checks": 190,
       "native_failures": 0,
-      "native_cases": 8,
-      "unit_checks": 62,
+      "native_cases": 10,
+      "unit_checks": 82,
       "A01_data_cases": 9,
       "A01_data_assertions": 337,
-      "lint_files": 12,
+      "lint_files": 16,
       "residue_mutations": 16,
+      "postmeta_purge_mutations": 2,
       "native_keep_refusals": 12,
       "runner_commands": 9,
       "cleanup": {
-        "name": "imagine-test-a28-9314c96183a1",
+        "name": "imagine-test-a28-1fb6556bbc8d",
         "absent": true
       },
       "A01_python_native_tests": 109
     }
   },
   "baseline_checks": 108,
-  "gate_commands": 9,
+  "gate_commands": 10,
   "gate_exits": {
     "environment-utf8": 0,
     "python-utf8": 0,
@@ -45,27 +47,48 @@
     "environment-cp1252": 0,
     "python-cp1252": 0,
     "a01-windows-cp1252": 0,
+    "psr12": 0,
     "prepare-image": 0,
     "global-utf8": 0,
     "global-cp1252": 0
   },
   "windows_tests": {
-    "python-utf8": 17,
+    "python-utf8": 19,
     "a01-windows-utf8": 109,
-    "python-cp1252": 17,
+    "python-cp1252": 19,
     "a01-windows-cp1252": 109
   },
-  "source_freeze_files": 45,
+  "source_freeze_files": 50,
   "source_freeze_identical": true,
   "global_lines": {
     "utf8": [
-      "OUTILS : 20 outils, 521 contr\u00f4les, 0 \u00e9checs ; hors rejeu : aucun",
+      "PAQUETS : 0 v\u00e9rifi\u00e9s, 0 \u00e9checs ; hors rejeu : A-26 (declaration absente), A-27 (declaration absente), A-28 (declaration absente)",
+      "OUTILS : 21 outils, 553 contr\u00f4les, 0 \u00e9checs ; hors rejeu : aucun",
       "REJEU : 1151 tests, 36062 assertions, 0 \u00e9checs, 0 erreurs, 0 ignor\u00e9s \u2014 PASS"
     ],
     "cp1252": [
-      "OUTILS : 20 outils, 521 contr\u00f4les, 0 \u00e9checs ; hors rejeu : aucun",
+      "PAQUETS : 0 v\u00e9rifi\u00e9s, 0 \u00e9checs ; hors rejeu : A-26 (declaration absente), A-27 (declaration absente), A-28 (declaration absente)",
+      "OUTILS : 21 outils, 553 contr\u00f4les, 0 \u00e9checs ; hors rejeu : aucun",
       "REJEU : 1151 tests, 36062 assertions, 0 \u00e9checs, 0 erreurs, 0 ignor\u00e9s \u2014 PASS"
     ]
   },
-  "native_mutations_total": 32
+  "matrix_totals": {
+    "cases": 20,
+    "mutations": 32,
+    "orphan_mutations": 4
+  },
+  "psr12": {
+    "standard": "PSR12",
+    "exclusions": [],
+    "totals": {
+      "errors": 0,
+      "warnings": 0,
+      "fixable": 0
+    },
+    "files": 7,
+    "cleanup": {
+      "name": "imagine-test-a28-style-897c7ef6d1d4",
+      "absent": true
+    }
+  }
 }

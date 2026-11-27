@@ -1,0 +1,14 @@
+{
+  "utc": "2026-11-27T02:50:56.727679+00:00",
+  "purpose": "observed concurrent T03 version, not a whole-repository freeze",
+  "files": {
+    "wp/tests/preparer-image.ps1": "3b1b8e2baf0f8388a9bffa8c44836b9d91bddc6736a10adb46fa7ef0298ae3dc",
+    "wp/tests/rejouer.ps1": "d7638371544622637fb6945dcb00d02d51029d153a3568a27ea7ef7cb59eda40",
+    "wp/tests/t01/commun.ps1": "fad6b5e92268dceb951e6fce37151868c76e54a7a7df4d838bf0ae4a56490331",
+    "wp/tests/t01/executer.php": "25a53e48140bcbb3929bbe4cccaf4528c3849088db4610f284a9430a56daf244",
+    "wp/tests/t01/tools.php": "81c2de07ab265cddf530d74b8cf18315ca717e40d45a27a5781329e75b74d805",
+    "wp/tests/t01/Dockerfile": "4251390be103b7473674b5125f61bafab0fff95424f875d2bc7872b8405ac5ea",
+    "wp/tests/t01/packets.php": null,
+    "wp/tests/t01/packages.php": null
+  }
+}

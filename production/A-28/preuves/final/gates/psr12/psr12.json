@@ -1,0 +1,153 @@
+{
+  "status": "PASS",
+  "standard": "PSR12",
+  "exclusions": [],
+  "runner": "imagine-test-a28-style-897c7ef6d1d4",
+  "sources": {
+    "wp/outils/staging/lib.php": "c6ebdbb9ad3568f64069bc80d92acc22a01f234dbc9ab7012ac0cedf8d9b1953",
+    "wp/outils/staging/engine.php": "fef246a543f993f1b1b1b8a2a21873d94fc02ba3e40edd730b9926bb3690336f",
+    "wp/outils/staging/store.php": "88617b0e97809476bb99942f12069afa434e22a0c2dbc4929161249d7be75f66",
+    "wp/outils/staging/guard.php": "9852be418707dc3b06c83ba621a1fc2689d7c650f8d6274d40d6e49b0b09182a",
+    "wp/outils/staging/form-decision-refused.php": "c79989ab2daa975e5e2435c218c4ed05ff35dcecbb413305e0157edeb644822b",
+    "wp/tests/a28/unit.php": "e33a0ba41972a8b67a9e4211f30de14a9a714be62468cbd8fae920cc2b9de78d",
+    "wp/tests/a28/seed.php": "033473eb291e25c784577988a03fe5182b01ff6686cae3237dd18180e97563c0"
+  },
+  "commands": [
+    {
+      "argv": [
+        "image",
+        "inspect",
+        "imagine-tests-t01:1"
+      ],
+      "exit": 0,
+      "stdout_sha256": "6591fae8be1549bbbfc3852aa1953fb62d28362c0edc24986f89b5b94120cc8b",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "create",
+        "--pull",
+        "never",
+        "--name",
+        "imagine-test-a28-style-897c7ef6d1d4",
+        "--label",
+        "org.imagine.a28-style=true",
+        "--network",
+        "none",
+        "--read-only",
+        "--tmpfs",
+        "/tmp:rw,nosuid,nodev,size=32m,mode=1777",
+        "--cap-drop",
+        "ALL",
+        "--security-opt",
+        "no-new-privileges",
+        "--user",
+        "65534:65534",
+        "--pids-limit",
+        "128",
+        "--memory",
+        "256m",
+        "--no-healthcheck",
+        "--log-driver",
+        "none",
+        "--mount",
+        "type=bind,source=/mnt/c/Users/Ced/imagine/wp,target=/repo/wp,readonly",
+        "--entrypoint",
+        "php",
+        "sha256:227dd5e362c3fda30064da915b4875441db979dfee245e3dbfd10c0a94cc3c9a",
+        "/opt/t01/imagine-non-regression/vendor/bin/phpcs",
+        "--standard=PSR12",
+        "--report=json",
+        "/repo/wp/outils/staging/lib.php",
+        "/repo/wp/outils/staging/engine.php",
+        "/repo/wp/outils/staging/store.php",
+        "/repo/wp/outils/staging/guard.php",
+        "/repo/wp/outils/staging/form-decision-refused.php",
+        "/repo/wp/tests/a28/unit.php",
+        "/repo/wp/tests/a28/seed.php"
+      ],
+      "exit": 0,
+      "stdout_sha256": "ceeb32fb685076fedf86f35228ce1d8c9eccdd8482bdc14d5d5c9e8a4b9c9ab2",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "inspect",
+        "imagine-test-a28-style-897c7ef6d1d4"
+      ],
+      "exit": 0,
+      "stdout_sha256": "327cb150d221e64eebe52ed3f0a412880029f2e87e8a596e5b6b756eb08b8254",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "start",
+        "-a",
+        "imagine-test-a28-style-897c7ef6d1d4"
+      ],
+      "exit": 0,
+      "stdout_sha256": "abd3778c112dae9908457f2098fcf98c0c43ed72324c817e805583670d8d72a2",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "inspect",
+        "imagine-test-a28-style-897c7ef6d1d4"
+      ],
+      "exit": 0,
+      "stdout_sha256": "a6cb144365b85b843f73a751f064068b790b6fe7204448534643028221b5c101",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "inspect",
+        "imagine-test-a28-style-897c7ef6d1d4"
+      ],
+      "exit": 0,
+      "stdout_sha256": "a6cb144365b85b843f73a751f064068b790b6fe7204448534643028221b5c101",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "rm",
+        "-f",
+        "imagine-test-a28-style-897c7ef6d1d4"
+      ],
+      "exit": 0,
+      "stdout_sha256": "f59fa22bab2cbefb658ad32e0b14608750b35025d6c722f5e8b95a7b8cdfbb93",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "inspect",
+        "imagine-test-a28-style-897c7ef6d1d4"
+      ],
+      "exit": 1,
+      "stdout_sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "stderr_sha256": "ce65fc996711c849424e65a565074da357c77fccc6c5bafaeb10d7f51d0b6c33"
+    }
+  ],
+  "cleanup": {
+    "name": "imagine-test-a28-style-897c7ef6d1d4",
+    "absent": true
+  },
+  "image": "sha256:227dd5e362c3fda30064da915b4875441db979dfee245e3dbfd10c0a94cc3c9a",
+  "isolation": {
+    "network": "none",
+    "readonly_root": true,
+    "readonly_wp_mount": true,
+    "privileged": false,
+    "cap_drop": [
+      "ALL"
+    ],
+    "security_opt": [
+      "no-new-privileges"
+    ]
+  },
+  "exit": 0,
+  "totals": {
+    "errors": 0,
+    "warnings": 0,
+    "fixable": 0
+  }
+}

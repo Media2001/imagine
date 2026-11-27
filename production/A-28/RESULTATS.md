@@ -1,44 +1,49 @@
-# Résultats mesurés A-28
+# Resultats mesures A-28 apres fusion
 
-2026-11-26T23:52:30.346329+00:00 ; Python Windows 3.14.6 ; consoles UTF-8/mode 1 et cp1252/mode 0 effectivement mesurées.
+2026-11-27T02:51:15.329249+00:00 ; Python Windows 3.14.6 ; UTF-8/mode 1 et cp1252/mode 0 mesures dans les recus.
 
-| Contexte | Contrôles import | Cas complets/refus | Tests purs PHP A28 | A01 données | Lint PHP | Mutations réelles | Refus CLI garder | Commandes du runner |
-|---|---:|---:|---:|---|---:|---:|---:|---:|
-| utf8 | 172, 0 échec | 8 | 62 | 9 cas / 337 assertions | 12 | 16 | 12 | 9, toutes sortie 0 |
-| cp1252 | 172, 0 échec | 8 | 62 | 9 cas / 337 assertions | 12 | 16 | 12 | 9, toutes sortie 0 |
+| Contexte | Controles natifs | Cas import/refus | PHP A28 | A01 donnees | Lint PHP | Mutations tables/posts | Mutations postmeta orphelins |
+|---|---:|---:|---:|---|---:|---:|---:|
+| utf8 | 190, 0 echec | 10 | 82 | 9 cas / 337 assertions | 16 | 16 | 2 |
+| cp1252 | 190, 0 echec | 10 | 82 | 9 cas / 337 assertions | 16 | 16 | 2 |
 
-Les décomptes répétés entre consoles ne sont pas des tests uniques supplémentaires. Chaque mutation est le triplet réel refus 1, contrôle retiré 0, contrôle restauré 1 ; chaque garder connu est refusé par le CLI PHP à 78. Les archives sont entièrement fabriquées dans les conteneurs ; le code de restauration, le SQL et les trois phases natives sont ceux de staging-court.
+Les repetitions entre encodages ne sont pas des cas uniques supplementaires. Les nouveaux temoins omettent uniquement la purge postmeta lors du vrai import : parents/revisions connus absents, quatre lignes de meta et quatre identifiants de provenance, refus 1 / controle retire 0 / controle retabli 1. Aucun texte canari publie.
 
-Avant correction : 108 contrôles du défaut sur six imports (défaut puis garder table connue/inconnue, classique/HPOS). Preuve et sources anciennes authentiques conservées, pas présentées comme la qualification actuelle.
+PSR-12 strict en conteneur : 7 fichiers, 0 erreur, 0 avertissement, aucune exclusion. Les declarations ont leurs fichiers distincts ; equivalence native des jetons de mise en forme dans `preuves/final/format-equivalence.json`.
 
-## Portes Windows et globales
+## Portes
 
-- `environment-utf8` : sortie réelle 0 ; sources stables.
-- `python-utf8` : sortie réelle 0 ; 17 tests ; sources stables.
-- `a01-windows-utf8` : sortie réelle 0 ; 109 tests ; sources stables.
-- `environment-cp1252` : sortie réelle 0 ; sources stables.
-- `python-cp1252` : sortie réelle 0 ; 17 tests ; sources stables.
-- `a01-windows-cp1252` : sortie réelle 0 ; 109 tests ; sources stables.
-- `prepare-image` : sortie réelle 0 ; sources stables.
-- `global-utf8` : sortie réelle 0 ; sources stables.
-- `global-cp1252` : sortie réelle 0 ; sources stables.
+- `environment-utf8` : sortie 0 ; sources propres stables.
+- `python-utf8` : sortie 0 ; 19 tests ; sources propres stables.
+- `a01-windows-utf8` : sortie 0 ; 109 tests ; sources propres stables.
+- `environment-cp1252` : sortie 0 ; sources propres stables.
+- `python-cp1252` : sortie 0 ; 19 tests ; sources propres stables.
+- `a01-windows-cp1252` : sortie 0 ; 109 tests ; sources propres stables.
+- `psr12` : sortie 0 ; sources propres stables.
+- `prepare-image` : sortie 0 ; sources propres stables.
+- `global-utf8` : sortie 0 ; sources propres stables.
+- `global-cp1252` : sortie 0 ; sources propres stables.
 
 utf8 :
 
 ```text
-OUTILS : 20 outils, 521 contrôles, 0 échecs ; hors rejeu : aucun
+PAQUETS : 0 vérifiés, 0 échecs ; hors rejeu : A-26 (declaration absente), A-27 (declaration absente), A-28 (declaration absente)
+OUTILS : 21 outils, 553 contrôles, 0 échecs ; hors rejeu : aucun
 REJEU : 1151 tests, 36062 assertions, 0 échecs, 0 erreurs, 0 ignorés — PASS
 ```
 
 cp1252 :
 
 ```text
-OUTILS : 20 outils, 521 contrôles, 0 échecs ; hors rejeu : aucun
+PAQUETS : 0 vérifiés, 0 échecs ; hors rejeu : A-26 (declaration absente), A-27 (declaration absente), A-28 (declaration absente)
+OUTILS : 21 outils, 553 contrôles, 0 échecs ; hors rejeu : aucun
 REJEU : 1151 tests, 36062 assertions, 0 échecs, 0 erreurs, 0 ignorés — PASS
 ```
 
-La suite A01 Python complète est également exécutée dans chaque runner : 109 tests par contexte, avec le cas NTFS réservé à Windows déclaré ignoré dans Linux et réellement joué sous Windows. Les trois compléments PHP A01 (politique, diagnostic PDO sur une vraie contrainte unique, fichiers) sont chacun à sortie 0. Le différentiel hors formulaires est byte-identique entre les sources anciennes et actuelles, sauf le nouveau compteur zéro explicitement isolé.
+A01 Python natif : 109 tests par encodage, le cas NTFS est ignore sous Linux mais joue dans chaque porte Windows. Les trois complements PHP A01 et le differentiel hors formulaires ont chacun leur vraie sortie 0. Le differentiel conserve toutes les tables et le rapport ancien, hors compteur zero ajoute par A28.
 
-Gel identique pour matrices et portes : 45 fichiers import/tests/vérificateur/référence, toutes les empreintes relues après exécution. Les logs bruts, véritables statuts et empreintes internes figurent dans `preuves/final/native`, `preuves/final/gates` ; aucun reçu ancien remplacé pour cacher une dépendance modifiée.
+Gel identique des matrices et portes : 50 fichiers strictement import/A28/reference, pas un inventaire global concurrent. Sources comparees aux recus apres execution. Les communs T03 sont seulement observes avant chaque porte dans `*.common-observed.json` ; aucun lot voisin n'est requalifie ici.
 
-Runners finaux supprimés et absence relue : `imagine-test-a28-982fac8b70f1`, `imagine-test-a28-9314c96183a1`. La baseline et les essais rouges ont leur propre preuve de suppression. Aucun runner partagé, site ou archive réelle n’a été utilisé.
+Baseline anterieure A28 : 108 controles historiques, pas une qualification actuelle. Ancien paquet complet intact hors depot : `historical-preservation.json` verifie ses empreintes. Un seul nouveau paquet dans `preuves/final`.
+
+Runners finaux supprimes, absence verifiee : `imagine-test-a28-56a6753730e3`, `imagine-test-a28-1fb6556bbc8d`, `imagine-test-a28-style-897c7ef6d1d4`. Aucun site ou archive reelle utilise.

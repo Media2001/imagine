@@ -1,0 +1,185 @@
+[
+  {
+    "name": "environment-utf8",
+    "argv": [
+      "C:\\Python314\\python.exe",
+      "-c",
+      "import sys,locale,json;print(json.dumps({\"executable\":sys.executable,\"version\":sys.version,\"stdout\":sys.stdout.encoding,\"stderr\":sys.stderr.encoding,\"utf8\":sys.flags.utf8_mode,\"locale\":locale.getencoding(),\"preferred\":locale.getpreferredencoding(False)}))"
+    ],
+    "exit": 0,
+    "encoding": "utf-8",
+    "utf8": "1",
+    "sources_stable": true,
+    "stdout_sha256": "47a840d7db46cb4311b1c786eca2a8b05496e606a6c27341e70c1e6b1c739769",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "name": "python-utf8",
+    "argv": [
+      "C:\\Python314\\python.exe",
+      "-B",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "wp/tests/a28",
+      "-p",
+      "test_*.py",
+      "-v"
+    ],
+    "exit": 0,
+    "encoding": "utf-8",
+    "utf8": "1",
+    "sources_stable": true,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "e5a9c24ca1d10d1685e792bbe51f12d2ee68d6e21e29f667e6c1b585a6c0e7f8",
+    "tests": 19
+  },
+  {
+    "name": "a01-windows-utf8",
+    "argv": [
+      "C:\\Python314\\python.exe",
+      "-B",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "wp/tests/a01-court",
+      "-p",
+      "test_*.py",
+      "-v"
+    ],
+    "exit": 0,
+    "encoding": "utf-8",
+    "utf8": "1",
+    "sources_stable": true,
+    "stdout_sha256": "4f1d02ffd55836fa7e2d1ae1f6c2d2a90b45c80a1a5349194fd49646d0becbcf",
+    "stderr_sha256": "14fafa0f6890dfeabe300fb510c40a20c1a7704f3077a80797f2ab9428b79ad0",
+    "tests": 109
+  },
+  {
+    "name": "environment-cp1252",
+    "argv": [
+      "C:\\Python314\\python.exe",
+      "-c",
+      "import sys,locale,json;print(json.dumps({\"executable\":sys.executable,\"version\":sys.version,\"stdout\":sys.stdout.encoding,\"stderr\":sys.stderr.encoding,\"utf8\":sys.flags.utf8_mode,\"locale\":locale.getencoding(),\"preferred\":locale.getpreferredencoding(False)}))"
+    ],
+    "exit": 0,
+    "encoding": "cp1252",
+    "utf8": "0",
+    "sources_stable": true,
+    "stdout_sha256": "c20d28e5f5ad90c34ebdc553ca89e86ed188c93f1f1113c8a10d0b35690c0bc2",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "name": "python-cp1252",
+    "argv": [
+      "C:\\Python314\\python.exe",
+      "-B",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "wp/tests/a28",
+      "-p",
+      "test_*.py",
+      "-v"
+    ],
+    "exit": 0,
+    "encoding": "cp1252",
+    "utf8": "0",
+    "sources_stable": true,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "4f53d890d4a1fbc4c1900f33f057a2b1c2c078e796dc621a90c2aa8d89a304ea",
+    "tests": 19
+  },
+  {
+    "name": "a01-windows-cp1252",
+    "argv": [
+      "C:\\Python314\\python.exe",
+      "-B",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "wp/tests/a01-court",
+      "-p",
+      "test_*.py",
+      "-v"
+    ],
+    "exit": 0,
+    "encoding": "cp1252",
+    "utf8": "0",
+    "sources_stable": true,
+    "stdout_sha256": "090bd936cebe619d959a5c849c3d44ad6deafe31472839f594f7c1f9cfec7a21",
+    "stderr_sha256": "364195ea3e69149b97bef7eb229b1935f2b6728d1ae30896aa26a3725227f6fc",
+    "tests": 109
+  },
+  {
+    "name": "psr12",
+    "argv": [
+      "C:\\Python314\\python.exe",
+      "-B",
+      "wp/tests/a28/style.py",
+      "--output",
+      "C:\\Users\\Ced\\imagine\\production\\A-28\\preuves\\final\\gates\\psr12"
+    ],
+    "exit": 0,
+    "encoding": "utf-8",
+    "utf8": "1",
+    "sources_stable": true,
+    "stdout_sha256": "a1566a51253407a4a8f879b903300fe058657225043c31f55009aa485ea35884",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "name": "prepare-image",
+    "argv": [
+      "powershell.exe",
+      "-NoProfile",
+      "-ExecutionPolicy",
+      "Bypass",
+      "-File",
+      "wp/tests/preparer-image.ps1"
+    ],
+    "exit": 0,
+    "encoding": "utf-8",
+    "utf8": "1",
+    "sources_stable": true,
+    "stdout_sha256": "31c9d8089a347901781577469359f6cff1663e45f4c45c04c88760eb80b8a584",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "name": "global-utf8",
+    "argv": [
+      "powershell.exe",
+      "-NoProfile",
+      "-ExecutionPolicy",
+      "Bypass",
+      "-File",
+      "wp/tests/rejouer.ps1"
+    ],
+    "exit": 0,
+    "encoding": "utf-8",
+    "utf8": "1",
+    "sources_stable": true,
+    "stdout_sha256": "c38a379f85247dbc1db62097ef0913004b7aaea23fd0f9112e5cdc0c51e9db44",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "name": "global-cp1252",
+    "argv": [
+      "powershell.exe",
+      "-NoProfile",
+      "-ExecutionPolicy",
+      "Bypass",
+      "-File",
+      "wp/tests/rejouer.ps1"
+    ],
+    "exit": 0,
+    "encoding": "cp1252",
+    "utf8": "0",
+    "sources_stable": true,
+    "stdout_sha256": "e2d5060c0a3ba17d9a7df866700fe5abb076e18b0f2fff5daf5e226a99f3bdbf",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]
