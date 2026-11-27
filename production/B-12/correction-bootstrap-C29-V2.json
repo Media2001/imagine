@@ -1,0 +1,10 @@
+{
+  "bootstrap_current": "e27ee706324066048c5610730c7b945b945a7b55e66200325147d0b8dcf00780",
+  "without_only_C29": "9530b50879a99f44284019ee481a1bd191e1b35a71a61b9a6310da7c1d7a6eb8",
+  "C29_exact_block": true,
+  "B12_registration_exact": true,
+  "C29_sources_and_evidence_exact": true,
+  "historical_B12_PRET_archive": "PRET-avant-corrections-V2",
+  "C29_complement_sha256": "fd37d2fdfdd21f4d5afbbe0d37645f08d6b926f6dc3651aa90a4f0b64ba8b4e8",
+  "C29_functional_bootstrap_untouched": true
+}

@@ -1,0 +1,5 @@
+{
+  "source_mutation": "exact pre-fix case-sensitive comparison on actual demo",
+  "source_restored": true,
+  "business_preserved": true
+}

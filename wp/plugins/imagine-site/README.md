@@ -596,6 +596,8 @@ L'affichage et le cache post-enregistrement (`cache_oembed`, AJAX natif) sont ve
 L'aperçu `/oembed/1.0/proxy` appelle `get_data()` : `rest_dispatch_request`, après permissions et avant son cache, rend un lien sans cadre/script/vignette ; réglages B11 sans effet sur ce verrou.
 Interne délégué sans changement, corps jamais réécrit, aucun réglage nouveau ; sources natives officielles et levée future en trois lignes dans `production/B-12/NOTE.md`.
 Tests : `python -B wp/tests/demo/b12-verifier.py` (`--live` = lecture seule) ; rejeu PHPUnit standard, matrice native et mutation B00 : `production/B-12/A-VOIR.md`.
+La suite scellée `rejouer.ps1` utilise des **doublures maison** (`IntegrationsCorpsB12Stubs.php`) : elle **ne prouve pas le pipeline natif ni le zéro appel sortant réel**. Cette preuve vient de `wp/tests/demo/b12-runtime.php`, complétée par `b12-routes-runtime.php` pour les routes MAJ/mixed, caches anciens et permissions ; exécution sur le seul WordPress fictif gardé, observateur avant transport.
+**À chaque montée de version du cœur WordPress**, rejouer cette matrice native (enregistrement/cache, rendu, aperçu, variantes de casse, cache absent/ancien et permissions) avant de déclarer le lot prêt : l'ordre handlers/cache et dispatch/permissions/transient est un détail interne non contractuel. Réception courante : `production/B-12/reception-corrections-V2.json` ; anciens reçus conservés, complément C29 contrôlé par portion exacte sans affaiblir `SOURCES`.
 
 
 
