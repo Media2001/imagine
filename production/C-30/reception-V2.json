@@ -1,0 +1,45 @@
+{
+  "scope": "imagine-test-demo",
+  "ready": true,
+  "contract_version": 1,
+  "sources": {
+    "production/C-30/verifier.py": "db0c6441a8ad89659fbb8cc47b9f1316bafce35017f5c08769bc3acb98f33284",
+    "wp/outils/demo/b13-browser.py": "02a69cab956e503b2a79625df2b084858df9e6b417af638fa503240ebc0d3de0",
+    "wp/outils/demo/b13.py": "3960057fde352c412024678a14d06a7ed6dec04c8d1bff378f7e5305420a5357",
+    "wp/outils/demo/c30-browser.py": "56a6d00832ffd0333e395718653c472a839e2e7d29216e978df1b5a2290e7952",
+    "wp/outils/demo/c30-recover.py": "00072824f754bcdf1428f82cee157cf97086a4470f051e65d1dbe3b36fda566d",
+    "wp/outils/demo/c30-seed.py": "dd3f7726ae247594f0d8be61fa8cd0434ffff6d7502037cbaf03b4c1b0f38317",
+    "wp/outils/demo/c30-standard.py": "095c9346c3d87291c3debf0c89d150062f65f8f4c66991691692b79206094dae",
+    "wp/outils/demo/c30.py": "d34686c125c70e4359593efa0dfecd59847cdb04dd22c3194bbe68fdf5caa00e",
+    "wp/plugins/imagine-site/CodesSuivis.php": "2e91d95dd4a29948527fd68e0974aa6a00bfe6ec353dc31d7f2c566d23be3b60",
+    "wp/plugins/imagine-site/CodesSuivisAdmin.php": "45f6716689531d2977e742408c965840cf4b618a35b9e205d2da078216911223",
+    "wp/plugins/imagine-site/CodesSuivisConfidentialite.php": "12ba2bb1166a55c5ab685b07790caa52407c34bf9b94eaf353986f8614894d83",
+    "wp/plugins/imagine-site/CodesSuivisRegles.php": "952aee67637fb12d8aec83bf8d9f31476b7176ea7dae8f33cfc376115fadb92a",
+    "wp/plugins/imagine-site/tests/CodesSuivisC30Test.php": "291e33f6a00eb15820e78745b40039c27031c5da64942efcd401c5bbce538f3e",
+    "wp/tests/demo/b13-contract.py": "ebdb04de4f948ec77ec5214bdf7c17f03c0366a02ad97722cfef9c6b1d9ebe63",
+    "wp/tests/demo/b13-observer.php": "72d46a7ab527893be8d4e7aa8a0e04073bcd9f0c38c655620a1e603290a6c03f",
+    "wp/tests/demo/c30-runtime.php": "27803f465f241d696f7c04b3badebe9edbfa5210b7be0562f019a89000e3e6e4"
+  },
+  "bootstrap_contract": {
+    "block": "// C30 — accueil et code suivi local, sans avantage financier.\nrequire_once __DIR__ . '/CodesSuivisRegles.php';\nrequire_once __DIR__ . '/CodesSuivis.php';\nrequire_once __DIR__ . '/CodesSuivisAdmin.php';\nrequire_once __DIR__ . '/CodesSuivisConfidentialite.php';\nCodesSuivis::register();\nCodesSuivisAdmin::register();\nCodesSuivisConfidentialite::register();\n\n",
+    "sha256": "f16e46e5eab4010a66e8273b3ed34a9d83c56b9c2351500663e84c2529cd179c",
+    "occurrences": 1
+  },
+  "readme_section": "afb3672781cd55e8dbf37a4e6a6842cbce74af8c2e2be57ad505d490f91b501d",
+  "evidence": {
+    "A-VOIR.md": "be6a85f177c9cd13543ea8875009764b96aeaf4199b6f01b49d53334aee2bcc8",
+    "native-final2-V2.json": "cf265e74888797673adf2bc7bd7b51304626f3a02b9a4dcd23efc793819c0d05",
+    "browser-final2-V2.json": "e4d251307aba1da86a5b306310854522414f1d0960ad2baf3ea021a33d741ca6",
+    "browser-final2-V2-sessions.json": "52271fc04435c660bf5bf6c42254793c0ed64d950abe3d432addb5ba5be2ad58",
+    "browser-final2-V2.png": "ecb8746b2fac4adb4903d7bd162a44967c2973735c1d23997dbb2f1071c07979",
+    "standard2-V2.json": "a3f9576a4bf5a78886d1baef48e46b5fa697625c0524c054c9fcec99bcb23ff2",
+    "seed-V2.json": "712995f56440b13a5334e440e499733d1cea5f337f555ec1a7c29b2e7e908b9b",
+    "image-V2.json": "c98f4016752cfcd3f20c43dc6542e24fe336f9f741703075634852d502fc6126",
+    "image-V2.log": "6243d4ed464aa67eb3ba184d3a1b72014969c8013b59bb9ed00086821afbac19",
+    "replay-V2.json": "244833e185f2ea3ab8d46fdb596395430a82beceef592f655cc9a6cc49b76a37",
+    "replay-V2.log": "ad07b2dab8300cb23918eae78eb971a27d8992a590b7080b1697053f1555c62c"
+  },
+  "historical_files": {
+    "red-V2.json": "04ca7eac13a4cf1a27fbb996d688a7380da408af6888963d02e0f3a3211e2407"
+  }
+}

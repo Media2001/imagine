@@ -14,10 +14,10 @@ RECEIPT='reception-V2.json'
 def load(n):return json.loads((OUT/n).read_text(encoding='utf-8'))
 def verify(live=False,manifest=None,require_pret=True):
     c.integrity(owner,manifest or load(RECEIPT))
-    n=load('native-final-V2.json');d=json.loads(n['native']['stdout'])
+    n=load('native-final2-V2.json');d=json.loads(n['native']['stdout'])
     assert n['native']['code']==0 and not n['native']['stderr'] and n['restored'] and n['before']==n['after'] and n['sources']==owner.sources(owner)
     assert d['total']==len(d['checks'])==23 and all(d['checks'].values())
-    b=load('browser-final-V2.json');s=load('browser-final-V2-sessions.json')
+    b=load('browser-final2-V2.json');s=load('browser-final2-V2-sessions.json')
     assert b['sources']==s['sources']==owner.sources(owner) and b['total']==len(b['checks'])==99 and all(b['checks'].values())
     assert len(b['rows'])==10 and b['restored'] and b['session_restored'] and b['probe_removed'] and b['error'] is None and not b['external'] and s['restored']
     assert load('red-V2.json')['native']['code']!=0 and load('seed-V2.json')['idempotent']

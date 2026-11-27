@@ -51,6 +51,9 @@ CodesSuivis::retenir('fictif-affiche');$admin = $make('imagine-c16');
 $check('c16_aucun_code', $admin->get_meta(CodesSuivis::CANDIDAT) === '' && $admin->get_meta(CodesSuivis::META) === '');
 $count = CodesSuivis::compter(gmdate('Y-m-d'), gmdate('Y-m-d'));
 $check('compte_juste', !is_wp_error($count) && ($count['fictif-magazine'] ?? 0) === 1);
+$slashOrder = $make();
+$slashOrder->set_status('completed');$slashOrder->set_date_paid(time());$slashOrder->save();
+CodesSuivis::payer($slashOrder->get_id());
 $export = CodesSuivisConfidentialite::exporter(get_userdata($user)->user_email);
 $check('export_code', !is_wp_error($export) && str_contains(wp_json_encode($export), 'fictif-magazine'));
 $erase = CodesSuivisConfidentialite::effacer(get_userdata($user)->user_email);
@@ -60,7 +63,9 @@ $check('effacement_non_recree', wc_get_order($paid->get_id())->get_meta(CodesSui
 $check('source_c27_inchangee', get_user_meta($user, Imagine\Site\Acquisition::SOURCE, true) === '');
 $check('dates_invalides_refusees', is_wp_error(CodesSuivis::compter('2026-02-30', '2026-03-01')));
 $check('reglage_antislash', Imagine\Site\CodesSuivisAdmin::nettoyer("fictif-test|FICTIF \\ Test") === ['fictif-test' => 'FICTIF \\ Test']);
-$check('export_antislash', str_contains(wp_json_encode(CodesSuivis::configuration()), 'FICTIF Affiche'));
+$exportValues = [];
+foreach ($export['data'] as $row) { foreach ($row['data'] as $field) { $exportValues[] = $field['value']; } }
+$check('export_antislash', in_array('FICTIF Affiche \\ Test', $exportValues, true));
 global $wpdb;
 $journalBefore = (int)$wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->options} WHERE option_name LIKE 'imagine_reglages_journal_%'");
 update_option(CodesSuivis::OPTION, ['fictif-journal' => 'FICTIF Journal'], false);
