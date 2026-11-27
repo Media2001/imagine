@@ -1,0 +1,5 @@
+{
+  "exit": 0,
+  "stdout": "{\"checks\":{\"fiche_active\":true,\"actif\":true,\"pending\":true,\"on-hold\":true,\"expired\":true,\"cancelled\":true,\"pending-cancel\":true,\"absent\":true,\"sans_email\":true,\"sans_choix\":true,\"defaut_creation\":true,\"retrait\":true,\"liste_supprimee\":true,\"beneficiaire\":true,\"coop\":true,\"hors_liste\":true,\"ferme\":true,\"conflit\":true,\"incomplet\":true,\"projection_vide\":true,\"autre_liste\":true}}\n",
+  "stderr": ""
+}

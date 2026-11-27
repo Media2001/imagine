@@ -9,9 +9,45 @@ final class ContactBrevoRegles
 {
     public static function fiche(array $source): array
     {
-        return ['fiche' => ['email' => $source['email'], 'statut' => 'abonne',
+        if (!$source['existe']) {
+            return ['fiche' => null, 'raison' => 'compte_absent'];
+        }
+        if (!$source['email_recevable']) {
+            return ['fiche' => null, 'raison' => 'email_non_recevable'];
+        }
+        $newsletters = [];
+        $retrait = false;
+        foreach ($source['catalogue'] as $id) {
+            $pref = $source['preferences'][$id] ?? [];
+            if (($pref['origine'] ?? null) !== 'lecteur') {
+                continue;
+            }
+            if (($pref['choix'] ?? null) === true) {
+                $newsletters[] = $id;
+            } elseif (($pref['choix'] ?? null) === false) {
+                $retrait = true;
+            }
+        }
+        if (!$newsletters) {
+            return $retrait ? ['fiche' => ['statut' => 'a_retirer'], 'raison' => 'desinscrit_de_tout']
+                : ['fiche' => null, 'raison' => 'aucun_choix_lecteur'];
+        }
+        $actifs = array_filter($source['abonnements'], static fn (array $s): bool => $s['etat'] === 'active');
+        $tarifs = [];
+        $complet = (bool) $actifs;
+        foreach ($actifs as $sub) {
+            $complet = $complet && (bool) $sub['tarifs'];
+            foreach ($sub['tarifs'] as $tarif) {
+                $complet = $complet && in_array($tarif, $source['tarifs_autorises'], true);
+                $tarifs[] = $tarif;
+            }
+        }
+        $tarifs = array_values(array_unique($tarifs));
+        $beneficiaire = $source['beneficiaire'];
+        return ['fiche' => ['email' => $source['email'],
+            'statut' => $beneficiaire ? 'inconnu' : ($actifs ? 'abonne' : 'non_abonne'),
             'cooperateur' => $source['cooperateur'] ? 'oui' : 'non',
-            'tarif' => $source['abonnements'][0]['tarifs'][0], 'newsletters' => ['principale'],
-            'personnalisation' => $source['personnalisation']], 'raison' => 'eligible'];
+            'tarif' => !$beneficiaire && $complet && count($tarifs) === 1 ? $tarifs[0] : 'inconnu',
+            'newsletters' => $newsletters, 'personnalisation' => $source['personnalisation']], 'raison' => 'eligible'];
     }
 }

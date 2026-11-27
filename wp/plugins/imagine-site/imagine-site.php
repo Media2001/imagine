@@ -175,6 +175,11 @@ AudioNumero::register();
 require_once __DIR__ . '/IntegrationsCorps.php';
 IntegrationsCorps::register();
 
+// C29 — projection en lecture seule, aucun connecteur.
+require_once __DIR__ . '/ContactBrevoRegles.php';
+require_once __DIR__ . '/ContactBrevo.php';
+ContactBrevo::register();
+
 // C28 — instantané du pack au paiement, décision et remboursements C14 inchangés.
 require_once __DIR__ . '/PacksRegles.php';
 require_once __DIR__ . '/PacksThematiques.php';
