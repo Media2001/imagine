@@ -1,0 +1,73 @@
+{
+  "container": "imagine-a31-style-2adb774c16",
+  "checks": [
+    {
+      "check": "isolation_before",
+      "status": "PASS"
+    },
+    {
+      "check": "strict_psr12",
+      "status": "PASS"
+    },
+    {
+      "check": "isolation_after",
+      "status": "PASS"
+    },
+    {
+      "check": "cleanup_exact_owned_container",
+      "status": "PASS"
+    },
+    {
+      "check": "owned_sources_stable",
+      "status": "PASS"
+    },
+    {
+      "check": "dependencies_stable",
+      "status": "PASS"
+    }
+  ],
+  "exit_code": 0,
+  "phpcs_exit": 0,
+  "totals": {
+    "errors": 0,
+    "warnings": 0,
+    "fixable": 0
+  },
+  "sources": {
+    "production/A-31/readme-ajout.txt": "f45c750f5ceaf78acc49f6b1e82642d3fd9ddfa299bd17a620b9cafabdad0959",
+    "production/A-31/rejeu.json": "d572fad0e9af943d9cbd13337ae1cb0bcab0c8deb596eab3a6f610d8b9efd0eb",
+    "production/A-31/verify.py": "5fa61ac8cdc0c6599461b42b0595c1e9fdd63bc275f6a8848afb79cb71e321b9",
+    "wp/outils/bascule/a31/Analysis.php": "2d8116eb96c433bddc9256bcf11ab3da5a985d96ca2c4208d34a1bf637f1f5fe",
+    "wp/outils/bascule/a31/Command.php": "5e1409d34cab84c0cff25f5e5d4f3fce9cae2ccc14aa9559ce7069cd31a1d070",
+    "wp/outils/bascule/a31/confine.py": "7dfaeeec21a3b5234dbb2021d008ac8c5103a02b499b88e072beb1c76a48c8d0",
+    "wp/outils/bascule/a31/inventorier-commandes": "e951429a9c35f5ee6fdc921edf29578aeb44fcfe419ef421cb5a9ea9015e67be",
+    "wp/outils/bascule/a31/Inventory.php": "cb8f8a4736a6f03426b2281df5761a14e38d3ecfb54c37c888e502ec1e1088a5",
+    "wp/outils/bascule/a31/README.md": "c22dc50870132812b36808a3aa689abdb6eb20a5ca7fc22cda13d00b12d47a51",
+    "wp/outils/bascule/a31/refusals.json": "006c94a37aa1205f9c9f2f9e44e4bae8846cbad4e816f696e09e78b3c453b446",
+    "wp/outils/bascule/a31/report.py": "0dd67041740b5d386b2c896953b1d0fc842950252913d0a41db112f5b2ff5764",
+    "wp/tests/a31/adapter-unit.php": "675fd2d460df7c45163385c72f304ea9e69ac3618fe5e8327a201271483fe193",
+    "wp/tests/a31/delivery.py": "a2ef06e5eb979c570bd9d5a2a9f24572e4269e8b7eebbef8aaf9dfaac38953ea",
+    "wp/tests/a31/expected.py": "9b282bb1267b4caaf669d1b050dc13507952ef99655d1c9efefbaec342d706c5",
+    "wp/tests/a31/gates.py": "426448c92a9c55a1dd99abf993fbb9c064932530b811689a55506b805df15716",
+    "wp/tests/a31/inside.py": "7e0ab56754ebceb62286cd57ea8512929c58ef458e30a66e9e72fc519e33e7cc",
+    "wp/tests/a31/matrix.py": "1b8c25e8bd4325b8c3a090391703c12bba4cb197fe830c817b93ff24f5bf9930",
+    "wp/tests/a31/neutralise.php": "e4b71cfaa863cd6f29866c23fd0141f5add88c0fd7ca7cac245e836068e5d4db",
+    "wp/tests/a31/pure-probe.php": "785804536072b0d9c6df844efecd7b6fbd9e2b682f39cfe95154190bb52775ef",
+    "wp/tests/a31/reseal.py": "6abce7f771119875566b2063e92eb8a4c32394cdb2be6920657376c5824ac5ad",
+    "wp/tests/a31/run.py": "bf51fa82b26faf32d6e80048553d7a9016a25b8cec6c45fb72dda7185cf3d9eb",
+    "wp/tests/a31/seed.php": "c20abc06bc59a4d05e83a94c4e944617a66db01e4ea5be2ca0984f1d626fc38c",
+    "wp/tests/a31/standard.php": "1ff20402e420229d2a17fa50685f1056f453422af0afa760799de07cb53a1c0f",
+    "wp/tests/a31/style.py": "6405fed0f193c2cdb1c68c9a76842ecb0d12059d9fe45188934b5a48444f2bca",
+    "wp/tests/a31/test_contract.py": "ab9932887a54391254488ad74e7dac181a9a0bd20e5a57ad49f712fac1e8fae2",
+    "wp/tests/a31/test_delivery.py": "9fc15e52dc99c1b5eebeeee7ef285a7d4a4142c805d8d1ab45605b1eb2f49095",
+    "wp/tests/a31/test_fusion.py": "135abba864743c89bbd7102958e300fc335b6f2a68187e66c5cbb315a6298530",
+    "wp/tests/a31/test_guard.py": "c078f8cbd63da1a1a89107a11a13c522c2c3ec0753cc028d6eeedfbf5bc68e6c",
+    "wp/tests/a31/test_launcher.py": "80141d363cf61e4f75640d0832bef2ecb7ff206072e11f133570f41e502d1568",
+    "wp/tests/a31/test_mutations.py": "3c5fdd87e1a58f68727c7f6279382d019d401910ebfe284a000bf477f9f0e918",
+    "wp/tests/a31/test_prepared.py": "297c92b0455f4c0d75e080aa3a3b90e74aaac234b3c6fc4781be6073604f7180",
+    "wp/tests/a31/test_report.py": "2b0ef4f4a4f5bbc62caaf74a4a0d467815da0bb50695b8b855a97014dc286949",
+    "wp/tests/a31/test_verify.py": "9829b42e5ebdbe6cf33c1a25daf7f0cebe441fc8f6c152f16be49a96ae58e42d",
+    "wp/tests/a31/unit.php": "d4aa0045cb032b81b0c8746d5c850647145e395630f0e3a1b7f31c9cf767f34f",
+    "wp/tests/a31/verify.py": "c8a657a00e289e046e5d71db57d9819a4d3cd6d068c9400fb227c52765b37242"
+  }
+}
