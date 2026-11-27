@@ -1,0 +1,108 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-27T10:16:50.654210+00:00",
+  "supersedes": "reception.json",
+  "python": "3.11.15 (main, Jun 23 2026, 15:20:37) [MSC v.1944 64 bit (AMD64)]",
+  "bootstrap_block": "// B10 — points de vente locaux, sans fournisseur de carte.\nrequire_once __DIR__ . '/PointsVenteRegles.php';\nrequire_once __DIR__ . '/PointsVente.php';\nPointsVente::register();\n\n",
+  "readme_section": "## B-10 — points de vente\n\nType privé natif `imagine_vente`, titre + métadonnée `imagine_vente_ligne` ; option non autoloadée `imagine_vente_actifs` pour la liste publiée. Une page WordPress ordinaire restitue le formulaire et la liste, sans nouveau gabarit ni CSS. Le pied de page natif B09 reçoit un lien ; son menu et les items existants sont conservés, le principal ne change pas. Les cinq lignes de choix standard et les trois lignes pour la carte future sont dans `production/B-10/NOTE.md`.\n\n**Réglages → Points de vente** (`manage_options`, POST et nonce natif) : correspondance JSON et séparateur `;`, `,` ou tabulation ; charger un CSV UTF-8 avec en-tête remplace la liste. Mapping requis : `nom`, `adresse`, `localite`, `postal` ; `personne` et `telephone` uniquement sur correspondance explicite et toujours échappés. Retirer leur mapping masque immédiatement leur affichage, même avant un nouvel import. Les autres colonnes ne sont ni rangées ni affichées. Le CSV n’est pas ajouté aux médias et n’est pas conservé. Réglages techniques d’import sur leur écran dédié : l’écran C10 clos reste inchangé.\n\n`imagine_vente_configuration` contient `mapping`, `separateur`, `carte`. `carte=0|1`, défaut `0` ; valeur inconnue fermée. À `1`, simple emplacement textuel sans fournisseur, géocodage, image, iframe ou script. Recherche exacte sur localité ou code postal, insensible aux accents/casse, sans préfixe ni rayon ; liste entière triée par localité puis nom quand la recherche est vide.\n\nUn rejeu identique conserve les IDs, sans doublons ; une nouvelle liste est préparée avant bascule puis l’ancienne est retirée. L'option non autoloadée `imagine_vente_nettoyage` garde les IDs restant à supprimer, avant bascule ; un échec affiche « Liste remplacée ; nettoyage incomplet », pas un import refusé. Le même CSV reprend ce nettoyage, même lors du no-op et dans une nouvelle requête, sans réinsérer les actifs. Une ancienne liste illisible est réparable par remplacement. Refus : compte, numéro physique initial, code fixe en résultat, **libellé français traduisible dans l'interface**, jamais la donnée. En-tête invalide ou aucune ligne acceptée : ancienne liste conservée ; dans le second cas, les numéros/motifs des lignes sont tout de même rendus. Plafonds techniques : 2 Mio, 2 000 commerces acceptés, 500 caractères par champ. Un arrêt brutal peut laisser un verrou d’import à retirer après diagnostic ; pas de tâche de reprise automatique ni géocodage ajouté.\n\nUnicode : décomposition NFD par intl/Normalizer si disponible, retrait des marques et ligatures `œ→oe`, `æ→ae`. Sans intl, repli latin étendu déclaré dans NOTE.md, sans promesse de translittération de tout Unicode ; intl devra être garanti pour la décomposition Unicode générale sur le futur hébergement. Configuration lue une seule fois par rendu. Défaut C2 documenté : le no-op strict reste sensible à l'ordre des clés JSON du mapping. La liaison page↔extension devra quitter le seed démo pour un futur script de bascule versionné ; **hors lot**.\n\n```text\npython -B wp/tests/demo/b10-verifier.py\npython -B wp/tests/demo/b10-verifier.py --live\npython -B wp/outils/demo/b10-local.py LABEL-NEUF\npython -B wp/outils/demo/b10.py runtime LABEL-NEUF\npython -B wp/outils/demo/b10-recette.py LABEL-NEUF\n```\n\nLe premier vérificateur est autonome et hors réseau, le second lit uniquement imagine-test-demo. Corrections du 27 novembre 2026 : **14 tests PHPUnit / 80 assertions**, découverts par T01 ; **13 contrôles natifs**, **31 contrôles navigateur**. Tests rouges avant corrections puis verts. Repli sans intl réellement exercé en PHP isolé ; Normalizer présent et testé sur WordPress natif (rollback InnoDB, sans bouchon d’écriture). La recette navigateur charge/recharge réellement le CSV par multipart, injecte un refus natif de suppression ciblé puis reprend entre requêtes sans changer les IDs, répare une méta active cassée, refuse la ligne 32 et un nonce invalide, exerce NFC/NFD hors ancienne table, ligatures, casse/postal et les deux valeurs de carte. Observations positives des détecteurs ; aucun tiers sur les deux rendus publics, aucune tentative email/HTTP issue de B10. Les avatars Gravatar de l’administration native sont détectés et bloqués avant transport par la recette, séparément du rendu public. Préimage privée durable, sessions exactes et observateur retirés puis relus ; 30 commerces manifestement fictifs laissés pour Ced, carte OFF, reprise vide ; les autres objets métier et navigations sont inchangés. Rebuild `wp/tests/preparer-image.ps1` effectué après ajout des tests avant PRET. Rejeu frais : **1 187 tests / 36 494 assertions**, aucun échec/erreur ; **584 contrôles outils** verts. A32 / `A32_PARTIAL_EVIDENCE` reste hors périmètre. Sources et preuves courantes : `production/B-10/corrections-reception-V2.json`, parcours et limites dans A-VOIR/NOTE ; reçus historiques conservés. Aucun B11/C28 ni bibliothèque close modifié.\n",
+  "proofs": {
+    "unit": "corrections-unitaires-normal.log",
+    "fallback": "corrections-unitaires-fallback.log",
+    "native": "corrections-natif-V2.json",
+    "recipe": "corrections-recette-finale-V2.json",
+    "cleanup": "corrections-recette-finale-V2-nettoyage.json",
+    "image": "corrections-preparation-V2.log",
+    "regression": "corrections-regression-V2.log"
+  },
+  "counts": {
+    "unit_tests": 14,
+    "unit_assertions": 80,
+    "native": 13,
+    "browser": 31
+  },
+  "global_result": {
+    "tests": 1187,
+    "assertions": 36494,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "tools": {
+      "tools": 22,
+      "checks": 584,
+      "failures": 0,
+      "excluded": []
+    },
+    "packets": {
+      "verified": 12,
+      "lots": [
+        "A-20",
+        "A-21",
+        "A-22",
+        "A-23",
+        "A-24",
+        "A-25",
+        "A-26",
+        "A-27",
+        "A-28",
+        "A-30",
+        "A-31",
+        "A-32"
+      ],
+      "failures": [
+        {
+          "lot": "A-32",
+          "control": "A32_PARTIAL_EVIDENCE"
+        }
+      ],
+      "excluded": []
+    },
+    "pass": true
+  },
+  "sha256": {
+    "production/B-10/A-VOIR.md": "dc9a2da4cbd8d298c7e8cfb5228b9ad770e7e91c2cf34968cbf5429ccd50216f",
+    "production/B-10/commerces-fictifs.csv": "8620357d460b5d2283119a156c7724b640a97b82363b9474b2ca4ccf3470654e",
+    "production/B-10/corrections-installation-V2.json": "a6309df4e92dffe3e24703058100be57e30a7b1ae9f64f2e953ef2fd387eda02",
+    "production/B-10/corrections-natif-V2.json": "d0e1429f1f3222b3c9e680e3adc0c6609e806c27b5a30a4c104b82929ed20e75",
+    "production/B-10/corrections-preparation-V2.log": "5ad416f749773eb666d80d37eaaa9e5552d2016d2c8f97c56200072efe31c00d",
+    "production/B-10/corrections-recette-finale-V2-nettoyage.json": "30601d33d151fb702e310153db6e9bb3da54aabfb90b88a206d38d6757a30a7e",
+    "production/B-10/corrections-recette-finale-V2.json": "f0901ea18a63a73573c6bceaa62953af87a7021653aaf92366be93fb7bd320b2",
+    "production/B-10/corrections-regression-V2.log": "4223ffbec6c45067e0220199a426804564e49a9a89afd6cce48a1c36d32d0cb3",
+    "production/B-10/corrections-rouge-config.log": "706af1fbd45a3e0ee0dcb4cfecf9e552f9f15456e02dbea921129ee166589b28",
+    "production/B-10/corrections-rouge-etat.log": "13374f90db4e64983302ee846108e73617c9698cf3a265bb819e64db19aa176f",
+    "production/B-10/corrections-rouge-libelles.log": "b51678dae5847d10dd8912caf70d16a6ada86f7f0ab034086f1efe59ef6c7431",
+    "production/B-10/corrections-rouge-persistance.log": "15ea10e19100701a7ee66a551909d8d7fb03df68438982bb0cc2a1496539f0de",
+    "production/B-10/corrections-rouge-reparation.log": "d6cedb60afdaf2f24c1869fa804765b10761eed9ca7b615ee47e79866aa470df",
+    "production/B-10/corrections-rouge-reprise-assertion.log": "709c6e16e2e8791885aef041e429cea1b58bbedb0efbff861d08e827a25e014f",
+    "production/B-10/corrections-rouge-reprise.log": "ecc27021689c458d5807d582ee58e44d9ee4c28c25a239b5329f50fe4c227003",
+    "production/B-10/corrections-rouge-unicode.log": "5cf8b8ce513966b437979cfe99b39e110dc9f5d5ef12713bb133eb429a74ff91",
+    "production/B-10/corrections-unitaires-fallback.log": "e502b4961185436cce07c8beb7495b4ee2cf4d68f5b02f8580ea546ebc5f4164",
+    "production/B-10/corrections-unitaires-normal.log": "13768287183c6d8c5275d8c136522bfac05a1a4a797a4b46825df382e28c885e",
+    "production/B-10/corrections-vert-config.log": "6466e7fec1f8383fd1060947e657df804e53009ae1e27627401ca377ee1284e1",
+    "production/B-10/corrections-vert-etat.log": "ec7d03fa49aca43eb1659abfeb59e0187dfaded80685bf2b1b9d5bb70e4e0211",
+    "production/B-10/corrections-vert-libelles.log": "bbf5cf805a7aa9246b262e8b86fd25e97daa55f1ca18985771a838585f23161f",
+    "production/B-10/corrections-vert-persistance.log": "c9b7b76c1ae32be7bebed8f02d3a1bdaae62c3af3647a507f4fbc028c30f96b6",
+    "production/B-10/corrections-vert-reparation.log": "bc3003beba3d2fdfa17d3ffbc039175b549d30ee31cf536b948497b7cc42f9fc",
+    "production/B-10/corrections-vert-reprise.log": "e310ed4a7e74d6f83bbeb3f7a7b3047f5a046765f0a69c6236bd0cae52eccb78",
+    "production/B-10/corrections-vert-unicode.log": "a9cbb3bcf6c311b5740bb55d393eef05fc23cf90c0bc6de625514830eaa85890",
+    "production/B-10/mapping-exemple.json": "32f7fafcb3267331bbe75ef0d139f99a5b41259dc43f18d6fab12db97b046b49",
+    "production/B-10/NOTE.md": "fac70da27e5e0d7553f0c8b61208a9cd73f86a9d9ad358326cdc7f30b3726e56",
+    "production/B-10/page-mobile.png": "9d72c14adc521df5dc9facb7580f55e923794124ec28c310a161ba51c468ec9f",
+    "production/B-10/page-navigation.json": "bf8d6c278d6faec08b7e6fe3ce131e4babf8a33052025d1c2a78dee9d15b1ebf",
+    "wp/outils/demo/b10-correction-finaliser.py": "87a4023a25835906850df3f6764d2302ef4c92928bf37b51af548a7e782874b0",
+    "wp/outils/demo/b10-corrections.py": "de5aeedfc9be44edc81b0406635a509e3451f56b076d4002e1e4d1fb34cafcfd",
+    "wp/outils/demo/b10-finaliser.py": "7517698fe9014445b41c60a29e4512147de9d33dd719ee4fc77534cb2ed2bce1",
+    "wp/outils/demo/b10-local.py": "68d86b640b1b2bc0b94f0992a06ec5c4c1948d3ce32883ca6e173eabc97ae3a5",
+    "wp/outils/demo/b10-recette.py": "822c5680f6f474879e0c7ef0c389979c5179a2c36c8d2259ba2f5dea5387bf9c",
+    "wp/outils/demo/b10-seed.php": "daac2b3198bd2d5c43ac92ce5f3c7c37a4cd42c422bc6c540a1622d6a1b52099",
+    "wp/outils/demo/b10.py": "ea1902e2b8ed6402b87abc9c00c94806156a85e79278c08e49444006b2289ce1",
+    "wp/plugins/imagine-site/PointsVente.php": "f451357a4bc63b4087e745e8ffa36a3e4417e79f39625f2fc9081b4d747d6a31",
+    "wp/plugins/imagine-site/PointsVenteRegles.php": "2c836c05815634e2720795b5775678731f8b660ad46f84dbfa761daed9a4a4eb",
+    "wp/plugins/imagine-site/tests/PointsVenteAdapterTest.php": "ca1bda1f3976fb202f214e420716de02e37e2114a6021e1a6128b47a210eb004",
+    "wp/plugins/imagine-site/tests/PointsVenteReglesTest.php": "174af42aceee414feab1ee5e8100bde376f04c3fb6f58a9ee82ee24b5c2982c0",
+    "wp/plugins/imagine-site/tests/PointsVenteWPStubs.php": "d2973d59177f9767393c11622dfa37fbedaed1a274612e908a9ad652f7c5135a",
+    "wp/tests/demo/b10-horslive.php": "98ea3d55889cd962a315dd27a4022f1e3f23e341368f19288769ce8a278a4786",
+    "wp/tests/demo/b10-observer.php": "61ddd5ab54a74ab34e02acf6d476d653545d42dc6e1e4c472bc5810edc82a7b3",
+    "wp/tests/demo/b10-runtime.php": "a3358b2b55418afffe8d82fcae1ac06a601c4032829154a054f5cd0ba58b760f",
+    "wp/tests/demo/b10-verifier.py": "7cd7ad4b6f61208cdd5f491924f7068ff8bf23a6bfd177cacd348e7c01bb6faa"
+  }
+}
