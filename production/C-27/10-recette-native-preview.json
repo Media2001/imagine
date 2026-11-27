@@ -1,0 +1,178 @@
+{
+  "scope": "imagine-test-demo",
+  "sources": {
+    "wp/outils/demo/c27-diagnostic.py": "186b0aa01fc14c71dc0234348782bfb612fe08705fc08d8fd89f5403b28cb03d",
+    "wp/outils/demo/c27-native.py": "498004a9a65cc1c918483f039842e09d15920cbbb46743a2feec46be44868087",
+    "wp/outils/demo/c27-recette.py": "7c9d8c8e5dd462a7a2edddef319d569ae523eaa31223763bd1ad8256d90dd760",
+    "wp/outils/demo/c27.py": "fe9d07a3df4629fb6241c7f8fdff39ddde1726270fd3527af309039cb0b43dd2",
+    "wp/plugins/imagine-site/Acquisition.php": "9cf87761593af5cce5ccb2f67a75386f202865a1ff260ab28c8060e985438525",
+    "wp/plugins/imagine-site/AcquisitionAdmin.php": "4dcc8a3077b891161e9f596d36381066662d735914f3e9ee958fce8133edc9fa",
+    "wp/plugins/imagine-site/AcquisitionConfidentialite.php": "96a2aab44925174f861e31e85f2ea44aec7bf657da4b7d9ff695b9bb43721181",
+    "wp/plugins/imagine-site/AcquisitionReglages.php": "225937e1971f220a0ada69b0c1389bf4fbebddca47387b5ca4a7ff317cb224bc",
+    "wp/plugins/imagine-site/AcquisitionRegles.php": "3d07436425edf3279a93993b93fc80f1ce54921f0bcc951c02a678bf0e196f7e",
+    "wp/plugins/imagine-site/tests/AcquisitionReglesTest.php": "37e4c918a775f62b126a421167dc6f3c731be6c0ac7ee569d19c7e24a8e38ab5",
+    "wp/tests/demo/c27-horslive.php": "96771cd4c74ec2d64235ae0b9395c20f48ddc3d242f5fcc7d9b862969b442d1f",
+    "wp/tests/demo/c27-observer.php": "d6d3c1456f9ff62f8a86bf3c9eac6c924870005cc69934cff70215988d150f68",
+    "wp/tests/demo/c27-runtime.php": "0fb01d5987c0cc190fc3ca4db7e0060271c52ab28bcac4e79b8bb4ec97fff7f8"
+  },
+  "checks": {
+    "observateurs_positifs": true,
+    "C10_section_dans_formulaire_sous_bouton_sans_deplacement": true,
+    "C10_creation_journal_en_panne_restaure_preimage": true,
+    "C10_POST_natif_liste_journal_auteur_date": true,
+    "C10_liste_invalide_rejetee_sans_journal": true,
+    "C10_modification_panne_restaure_antislash_exact": true,
+    "tunnel_avant_paiement_sans_question": true,
+    "confirmation_impayee_absence_non_vide": true,
+    "POST_signe_avant_paiement_refuse": true,
+    "mutation_native_pas_avant_paiement_tue_deux_controles": false,
+    "garde_revenue_apres_mutation": true,
+    "autre_compte_et_anonyme_sans_question": true,
+    "confirmation_payee_question_facultative_fermee": true,
+    "question_ne_revient_pas_sans_reponse": true,
+    "nonce_invalide_refuse": true,
+    "choix_libre_refuse": true,
+    "tiers_POST_signe_refuse": true,
+    "deux_POST_concurrents_une_reponse": true,
+    "double_envoi_refuse_immuable": true,
+    "source_compte_vide_initialisee": true,
+    "deuxieme_commande_source_non_ecrasee": true,
+    "compte_tiers_temoin_reel": true,
+    "passer_ne_bloque_rien": true,
+    "liste_vide_confirmation_payee_aucune_trace": true,
+    "liste_vide_POST_signe_refuse": true,
+    "vrai_brouillon_C16_aucun_champ_source": true,
+    "C16_meme_payee_jamais_interrogee": true,
+    "chiffres_anonymes_periode_exacte": true,
+    "periode_sans_reponse_zero_reel": true,
+    "periode_invalide_pas_de_nombre": true,
+    "chiffres_droits_C19_refus_lecteur": true,
+    "export_natif_C21_reponses_date_source_sans_tiers": true,
+    "projection_newsletter_et_preferences_inchangees": true,
+    "declaration_hors_payload_commande_Odoo": true,
+    "effacement_natif_C21_source_reponses_et_propositions": true,
+    "effacement_preserve_tiers": true,
+    "trace_depersonnalisee_pas_de_nouvelle_reponse": true,
+    "chiffres_recalcules_apres_effacement": true,
+    "aucun_envoi_C27_email_ou_HTTP": true,
+    "mutation_absence_transmission_detectee": true
+  },
+  "cleanup": {
+    "sources_exactes": true,
+    "commandes_natives_supprimees": true,
+    "brouillon_C16_retire": true,
+    "options_et_journaux_C27_restaures": true,
+    "profil_admin": true,
+    "profil_lecteur": true,
+    "profil_tiers": true,
+    "observateur_retire": true
+  },
+  "restoration": {
+    "users": true,
+    "usermeta": true,
+    "posts": true,
+    "postmeta": false,
+    "comments": true,
+    "commentmeta": true,
+    "navigation": true,
+    "wc_orders": true,
+    "wc_orders_meta": true,
+    "wc_order_addresses": true,
+    "wc_order_operational_data": true,
+    "woocommerce_order_items": true,
+    "woocommerce_order_itemmeta": true,
+    "actionscheduler_actions": false,
+    "actionscheduler_logs": false,
+    "actionscheduler_groups": true,
+    "actionscheduler_claims": true,
+    "options_metier": true
+  },
+  "business_preserved": false,
+  "private_snapshot": {
+    "file": "c25-private-fni8i8j0/snapshot.json",
+    "sha256": "87f9f0c5c2d002ef0f6143687424ad1329fb3678f1b292545f6051cad13efdd3",
+    "private": true
+  },
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "error": "AssertionError: {'mutation_native_pas_avant_paiement_tue_deux_controles': False}",
+  "mutation_pas_avant_paiement": {
+    "expected_baseline": {
+      "form_present": false,
+      "post_status": 403,
+      "response_written": false
+    },
+    "mutant_observed": {
+      "form_present": false,
+      "post_status": 200,
+      "response_written": true
+    }
+  },
+  "settings": {
+    "initial": {
+      "value": null,
+      "events": []
+    },
+    "configured": {
+      "value": {
+        "lune": "Radio fictive \\ lune",
+        "mars": "Journal martien fictif"
+      },
+      "events": [
+        {
+          "quand_utc": "2026-11-27T06:35:53Z",
+          "qui_id": 1,
+          "qui_login": "admin",
+          "option": "imagine_acquisition_choix",
+          "avant": null,
+          "apres": {
+            "lune": "Radio fictive \\ lune",
+            "mars": "Journal martien fictif"
+          }
+        }
+      ]
+    }
+  },
+  "parallel_statuses": [
+    200,
+    403
+  ],
+  "counts_expected": {
+    "lune": 1,
+    "mars": 2
+  },
+  "counts_observed": {
+    "lune": 1,
+    "mars": 2
+  },
+  "export_items": 5,
+  "erasure": {
+    "items_removed": true,
+    "items_retained": false,
+    "messages": [],
+    "done": true
+  },
+  "observations_baseline": {
+    "ambiance_http": 147,
+    "ambiance_mail": 20
+  },
+  "observations_mutant": {
+    "ambiance_http": 147,
+    "ambiance_mail": 20,
+    "c27_mail": 1,
+    "c27_http": 1
+  },
+  "positive_observers": {
+    "ambiance_mail": 1,
+    "ambiance_http": 1
+  },
+  "owned_order_count": 7
+}

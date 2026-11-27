@@ -2,6 +2,12 @@
 
 declare(strict_types=1);
 
+// Accès de prévisualisation limité aux requêtes de la recette fictive ; aucun réglage Woo modifié.
+if (wp_get_environment_type() === 'local' && get_option('imagine_demo_site') === 'imagine-test-demo'
+    && ($_SERVER['HTTP_X_IMAGINE_C27_RECETTE'] ?? '') === 'recette-fictive') {
+    add_filter('woocommerce_coming_soon_exclude', '__return_true');
+}
+
 // Instrumentation temporaire ; le coupe-circuit B00 reste inchangé.
 if (wp_get_environment_type() === 'local' && get_option('imagine_demo_site') === 'imagine-test-demo'
     && ($_SERVER['HTTP_X_IMAGINE_C27_SETTINGS'] ?? '') === 'recette-fictive') {

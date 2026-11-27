@@ -47,7 +47,7 @@ def run(label):
         def http(path,data=None,role='',headers=None):
             if path.startswith(identity['url']+'/'): path=path[len(identity['url']):]
             assert path.startswith('/') and not path.startswith('//')
-            hs={'User-Agent':'Imagine-C27-fictif',**(headers or {})}
+            hs={'User-Agent':'Imagine-C27-fictif','X-Imagine-C27-Recette':'recette-fictive',**(headers or {})}
             if role:hs['Cookie']=auth[role]['cookie']
             req=urllib.request.Request(identity['url']+path,data=urllib.parse.urlencode(data).encode() if data is not None else None,headers=hs)
             try:r=opener.open(req,timeout=45)
@@ -88,11 +88,13 @@ def run(label):
         pending=create('pending');paid=create();second=create();third=create(uid=29);skip=create();empty=create()
         def record(row):return c27.wp('echo wp_json_encode(get_option(Imagine\\Site\\Acquisition::REPONSE . '+str(row['id'])+',null));')
         def seen(row):return c27.wp('echo wp_json_encode(get_option(Imagine\\Site\\Acquisition::VUE . '+str(row['id'])+',null));')
+        def confirmation(body,row):
+            return bool(re.search(r'>\s*'+str(row['id'])+r'\s*<',body)) and ('wc-block-order-confirmation-summary-list' in body or 'woocommerce-order-overview__order' in body)
         def post(row,choice,role='lecteur',signed=None):return http('/wp-admin/admin-post.php',{'action':'imagine_acquisition','commande':str(row['id']),'choix':choice,'_c27':signed if signed is not None else nonce(row['id'],role)},role)
         _,checkout,_=http('/checkout/',role='lecteur')
         checks['tunnel_avant_paiement_sans_question']='id="imagine-acquisition"' not in checkout and 'woocommerce' in checkout
         status,body,_=http(pending['url'],role='lecteur')
-        checks['confirmation_impayee_absence_non_vide']=status==200 and 'woocommerce-order' in body and 'id="imagine-acquisition"' not in body and seen(pending) is None
+        checks['confirmation_impayee_absence_non_vide']=status==200 and confirmation(body,pending) and 'id="imagine-acquisition"' not in body and seen(pending) is None
         pre=post(pending,'lune')
         checks['POST_signe_avant_paiement_refuse']=pre[0]==403 and record(pending) is None
         original_source=c27.wp('echo wp_json_encode(get_user_meta(28,Imagine\\Site\\Acquisition::SOURCE,true));')
@@ -136,7 +138,7 @@ def run(label):
         checks['passer_ne_bloque_rien']=post(skip,'',signed=skipnonce)[0]==200 and record(skip) is None and 'id="imagine-acquisition"' not in http(skip['url'],role='lecteur')[1]
         settings('')
         status,emptybody,_=http(empty['url'],role='lecteur')
-        checks['liste_vide_confirmation_payee_aucune_trace']=status==200 and 'woocommerce-order' in emptybody and 'id="imagine-acquisition"' not in emptybody and seen(empty) is None and record(empty) is None
+        checks['liste_vide_confirmation_payee_aucune_trace']=status==200 and confirmation(emptybody,empty) and 'id="imagine-acquisition"' not in emptybody and seen(empty) is None and record(empty) is None
         checks['liste_vide_POST_signe_refuse']=post(empty,'lune')[0]==403 and record(empty) is None
         settings('lune|Radio fictive \\ lune\nmars|Journal martien fictif')
         # Vrai brouillon C16, trois écrans et création native d'un achat au numéro (pas de souscription).
