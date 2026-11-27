@@ -1,9 +1,0 @@
-2026-11-27T06:43:48+01:00 — A-31 PRET technique, aucune clôture indépendante ni aucun GO réel.
-Paquet unique : production/A-31/preuves/final/ ; manifeste SHA-256 b10903a63abe5110a148c657052eb4b410ef635260546d0a6be314a3bec143dc.
-Lecteur production sans argument : exit 0, contrôle A31_PACKAGE_PASS ; stderr vide après reseal et après réception globale.
-Quatre cellules natives complètes classique/HPOS × UTF-8/cp1252 ; 37 tests Python par console, 164 contrôles natifs par console ; 126 contrôles du vérificateur PASS ; PSR-12 strict à 0 erreur/avertissement.
-Préparation d'image et sept gates à 0 ; T03 post-sceau UTF-8 et cp1252 à 0 : PAQUETS : 10 vérifiés, 0 échecs ; A-31 réellement présent, seul A-20 hors rejeu (déclaration absente). REJEU : 1159 tests, 36263 assertions, 0 échecs/erreurs/ignorés.
-Réception post-sceau, lecteurs A-20 à A-28/A-30 et inventaire/octet protégés : C:/Users/Ced/AppData/Local/hermes/cache/scratch/a31-qualification-20261127-0604/postseal-global/result.json et final-readback/result.json ; 2843 fichiers protégés identiques, 28 journaux déclarés/présents.
-Handles terminés, exit 0 : matrice proc_aec931b5ce89 ; gates proc_2467ba73bb83 ; réception T03 proc_0f4a39eea32a. Aucun processus futur attendu ni conteneur possédé restant.
-Commande exclusive de relecture read-only depuis C:/Users/Ced/imagine : C:/Python314/python.exe -B production/A-31/verify.py
-Limite : seul natures est inconnu après neutralisation ; vivant=active selon A-19 ; aucune réparation, aucun montant/ID/date fine exporté. Import, gardien et sceau T-03 intacts ; verrou conservé.
