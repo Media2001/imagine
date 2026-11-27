@@ -125,7 +125,7 @@ final class PacksThematiques
     public static function register(): void
     {
         add_action('woocommerce_before_order_item_object_save', [self::class, 'candidat']);
-        add_action('woocommerce_before_order_object_save', [self::class, 'payer']);
+        add_action('woocommerce_after_order_object_save', [self::class, 'payer']);
         add_filter('imagine_achat_instantanes', [self::class, 'instantanes'], 10, 2);
         add_action('woocommerce_product_options_general_product_data', [self::class, 'champ']);
         add_action('woocommerce_admin_process_product_object', [self::class, 'enregistrer'], 20);

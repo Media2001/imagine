@@ -55,7 +55,8 @@ def deploy(label):
     c14old = c14[:start] + legacy + c14[end:]
     assert old[FILES[2]] in [c14, c14old], 'Adaptateur C14 divergent'
     for name in [FILES[0], FILES[1], FILES[4]]:
-        assert old[name] in [None, local[name]], name
+        known = [json.loads(p.read_text(encoding='utf-8')).get('readback', {}).get(name) for p in OUT.glob('installation-*.json') if not p.name.endswith('-avant.json')]
+        assert old[name] in [None, local[name]] or hashlib.sha256(old[name].encode()).hexdigest() in known, name
     snap = private('C28-'+label, {'files':old, 'business':before})
     save(label+'-avant', {'identity':identity, 'private_snapshot':snap, 'business':before})
     for name in FILES:
