@@ -74,6 +74,7 @@ def run_storage(storage):
     base_mu = '''<?php
 if (getenv('A30_CONFINED') === '1') {
     global $wpdb;
+    require_once ABSPATH.'wp-includes/pluggable.php';
     if ($wpdb->query('UPDATE wp_users SET ID=ID WHERE 1=0') !== false
         || @mysqli_query($wpdb->dbh, 'UPDATE wp_users SET ID=ID WHERE 1=0') !== false
         || @file_put_contents(ABSPATH.'a30-forbidden', 'NO') !== false

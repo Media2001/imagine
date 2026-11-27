@@ -1,0 +1,19 @@
+PASS boundary/missing-docker : exit=1 ; REJEU : 0 tests, 0 assertions, 0 échecs, 1 erreurs, 0 ignorés — FAIL
+PASS boundary/missing-image : exit=1 ; REJEU : 0 tests, 0 assertions, 0 échecs, 1 erreurs, 0 ignorés — FAIL
+PASS boundary/pass : exit=0 ; REJEU : 7 tests, 19 assertions, 0 échecs, 0 erreurs, 0 ignorés — PASS
+PASS boundary/fail : exit=1 ; REJEU : 7 tests, 19 assertions, 2 échecs, 1 erreurs, 0 ignorés — FAIL
+PASS boundary/malformed : exit=1 ; REJEU : 0 tests, 0 assertions, 0 échecs, 1 erreurs, 0 ignorés — FAIL
+PASS boundary/start-error : exit=1 ; REJEU : 0 tests, 0 assertions, 0 échecs, 1 erreurs, 0 ignorés — FAIL
+PASS boundary/create-error : exit=1 ; REJEU : 0 tests, 0 assertions, 0 échecs, 1 erreurs, 0 ignorés — FAIL
+PASS boundary/cleanup-error : exit=1 ; REJEU : 7 tests, 19 assertions, 0 échecs, 1 erreurs, 0 ignorés — FAIL
+PASS boundary/unsafe-image : exit=1 ; REJEU : 0 tests, 0 assertions, 0 échecs, 1 erreurs, 0 ignorés — FAIL
+PASS boundary/unsafe-mount : exit=1 ; REJEU : 0 tests, 0 assertions, 0 échecs, 1 erreurs, 0 ignorés — FAIL
+PASS boundary/argument : exit=1 ; REJEU : 0 tests, 0 assertions, 0 échecs, 1 erreurs, 0 ignorés — FAIL
+PASS boundary/unsafe-path : exit=1 ; REJEU : 0 tests, 0 assertions, 0 échecs, 1 erreurs, 0 ignorés — FAIL
+PASS boundary/unsafe-ports : exit=1 ; REJEU : 0 tests, 0 assertions, 0 échecs, 1 erreurs, 0 ignorés — FAIL
+PASS boundary/unsafe-label : exit=1 ; REJEU : 0 tests, 0 assertions, 0 échecs, 1 erreurs, 0 ignorés — FAIL
+PASS boundary/skipped : exit=1 ; REJEU : 7 tests, 19 assertions, 0 échecs, 1 erreurs, 1 ignorés — FAIL
+PASS boundary/prepare-pass : exit=0 ; minimal manifest-only context removed
+PASS boundary/prepare-build-error : exit=1 ; minimal manifest-only context removed
+PASS boundary/prepare-probe-error : exit=1 ; minimal manifest-only context removed
+T01 CONTRACT : 18/18 PASS (external Docker boundary mocked; not a PHP-suite receipt)

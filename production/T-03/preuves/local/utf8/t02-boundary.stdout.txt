@@ -1,0 +1,8 @@
+PASS T02 boundary/pass : OUTILS : 2 outils, 5 contrôles, 0 échecs ; hors rejeu : aucun ; REJEU : 7 tests, 19 assertions, 0 échecs, 0 erreurs, 0 ignorés — PASS
+PASS T02 boundary/tool-fail : OUTILS : 2 outils, 5 contrôles, 1 échecs ; hors rejeu : aucun ; REJEU : 7 tests, 19 assertions, 0 échecs, 1 erreurs, 0 ignorés — FAIL
+PASS T02 boundary/tool-forged-pass : OUTILS : 2 outils, 5 contrôles, 1 échecs ; hors rejeu : aucun ; REJEU : 7 tests, 19 assertions, 0 échecs, 1 erreurs, 0 ignorés — FAIL
+PASS T02 boundary/tool-missing : OUTILS : 0 outils, 0 contrôles, 0 échecs ; hors rejeu : non evalue ; REJEU : 7 tests, 19 assertions, 0 échecs, 1 erreurs, 0 ignorés — FAIL
+PASS T02 boundary/tool-invalid : OUTILS : 2 outils, 0 contrôles, 0 échecs ; hors rejeu : non evalue ; REJEU : 7 tests, 19 assertions, 0 échecs, 1 erreurs, 0 ignorés — FAIL
+PASS T02 boundary/tool-excluded : OUTILS : 2 outils, 5 contrôles, 0 échecs ; hors rejeu : a90 (WordPress et base requis) ; REJEU : 7 tests, 19 assertions, 0 échecs, 0 erreurs, 0 ignorés — PASS
+PASS T02 boundary/missing-image : OUTILS : 0 outils, 0 contrôles, 0 échecs ; hors rejeu : non evalue ; REJEU : 0 tests, 0 assertions, 0 échecs, 1 erreurs, 0 ignorés — FAIL
+T02 OUTPUT CONTRACT : 7/7 PASS (boundary doubles only)

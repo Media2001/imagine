@@ -68,6 +68,7 @@ def main():
         ok = run('python-' + suffix, [sys.executable, '-B', '-m', 'unittest', 'discover', '-s', 'wp/tests/a28', '-p', 'test_*.py', '-v'], encoding, mode) and ok
         ok = run('a01-windows-' + suffix, [sys.executable, '-B', '-m', 'unittest', 'discover', '-s', 'wp/tests/a01-court', '-p', 'test_*.py', '-v'], encoding, mode) and ok
     if not args.python_only:
+        ok = run('psr12', [sys.executable, '-B', 'wp/tests/a28/style.py', '--output', str(out / 'psr12')]) and ok
         ok = run('prepare-image', ['powershell.exe', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', 'wp/tests/preparer-image.ps1']) and ok
         for suffix, encoding, mode in [('utf8', 'utf-8', '1'), ('cp1252', 'cp1252', '0')]:
             ok = run('global-' + suffix, ['powershell.exe', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', 'wp/tests/rejouer.ps1'], encoding, mode) and ok

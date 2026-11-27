@@ -1,0 +1,21 @@
+{
+  "wp/outils/bascule/a30/Analysis.php": "f62377e65d85039428e93c6f7402ed7c5380a7cb2ea7f875da6f7db459944e8c",
+  "wp/outils/bascule/a30/confine.py": "4e128589f70520d23582fc9fcbbc65a4a8476ed1c1444c9fa26f782d1642a374",
+  "wp/outils/bascule/a30/core.py": "38b54178561f48cf2703600bb905cdf67b9fc3e8a4a6bd2c77953c781573bf81",
+  "wp/outils/bascule/a30/Inventory.php": "539cfed8a52e49f3039100ad5ef28107655a3639cb2f6670d6ef99ea79304b34",
+  "wp/outils/bascule/a30/observer.php": "b5a0f9a78c4a8d78b8c12ad62e616d3f8c67f23cf2df5ae9b0b0d487a298d72a",
+  "wp/outils/bascule/a30/README.md": "6cc329b44a838c84f516ab63a95440eafdf9b8646c37474ee3f6f7138c24dc40",
+  "wp/outils/bascule/a30/types.exemple.json": "0ec16f6fd1a84f6772530e7c5904542590dab29f0e6defb36a428a48a43c95cf",
+  "wp/tests/a30/cases.py": "887d6c27ce4d282be75de526e4dfdde92e89bdc7b9e349e302e7a17e174614a6",
+  "wp/tests/a30/inside.py": "4fa126221dfacdb68ba6b1fd2c437e7df23a6f52ddcc4904175896dae603836a",
+  "wp/tests/a30/matrix.py": "b7bf62a7aae7e8ddf771a2fb55c0a72074135d56f9323d56716adf950fa62059",
+  "wp/tests/a30/neutralise.php": "2c744c26bf22356541aa19375a5e9c80936af0d35be615708108d85e34525e80",
+  "wp/tests/a30/run.py": "b84078030cb966bb9c5cd6a91792de4a52a53cae773dafa7a6bc64878871a7c4",
+  "wp/tests/a30/seed.php": "8a0830f935a6757b55d3f6777a0032493f54af5430a76aad3bbf9e96aa66e5ca",
+  "wp/tests/a30/test_boundary.py": "2ad6165dab161da9e35193a4ed36817eb6ea9a2dbb24805ba2d3cd141b21e3b5",
+  "wp/tests/a30/test_cli.py": "dd96876b743da9735123acc7db51a1b55b26a943ce606c50c244059e3ab087b0",
+  "wp/tests/a30/test_core.py": "8aa1e5e2404509abde1e13441fff69a5f1c5d1c903bb13140ad5ca27ea4e289c",
+  "wp/tests/a30/test_verify.py": "d1393b5acef4914d6cce3d702a3d7c5ccb79f428dc108167e9b9ce3104672619",
+  "wp/tests/a30/unit.php": "e79dd53f51fec26c9476cb49cfa4be7e5a604bd4d361a2f88e2a88b72d1ea4b9",
+  "wp/tests/a30/verify.py": "e0ffad77f530054dafe4be52f93e4138a99c9368e98903574f8a853fa0e8dfc0"
+}

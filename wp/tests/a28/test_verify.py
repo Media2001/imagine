@@ -107,6 +107,32 @@ class VerifierControls(unittest.TestCase):
             v.native_contract({'status': 'PASS', 'synthetic_only': True, 'baseline': False,
                                'checks': [{'pass': True}], 'failed': 0, 'passed': 1, 'cases': []})
 
+    def test_orphan_witness_semantics_not_just_outer_hash(self):
+        refusal = {'exit': 1, 'stderr_empty': True, 'report': {'ok': False, 'form_message_residues': 4,
+            'issues': ['FORM_MESSAGES_REMAIN'], 'warnings': ['SONDE_NON_EXECUTEE_DONNEES_REFUSEES']}}
+        probe = {'mutation': 'omit_only_postmeta_purge', 'source_restored': True, 'known_parent_posts': 0,
+            'known_revision_posts': 0, 'known_orphan_meta': 4, 'provenance_ids_count': 4,
+            'refused': refusal, 'restored': copy.deepcopy(refusal),
+            'mutant': {'exit': 0, 'stderr_empty': True, 'report': {'ok': True, 'form_message_residues': 4}},
+            'oracle': {**dict.fromkeys(v.TABLES + v.TYPES, 0), 'known_meta': 4, 'known_revisions': 0,
+                       'fiction_magazine': 1}}
+        result = {'data_verified': False, 'steps': [{'phase': p, 'exit': code} for p, code in
+            [('neutraliser', 0), ('anonymiser', 0), ('verifier', 1)]]}
+        v.orphan_contract(probe, result)
+        for field, value in [('known_parent_posts', 1), ('known_orphan_meta', 0), ('source_restored', False)]:
+            changed = copy.deepcopy(probe)
+            changed[field] = value
+            with self.subTest(field=field), self.assertRaisesRegex(ValueError, 'ORPHAN_PROVENANCE'):
+                v.orphan_contract(changed, result)
+        changed = copy.deepcopy(probe)
+        changed['mutant']['exit'] = 1
+        with self.assertRaisesRegex(ValueError, 'ORPHAN_MUTATION'):
+            v.orphan_contract(changed, result)
+        changed = copy.deepcopy(probe)
+        changed['restored']['report']['issues'] = []
+        with self.assertRaisesRegex(ValueError, 'ORPHAN_REFUSAL'):
+            v.orphan_contract(changed, result)
+
     def test_unexecuted_encoding_matrix_refused(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

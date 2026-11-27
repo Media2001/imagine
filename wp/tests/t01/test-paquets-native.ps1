@@ -10,7 +10,7 @@ if ($out.StartsWith($root + [IO.Path]::DirectorySeparatorChar, [StringComparison
 $scratch = Join-Path $env:LOCALAPPDATA 'hermes/cache/scratch'
 if ($env:TMPDIR -and (Test-Path -LiteralPath $env:TMPDIR)) { $scratch = $env:TMPDIR }
 $copy = Join-Path $scratch ('t03-native-copy-' + [Guid]::NewGuid().ToString('N'))
-$receipt = 'production/A-28/preuves/final/native/utf8/native.json'
+$receipt = 'production/A-28/preuves/final/before/native.json'
 $proof = [ordered]@{ status = 'FAIL'; native_executed = $false; readiness_claimed = $false; receipt = $receipt; checks = @(); commands = @(); copy_absent = $false }
 [void](New-Item -ItemType Directory -Path $out)
 $originalHash = $null

@@ -26,6 +26,11 @@ def receipt_valid(data):
             and len({row['check'] for row in rows}) == len(rows))
 
 
+def shared_contract(shared, expected):
+    lines = expected.splitlines(keepends=True)
+    return len(lines) == 2 and all(line.endswith(b'\n') and shared.splitlines(keepends=True).count(line) == 1 for line in lines)
+
+
 def verify(packet=PACKET):
     checks = []
 
@@ -37,6 +42,9 @@ def verify(packet=PACKET):
         spec = importlib.util.spec_from_file_location('a30_verify_runner', HERE / 'run.py')
         runner = importlib.util.module_from_spec(spec); spec.loader.exec_module(runner)
         check('current_owned_sources', read(packet / 'sources.json') == runner.manifest(runner.OWN))
+        check('parent_shared_two_lines', shared_contract(
+            (ROOT / 'wp/outils/bascule/README.md').read_bytes(),
+            (ROOT / 'production/A-30/README-AJOUT-2-LIGNES.txt').read_bytes()))
         matrix = read(packet / 'windows-matrix.json')
         check('python_matrix_exit', matrix['exit_code'] == 0)
         for label, encoding, mode in [('utf8', 'utf-8', 1), ('cp1252', 'cp1252', 0)]:

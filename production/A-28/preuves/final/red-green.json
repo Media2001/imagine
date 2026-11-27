@@ -1,87 +1,32 @@
 {
-  "experiments_kept_outside_repository": true,
-  "scope_owner_qualification": {
-    "real_red_exit": 1,
-    "red_log_handle": "C:/Users/Ced/AppData/Local/hermes/cache/scratch/a28-work/red-scope.stderr.log",
-    "red_log_sha256": "3a86c183f71ed1392c2788da4272b9ddc8b1ac6e7a65ae14a87d22060cb31aab",
-    "earlier_green_not_current_qualification": "C:/Users/Ced/AppData/Local/hermes/cache/scratch/a28-work/pre-scope-qualification",
-    "correction": "Record separately owned voie2 roots with original before/after hashes, never rebase those hashes or modify their files; replay final native matrix and all gates after the packaging change.",
-    "final_scope": "scope.json"
-  },
-  "first_global_gate_failure": {
-    "handle": "C:/Users/Ced/AppData/Local/hermes/cache/scratch/a28-work/global-gates-first-red",
-    "observed_exit": 1,
-    "failed_gate": "global-utf8",
-    "failed_suite": "Imagine\\Site\\Tests\\RetractationAdapterTest",
-    "owned_sources_stable": true,
-    "stdout_sha256": "f728c9335d6040789f71707bcb2484f1dd8e7feb2d0b62289338aa7792106926",
-    "result_sha256": "3ae2093cce9f3f0070dde7c54aa3bdda8822c960eb22ffa9d57b18a6b62c4587",
-    "successor": "gates/commands.json"
-  },
-  "receipts": [
+  "historical_outside_repository": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a28-correction-20261127-0258\\old-production",
+  "red_receipts": [
     {
-      "handle": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a28-work\\red-unit\\runner.json",
-      "sha256": "16d734679c15e8b2c22b4bc895d4fa9ccd711a8b25ea0443e87b6ed73605ea05",
-      "observed_command_exits": [
-        1
-      ],
-      "expected_exit": 1,
-      "status": "FAIL",
+      "handle": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a28-correction-20261127-0258\\red-i1\\runner.json",
+      "sha256": "9ea947caaf570fe5a3d21a0cf54940d82954896a71d9f9fee778b9f19a18d148",
+      "unit_handle": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a28-correction-20261127-0258\\red-i1\\unit.json",
+      "unit_sha256": "69eb13642470416972f218824aec5a85e4784922bd91875504ec8d8025e4eed8",
+      "exit": 1,
       "cleanup": {
-        "name": "imagine-test-a28-b4ba0cfcb85f",
+        "name": "imagine-test-a28-75208cb105dc",
         "absent": true
       }
     },
     {
-      "handle": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a28-work\\red-native-boundary\\runner.json",
-      "sha256": "d9dc7278bb93c44ea43667565170a9b281ff52798ab7d8ca72807111168d2fd8",
-      "observed_command_exits": [
-        1
-      ],
-      "expected_exit": 1,
-      "status": "FAIL",
+      "handle": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a28-correction-20261127-0258\\red-absent\\runner.json",
+      "sha256": "adb14c178d52afed4ccd9ec81c0fd7740eaa3bcfe1876d6da9de84b37ea32fff",
+      "unit_handle": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a28-correction-20261127-0258\\red-absent\\unit.json",
+      "unit_sha256": "fc29d9fa82fc4372830e997dadbf42b1d59b3bb4d3eeb689033e8c072abf13a6",
+      "exit": 1,
       "cleanup": {
-        "name": "imagine-test-a28-23630f81f203",
+        "name": "imagine-test-a28-0939f24c64f0",
         "absent": true
       }
-    },
-    {
-      "handle": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a28-work\\red-nonform-regression\\runner.json",
-      "sha256": "76425dc4036a46507fc9515dc6f2ac4d64952d2d3a0c2bd12dd366380e6db8d0",
-      "observed_command_exits": [
-        1
-      ],
-      "expected_exit": 1,
-      "status": "FAIL",
-      "cleanup": {
-        "name": "imagine-test-a28-c5384b613c5f",
-        "absent": true
-      }
-    },
-    {
-      "handle": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a28-work\\green-unit\\runner.json",
-      "sha256": "509945561f34fe5adde6553dfb4555e5e9429194bbe3aca94dc05fb9d3600dfc",
-      "observed_command_exits": [
-        0
-      ],
-      "expected_exit": 0,
-      "status": "PASS",
-      "cleanup": {
-        "name": "imagine-test-a28-8fc61d465538",
-        "absent": true
-      }
-    },
-    {
-      "handle": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a28-work\\red-policy.stderr.log",
-      "sha256": "f127735a384e3af13cb87676eef675cc6715478d9eb5e6385f1bacbf8867511c",
-      "contains_real_assertion_failure": true
-    },
-    {
-      "handle": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a28-work\\red-verifier.stderr.log",
-      "sha256": "fc58df1b425b847c019547d88d51845b346d15e2f0240b1d3f494089704caef3",
-      "contains_real_assertion_failure": true
     }
   ],
-  "final_green_and_real_mutation_witnesses": ["native/utf8/native.json", "native/cp1252/native.json"],
-  "before_correction": "before/native.json"
+  "green_receipts": [
+    "native/utf8/native.json",
+    "native/cp1252/native.json"
+  ],
+  "mutation": "omit_only_postmeta_purge; known parents/revisions gone; refusal/removal/restoration"
 }

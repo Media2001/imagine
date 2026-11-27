@@ -1,0 +1,43 @@
+{
+  "rows": [
+    {
+      "console": "utf-8",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a30",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "tests_run": 22,
+      "all_pass": true,
+      "log_sha256": "587aad236584c090ddf29a87001fdb2fd817a35af65759d53836f5cdacd05fd1"
+    },
+    {
+      "console": "cp1252",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a30",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "tests_run": 22,
+      "all_pass": true,
+      "log_sha256": "d165d824fd3cb57f9455704642a10992d9a53d9770c2ca326aa49f673fb29acd"
+    }
+  ],
+  "exit_code": 0
+}

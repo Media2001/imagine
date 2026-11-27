@@ -73,7 +73,7 @@ def main(argv=None):
     allowed = CODES | set(guard.allowed_messages())
     with tempfile.TemporaryDirectory(prefix='.a30-private-', dir=source.parent) as temporary:
         stage = Path(temporary); os.chmod(stage, 0o700)
-        command = ['php', '-d', 'display_errors=0', '-d', 'log_errors=0', '-d',
+        command = ['php', '-d', 'display_errors=0', '-d', 'log_errors=0', '-d', 'error_log=/dev/null', '-d',
                    'disable_functions=mail,exec,shell_exec,system,passthru,popen,proc_open,pcntl_exec',
                    str(HERE / 'observer.php'), '--wp-path=' + str(site), '--output=' + str(stage)]
         code, stdout, stderr = guard.supervise(command, {**os.environ, 'A30_CONFINED': '1'}, stage, fence,

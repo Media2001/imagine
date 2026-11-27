@@ -143,7 +143,7 @@ def gates_contract(base, root):
     need(data['status'] == 'PASS' and data['exit'] == 0 and data['sources_stable'] is True, 'GATES_STATUS')
     commands = load(base / 'commands.json')
     names = {'environment-utf8', 'environment-cp1252', 'python-utf8', 'python-cp1252', 'a01-windows-utf8',
-             'a01-windows-cp1252', 'prepare-image', 'global-utf8', 'global-cp1252'}
+             'a01-windows-cp1252', 'psr12', 'prepare-image', 'global-utf8', 'global-cp1252'}
     need(len(commands) == len(names) == data['commands'] and {r['name'] for r in commands} == names, 'GATES_COVERAGE')
     for row in commands:
         need(row['exit'] == 0 and row['sources_stable'] is True, 'GATE_EXIT')
@@ -159,6 +159,12 @@ def gates_contract(base, root):
         env = load(base / ('environment-' + suffix + '.stdout.log'))
         need(env['stdout'].lower() == encoding and env['stderr'].lower() == encoding and env['utf8'] == mode
              and env['version'].startswith('3.14.6 '), 'WINDOWS_ENCODING')
+    style = load(base / 'psr12/psr12.json')
+    need(style['status'] == 'PASS' and style['standard'] == 'PSR12' and style['exclusions'] == []
+         and style['exit'] == 0 and style['totals']['errors'] == style['totals']['warnings'] == 0
+         and style['cleanup'] == {'name': style['runner'], 'absent': True}, 'PSR12')
+    for rel, digest in style['sources'].items():
+        need(hashlib.sha256((root / rel).read_bytes()).hexdigest() == digest, 'PSR_SOURCE_DRIFT')
     for rel, digest in load(base / 'freeze.json')['sources'].items():
         need(hashlib.sha256((root / rel).read_bytes()).hexdigest() == digest, 'FROZEN_SOURCE_DRIFT')
 
@@ -166,7 +172,7 @@ def gates_contract(base, root):
 def matrix_contract(base, root, historical):
     matrix = load(base / 'matrix.json')
     need(matrix['status'] == 'PASS' and matrix['contexts'] == ['utf8', 'cp1252'] and len(matrix['commands']) == 2, 'MATRIX_STATUS')
-    total_cases = total_mutations = 0
+    total_cases = total_mutations = orphan_mutations = 0
     for context, encoding, mode in [('utf8', 'utf-8', 1), ('cp1252', 'cp1252', 0)]:
         command = next(r for r in matrix['commands'] if r['context'] == context)
         need(command['exit'] == 0 and command['sources_stable'] is True, 'MATRIX_EXIT')
@@ -183,9 +189,10 @@ def matrix_contract(base, root, historical):
         native_contract(data)
         total_cases += len(data['cases'])
         total_mutations += sum(len(c.get('residue_probes', [])) for c in data['cases'])
+        orphan_mutations += sum('postmeta_purge_witness' in c for c in data['cases'])
     for rel, digest in load(base / 'freeze.json').items():
         need(hashlib.sha256((root / rel).read_bytes()).hexdigest() == digest, 'MATRIX_SOURCE_DRIFT')
-    return {'cases': total_cases, 'mutations': total_mutations}
+    return {'cases': total_cases, 'mutations': total_mutations, 'orphan_mutations': orphan_mutations}
 
 
 def inventory(root):
@@ -214,7 +221,9 @@ def verify(root=ROOT):
     scope = load(packet / 'scope.json')
     need(scope['correction_scope'] is True
          and scope['owned_import_changes'] == scope['allowed_import_changes']
-         == ['wp/outils/staging-court/inside.py', 'wp/outils/staging/lib.php']
+         == ['wp/outils/staging-court/inside.py', 'wp/outils/staging-court/run.py',
+             'wp/outils/staging/engine.php', 'wp/outils/staging/form-decision-refused.php',
+             'wp/outils/staging/guard.php', 'wp/outils/staging/lib.php', 'wp/outils/staging/store.php']
          and scope['readme_owned_lines_and_commands'] is True
          and scope['other_lots_executed_or_resealed'] is False, 'SCOPE_DRIFT')
     invalid = load(packet / 'dependency-invalidations.json')
@@ -222,7 +231,8 @@ def verify(root=ROOT):
     for rel, digest in invalid['import_sources'].items():
         need(hashlib.sha256((root / rel).read_bytes()).hexdigest() == digest, 'IMPORT_FROZEN')
     return {'lot': 'A-28', 'status': 'PASS', 'exit': 0, 'packet': PACKET.as_posix(),
-            'native_cases': matrix['cases'], 'baseline_cases': 6, 'residue_mutations': matrix['mutations'], 'pret_present': (base / 'PRET').is_file()}
+            'native_cases': matrix['cases'], 'baseline_cases': 6, 'residue_mutations': matrix['mutations'],
+            'postmeta_purge_mutations': matrix['orphan_mutations'], 'pret_present': (base / 'PRET').is_file()}
 
 
 def main():

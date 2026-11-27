@@ -21,6 +21,16 @@ class VerifierTests(unittest.TestCase):
             self.assertEqual(1, result['exit_code'])
             self.assertFalse(result['native_proven'])
 
+    def test_shared_readme_contract_is_only_two_exact_lines(self):
+        self.assertTrue(VERIFY.is_file())
+        spec = importlib.util.spec_from_file_location('a30_verify', VERIFY)
+        v = importlib.util.module_from_spec(spec); spec.loader.exec_module(v)
+        self.assertTrue(hasattr(v, 'shared_contract'), 'A30 shared two-line contract missing')
+        expected = b'one\ntwo\n'
+        self.assertTrue(v.shared_contract(b'other lot\none\ntwo\nnew other lot\n', expected))
+        self.assertFalse(v.shared_contract(b'one\ntwo\none\n', expected))
+        self.assertFalse(v.shared_contract(b'one\ntwo\n', b'one\n'))
+
     def test_receipts_need_nonempty_unique_named_checks_and_zero_exit(self):
         self.assertTrue(VERIFY.is_file(), 'A30 no-argument package verifier missing')
         spec = importlib.util.spec_from_file_location('a30_verify', VERIFY)
