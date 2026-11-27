@@ -55,7 +55,7 @@ Correctif courant : scan de tous les marqueurs, y compris détachés/hors option
 
 ## Incidents de preuve et bilan transversal
 
-**Historique de la première livraison seulement.** Le rejeu courant a 1 167 tests / 36 333 assertions, 22 outils / 584 contrôles verts ; 11 paquets vérifiés, zéro échec, A-32 hors rejeu (journaux absents). Les quatre anciens rouges ci-dessous ont disparu sans aucune intervention de cette voie dans leurs fichiers.
+**Historique de la première livraison seulement.** Le rejeu courant a 1 167 tests / 36 333 assertions, 22 outils / 584 contrôles verts ; 12 paquets vérifiés, un échec hors B-09, A-32 `A32_PARTIAL_EVIDENCE`, aucun exclu. Le premier rejeu le donnait encore hors rejeu, journaux absents : son état a changé pendant le travail de l'autre voie. Les quatre anciens rouges ci-dessous ont disparu sans intervention de cette voie dans leurs fichiers. Le PRET B-09 ne certifie pas A-32.
 
 Le premier rejeu général a perdu son conteneur avant l’inspection finale : reçu conservé rouge, nouvelle tentative après cinq minutes. La dernière préparation d’image a réussi. Le dernier rejeu a réellement exécuté **1 159 tests PHP / 36 263 assertions**, plus **22 outils / 584 contrôles**, sans échec de ces suites. Il a également signalé **quatre échecs de paquets de la voie 1** : A-26 et A-27 `SEALED_VERIFICATION_FAILED`, A-30 `PACKAGE_DRIFT`, A-31 `A31_PARENT_GATES_MISSING`. Ils sont conservés dans le reçu et le compteur `foreign_packet_failures` ; aucun « tout le dépôt est vert » n’est revendiqué. Le PRET porte sur B-09 complet, pas sur ces autres paquets, que ce worker n’a ni corrigés ni rescellés. Le vérificateur refuse toujours un échec de B-09 ou des tests PHP eux-mêmes.
 

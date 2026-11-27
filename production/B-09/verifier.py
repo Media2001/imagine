@@ -68,6 +68,7 @@ def validate(root,packet):
     need(packet.get('scope')=='imagine-test-demo' and packet.get('version')==2,'SCHEMA')
     need(bool(packet.get('sources')) and bool(packet.get('artifacts')),'MANIFESTE_VIDE')
     minimum_sources=set(CORE+TESTS+['wp/outils/demo/'+name for name in ['b09.py','b09-seed.php','b09-recette.py','b09-readback.py','b09-local.py','b09-mutations.py','b09-gates.py']]+['wp/tests/demo/b09-structure.php','wp/tests/demo/b09-observer.php','wp/tests/demo/b09-mutation-prive.php'])
+    minimum_sources|={'wp/outils/demo/'+name for name in ['b09-corrections.py','b09-correction-live.py','b09-correction-mutants.py','b09-correction-finaliser.py']}
     need(minimum_sources <= set(packet['sources']),'MANIFESTE_SOURCES_COMPLET')
     minimum_artifacts={PREFIX+name for name in ['verifier.py','A-VOIR.md','NOTE.md','sources-officielles.json','tests-finaux.log','mutations-finales.json','recette-finale.json','structure-finale-verifiee.json','pages-reprise-finale.json','reprise-stable-finale.json','readback-final.json','preparation-finale.json','preparation-finale.log','regression-finale.json','regression-finale.log']}
     minimum_artifacts|={PREFIX+'mutations-finales-'+name+'.log' for name in MUTATIONS}
@@ -160,7 +161,7 @@ def validate(root,packet):
     need(result['tools']['failures']==0,'REGRESSION_OUTILS')
     # Le runner rejoue aussi les paquets de l'autre voie : les exposer, jamais les resceller ici.
     foreign_failures=result['packets']['failures']
-    need(isinstance(foreign_failures,list) and all(f.get('lot') in {'A-26','A-27','A-30','A-31'} and isinstance(f.get('control'),str) for f in foreign_failures),'ECHEC_PAQUET_HORS_SCOPE_INATTENDU')
+    need(isinstance(foreign_failures,list) and all(f.get('lot') in {'A-26','A-27','A-30','A-31','A-32'} and isinstance(f.get('control'),str) for f in foreign_failures),'ECHEC_PAQUET_HORS_SCOPE_INATTENDU')
     need('T01 CLEANUP : absence verifiee' in path(PREFIX+reg['log']).read_text(encoding='utf-8'),'REGRESSION_NETTOYAGE')
     red=junit(path(PREFIX+'corrections-red-partielle.log').read_text(encoding='utf-8'))
     need(red['failures']==1 and red['errors']==red['skipped']==0,'ROUGE_SUPPRESSION_PARTIELLE')

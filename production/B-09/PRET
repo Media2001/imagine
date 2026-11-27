@@ -1,7 +1,7 @@
-B-09 — PRET technique à relire — 27 novembre 2026, 07 h 09 (Europe/Paris).
-Périmètre complet du brief B-09 : FAQ native à quatre rubriques vides éditables, trois pages légales vides dont la vraie politique native, contact privé, export/effacement natifs, footer reprenable sans changer le principal.
-Paquet : final-V2.json ; commande sans argument : python -B production/B-09/verifier.py
-Vérifié : 463 portes, 6 tests / 188 assertions, 53 contrôles natifs, 12 mutations de sources + 1 mutation live REST/recherche, readback final et nettoyage ; qualification du vérificateur : 18 cas dont 16 refus attendus.
-Image reconstruite via wp/tests/preparer-image.ps1. Dernière suite PHP : 1 159 tests / 36 263 assertions ; 22 outils / 584 contrôles verts.
-Réserve transversale exposée, hors B-09 : quatre paquets voie 1 rouges (A-26, A-27, A-30, A-31), ni corrigés ni rescellés ici. Aucun « tout le dépôt est vert » revendiqué.
-Ce PRET n'est ni validation graphique de Ced, ni conformité juridique, ni autorisation d'accès au réel ou de mise en ligne. Voir A-VOIR.md et NOTE.md.
+B-09 — PRET technique après corrections prioritaires — 27 novembre 2026, 08 h 51 (Europe/Paris).
+Instructions 1–5 appliquées : scan des marqueurs détachés/hors option et refus des ambiguïtés ; interruption réelle entre marqueur et option, aucun orphelin/doublon après reprise ; suppression partielle refusant done, nettoyage reprenable par IDs durables même sans post/email ; espaces après casts.
+Paquet courant : corrections-final-V2.json. Commande parent sans argument : python -B production/B-09/verifier.py
+Vérifié : 563 portes ; 7 tests / 203 assertions ; 61 contrôles natifs ; 14 mutations de sources détectées, injections natives REST/recherche et suppression partielle inversées. Qualification du vérificateur : 23 cas passés, dont 21 refus attendus ; passage UTF-8 et cp1252. Reçus rouges conservés, essais restaurés et readback final sans contact/méta/témoin/runners résiduels.
+Vrai wp/tests/preparer-image.ps1 réussi. Dernier rejeu : 1 167 tests / 36 333 assertions et 22 outils / 584 contrôles, zéro échec de ces suites. Paquets : 12 vérifiés, 1 échec hors B-09, A-32 A32_PARTIAL_EVIDENCE ; aucun exclu. A-26/A-27/A-30/A-31 passent, aucun fichier voie 1 modifié ici ; pas de tout-le-dépôt-vert revendiqué.
+Défauts techniques appliqués : duplication Contact/Sujet et succès par comparaison de chaîne laissés tels quels ; aucun lot clos rouvert, aucune fonction nouvelle hors correction. Les premières preuves et final-V2.json restent historiques.
+Ce PRET n'est ni validation graphique de Ced, ni conformité juridique, ni autorisation d'accès au réel ou de mise en ligne. Aucun autre site, email sortant ou paiement. Voir CORRECTIONS.md, A-VOIR.md et NOTE.md.
