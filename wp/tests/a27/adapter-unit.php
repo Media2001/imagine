@@ -10,44 +10,10 @@ require '/subject/a27/Inventory.php';
 use Imagine\SavedPayments\Analysis;
 use Imagine\SavedPayments\Inventory;
 
-final class WC_Subscription
-{
-    public function get_payment_method(string $context): string
-    {
-        return 'ppcp-gateway';
-    }
-
-    public function get_payment_tokens(): array
-    {
-        return [];
-    }
-}
-
+require __DIR__ . '/SubscriptionDouble.php';
+require __DIR__ . '/adapter-hooks.php';
+class_alias(Imagine\Tests\SavedPayments\SubscriptionDouble::class, 'WC_Subscription');
 $GLOBALS['a27_filters'] = [];
-function add_filter(string $hook, callable $callback, int $priority = 10, int $args = 1): void
-{
-    $GLOBALS['a27_filters'][$priority][] = $callback;
-}
-function remove_filter(string $hook, callable $callback, int $priority = 10): void
-{
-    $GLOBALS['a27_filters'][$priority] = array_values(array_filter(
-        $GLOBALS['a27_filters'][$priority] ?? [],
-        static fn(callable $candidate): bool => $candidate !== $callback
-    ));
-    if (!$GLOBALS['a27_filters'][$priority]) {
-        unset($GLOBALS['a27_filters'][$priority]);
-    }
-}
-function apply_filters(string $hook, $value, $subscription)
-{
-    ksort($GLOBALS['a27_filters']);
-    foreach ($GLOBALS['a27_filters'] as $callbacks) {
-        foreach ($callbacks as $callback) {
-            $value = $callback($value, $subscription);
-        }
-    }
-    return $value;
-}
 
 $checks = [];
 $check = static function (string $name, bool $ok) use (&$checks): void {
@@ -66,9 +32,11 @@ add_filter('woocommerce_subscription_payment_meta', static function () use (&$sc
 }, 10);
 try {
     $method = new ReflectionMethod(Inventory::class, 'paymentReference');
-    foreach ([['opaque', ['private' => 'A27_OPAQUE_PRIVATE_CANARY'], 'unknown'],
-              ['null', null, 'unknown'], ['empty', '', 'absent'], ['scalar', 'opaque-local-reference', 'present']]
-             as [$name, $value, $expected]) {
+    foreach (
+        [['opaque', ['private' => 'A27_OPAQUE_PRIVATE_CANARY'], 'unknown'],
+        ['null', null, 'unknown'], ['empty', '', 'absent'], ['scalar', 'opaque-local-reference', 'present']]
+        as [$name, $value, $expected]
+    ) {
         $schema = ['ppcp-gateway' => ['post_meta' => ['opaque_field' => ['value' => $value]]]];
         $upstream = \Imagine\SubscriptionCoherence\Inventory::paymentReference($subscription);
         $check($name . '_actual_a19_boundary', $upstream === ($expected === 'unknown' ? 'absent' : $expected));

@@ -69,16 +69,20 @@ for ($n = 0; $n < 5; $n++) {
     if ($stored->get_status('edit') !== 'active' || $stored->get_requires_manual_renewal('edit')) {
         throw new RuntimeException('A27_SEED_CORRECTION_STATE');
     }
-    if ($case === 'opaque' && ($stored->get_payment_tokens() !== []
+    if (
+        $case === 'opaque' && ($stored->get_payment_tokens() !== []
         || !is_array($stored->get_meta('_imagine_a27_opaque', true, 'edit'))
-        || \Imagine\SubscriptionCoherence\Inventory::paymentReference($stored) !== 'absent')) {
+        || \Imagine\SubscriptionCoherence\Inventory::paymentReference($stored) !== 'absent')
+    ) {
         throw new RuntimeException('A27_SEED_ACTUAL_A19_BOUNDARY');
     }
 }
 $storedSubscriptions = wcs_get_subscriptions(['subscriptions_per_page' => -1,
     'subscription_status' => ['active', 'pending', 'on-hold', 'pending-cancel']]);
-if (count($storedSubscriptions) !== 5 || ($case === 'opaque'
-    && (int) $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}woocommerce_payment_tokens") !== 0)) {
+if (
+    count($storedSubscriptions) !== 5 || ($case === 'opaque'
+    && (int) $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}woocommerce_payment_tokens") !== 0)
+) {
     throw new RuntimeException('A27_SEED_EXACT_FIVE');
 }
 echo "A27_CORRECTION_SEED_OK\n";

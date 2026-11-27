@@ -1,6 +1,6 @@
 # A-25 — Données des visiteurs (lecture seule)
 
-**Corrections du 26 novembre 2026 :** Python seul rejoué ici ; nouveau rejeu natif complet réservé au parent, pas de `PRET`. Les preuves natives précédentes sont historiques, non rescellées sur ces sources. Commandes exactes et suites locales : `production/A-25/corrections-reveil.md`.
+**Requalification du 27 novembre 2026 après A-28 :** le paquet unique courant `production/A-25/preuves/final/` porte la matrice neuve classique/HPOS et Windows UTF-8/cp1252. Le banc attend désormais la purge obligatoire des messages Fluent Forms connus et le refus de `garder` ; il prouve séparément la conservation des tables inconnues. Le code de l’outil et son avertissement éditorial permanent restent inchangés. Les compteurs, commandes, exits et gates effectivement qualifiés sont dans `production/A-25/FINALISATION.md` ; seul le `PRET` final atteste leur réception. Les paquets précédents sont historiques hors dépôt, jamais rescellés comme de nouvelles exécutions. `corrections-reveil.md` conserve l’historique Python local.
 
 **Attention import : les messages de formulaires laissés en tables inconnues peuvent rester en clair après neutralisation/anonymisation.** Le banc exécute l'import inchangé sur une base fictive et démontre ce cas pour les deux tables de messages. Ce lot ne corrige pas l'import et ne donne aucun accord d'accès à une copie réelle.
 
