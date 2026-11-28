@@ -13,8 +13,14 @@ name = sys.argv[1]
 identity = o.guard()
 old = b06.hashes(o.FILES)
 known = json.loads((o.OUT / 'installation-V2.json').read_text(encoding='utf-8'))['readback']
+allowed = {n: {known[n]} for n in o.FILES}
+for receipt in o.OUT.glob('corrections-installation*-V2.json'):
+    prior = json.loads(receipt.read_text(encoding='utf-8'))
+    assert prior['scope'] == 'imagine-test-demo' and prior['business_preserved']
+    for n in o.FILES:
+        allowed[n].add(prior['readback'][n])
 local = {n: hashlib.sha256((ROOT / 'wp' / n).read_bytes()).hexdigest() for n in o.FILES}
-assert all(old[n] in [known[n], local[n]] for n in o.FILES), 'Dérive distante C31'
+assert all(old[n] in allowed[n] | {local[n]} for n in o.FILES), 'Dérive distante C31'
 boot = b06.hashes(['plugins/imagine-site/imagine-site.php'])
 before = b13.c29.state()
 private = b13.b11.private(name, {'files': o.wp('$out=[];foreach(' + o.php(o.FILES) + ' as $n){$out[$n]=file_get_contents(WP_CONTENT_DIR."/".$n);}echo wp_json_encode($out);')})

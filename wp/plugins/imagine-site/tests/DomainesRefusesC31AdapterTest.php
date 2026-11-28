@@ -103,6 +103,35 @@ final class DomainesRefusesC31AdapterTest extends TestCase
         DomainesRefuses::commande($posted);
     }
 
+    public function testStoreApiRefuseAvantSessionEtCommandeMaisIgnoreLesAutresRoutes(): void
+    {
+        DomainesRefuses::register();
+        self::assertArrayHasKey('rest_request_before_callbacks', $GLOBALS['c31_hooks']);
+        [$callback, $priority, $args] = $GLOBALS['c31_hooks']['rest_request_before_callbacks'][0];
+        self::assertSame(1, $priority);
+        self::assertSame(3, $args);
+        $request = new \WP_REST_Request('POST', '/wc/store/v1/checkout');
+        $request->params = ['create_account' => true, 'billing_address' => ['email' => 'refuse@jetable-fictif.example.org']];
+        self::assertInstanceOf(\WP_Error::class, $callback(null, [], $request));
+        $existing = new \WP_Error();
+        self::assertSame($existing, $callback($existing, [], $request));
+        $request->route = '/wc/store/v1/cart';
+        self::assertNull($callback(null, [], $request));
+        $request->route = '/WC/STORE/v1/CHECKOUT/';
+        self::assertInstanceOf(\WP_Error::class, $callback(null, [], $request));
+        $request->params['create_account'] = false;
+        self::assertNull($callback(null, [], $request));
+        $request->params['create_account'] = true;
+        $GLOBALS['c31_logged'] = true;
+        self::assertNull($callback(null, [], $request));
+        $GLOBALS['c31_logged'] = false;
+        $GLOBALS['c31_options'][DomainesRefuses::OPTION] = [];
+        self::assertNull($callback(null, [], $request));
+        $GLOBALS['c31_options'][DomainesRefuses::OPTION] = ['jetable-fictif.example.org'];
+        $request->params['billing_address']['email'] = 'libre@example.org';
+        self::assertNull($callback(null, [], $request));
+    }
+
     public function testReglageAtomiqueJournalEtRestaurationHorsLigne(): void
     {
         DomainesRefusesReglages::register();

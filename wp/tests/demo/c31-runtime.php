@@ -131,6 +131,28 @@ if ($leaks !== []) {
     echo wp_json_encode(['checkout_leaks' => $leaks]);
 }
 $check('checkout_adresse_absente_toutes_tables', $leaks === []);
+// La page de démonstration utilise aussi le checkout Blocks/Store API natif.
+$storeEmail = 'c31-refus-store@jetable-fictif.example.org';
+$refused[] = $storeEmail;
+$request = new WP_REST_Request('POST', '/wc/store/v1/checkout');
+$request->set_header('Content-Type', 'application/json');
+$request->set_header('Nonce', wp_create_nonce('wc_store_api'));
+$request->set_body(wp_json_encode([
+    'create_account' => true,
+    'billing_address' => ['first_name' => 'Fictif', 'last_name' => 'C31', 'country' => 'BE', 'address_1' => '1 rue fictive', 'city' => 'Fictif', 'postcode' => '1000', 'email' => $storeEmail, 'phone' => '020000000'],
+    'payment_method' => '',
+]));
+$response = rest_do_request($request);
+WC()->session->save_data();
+$storeData = $response->get_data();
+$storeLeaks = $scan($storeEmail);
+if ($storeLeaks !== [] || !str_contains(wp_json_encode($storeData), 'autre adresse email')) {
+    echo wp_json_encode(['store_status' => $response->get_status(), 'store_result' => $storeData, 'store_leaks' => $storeLeaks]);
+}
+$check('store_vrai_checkout_message_refus', $response->get_status() === 400 && str_contains(wp_json_encode($storeData), 'autre adresse email'));
+$check('store_aucun_compte', get_user_by('email', $storeEmail) === false);
+$check('store_adresse_absente_toutes_tables', $storeLeaks === []);
+$check('store_aucune_commande', (int) $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}wc_orders") === $ordersBefore);
 $mutantEmail = 'c31-mutant@jetable-fictif.example.org';
 remove_filter('woocommerce_registration_errors', [DomainesRefuses::class, 'inscription'], 30);
 try {

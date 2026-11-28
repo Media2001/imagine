@@ -7,6 +7,13 @@ class WP_Error
 {
     private array $errors = [];
 
+    public function __construct(string $code = '', string $message = '', mixed $data = null)
+    {
+        if ($code !== '') {
+            $this->add($code, $message);
+        }
+    }
+
     public function add(string $code, string $message): void
     {
         $this->errors[$code][] = $message;
@@ -25,6 +32,30 @@ class WP_Error
     public function get_error_message(): string
     {
         return $this->errors ? reset($this->errors)[0] : '';
+    }
+}
+
+class WP_REST_Request
+{
+    public array $params = [];
+
+    public function __construct(public string $method, public string $route)
+    {
+    }
+
+    public function get_route(): string
+    {
+        return $this->route;
+    }
+
+    public function get_method(): string
+    {
+        return $this->method;
+    }
+
+    public function get_param(string $name): mixed
+    {
+        return $this->params[$name] ?? null;
     }
 }
 

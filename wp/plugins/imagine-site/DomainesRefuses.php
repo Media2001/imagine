@@ -16,6 +16,7 @@ final class DomainesRefuses
         add_action('woocommerce_save_account_details_errors', [self::class, 'compte'], 30, 2);
         // get_posted_data est évalué avant update_session (qui écrit billing_email).
         add_filter('woocommerce_checkout_posted_data', [self::class, 'commande'], 1, 1);
+        add_filter('rest_request_before_callbacks', [self::class, 'commandeBlocs'], 1, 3);
     }
 
     public static function configuration(): array
@@ -57,6 +58,28 @@ final class DomainesRefuses
             }
         }
         return $data;
+    }
+
+    public static function commandeBlocs(mixed $response, array $handler, \WP_REST_Request $request): mixed
+    {
+        if (
+            $response !== null || is_user_logged_in()
+            || strcasecmp(rtrim($request->get_route(), '/'), '/wc/store/v1/checkout') !== 0
+            || !in_array($request->get_method(), ['POST', 'PUT', 'PATCH'], true)
+        ) {
+            return $response;
+        }
+        $address = $request->get_param('billing_address');
+        if (
+            ($request->get_param('create_account') || WC()->checkout()->is_registration_required())
+            && is_array($address) && isset($address['email']) && is_string($address['email'])
+        ) {
+            $errors = self::valider(new \WP_Error(), $address['email']);
+            if ($errors->has_errors()) {
+                return new \WP_Error('imagine_adresse_alternative', $errors->get_error_message(), ['status' => 400]);
+            }
+        }
+        return $response;
     }
 
     public static function compte(\WP_Error $errors, object $user): void

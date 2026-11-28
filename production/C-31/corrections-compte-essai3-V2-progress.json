@@ -1,0 +1,77 @@
+{
+  "checks": {
+    "sonde_initialement_absente": true,
+    "compte_fictif_initialement_absent": true,
+    "inchange_formulaire_200": true,
+    "inchange_formulaire_natif_nonce": true,
+    "inchange_vraie_redirection_succes": true,
+    "inchange_email_relu": true,
+    "inchange_temoin_sauvegarde_effective": true,
+    "inchange_aucun_http": true,
+    "inchange_etanche": true,
+    "inchange_mutation_etanche_detectee": true,
+    "refuse_formulaire_200": true,
+    "refuse_formulaire_natif_nonce": true,
+    "refuse_message_alternative": true,
+    "refuse_email_non_ecrit": true,
+    "refuse_temoin_sauvegarde_bloquee": true,
+    "refuse_zero_sortant": true,
+    "refuse_etanche": true,
+    "refuse_mutation_etanche_detectee": true,
+    "autorise_formulaire_200": true,
+    "autorise_formulaire_natif_nonce": true,
+    "autorise_vraie_redirection_succes": true,
+    "autorise_email_relu": true,
+    "autorise_temoin_sauvegarde_effective": true,
+    "autorise_aucun_http": true,
+    "autorise_billing_email_relu": true,
+    "autorise_etanche": true,
+    "autorise_mutation_etanche_detectee": true,
+    "refuse_absent_toutes_tables": true,
+    "aucun_tiers": true
+  },
+  "rows": [
+    {
+      "kind": "inchange",
+      "post_status": 302,
+      "native_readback": {
+        "email": "c31-existant-http@jetable-fictif.example.org",
+        "first": "Fictif témoin inchangé",
+        "billing": ""
+      },
+      "observation": {
+        "http": [],
+        "mail": []
+      }
+    },
+    {
+      "kind": "refuse",
+      "post_status": 200,
+      "native_readback": {
+        "email": "c31-existant-http@jetable-fictif.example.org",
+        "first": "Fictif témoin inchangé",
+        "billing": ""
+      },
+      "observation": {
+        "http": [],
+        "mail": []
+      }
+    },
+    {
+      "kind": "autorise",
+      "post_status": 302,
+      "native_readback": {
+        "email": "c31-changement-http@example.org",
+        "first": "Fictif changement autorisé",
+        "billing": "c31-changement-http@example.org"
+      },
+      "observation": {
+        "http": [],
+        "mail": [
+          "blocked"
+        ]
+      }
+    }
+  ],
+  "error": null
+}

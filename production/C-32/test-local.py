@@ -39,8 +39,7 @@ def main(label):
     base = docker+['run', '--rm', '--pull', 'never', '--network', 'none', '--read-only', '--cap-drop', 'ALL', '--security-opt', 'no-new-privileges', '--user', '65534:65534', '--pids-limit', '64', '--memory', '256m', '--cpus', '1', '--tmpfs', '/tmp:rw,nosuid,nodev,size=64m', '--mount', 'type=bind,source=/mnt/c/Users/Ced/imagine/wp,target=/repo/wp,readonly', '--entrypoint', 'php', image_id]
     run('python', [sys.executable, '-B', str(ROOT/'wp/tests/demo/c32-browser-test.py')])
     run('php-lint', base+['-l', '/repo/wp/plugins/imagine-site/Cookies.php'])
-    code = 'require "/opt/t01/imagine-site/vendor/autoload.php"; require "/repo/wp/plugins/imagine-site/Cookies.php"; exit((new PHPUnit\\TextUI\\Application)->run(["phpunit", "--no-configuration", "--bootstrap", "/repo/wp/tests/demo/c32-phpunit-bootstrap.php", "--do-not-cache-result", "--fail-on-warning", "--fail-on-risky", "--fail-on-deprecation", "/repo/wp/plugins/imagine-site/tests/CookiesC32Test.php"]));'
-    run('phpunit', base+['-r', code])
+    run('phpunit', base+['/opt/t01/imagine-site/vendor/phpunit/phpunit/phpunit', '--no-configuration', '--bootstrap', '/repo/wp/tests/demo/c32-phpunit-bootstrap.php', '--do-not-cache-result', '--fail-on-warning', '--fail-on-risky', '--fail-on-deprecation', '/repo/wp/plugins/imagine-site/tests/CookiesC32Test.php'])
     selected = [ROOT/'wp/plugins/imagine-site/Cookies.php', ROOT/'wp/plugins/imagine-site/AutresPages.php']
     selected += [p for p in (ROOT/'wp/plugins/imagine-site/tests').glob('*C32*') if p.is_file()]
     selected += [p for folder in ['wp/outils/demo', 'wp/tests/demo'] for p in (ROOT/folder).glob('c32*') if p.is_file()]

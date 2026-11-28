@@ -2,6 +2,7 @@
 import sys
 sys.dont_write_bytecode = True
 import importlib.util
+import base64
 import json
 from urllib.parse import urlsplit
 from playwright.sync_api import sync_playwright
@@ -62,7 +63,7 @@ try:
                     form.locator('[name="save_account_details"]').click()
             response = posted.value
             body = page.content()
-            obs = b.observation(response.text())
+            obs = json.loads(base64.b64decode(response.headers['x-c31-observation'])) if response.status == 302 else b.observation(response.text())
             actual = read()
             if kind == 'refuse':
                 check(kind + '_message_alternative', 'Merci d’utiliser une autre adresse email.' in page.locator('body').inner_text())
