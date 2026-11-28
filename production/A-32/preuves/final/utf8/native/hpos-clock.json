@@ -4,7 +4,7 @@
       1798761599,
       1798761600,
       1798761601,
-      1798405835
+      1798423817
     ]
   },
   "rows": [
@@ -18,9 +18,9 @@
         "--output=/report/hpos-clock-current"
       ],
       "exit_code": 0,
-      "as_of_utc": "2026-11-27T21:11:03Z",
-      "start_utc": 1795813863,
-      "end_utc": 1795813864,
+      "as_of_utc": "2026-11-28T02:10:46Z",
+      "start_utc": 1795831845,
+      "end_utc": 1795831846,
       "expected_count": 0,
       "actual_count": 0
     },
@@ -34,9 +34,9 @@
         "--output=/report/hpos-clock-later"
       ],
       "exit_code": 0,
-      "as_of_utc": "2026-11-27T21:11:05Z",
-      "start_utc": 1795813865,
-      "end_utc": 1795813866,
+      "as_of_utc": "2026-11-28T02:10:47Z",
+      "start_utc": 1795831847,
+      "end_utc": 1795831848,
       "expected_count": 0,
       "actual_count": 0
     },
@@ -52,8 +52,8 @@
       ],
       "exit_code": 0,
       "as_of_utc": "2026-12-31T23:59:59Z",
-      "start_utc": 1795813866,
-      "end_utc": 1795813866,
+      "start_utc": 1795831848,
+      "end_utc": 1795831848,
       "expected_count": 1,
       "actual_count": 1
     },
@@ -69,8 +69,8 @@
       ],
       "exit_code": 0,
       "as_of_utc": "2027-01-01T00:00:00Z",
-      "start_utc": 1795813866,
-      "end_utc": 1795813867,
+      "start_utc": 1795831848,
+      "end_utc": 1795831849,
       "expected_count": 2,
       "actual_count": 2
     },
@@ -86,8 +86,8 @@
       ],
       "exit_code": 0,
       "as_of_utc": "2027-01-01T00:00:01Z",
-      "start_utc": 1795813867,
-      "end_utc": 1795813867,
+      "start_utc": 1795831849,
+      "end_utc": 1795831849,
       "expected_count": 3,
       "actual_count": 3
     }

@@ -29,11 +29,11 @@
         "utf8_mode": 1,
         "locale": "cp1252",
         "tmpdir_present": false,
-        "temp": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a32-corrections-20261127-2158\\matrix-final\\utf8-temp"
+        "temp": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\imagine-20261128-a32-matrix-02\\utf8-temp"
       },
       "log": "utf8/python-console.log",
-      "sha256": "511a1d8e1715908e137ece7978b06e35e9e942624dc32b154e4ec19d70043c72",
-      "tests_run": 15,
+      "sha256": "5e37aeff910798f6b6027684fdbac1fd393a82c41f185b63f7b73466f65cb9f3",
+      "tests_run": 16,
       "all_pass": true
     },
     {
@@ -42,7 +42,7 @@
         "C:\\Python314\\python.exe",
         "-B",
         "wp/tests/a32/run.py",
-        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a32-corrections-20261127-2158\\matrix-final\\utf8\\native"
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\imagine-20261128-a32-matrix-02\\utf8\\native"
       ],
       "encoding": "utf-8",
       "exit_code": 0,
@@ -56,10 +56,10 @@
         "utf8_mode": 1,
         "locale": "cp1252",
         "tmpdir_present": false,
-        "temp": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a32-corrections-20261127-2158\\matrix-final\\utf8-temp"
+        "temp": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\imagine-20261128-a32-matrix-02\\utf8-temp"
       },
       "log": "utf8/native-console.log",
-      "sha256": "ddaa6b02e873d3ec9102a0288092dc3c7d6dca9081d2b79c4afb59ade4c538bc"
+      "sha256": "b568c54a70ebf61f82a22f585f78ffa8494afa6ceac739bc2dd921921f6367ab"
     },
     {
       "kind": "python",
@@ -87,11 +87,11 @@
         "utf8_mode": 0,
         "locale": "cp1252",
         "tmpdir_present": false,
-        "temp": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a32-corrections-20261127-2158\\matrix-final\\cp1252-temp"
+        "temp": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\imagine-20261128-a32-matrix-02\\cp1252-temp"
       },
       "log": "cp1252/python-console.log",
-      "sha256": "f89549b1e7c3832a77ed1158d99cbb2979a8433301252b6c4fc052366a8fdb59",
-      "tests_run": 15,
+      "sha256": "93f7f20af2803c9d820bd11485a66fb7e9f6dd68f8b353ca2f8ac88f73ef7179",
+      "tests_run": 16,
       "all_pass": true
     },
     {
@@ -100,7 +100,7 @@
         "C:\\Python314\\python.exe",
         "-B",
         "wp/tests/a32/run.py",
-        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a32-corrections-20261127-2158\\matrix-final\\cp1252\\native"
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\imagine-20261128-a32-matrix-02\\cp1252\\native"
       ],
       "encoding": "cp1252",
       "exit_code": 0,
@@ -114,10 +114,10 @@
         "utf8_mode": 0,
         "locale": "cp1252",
         "tmpdir_present": false,
-        "temp": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a32-corrections-20261127-2158\\matrix-final\\cp1252-temp"
+        "temp": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\imagine-20261128-a32-matrix-02\\cp1252-temp"
       },
       "log": "cp1252/native-console.log",
-      "sha256": "cf4a36b88f28a53c061bb89c4e238d4735d79ecaa026c2f6559df6422d4635b4"
+      "sha256": "85fc0c382cf62225dddcabea15800a325de6a014ca6d29c438b9f5cfed794b7b"
     }
   ],
   "exit_code": 0

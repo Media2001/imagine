@@ -22,7 +22,7 @@ Comptes seulement ; aucune garantie de renouvellement.
             "autres": 3
         }
     },
-    "as_of_utc": "2026-11-27T21:14:31+00:00",
-    "audit_sha256": "807bf442702253ea47c94b5341970e169b2e31d9cbad34ad527d715567f03ffd"
+    "as_of_utc": "2026-11-28T02:14:15+00:00",
+    "audit_sha256": "947bbf5da0f2d6ebf40d95053568618c5e962b9b66e22c710e47e2ce8301f742"
 }
 ```

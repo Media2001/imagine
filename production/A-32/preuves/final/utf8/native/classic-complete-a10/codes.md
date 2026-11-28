@@ -6,12 +6,12 @@ Noms des codes autorises; aucun contact ni identifiant client. Aucun reclassemen
 {
     "schema": "imagine-a10-coupons-v1",
     "read_only": true,
-    "generated_at_utc": "2026-11-27T21:08:55Z",
+    "generated_at_utc": "2026-11-28T02:08:37Z",
     "storage": "classic",
     "currency": "USD",
     "window": {
-        "from_utc": "2025-11-27T21:08:55Z",
-        "to_utc": "2026-11-27T21:08:55Z",
+        "from_utc": "2025-11-28T02:08:37Z",
+        "to_utc": "2026-11-28T02:08:37Z",
         "inclusive": true
     },
     "codes": [],
@@ -26,6 +26,6 @@ Noms des codes autorises; aucun contact ni identifiant client. Aucun reclassemen
         "Aucun reclassement ni suppression. Usage limits 0 sans limite, item_limit null sans limite, seuils vides 0 sans restriction; montants vides ou invalides null; fiche introuvable: tous reglages inconnus null, jamais classee expiree ou jamais utilisee sans compteur.",
         "Site simple, configuration litterale, tables InnoDB, stockage Woo standard; metadonnees coupon dupliquees refusees."
     ],
-    "audit_sha256": "1f76d5d129a6bd27a6bcec161a9ee5d300c0626825d13592bfd0c91a477b1caf"
+    "audit_sha256": "f287a8fade5d50df0d59990e645f91ec6646e441d22fb69400e125e2ff79d70c"
 }
 ```
