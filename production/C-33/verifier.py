@@ -12,10 +12,10 @@ RECEIPT='reception-corrections-V2.json'
 def load(n):return json.loads((OUT/n).read_text(encoding='utf-8'))
 def verify(live=False,manifest=None,require_pret=True):
     c.integrity(owner,manifest or load(RECEIPT))
-    n=load('native-corrections-V2.json');d=json.loads(n['native']['stdout'])
+    n=load('native-corrections-final-V2.json');d=json.loads(n['native']['stdout'])
     assert n['sources']==owner.sources(owner) and n['restored'] and n['before']==n['after'] and n['native']['code']==0 and not n['native']['stderr']
     assert d['total']==len(d['checks'])==14 and all(d['checks'].values())
-    b=load('browser-corrections-V2.json')
+    b=load('browser-corrections-final-V2.json')
     assert b['sources']==owner.sources(owner) and b['total']==len(b['checks'])==89 and all(b['checks'].values())
     assert len(b['rows'])==20 and b['error'] is None and b['restored'] and b['fixture_removed'] and b['probe_removed'] and not b['external']
     assert len([r for r in b['rows'] if r['mutant']])==6 and all(r['ok']!=r['mutant'] for r in b['rows'])
@@ -50,9 +50,9 @@ def verify(live=False,manifest=None,require_pret=True):
     assert load('red-V2.json')['native']['code']!=0
     st=load('standard-V2.json');assert len(st['official'])==5 and st['native']['blog_public']=='0'
     i=load('image-corrections-V2.json');assert i['exit']==0 and 'image verifiee sha256:' in (OUT/i['log']).read_text(encoding='utf-8')
-    rr=load('replay-corrections-V2.json');text=(OUT/rr['log']).read_text(encoding='utf-8');r=json.loads(re.search(r'^T01_RESULT (.+)$',text,re.M)[1])
+    rr=load('replay-corrections-final-V2.json');text=(OUT/rr['log']).read_text(encoding='utf-8');r=json.loads(re.search(r'^T01_RESULT (.+)$',text,re.M)[1])
     assert r['pass'] and r['failures']==r['errors']==r['skipped']==r['tools']['failures']==0 and 'ComptesPublicsC33AdapterTest' in text
-    assert all(x['lot'] in ['A-32','A-33','A-34'] for x in r['packets']['failures'])
+    assert not r['packets']['failures'], 'Un paquet rouge porteur de PRET ne peut pas être toléré'
     if require_pret:assert RECEIPT in (OUT/'PRET').read_text(encoding='utf-8')
     regression=subprocess.run([sys.executable,'-B',str(ROOT/'wp/tests/demo/c33-control-tests.py')],cwd=ROOT,capture_output=True,encoding='utf-8')
     assert regression.returncode==0,regression.stderr
