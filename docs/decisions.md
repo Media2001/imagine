@@ -47,6 +47,30 @@ Ce qui est tranché par Ced, daté. Ce fichier précise ou corrige le cahier des
 
 ## Ouvert — chez Imagine (chapitre 7 du cahier des charges, et questions issues des lots)
 
+### Classement pour la rencontre avec Imagine (tenu par Claude, 28/11/2026)
+
+Proposition de tri, à corriger par Ced. Toutes ces questions ont déjà un défaut prudent en place : aucune ne bloque un lot. Le tri dit seulement lesquelles méritent du temps de réunion.
+
+**Celles qui changent ce qu'on construit** (une réponse différente du défaut ouvre un lot, ou en ferme un) :
+
+1. **Grille tarifaire, tarif solidaire, accès découverte** (chapitre 7, points 3 à 5) : tant qu'elles sont ouvertes, le tunnel et les emails ne peuvent pas être finalisés. La forme de l'accès découverte et ce qui se passe après son épuisement en font partie (C-12).
+2. **Paiement** (questions du 20/11) : prélèvement SEPA obligatoire après une première carte, retrait immédiat ou délai de grâce au premier rejet, recalcul du port en cours d'année, PayPal ; et la marge de l'échéancier en quatre fois, dont dépend le bouton « ne pas renouveler » (C-20).
+3. **Abonnements offerts et groupés** : licence Teams ou liens de Memberships ; présence des bénéficiaires dans la liste d'envoi (C-13) ; leur statut pour Brevo (C-29) ; ce que devient le groupe quand le souscripteur fait effacer ses données (C-21).
+4. **Rétractation** (C-25), aussi pour le conseil juridique : délai, point de départ, borne incluse, et surtout les effets (remboursement, accès gardé ou non). Aujourd'hui le site enregistre une demande et ne fait rien d'autre.
+5. **Cookies et consentement** (C-30, C-32), aussi pour le conseil : le cookie de session d'un code suivi et les sept cookies d'attribution de WooCommerce demandent-ils un bandeau ? Aucun n'est construit.
+6. **Offre de bienvenue** (C-30) : que donne-t-elle ? Aujourd'hui rien ; un avantage serait un lot à part.
+7. **Achat sans compte** (C-14) : ouvre-t-il le numérique après création du compte ? Le parcours n'est pas livré.
+8. **Import des abonnés hors ligne** (A-30) : échéance déjà passée, compte existant à la même adresse, échéance reprise ou recalculée. Les trois options sont fermées ; l'import réel ne peut pas s'écrire sans elles.
+9. **Newsletters et Brevo** (C-22, C-24, C-29) : inscription d'office à la newsletter principale et par quel consentement ; noms des attributs attendus par le compte Brevo ; ce qu'on transmet des réponses de personnalisation.
+10. **Tableau de bord** (C-19) : distinguer le mode de paiement (une ou quatre fois) du moyen (carte, SEPA, virement) demande un indicateur de plus ; l'ouvrir à quelqu'un qui n'a ni les extractions ni les échéances demande un droit de plus.
+11. **Pack thématique** (C-28) : produit à prix unique ou produit groupé natif ; pack retiré en entier ou vendu sans le numéro dépublié.
+12. **Comptes et signatures** (B-16, C-33) : page publique d'auteur pour un journaliste ; ce qu'un abonné connecté voit des comptes.
+13. **Point de vente le plus proche** (B-15) : un lien vers la recherche, ou une géolocalisation.
+14. **Durée de conservation des messages de contact** (B-09) : à arrêter avant l'ouverture au public ; une durée demande une purge automatique.
+15. **Numéro d'entreprise** : recherche de la dénomination en ligne ou simple contrôle de format.
+
+**Celles qui ne sont que des réglages ou des périmètres** (le défaut tient, une réponse se règle dans l'administration ou par une retouche courte) : remboursement partiel d'une commande de plusieurs numéros (C-14) ; PDF servi ou non à un robot d'indexation (C-11) ; périmètre de « paiements en attente » et de « mandats à lancer » (C-15) ; libellé d'un abonnement suspendu dans Mon compte (B-02) ; couleurs posées à la main dans les articles (B-03) ; adresse de livraison enregistrée sur le compte créé pour un client (C-16) ; doublons de l'export hors ligne (A-13) ; une ligne par abonnement ou par abonné, et finesse du filtre par localité, dans les extractions (C-18) ; abonné en annulation à terme compté ou non comme abonné dans le rapprochement des contacts (A-14) ; numéro reçu ou non après la fin de la période payée (C-13) ; présentation des inventaires de l'existant (A-19, A-23, A-27) ; rôles qui posent le statut de coopérateur et qui lisent l'espace coopérateurs (B-06) ; localité en liste fermée dans la personnalisation (C-24) ; trace dépersonnalisée d'une rétractation après effacement (C-25) ; sommaire audio réservé (B-11) ; numéros gardés par l'acheteur d'un pack modifié (C-28) ; recherche exacte des points de vente (B-10) ; sélection du menu étendu par la rédaction ou par date (B-13) ; refus de désinscription conservé après retrait d'une lettre, et identification du contact à retirer (C-29) ; code suivi rangé à côté de la source d'acquisition (C-30) ; origine de la liste des domaines refusés (C-31) ; appel à l'abonnement en fin d'article pour un abonné actif (B-16).
+
 Issues des relectures du 20/11 (`docs/arbitrages-2026-11-21.md`, questions non tranchées) : prélèvement SEPA obligatoire après une première carte ; retrait immédiat ou délai de grâce au premier rejet ; licence Teams pour les abonnements groupés ; forme de l'accès découverte ; recalcul du port en cours d'année ; emails SEPA de Stripe ; recherche de la dénomination d'entreprise ; PayPal sous condition d'approbation.
 
 
@@ -106,6 +130,8 @@ Issues des lots, au 26/11 à 10 h (chacune est un réglage au défaut prudent, a
 | Page article (§3.3) : l'appel à l'abonnement en fin d'article s'affiche-t-il aussi pour un abonné actif ? | Non : seulement pour un lecteur qui a lu le texte complet sans être abonné (acheteur du numéro, accès découverte) ; le non-abonné a déjà le bloc du paywall | Pas de réglage (B-16) |
 | Cookies (§3.14, §4.4) : le cookie de session posé pour retenir un code suivi (C-30) et ceux de l'attribution d'origine des commandes de WooCommerce demandent-ils un consentement, donc un bandeau ? À voir aussi avec le conseil juridique | Aucun bandeau construit ; les cookies sont inventoriés dans une liste fermée, affichée sur la page « Gestion des cookies », et un test refuse tout cookie hors liste | Pas de réglage pour l'instant ; le choix de l'outil de consentement n'est pas fait (C-32) |
 | Comptes de la rédaction (§3.3, §4.4) : un journaliste a-t-il une page publique d'auteur, avec la liste de ses articles ? | Non : la signature est un texte sans lien, et le site ne montre aucun compte à un visiteur (archives d'auteur, interface REST, plan du site, flux) | Pas de réglage (B-16, C-33) |
+| Comptes (§4.4) : un abonné connecté, qui n'a pas le droit de lister les utilisateurs, voit-il les comptes du site (archives d'auteur, interface REST), ou est-il traité comme un visiteur ? | Le lot livré ferme ces voies au visiteur anonyme, comme le brief l'écrit ; rien n'est changé pour un compte connecté. Défaut proposé par la relecture, non appliqué : traiter l'abonné connecté comme l'anonyme | Pas de réglage (C-33) |
+| Cookies (§3.14, §4.4) : les sept cookies d'attribution d'origine de WooCommerce, posés dès la simple lecture d'une page, demandent-ils un consentement, et faut-il éteindre l'attribution ? À voir avec le conseil juridique | L'attribution reste activée, comme WooCommerce la livre ; l'écart avec « aucun cookie en simple lecture » est constaté et écrit, rien n'est éteint, aucun bandeau | Réglage natif de WooCommerce, laissé tel quel (C-32) |
 
 Rappel de règle, sans question : un abonnement actif dans l'administration mais **sans paiement validé** ne figure pas dans la liste d'envoi.
 

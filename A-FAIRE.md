@@ -2,7 +2,7 @@
 
 Tenu à jour par Claude à chaque session avec Ced. **Hermès ne modifie pas ce fichier** : il signale dans son rapport ce qu'il a fait et ce qui bloque, et la consigne passe en « Terminé » à la session suivante.
 
-Mis à jour le 28 novembre 2026, 1 h 30 (passage automatique).
+Mis à jour le 28 novembre 2026, 4 h 30 (passage automatique).
 
 ## FREIN — décision de Ced du 28 novembre 2026, 2 h 40
 
@@ -16,7 +16,7 @@ Le projet a trois chantiers indépendants. Un lot porte la lettre de son chantie
 
 ## Consignes actives, par ordre de priorité
 
-File du 28/11, 1 h 30. Ton rapport de 22 h 24 est lu, merci : les cinq corrections d'A-32, la matrice en Python 3.14.6, l'arrêt sans `PRET` devant un portail rouge. Depuis, le dépôt montre A-32 rescellé à 22 h 29 et A-33 installé à 22 h 53, et le rejeu indépendant d'un relecteur lit « 13 paquets vérifiés, 0 échec », A-31, A-32 et A-33 compris. **Mais aucun `PRET` et aucun rapport depuis 22 h 24** : commence par dire en cinq lignes où tu en es. L'ordre que tu demandais est écrit ci-dessous, il n'a pas changé. Arbitrages : `docs/arbitrages-2026-11-28.md`, passage de 1 h.
+File du 28/11, 4 h 30. Ton rapport de 3 h est lu, merci, ainsi que le `PRET` d'A-32 avec sa borne fermée. **A-32 est clos** (vérification « prêt » de 3 h 33). Le frein de Ced, en tête de ce fichier, règle tout le reste : il ne reste que trois choses à faire, puis tu t'arrêtes, file vide, et c'est ce qui est attendu. Arbitrages : `docs/arbitrages-2026-11-28.md`, passage de 4 h.
 
 **L'import est gelé**, à l'état scellé par A-28 : plus aucun changement de `wp/outils/staging/` ni de `wp/outils/staging-court/` sans une consigne de cette file, ni fonction, ni correction, ni mise en forme.
 
@@ -24,26 +24,25 @@ File du 28/11, 1 h 30. Ton rapport de 22 h 24 est lu, merci : les cinq correctio
 
 **Règle : une correction ne restructure pas un fichier commun.**
 
-**Règle nouvelle (22 h) : un lecteur de paquet ne photographie pas ses voisins.** Le lecteur permanent d'un lot contrôle ce qui appartient au lot (ses fichiers, ses lignes dans un fichier partagé) et ce dont il dépend, **par une liste fermée écrite dans le lot**. Jamais un dossier entier d'outils, jamais le paquet d'un autre lot. La preuve que tu n'as rien touché chez les voisins se fait une fois, au sceau, dans le reçu ; elle n'est pas une condition permanente du lecteur. C'est ce qui a fait tomber A-32 à l'arrivée d'A-33, et T-03 à la retouche d'A-31. **Tu ne rouvres aucun lot clos pour cela.**
+**Règle (22 h) : un lecteur de paquet ne photographie pas ses voisins.** Le lecteur permanent d'un lot contrôle ce qui appartient au lot (ses fichiers, ses lignes dans un fichier partagé) et ce dont il dépend, **par une liste fermée écrite dans le lot**. Jamais un dossier entier d'outils, jamais le paquet d'un autre lot. La preuve que tu n'as rien touché chez les voisins se fait une fois, au sceau, dans le reçu ; elle n'est pas une condition permanente du lecteur. **Tu ne rouvres aucun lot clos pour cela.**
 
-**0. A-32 : il ne manque que la borne, puis le `PRET`.** Tes cinq corrections sont appliquées et lues ; les arbitrages de 22 h tiennent (C03 sans `--as-of`, A-16 à dix sans `--limit`, aucun mode sans plafond, aucun outil clos retouché).
-   - **Le sceau de 22 h 29 a précédé la règle de 22 h 30** : `wp/tests/a32/run.py` photographie encore tout `wp/outils/bascule/`. Borne-la avant le `PRET` : le dossier `tournee/`, les tests d'A-32, le gardien, l'import gelé, et les dossiers des quinze outils de `outils.jsonl`, par une liste fermée écrite dans le lot. Un outil de la tournée qui change périme toujours le paquet : c'est voulu ; A-33, A-34 et les suivants, non ;
-   - rescelle par la commande du lot, relis `production/A-32/verify.py` sans argument, dépose `PRET` ;
-   - **si ce nouveau sceau périme le paquet d'A-31** (son sceau lie cinq fichiers de la tournée) : un resceau d'A-31 par sa propre commande, code et tests inchangés. A-31 reste clos ; dis-le en une ligne.
+**0. A-33 : les corrections de `corrections/A-33.md` (fusion de 3 h 48, « à corriger »).** Cinq instructions. Les deux défauts proposés par la fusion sont retenus :
+   - **le PDF désigné par `pdf_cle` est un fichier du numéro** : il compte dans le poids des dix numéros, dédoublonné avec les pièces rattachées par `post_parent` ; le décompte des pièces sans parent reste lisible à part. Aucun rattachement écrit ;
+   - **un numéro sélectionné reste du côté conservé** quand article et numéro partagent un type. Aucun refus nouveau ; tu ne modifies ni ne durcis A-16 ;
+   - le jeu d'essai couvre les quatre angles morts de la fusion ; les `_a16_pdf_id` ne sont plus tous à zéro ;
+   - le `PRET` de 2 h 25 précède la relecture : retire-le, corrige, rescelle par la commande du lot, vérifie que le lecteur suit la règle de la liste fermée, redépose `PRET` ;
+   - **la preuve qui compte** : un rejeu général après ce `PRET`, dans les deux consoles, où A-32 et A-33 sont tous deux parmi les paquets vérifiés, aucun hors rejeu, zéro échec. Ton rapport cite la ligne `PAQUETS` ;
+   - **délais** : la voie 2 a lu `VERIFIER_TIMEOUT` sur A-32 et A-33 à 2 h 19, puis sur A-33 seul à 2 h 44, pendant que vous rejouiez toutes les deux. Dis en une ligne si cela se reproduit quand tu rejoues seule, et la durée mesurée de chaque vérificateur. Tu ne changes aucun délai : le lanceur est gelé ;
+   - rien dans `wp/tests/t01/` ni `wp/tests/rejouer.ps1`, aucun portail assoupli, aucune empreinte changée à la main. Une étape rouge : arrêt sans `PRET`, un rapport de cinq lignes. A-33 n'entre pas dans la tournée ;
+   - **Python** : la question reste posée. A-33 mesurait 3.11.15, les commandes de réception emploient 3.14.6 : rejoue sa matrice avec `C:/Python314/python.exe`, ou dis en une ligne pourquoi ce n'est pas possible.
 
-**1. A-33, juste après.**
-   - **La consigne « sors du dépôt le paquet d'A-33 » est levée** : elle valait pour un paquet aux portails rouges, il est vert. Elle ne revient que si le nouveau sceau d'A-32 le périme et que les deux se bloquent de nouveau ; dans ce cas seulement, sors-le le temps du sceau d'A-32, comme tu l'as fait pour le candidat d'A-31 ;
-   - vérifie que le lecteur d'A-33 suit la règle de la liste fermée ; rejoue ses portails s'ils sont périmés, scelle, `PRET` ;
-   - **la preuve qui compte** : un rejeu général après les deux `PRET`, dans les deux consoles, où A-32 et A-33 sont tous deux parmi les paquets vérifiés, aucun hors rejeu, zéro échec. Ton rapport cite la ligne `PAQUETS` ;
-   - rien dans `wp/tests/t01/` ni `wp/tests/rejouer.ps1`, aucun portail assoupli, aucune empreinte changée à la main. Une étape rouge : arrêt sans `PRET`, un rapport de cinq lignes ;
-   - A-33 n'entre pas dans la tournée ;
-   - **Python** : A-33 mesurait 3.11.15, les commandes de réception emploient 3.14.6. Rejoue sa matrice Python avec `C:/Python314/python.exe`, ou dis en une ligne pourquoi ce n'est pas possible.
+**1. T-03, la clôture, après le `PRET` d'A-33.** C'est un lot rendu : le finir n'est pas un lot nouveau. Avant le sceau, applique-lui la règle : son lecteur final contrôle **ses** fichiers ; la photographie des paquets voisins reste dans le reçu du sceau, datée, et n'est plus une condition du lecteur. Puis la preuve finale, `PRET`, une vérification avec rejeu indépendant. Après sa clôture, T-03 n'est pas rescellé à chaque paquet nouveau. Le lanceur reste gelé.
 
-**2. T-03, la clôture, après les deux `PRET`.** Ton choix de le finaliser sur l'arbre final est retenu. Avant le sceau, applique-lui la règle : son lecteur final contrôle **ses** fichiers ; la photographie des paquets voisins reste dans le reçu du sceau, datée, et n'est plus une condition du lecteur. Puis la preuve finale, `PRET`, une vérification avec rejeu indépendant. Après sa clôture, T-03 n'est pas rescellé à chaque paquet nouveau. Le lanceur reste gelé.
+**2. L'import et les contenus d'un type inconnu : une note, pas de code.** Tu as répondu que la décision de Ced demande une consigne de dégel ciblée. **Cette file ne la donne pas** : l'import gelé est le code que Ced lancerait sur son archive, et sa réponse est à confirmer lundi. Ce qu'on te demande d'ici là, dans ton prochain rapport, en dix lignes au plus : les fichiers qu'il faudrait toucher ; si l'étape de vérification peut porter ce contrôle seule, sans toucher à l'import ni au découpage ; si les commandes de Ced changent d'une lettre ; où Ced écrirait « garder » ou « vider » type par type ; les tests à ajouter ; la durée. Tu ne modifies rien dans `wp/outils/staging/` ni `wp/outils/staging-court/`.
 
-**3. A-29 : rangé, tu n'y touches plus.** Pas de `PRET`, pas de nouvel essai, hors de la tournée d'A-32. Il sera repris par une consigne de cette file, pas avant.
+**3. A-29 : rangé, tu n'y touches plus.**
 
-**4. `briefs/A-34-les-liens-vers-ce-qui-part-aux-archives.md`** — dans les contenus des dix derniers numéros, les liens et les fichiers qui pointent vers ce qui n'est pas repris, comptés (§4.3). Lecture seule, des nombres ; corps lu par un analyseur HTML. **À commencer après le `PRET` de T-03.** Une demi-journée.
+**Après cela, arrête-toi.** `briefs/A-34-les-liens-vers-ce-qui-part-aux-archives.md` existe mais **n'est pas à commencer** : c'est un outil d'inventaire nouveau, il attend la validation de Ced.
 
 **À savoir : la clôture d'un lot de la voie 2 ne dépend pas de tes paquets en cours.** Un paquet rouge sur la ligne `PAQUETS` ne bloque un autre lot que s'il appartient à un lot clos ou porteur d'un `PRET`. Raison de plus pour ne déposer un `PRET` qu'avec un paquet vert. La voie 2 a vu un de ses tests échouer une fois dans un de tes rejeux, pendant qu'elle corrigeait C-29 : c'est un aléa de deux voies sur un même arbre, tu as bien fait de ne rien réparer.
 
@@ -51,7 +50,7 @@ File du 28/11, 1 h 30. Ton rapport de 22 h 24 est lu, merci : les cinq correctio
 
 À savoir, sans rien à faire : la voie 2 a créé deux types de contenu qui sont des messages de visiteurs (propositions de sujet de B-08, `imagine_contact` de B-09). L'import ne les connaît pas et **on ne le rouvre pas pour cela** : c'est noté dans `docs/ecarts.md`.
 
-A-28, les contenus d'un type inconnu : la question est toujours chez Ced. Ne change rien.
+A-28, les contenus d'un type inconnu : voir le point 2 ci-dessus. Ne change rien au code.
 
 **Ne touche plus au gardien commun sans le dire en tête de ton rapport** : tout changement rouvre les paquets de tous les outils.
 
@@ -156,6 +155,7 @@ Tu n'ouvres toujours pas l'archive d'Imagine ; c'est Ced qui lance le diagnostic
 | A-28 Les messages de formulaires et l'import | 27/11, corrigé le 27/11 | **Clos le 27/11** (cinq corrections vérifiées, découpage du fichier de l'import regardé par la vérification et rejoué par sept matrices). Import gelé. Ce n'est pas un accord d'import |
 | A-30 L'import à blanc des abonnés hors ligne | 27/11, corrigé le 27/11 | **Clos le 27/11** (cinq instructions vérifiées : suite rejouée sur une session Windows propre, 38 tests en UTF-8 et en cp1252 ; paquet refait après T-03). Rien n'est écrit ; trois règles laissées fermées pour Imagine |
 | A-31 L'historique des commandes | 27/11, corrigé et retouché le 27/11 | **Clos le 27/11** (vérification n° 2 : six instructions et la retouche vérifiées ; quatre compteurs de liens cassés et total des remboursements exacts, le reste regroupé sous cinq ; suites Python rejouées par le vérificateur, matrice native lue sur preuves). Aucun montant. Sur une copie neutralisée, seule la nature vaut « inconnu » |
+| A-32 La tournée des inventaires | 27/11, corrigé le 27/11, borné le 28/11 | **Clos le 28/11** (vérification n° 2 : cinq instructions vérifiées, 16 tests Python rejoués, 72 contrôles natifs sur 72 lus sur preuves ; photographie bornée par une liste fermée). Refuse de partir sans le fichier de statut « vérifié ». Banc natif non rejouable par un relecteur ; rejeu général conjoint avec A-33 encore dû. Ce n'est pas un accord pour toucher au réel |
 | A-07 Retouches de rédaction | 26/11 | Sept retouches vérifiées ; constat du 20/11 annoté, rien de rejoué. Reste clos |
 | T-01 Commande de rejeu | 23/11, corrigé le 23/11 | **Clos le 23/11** ; autorisation ajoutée au script de relecture |
 | A-02 Script d'audit | 23/11, corrigé le 23/11 | **Clos le 23/11** (outil et banc fictif). L'audit réel reste à lancer |
