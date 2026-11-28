@@ -39,14 +39,6 @@ $check('changement_adresse_refuse', in_array('imagine_adresse_alternative', $err
 $admin = wp_insert_user(['user_login' => 'fictif-c31-admin', 'user_email' => 'c31-admin@jetable-fictif.example.org', 'user_pass' => wp_generate_password(48), 'role' => 'customer']);
 $check('administration_hors_filtre', !is_wp_error($admin) && get_userdata($admin)->user_email === 'c31-admin@jetable-fictif.example.org');
 global $wpdb;
-foreach ($refused as $email) {
-    foreach ([$wpdb->users => ['user_email'], $wpdb->usermeta => ['meta_value'], $wpdb->options => ['option_value']] as $table => $columns) {
-        foreach ($columns as $column) {
-            $found = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$table} WHERE {$column} LIKE %s", '%' . $wpdb->esc_like($email) . '%'));
-            $check('adresse_absente_' . count($checks), $wpdb->last_error === '' && (int)$found === 0);
-        }
-    }
-}
 // Même fabrique utilisée par WC_Checkout::process_customer, avec un vrai refus.
 wp_set_current_user(0);
 $checkoutEmail = 'c31-refus-checkout@jetable-fictif.example.org';$refused[] = $checkoutEmail;
@@ -68,6 +60,20 @@ $wpdb->delete($wpdb->usermeta, ['user_id' => (int)$mutant]);
 $wpdb->delete($wpdb->users, ['ID' => (int)$mutant]);
 clean_user_cache((int)$mutant);
 $check('mutation_compte_retire_relu', get_user_by('email', $mutantEmail) === false);
+foreach ($refused as $email) {
+    foreach ([$wpdb->users => 'user_email', $wpdb->usermeta => 'meta_value', $wpdb->options => 'option_value'] as $table => $column) {
+        $found = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$table} WHERE {$column} LIKE %s", '%' . $wpdb->esc_like($email) . '%'));
+        $check('adresse_absente_' . count($checks), $wpdb->last_error === '' && (int)$found === 0);
+    }
+}
+$journalBefore = (int)$wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->options} WHERE option_name LIKE 'imagine_reglages_journal_%'");
+update_option(DomainesRefuses::OPTION, ['journal-fictif.example.org'], false);
+$check('journal_liste_ecrit', (int)$wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->options} WHERE option_name LIKE 'imagine_reglages_journal_%'") === $journalBefore + 1);
+$blockJournal = static fn (string $sql): string => str_starts_with($sql, 'INSERT') && str_contains($sql, 'imagine_reglages_journal_') ? 'SELECT 1' : $sql;
+add_filter('query', $blockJournal);
+try { update_option(DomainesRefuses::OPTION, ['refus-fictif.example.org'], false); }
+finally { remove_filter('query', $blockJournal); }
+$check('journal_echec_restaure', DomainesRefuses::configuration() === ['journal-fictif.example.org']);
 $check('antislash_domaine_refuse', DomainesRefusesRegles::liste("jetable-fictif\\.example.org") === null);
 $check('source_wp_woo_reelle', (new ReflectionFunction('register_new_user'))->getFileName() !== false && (new ReflectionFunction('wc_create_new_customer'))->getFileName() !== false);
 echo wp_json_encode(['checks' => $checks, 'total' => count($checks)]);
