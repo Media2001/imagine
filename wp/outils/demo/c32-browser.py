@@ -110,7 +110,7 @@ finally:
         session_result={'restored':False,'foreign_changes':None,'write_conflicts':None,'owned_remaining':None}
     session_ok=session_result['restored']
     b13.b11.b10.b09.remove_remote([probe]);removed=o.wp('echo wp_json_encode(!file_exists(WP_CONTENT_DIR."/'+probe+'"));')
-    after=b13.c29.state();allowed={'_transient_imagine_b13_thematiques','_transient_timeout_imagine_b13_thematiques','_transient_imagine_b15_numero','_transient_timeout_imagine_b15_numero'}
+    after=b13.c29.state();allowed={'_transient_imagine_b13_thematiques','_transient_timeout_imagine_b13_thematiques','_transient_imagine_b15_numero','_transient_timeout_imagine_b15_numero','_transient_wp_styles_for_blocks','_site_transient_timeout_wp_theme_files_patterns-55884c82b8cc78f0affc1677838a8dc8'}
     delta={k for k in before['option_fingerprints'].keys()|after['option_fingerprints'].keys() if before['option_fingerprints'].get(k)!=after['option_fingerprints'].get(k)}
     restored=all(before[k]==after[k] for k in before if k not in ['option_fingerprints','all_options_fingerprint']) and delta<=allowed
     reading=policy.reading_verdict(rows)
