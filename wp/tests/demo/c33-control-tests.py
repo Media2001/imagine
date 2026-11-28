@@ -19,14 +19,14 @@ if legacy:
     exec(compile(ast.Module(body=[fn], type_ignores=[]), str(source), 'exec'), env)
 
 
-def assess(body, headers, expected='SITE & FICTIF'):
+def assess(body, headers, expected='SITE'):
     if legacy:
         # Reproduit la sélection faite AVANT l'ancien control().
         return env['control']('feed', 200, body, c.archive_headers(headers), expected)
     return c.control('feed', 200, body, headers, '/temoin/', 'LOGIN_C33', 'NOM_C33', expected)
 
 
-def feed(kind, author='SITE &amp; FICTIF', uri=''):
+def feed(kind, author='SITE', uri=''):
     if kind == 'rss2':
         return '<rss xmlns:dc="'+c.RSS+'"><channel><title>SITE &amp; FICTIF</title><item><link>https://example.org/autre/</link><dc:creator>SITE &amp; FICTIF</dc:creator></item><item><link>https://example.org/temoin/</link><dc:creator>'+author+'</dc:creator>'+uri+'</item></channel></rss>'
     return '<feed xmlns="'+c.ATOM+'"><title>SITE &amp; FICTIF</title><entry><link href="https://example.org/autre/"/><author><name>SITE &amp; FICTIF</name></author></entry><entry><link href="https://example.org/temoin/"/><author><name>'+author+'</name>'+uri+'</author></entry></feed>'

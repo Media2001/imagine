@@ -58,7 +58,7 @@ update_post_meta($p,Imagine\\Site\\PageArticle::SIGNATURE,'''+o.php(signature)+'
             archived_header_names=[h['name'] for h in all_headers]
             filename=sys.argv[1]+'-'+name+'.txt'
             with (o.OUT/filename).open('x',encoding='utf-8') as f:f.write(json.dumps({'status':response.status,'headers':headers,'header_names':archived_header_names,'other_values_redacted':True},ensure_ascii=False)+'\n\n'+body)
-            rows.append({'name':name,'kind':kind,'path':path,'status':response.status,'headers':headers,'header_names':archived_header_names,'other_values_redacted':True,'response':filename,'body_sha256':hashlib.sha256(body.encode()).hexdigest(),'mutant':mutant,**verdict})
+            rows.append({'name':name,'kind':kind,'path':path,'status':response.status,'headers':headers,'header_names':archived_header_names,'expected_signature':expected_signature,'other_values_redacted':True,'response':filename,'body_sha256':hashlib.sha256(body.encode()).hexdigest(),'mutant':mutant,**verdict})
             if mutant:check(name+'_mutation_detectee',not verdict['ok'] and (verdict['leak'] or kind=='sitemap' and 'wp-sitemap-users-' in body))
             else:
                 check(name+'_voie_presente',verdict['present']);check(name+'_fermee_ou_signature',verdict['ok'])
@@ -100,6 +100,6 @@ finally:
     after=b13.c29.state();allowed={'_transient_imagine_b13_thematiques','_transient_timeout_imagine_b13_thematiques','_transient_imagine_b15_numero','_transient_timeout_imagine_b15_numero'}
     delta={k for k in before['option_fingerprints'].keys()|after['option_fingerprints'].keys() if before['option_fingerprints'].get(k)!=after['option_fingerprints'].get(k)}
     restored=all(before[k]==after[k] for k in before if k not in ['option_fingerprints','all_options_fingerprint']) and delta<=allowed
-    b13.save(o,sys.argv[1],{'checks':checks,'proof_mutations':proof_mutations,'total':len(checks),'rows':rows,'error':error,'restored':restored,'fixture_removed':cleaned,'probe_removed':removed,'private':private,'before':before,'after':after,'option_delta':sorted(delta),'external':external,'sources':o.sources(o),'sitemap_types':locals().get('sitemap_types',[]),'private_sitemap_findings':locals().get('private_sitemap_findings',[]),'baseline_sitemap_disabled':any(x['option_name']=='blog_public' and x['option_value']=='0' for x in options)})
+    b13.save(o,sys.argv[1],{'checks':checks,'proof_mutations':proof_mutations,'total':len(checks),'rows':rows,'error':error,'restored':restored,'fixture_removed':cleaned,'probe_removed':removed,'private':private,'before':before,'after':after,'option_delta':sorted(delta),'external':external,'sources':o.sources(o),'fixture_path':fixture['path'] if fixture else None,'site_name':locals().get('sitename'),'sitemap_types':locals().get('sitemap_types',[]),'private_sitemap_findings':locals().get('private_sitemap_findings',[]),'baseline_sitemap_disabled':any(x['option_name']=='blog_public' and x['option_value']=='0' for x in options)})
 print({'total':len(checks),'rows':len(rows),'error':error,'restored':restored,'fixture_removed':cleaned,'probe_removed':removed})
 assert not error and restored and cleaned and removed and all(checks.values())
