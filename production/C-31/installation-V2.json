@@ -1,0 +1,30 @@
+{
+  "scope": "imagine-test-demo",
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "before": {
+    "plugins/imagine-site/DomainesRefusesRegles.php": null,
+    "plugins/imagine-site/DomainesRefuses.php": null,
+    "plugins/imagine-site/DomainesRefusesReglages.php": null,
+    "plugins/imagine-site/imagine-site.php": "8a3166a34827defb54166310bfe32aa6b46b945b3506068f0bf306baad4fb39d"
+  },
+  "readback": {
+    "plugins/imagine-site/DomainesRefusesRegles.php": "4f377a275cfedcfe7a5848cf51f53f893750570ddd63addb5783cb425fbedb7e",
+    "plugins/imagine-site/DomainesRefuses.php": "196f2d81771d8edcc525403b2b0bf383469c4d2158bda3271d30aad3d43e4198",
+    "plugins/imagine-site/DomainesRefusesReglages.php": "73d6d8e9875d2bfba35e110c223206ee24216847366b1966c57aa16dc5ff14ae",
+    "plugins/imagine-site/imagine-site.php": "68dd24991c956977f812c23437fe93e10d6424f28ac5a6f03aaa761ae9700637"
+  },
+  "private_snapshot": {
+    "file": "C:\\Users\\Ced\\AppData\\Local\\Temp\\b11-private-2jz50gf7\\snapshot.json",
+    "sha256": "8972da96f8aa8f375e6920cfbe1f51e8785b2065f12308b3ced0dd64f3cd91d6",
+    "private": true
+  }
+}

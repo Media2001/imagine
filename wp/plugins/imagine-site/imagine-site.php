@@ -205,6 +205,13 @@ CodesSuivis::register();
 CodesSuivisAdmin::register();
 CodesSuivisConfidentialite::register();
 
+// C31 — domaines exacts refusés dans les parcours publics natifs.
+require_once __DIR__ . '/DomainesRefusesRegles.php';
+require_once __DIR__ . '/DomainesRefuses.php';
+require_once __DIR__ . '/DomainesRefusesReglages.php';
+DomainesRefuses::register();
+DomainesRefusesReglages::register();
+
 // C28 — instantané du pack au paiement, décision et remboursements C14 inchangés.
 require_once __DIR__ . '/PacksRegles.php';
 require_once __DIR__ . '/PacksThematiques.php';
