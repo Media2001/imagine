@@ -1,0 +1,16 @@
+{
+  "status": "FAIL",
+  "expected": 0,
+  "pages": 58,
+  "observed_cookie_names": [
+    "sbjs_current",
+    "sbjs_current_add",
+    "sbjs_first",
+    "sbjs_first_add",
+    "sbjs_migrations",
+    "sbjs_session",
+    "sbjs_udata"
+  ],
+  "native_order_attribution_unchanged": true,
+  "browser_receipt": "browser-corrections-parent2-V2.json"
+}
