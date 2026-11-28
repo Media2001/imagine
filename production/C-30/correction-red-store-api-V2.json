@@ -1,0 +1,28 @@
+{
+  "scope": "imagine-test-demo",
+  "exit": 1,
+  "stdout": "PHPUnit 11.5.58 by Sebastian Bergmann and contributors.\n\nRuntime:       PHP 8.2.33\nConfiguration: /repo/wp/plugins/imagine-site/phpunit.xml\n\nF...                                                                4 / 4 (100%)\n\nTime: 00:00.131, Memory: 12.00 MB\n\nThere was 1 failure:\n\n1) Imagine\\Site\\Tests\\CodesSuivisC30AdapterTest::testStoreApiCandidatSurHookNatifPuisScelle\nFailed asserting that null is identical to 'fictif'.\n\n/repo/wp/plugins/imagine-site/tests/CodesSuivisC30AdapterTest.php:48\n\nFAILURES!\nTests: 4, Assertions: 19, Failures: 1.\n",
+  "stderr": "",
+  "sources": {
+    "production/C-30/verifier.py": "db0c6441a8ad89659fbb8cc47b9f1316bafce35017f5c08769bc3acb98f33284",
+    "wp/outils/demo/b13-browser.py": "02a69cab956e503b2a79625df2b084858df9e6b417af638fa503240ebc0d3de0",
+    "wp/outils/demo/b13.py": "3960057fde352c412024678a14d06a7ed6dec04c8d1bff378f7e5305420a5357",
+    "wp/outils/demo/c30-browser.py": "56a6d00832ffd0333e395718653c472a839e2e7d29216e978df1b5a2290e7952",
+    "wp/outils/demo/c30-recover.py": "00072824f754bcdf1428f82cee157cf97086a4470f051e65d1dbe3b36fda566d",
+    "wp/outils/demo/c30-seed.py": "dd3f7726ae247594f0d8be61fa8cd0434ffff6d7502037cbaf03b4c1b0f38317",
+    "wp/outils/demo/c30-standard.py": "095c9346c3d87291c3debf0c89d150062f65f8f4c66991691692b79206094dae",
+    "wp/outils/demo/c30-unit.py": "9f274d105dc1014ffea2a07110e35c85904bd1a4bb742cf77e4e51b8c21d9a4e",
+    "wp/outils/demo/c30.py": "d34686c125c70e4359593efa0dfecd59847cdb04dd22c3194bbe68fdf5caa00e",
+    "wp/plugins/imagine-site/CodesSuivis.php": "2e91d95dd4a29948527fd68e0974aa6a00bfe6ec353dc31d7f2c566d23be3b60",
+    "wp/plugins/imagine-site/CodesSuivisAdmin.php": "45f6716689531d2977e742408c965840cf4b618a35b9e205d2da078216911223",
+    "wp/plugins/imagine-site/CodesSuivisConfidentialite.php": "47aa2cf91af74a7c577020dc203253279ce91c5cee46f396b0798093da5f4768",
+    "wp/plugins/imagine-site/CodesSuivisRegles.php": "952aee67637fb12d8aec83bf8d9f31476b7176ea7dae8f33cfc376115fadb92a",
+    "wp/plugins/imagine-site/tests/CodesSuivisC30AdapterTest.php": "2d7781ab66239aadad2936162cef6030ab6b3eb4a81a357ab5a525ba59404e25",
+    "wp/plugins/imagine-site/tests/CodesSuivisC30Stubs.php": "23c2af333dc81d578a75eaf1a5fdaafa29e1375ebab6e507036f5828055d5a4a",
+    "wp/plugins/imagine-site/tests/CodesSuivisC30Test.php": "291e33f6a00eb15820e78745b40039c27031c5da64942efcd401c5bbce538f3e",
+    "wp/tests/demo/b13-contract.py": "ebdb04de4f948ec77ec5214bdf7c17f03c0366a02ad97722cfef9c6b1d9ebe63",
+    "wp/tests/demo/b13-observer.php": "72d46a7ab527893be8d4e7aa8a0e04073bcd9f0c38c655620a1e603290a6c03f",
+    "wp/tests/demo/c30-runtime.php": "27803f465f241d696f7c04b3badebe9edbfa5210b7be0562f019a89000e3e6e4",
+    "wp/tests/demo/c30-unit-bootstrap.php": "473a6038191d809d876e2f72ea1923814fce03a865682ff562a5aa92c3f5485c"
+  }
+}

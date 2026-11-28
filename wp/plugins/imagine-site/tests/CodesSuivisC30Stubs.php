@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace {
+    function WC():object{return $GLOBALS['c30_woo'];}
     final class WP_Error { public function __construct(public string $code='',public string $message=''){} }
     final class WC_Order
     {

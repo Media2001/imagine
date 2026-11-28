@@ -27,6 +27,10 @@ final class CodesSuivis
             }
         });
         add_action('woocommerce_checkout_create_order', [self::class, 'candidat'], 20, 2);
+        add_action('woocommerce_store_api_checkout_order_processed', static function (\WC_Order $order): void {
+            self::candidat($order, []);
+            $order->save_meta_data();
+        }, 20);
         add_action('woocommerce_payment_complete', [self::class, 'payer'], 30);
         add_action('woocommerce_order_status_changed', static fn (int $id) => self::payer($id), 30);
     }
@@ -51,7 +55,7 @@ final class CodesSuivis
 
     public static function candidat(\WC_Order $order, array $data): void
     {
-        if ($order->get_created_via() !== 'checkout' || $order->meta_exists(self::SCELLE) || $order->meta_exists(self::CANDIDAT)) {
+        if (!in_array($order->get_created_via(), ['checkout', 'store-api'], true) || $order->meta_exists(self::SCELLE) || $order->meta_exists(self::CANDIDAT)) {
             return;
         }
         $session = function_exists('WC') && WC()->session ? WC()->session->get(self::SESSION) : null;
@@ -82,7 +86,7 @@ final class CodesSuivis
         try {
             $order = wc_get_order($id);
             if (
-                !$order || $order->get_type() !== 'shop_order' || $order->get_created_via() !== 'checkout'
+                !$order || $order->get_type() !== 'shop_order' || !in_array($order->get_created_via(), ['checkout', 'store-api'], true)
                 || !$order->is_paid() || !$order->get_date_paid() || $order->meta_exists(self::SCELLE)
             ) {
                 return;

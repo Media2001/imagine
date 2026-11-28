@@ -1,0 +1,32 @@
+{
+  "scope": "imagine-test-demo",
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "before": {
+    "plugins/imagine-site/CodesSuivisRegles.php": "952aee67637fb12d8aec83bf8d9f31476b7176ea7dae8f33cfc376115fadb92a",
+    "plugins/imagine-site/CodesSuivis.php": "2e91d95dd4a29948527fd68e0974aa6a00bfe6ec353dc31d7f2c566d23be3b60",
+    "plugins/imagine-site/CodesSuivisAdmin.php": "45f6716689531d2977e742408c965840cf4b618a35b9e205d2da078216911223",
+    "plugins/imagine-site/CodesSuivisConfidentialite.php": "12ba2bb1166a55c5ab685b07790caa52407c34bf9b94eaf353986f8614894d83",
+    "plugins/imagine-site/imagine-site.php": "834544c0ee92bfc0b97b99743277ad4a6355cb9408597ad83932c961e22b0776"
+  },
+  "readback": {
+    "plugins/imagine-site/CodesSuivisRegles.php": "952aee67637fb12d8aec83bf8d9f31476b7176ea7dae8f33cfc376115fadb92a",
+    "plugins/imagine-site/CodesSuivis.php": "9625475da63fbd6216208db507989366f8af81e87709da9b503cdd2e3847cfc6",
+    "plugins/imagine-site/CodesSuivisAdmin.php": "bea8c98b040d5b47c44d4829063bff9ce966de758fb5eae08a2f7f49c39e7f23",
+    "plugins/imagine-site/CodesSuivisConfidentialite.php": "47aa2cf91af74a7c577020dc203253279ce91c5cee46f396b0798093da5f4768",
+    "plugins/imagine-site/imagine-site.php": "834544c0ee92bfc0b97b99743277ad4a6355cb9408597ad83932c961e22b0776"
+  },
+  "private_snapshot": {
+    "file": "C:\\Users\\Ced\\AppData\\Local\\Temp\\b11-private-sm56c20z\\snapshot.json",
+    "sha256": "7739738b2f4fbaebcf5636ae844b1001306d8d27252d438e42ca508810a2cd1e",
+    "private": true
+  }
+}

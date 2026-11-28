@@ -15,6 +15,7 @@ final class CodesSuivisC30Test extends TestCase
         self::assertSame($list, CodesSuivisRegles::liste($list));
         self::assertSame([], CodesSuivisRegles::liste([]));
         self::assertNull(CodesSuivisRegles::liste(['../injection' => 'test']));
+        self::assertNull(CodesSuivisRegles::liste(['2026-affiche' => 'FICTIF']));
         self::assertNull(CodesSuivisRegles::liste(['fictif' => '<script>']));
         self::assertNull(CodesSuivisRegles::retenir('inconnu', $list));
         self::assertNull(CodesSuivisRegles::retenir(['fictif-affiche'], $list));

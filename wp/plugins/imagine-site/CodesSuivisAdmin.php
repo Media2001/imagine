@@ -76,7 +76,7 @@ final class CodesSuivisAdmin
         echo '<div class="wrap"><h1>' . esc_html__('Codes suivis — aucun avantage financier', 'imagine-site') . '</h1>';
         echo '<form method="post" action="options.php">';
         settings_fields('imagine_codes_suivis');
-        echo '<p><label for="imagine-c30-liste">' . esc_html__('Un code|libellé interne par ligne. 50 codes maximum, code de 1 à 40 caractères minuscules, chiffres ou tirets ; libellé de 80 caractères. Liste vide : aucun code retenu.', 'imagine-site') . '</label></p>';
+        echo '<p><label for="imagine-c30-liste">' . esc_html__('Un code|libellé interne par ligne. 50 codes maximum, code commençant par une lettre minuscule, puis minuscules, chiffres ou tirets, 1 à 40 caractères ; libellé de 80 caractères. Liste vide : aucun code retenu.', 'imagine-site') . '</label></p>';
         echo '<textarea id="imagine-c30-liste" name="imagine_codes_suivis" rows="6" cols="70">' . esc_textarea(implode("\n", $lines)) . '</textarea>';
         submit_button();
         echo '</form></div>';
