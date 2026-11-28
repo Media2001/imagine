@@ -1,0 +1,49 @@
+{
+  "scope": "imagine-test-demo",
+  "ready": true,
+  "contract_version": 1,
+  "sources": {
+    "production/B-16/verifier.py": "301ed0f10fd48bf298aea372f8a3e0fd9d45fc7b1fc7c646aa75120eb5aae4e9",
+    "wp/outils/demo/b13-browser.py": "02a69cab956e503b2a79625df2b084858df9e6b417af638fa503240ebc0d3de0",
+    "wp/outils/demo/b13.py": "3960057fde352c412024678a14d06a7ed6dec04c8d1bff378f7e5305420a5357",
+    "wp/outils/demo/b16-actions.py": "9a567f9c4ea86c33562fa05d84c1761a53ee2536a9615a25e5fdcf74f555e42f",
+    "wp/outils/demo/b16-browser.py": "d09fd4c059e94c7ddd0ec4a6bc7203aa1038175d0797b354aae71056b7abcee9",
+    "wp/outils/demo/b16-inspect.py": "2a1063bde14cfbaaa20e3beafe6194cc4cc3c7f691069b2d8aa1a284a12c182b",
+    "wp/outils/demo/b16-neighbor.py": "a7792dc739e71d5e67bf0cf0eb9b92c9dbad1cf9234ce8a147d2661f046776ff",
+    "wp/outils/demo/b16-recover-actions.py": "9a5d87339672b04072aafc8856a0af825e6e45dd127c7fe5df3d6dd50bcd4787",
+    "wp/outils/demo/b16-recover-actions2.py": "b72beda2dbd46381f5dc0e3f7b9c5b73007980494f73efae78ec371c6347bd8e",
+    "wp/outils/demo/b16-recover.py": "ad6589ff72e8d3e4eecd569303c53ecc45e197aa04fed68c1125f40379083966",
+    "wp/outils/demo/b16.py": "7b5962968a6df144ea0dfaeeb016f7c5b6ef4050016e2081769fbd46bc4d593d",
+    "wp/plugins/imagine-site/PageArticle.php": "6bdef9345fcb5afa806a00d8685ffecf7cd43a183413e22ad41b59ba795db3f3",
+    "wp/plugins/imagine-site/tests/PageArticleB16Test.php": "6c0989ab08e7475150643355766add6fda862bb2586e8233f8d8c22a71e9ffb5",
+    "wp/tests/demo/b13-contract.py": "ebdb04de4f948ec77ec5214bdf7c17f03c0366a02ad97722cfef9c6b1d9ebe63",
+    "wp/tests/demo/b13-observer.php": "72d46a7ab527893be8d4e7aa8a0e04073bcd9f0c38c655620a1e603290a6c03f",
+    "wp/tests/demo/b16-runtime.php": "fc63c7dacdaa4dd9719d7c3c04f5ea43d69d23e19e53cb518e65f9ccb691fbae",
+    "wp/themes/imagine/single.php": "f1aca18f048180ff00b47f1607f3187c6d18213066c9fa2788b7592c356a3b4d"
+  },
+  "bootstrap_contract": {
+    "block": "// B16 — enveloppe éditoriale publique, corps C08 inchangé.\nrequire_once __DIR__ . '/PageArticle.php';\nPageArticle::register();\n\n",
+    "sha256": "2a42e78768b7157f515589458a92f14e6d25c2de9452ab45f3dcd16a356cedc0",
+    "occurrences": 1
+  },
+  "readme_section": "0b4e30c1f8002fd627d5def377fa08d1bf35397365a6be93e414f187e1a1e556",
+  "evidence": {
+    "A-VOIR.md": "d9a78f4aa9e983e371d97ac774489166b72089a0a00e03fdbdc01b7b2e2975c2",
+    "native-corrections-final2-V2.json": "4799d31acc10abdf2644efee72feda14d98f380641125525b67e9bca965ec79f",
+    "browser-corrections-final-V2.json": "db1c24b5ab5922fea98ff6eedf6d9eee9aade29fff72f7e072de85c3ab8fb7eb",
+    "browser-corrections-final-V2.png": "a2da537eb5f0158d282e34778878040705f2cece36214e6053280bff2b3fe938",
+    "image-corrections-V2.json": "6842402c5e80c29b54d7e3d0f28413c9d54e5b94a5f904d1d31a80318720dfd2",
+    "image-corrections-V2.log": "cec1b1ee8f3ca128f981b2a24c184efd229bed26b0419a914e0c7e00e8eb8c45",
+    "replay-corrections-V2.json": "cbb7fa01ae4617b699558dfac6af344369feb5a5826eb57a4bd93bc29648d7c1",
+    "replay-corrections-V2.log": "faa80f87fb1457af1bfee9522c24400ea9f993db43542cdb71c6eab71fa06bbe",
+    "recovery-actions-final-V2.json": "4895628b2bcf809e0a9ea8649b3a625f2925f01ad96e6dd66ad5460bdd3a8372"
+  },
+  "historical_files": {
+    "reception-V2.json": "889d68f00da4d4eafd10e90d0f89a8d986d75ab0afaa22941847945803da251f",
+    "verifier-avant-corrections-V2.py": "5f291e7e6bf75b0a3f61d2a7fedcd5e265c5eddb9877c175258fc2b9764e60cc",
+    "A-VOIR-avant-corrections-V2.md": "0c8db20d580bbeca994d3d1b68a9dd8e662fa0db93eba100298f56dde50e6366",
+    "PRET-avant-correction-V2.txt": "9a6d05ffd87e5f32ac302ded1f9252474c0d50a15e96ffa1124367161a72b29b",
+    "red-V2.json": "9984048cf332e5275a6a6f4688f61908019867278eca2d29331fa460a1508b32",
+    "red-corrections-V2.json": "5c2de1868b70686ed902052bafcdae1d10a5e1ad278f18a647671e96a9c919ce"
+  }
+}

@@ -7,6 +7,16 @@ use Imagine\Site\PageArticle;
 if (!class_exists(PageArticle::class)) {
     throw new RuntimeException('B16 page article absente');
 }
+$suppressed = false;
+global $wp_filter;
+foreach (($wp_filter['shutdown']->callbacks ?? []) as $priority => $callbacks) {
+    foreach ($callbacks as $callback) {
+        $fn = $callback['function'];
+        if (is_array($fn) && $fn[1] === 'schedule_cache_updates' && (is_object($fn[0]) ? get_class($fn[0]) : $fn[0]) === 'WCS_Report_Cache_Manager') {
+            $suppressed = remove_action('shutdown', $fn, $priority) || $suppressed;
+        }
+    }
+}
 $checks = [];
 $check = static function (string $name, bool $ok) use (&$checks): void {
     $checks[$name] = $ok;
@@ -60,5 +70,5 @@ PageArticle::sauver($article->ID);
 $check('signature_effacee_relue', get_post_meta($article->ID, PageArticle::SIGNATURE, true) === '');
 // Seul effet différé hors transaction : reconstruction des caches de rapports WCS.
 // Neutralisé dans ce processus de recette, pas dans le code livré ni sur le site.
-$check('rapport_cache_differe_ne_sort_pas_du_rollback', remove_action('shutdown', ['WCS_Report_Cache_Manager', 'schedule_cache_updates'], 10));
+$check('rapport_cache_differe_ne_sort_pas_du_rollback', $suppressed);
 echo wp_json_encode(['checks' => $checks, 'total' => count($checks)]);

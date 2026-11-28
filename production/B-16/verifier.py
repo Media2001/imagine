@@ -15,7 +15,7 @@ RECEIPT='reception-corrections-V2.json'
 def load(n):return json.loads((OUT/n).read_text(encoding='utf-8'))
 def verify(live=False,manifest=None,require_pret=True):
     m=manifest or load(RECEIPT);c.integrity(owner,m)
-    native=load('native-corrections-final-V2.json');d=json.loads(native['native']['stdout'])
+    native=load('native-corrections-final2-V2.json');d=json.loads(native['native']['stdout'])
     assert native['native']['code']==0 and not native['native']['stderr'] and native['restored'] and native['before']==native['after']
     assert native['sources']==owner.sources(owner) and len(d['checks'])==d['total']==15 and all(d['checks'].values())
     browser=load('browser-corrections-final-V2.json')
