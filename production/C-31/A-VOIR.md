@@ -7,6 +7,7 @@
 Base : `http://192.168.129.32:8085`.
 
 - Réglages : `/wp-admin/options-general.php?page=imagine-domaines-refuses` → un domaine exact par ligne ; vide = aucune restriction ; aucune source externe. L'écran et le ton du message restent à valider visuellement, sans demande d'arbitrage technique.
+- Domaines de démonstration : `jetable-fictif.example.org`, `temporaire-fictif.example.org`, `usage-unique-fictif.example.org`. Comparaison sans casse ; `sub.jetable-fictif.example.org` n'est pas hérité, il faut une ligne explicite. ASCII/punycode ; liste invalide rejetée atomiquement.
 - Inscription WP : `/wp-login.php?action=register` ; Woo : `/my-account/`. L'inscription est ouverte **temporairement par la recette**, puis ses réglages exacts sont restaurés. La recette ne l'ouvre pas durablement.
 - Mon compte : `/my-account/edit-account/`. Trois vrais POST du formulaire natif : adresse inchangée sur un domaine ajouté après création → sauvegarde du prénom témoin effective ; changement interdit → erreur et ni email ni prénom témoin écrits ; changement autorisé → email et billing_email effectivement écrits. Utilisateur de recette ensuite supprimé.
 - Commande : `/checkout/`. La recette ouvre temporairement la boutique Woo et l'inscription, ajoute le produit B04 fictif existant au panier depuis le navigateur, puis soumet le vrai endpoint Store API avec son nonce et `create_account=true` : HTTP 400, message neutre, aucun compte ni commande ni adresse refusée en base après la requête. Paramètres, sessions, Cart et effets natifs de rendu restaurés.

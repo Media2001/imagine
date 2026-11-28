@@ -1,0 +1,26 @@
+{
+  "scope": "imagine-test-demo",
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "before": {
+    "plugins/imagine-site/Cookies.php": "1ca385b79ffecaa93bdeb6ff32545a76232ea532d827c007c7d9fea6805e7a8a",
+    "plugins/imagine-site/imagine-site.php": "a5e2f6b52d722e0743aa96814f2090be599a23bbbe5145d3a4c917335898e3b4"
+  },
+  "readback": {
+    "plugins/imagine-site/Cookies.php": "f7bcf22efbdb10775a64e0a966621c43fd302db0f4649c5747ed50e1a1a9d62d",
+    "plugins/imagine-site/imagine-site.php": "a5e2f6b52d722e0743aa96814f2090be599a23bbbe5145d3a4c917335898e3b4"
+  },
+  "private_snapshot": {
+    "file": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\b11-private-z8omlrq9\\snapshot.json",
+    "sha256": "e61b194eecc047e8ed709283cd9291acee5311ed4f93f2c32dc1fb8eae157f87",
+    "private": true
+  }
+}
