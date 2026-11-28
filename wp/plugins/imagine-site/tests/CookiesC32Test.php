@@ -25,6 +25,37 @@ final class CookiesC32Test extends TestCase
         self::assertStringContainsString('esc_html($row[$key])', $source);
     }
 
+    #[\PHPUnit\Framework\Attributes\RunInSeparateProcess]
+    #[\PHPUnit\Framework\Attributes\PreserveGlobalState(false)]
+    public function testRenduReelTraduitLesLitterauxSeulementEtGardeLeTexte(): void
+    {
+        require __DIR__ . '/CookiesC32Stubs.php';
+        $GLOBALS['c32_translated'] = [];
+        $content = '<p>Texte fictif &amp; conservé</p>';
+        $html = Cookies::contenu($content);
+        self::assertStringStartsWith($content, $html);
+        self::assertSame(15, substr_count($html, '<tr>'));
+        self::assertSame(1, substr_count($html, 'data-imagine-cookies'));
+        self::assertCount(6, $GLOBALS['c32_translated']);
+        foreach (Cookies::liste() as $row) {
+            self::assertStringContainsString(htmlspecialchars($row['nom'], ENT_QUOTES, 'UTF-8'), $html);
+            self::assertStringContainsString(htmlspecialchars($row['geste'], ENT_QUOTES, 'UTF-8'), $html);
+        }
+        self::assertStringNotContainsString('<script', $html);
+        self::assertStringNotContainsString('ou connexion', $html);
+    }
+
+    #[\PHPUnit\Framework\Attributes\RunInSeparateProcess]
+    #[\PHPUnit\Framework\Attributes\PreserveGlobalState(false)]
+    public function testAucuneTableHorsDeLaPageCookies(): void
+    {
+        require __DIR__ . '/CookiesC32Stubs.php';
+        $GLOBALS['c32_page_id'] = 31;
+        $GLOBALS['c32_translated'] = [];
+        self::assertSame('<p>Fictif</p>', Cookies::contenu('<p>Fictif</p>'));
+        self::assertSame([], $GLOBALS['c32_translated']);
+    }
+
     public function testListeFermeeEtMotifsAncres(): void
     {
         self::assertCount(14, Cookies::liste());

@@ -1,0 +1,83 @@
+{
+  "scope": "C32_OFFICIAL_DOCS_ONLY",
+  "demo_accessed": false,
+  "official": [
+    {
+      "url": "https://developer.wordpress.org/advanced-administration/wordpress/cookies/",
+      "final_url": "https://developer.wordpress.org/advanced-administration/wordpress/cookies/",
+      "http_status": 200,
+      "sha256": "10c7595174265c5c68a9cd9164c662103e638003f62668838ca7bf2c867f4229",
+      "readme_lines": [
+        1
+      ],
+      "excerpts_checked": 3,
+      "excerpts_present": [
+        true,
+        true,
+        true
+      ],
+      "pass": true
+    },
+    {
+      "url": "https://developer.wordpress.org/reference/functions/wp_set_comment_cookies/",
+      "final_url": "https://developer.wordpress.org/reference/functions/wp_set_comment_cookies/",
+      "http_status": 200,
+      "sha256": "5143779562ba8c38d91e6fd5ff490bc357fc63487a50bc4c7bdf8a1cef65fb17",
+      "readme_lines": [
+        2
+      ],
+      "excerpts_checked": 1,
+      "excerpts_present": [
+        true
+      ],
+      "pass": true
+    },
+    {
+      "url": "https://woocommerce.com/document/woocommerce-cookies/",
+      "final_url": "https://woocommerce.com/document/woocommerce-cookies/",
+      "http_status": 200,
+      "sha256": "79eae28e516ab8110af682a907324066248ae0461490f9fe9e2466f00bc4e6d0",
+      "readme_lines": [
+        3
+      ],
+      "excerpts_checked": 2,
+      "excerpts_present": [
+        true,
+        true
+      ],
+      "pass": true
+    },
+    {
+      "url": "https://woocommerce.com/document/order-attribution-tracking/",
+      "final_url": "https://woocommerce.com/document/order-attribution-tracking/",
+      "http_status": 200,
+      "sha256": "06bd2d0025361e63249800a9b5a5d65bccccd5610a6b69b7c4de5f78585bca51",
+      "readme_lines": [
+        4,
+        5
+      ],
+      "excerpts_checked": 4,
+      "excerpts_present": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "pass": false
+    },
+    {
+      "url": "https://raw.githubusercontent.com/woocommerce/woocommerce/trunk/plugins/woocommerce/src/Internal/Features/FeaturesController.php",
+      "final_url": "https://raw.githubusercontent.com/woocommerce/woocommerce/trunk/plugins/woocommerce/src/Internal/Features/FeaturesController.php",
+      "http_status": 200,
+      "sha256": "61c6623b01af70b3d4c0b3eefcb4a3dd8228e8054dc443a188e10a5c31253ab7",
+      "readme_lines": [],
+      "excerpts_checked": 1,
+      "excerpts_present": [
+        true
+      ],
+      "pass": true
+    }
+  ],
+  "pass": false,
+  "readme_c32_sha256": "f786d39166e983b83dd60ee2fccfcae31fc748df9e4377000b3281f45c962a5e"
+}

@@ -1,0 +1,10 @@
+{
+  "checks": {
+    "sonde_initialement_absente": true,
+    "compte_fictif_initialement_absent": true,
+    "inchange_formulaire_200": true,
+    "inchange_formulaire_natif_nonce": true
+  },
+  "rows": [],
+  "error": "Error('Response.text: Response body is unavailable for redirect responses')"
+}
