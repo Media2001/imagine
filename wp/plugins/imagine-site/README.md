@@ -1,5 +1,17 @@
 # Imagine — site (B-00, modèle provisoire)
 
+## C-31 — domaines refusés à l’inscription
+
+Standard d'abord : WordPress `register_new_user()` filtre `registration_errors` avant insertion ; Woo `wc_create_new_customer()` filtre `woocommerce_registration_errors` avant `wp_insert_user`. Le checkout classique `WC_Checkout::process_customer()` appelle cette même fabrique. Un seul validateur pur raccordé à ces frontières, jamais un filtre global `wp_insert_user` qui toucherait C16/administration.
+Sources officielles installées lues sur la démo, chemins/lignes/empreintes et appels constatés : `production/C-31/standard-V2.json`. Références documentaires : [register_new_user](https://developer.wordpress.org/reference/functions/register_new_user/), [registration_errors](https://developer.wordpress.org/reference/hooks/registration_errors/), source Woo `includes/wc-user-functions.php` et `includes/class-wc-checkout.php`.
+Le changement d'email de Mon compte passe par `woocommerce_save_account_details_errors`, uniquement si l'adresse diffère de l'existante ; aucune révocation ni modification d'un ancien compte.
+
+`DomainesRefusesRegles` compare le domaine exact sans casse. Un sous-domaine n'hérite pas du refus ; le déclarer sur sa propre ligne si nécessaire. ASCII/punycode saisi, pas de conversion IDN ni résolution DNS ; pas de wildcard/URL/email, pas de domaine réparé. Réglage `imagine_domaines_refuses`, liste vide par défaut ; démonstration avec trois domaines réservés en `example.org` manifestement fictifs. Écran propre « Réglages → Adresses à l’inscription », capacité manage_options et nonce Settings API. Liste normalisée et journalisée, restauration si journal en échec, sans mettre une adresse de lecteur dans le journal.
+
+Message public neutre : utiliser une autre adresse email. Aucun stockage ni journalisation de l'adresse refusée. La création administrative et C16 utilisent `wp_insert_user`, hors de ces filtres ; aucune bibliothèque close modifiée. Pas d'appel sortant, téléchargement de liste, email ou service ajouté par le lot.
+
+Tests : `python -B production/C-31/verifier.py` (puis `--live`). Vrais register_new_user, wc_create_new_customer, WC_Checkout::process_customer, hook natif Mon compte et vrais formulaires HTTP WP/Woo. Mutant : retirer le filtre Woo crée réellement un compte et fait échouer le contrôle d'absence ; témoin ciblé retiré, puis rollback et relecture. Comptes/options/profils/sessions restitués. Une limite **native hors lot** est explicite dans la preuve HTTP : le sélecteur de langue de wp-login tente deux appels à translations_api, tous bloqués par la sonde hors ligne ; aucun autre appel, aucun mail. Woo et C31 : zéro tentative, aucun octet sortant. Pas de prétention « zéro tentative du cœur WordPress ».
+
 ## C-30 — bienvenue et codes suivis
 
 Le standard d'abord (sources officielles livrées par WooCommerce, lues sur la seule démo : `production/C-30/standard2-V2.json`).

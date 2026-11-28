@@ -46,7 +46,7 @@ try:
                 check(kind+'_seules_traductions_natives_bloquees',obs['mail']==[] and len(obs['http'])==2 and all('translations_api' in x.get('trace',[]) for x in obs['http']))
             else:
                 check(kind+'_zero_sortant',obs=={'http':[],'mail':[]})
-            absent=o.wp('echo wp_json_encode(get_user_by("email",'+o.php(email)+')===false && username_exists('+o.php('fictif-c31-http-'+kind)+')===false);')
+            absent=o.wp('global $wpdb;$email='+o.php(email)+';$opt=(int)$wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->options} WHERE option_value LIKE %s","%".$wpdb->esc_like($email)."%"));$meta=(int)$wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->usermeta} WHERE meta_value LIKE %s","%".$wpdb->esc_like($email)."%"));echo wp_json_encode(get_user_by("email",$email)===false && username_exists('+o.php('fictif-c31-http-'+kind)+')===false && $opt===0 && $meta===0 && $wpdb->last_error==="");')
             check(kind+'_aucun_compte',absent)
             check(kind+'_etanche',b.c26.c23.assess(200,body,markers)['ok'])
             check(kind+'_mutation_etanche',not b.c26.c23.assess(200,body+'<!--'+markers[0]+'-->',markers)['ok'])
