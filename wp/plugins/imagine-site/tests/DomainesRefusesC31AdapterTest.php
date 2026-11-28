@@ -16,7 +16,7 @@ final class DomainesRefusesC31AdapterTest extends TestCase
 {
     protected function setUp(): void
     {
-        require __DIR__ . '/DomainesRefusesWPStubs.php';
+        require __DIR__ . '/DomainesRefusesC31WPStubs.php';
         $GLOBALS['c31_options'][DomainesRefuses::OPTION] = ['jetable-fictif.example.org'];
     }
 

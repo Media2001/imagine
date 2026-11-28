@@ -1,0 +1,32 @@
+{
+  "scope": "imagine-test-demo",
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "before": {
+    "plugins/imagine-site/DomainesRefusesRegles.php": "a8ef53080763f39844e396b3602baefe5c8ed3c3a9477d10eb2ec5cd28f3ac97",
+    "plugins/imagine-site/DomainesRefuses.php": "68b413128169c13a0ab04dbd1968a85b284428ab885fb85e8ed6302cc6cb8978",
+    "plugins/imagine-site/DomainesRefusesReglages.php": "73d6d8e9875d2bfba35e110c223206ee24216847366b1966c57aa16dc5ff14ae"
+  },
+  "readback": {
+    "plugins/imagine-site/DomainesRefusesRegles.php": "a8ef53080763f39844e396b3602baefe5c8ed3c3a9477d10eb2ec5cd28f3ac97",
+    "plugins/imagine-site/DomainesRefuses.php": "7a3474ed632da7ad8c1742fa278c7b690f938bbd41fa98a527f4bac2919df16d",
+    "plugins/imagine-site/DomainesRefusesReglages.php": "73d6d8e9875d2bfba35e110c223206ee24216847366b1966c57aa16dc5ff14ae"
+  },
+  "bootstrap_unchanged": {
+    "plugins/imagine-site/imagine-site.php": "a5e2f6b52d722e0743aa96814f2090be599a23bbbe5145d3a4c917335898e3b4"
+  },
+  "business_preserved": true,
+  "private_snapshot": {
+    "file": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\b11-private-ei422bm8\\snapshot.json",
+    "sha256": "8864ac59d2e2fe180372480c7688f80c23ae722d1fbdb1e47ef9bf5d9cae8c4e",
+    "private": true
+  }
+}
