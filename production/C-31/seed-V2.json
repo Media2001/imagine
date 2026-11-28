@@ -1,0 +1,9 @@
+{
+  "scope": "imagine-test-demo",
+  "domains": [
+    "jetable-fictif.example.org",
+    "temporaire-fictif.example.org",
+    "usage-unique-fictif.example.org"
+  ],
+  "idempotent": true
+}

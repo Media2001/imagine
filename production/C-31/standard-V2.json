@@ -1,0 +1,25 @@
+{
+  "scope": "imagine-test-demo",
+  "register_new_user": {
+    "file": "wp-includes/user.php",
+    "start": 3530,
+    "end": 3644,
+    "sha256": "6536bc86bcb0823cf05d525d65e9937cb7a3dd815016faa22497d2c525855b0e",
+    "hooks": [
+      "registration_errors"
+    ]
+  },
+  "wc_create_new_customer": {
+    "file": "wp-content/plugins/woocommerce/includes/wc-user-functions.php",
+    "start": 56,
+    "end": 201,
+    "sha256": "5a08f4e2c39a08a7ee78d3f71f31c15ea8a9c560859f10ff7b33cb69a1b84630",
+    "hooks": [
+      "woocommerce_registration_errors"
+    ]
+  },
+  "WC_Checkout::process_customer": {
+    "calls_native_customer": true,
+    "sha256": "0a2868f60dba68218e2736bcdca2f6fd6a594cf9fee9369869a3c06f5c5e1837"
+  }
+}
