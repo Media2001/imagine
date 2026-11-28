@@ -44,3 +44,42 @@ Lu : les rapports de 22 h 24 (voie 1) et de 22 h 40 à 1 h 11 (voie 2), les vér
 
 - **Voie 1** : de l'avance (borne et `PRET` d'A-32, `PRET` d'A-33, T-03, A-34). Pas de lot nouveau.
 - **Voie 2** : B-15 et B-16 corrigés, C-30 rendu, C-31 en cours, rien derrière. Deux lots de plus : **C-32** (les cookies qu'un visiteur reçoit, §3.14 et §4.4) et **C-33** (ce que le site montre de ses comptes à un anonyme, §4.4).
+
+# Passage automatique de 4 h
+
+Lu : le rapport de 3 h (voie 1) et ceux de 1 h 36 à 4 h 09 (voie 2), les vérifications d'A-32, de B-15, de B-16 et de C-30, les fusions d'A-33, de C-30, de C-31, de C-32 et de C-33. Le frein posé par Ced à 2 h 40 s'applique : aucun brief, aucun lot nouveau. Aucun accord donné sur le réel.
+
+## Clôtures
+
+- **A-32 (la tournée des inventaires) : clos**, sur sa vérification « prêt » de 3 h 33 (cinq instructions appliquées, 16 tests Python rejoués par le vérificateur, 72 contrôles natifs sur 72 lus sur preuves dans les deux consoles), `PRET` déposé avec la photographie bornée par une liste fermée. Réserves : le banc natif n'est pas rejouable par un relecteur ; le rejeu général qui montre A-32 et A-33 tous deux vérifiés n'est pas encore cité (ligne suivante).
+- **B-15 (pied de page) : code clos**, sur sa vérification « prêt » (quatre instructions traitées, code du pied de page inchangé, preuve de cache refaite avec un mutant). Réserve : le vérificateur n'a pas pu relancer le rejeu en conteneur ; les cinq rejeux d'Hermès qui ont suivi sont verts (1 217 à 1 229 tests). Validation visuelle de Ced attendue.
+- **B-16 (page article) : code clos**, sur sa vérification « prêt » (cinq instructions appliquées, vérificateur du lot relancé au vert, 15 contrôles natifs et 77 au navigateur). Validation visuelle de Ced attendue, structure de l'en-tête à revoir sur maquette.
+- **C-30 (page « Bienvenue » et codes suivis) : code clos**, sur sa vérification « prêt » (sept instructions traitées, suite rejouée par le vérificateur : 1 229 tests, zéro échec). Réserves : la recette sur le site n'a pas été rejouée par le vérificateur ; la preuve « prix inchangé » au calcul réel de WooCommerce vit dans cette recette, la suite scellée la couvre sur bouchons. Validation visuelle de Ced attendue.
+
+## Voie 1
+
+- **A-33 relu « à corriger »** (3 h 48) : en tête de file. Les deux défauts de la fusion sont retenus. Le PDF désigné par `pdf_cle` est un fichier du numéro et compte dans le poids des dix numéros, dédoublonné avec les pièces rattachées : sans lui la comparaison est vide en mode taxonomie. Un numéro sélectionné reste du côté conservé quand article et numéro partagent un type ; aucun refus nouveau, la règle d'A-16 n'est pas touchée. Son `PRET` de 2 h 25 précède la relecture : il se redépose après correction.
+- **A-16 garde dix numéros par défaut.** La vérification d'A-32 rappelle qu'omettre `--limit` rend dix, pas « tout ». C'est ce que §4.3 demande (les dix derniers numéros) ; A-16 est clos, on ne l'élargit pas.
+- **La preuve conjointe reste due** : un rejeu général, après le nouveau `PRET` d'A-33, où A-32 et A-33 sont tous deux parmi les paquets vérifiés, zéro échec. La voie 2 a lu `VERIFIER_TIMEOUT` sur A-32 et A-33 à 2 h 19, puis sur A-33 seul à 2 h 44, pendant que les deux voies rejouaient. Tant que ce n'est pas reproduit par un rejeu lancé seul, c'est un aléa de deux voies sur un même arbre. Le lanceur reste gelé : on mesure, on ne règle aucun délai.
+- **T-03 se clôt après le `PRET` d'A-33.** C'est un lot rendu : le finir n'est pas un lot nouveau au sens du frein.
+- **A-34 attend.** Non commencé, hors de ce que le frein laisse à la voie 1.
+- **Import, contenus d'un type inconnu : pas de dégel par ce passage.** Hermès répond que la décision demande une consigne de dégel ciblée. Je ne l'écris pas. Raisons : l'import gelé est le code que Ced lancerait sur l'archive réelle, et sa réserve a été levée sur cet état précis ; la réponse de Ced est à confirmer lundi. Demandé à la voie 1 : une note de cadrage dans son rapport (fichiers touchés, commandes de Ced inchangées ou non, tests, durée), sans une ligne de code. Signalé à Ced dans `ETAT.md` et `docs/validation-ced.md`.
+
+## Voie 2
+
+- **C-31, C-32, C-33 relus « à corriger »** (3 h 08 à 3 h 58), pris par Hermès sans attendre la file : c'est la règle. Après leurs `PRET`, la voie 2 s'arrête, file vide : voulu par le frein.
+- **C-30** : le raccord minimal à la Store API est gardé tel quel. Le tunnel de la démonstration est la commande classique ; la preuve sur un paiement réel par la Store API se fera avec le tunnel (§3.7), sur un staging vérifié. L'optimisation des requêtes, différée par Hermès comme la fusion le permettait, reste différée.
+- **C-31** : une ligne invalide rejette toute la liste des domaines et garde l'ancienne ; les noms de domaine en Unicode sont refusés (ASCII ou punycode). Défauts de la fusion retenus, déjà documentés.
+- **C-32** : le filtre sur le contenu de la page est gardé (la liste s'affiche sans que personne la recopie). **Le lot se clôt sur le verdict d'inventaire** ; le contrôle strict « aucun cookie en simple lecture » reste rouge et doit le rester tant que les sept cookies d'attribution de WooCommerce sont posés : c'est un constat, pas un défaut du lot, à condition que la tolérance soit bornée à ces sept noms. Rien n'est éteint. Le choix d'Hermès de garder le reçu de rejeu historique et d'en déposer un nouveau aux totaux courants est retenu.
+- **C-33** : le test léger des accroches est à faire. La question « un abonné connecté voit-il les comptes » est rangée pour Imagine ; le lot reste conforme au brief (visiteur anonyme).
+- **Les quatre réponses visuelles de Ced** (kiosque, menu connecté, sections de réglages, date de coopérateur) ne touchent aucune correction en cours, et Hermès ne rouvre aucun lot clos pour elles : retenu. Elles s'appliqueront en une fois après la confirmation de Ced lundi.
+
+## Questions rangées pour Imagine
+
+- Un abonné connecté, sans droit de lister les utilisateurs, est-il traité comme un visiteur pour ce que le site montre de ses comptes ? Défaut : le lot ferme les voies au visiteur anonyme ; rien de plus n'est appliqué (C-33).
+- Les sept cookies d'attribution de WooCommerce, posés en simple lecture, demandent-ils un consentement, et faut-il éteindre l'attribution ? Défaut : laissée telle que WooCommerce la livre, écart écrit (C-32). Précise la question déjà posée à 1 h.
+
+## Files
+
+- Aucun brief écrit, rien d'ajouté à la file de la voie 2 : frein.
+- `docs/validation-ced.md` créé : le parcours de lundi, sept questions en tête. Classement des questions pour Imagine ajouté à `docs/decisions.md`.

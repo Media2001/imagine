@@ -203,3 +203,19 @@ Toute demande hors cahier des charges, toute contradiction interne au cahier des
 - **C-30 · la table des sessions trop grosse pour le transport du banc.** Restauration reprise ligne par ligne, trois sessions rendues à l'identique. Site fictif ; noté.
 - **C-30 · un visiteur qui arrive avec un code suivi connu reçoit le cookie de session de WooCommerce.** Pas de cookie propre au code ; savoir s'il demande un consentement est rangé pour Imagine et son conseil. Lot C-32 pour l'inventaire.
 - **Rapports · Hermès travaille par délégation** (« relais parent », « liste initiale déléguée ») : un lot ajouté à la file pendant une délégation n'est pris qu'au relais suivant. Sans conséquence cette nuit ; noté.
+
+## 28 novembre 2026, 4 h — lots A-32, A-33, B-15, B-16, C-30, C-31, C-32, C-33, voie 1
+
+- **C-32 · « aucun cookie en simple lecture » n'est pas tenu sur la démonstration.** Zéro cookie posé par le serveur, mais sept cookies d'attribution d'origine de WooCommerce posés par script. Constat gardé rouge, rien n'est éteint ; question chez Imagine et son conseil.
+- **C-32 · le parcours de lecture oubliait quatorze pages** (« Notre coopérative » et ses pages filles, « Soutenir », « Proposer un sujet », quatre fiches d'événement) : le total de 44 pages masquait l'oubli. Corrigé par identité d'adresse avec l'inventaire de C-26.
+- **C-32 · la restauration des sessions supprimait ce qu'elle ne savait pas attribuer.** Une session d'un autre visiteur, arrivée pendant la recette, aurait été effacée. Corrigé : seules les sessions attribuées avec certitude sont reprises. Site fictif.
+- **C-31 · le câblage n'avait de preuve que sur le site.** L'ordre des arguments à l'inscription et le parcours « Mon compte » n'étaient exercés par aucun test rejouable ; correction en cours.
+- **C-33 · deux contrôles qui ne pouvaient pas échouer.** Les en-têtes étaient inspectés après filtrage, et la signature des flux cherchée n'importe où dans la page. Correction en cours, avec une mutation témoin pour chacun.
+- **C-33 · la route d'un fournisseur de plan du site absent rend une page ordinaire (200), pas une erreur 404.** Comportement natif de WordPress, aucun compte montré ; laissé tel quel.
+- **C-30 · la démonstration ne couvre que la commande classique**, pas la commande par blocs ; le raccord à la Store API est prouvé sur son accroche, pas sur un paiement.
+- **C-30 · un rapport de cache de Subscriptions écrit à la fermeture du processus, hors de l'annulation.** État de départ retrouvé à l'identique, banc corrigé. Site fictif ; noté (déjà vu sous B-16).
+- **A-33 · un relecteur « conforme » là où l'autre voyait deux défauts.** Le poids des PDF des numéros manquait à la comparaison, et un numéro sélectionné pouvait être recompté hors sélection. La suite était verte parce que le jeu d'essai ne portait aucun PDF. Troisième fois en deux nuits (B-15, B-16).
+- **A-32, A-33 · des vérificateurs de paquet en dépassement de délai dans les rejeux de la voie 2** (2 h 19, 2 h 44), pendant que les deux voies rejouaient. Non reproduit seul ; à mesurer par la voie 1, lanceur inchangé.
+- **Voie 1 · quatrième arrêt en trente heures**, d'environ 22 h 53 à 3 h : reprise seule, verrou périmé retiré, cause non établie.
+- **Rapports · un rapport de la voie 2 a reçu la sortie d'une commande à la place de son texte** (accents graves interprétés par le terminal, qui a relancé la préparation de l'image). Corrigé aussitôt, aucun reçu touché.
+- **Vérifications · trois vérificateurs sur quatre n'ont pas pu relancer le rejeu en conteneur** (session non interactive). Ils ont contrôlé les reçus contre les empreintes ; seul celui de C-30 a rejoué la suite.
