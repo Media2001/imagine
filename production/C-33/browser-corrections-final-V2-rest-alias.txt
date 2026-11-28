@@ -1,0 +1,3 @@
+{"status": 404, "headers": {"content-type": "application/json; charset=UTF-8", "link": "<http://192.168.129.32:8085/wp-json/>; rel=\"https://api.w.org/\""}, "header_names": ["Server", "Date", "Content-Type", "Transfer-Encoding", "Connection", "X-Powered-By", "X-Robots-Tag", "Link", "X-Content-Type-Options", "Access-Control-Expose-Headers", "Access-Control-Allow-Headers", "Cache-Control", "Expires", "Vary", "Vary"], "other_values_redacted": true}
+
+{"code":"rest_no_route","message":"Aucune route ne correspond \u00e0 cette adresse.","data":{"status":404}}

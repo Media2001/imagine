@@ -1,0 +1,35 @@
+{"status": 200, "headers": {"content-type": "application/atom+xml; charset=UTF-8", "link": "<http://192.168.129.32:8085/?p=4251>; rel=shortlink"}, "header_names": ["Server", "Date", "Content-Type", "Transfer-Encoding", "Connection", "X-Powered-By", "Cache-Control", "Expires", "Vary", "Link", "Link", "Link"], "other_values_redacted": true}
+
+<?xml version="1.0" encoding="UTF-8"?><feed
+	xmlns="http://www.w3.org/2005/Atom"
+	xmlns:thr="http://purl.org/syndication/thread/1.0"
+	xml:lang="fr-FR"
+	>
+	<title type="text">FICTIF C33 article public &#8211; Imagine — démonstration entièrement fictive</title>
+	<subtitle type="text">Aucun abonné, article ou paiement réel. Modèle provisoire B-00.</subtitle>
+
+	<updated>2026-11-28T04:19:41Z</updated>
+
+	<link rel="alternate" type="text/html" href="http://192.168.129.32:8085" />
+	<id>http://192.168.129.32:8085/feed/atom/</id>
+	<link rel="self" type="application/atom+xml" href="http://192.168.129.32:8085/?feed=atom&#038;p=4251&#038;withoutcomments=1" />
+
+	<generator uri="https://wordpress.org/" version="7.0.9">WordPress</generator>
+	<entry>
+		<author>
+			<name>SIGNATURE_FICTIVE_C33</name>
+					</author>
+
+		<title type="html"><![CDATA[FICTIF C33 article public]]></title>
+		<link rel="alternate" type="text/html" href="http://192.168.129.32:8085/article-c33-028983c9ee49/" />
+
+		<id>http://192.168.129.32:8085/article-c33-028983c9ee49/</id>
+		<updated>2026-11-28T04:19:41Z</updated>
+		<published>2026-11-28T04:19:41Z</published>
+		<category scheme="http://192.168.129.32:8085" term="Uncategorized" />
+		<summary type="html"><![CDATA[Il n’y a pas d’extrait, car cette publication est protégée.]]></summary>
+
+					<content type="html" xml:base="http://192.168.129.32:8085/article-c33-028983c9ee49/"><![CDATA[<p>Cet article est réservé aux abonnés.</p>]]></content>
+		
+			</entry>
+	</feed>

@@ -1,0 +1,5 @@
+{"status": 200, "headers": {"content-type": "application/xml; charset=UTF-8"}, "header_names": ["Server", "Date", "Content-Type", "Transfer-Encoding", "Connection", "X-Powered-By", "Cache-Control", "Expires", "Vary"], "other_values_redacted": true}
+
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="http://192.168.129.32:8085/wp-sitemap.xsl" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>http://192.168.129.32:8085/author/fictif-c33-028983c9ee49/</loc></url><url><loc>http://192.168.129.32:8085/author/imagine-demo-redaction/</loc></url></urlset>
