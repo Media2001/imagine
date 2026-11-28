@@ -1,0 +1,59 @@
+[
+  {
+    "name": "prepare-image",
+    "command": [
+      "powershell.exe",
+      "-NoProfile",
+      "-ExecutionPolicy",
+      "Bypass",
+      "-File",
+      "wp/tests/preparer-image.ps1"
+    ],
+    "encoding": "utf-8",
+    "exit_code": 0,
+    "tmpdir_present": false,
+    "sources_stable": true,
+    "stdout": "prepare-image.stdout.log",
+    "stdout_sha256": "24f46c6768f3ac76cf3378a357225a210701980e913474de35797016acf307a6",
+    "stderr": "prepare-image.stderr.log",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "name": "global-utf8",
+    "command": [
+      "powershell.exe",
+      "-NoProfile",
+      "-ExecutionPolicy",
+      "Bypass",
+      "-File",
+      "wp/tests/rejouer.ps1"
+    ],
+    "encoding": "utf-8",
+    "exit_code": 0,
+    "tmpdir_present": false,
+    "sources_stable": true,
+    "stdout": "global-utf8.stdout.log",
+    "stdout_sha256": "d8675e9c9850e4a8004ab37e370e8203f8400a0645af5de30c2df0a787436ddf",
+    "stderr": "global-utf8.stderr.log",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "name": "global-cp1252",
+    "command": [
+      "powershell.exe",
+      "-NoProfile",
+      "-ExecutionPolicy",
+      "Bypass",
+      "-File",
+      "wp/tests/rejouer.ps1"
+    ],
+    "encoding": "cp1252",
+    "exit_code": 0,
+    "tmpdir_present": false,
+    "sources_stable": true,
+    "stdout": "global-cp1252.stdout.log",
+    "stdout_sha256": "214330c740e0295d524f55f468b8c582525b4254d12db4e02e022a07e2b4951c",
+    "stderr": "global-cp1252.stderr.log",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]

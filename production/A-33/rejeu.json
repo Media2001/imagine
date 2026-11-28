@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "entrypoint": "verify.py",
+  "requires": [],
+  "logs": [
+    "production/A-33/preuves/final/utf8/python-tests.log",
+    "production/A-33/preuves/final/utf8/runner-console.log",
+    "production/A-33/preuves/final/utf8/native/native.log",
+    "production/A-33/preuves/final/cp1252/python-tests.log",
+    "production/A-33/preuves/final/cp1252/runner-console.log",
+    "production/A-33/preuves/final/cp1252/native/native.log",
+    "production/A-33/preuves/final/style-console.log",
+    "production/A-33/preuves/final/gates/prepare-image.stdout.log",
+    "production/A-33/preuves/final/gates/global-utf8.stdout.log",
+    "production/A-33/preuves/final/gates/global-cp1252.stdout.log"
+  ],
+  "controls": [
+    "A33_ARGUMENTS_REFUSED",
+    "A33_PACKET_INVALID",
+    "A33_PACKAGE_DRIFT",
+    "A33_README_CONTRACT_DRIFT",
+    "A33_PARTIAL_EVIDENCE",
+    "A33_GATES_INVALID",
+    "A33_PACKAGE_PASS"
+  ]
+}

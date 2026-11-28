@@ -1,0 +1,361 @@
+{
+  "suite": "A33-native-wordpress",
+  "stores": [
+    "classic"
+  ],
+  "checks": [
+    {
+      "check": "classic:commercial_fixture",
+      "status": "PASS",
+      "detail": {
+        "storage": "classic",
+        "versions": {
+          "wordpress": "7.0.9",
+          "woocommerce": "11.1.1",
+          "subscriptions": "9.4.1",
+          "memberships": "1.30.3"
+        }
+      }
+    },
+    {
+      "check": "native_audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "media_watch_positive_inverse",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "native_success",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "check": "twelve_selects_ten_exact",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "published_outside_exact_closed_types_years",
+      "status": "PASS",
+      "detail": [
+        {
+          "type": "article",
+          "type_group": 0,
+          "year": 2010,
+          "count": 1
+        },
+        {
+          "type": "article",
+          "type_group": 0,
+          "year": 2012,
+          "count": 1
+        },
+        {
+          "type": "autre",
+          "type_group": 1,
+          "year": 2023,
+          "count": 1
+        },
+        {
+          "type": "autre",
+          "type_group": 2,
+          "year": 2023,
+          "count": 1
+        },
+        {
+          "type": "numero",
+          "type_group": 0,
+          "year": 2010,
+          "count": 1
+        },
+        {
+          "type": "numero",
+          "type_group": 0,
+          "year": 2012,
+          "count": 1
+        },
+        {
+          "type": "post",
+          "type_group": 0,
+          "year": 2022,
+          "count": 1
+        },
+        {
+          "type": "post",
+          "type_group": 0,
+          "year": "inconnu",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "check": "outside_files_exact_years_missing_not_zero",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "orphan_zero_and_missing_parent",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "recent_comparison_exact",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "pdf_post_orphan_and_shared_deduplicated",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "unknown_year_attachment_json",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "tie_boundary_a16_id_order",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "nonpublished_parent_separate",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "no_media_content_open_or_access",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "no_site_identifiers_all_nominal_channels",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "db_identical_nominal",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "files_identical_nominal",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "deterministic_replay",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "common_and_owned_readme_commands_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "readme_only_exact_arguments",
+      "status": "PASS",
+      "detail": {
+        "arguments": [
+          "--wp-path",
+          "--audit",
+          "--correspondance",
+          "--output"
+        ]
+      }
+    },
+    {
+      "check": "a16_variant_parent_exact",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "a16_variant_taxonomy_ten_no_term_post_id_inference",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "pdf_taxonomy_and_multilink_deduplicated",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "shared_type_selected_issue_stays_kept",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "no_commerce_mapping_bootstrap",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "same_a16_refusal_numero_type",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "same_a16_refusal_thematique",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "same_a16_refusal_pdf_cle",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "same_a16_refusal_liaison.cle",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "same_a16_refusal_article_type",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "same_a16_refusal_date_cle",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "channel_echo",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "immutable_channel_echo",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "channel_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "immutable_channel_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "channel_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "immutable_channel_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "channel_early",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "immutable_channel_early",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "channel_shutdown",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "immutable_channel_shutdown",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "channel_file",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "immutable_channel_file",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "channel_exception",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "immutable_channel_exception",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "symlink_closed_refusal",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "output_guard_existing",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "output_guard_site",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "output_guard_repository",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "output_guard_ancestor",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "output_guard_root",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "all_base_tables_and_scheduler_unchanged",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "all_site_files_unchanged",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "imported_excluded_unknown_not_zero",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "imported_readable_local_counts_unchanged",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "imported_db_files_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "no_network_interfaces",
+      "status": "PASS",
+      "detail": null
+    }
+  ],
+  "exit_code": 0
+}

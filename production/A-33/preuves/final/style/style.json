@@ -1,0 +1,59 @@
+{
+  "container": "imagine-a33-style-b03353bf7c",
+  "checks": [
+    {
+      "check": "isolation_before",
+      "status": "PASS"
+    },
+    {
+      "check": "strict_psr12",
+      "status": "PASS"
+    },
+    {
+      "check": "isolation_after",
+      "status": "PASS"
+    },
+    {
+      "check": "cleanup_exact_owned_container",
+      "status": "PASS"
+    },
+    {
+      "check": "owned_sources_stable",
+      "status": "PASS"
+    },
+    {
+      "check": "dependencies_stable",
+      "status": "PASS"
+    }
+  ],
+  "exit_code": 0,
+  "phpcs_exit": 0,
+  "totals": {
+    "errors": 0,
+    "warnings": 0,
+    "fixable": 0
+  },
+  "sources": {
+    "wp/outils/bascule/a33/Analysis.php": "e9320afb83e45c966c1d97c170f2f46bea15ad10d728098d6be7df7932e5bf89",
+    "wp/outils/bascule/a33/Command.php": "24f8a91a7984d8791ee3d6f8597765b382a163af137f47e0543c220e8f1b3075",
+    "wp/outils/bascule/a33/Inventory.php": "71d1e884e48319de2f7334a0b1ede8302bab1ad3d5740c3c32610c2884b610a6",
+    "wp/outils/bascule/a33/README.md": "c1623e3dce13c35c81a69664c2aae1fa44be2b0775c1b09abd4e0315edc0456e",
+    "wp/outils/bascule/a33/confine.py": "3400a708f2cfbbae58535e3e01abb8e817703cb0b17f457c8ccaf1b182e6aedb",
+    "wp/outils/bascule/a33/correspondance.exemple.json": "b384e162a805812856e633e5d3598c729f2cec701cfd7ca6be5610bfe2399d29",
+    "wp/outils/bascule/a33/peser-archives": "a2432e1bcd6d7a77d2c3255d9b28c12dfc60e72e099951ce6299828e604ff110",
+    "wp/outils/bascule/a33/refusals.json": "a5efdaa6f6a5dd23b194e28739437ca20dd7bacfdc759916c4fc9c2ca03acaa2",
+    "wp/outils/bascule/a33/report.py": "313c2a055e9a73c6ad6bafc931943ff05363ccf81e7b5db275efd4f5502c5337",
+    "wp/tests/a33/delivery.py": "751c5458c4cf74967bee89733761e881c728eb8092b4cb433d5c7bc9994340b2",
+    "wp/tests/a33/gates.py": "a33a388285c52aac74068642817a90ca63588738acdd3cfb1e57d619c133d1e8",
+    "wp/tests/a33/inside.py": "bb7535b27cc011dd61bf5f10a55670a7755a372c7e36047a2caa51d53dd5249d",
+    "wp/tests/a33/matrix.py": "9a8985c2238acc628a3e58a2e285f2ad97412266eb8f98e25cd8ec42dd25a600",
+    "wp/tests/a33/probe.py": "8df867b20e18c510b64034ab39407969d12919a5bf0d00a65c7059cb4d58cab1",
+    "wp/tests/a33/run.py": "a0fa5ee54c9595b78c2bcdea4139f279594f9ce9720a8a294cc2ad3d8b9c0737",
+    "wp/tests/a33/seal.py": "829c8d5649cbac16a53f7b50314db1cd9ca54988b99f72c093d27d73187eb8bc",
+    "wp/tests/a33/seed.php": "e76e4703012fc00cab7c6004b4b9c99344107f4b828c8bbd079b297f286cdda4",
+    "wp/tests/a33/style.py": "c706d46deaa5f62013fe0ffbce054ab481578aeed7b9988c7958bfe3471ff101",
+    "wp/tests/a33/test_delivery.py": "ab156fb721131fd5fa6b8a7ba2a71914f7eba8cce5c3b2b56d1751e4c8b7f3e8",
+    "wp/tests/a33/test_report.py": "d29034f94cccf6835b7b03d782caae9dcc5426fb6e042fc2154e8704166e1f88",
+    "wp/tests/a33/unit.php": "c5be383fbd507abb74cb74d4d9429de1f594129cee443f976b43a5cca7c6fd16"
+  }
+}
