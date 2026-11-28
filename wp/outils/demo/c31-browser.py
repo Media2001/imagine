@@ -30,24 +30,29 @@ try:
             if kind=='wp':
                 form=page.locator('#registerform');check(kind+'_vrai_formulaire',form.count()==1)
                 form.locator('[name="user_login"]').fill('fictif-c31-http-'+kind);form.locator('[name="user_email"]').fill(email)
-                form.locator('[type="submit"]').click()
+                with page.expect_navigation(wait_until='networkidle') as submitted:
+                    form.locator('[type="submit"]').click()
             else:
                 form=page.locator('form.register');check(kind+'_vrai_formulaire',form.count()==1 and form.locator('[name="woocommerce-register-nonce"]').count()==1)
                 form.locator('[name="email"]').fill(email)
                 if form.locator('[name="username"]').count():form.locator('[name="username"]').fill('fictif-c31-http-'+kind)
                 if form.locator('[name="password"]').count():form.locator('[name="password"]').fill('FICTIF-c31-Only-Refused-Path-9821')
-                form.locator('[name="register"]').click()
-            page.wait_for_load_state('networkidle');body=page.content()
+                with page.expect_navigation(wait_until='networkidle') as submitted:
+                    form.locator('[name="register"]').click()
+            page.wait_for_load_state('networkidle');body=submitted.value.text()
             check(kind+'_message_clair','Merci d’utiliser une autre adresse email.' in page.locator('body').inner_text())
-            obs=b.observation(body);check(kind+'_zero_sortant',obs=={'http':[],'mail':[]})
+            obs=b.observation(body);rows.append({'path':path,'kind':kind,'refused':True,'observation':obs})
+            if kind=='wp':
+                check(kind+'_seules_traductions_natives_bloquees',obs['mail']==[] and len(obs['http'])==2 and all('translations_api' in x.get('trace',[]) for x in obs['http']))
+            else:
+                check(kind+'_zero_sortant',obs=={'http':[],'mail':[]})
             absent=o.wp('echo wp_json_encode(get_user_by("email",'+o.php(email)+')===false && username_exists('+o.php('fictif-c31-http-'+kind)+')===false);')
             check(kind+'_aucun_compte',absent)
             check(kind+'_etanche',b.c26.c23.assess(200,body,markers)['ok'])
             check(kind+'_mutation_etanche',not b.c26.c23.assess(200,body+'<!--'+markers[0]+'-->',markers)['ok'])
-            rows.append({'path':path,'kind':kind,'refused':True,'observation':obs})
             if kind=='woo':page.screenshot(path=str(o.OUT/(sys.argv[1]+'.png')),full_page=True)
             page.close()
-        r=ctx.request.get(identity['url']+'/?imagine_c31_witness=1');check('temoins_transport',b.observation(r.text())=={'http':['blocked'],'mail':['blocked']})
+        r=ctx.request.get(identity['url']+'/?imagine_c31_witness=1');w=b.observation(r.text());check('temoins_transport',len(w['http'])==1 and w['mail']==['blocked'] and 'wp_remote_get' in w['http'][0]['trace'])
         ctx.close();browser.close()
     check('aucun_tiers',external==[])
 except Exception as exc:error=repr(exc)
