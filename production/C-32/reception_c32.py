@@ -15,8 +15,8 @@ c = importlib.util.module_from_spec(s)
 s.loader.exec_module(c)
 OUT = owner.OUT
 RECEIPT = 'reception-corrections-V2.json'
-LOCAL = 'corrections-local-parent2-V2.json'
-NATIVE = 'native-corrections-V2.json'
+LOCAL = 'corrections-local-parent3-V2.json'
+NATIVE = 'native-corrections-parent-V2.json'
 BROWSER = 'browser-corrections-parent2-V2.json'
 STRICT = 'strict-reading-corrections-V2.json'
 STANDARD = 'standard-corrections-V2.json'
