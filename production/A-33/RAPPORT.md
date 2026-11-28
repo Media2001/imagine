@@ -1,5 +1,5 @@
-Fait : A-33 construit, matrice propre verte en UTF-8/cp1252 sans TMPDIR ; 30 tests Python, 23 contrôles purs et 52 natifs par console, PSR-12 propre.
-Prêt à relire : matrice complète et preuves disponibles ; la réception suit les deux étapes documentées de LIVRAISON.md, avant puis après enregistrement du lecteur.
-À arbitrer : rien de nouveau ; le parent a requalifié A-32 sur les sources finales et appliqué sa fusion sans modifier un outil clos, le gardien ou le lanceur.
-Bloqué : les refus initiaux décrits dans BLOCAGE.md sont historiques. A-32 a été rescellé par sa commande propre et lu PASS. Le candidat A-33 initial jamais qualifié a été archivé sans perte pour reprendre son installation documentée en deux temps ; aucun lecteur n'est assoupli.
-Ensuite : installation A-33 avec gates vertes sur les douze paquets antérieurs, puis rejeu réellement inclus dans les treize, nouveau sceau par seal.py et PRET seulement après les contrôles. La réception post-sceau est enregistrée hors paquet dans files/rapports/.
+Fait : fusion A-33 du 28 novembre, 3 h 48 appliquée : PDF post/terme inclus et dédoublonnés, numéro sélectionné conservé sous type partagé ; quatre angles morts couverts, historique daté, lecteur à liste fermée.
+Prêt à relire : matrice Python 3.14.6 avec C:/Python314/python.exe, UTF-8/cp1252 sans TMPDIR ; 30 tests Python, 23 contrôles PHP et 57 natifs par console, tous verts ; PSR-12 sans erreur ni avertissement.
+À arbitrer : aucun ; défauts techniques retenus selon la file, sans changer A-16. Aucun GO réel.
+Bloqué : aucun lors de la réception post-PRET : PAQUETS : 13 vérifiés, 0 échecs ; hors rejeu : aucun, A-32 et A-33 inclus dans les deux consoles ; REJEU 1243 tests / 37036 assertions PASS. Aucun VERIFIER_TIMEOUT reproduit ; lecteurs seuls A-32 0,237 s et A-33 0,223 s.
+Ensuite : clôture T-03. Le paquet courant est unique ; anciens paquets et essais rouges restent dans Scratch. Reçu post-marqueur extérieur : a33-corrections-20261128-postpret. Import, gardien, t01/rejouer et lots clos inchangés ; aucun délai modifié, aucun lot ajouté à la tournée.
