@@ -30,7 +30,7 @@ def finalise():
                 'at': datetime.now().astimezone().isoformat(),
                 'verifier_scope': 'FINAL_STATE_READ_ONLY',
                 'pret_sha256': hashlib.sha256(reader.PRET_BYTES).hexdigest(),
-                'independent_post_pret_receipt': 'C:/Users/Ced/AppData/Local/hermes/cache/scratch/t03-final-20261127-postPRET/reception.json',
+                'independent_post_pret_receipt': 'C:/Users/Ced/AppData/Local/hermes/cache/scratch/t03-cloture-20261128/postpret/reception.json',
                 'files': files, 'file_count': len(files)}
     target = BASE / 'manifest.json'
     before = target.read_bytes()

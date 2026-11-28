@@ -1,4 +1,6 @@
-# Réception des corrections T-03 — 27 novembre 2026
+# Réception des corrections T-03 — historique du 27 novembre 2026
+
+**Le reste de ce document est historique, pas le statut courant.** Pour la clôture du 28 novembre, lire `FINALISATION.md` : liste scellée de 13 paquets A-20…A-28/A-30/A-31/A-32/A-33, lecteur final borné à ses fichiers et à ses dépendances nommées. Les voisins ne sont contrôlés qu'une fois dans le reçu daté du sceau. Réception actuelle hors paquet : `C:/Users/Ced/AppData/Local/hermes/cache/scratch/t03-cloture-20261128/postpret/reception.json`. Le statut courant est exclusivement celui du marqueur exact et de `verify-final.py`, pas les nombres ni les présents de l'historique ci-dessous.
 
 **État final : PRET posé après les gates de clôture, aucun GO.** Les blocages A-31/A-32 de 18 h 42 ont été levés par la réception conjointe parent à 19 h 30, sans modification de ces paquets ici. L'ancien PRET de 8 h 14 et son paquet restent historiques dans `C:/Users/Ced/AppData/Local/hermes/cache/scratch/t03-cloture-20261127-1829/historique-T03/`. Un seul paquet courant reste dans `preuves/final/` ; aucun paquet voisin rescellé.
 

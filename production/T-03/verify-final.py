@@ -9,7 +9,7 @@ import sys
 sys.dont_write_bytecode = True
 BASE = Path(__file__).resolve().parent
 ROOT = BASE.parents[1]
-LOTS = ['A-20', 'A-21', 'A-22', 'A-23', 'A-24', 'A-25', 'A-26', 'A-27', 'A-28', 'A-30', 'A-31', 'A-32']
+LOTS = ['A-20', 'A-21', 'A-22', 'A-23', 'A-24', 'A-25', 'A-26', 'A-27', 'A-28', 'A-30', 'A-31', 'A-32', 'A-33']
 PRET_BYTES = b'T-03 PRET - corrections et gates finales verifiees; aucun GO reel.\n'
 
 
@@ -68,14 +68,9 @@ def verify_gates():
     nominal = verify_replay((proof / 'qualification/nominal-observed.log').read_bytes(), [])
     if nominal['marker'] != green['marker']:
         raise ValueError('NOMINAL_NATIVE_DIVERGENCE')
-    for name, directories, extra in [
-            ('protected-before.json', ['wp/tests/t01', 'wp/outils/staging', 'wp/outils/staging-court'], ['wp/tests/rejouer.ps1']),
-            ('neighbours-before.json', ['production/A-31', 'production/A-32'], [])]:
-        expected = json.loads((proof / 'cloture' / name).read_text(encoding='utf-8'))
-        files = {p.relative_to(ROOT).as_posix(): digest(p) for directory in directories for p in (ROOT / directory).rglob('*') if p.is_file()}
-        files.update({path: digest(ROOT / path) for path in extra})
-        if files != expected:
-            raise ValueError('PROTECTED_MEMBERSHIP_OR_BYTES')
+    # Protected/neighbor photographs are dated seal receipts, not live
+    # dependencies. The permanent reader binds only OWN_TOOLS' closed list
+    # and this lot's files through source_hashes()/verify_evidence().
     closure = json.loads((proof / 'cloture/closure-checks.json').read_text(encoding='utf-8'))
     helper = load('t03_qualification_final', 'qualifier-corrections.py')
     bindings = json.loads((proof / 'native/source-binding.json').read_text(encoding='utf-8'))

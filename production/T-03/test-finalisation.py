@@ -1,5 +1,6 @@
 """T03 final gates against real captured replays; disposable mutations only."""
 import importlib.util
+import json
 import os
 import shutil
 import subprocess
@@ -7,6 +8,8 @@ import tempfile
 from pathlib import Path
 import sys
 import unittest
+from unittest.mock import patch
+from types import SimpleNamespace
 
 sys.dont_write_bytecode = True
 BASE = Path(__file__).resolve().parent
@@ -23,6 +26,17 @@ def load_reader():
 
 
 class FinalContracts(unittest.TestCase):
+    def test_neighbour_preservation_is_historical_not_a_current_dependency(self):
+        reader = load_reader()
+        binding = json.loads((BASE / 'preuves/final/native/source-binding.json').read_bytes())
+        # Keep the authentic sealed evidence and source contract; change only the
+        # unrelated live tree. No neighbouring package is copied or edited.
+        helper = SimpleNamespace(source_hashes=lambda: binding['source_sha256'])
+        with tempfile.TemporaryDirectory(prefix='t03-empty-neighbours-', dir=Path(os.environ['LOCALAPPDATA']) / 'hermes/cache/scratch') as temporary:
+            with patch.object(reader, 'ROOT', Path(temporary)), patch.object(reader, 'load', return_value=helper):
+                result = reader.verify_gates()
+                self.assertTrue(result['marker']['pass'])
+
     def test_finalizer_failure_preserves_manifest_without_pret(self):
         self.assertTrue((BASE / 'finaliser.py').is_file(), 'checked finalizer required')
         with tempfile.TemporaryDirectory(prefix='t03-final-contract-', dir=Path(os.environ['LOCALAPPDATA']) / 'hermes/cache/scratch') as temporary:
