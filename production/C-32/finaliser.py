@@ -1,14 +1,32 @@
+"""Réception finale réservée au parent, après les gates natifs/image/rejeu."""
 import sys
-sys.dont_write_bytecode=True
-import importlib.util,json
-from pathlib import Path
-OUT=Path(__file__).resolve().parent
-s=importlib.util.spec_from_file_location('reader',OUT/'verifier.py');v=importlib.util.module_from_spec(s);s.loader.exec_module(v)
-b=v.load('browser-final-V2.json');rows=[r for r in b['rows'] if r['kind']=='lecture']
-with (OUT/'strict-reading-V2.json').open('x',encoding='utf-8') as f:json.dump({'status':'FAIL','expected':0,'pages':len(rows),'observed_cookie_names_per_page':sorted({c['name'] for r in rows for c in r['browser']}),'native_order_attribution_unchanged':True,'browser_receipt':'browser-final-V2.json'},f,ensure_ascii=False,indent=2)
-evidence=['A-VOIR.md','native-final-V2.json','browser-final-V2.json','browser-final-V2.png','standard-V2.json','strict-reading-V2.json','recovery-essai-V2.json','image-V2.json','image-V2.log','replay-V2.json','replay-V2.log']
-historical=[p for p in OUT.glob('*.json') if p.name not in evidence]
-m=v.c.seal(v.owner,[OUT/n for n in evidence],historical);v.verify(False,m,False)
-with (OUT/v.RECEIPT).open('x',encoding='utf-8') as f:json.dump(m,f,ensure_ascii=False,indent=2)
-with (OUT/'PRET').open('x',encoding='utf-8') as f:f.write('C-32 prêt à relire — inventaire et contrôleur fermés ; '+v.RECEIPT+' ; réserve explicite : zéro cookie en lecture FAIL (sept cookies natifs d’attribution, non désactivés conformément au brief).\n')
+sys.dont_write_bytecode = True
+import json
+import reception_c32 as v
+
+if sys.argv[1:] != ['--live']:
+    raise SystemExit('Usage : python -B production/C-32/finaliser.py --live (démo libre requise)')
+assert not (v.OUT/'PRET').exists(), 'PRET existe déjà ; ne pas écraser une réception'
+assert not (v.OUT/v.RECEIPT).exists(), 'Réception immuable déjà présente'
+browser = v.load(v.BROWSER)
+reading = v.verify_browser(browser)
+strict = {'status':'PASS' if reading['strict_pass'] else 'FAIL', 'expected':0, 'pages':reading['pages'], 'observed_cookie_names':reading['observed_names'], 'native_order_attribution_unchanged':True, 'browser_receipt':v.BROWSER}
+if (v.OUT/v.STRICT).exists():
+    assert v.load(v.STRICT) == strict, 'Preuve stricte divergente'
+else:
+    with (v.OUT/v.STRICT).open('x', encoding='utf-8') as f:
+        json.dump(strict, f, ensure_ascii=False, indent=2)
+evidence = ['A-VOIR.md', 'verifier.py', 'reception_c32.py', 'finaliser.py', 'test-local.py', v.LOCAL, v.NATIVE, v.BROWSER, v.BROWSER.replace('.json','.png'), v.STANDARD, v.OFFICIAL, v.STRICT, v.IMAGE, v.REPLAY]
+for name in [v.LOCAL, v.IMAGE, v.REPLAY]:
+    receipt = v.load(name)
+    evidence.extend(r['log'] for r in receipt['runs']) if 'runs' in receipt else evidence.append(receipt['log'])
+historical = [p for p in v.OUT.glob('*.json') if p.name not in evidence and p.name != v.RECEIPT]
+manifest = v.c.seal(v.owner, [v.OUT/name for name in evidence], historical)
+# Vérifier aussi le readback distant AVANT de déposer le marqueur.
+v.verify(True, manifest, False)
+with (v.OUT/v.RECEIPT).open('x', encoding='utf-8') as f:
+    json.dump(manifest, f, ensure_ascii=False, indent=2)
+with (v.OUT/'PRET').open('x', encoding='utf-8') as f:
+    f.write('C-32 prêt à relire — inventaire autorisé PASS ; '+v.RECEIPT+' ; zéro cookie strict '+strict['status']+' ; attribution native non désactivée.\n')
 v.verify(True)
+

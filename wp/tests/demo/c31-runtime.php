@@ -6,15 +6,23 @@ use Imagine\Site\DomainesRefuses;
 use Imagine\Site\DomainesRefusesRegles;
 use Imagine\Site\DomainesRefusesReglages;
 
-if (!class_exists(DomainesRefuses::class)) { throw new RuntimeException('C31 absent'); }
+if (!class_exists(DomainesRefuses::class)) {
+    throw new RuntimeException('C31 absent');
+}
 $checks = [];
-$check = static function (string $name, bool $ok) use (&$checks): void { $checks[$name] = $ok;if (!$ok) { throw new RuntimeException($name); } };
+$check = static function (string $name, bool $ok) use (&$checks): void {
+    $checks[$name] = $ok;
+    if (!$ok) {
+        throw new RuntimeException($name);
+    }
+};
 $domains = ['jetable-fictif.example.org', 'temporaire-fictif.example.org', 'usage-unique-fictif.example.org'];
 update_option(DomainesRefuses::OPTION, $domains, false);
 $check('liste_relue', DomainesRefuses::configuration() === $domains);
 $refused = [];
 foreach (['wp' => 'register_new_user', 'woo' => 'wc_create_new_customer'] as $path => $function) {
-    $email = 'c31-refus-' . $path . '@JETABLE-FICTIF.example.org';$refused[] = $email;
+    $email = 'c31-refus-' . $path . '@JETABLE-FICTIF.example.org';
+    $refused[] = $email;
     $result = $path === 'wp' ? register_new_user('fictif-c31-' . $path, $email) : wc_create_new_customer($email, 'fictif-c31-' . $path, wp_generate_password(48));
     $check($path . '_refus_natif', is_wp_error($result) && in_array('imagine_adresse_alternative', $result->get_error_codes(), true));
     $check($path . '_aucun_compte', get_user_by('email', $email) === false && username_exists('fictif-c31-' . $path) === false);
@@ -85,7 +93,7 @@ wc_load_cart();
 WC()->cart->empty_cart();
 $product = new WC_Product_Simple();
 $product->set_name('FICTIF C31 recette commande');
-$product->set_regular_price('1');
+$product->set_regular_price('0');
 $product->set_virtual(true);
 $product->save();
 $check('vrai_panier_non_vide', WC()->cart->add_to_cart($product->get_id()) !== false && !WC()->cart->is_empty());
@@ -112,6 +120,9 @@ $ordersBefore = (int) $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}wc_ord
 WC()->checkout()->process_checkout();
 WC()->session->save_data();
 $notices = wp_json_encode(wc_get_notices('error'));
+if (!str_contains($notices, 'autre adresse email')) {
+    echo wp_json_encode(['checkout_notices' => wc_get_notices('error'), 'checkout_leaks' => $scan($checkoutEmail)]);
+}
 $check('checkout_vrai_process_message_refus', str_contains($notices, 'autre adresse email'));
 $check('checkout_aucun_compte', get_user_by('email', $checkoutEmail) === false && username_exists('fictif-c31-checkout') === false);
 $check('checkout_aucune_commande', (int) $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}wc_orders") === $ordersBefore);
@@ -122,26 +133,32 @@ if ($leaks !== []) {
 $check('checkout_adresse_absente_toutes_tables', $leaks === []);
 $mutantEmail = 'c31-mutant@jetable-fictif.example.org';
 remove_filter('woocommerce_registration_errors', [DomainesRefuses::class, 'inscription'], 30);
-try { $mutant = wc_create_new_customer($mutantEmail, 'fictif-c31-mutant', wp_generate_password(48)); }
-finally { add_filter('woocommerce_registration_errors', [DomainesRefuses::class, 'inscription'], 30, 3); }
+try {
+    $mutant = wc_create_new_customer($mutantEmail, 'fictif-c31-mutant', wp_generate_password(48));
+} finally {
+    add_filter('woocommerce_registration_errors', [DomainesRefuses::class, 'inscription'], 30, 3);
+}
 $check('mutation_aucun_compte_detectee', !is_wp_error($mutant) && get_user_by('email', $mutantEmail) !== false);
 // Nettoyage ciblé dans la transaction de recette ; les hooks C21 d'effacement
 // ouvrent leur propre transaction et ne sont pas le sujet de ce canari.
-$wpdb->delete($wpdb->usermeta, ['user_id' => (int)$mutant]);
-$wpdb->delete($wpdb->users, ['ID' => (int)$mutant]);
-clean_user_cache((int)$mutant);
+$wpdb->delete($wpdb->usermeta, ['user_id' => (int) $mutant]);
+$wpdb->delete($wpdb->users, ['ID' => (int) $mutant]);
+clean_user_cache((int) $mutant);
 $check('mutation_compte_retire_relu', get_user_by('email', $mutantEmail) === false);
 foreach ($refused as $i => $email) {
     $check('adresse_absente_toutes_tables_' . $i, $scan($email) === []);
 }
-$journalBefore = (int)$wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->options} WHERE option_name LIKE 'imagine_reglages_journal_%'");
+$journalBefore = (int) $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->options} WHERE option_name LIKE 'imagine_reglages_journal_%'");
 update_option(DomainesRefuses::OPTION, ['journal-fictif.example.org'], false);
-$check('journal_liste_ecrit', (int)$wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->options} WHERE option_name LIKE 'imagine_reglages_journal_%'") === $journalBefore + 1);
+$check('journal_liste_ecrit', (int) $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->options} WHERE option_name LIKE 'imagine_reglages_journal_%'") === $journalBefore + 1);
 $blockJournal = static fn (string $sql): string => str_starts_with($sql, 'INSERT') && str_contains($sql, 'imagine_reglages_journal_') ? 'SELECT 1' : $sql;
 add_filter('query', $blockJournal);
-try { update_option(DomainesRefuses::OPTION, ['refus-fictif.example.org'], false); }
-finally { remove_filter('query', $blockJournal); }
+try {
+    update_option(DomainesRefuses::OPTION, ['refus-fictif.example.org'], false);
+} finally {
+    remove_filter('query', $blockJournal);
+}
 $check('journal_echec_restaure', DomainesRefuses::configuration() === ['journal-fictif.example.org']);
 $check('antislash_domaine_refuse', DomainesRefusesRegles::liste("jetable-fictif\\.example.org") === null);
 $check('source_wp_woo_reelle', (new ReflectionFunction('register_new_user'))->getFileName() !== false && (new ReflectionFunction('wc_create_new_customer'))->getFileName() !== false);
-echo wp_json_encode(['checks' => $checks, 'total' => count($checks)]);
+echo wp_json_encode(['checks' => $checks, 'total' => count($checks), 'storage_tables' => count($columns), 'storage_columns' => array_sum(array_map('count', $columns)), 'positive_detection' => $positive, 'checkout_leaks' => $leaks]);
