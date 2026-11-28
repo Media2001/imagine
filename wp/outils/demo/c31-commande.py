@@ -15,7 +15,7 @@ identity = o.guard()
 f, markers = b.inventory()
 before = b13.c29.state()
 sessions = o.wp('global $wpdb;echo wp_json_encode($wpdb->get_results("SELECT * FROM {$wpdb->prefix}woocommerce_sessions ORDER BY session_key",ARRAY_A));')
-setting = o.wp('global $wpdb;echo wp_json_encode($wpdb->get_results("SELECT * FROM {$wpdb->options} WHERE option_name=\'woocommerce_enable_signup_and_login_from_checkout\'",ARRAY_A));')
+setting = o.wp('global $wpdb;echo wp_json_encode($wpdb->get_results("SELECT * FROM {$wpdb->options} WHERE option_name IN (\'woocommerce_enable_signup_and_login_from_checkout\',\'woocommerce_coming_soon\')",ARRAY_A));')
 private = b13.b11.private(label, {'sessions':sessions, 'setting':setting})
 checks, external, rows = {}, [], []
 error = None
@@ -28,7 +28,7 @@ def parsed(response):
 try:
     check('sonde_absente', o.wp('echo wp_json_encode(!file_exists(WP_CONTENT_DIR."/' + probe + '"));'))
     b13.b11.upload(probe, (o.ROOT / 'wp/tests/demo/c31-observer.php').read_bytes())
-    o.wp('update_option("woocommerce_enable_signup_and_login_from_checkout","yes");echo wp_json_encode(true);')
+    o.wp('update_option("woocommerce_enable_signup_and_login_from_checkout","yes");update_option("woocommerce_coming_soon","no");echo wp_json_encode(true);')
     product = o.wp('$ids=[];foreach(wc_get_products(["limit"=>-1,"type"=>"simple","status"=>"publish"]) as $p){if(str_starts_with($p->get_name(),"FICTIF B04") && $p->is_purchasable()){$ids[]=$p->get_id();}}echo wp_json_encode($ids);')
     check('produit_fictif_existant', len(product) == 1)
     counts = o.wp('global $wpdb;echo wp_json_encode(["users"=>(int)$wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->users}"),"orders"=>(int)$wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}wc_orders")]);')
@@ -42,16 +42,15 @@ try:
             else:
                 r.continue_()
         ctx.route('**/*', route)
-        cart = ctx.request.get(identity['url'] + '/wp-json/wc/store/v1/cart')
-        check('panier_store_natif_200', cart.status == 200 and parsed(cart)['items_count'] == 0)
-        token = cart.headers['cart-token']
-        headers = {'Cart-Token': token}
-        added = ctx.request.post(identity['url'] + '/wp-json/wc/store/v1/cart/add-item', headers=headers, data={'id':product[0], 'quantity':1})
-        if added.status != 200 or parsed(added).get('items_count') != 1:
-            rows.append({'add_status':added.status, 'add_result':parsed(added)})
-        check('vrai_ajout_panier', added.status == 200 and parsed(added)['items_count'] == 1)
         page = ctx.new_page()
+        added = page.goto(identity['url'] + '/?add-to-cart=' + str(product[0]), wait_until='networkidle')
+        check('vrai_ajout_panier_navigateur', added.status == 200)
+        cart = ctx.request.get(identity['url'] + '/wp-json/wc/store/v1/cart')
+        check('panier_store_natif_non_vide', cart.status == 200 and parsed(cart)['items_count'] == 1)
+        headers = {'Nonce': cart.headers['nonce']}
         shown = page.goto(identity['url'] + '/checkout/', wait_until='networkidle')
+        rows.append({'checkout_page_status':shown.status, 'checkout_page_url':page.url, 'block_count':page.locator('.wp-block-woocommerce-checkout').count(), 'body_excerpt':page.locator('main').inner_text()[:1800]})
+        page.screenshot(path=str(o.OUT / (label + '.png')), full_page=True)
         check('page_checkout_reelle_200', shown.status == 200 and page.locator('.wp-block-woocommerce-checkout').count() == 1)
         check('page_etanche', b.c26.c23.assess(200, shown.text(), markers)['ok'])
         check('mutation_etanche_detectee', not b.c26.c23.assess(200, shown.text() + '<!--' + markers[0] + '-->', markers)['ok'])
@@ -74,7 +73,7 @@ try:
 except Exception as exc:
     error = repr(exc)
 finally:
-    o.wp('global $wpdb;$wpdb->delete($wpdb->options,["option_name"=>"woocommerce_enable_signup_and_login_from_checkout"]);foreach(' + o.php(setting) + ' as $r){$wpdb->insert($wpdb->options,$r);}$keys=' + o.php([r['session_key'] for r in sessions]) + ';foreach($wpdb->get_col("SELECT session_key FROM {$wpdb->prefix}woocommerce_sessions") as $key){if(!in_array($key,$keys,true)){$wpdb->delete($wpdb->prefix."woocommerce_sessions",["session_key"=>$key]);}}wp_cache_flush();echo wp_json_encode(true);')
+    o.wp('global $wpdb;foreach(["woocommerce_enable_signup_and_login_from_checkout","woocommerce_coming_soon"] as $key){$wpdb->delete($wpdb->options,["option_name"=>$key]);}foreach(' + o.php(setting) + ' as $r){$wpdb->insert($wpdb->options,$r);}$keys=' + o.php([r['session_key'] for r in sessions]) + ';foreach($wpdb->get_col("SELECT session_key FROM {$wpdb->prefix}woocommerce_sessions") as $key){if(!in_array($key,$keys,true)){$wpdb->delete($wpdb->prefix."woocommerce_sessions",["session_key"=>$key]);}}wp_cache_flush();echo wp_json_encode(true);')
     session_ok = o.wp('global $wpdb;echo wp_json_encode($wpdb->get_results("SELECT * FROM {$wpdb->prefix}woocommerce_sessions ORDER BY session_key",ARRAY_A));') == sessions
     b13.b11.b10.b09.remove_remote([probe])
     removed = o.wp('echo wp_json_encode(!file_exists(WP_CONTENT_DIR."/' + probe + '"));')
