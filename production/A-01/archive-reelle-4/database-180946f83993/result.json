@@ -1,0 +1,1306 @@
+{
+  "status": "DATABASE_IMPORTED_NATIVE_DEFERRED",
+  "mode": "diagnose-database",
+  "created_sites": [],
+  "downloads": 0,
+  "extracted_wp_content_files": 0,
+  "data_verified": false,
+  "full_staging_ready": false,
+  "capacity": {
+    "required_bytes": 2906353422,
+    "free_bytes": 770695491584,
+    "before_any_creation": true
+  },
+  "isolation_before": {
+    "network": "none",
+    "mounts": [],
+    "ports": [],
+    "privileged": false,
+    "cap_drop": [
+      "ALL"
+    ],
+    "no_new_privileges": true,
+    "image_id": "sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2",
+    "name": "imagine-a01-db-only-180946f83993"
+  },
+  "source_manifest": {
+    "wp/outils/staging/neutraliser": "3bd131154ce850d2427d164ec3d33f12fa372fe65b3f2888ff926c779100ff2d",
+    "wp/outils/staging/anonymiser": "2d8ee8c6afc3b586b49393db1c99bfb5049f568ed6d506fc1ad29db38eb0de1d",
+    "wp/outils/staging/verifier": "d0f3e5728411faa22e20109636d684f551fe937600eebb5839382d205c42b9d6",
+    "wp/outils/staging/command.php": "25b146ef8c92505863c95ecfc57b6ce23d4ea7e30dfc2fc74ffdf64c92f13a59",
+    "wp/outils/staging/lib.php": "c6ebdbb9ad3568f64069bc80d92acc22a01f234dbc9ab7012ac0cedf8d9b1953",
+    "wp/outils/staging/schema.php": "81dfe75642c7a267fe92d23336fe14353de2d479700f8c97415702e14ae45d2a",
+    "wp/outils/staging/store.php": "88617b0e97809476bb99942f12069afa434e22a0c2dbc4929161249d7be75f66",
+    "wp/outils/staging/form-decision-refused.php": "c79989ab2daa975e5e2435c218c4ed05ff35dcecbb413305e0157edeb644822b",
+    "wp/outils/staging/engine.php": "fef246a543f993f1b1b1b8a2a21873d94fc02ba3e40edd730b9926bb3690336f",
+    "wp/outils/staging/guard.php": "9852be418707dc3b06c83ba621a1fc2689d7c650f8d6274d40d6e49b0b09182a",
+    "wp/outils/staging/files.php": "97aa0aeecfb13dca77b97b93d1a147f33962889044f26a9ff06a2cd8a621baeb",
+    "wp/outils/staging/pdo-store.php": "13bbd64697114071eda76b84438a6a1c9adf6135a8a5a92de0b70aa7930cd8d1",
+    "wp/outils/staging/runtime-probe.php": "3c8a98d1db5714e1944194f558a1df3a3c512e14e3aa370308a60a97f5889140",
+    "wp/outils/staging/policy.php": "5a4465fa3b1e566c1962db253c64eb0ab43e488af69c048d5ab58af233214ef8",
+    "wp/outils/staging/form-policy.json": "1d5e24262375c47247e451bd01e081ceb1e7a6af853d4e9060cffbad9457722d",
+    "wp/outils/staging/mu-plugins/000-imagine-staging-safety.php": "c16f048f3fd2587ba719924eec53b07651ea3b6a495a8125746a157582f5474f",
+    "wp/outils/staging-court/archive.py": "f965e6764cffacd34faba77682a2a944ce76c666aa337e896fa7737de79884f4",
+    "wp/outils/staging-court/archive_policy.py": "d687f649173d0bca9679450b2b682d145b1fc53b2de674be7eb665768b7af7f3",
+    "wp/outils/staging-court/sql_stream.py": "ab8775020098595f5695c927deb47c26e5bc8d2d8b01688d1ace66826436c937",
+    "wp/outils/staging-court/sql_compat.py": "85d968f6cbc435ab68052cef295ccc459ad5f3d4cd6e5e5492d956897d730040",
+    "wp/outils/staging-court/sql_diagnostic.py": "8198852780b5e4d647b72a1b48c87a6ce5fa81386b0fa87aa29498aa1931c737",
+    "wp/outils/staging-court/diagnosis.py": "17530f6ac02e0dd4536bfddc86390b44c130169f41bba0e705ffbfad43a7f927",
+    "wp/outils/staging-court/table_policy.py": "9ddac9e3ad4bd3ba5aabba0f752abe9851241e16b3d0b5335a5dbea38ccec92b",
+    "wp/outils/staging-court/politique-tables.json": "66a15c7c0c8711a20af83ac234fc4f402e170e1e12c1d8d5a93a9e1433ea8b4b",
+    "wp/outils/staging-court/inside.py": "8ed5bc0305a5ad0ab62729ab8e00ebaefdab20c0aa976cedc6ef653aa85b99cc",
+    "wp/outils/staging-court/bridge.php": "5c13515a5ca50d3e2991a7d595a2499d53cd29b75ce95880c5291f69046d0a22",
+    "wp/outils/staging-court/core_source.py": "4333875f38c2d87eb4f9b8f247d30b799e99ab7f4bd99530a22fb11b70b1f29e",
+    "wp/outils/staging-court/diagnostics.py": "32522f9d8f0e8461ffe774b7a97fd0ea9e908c4c6dc52eb43f31fd3a71ea9d28",
+    "wp/outils/staging-court/database_only.py": "4b0345664ca4825e3627bc70af69b7f167f130a1378d4581583a5052d015832d",
+    "wp/outils/staging-wp-integration/worker/worker.py": "1cdb5f85db2d2c0e3aecba4828785794e03c1a3a383b4c3a67075b1426e4f293"
+  },
+  "database_import": {
+    "elapsed_seconds": 157.493,
+    "timeout_seconds": 3600,
+    "max_allowed_packet_bytes": 268435456,
+    "fallback_sql_mode": "NO_AUTO_VALUE_ON_ZERO",
+    "source_mode_policy": "explicit supported SET SQL_MODE retained; exporter without mode uses non-strict fallback"
+  },
+  "sql_policy": {
+    "prefix": "SERVMASK_PREFIX_",
+    "table_engines": {
+      "SERVMASK_PREFIX_actionscheduler_actions": "INNODB",
+      "SERVMASK_PREFIX_actionscheduler_claims": "INNODB",
+      "SERVMASK_PREFIX_actionscheduler_groups": "INNODB",
+      "SERVMASK_PREFIX_actionscheduler_logs": "INNODB",
+      "SERVMASK_PREFIX_ahm_assets": "INNODB",
+      "SERVMASK_PREFIX_ahm_download_stats": "INNODB",
+      "SERVMASK_PREFIX_ahm_emails": "INNODB",
+      "SERVMASK_PREFIX_commentmeta": "INNODB",
+      "SERVMASK_PREFIX_comments": "INNODB",
+      "SERVMASK_PREFIX_fsmpt_email_logs": "INNODB",
+      "SERVMASK_PREFIX_links": "INNODB",
+      "SERVMASK_PREFIX_matomo_access": "INNODB",
+      "SERVMASK_PREFIX_matomo_annotations": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2015_01": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2016_01": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2017_01": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2018_01": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2019_01": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2020_01": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2021_01": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2022_01": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2022_02": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2022_03": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2022_04": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2022_05": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2022_06": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2022_07": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2022_08": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2022_09": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2022_10": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2022_11": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2022_12": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2023_01": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2023_02": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2023_03": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2023_04": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2023_05": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2023_06": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2023_07": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2023_08": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2023_09": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2023_10": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2023_11": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2023_12": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2024_01": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2024_02": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2024_03": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2024_04": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2024_05": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2024_06": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2024_07": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2024_08": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2024_09": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2024_10": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2024_11": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2024_12": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2025_01": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2025_02": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2025_03": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2025_04": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2025_05": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2025_06": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2025_07": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2025_08": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2025_09": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2025_10": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2025_11": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2025_12": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2026_01": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2026_02": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2026_03": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2026_04": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2026_05": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2026_06": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2026_07": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2026_08": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2026_09": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2026_10": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2026_11": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_invalidations": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2015_01": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2016_01": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2017_01": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2018_01": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2019_01": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2020_01": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2021_01": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2022_01": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2022_02": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2022_03": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2022_04": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2022_05": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2022_06": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2022_07": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2022_08": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2022_09": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2022_10": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2022_11": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2022_12": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2023_01": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2023_02": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2023_03": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2023_04": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2023_05": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2023_06": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2023_07": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2023_08": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2023_09": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2023_10": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2023_11": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2023_12": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2024_01": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2024_02": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2024_03": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2024_04": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2024_05": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2024_06": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2024_07": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2024_08": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2024_09": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2024_10": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2024_11": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2024_12": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2025_01": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2025_02": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2025_03": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2025_04": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2025_05": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2025_06": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2025_07": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2025_08": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2025_09": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2025_10": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2025_11": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2025_12": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2026_01": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2026_02": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2026_03": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2026_04": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2026_05": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2026_06": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2026_07": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2026_08": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2026_09": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2026_10": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_numeric_2026_11": "INNODB",
+      "SERVMASK_PREFIX_matomo_brute_force_log": "INNODB",
+      "SERVMASK_PREFIX_matomo_changes": "INNODB",
+      "SERVMASK_PREFIX_matomo_custom_dimensions": "INNODB",
+      "SERVMASK_PREFIX_matomo_goal": "INNODB",
+      "SERVMASK_PREFIX_matomo_locks": "INNODB",
+      "SERVMASK_PREFIX_matomo_log_action": "INNODB",
+      "SERVMASK_PREFIX_matomo_log_conversion": "INNODB",
+      "SERVMASK_PREFIX_matomo_log_conversion_item": "INNODB",
+      "SERVMASK_PREFIX_matomo_log_link_visit_action": "INNODB",
+      "SERVMASK_PREFIX_matomo_log_profiling": "INNODB",
+      "SERVMASK_PREFIX_matomo_log_visit": "INNODB",
+      "SERVMASK_PREFIX_matomo_logger_message": "INNODB",
+      "SERVMASK_PREFIX_matomo_option": "INNODB",
+      "SERVMASK_PREFIX_matomo_plugin_setting": "INNODB",
+      "SERVMASK_PREFIX_matomo_privacy_logdata_anonymizations": "INNODB",
+      "SERVMASK_PREFIX_matomo_report": "INNODB",
+      "SERVMASK_PREFIX_matomo_report_subscriptions": "INNODB",
+      "SERVMASK_PREFIX_matomo_segment": "INNODB",
+      "SERVMASK_PREFIX_matomo_sequence": "INNODB",
+      "SERVMASK_PREFIX_matomo_session": "INNODB",
+      "SERVMASK_PREFIX_matomo_site": "INNODB",
+      "SERVMASK_PREFIX_matomo_site_setting": "INNODB",
+      "SERVMASK_PREFIX_matomo_site_url": "INNODB",
+      "SERVMASK_PREFIX_matomo_tagmanager_container": "INNODB",
+      "SERVMASK_PREFIX_matomo_tagmanager_container_release": "INNODB",
+      "SERVMASK_PREFIX_matomo_tagmanager_container_version": "INNODB",
+      "SERVMASK_PREFIX_matomo_tagmanager_tag": "INNODB",
+      "SERVMASK_PREFIX_matomo_tagmanager_trigger": "INNODB",
+      "SERVMASK_PREFIX_matomo_tagmanager_variable": "INNODB",
+      "SERVMASK_PREFIX_matomo_tracking_failure": "INNODB",
+      "SERVMASK_PREFIX_matomo_twofactor_recovery_code": "INNODB",
+      "SERVMASK_PREFIX_matomo_user": "INNODB",
+      "SERVMASK_PREFIX_matomo_user_dashboard": "INNODB",
+      "SERVMASK_PREFIX_matomo_user_language": "INNODB",
+      "SERVMASK_PREFIX_matomo_user_token_auth": "INNODB",
+      "SERVMASK_PREFIX_options": "INNODB",
+      "SERVMASK_PREFIX_pmxe_exports": "INNODB",
+      "SERVMASK_PREFIX_pmxe_google_cats": "INNODB",
+      "SERVMASK_PREFIX_pmxe_posts": "INNODB",
+      "SERVMASK_PREFIX_pmxe_templates": "INNODB",
+      "SERVMASK_PREFIX_pmxi_files": "INNODB",
+      "SERVMASK_PREFIX_pmxi_geocoding": "INNODB",
+      "SERVMASK_PREFIX_pmxi_hash": "INNODB",
+      "SERVMASK_PREFIX_pmxi_history": "INNODB",
+      "SERVMASK_PREFIX_pmxi_images": "INNODB",
+      "SERVMASK_PREFIX_pmxi_imports": "INNODB",
+      "SERVMASK_PREFIX_pmxi_posts": "INNODB",
+      "SERVMASK_PREFIX_pmxi_templates": "INNODB",
+      "SERVMASK_PREFIX_postmeta": "INNODB",
+      "SERVMASK_PREFIX_posts": "INNODB",
+      "SERVMASK_PREFIX_sib_model_contact": "INNODB",
+      "SERVMASK_PREFIX_sib_model_country": "INNODB",
+      "SERVMASK_PREFIX_term_relationships": "INNODB",
+      "SERVMASK_PREFIX_term_taxonomy": "INNODB",
+      "SERVMASK_PREFIX_termmeta": "INNODB",
+      "SERVMASK_PREFIX_terms": "INNODB",
+      "SERVMASK_PREFIX_usermeta": "INNODB",
+      "SERVMASK_PREFIX_users": "INNODB",
+      "SERVMASK_PREFIX_wc_admin_note_actions": "INNODB",
+      "SERVMASK_PREFIX_wc_admin_notes": "INNODB",
+      "SERVMASK_PREFIX_wc_category_lookup": "INNODB",
+      "SERVMASK_PREFIX_wc_customer_lookup": "INNODB",
+      "SERVMASK_PREFIX_wc_download_log": "INNODB",
+      "SERVMASK_PREFIX_wc_order_addresses": "INNODB",
+      "SERVMASK_PREFIX_wc_order_coupon_lookup": "INNODB",
+      "SERVMASK_PREFIX_wc_order_operational_data": "INNODB",
+      "SERVMASK_PREFIX_wc_order_product_lookup": "INNODB",
+      "SERVMASK_PREFIX_wc_order_stats": "INNODB",
+      "SERVMASK_PREFIX_wc_order_tax_lookup": "INNODB",
+      "SERVMASK_PREFIX_wc_orders": "INNODB",
+      "SERVMASK_PREFIX_wc_orders_meta": "INNODB",
+      "SERVMASK_PREFIX_wc_product_attributes_lookup": "INNODB",
+      "SERVMASK_PREFIX_wc_product_download_directories": "INNODB",
+      "SERVMASK_PREFIX_wc_product_meta_lookup": "INNODB",
+      "SERVMASK_PREFIX_wc_rate_limits": "INNODB",
+      "SERVMASK_PREFIX_wc_reserved_stock": "INNODB",
+      "SERVMASK_PREFIX_wc_tax_rate_classes": "INNODB",
+      "SERVMASK_PREFIX_wc_webhooks": "INNODB",
+      "SERVMASK_PREFIX_wfauditevents": "INNODB",
+      "SERVMASK_PREFIX_wfblockediplog": "INNODB",
+      "SERVMASK_PREFIX_wfblocks7": "INNODB",
+      "SERVMASK_PREFIX_wfconfig": "INNODB",
+      "SERVMASK_PREFIX_wfcrawlers": "INNODB",
+      "SERVMASK_PREFIX_wffilechanges": "INNODB",
+      "SERVMASK_PREFIX_wffilemods": "INNODB",
+      "SERVMASK_PREFIX_wfhits": "INNODB",
+      "SERVMASK_PREFIX_wfhoover": "INNODB",
+      "SERVMASK_PREFIX_wfissues": "INNODB",
+      "SERVMASK_PREFIX_wfknownfilelist": "INNODB",
+      "SERVMASK_PREFIX_wflivetraffichuman": "INNODB",
+      "SERVMASK_PREFIX_wflocs": "INNODB",
+      "SERVMASK_PREFIX_wflogins": "INNODB",
+      "SERVMASK_PREFIX_wfls_2fa_secrets": "INNODB",
+      "SERVMASK_PREFIX_wfls_role_counts": "MEMORY",
+      "SERVMASK_PREFIX_wfls_settings": "INNODB",
+      "SERVMASK_PREFIX_wfnotifications": "INNODB",
+      "SERVMASK_PREFIX_wfpendingissues": "INNODB",
+      "SERVMASK_PREFIX_wfreversecache": "INNODB",
+      "SERVMASK_PREFIX_wfsecurityevents": "INNODB",
+      "SERVMASK_PREFIX_wfsnipcache": "INNODB",
+      "SERVMASK_PREFIX_wfstatus": "INNODB",
+      "SERVMASK_PREFIX_wftrafficrates": "INNODB",
+      "SERVMASK_PREFIX_wfwaffailures": "INNODB",
+      "SERVMASK_PREFIX_woocommerce_api_keys": "INNODB",
+      "SERVMASK_PREFIX_woocommerce_attribute_taxonomies": "INNODB",
+      "SERVMASK_PREFIX_woocommerce_downloadable_product_permissions": "INNODB",
+      "SERVMASK_PREFIX_woocommerce_log": "INNODB",
+      "SERVMASK_PREFIX_woocommerce_order_itemmeta": "INNODB",
+      "SERVMASK_PREFIX_woocommerce_order_items": "INNODB",
+      "SERVMASK_PREFIX_woocommerce_payment_tokenmeta": "INNODB",
+      "SERVMASK_PREFIX_woocommerce_payment_tokens": "INNODB",
+      "SERVMASK_PREFIX_woocommerce_sessions": "INNODB",
+      "SERVMASK_PREFIX_woocommerce_shipping_zone_locations": "INNODB",
+      "SERVMASK_PREFIX_woocommerce_shipping_zone_methods": "INNODB",
+      "SERVMASK_PREFIX_woocommerce_shipping_zones": "INNODB",
+      "SERVMASK_PREFIX_woocommerce_subscription_downloads": "INNODB",
+      "SERVMASK_PREFIX_woocommerce_tax_rate_locations": "INNODB",
+      "SERVMASK_PREFIX_woocommerce_tax_rates": "INNODB",
+      "SERVMASK_PREFIX_yoast_indexable": "INNODB",
+      "SERVMASK_PREFIX_yoast_indexable_hierarchy": "INNODB",
+      "SERVMASK_PREFIX_yoast_migrations": "INNODB",
+      "SERVMASK_PREFIX_yoast_primary_term": "INNODB",
+      "SERVMASK_PREFIX_yoast_seo_links": "INNODB",
+      "SERVMASK_PREFIX_yoast_seo_meta": "INNODB"
+    },
+    "statements_count": 1951173,
+    "compatibility": [],
+    "source_sql_mode": null,
+    "table_decisions": {
+      "SERVMASK_PREFIX_ahm_assets": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_ahm_download_stats": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_ahm_emails": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_fsmpt_email_logs": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_access": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_annotations": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2015_01": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2016_01": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2017_01": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2018_01": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2019_01": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2020_01": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2021_01": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2022_01": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2022_02": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2022_03": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2022_04": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2022_05": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2022_06": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2022_07": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2022_08": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2022_09": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2022_10": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2022_11": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2022_12": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2023_01": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2023_02": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2023_03": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2023_04": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2023_05": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2023_06": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2023_07": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2023_08": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2023_09": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2023_10": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2023_11": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2023_12": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2024_01": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2024_02": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2024_03": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2024_04": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2024_05": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2024_06": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2024_07": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2024_08": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2024_09": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2024_10": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2024_11": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2024_12": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2025_01": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2025_02": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2025_03": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2025_04": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2025_05": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2025_06": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2025_07": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2025_08": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2025_09": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2025_10": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2025_11": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2025_12": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2026_01": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2026_02": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2026_03": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2026_04": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2026_05": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2026_06": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2026_07": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2026_08": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2026_09": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2026_10": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2026_11": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_invalidations": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2015_01": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2016_01": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2017_01": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2018_01": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2019_01": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2020_01": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2021_01": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2022_01": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2022_02": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2022_03": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2022_04": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2022_05": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2022_06": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2022_07": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2022_08": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2022_09": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2022_10": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2022_11": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2022_12": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2023_01": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2023_02": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2023_03": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2023_04": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2023_05": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2023_06": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2023_07": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2023_08": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2023_09": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2023_10": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2023_11": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2023_12": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2024_01": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2024_02": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2024_03": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2024_04": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2024_05": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2024_06": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2024_07": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2024_08": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2024_09": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2024_10": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2024_11": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2024_12": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2025_01": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2025_02": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2025_03": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2025_04": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2025_05": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2025_06": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2025_07": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2025_08": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2025_09": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2025_10": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2025_11": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2025_12": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2026_01": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2026_02": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2026_03": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2026_04": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2026_05": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2026_06": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2026_07": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2026_08": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2026_09": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2026_10": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_numeric_2026_11": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_brute_force_log": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_changes": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_custom_dimensions": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_goal": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_locks": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_log_action": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_log_conversion": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_log_conversion_item": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_log_link_visit_action": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_log_profiling": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_log_visit": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_logger_message": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_option": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_plugin_setting": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_privacy_logdata_anonymizations": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_report": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_report_subscriptions": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_segment": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_sequence": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_session": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_site": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_site_setting": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_site_url": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_tagmanager_container": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_tagmanager_container_release": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_tagmanager_container_version": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_tagmanager_tag": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_tagmanager_trigger": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_tagmanager_variable": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_tracking_failure": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_twofactor_recovery_code": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_user": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_user_dashboard": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_user_language": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_user_token_auth": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_pmxe_exports": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_pmxe_google_cats": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_pmxe_posts": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_pmxe_templates": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_pmxi_files": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_pmxi_geocoding": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_pmxi_hash": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_pmxi_history": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_pmxi_images": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_pmxi_imports": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_pmxi_posts": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_pmxi_templates": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_sib_model_contact": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_sib_model_country": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_wfauditevents": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_wfblockediplog": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_wfblocks7": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_wfconfig": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_wfcrawlers": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_wffilechanges": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_wffilemods": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_wfhits": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_wfhoover": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_wfissues": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_wfknownfilelist": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_wflivetraffichuman": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_wflocs": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_wflogins": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_wfls_2fa_secrets": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_wfls_role_counts": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_wfls_settings": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_wfnotifications": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_wfpendingissues": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_wfreversecache": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_wfsecurityevents": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_wfsnipcache": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_wfstatus": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_wftrafficrates": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_wfwaffailures": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_woocommerce_subscription_downloads": {
+        "action": "garder"
+      },
+      "SERVMASK_PREFIX_yoast_indexable": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_yoast_indexable_hierarchy": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_yoast_migrations": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_yoast_primary_term": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_yoast_seo_links": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_yoast_seo_meta": {
+        "action": "vider"
+      }
+    },
+    "skipped_inserts": 631612,
+    "table_policy_version": 1
+  },
+  "table_engines": {
+    "SERVMASK_PREFIX_matomo_locks": "INNODB",
+    "SERVMASK_PREFIX_term_taxonomy": "INNODB",
+    "SERVMASK_PREFIX_woocommerce_subscription_downloads": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2015_01": "INNODB",
+    "SERVMASK_PREFIX_pmxi_files": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2022_07": "INNODB",
+    "SERVMASK_PREFIX_wc_reserved_stock": "INNODB",
+    "SERVMASK_PREFIX_options": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2023_07": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2022_09": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2026_11": "INNODB",
+    "SERVMASK_PREFIX_matomo_access": "INNODB",
+    "SERVMASK_PREFIX_wfls_2fa_secrets": "INNODB",
+    "SERVMASK_PREFIX_matomo_report_subscriptions": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2024_04": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2025_04": "INNODB",
+    "SERVMASK_PREFIX_wfknownfilelist": "INNODB",
+    "SERVMASK_PREFIX_matomo_privacy_logdata_anonymizations": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2023_09": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2024_12": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2022_11": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2022_04": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2025_09": "INNODB",
+    "SERVMASK_PREFIX_ahm_emails": "INNODB",
+    "SERVMASK_PREFIX_wc_admin_note_actions": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2024_02": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2021_01": "INNODB",
+    "SERVMASK_PREFIX_commentmeta": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2022_10": "INNODB",
+    "SERVMASK_PREFIX_matomo_user": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2026_01": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2024_10": "INNODB",
+    "SERVMASK_PREFIX_woocommerce_shipping_zones": "INNODB",
+    "SERVMASK_PREFIX_wfsecurityevents": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2025_10": "INNODB",
+    "SERVMASK_PREFIX_wfreversecache": "INNODB",
+    "SERVMASK_PREFIX_posts": "INNODB",
+    "SERVMASK_PREFIX_wc_order_stats": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2023_08": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2021_01": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2026_09": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2023_09": "INNODB",
+    "SERVMASK_PREFIX_wfls_role_counts": "MEMORY",
+    "SERVMASK_PREFIX_actionscheduler_groups": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2023_01": "INNODB",
+    "SERVMASK_PREFIX_wc_order_addresses": "INNODB",
+    "SERVMASK_PREFIX_wfblocks7": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2022_11": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2025_04": "INNODB",
+    "SERVMASK_PREFIX_yoast_indexable": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2022_07": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2020_01": "INNODB",
+    "SERVMASK_PREFIX_wfhits": "INNODB",
+    "SERVMASK_PREFIX_wc_product_attributes_lookup": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2016_01": "INNODB",
+    "SERVMASK_PREFIX_woocommerce_sessions": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2026_07": "INNODB",
+    "SERVMASK_PREFIX_woocommerce_log": "INNODB",
+    "SERVMASK_PREFIX_matomo_user_language": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2022_04": "INNODB",
+    "SERVMASK_PREFIX_terms": "INNODB",
+    "SERVMASK_PREFIX_matomo_option": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2024_05": "INNODB",
+    "SERVMASK_PREFIX_matomo_user_dashboard": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2024_01": "INNODB",
+    "SERVMASK_PREFIX_yoast_migrations": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2025_07": "INNODB",
+    "SERVMASK_PREFIX_matomo_user_token_auth": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2020_01": "INNODB",
+    "SERVMASK_PREFIX_usermeta": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2024_05": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2023_03": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2023_01": "INNODB",
+    "SERVMASK_PREFIX_matomo_log_visit": "INNODB",
+    "SERVMASK_PREFIX_woocommerce_tax_rate_locations": "INNODB",
+    "SERVMASK_PREFIX_ahm_download_stats": "INNODB",
+    "SERVMASK_PREFIX_pmxe_posts": "INNODB",
+    "SERVMASK_PREFIX_matomo_annotations": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2024_03": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2026_08": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2023_11": "INNODB",
+    "SERVMASK_PREFIX_woocommerce_tax_rates": "INNODB",
+    "SERVMASK_PREFIX_wc_orders_meta": "INNODB",
+    "SERVMASK_PREFIX_woocommerce_payment_tokenmeta": "INNODB",
+    "SERVMASK_PREFIX_woocommerce_order_items": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2025_11": "INNODB",
+    "SERVMASK_PREFIX_wc_customer_lookup": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2022_03": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2025_12": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2018_01": "INNODB",
+    "SERVMASK_PREFIX_matomo_site": "INNODB",
+    "SERVMASK_PREFIX_pmxi_posts": "INNODB",
+    "SERVMASK_PREFIX_matomo_segment": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2024_02": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2019_01": "INNODB",
+    "SERVMASK_PREFIX_woocommerce_attribute_taxonomies": "INNODB",
+    "SERVMASK_PREFIX_matomo_tracking_failure": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2025_12": "INNODB",
+    "SERVMASK_PREFIX_yoast_seo_meta": "INNODB",
+    "SERVMASK_PREFIX_matomo_tagmanager_tag": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2022_05": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2026_07": "INNODB",
+    "SERVMASK_PREFIX_matomo_brute_force_log": "INNODB",
+    "SERVMASK_PREFIX_matomo_tagmanager_trigger": "INNODB",
+    "SERVMASK_PREFIX_wc_admin_notes": "INNODB",
+    "SERVMASK_PREFIX_wflogins": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2023_04": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2024_08": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2024_03": "INNODB",
+    "SERVMASK_PREFIX_wc_order_coupon_lookup": "INNODB",
+    "SERVMASK_PREFIX_wfblockediplog": "INNODB",
+    "SERVMASK_PREFIX_comments": "INNODB",
+    "SERVMASK_PREFIX_matomo_site_setting": "INNODB",
+    "SERVMASK_PREFIX_pmxe_exports": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2023_11": "INNODB",
+    "SERVMASK_PREFIX_wc_category_lookup": "INNODB",
+    "SERVMASK_PREFIX_matomo_log_conversion_item": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2017_01": "INNODB",
+    "SERVMASK_PREFIX_woocommerce_payment_tokens": "INNODB",
+    "SERVMASK_PREFIX_wfstatus": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2025_07": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2023_02": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2026_02": "INNODB",
+    "SERVMASK_PREFIX_postmeta": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2025_06": "INNODB",
+    "SERVMASK_PREFIX_matomo_site_url": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2022_12": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2025_03": "INNODB",
+    "SERVMASK_PREFIX_wfhoover": "INNODB",
+    "SERVMASK_PREFIX_sib_model_contact": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2026_11": "INNODB",
+    "SERVMASK_PREFIX_wftrafficrates": "INNODB",
+    "SERVMASK_PREFIX_matomo_report": "INNODB",
+    "SERVMASK_PREFIX_matomo_log_profiling": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2026_01": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2022_09": "INNODB",
+    "SERVMASK_PREFIX_wfnotifications": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2023_07": "INNODB",
+    "SERVMASK_PREFIX_woocommerce_downloadable_product_permissions": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2024_04": "INNODB",
+    "SERVMASK_PREFIX_wfcrawlers": "INNODB",
+    "SERVMASK_PREFIX_woocommerce_api_keys": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2026_09": "INNODB",
+    "SERVMASK_PREFIX_yoast_seo_links": "INNODB",
+    "SERVMASK_PREFIX_matomo_plugin_setting": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2026_04": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2023_08": "INNODB",
+    "SERVMASK_PREFIX_woocommerce_shipping_zone_locations": "INNODB",
+    "SERVMASK_PREFIX_matomo_log_conversion": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2025_08": "INNODB",
+    "SERVMASK_PREFIX_wc_product_download_directories": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2022_10": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2025_08": "INNODB",
+    "SERVMASK_PREFIX_pmxe_google_cats": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2025_01": "INNODB",
+    "SERVMASK_PREFIX_matomo_tagmanager_variable": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2022_02": "INNODB",
+    "SERVMASK_PREFIX_termmeta": "INNODB",
+    "SERVMASK_PREFIX_woocommerce_shipping_zone_methods": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2025_09": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2026_08": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2022_02": "INNODB",
+    "SERVMASK_PREFIX_yoast_indexable_hierarchy": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2026_03": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2025_10": "INNODB",
+    "SERVMASK_PREFIX_wfconfig": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2024_12": "INNODB",
+    "SERVMASK_PREFIX_pmxi_hash": "INNODB",
+    "SERVMASK_PREFIX_wffilemods": "INNODB",
+    "SERVMASK_PREFIX_wc_product_meta_lookup": "INNODB",
+    "SERVMASK_PREFIX_matomo_tagmanager_container": "INNODB",
+    "SERVMASK_PREFIX_pmxi_images": "INNODB",
+    "SERVMASK_PREFIX_wffilechanges": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2024_11": "INNODB",
+    "SERVMASK_PREFIX_actionscheduler_logs": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2023_03": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2016_01": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2024_07": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2023_10": "INNODB",
+    "SERVMASK_PREFIX_yoast_primary_term": "INNODB",
+    "SERVMASK_PREFIX_matomo_twofactor_recovery_code": "INNODB",
+    "SERVMASK_PREFIX_matomo_changes": "INNODB",
+    "SERVMASK_PREFIX_users": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2024_01": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2022_08": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2022_03": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2025_05": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2024_06": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2023_12": "INNODB",
+    "SERVMASK_PREFIX_term_relationships": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2025_02": "INNODB",
+    "SERVMASK_PREFIX_fsmpt_email_logs": "INNODB",
+    "SERVMASK_PREFIX_wc_orders": "INNODB",
+    "SERVMASK_PREFIX_wfsnipcache": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2015_01": "INNODB",
+    "SERVMASK_PREFIX_matomo_logger_message": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2019_01": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2026_02": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2017_01": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2026_03": "INNODB",
+    "SERVMASK_PREFIX_wc_rate_limits": "INNODB",
+    "SERVMASK_PREFIX_wfls_settings": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2026_04": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2025_01": "INNODB",
+    "SERVMASK_PREFIX_sib_model_country": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2026_06": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2023_05": "INNODB",
+    "SERVMASK_PREFIX_actionscheduler_actions": "INNODB",
+    "SERVMASK_PREFIX_wc_order_operational_data": "INNODB",
+    "SERVMASK_PREFIX_pmxi_history": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2024_09": "INNODB",
+    "SERVMASK_PREFIX_matomo_goal": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2024_10": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2025_11": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2023_06": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2026_05": "INNODB",
+    "SERVMASK_PREFIX_woocommerce_order_itemmeta": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2023_12": "INNODB",
+    "SERVMASK_PREFIX_links": "INNODB",
+    "SERVMASK_PREFIX_pmxi_imports": "INNODB",
+    "SERVMASK_PREFIX_wc_order_product_lookup": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2024_07": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2026_06": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2023_05": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2024_06": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2025_03": "INNODB",
+    "SERVMASK_PREFIX_matomo_session": "INNODB",
+    "SERVMASK_PREFIX_matomo_log_action": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2018_01": "INNODB",
+    "SERVMASK_PREFIX_matomo_log_link_visit_action": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2022_08": "INNODB",
+    "SERVMASK_PREFIX_wfpendingissues": "INNODB",
+    "SERVMASK_PREFIX_pmxe_templates": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2022_01": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2023_10": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2022_12": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2022_06": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2024_11": "INNODB",
+    "SERVMASK_PREFIX_wc_download_log": "INNODB",
+    "SERVMASK_PREFIX_wc_order_tax_lookup": "INNODB",
+    "SERVMASK_PREFIX_wfauditevents": "INNODB",
+    "SERVMASK_PREFIX_pmxi_templates": "INNODB",
+    "SERVMASK_PREFIX_matomo_tagmanager_container_version": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2022_05": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2023_04": "INNODB",
+    "SERVMASK_PREFIX_pmxi_geocoding": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2022_06": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2023_02": "INNODB",
+    "SERVMASK_PREFIX_actionscheduler_claims": "INNODB",
+    "SERVMASK_PREFIX_matomo_sequence": "INNODB",
+    "SERVMASK_PREFIX_wc_tax_rate_classes": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2026_05": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_invalidations": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2023_06": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2026_10": "INNODB",
+    "SERVMASK_PREFIX_matomo_tagmanager_container_release": "INNODB",
+    "SERVMASK_PREFIX_matomo_custom_dimensions": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2025_02": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2022_01": "INNODB",
+    "SERVMASK_PREFIX_wflivetraffichuman": "INNODB",
+    "SERVMASK_PREFIX_wc_webhooks": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2024_09": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2025_05": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2025_06": "INNODB",
+    "SERVMASK_PREFIX_wfissues": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2024_08": "INNODB",
+    "SERVMASK_PREFIX_ahm_assets": "INNODB",
+    "SERVMASK_PREFIX_wflocs": "INNODB",
+    "SERVMASK_PREFIX_wfwaffailures": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_numeric_2026_10": "INNODB"
+  },
+  "native_phases": {
+    "executed": false,
+    "code": "FILES_REQUIRED_NATIVE_PHASES",
+    "reason": "Native verification requires the exact archived plugins/core/settings; no surrogate bootstrap is used."
+  },
+  "elapsed_seconds": 347.808,
+  "database_bytes": 473896502,
+  "non_database_payloads_read": false,
+  "isolation_after": {
+    "network": "none",
+    "mounts": [],
+    "ports": [],
+    "privileged": false,
+    "cap_drop": [
+      "ALL"
+    ],
+    "no_new_privileges": true,
+    "image_id": "sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2",
+    "name": "imagine-a01-db-only-180946f83993"
+  },
+  "sources_unchanged": true,
+  "cleanup": {
+    "name": "imagine-a01-db-only-180946f83993",
+    "absent": true
+  },
+  "recorded_utc": "2026-11-28T01:40:40.912423+00:00",
+  "report": "C:\\Users\\Ced\\imagine\\production\\A-01\\archive-reelle-4\\database-180946f83993\\result.json"
+}
