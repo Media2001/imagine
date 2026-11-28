@@ -9,6 +9,22 @@ use PHPUnit\Framework\TestCase;
 
 final class CookiesC32Test extends TestCase
 {
+    public function testSessionWooNeDeclarePasLaConnexionNonObservee(): void
+    {
+        $rows = array_column(Cookies::liste(), null, 'nom');
+        self::assertSame('Code suivi connu (C-30), panier', $rows['wp_woocommerce_session_[hash]']['geste']);
+    }
+
+    public function testTraductionsExtractiblesEtDonneesNonTraduites(): void
+    {
+        $source = file_get_contents(dirname(__DIR__) . '/Cookies.php');
+        self::assertDoesNotMatchRegularExpression('/esc_html__\\(\\s*\\$/', $source);
+        foreach (['Nom ou motif', 'Déposé par', 'À quel geste', 'Durée', 'Usage'] as $heading) {
+            self::assertStringContainsString("esc_html__('" . $heading . "', 'imagine-site')", $source);
+        }
+        self::assertStringContainsString('esc_html($row[$key])', $source);
+    }
+
     public function testListeFermeeEtMotifsAncres(): void
     {
         self::assertCount(14, Cookies::liste());
