@@ -57,7 +57,7 @@ register_post_type('a16_numero', ['public'=>false]);
 register_post_type('a16_article', ['public'=>false]);
 register_post_type('PRIVATE_TYPE_CANARY', ['public'=>false]);
 register_post_type('OTHER_TYPE_CANARY', ['public'=>false]);
-register_taxonomy('a16_theme', 'a16_article');
+register_taxonomy('a16_theme', ['a16_article', 'a16_numero']);
 register_taxonomy('a16_issue', 'a16_article');
 if (getenv('A33_CONFINED') === '1') {
  add_filter('query', static function ($sql) {
@@ -98,7 +98,7 @@ if (getenv('A33_CONFINED') === '1') {
     watch = libc.inotify_init1(os.O_NONBLOCK | os.O_CLOEXEC)
     assert watch >= 0
     observed = sorted((site / 'wp-content/uploads').glob('A33_FILE*'))
-    assert len(observed) == 9
+    assert len(observed) == 10
     for f in observed:
         assert libc.inotify_add_watch(watch, os.fsencode(f), 0x01 | 0x20) >= 0
     observed[0].read_bytes()
@@ -114,11 +114,14 @@ if (getenv('A33_CONFINED') === '1') {
     check('native_success', p.returncode == 0 and p.stdout == 'A33_OK archives.json archives.md\n' and p.stderr == '', {'exit': p.returncode, 'stderr_sha256': hashlib.sha256(p.stderr.encode()).hexdigest()})
     d = json.loads((out / 'archives.json').read_text(encoding='utf-8'))
     check('twelve_selects_ten_exact', d['selected_issues'] == 10 and len(oracle['issues']) == 12)
-    expected = [{'type': 'article', 'type_group': 0, 'year': 2010, 'count': 1}, {'type': 'article', 'type_group': 0, 'year': 2011, 'count': 1}, {'type': 'autre', 'type_group': 1, 'year': 2023, 'count': 1}, {'type': 'autre', 'type_group': 2, 'year': 2023, 'count': 1}, {'type': 'numero', 'type_group': 0, 'year': 2010, 'count': 1}, {'type': 'numero', 'type_group': 0, 'year': 2011, 'count': 1}, {'type': 'post', 'type_group': 0, 'year': 2022, 'count': 1}]
+    expected = [{'type': 'article', 'type_group': 0, 'year': 2010, 'count': 1}, {'type': 'article', 'type_group': 0, 'year': 2012, 'count': 1}, {'type': 'autre', 'type_group': 1, 'year': 2023, 'count': 1}, {'type': 'autre', 'type_group': 2, 'year': 2023, 'count': 1}, {'type': 'numero', 'type_group': 0, 'year': 2010, 'count': 1}, {'type': 'numero', 'type_group': 0, 'year': 2012, 'count': 1}, {'type': 'post', 'type_group': 0, 'year': 2022, 'count': 1}, {'type': 'post', 'type_group': 0, 'year': 'inconnu', 'count': 1}]
     check('published_outside_exact_closed_types_years', d['published_outside'] == expected, d['published_outside'])
-    check('outside_files_exact_years_missing_not_zero', d['outside_media_by_year'] == [{'year': 2010, 'files': weight(3, 2, 1, 18)}, {'year': 2011, 'files': weight(1, 1, 0, 13)}, {'year': 2022, 'files': weight(1, 1, 0, 0)}])
+    check('outside_files_exact_years_missing_not_zero', d['outside_media_by_year'] == [{'year': 2010, 'files': weight(3, 2, 1, 18)}, {'year': 2012, 'files': weight(1, 1, 0, 13)}, {'year': 2022, 'files': weight(1, 1, 0, 0)}, {'year': 'inconnu', 'files': weight(1, 1, 0, 37)}])
     check('orphan_zero_and_missing_parent', d['orphan_media'] == weight(2, 2, 0, 52))
-    check('recent_comparison_exact', d['recent_media'] == weight(2, 2, 0, 36))
+    check('recent_comparison_exact', d['recent_media'] == weight(3, 3, 0, 59))
+    check('pdf_post_orphan_and_shared_deduplicated', d['recent_media'] == weight(3, 3, 0, 59) and d['orphan_media'] == weight(2, 2, 0, 52))
+    check('unknown_year_attachment_json', d['outside_media_by_year'][-1] == {'year': 'inconnu', 'files': weight(1, 1, 0, 37)})
+    check('tie_boundary_a16_id_order', [r for r in d['published_outside'] if r['type'] == 'numero'] == [expected[4], expected[5]] and d['outside_media_by_year'][1] == {'year': 2012, 'files': weight(1, 1, 0, 13)})
     check('nonpublished_parent_separate', d['other_media'] == weight(1, 1, 0, 31))
     check('no_media_content_open_or_access', events == b'')
     check('no_site_identifiers_all_nominal_channels', clean(p, out))
@@ -147,7 +150,15 @@ if (getenv('A33_CONFINED') === '1') {
         if label == 'parent':
             check('a16_variant_parent_exact', q.returncode == 0 and all(variant.get(k) == d[k] for k in d if k != 'mapping_sha256'))
         else:
-            check('a16_variant_taxonomy_ten_no_term_post_id_inference', q.returncode == 0 and variant.get('selected_issues') == 10 and variant.get('recent_media') == weight(1, 1, 0, 19))
+            check('a16_variant_taxonomy_ten_no_term_post_id_inference', q.returncode == 0 and variant.get('selected_issues') == 10 and variant.get('recent_media') == weight(5, 4, 1, 70))
+            check('pdf_taxonomy_and_multilink_deduplicated', variant.get('recent_media') == weight(5, 4, 1, 70) and variant.get('outside_media_by_year', [None])[0] == {'year': 2010, 'files': weight(1, 1, 0, 7)})
+    shared = json.loads(mapping.read_bytes())
+    shared.update(article_type='a16_numero', liaison={'source': 'post_parent', 'cle': 'post_parent'})
+    shared_config = OUT / 'variant-shared-type.json'
+    shared_config.write_text(json.dumps(shared), encoding='utf-8')
+    q, dest = inventory('shared-type', shared_config)
+    variant = json.loads((dest / 'archives.json').read_bytes()) if dest.exists() else {}
+    check('shared_type_selected_issue_stays_kept', q.returncode == 0 and sum(r['count'] for r in variant.get('published_outside', []) if r['type'] == 'numero') == 2 and variant.get('recent_media') == weight(2, 2, 0, 40))
     forbidden_map = json.loads(mapping.read_bytes())
     forbidden_map['article_type'] = 'shop_order'
     forbidden_config = OUT / 'noneditorial.json'

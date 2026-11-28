@@ -8,7 +8,7 @@ register_post_type('a16_numero', ['public' => false]);
 register_post_type('a16_article', ['public' => false]);
 register_post_type('PRIVATE_TYPE_CANARY', ['public' => false]);
 register_post_type('OTHER_TYPE_CANARY', ['public' => false]);
-register_taxonomy('a16_theme', 'a16_article');
+register_taxonomy('a16_theme', ['a16_article', 'a16_numero']);
 register_taxonomy('a16_issue', 'a16_article');
 update_option('active_plugins', []);
 global $wpdb;
@@ -19,7 +19,8 @@ $issues = [];
 $articles = [];
 $terms = [];
 for ($i = 0; $i < 12; $i++) {
-    $date = (2010 + $i) . '-01-01 12:00:00';
+    // Equal dates straddle the tenth-issue boundary; A16 breaks the tie by ID.
+    $date = (2010 + ($i === 1 ? 2 : $i)) . '-01-01 12:00:00';
     $issues[] = wp_insert_post(['post_type' => 'a16_numero', 'post_status' => 'publish',
         'post_title' => 'A33_TITLE_CANARY', 'post_date' => $date, 'post_date_gmt' => $date]);
     update_post_meta($issues[$i], '_a16_pdf_id', '0');
@@ -39,24 +40,34 @@ wp_insert_post(['post_type' => 'PRIVATE_TYPE_CANARY', 'post_status' => 'publish'
     'post_title' => 'A33_OTHER_CANARY', 'post_date' => '2023-01-01 12:00:00',
     'post_date_gmt' => '2023-01-01 12:00:00']);
 $draft = wp_insert_post(['post_type' => 'page', 'post_status' => 'draft']);
+$unknown = wp_insert_post(['post_type' => 'post', 'post_status' => 'publish',
+    'post_title' => 'A33_UNKNOWN_YEAR_CANARY']);
+$wpdb->update($wpdb->posts, ['post_date_gmt' => '0000-00-00 00:00:00'], ['ID' => $unknown]);
 wp_insert_post(['post_type' => 'OTHER_TYPE_CANARY', 'post_status' => 'publish',
     'post_title' => 'A33_TYPE2_CANARY', 'post_date' => '2023-02-01 12:00:00',
     'post_date_gmt' => '2023-02-01 12:00:00']);
 $media = [];
 foreach (
     [[$issues[0], 7], [$articles[0], 11], [$articles[0], null], [$articles[1], 13],
-    [$issues[11], 17], [$articles[11], 19], [0, 23], [999999, 29], [$draft, 31], [$post, 0]] as $i => [$parent, $size]
+    [$issues[11], 17], [$articles[11], 19], [0, 23], [999999, 29], [$draft, 31], [$post, 0],
+    [$unknown, 37]] as $i => [$parent, $size]
 ) {
     $relative = 'A33_FILE_CANARY_' . $i . '.bin';
     if ($size !== null) {
         file_put_contents($root . '/' . $relative, str_repeat('x', $size));
     }
     $id = wp_insert_post(['post_type' => 'attachment', 'post_status' => 'inherit',
-        'post_parent' => $parent, 'post_title' => 'A33_MEDIA_CANARY', 'post_mime_type' => 'application/octet-stream']);
+        'post_parent' => $parent, 'post_title' => 'A33_MEDIA_CANARY', 'post_mime_type' => 'application/pdf']);
     update_post_meta($id, '_wp_attached_file', $relative);
     $media[] = $id;
 }
+// Unparented PDF, already-parented PDF, and shared reference: count each ID once.
+foreach ([9 => 6, 10 => 4, 11 => 6] as $issueIndex => $mediaIndex) {
+    update_post_meta($issues[$issueIndex], '_a16_pdf_id', (string) $media[$mediaIndex]);
+    update_term_meta($terms[$issueIndex], '_a16_pdf_id', (string) $media[$mediaIndex]);
+}
+wp_set_object_terms($articles[0], [$terms[0], $terms[11]], 'a16_issue');
 echo 'A33_JSON=' . json_encode(
-    ['issues' => $issues, 'articles' => $articles, 'media' => $media],
+    ['issues' => $issues, 'articles' => $articles, 'media' => $media, 'terms' => $terms],
     JSON_THROW_ON_ERROR
 ) . "\n";
