@@ -1,0 +1,42 @@
+{
+  "scope": "offline-network-none",
+  "exit": 0,
+  "command": [
+    "wsl.exe",
+    "-d",
+    "Ubuntu",
+    "--",
+    "docker",
+    "run",
+    "--rm",
+    "--pull",
+    "never",
+    "--network",
+    "none",
+    "--read-only",
+    "--cap-drop",
+    "ALL",
+    "--security-opt",
+    "no-new-privileges",
+    "--user",
+    "65534:65534",
+    "--tmpfs",
+    "/tmp:rw,exec,nosuid,size=512m",
+    "--mount",
+    "type=bind,source=/mnt/c/Users/Ced/imagine/wp,target=/repo/wp,readonly",
+    "--entrypoint",
+    "sh",
+    "imagine-tests-t01:1",
+    "-c",
+    "set -eu\ncp -a /repo/wp/plugins /tmp/plugins\ncp -a /opt/t01/imagine-site/vendor /tmp/plugins/imagine-site/vendor\ncd /tmp/plugins/imagine-site\nphp vendor/bin/phpunit --configuration phpunit.xml --fail-on-warning --fail-on-risky --fail-on-deprecation --fail-on-skipped --fail-on-incomplete --do-not-cache-result --colors=never --log-junit /tmp/c31.xml \n"
+  ],
+  "sources": {
+    "wp/plugins/imagine-site/DomainesRefuses.php": "7a3474ed632da7ad8c1742fa278c7b690f938bbd41fa98a527f4bac2919df16d",
+    "wp/plugins/imagine-site/DomainesRefusesReglages.php": "73d6d8e9875d2bfba35e110c223206ee24216847366b1966c57aa16dc5ff14ae",
+    "wp/plugins/imagine-site/DomainesRefusesRegles.php": "a8ef53080763f39844e396b3602baefe5c8ed3c3a9477d10eb2ec5cd28f3ac97",
+    "wp/plugins/imagine-site/tests/DomainesRefusesC31AdapterTest.php": "9440fe7a1cb57701ce97773345a55d4a769df9ddf41800a6cb6aa34abd5d1c51",
+    "wp/plugins/imagine-site/tests/DomainesRefusesC31Test.php": "822a7cf24b1bee6bb813da17877e862600ceec11c41b8f1463bd8a1bffe633db",
+    "wp/plugins/imagine-site/tests/DomainesRefusesC31WPStubs.php": "2f5a011aaaea3db63bf557604bb30c2654310bb4321d62003dd88395acb7d679"
+  },
+  "log": "corrections-suite-final-V2.log"
+}

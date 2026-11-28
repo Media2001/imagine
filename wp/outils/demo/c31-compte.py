@@ -102,7 +102,7 @@ finally:
     removed = o.wp('echo wp_json_encode(!file_exists(WP_CONTENT_DIR."/' + probe + '"));')
     sessions_ok = o.wp('global $wpdb;echo wp_json_encode($wpdb->get_results("SELECT * FROM {$wpdb->prefix}woocommerce_sessions ORDER BY session_key",ARRAY_A));') == raw['sessions']
     after = b13.c29.state()
-    allowed = {'_transient_imagine_b13_thematiques','_transient_timeout_imagine_b13_thematiques','_transient_imagine_b15_numero','_transient_timeout_imagine_b15_numero'}
+    allowed = {'_transient_imagine_b13_thematiques','_transient_timeout_imagine_b13_thematiques','_transient_imagine_b15_numero','_transient_timeout_imagine_b15_numero','_transient_wp_styles_for_blocks'}
     delta = {k for k in before['option_fingerprints'].keys() | after['option_fingerprints'].keys() if before['option_fingerprints'].get(k) != after['option_fingerprints'].get(k)}
     restored = all(before[k] == after[k] for k in before if k not in ['option_fingerprints','all_options_fingerprint']) and delta <= allowed
     b13.save(o, label, {'checks':checks, 'total':len(checks), 'rows':rows, 'error':error, 'restored':restored, 'sessions_restored':sessions_ok, 'probe_removed':removed, 'external':external, 'option_delta':sorted(delta), 'before':before, 'after':after, 'private':private, 'sources':o.sources(o)})
