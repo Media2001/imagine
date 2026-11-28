@@ -1,6 +1,16 @@
 # A-32 — Finalisation après corrections du 27 novembre
 
-**État courant : A-31 est scellé avec PRET ; ne pas le déplacer ni le resceller. A-33 est construit, sa matrice locale est verte et ses gates de paquet sont rouges.** La séquence A-31/A-32 ci-dessous est historique, autorisée une fois : elle n'autorise pas de déplacement d'A-33. Aucun lecteur, import, gardien ou lanceur n'est assoupli pour résoudre ce cycle.
+**Réception du 28 novembre :** la nouvelle file autorise la borne fermée d'A-32, son resceau, le resceau d'A-31 uniquement si nécessaire, puis la réception d'A-33 et T-03. Les anciens états et interdictions de déplacement ci-dessous sont historiques, remplacés par cette consigne. Aucun outil clos, gardien, import ou lanceur n'est assoupli.
+
+**Périmètre permanent :** `source-roots.json` énumère les dépendances de la matrice et des portails : tournée, tests A-32, gardien et auxiliaires, import gelé, quinze dossiers des outils inclus et dépendances du banc. Jamais tout `wp/outils/bascule/`, jamais A-33/A-34. Les README des outils inclus sont contrôlés ; le README partagé reste un contrat de lignes. La photographie des voisins appartient au reçu daté du sceau, pas aux conditions permanentes du lecteur.
+
+**Ordre courant :** nouvelle matrice par `matrix.py`, lecture par `verify.py --evidence`, installation par `seal.py --evidence --archive-existing`, vrais portails par `gates.py`, sceau par `seal.py --gates`, lecteur de production sans argument puis PRET seulement au vert. Un rejeu indépendant général dans les deux consoles après A-32/A-33 doit les nommer tous deux dans PAQUETS, zéro échec/exclusion. Le frein du 28 novembre à 2 h 40 interdit tout nouveau lot d'inventaire ou de mécanique de preuve non commencé.
+
+---
+
+## Historique antérieur au réveil du 28 novembre
+
+A-31 était scellé avec PRET et A-33 était construit. Les commandes ci-dessous sont des références historiques, non l'état courant.
 
 ## Contrôles actuels, lecture seule
 
