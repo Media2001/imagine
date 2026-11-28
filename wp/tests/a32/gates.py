@@ -7,7 +7,7 @@ import subprocess
 import sys
 
 sys.dont_write_bytecode = True
-from delivery import ROOT, digest, gates_valid, inventory
+from delivery import ROOT, digest, gates_valid, inventory, read
 
 
 def main():
@@ -18,9 +18,7 @@ def main():
     if out.is_relative_to(ROOT) or ROOT.is_relative_to(out):
         raise RuntimeError('A32_SCRATCH_REQUIRED')
     out.mkdir(parents=True, exist_ok=False)
-    roots = ['wp/outils/bascule', 'wp/tests/a32', 'wp/outils/staging', 'wp/outils/staging-court',
-             'wp/tests/t01', 'wp/tests/preparer-image.ps1', 'wp/tests/rejouer.ps1',
-             'production/A-20/verify.py', 'production/A-21/verify.py', 'production/A-22/verify.py', 'production/A-28/verify.py']
+    roots = read(ROOT / 'production/A-32/source-roots.json')['gates']
     before = inventory(roots)
     commands = [('prepare-image', ['powershell.exe', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', 'wp/tests/preparer-image.ps1'], 'utf-8', '1')]
     commands += [('global-' + name, ['powershell.exe', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', 'wp/tests/rejouer.ps1'], encoding, mode)

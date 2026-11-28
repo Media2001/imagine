@@ -22,12 +22,11 @@ def load(name, path):
 
 
 def sources():
-    roots = ['wp/outils/bascule', 'wp/outils/staging', 'wp/tests/a02-audit', 'wp/tests/a32', 'wp/tests/a16/seed.php']
+    roots = json.loads((ROOT / 'production/A-32/source-roots.json').read_bytes())['matrix']
+    assert 'wp/outils/bascule' not in roots
     return {p.relative_to(ROOT).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
             for key in roots for base in [ROOT / key] for p in ([base] if base.is_file() else sorted(base.rglob('*')))
-            if p.is_file() and '__pycache__' not in p.parts
-            and (p.name != 'README.md' or p.parent.name == 'tournee')
-            and not any(part in {'a29', 'a30', 'a31'} for part in p.relative_to(ROOT).parts)}
+            if p.is_file() and '__pycache__' not in p.parts}
 
 
 def main():

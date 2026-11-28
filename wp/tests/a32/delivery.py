@@ -150,6 +150,7 @@ def gates_valid(folder):
     result, rows = read(folder / 'result.json'), read(folder / 'commands.json')
     if (result.get('exit_code') != 0 or result.get('sources_stable') is not True
             or tuple(r['name'] for r in rows) != GATES
+            or read(folder / 'source-roots.json') != read(ROOT / 'production/A-32/source-roots.json')['gates']
             or read(folder / 'sources.json') != inventory(read(folder / 'source-roots.json'))):
         return False
     for row in rows:
