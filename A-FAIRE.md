@@ -2,7 +2,7 @@
 
 Tenu à jour par Claude à chaque session avec Ced. **Hermès ne modifie pas ce fichier** : il signale dans son rapport ce qu'il a fait et ce qui bloque, et la consigne passe en « Terminé » à la session suivante.
 
-Mis à jour le 27 novembre 2026, 22 h 30 (passage automatique).
+Mis à jour le 28 novembre 2026, 1 h 30 (passage automatique).
 
 **Deux voies depuis le 23/11.** Ce fichier est la file de la voie 1. Une deuxième session d'Hermès suit `A-FAIRE-2.md` (site de démonstration, squelette du thème, paywall sur article, profils, écran de réglages). Lis la section « Les deux voies » de la consigne permanente. Ne touche ni au site `imagine-test-demo`, ni aux dossiers `wp/themes/imagine/`, `wp/plugins/imagine-site/`, `wp/outils/demo/`, `wp/tests/demo/`.
 
@@ -12,7 +12,7 @@ Le projet a trois chantiers indépendants. Un lot porte la lettre de son chantie
 
 ## Consignes actives, par ordre de priorité
 
-File du 27/11, 22 h 30. Tes rapports de 19 h 30, 20 h 02, 20 h 39, 20 h 41, 21 h 31 et 21 h 47 sont lus, merci : la séquence conjointe, la retouche d'A-31, le `PRET` de T-03 retiré dès que sa photographie a été périmée, l'arrêt d'A-33 sans `PRET` devant un rouge que tu n'avais pas à assouplir. **A-31 est clos.** Arbitrages : `docs/arbitrages-2026-11-27.md`, passage de 22 h.
+File du 28/11, 1 h 30. Ton rapport de 22 h 24 est lu, merci : les cinq corrections d'A-32, la matrice en Python 3.14.6, l'arrêt sans `PRET` devant un portail rouge. Depuis, le dépôt montre A-32 rescellé à 22 h 29 et A-33 installé à 22 h 53, et le rejeu indépendant d'un relecteur lit « 13 paquets vérifiés, 0 échec », A-31, A-32 et A-33 compris. **Mais aucun `PRET` et aucun rapport depuis 22 h 24** : commence par dire en cinq lignes où tu en es. L'ordre que tu demandais est écrit ci-dessous, il n'a pas changé. Arbitrages : `docs/arbitrages-2026-11-28.md`, passage de 1 h.
 
 **L'import est gelé**, à l'état scellé par A-28 : plus aucun changement de `wp/outils/staging/` ni de `wp/outils/staging-court/` sans une consigne de cette file, ni fonction, ni correction, ni mise en forme.
 
@@ -22,22 +22,18 @@ File du 27/11, 22 h 30. Tes rapports de 19 h 30, 20 h 02, 20 h 39, 20 h 41, 21 h
 
 **Règle nouvelle (22 h) : un lecteur de paquet ne photographie pas ses voisins.** Le lecteur permanent d'un lot contrôle ce qui appartient au lot (ses fichiers, ses lignes dans un fichier partagé) et ce dont il dépend, **par une liste fermée écrite dans le lot**. Jamais un dossier entier d'outils, jamais le paquet d'un autre lot. La preuve que tu n'as rien touché chez les voisins se fait une fois, au sceau, dans le reçu ; elle n'est pas une condition permanente du lecteur. C'est ce qui a fait tomber A-32 à l'arrivée d'A-33, et T-03 à la retouche d'A-31. **Tu ne rouvres aucun lot clos pour cela.**
 
-**0. Les corrections d'A-32** (`corrections/A-32.md`), que tu as commencées à 21 h 53 : continue. Une fusion « à corriger » se prend sans attendre un mandat.
-   - **C02, C04, C01 et l'instruction 5** : tels que la fusion les écrit. Ni le gardien ni un outil clos ne sont modifiés ;
-   - **C03, A-19** : la tournée n'écrit pas `--as-of`, l'outil prend l'instant courant. Retenu ;
-   - **A-16** : la tournée n'écrit pas `--limit`, l'outil prend son défaut documenté, **dix**. C'est le périmètre du cahier des charges (§4.3), pas une troncature : **aucun mode sans plafond**, aucun mode d'emploi d'outil clos retouché ;
-   - **la photographie d'A-32 se borne** : son dossier `tournee/`, ses tests, le gardien, l'import gelé, et les dossiers des quinze outils de `outils.jsonl`. L'élargissement de `gates.py` à tout `wp/outils/bascule/` est à défaire. Un outil de la tournée qui change périme toujours le paquet : c'est voulu ; A-33, A-34 et les suivants, non ;
-   - la question de la fusion sur le `PRET` d'A-32 est sans objet : tu l'as retiré. Il revient après le sceau ;
-   - **si ces corrections périment le paquet d'A-31** (son sceau lie cinq fichiers de la tournée) : un resceau d'A-31 par sa propre commande, code et tests inchangés. A-31 reste clos ; dis-le en une ligne.
+**0. A-32 : il ne manque que la borne, puis le `PRET`.** Tes cinq corrections sont appliquées et lues ; les arbitrages de 22 h tiennent (C03 sans `--as-of`, A-16 à dix sans `--limit`, aucun mode sans plafond, aucun outil clos retouché).
+   - **Le sceau de 22 h 29 a précédé la règle de 22 h 30** : `wp/tests/a32/run.py` photographie encore tout `wp/outils/bascule/`. Borne-la avant le `PRET` : le dossier `tournee/`, les tests d'A-32, le gardien, l'import gelé, et les dossiers des quinze outils de `outils.jsonl`, par une liste fermée écrite dans le lot. Un outil de la tournée qui change périme toujours le paquet : c'est voulu ; A-33, A-34 et les suivants, non ;
+   - rescelle par la commande du lot, relis `production/A-32/verify.py` sans argument, dépose `PRET` ;
+   - **si ce nouveau sceau périme le paquet d'A-31** (son sceau lie cinq fichiers de la tournée) : un resceau d'A-31 par sa propre commande, code et tests inchangés. A-31 reste clos ; dis-le en une ligne.
 
-**1. A-32 puis A-33 : l'un après l'autre, sans séquence conjointe.**
-   - Un paquet aux portails rouges n'est pas un paquet : **sors du dépôt le paquet actuel d'A-33** (garde-le dans ton scratch), pour que le lanceur le range « hors rejeu, journaux absents », comme tu l'as fait pour le candidat d'A-31 ;
-   - scelle A-32 par sa commande, `PRET` ;
-   - rejoue les portails d'A-33 sur cette base, scelle, `PRET`. Vérifie au passage que le lecteur d'A-33 suit la règle de la liste fermée ;
-   - **la preuve qui compte** : un rejeu général après les deux sceaux, dans les deux consoles, où A-32 et A-33 sont tous deux parmi les paquets vérifiés, aucun hors rejeu, zéro échec. Ton rapport cite la ligne `PAQUETS` ;
+**1. A-33, juste après.**
+   - **La consigne « sors du dépôt le paquet d'A-33 » est levée** : elle valait pour un paquet aux portails rouges, il est vert. Elle ne revient que si le nouveau sceau d'A-32 le périme et que les deux se bloquent de nouveau ; dans ce cas seulement, sors-le le temps du sceau d'A-32, comme tu l'as fait pour le candidat d'A-31 ;
+   - vérifie que le lecteur d'A-33 suit la règle de la liste fermée ; rejoue ses portails s'ils sont périmés, scelle, `PRET` ;
+   - **la preuve qui compte** : un rejeu général après les deux `PRET`, dans les deux consoles, où A-32 et A-33 sont tous deux parmi les paquets vérifiés, aucun hors rejeu, zéro échec. Ton rapport cite la ligne `PAQUETS` ;
    - rien dans `wp/tests/t01/` ni `wp/tests/rejouer.ps1`, aucun portail assoupli, aucune empreinte changée à la main. Une étape rouge : arrêt sans `PRET`, un rapport de cinq lignes ;
    - A-33 n'entre pas dans la tournée ;
-   - **Python** : A-33 et ta requalification d'A-32 mesurent 3.11.15, les lots précédents et les commandes de réception 3.14.6. Rejoue la matrice Python avec `C:/Python314/python.exe`, celui des commandes de réception, ou dis en une ligne pourquoi ce n'est pas possible.
+   - **Python** : A-33 mesurait 3.11.15, les commandes de réception emploient 3.14.6. Rejoue sa matrice Python avec `C:/Python314/python.exe`, ou dis en une ligne pourquoi ce n'est pas possible.
 
 **2. T-03, la clôture, après les deux `PRET`.** Ton choix de le finaliser sur l'arbre final est retenu. Avant le sceau, applique-lui la règle : son lecteur final contrôle **ses** fichiers ; la photographie des paquets voisins reste dans le reçu du sceau, datée, et n'est plus une condition du lecteur. Puis la preuve finale, `PRET`, une vérification avec rejeu indépendant. Après sa clôture, T-03 n'est pas rescellé à chaque paquet nouveau. Le lanceur reste gelé.
 

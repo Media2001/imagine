@@ -2,7 +2,7 @@
 
 File de la **deuxième session d'Hermès**. Tenue par Claude. **Hermès ne modifie pas ce fichier.**
 
-Mis à jour le 27 novembre 2026, 22 h 30 (passage automatique).
+Mis à jour le 28 novembre 2026, 1 h 30 (passage automatique).
 
 Consigne permanente : `prompts/consigne-permanente.md` (section « Les deux voies »). Doctrine : `doctrine/doctrine.md`.
 
@@ -10,26 +10,28 @@ La voie 1 (`A-FAIRE.md`) s'occupe de l'existant : import, audit, mise à jour. L
 
 ## Consignes actives, par ordre de priorité
 
-File du 27/11, 22 h 30. Tes rapports de 21 h 18, 21 h 36, 21 h 59 et 22 h 17 sont lus, merci : la reprise, les corrections de C-29, B-13 et B-14 rendus avec leur `PRET`. Aucun des trois n'est encore vérifié ou relu : tu continues sans les attendre, et leurs corrections passeront avant le lot en cours si elles arrivent. Arbitrages : `docs/arbitrages-2026-11-27.md`, passage de 22 h.
+File du 28/11, 1 h 30. Tes rapports de 22 h 40 à 1 h 11 sont lus, merci : sept livraisons dans la nuit. **C-29, B-13 et B-14 sont code clos.** B-15 et B-16 corrigés attendent leur vérification, C-30 sa relecture : tu continues sans les attendre, et leurs corrections passeront avant le lot en cours si elles arrivent. Arbitrages : `docs/arbitrages-2026-11-28.md`, passage de 1 h.
 
-Les paquets de la voie 1 que ton rejeu trouve rouges (A-32, A-33 ce soir) ne sont pas à toi : continue à les signaler sans y toucher. **Ils ne bloquent pas la clôture de tes lots** : un lot se clôt sur la ligne `REJEU … PASS`, la ligne `OUTILS` sans échec et son propre vérificateur ; un paquet rouge ne bloque que s'il appartient au lot, ou à un lot clos ou porteur d'un `PRET`.
+Les paquets de la voie 1 que ton rejeu trouverait rouges ne sont pas à toi : continue à les signaler sans y toucher. **Ils ne bloquent pas la clôture de tes lots** : un lot se clôt sur la ligne `REJEU … PASS`, la ligne `OUTILS` sans échec et son propre vérificateur ; un paquet rouge ne bloque que s'il appartient au lot, ou à un lot clos ou porteur d'un `PRET`.
 
 **Règle du contrat (16 h 30), qui reste : le fichier d'amorçage partagé se contrôle par contrat, jamais par son empreinte entière.** Le vérificateur d'un lot contrôle l'empreinte de **ses** fichiers, la présence dans `imagine-site.php` de **son** bloc d'enregistrement, tel que livré, une seule fois, et **sa** section du README. Tu ne rouvres aucun lot code clos pour cela, et tu ne refais plus de réception complémentaire des voisins pour une simple ligne d'amorçage. Le petit socle commun que tu as écrit pour cela (`lot_reception_contract.py`) est bien : les lots suivants s'en servent, sans l'étendre. La règle « un fichier partagé changé pour un lot se rejoue avant de rendre » reste pour tout le reste (un appel ajouté dans le fichier d'un autre lot, un bouchon commun).
 
-**À savoir sur tes trois lots rendus.**
-   - **C-29** : corrections lues ; borner son lecteur à ses propres fichiers pendant B-13 est conforme à la règle du contrat. Vérification attendue ;
-   - **B-13** : « Connexion » comme libellé pour un lecteur connecté est une question de présentation, notée pour Ced ; n'y touche pas. La sélection manuelle des articles reste une question pour Imagine, non construite : c'est bien ;
-   - **B-14** : le retrait de « Derniers articles » suit le §3.2. B-05, clos, n'est pas modifié ; la relecture dira si son contrôle de l'accueil doit être déclaré sans objet.
+**Règle nouvelle (1 h), venue de B-14 et de B-16 : un gabarit scellé par un lot code clos.** Quand un lot modifie à bon droit un fichier qu'un lot **code clos** a scellé (`single-imagine_numero.php` et `single.php` pour B-11), tu fais ce que tu as fait cette nuit : tu le dis en tête du rapport, tu déposes **sous ton lot** le diff borné et le rejeu des contrôles du lot clos, et **tu ne rescelles pas le lot clos**. Son lecteur devient historique pour ce fichier ; ce n'est pas un rouge à réparer. De même pour B-01 : sa recette d'origine échoue sur des contrats dépassés par C-11 et B-03 ; elle est historique, tu ne la réécris pas et tu ne la rejoues plus. Les lecteurs historiques seront requalifiés une seule fois, au gel du code.
 
-**1. `briefs/B-15-pied-de-page.md`** — §3.2 : cinq zones identiques sur toutes les pages (abonnement, newsletter, numéro en cours, point de vente, mentions). **Aucune géolocalisation** : un lien vers la recherche de B-10. Deux à trois heures. Si tu l'as déjà rendu, passe à la suite.
+**À savoir sur tes lots rendus.**
+   - **B-13** : ordre alphabétique des thématiques, article récent laissé sans image, « Connexion » inchangé : retenus. Le libellé et la forme du menu étendu sont pour Ced ;
+   - **B-14** : un lien dont la page cible n'est pas publiée disparaît sans repli visible : retenu, et c'est la même règle dans le pied de page et en fin d'article. Signalé à Ced, à défaire s'il préfère un repli ;
+   - **B-15** : invalidation large et adresses par nom de page gardées ; ta preuve de cache par compteur est celle qu'on voulait ;
+   - **B-16** : l'appel piloté par le motif de C-08, sans seconde lecture de Memberships, est retenu ; un article libre lu en anonyme n'a pas d'appel, c'est le brief ;
+   - **C-30** : la sélection provisoire rangée sur la commande pendant un paiement asynchrone sera lue par la relecture ; rien à changer d'ici là.
 
-**2. `briefs/B-16-la-page-article.md`** — §3.3 : ce qui entoure le texte d'un article. Résumé et mots-clés en tête, signature, numéro d'origine, appel à l'abonnement en fin d'article pour qui a lu le texte complet sans être abonné. Structure seule ; le rendu du texte par C-08 et le mode lecture de B-03 ne changent pas. Trois heures.
+**1. `briefs/C-31-adresses-jetables-a-l-inscription.md`** — §3.9 : une liste de domaines refusés à l'inscription, en réglage, vide par défaut. Aucune liste téléchargée, aucun service tiers. Deux heures. Si tu l'as déjà rendu, passe à la suite.
 
-**3. `briefs/C-30-offre-de-bienvenue-et-code-suivi.md`** — §3.7, §3.14 : la page « Bienvenue » atteinte par un QR code, et son code suivi rangé sur la commande payée, compté par code. **L'offre n'offre rien** : aucun prix modifié, aucun code de réduction. Aucun traceur. Trois heures.
+**2. `briefs/C-32-les-cookies-qu-un-visiteur-recoit.md`** — §3.14, §4.4 : la liste fermée des cookies que la démonstration pose à un visiteur, un test qui refuse tout cookie hors liste, et cette liste affichée sur la page « Gestion des cookies ». **Aucun bandeau, aucun outil de consentement** ; tu ne modifies ni C-30 ni un lot clos. Trois heures.
 
-**4. `briefs/C-31-adresses-jetables-a-l-inscription.md`** — §3.9 : une liste de domaines refusés à l'inscription, en réglage, vide par défaut. Aucune liste téléchargée, aucun service tiers. Deux heures.
+**3. `briefs/C-33-ce-que-le-site-montre-de-ses-comptes.md`** — §4.4 : pour un visiteur anonyme, ni archive d'auteur, ni liste de comptes par l'interface REST, ni plan du site des utilisateurs, ni nom de compte dans les flux et l'oEmbed. Rien ne change pour l'éditeur ni pour un administrateur connecté. Deux à trois heures.
 
-Pour les réglages de C-30 et de C-31 : la règle de l'écran de C-10 plus bas vaut toujours (comme les quatre sections existantes, ou un écran à soi comme B-10).
+Pour les réglages de C-31 : la règle de l'écran de C-10 plus bas vaut toujours (comme les quatre sections existantes, ou un écran à soi comme B-10).
 
 **Le test d'étanchéité vivant est celui de C-26.** Les lots de cette file ne l'étendent pas ; ils prouvent leur étanchéité avec les témoins de C-26. La matrice sera étendue une fois, plus tard, par un lot.
 
@@ -106,3 +108,6 @@ Les liens « offert » et « groupé » absents des profils (C-13 et B-02 en mod
 | C-28 Packs thématiques | 27/11, corrigé le 27/11 | **Code clos le 27/11** : quatre corrections vérifiées (un pack dont un numéro est dépublié est refusé par le serveur, à l'ajout et à la validation ; un instantané manquant ne se reconstruit jamais après coup). Produit simple à prix unique et blocage du pack entier : défauts, questions chez Imagine. Validation visuelle de Ced attendue |
 | B-11 Vidéos, podcasts, sommaire audio | 27/11, preuve reprise deux fois le 27/11 | **Code clos le 27/11** : six instructions vérifiées, code inchangé depuis, réception par contrat rejouée au vert par le relecteur. La saisie dans l'éditeur n'est pas prouvée par l'automate : trois lignes à faire par Ced (`production/B-11/A-VOIR-contrat-V2.md`). Validation visuelle de Ced attendue |
 | B-12 Aucun appel sortant depuis le corps | 27/11, corrigé le 27/11 | **Code clos le 27/11** : le verrou ne se contourne plus par la casse de la route d'aperçu (matrice native, cache absent puis ancien, zéro tentative, un simple lien). Réserve permanente : matrice native hors de la suite scellée, à rejouer à chaque montée de version du cœur. Validation visuelle de Ced attendue |
+| C-29 La fiche du contact pour Brevo | 27/11, corrigé le 27/11 | **Code clos le 28/11** : cinq corrections vérifiées (un refus explicite survit à la sortie de sa lettre du catalogue ; un bénéficiaire de groupe, actif ou suspendu, est « inconnu »). Rien n'est transmis à Brevo. Rejeu du vérificateur rouge pour une cause étrangère (un test de B-16 en cours d'écriture), vert depuis. Validation visuelle de Ced attendue |
+| B-13 Menu principal et menu étendu | 27/11, corrigé le 27/11 | **Code clos le 28/11** : huit corrections vérifiées (chaque article de la sélection illustré, lien « S'abonner » rétabli à chaque rejeu, cache vidé au retrait d'une thématique, sélection exacte pour 1, 3 et 10). Contrôle sur le site non rejoué par le vérificateur. Validation visuelle de Ced attendue, avec une question : « Connexion » pour un lecteur connecté ; forme du menu étendu sur maquette |
+| B-14 Page d'accueil, structure | 27/11, corrigé le 27/11 | **Code clos le 28/11** : cinq instructions vérifiées (ancre d'abonnement rétablie, atteinte par le clic réel du paywall ; article libre choisi par la même fonction que la page numéro ; structure tenue par un test rejouable). Rejeu en conteneur non relancé par le vérificateur ; recette de B-01 devenue historique. Validation visuelle de Ced attendue |

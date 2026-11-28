@@ -188,3 +188,18 @@ Toute demande hors cahier des charges, toute contradiction interne au cahier des
 - **B-13 · le lecteur de C-29 borné à ses propres fichiers pendant B-13.** Conforme à la règle du contrat ; C-29 n'est pas clos, sa vérification le lira.
 - **B-14 · la liste « Derniers articles » de l'accueil est retirée.** Le §3.2 ne la prévoit pas. Le contrôle que B-05 faisait sur cette liste n'a plus d'objet sur l'accueil ; B-05, clos, n'est pas modifié. À confirmer par la relecture de B-14.
 - **C-08 · le balisage de contenu payant (§3.9) est déjà posé** par le paywall de la démonstration ; pas de lot nouveau pour lui. Sa description reprend l'extrait public.
+
+## 28 novembre 2026, 1 h — lots C-29, B-13, B-14, B-15, B-16, C-30, A-32, A-33, voie 1
+
+- **Voie 1 · aucun dépôt depuis 22 h 53, aucun rapport depuis 22 h 24.** A-32 rescellé et A-33 installé, portails verts, sans `PRET` ni rapport de fin. Moins de trois heures à 1 h 20 : noté, pas d'alerte. Ce serait le quatrième arrêt en vingt-huit heures.
+- **A-32 · rescellé à 22 h 29 sur une photographie encore récursive.** Le sceau a précédé d'une minute la règle de la liste fermée écrite à 22 h 30. À borner avant le `PRET`, sinon A-34 le fera retomber.
+- **C-29 · vérifié « prêt » sur un rejeu rouge pour une cause étrangère.** Une erreur dans un test de B-16 alors en cours d'écriture, non suivi par Git au moment du rejeu. Les rejeux suivants sont verts. Aléa de deux lots sur un même arbre ; clos.
+- **B-14 · le vérificateur n'a pas pu relancer le rejeu en conteneur** (commande derrière une approbation, session non interactive). Il a contrôlé les reçus contre les empreintes des fichiers. Clos avec cette réserve.
+- **B-14 · la recette d'origine de B-01 ne passe plus.** Deux contrats dépassés par C-11 et B-03, un inventaire dépassé. B-01 reste clos, sa recette devient historique ; requalification d'ensemble au gel du code.
+- **B-14, B-16 · le lecteur de B-11 est rouge sur deux gabarits modifiés à bon droit.** Compléments déposés sous B-14 et B-16 (diff borné, 23 contrôles natifs rejoués). B-11 reste clos, son paquet devient historique pour ces deux fichiers.
+- **B-14 · la fusion attribuait à tort un écart de comptage à A-32 et A-33.** Il venait de deux tests de B-15. Sans suite.
+- **B-15, B-16 · un relecteur « conforme » là où l'autre voyait juste, deux fois dans la nuit.** B-15 : la preuve de cache ne prouvait que le déterminisme. B-16 : l'appel à l'abonnement s'affichait pour un abonné offert ou en résiliation à échéance, et le contrôle d'étanchéité ne lisait que le texte visible de l'appel. Les fusions ont relu le code et tranché ; corrections rendues, vérifications attendues.
+- **B-16 · des tâches planifiées créées hors de l'annulation pendant la recette.** Les caches de rapports de Subscriptions s'écrivaient à la fermeture du processus : quatre actions créées et quatre annulées, restaurées par leurs identifiants, empreinte de départ retrouvée. Site fictif ; noté.
+- **C-30 · la table des sessions trop grosse pour le transport du banc.** Restauration reprise ligne par ligne, trois sessions rendues à l'identique. Site fictif ; noté.
+- **C-30 · un visiteur qui arrive avec un code suivi connu reçoit le cookie de session de WooCommerce.** Pas de cookie propre au code ; savoir s'il demande un consentement est rangé pour Imagine et son conseil. Lot C-32 pour l'inventaire.
+- **Rapports · Hermès travaille par délégation** (« relais parent », « liste initiale déléguée ») : un lot ajouté à la file pendant une délégation n'est pris qu'au relais suivant. Sans conséquence cette nuit ; noté.
