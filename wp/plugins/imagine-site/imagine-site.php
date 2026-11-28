@@ -212,6 +212,10 @@ require_once __DIR__ . '/DomainesRefusesReglages.php';
 DomainesRefuses::register();
 DomainesRefusesReglages::register();
 
+// C32 — inventaire fermé, aucun consentement ni script ajouté.
+require_once __DIR__ . '/Cookies.php';
+Cookies::register();
+
 // C28 — instantané du pack au paiement, décision et remboursements C14 inchangés.
 require_once __DIR__ . '/PacksRegles.php';
 require_once __DIR__ . '/PacksThematiques.php';

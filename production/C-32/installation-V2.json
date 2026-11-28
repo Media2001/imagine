@@ -1,0 +1,26 @@
+{
+  "scope": "imagine-test-demo",
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "before": {
+    "plugins/imagine-site/Cookies.php": null,
+    "plugins/imagine-site/imagine-site.php": "68dd24991c956977f812c23437fe93e10d6424f28ac5a6f03aaa761ae9700637"
+  },
+  "readback": {
+    "plugins/imagine-site/Cookies.php": "1ca385b79ffecaa93bdeb6ff32545a76232ea532d827c007c7d9fea6805e7a8a",
+    "plugins/imagine-site/imagine-site.php": "834544c0ee92bfc0b97b99743277ad4a6355cb9408597ad83932c961e22b0776"
+  },
+  "private_snapshot": {
+    "file": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\b11-private-86tjtkql\\snapshot.json",
+    "sha256": "11b58cb6309f36e443a4cad3caf68c3f70e28fd934c3b4a25068e05e34695680",
+    "private": true
+  }
+}
