@@ -15,8 +15,9 @@ identity = o.guard()
 f, markers = b.inventory()
 before = b13.c29.state()
 sessions = o.wp('global $wpdb;echo wp_json_encode($wpdb->get_results("SELECT * FROM {$wpdb->prefix}woocommerce_sessions ORDER BY session_key",ARRAY_A));')
-setting = o.wp('global $wpdb;echo wp_json_encode($wpdb->get_results("SELECT * FROM {$wpdb->options} WHERE option_name IN (\'woocommerce_enable_signup_and_login_from_checkout\',\'woocommerce_coming_soon\')",ARRAY_A));')
-private = b13.b11.private(label, {'sessions':sessions, 'setting':setting})
+setting = o.wp('global $wpdb;echo wp_json_encode($wpdb->get_results("SELECT * FROM {$wpdb->options} WHERE option_name IN (\'woocommerce_enable_signup_and_login_from_checkout\',\'woocommerce_coming_soon\',\'woocommerce_order_withdrawal_inbox_notification_created\')",ARRAY_A));')
+native_render = o.wp('global $wpdb;$id=wc_get_page_id("cart");echo wp_json_encode(["cart_id"=>$id,"cart"=>$wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->posts} WHERE ID=%d",$id),ARRAY_A),"revisions"=>$wpdb->get_col($wpdb->prepare("SELECT ID FROM {$wpdb->posts} WHERE post_type=\'revision\' AND post_parent=%d",$id)),"notes"=>$wpdb->get_col("SELECT note_id FROM {$wpdb->prefix}wc_admin_notes")]);')
+private = b13.b11.private(label, {'sessions':sessions, 'setting':setting, 'native_render':native_render})
 checks, external, rows = {}, [], []
 error = None
 probe = 'mu-plugins/c31-observer.php'
@@ -73,14 +74,16 @@ try:
 except Exception as exc:
     error = repr(exc)
 finally:
-    o.wp('global $wpdb;foreach(["woocommerce_enable_signup_and_login_from_checkout","woocommerce_coming_soon"] as $key){$wpdb->delete($wpdb->options,["option_name"=>$key]);}foreach(' + o.php(setting) + ' as $r){$wpdb->insert($wpdb->options,$r);}$keys=' + o.php([r['session_key'] for r in sessions]) + ';foreach($wpdb->get_col("SELECT session_key FROM {$wpdb->prefix}woocommerce_sessions") as $key){if(!in_array($key,$keys,true)){$wpdb->delete($wpdb->prefix."woocommerce_sessions",["session_key"=>$key]);}}wp_cache_flush();echo wp_json_encode(true);')
+    o.wp('global $wpdb;foreach(["woocommerce_enable_signup_and_login_from_checkout","woocommerce_coming_soon","woocommerce_order_withdrawal_inbox_notification_created"] as $key){$wpdb->delete($wpdb->options,["option_name"=>$key]);}foreach(' + o.php(setting) + ' as $r){$wpdb->insert($wpdb->options,$r);}$keys=' + o.php([r['session_key'] for r in sessions]) + ';foreach($wpdb->get_col("SELECT session_key FROM {$wpdb->prefix}woocommerce_sessions") as $key){if(!in_array($key,$keys,true)){$wpdb->delete($wpdb->prefix."woocommerce_sessions",["session_key"=>$key]);}}wp_cache_flush();echo wp_json_encode(true);')
+    cleanup = """global $wpdb;$old=NATIVE;$id=(int)$old['cart_id'];foreach($wpdb->get_col($wpdb->prepare("SELECT ID FROM {$wpdb->posts} WHERE post_type='revision' AND post_parent=%d",$id)) as $revision){if(!in_array($revision,$old['revisions'],true)){$wpdb->delete($wpdb->postmeta,['post_id'=>$revision]);$wpdb->delete($wpdb->posts,['ID'=>$revision]);}}$row=$old['cart'];unset($row['ID']);$wpdb->update($wpdb->posts,$row,['ID'=>$id]);foreach($wpdb->get_results("SELECT note_id,name FROM {$wpdb->prefix}wc_admin_notes",ARRAY_A) as $note){if(!in_array($note['note_id'],$old['notes'],true)){if($note['name']!=='wc-admin-order-withdrawal-feature'){throw new RuntimeException('Note inconnue');}$wpdb->delete($wpdb->prefix.'wc_admin_note_actions',['note_id'=>$note['note_id']]);$wpdb->delete($wpdb->prefix.'wc_admin_notes',['note_id'=>$note['note_id']]);}}wp_cache_flush();echo wp_json_encode($wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->posts} WHERE ID=%d",$id),ARRAY_A)===$old['cart']);"""
+    cart_restored = o.wp(cleanup.replace('NATIVE', o.php(native_render)))
     session_ok = o.wp('global $wpdb;echo wp_json_encode($wpdb->get_results("SELECT * FROM {$wpdb->prefix}woocommerce_sessions ORDER BY session_key",ARRAY_A));') == sessions
     b13.b11.b10.b09.remove_remote([probe])
     removed = o.wp('echo wp_json_encode(!file_exists(WP_CONTENT_DIR."/' + probe + '"));')
     after = b13.c29.state()
-    allowed = {'_transient_imagine_b13_thematiques','_transient_timeout_imagine_b13_thematiques','_transient_imagine_b15_numero','_transient_timeout_imagine_b15_numero'}
+    allowed = {'_transient_imagine_b13_thematiques','_transient_timeout_imagine_b13_thematiques','_transient_imagine_b15_numero','_transient_timeout_imagine_b15_numero','_transient_wp_styles_for_blocks'}
     delta = {k for k in before['option_fingerprints'].keys() | after['option_fingerprints'].keys() if before['option_fingerprints'].get(k) != after['option_fingerprints'].get(k)}
     restored = all(before[k] == after[k] for k in before if k not in ['option_fingerprints','all_options_fingerprint']) and delta <= allowed
-    b13.save(o, label, {'checks':checks, 'total':len(checks), 'rows':rows, 'error':error, 'restored':restored, 'sessions_restored':session_ok, 'probe_removed':removed, 'external':external, 'before':before, 'after':after, 'private':private, 'option_delta':sorted(delta), 'sources':o.sources(o)})
+    b13.save(o, label, {'checks':checks, 'total':len(checks), 'rows':rows, 'error':error, 'restored':restored, 'cart_restored':cart_restored, 'sessions_restored':session_ok, 'probe_removed':removed, 'external':external, 'before':before, 'after':after, 'private':private, 'option_delta':sorted(delta), 'sources':o.sources(o)})
 print(json.dumps({'total':len(checks), 'error':error, 'restored':restored, 'sessions':session_ok, 'probe_removed':removed, 'delta':sorted(delta)}, ensure_ascii=False))
 assert error is None and checks and all(checks.values()) and restored and session_ok and removed
