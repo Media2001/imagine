@@ -2,7 +2,7 @@
 
 File de la **deuxième session d'Hermès**. Tenue par Claude. **Hermès ne modifie pas ce fichier.**
 
-Mis à jour le 28 novembre 2026, 4 h 30 (passage automatique).
+Mis à jour le 28 novembre 2026, 7 h 30 (passage automatique).
 
 ## FREIN — décision de Ced du 28 novembre 2026, 2 h 40
 
@@ -14,7 +14,7 @@ La voie 1 (`A-FAIRE.md`) s'occupe de l'existant : import, audit, mise à jour. L
 
 ## Consignes actives, par ordre de priorité
 
-File du 28/11, 4 h 30. Tes rapports de 1 h 36 à 4 h 09 sont lus, merci. **B-15, B-16 et C-30 sont code clos.** C-31, C-32 et C-33 ont été relus « à corriger » ; tu as pris leurs corrections sans attendre cette file, c'est la règle. **Quand leurs trois `PRET` sont redéposés, tu t'arrêtes, file vide : c'est le frein, et c'est ce qui est attendu.** Aucun lot nouveau. Arbitrages : `docs/arbitrages-2026-11-28.md`, passage de 4 h.
+File du 28/11, 7 h 30. Tes rapports de 4 h 42 à 5 h 26 sont lus, merci. **C-31, C-32 et C-33 sont code clos**, chacun sur sa vérification « prêt ». **Ta file est vide et tu es à l'arrêt : c'est le frein, et c'est ce qui est attendu.** Aucun lot nouveau, aucune retouche d'un lot clos, jusqu'à la validation de Ced lundi 30 novembre. Un réveil qui trouve cette file dans cet état dépose un rapport de deux lignes et s'arrête. Arbitrages : `docs/arbitrages-2026-11-28.md`, passage de 7 h.
 
 Les paquets de la voie 1 que ton rejeu trouverait rouges ou en dépassement de délai ne sont pas à toi : continue à les signaler sans y toucher. **Ils ne bloquent pas la clôture de tes lots** : un lot se clôt sur la ligne `REJEU … PASS`, la ligne `OUTILS` sans échec et son propre vérificateur ; un paquet rouge ne bloque que s'il appartient au lot, ou à un lot clos ou porteur d'un `PRET`.
 
@@ -22,20 +22,15 @@ Les paquets de la voie 1 que ton rejeu trouverait rouges ou en dépassement de d
 
 **Règle (1 h) : un gabarit scellé par un lot code clos.** Quand un lot modifie à bon droit un fichier qu'un lot **code clos** a scellé, tu le dis en tête du rapport, tu déposes **sous ton lot** le diff borné et le rejeu des contrôles du lot clos, et **tu ne rescelles pas le lot clos**. La recette d'origine de B-01 et le lecteur de B-11 sont historiques : tu ne les réécris pas et tu ne les rejoues plus. Requalification une seule fois, au gel du code.
 
-**Les trois corrections en cours, et ce qui est tranché.**
+**Ce qui est tranché sur les trois lots clos ce matin.**
+   - **C-31** : les deux gardes ajoutées à la commande (classique et Store API) étaient demandées par la correction 3, la persistance en session ayant été reproduite : retenues. Liste atomique, ASCII ou punycode, domaines exacts : gardés ;
+   - **C-32** : clos sur son verdict d'inventaire. Le contrôle strict « aucun cookie en simple lecture » reste rouge, et doit le rester tant que les sept cookies `sbjs_…` sont posés. **Tu n'éteins pas l'attribution de WooCommerce** et tu ne construis aucun bandeau ;
+   - **C-33** : rien n'est changé pour un compte connecté ; la question est chez Imagine ;
+   - les fichiers `A-VOIR.md` de C-31 et de C-32 et la section C-32 du README disent encore « `PRET` absent » ou « local seulement » : c'est périmé, noté dans `docs/ecarts.md`, et **tu ne rouvres pas ces lots pour cela**. Ce sera repris avec la première retouche qui les touchera.
 
-**1. C-31 — `corrections/C-31.md`.** Le test rejouable du câblage (ordre des arguments à l'inscription, garde, « Mon compte ») est la condition pour sortir du « à corriger ». Gardés tels quels : une ligne invalide rejette toute la liste et conserve l'ancienne ; les domaines en Unicode sont refusés (ASCII ou punycode). Le ton du message de refus et le rendu de l'écran sont pour Ced.
-
-**2. C-32 — `corrections/C-32.md`.** Tes corrections locales de 4 h 09 sont lues ; il reste la réception sur le site et le rejeu, par le parent.
-   - **Le lot se clôt sur le verdict d'inventaire.** Le contrôle strict « aucun cookie en simple lecture » reste rouge tant que les sept cookies `sbjs_…` sont posés : c'est un constat, écrit comme tel, pas un défaut à réparer. La tolérance est bornée à ces sept noms, comme tu l'as fait ;
-   - **tu n'éteins pas l'attribution de WooCommerce** et tu ne construis aucun bandeau : la question est chez Imagine et son conseil ;
-   - le filtre sur le contenu de la page est gardé ; le reçu de rejeu historique est gardé et un nouveau reçu porte les totaux courants : retenu.
-
-**3. C-33 — `corrections/C-33.md`.** Les deux corrections de preuve (tous les en-têtes inspectés avant filtrage, signature des flux comparée exactement, une mutation témoin pour chacune) et le test léger des accroches. Son `PRET` de 2 h 44 précède la relecture : il se redépose après correction. La question de l'abonné connecté est rangée pour Imagine : **tu ne changes rien pour un compte connecté.**
-
-**À savoir sur tes lots clos cette nuit.**
+**À savoir sur tes autres lots clos cette nuit.**
    - **C-30** : le raccord minimal à la Store API reste tel quel ; la preuve sur un paiement réel se fera avec le tunnel, sur un staging vérifié. L'optimisation des requêtes reste différée ;
-   - **les quatre réponses visuelles de Ced** (kiosque, menu connecté, sections de réglages, date de coopérateur) ne touchent aucune de tes trois corrections. **Tu ne rouvres aucun lot clos pour elles** : elles s'appliqueront en une fois, après sa confirmation lundi.
+   - **les quatre réponses visuelles de Ced** (kiosque, menu connecté, sections de réglages, date de coopérateur) : **tu ne rouvres aucun lot clos pour elles** : elles s'appliqueront en une fois, après sa confirmation lundi.
 
 Pour les réglages de C-31 : la règle de l'écran de C-10 plus bas vaut toujours (comme les quatre sections existantes, ou un écran à soi comme B-10).
 
@@ -120,3 +115,6 @@ Les liens « offert » et « groupé » absents des profils (C-13 et B-02 en mod
 | B-15 Pied de page | 27/11, corrigé le 28/11 | **Code clos le 28/11** : quatre instructions vérifiées (preuve de cache refaite : une construction, zéro, puis une après invalidation ; un mutant sans retour anticipé échoue). Rejeu en conteneur non relancé par le vérificateur. Lien vers la recherche de points de vente, sans géolocalisation. Validation visuelle de Ced attendue |
 | B-16 La page article | 27/11, corrigé le 28/11 | **Code clos le 28/11** : cinq instructions vérifiées (l'appel de fin d'article suit le motif de la décision d'accès, sans seconde lecture des droits ; signature en texte sans lien). Validation visuelle de Ced attendue, structure de l'en-tête à revoir sur maquette |
 | C-30 Offre de bienvenue et code suivi | 28/11, corrigé le 28/11 | **Code clos le 28/11** : sept instructions vérifiées (les commandes passées sans compte entrent dans l'export et l'effacement ; prix identiques avec et sans code, une remise témoin détectée). Suite rejouée par le vérificateur : 1 229 tests. Recette sur le site non rejouée par lui ; commande classique seulement. Aucun avantage, aucun prix modifié. Validation visuelle de Ced attendue |
+| C-31 Adresses jetables refusées à l'inscription | 28/11, corrigé le 28/11 | **Code clos le 28/11** : cinq instructions vérifiées (câblage prouvé par un test rejouable ; une adresse refusée ne reste plus dans la session de commande, classique ou par blocs ; recherche d'absence sur toutes les tables, avec témoins). Suite rejouée par le vérificateur : 1 243 tests. Liste vide par défaut : rien n'est refusé. Validation visuelle de Ced attendue (écran de réglages, ton du message de refus) |
+| C-32 Les cookies qu'un visiteur reçoit | 28/11, corrigé le 28/11 | **Code clos le 28/11** sur son inventaire : sept instructions vérifiées (58 pages comparées par identité avec C-26 ; seules les sessions attribuées sont reprises). Quatorze cookies listés sur « Gestion des cookies ». **« Aucun cookie en simple lecture » n'est pas tenu** : sept cookies d'attribution de WooCommerce, constat gardé rouge, rien n'est éteint, aucun bandeau. Validation visuelle de Ced attendue ; question chez Imagine et son conseil |
+| C-33 Ce que le site montre de ses comptes à un visiteur | 28/11, corrigé le 28/11 | **Code clos le 28/11** : trois instructions vérifiées, corrections de preuve seulement, code inchangé (tous les en-têtes inspectés avant filtrage, auteur des flux comparé exactement, onze mutations détectées). Visiteur anonyme seulement ; rien de changé pour un compte connecté. Trois adresses à ouvrir par Ced |

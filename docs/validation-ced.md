@@ -1,6 +1,6 @@
 # Validation de Ced — lundi 30 novembre 2026
 
-Tenu par Claude, mis à jour à chaque passage. Dernière mise à jour : 28 novembre 2026, 4 h 30.
+Tenu par Claude, mis à jour à chaque passage. Dernière mise à jour : 28 novembre 2026, 7 h 30.
 
 Un seul parcours, dans l'ordre d'importance, faisable en une heure. Tout se regarde sur le site de démonstration, **entièrement fictif** : `http://192.168.129.32:8085` (réseau local). Les comptes sont des profils de test ; leurs identifiants sont dans ton fichier hors dépôt `C:\Users\Ced\.imagine-demo\identifiants.json` (entrée `c09_accounts`), aucun n'est recopié ici. Pour le détail d'un lot : `production/<lot>/A-VOIR.md`.
 
@@ -20,8 +20,8 @@ Sept pour toi, puis celles d'Imagine.
 3. **Un lien dont la page n'est pas publiée disparaît, sans repli visible** (« S'abonner », « Soutenir », « Notre coopérative », « Nos newsletters » : accueil, pied de page, fin d'article). Défaut proposé : on garde, cela évite un lien mort.
 4. **Mon compte ne propose pas de bouton « ne pas renouveler ».** Il dit seulement comment l'abonnement se renouvelle. Le bouton attend un staging vérifié avec Stripe en mode test, donc un accord de ta part le moment venu. Défaut : on attend.
 5. **Justificatifs du tarif solidaire : le dossier ne garde que la catégorie, la date de fin et l'état, pas le document.** Défaut proposé : on garde (c'est le moins de données possible).
-6. **Cookies : sept cookies d'attribution d'origine de WooCommerce sont posés dès la simple lecture d'une page.** L'objectif « aucun cookie en simple lecture » n'est donc pas tenu sur la démonstration, et c'est écrit comme tel. Rien n'a été éteint et aucun bandeau n'est construit : savoir s'ils demandent un consentement est une question pour Imagine et son conseil. Veux-tu, en attendant, éteindre l'attribution sur la démonstration ? Défaut : on ne touche à rien.
-7. **Après ta validation, que relance-t-on en premier ?** Les deux files seront vides ou presque. En attente, non commencés : le lot des liens vers les archives (A-34) côté existant ; rien côté démonstration.
+6. **Cookies : sept cookies d'attribution d'origine de WooCommerce sont posés dès la simple lecture d'une page.** L'objectif « aucun cookie en simple lecture » n'est donc pas tenu sur la démonstration, et c'est écrit comme tel. Rien n'a été éteint et aucun bandeau n'est construit : savoir s'ils demandent un consentement est une question pour Imagine et son conseil. La liste des quatorze cookies du site se lit sur `/gestion-des-cookies/` (annexe, C-32). Veux-tu, en attendant, éteindre l'attribution sur la démonstration ? Défaut : on ne touche à rien.
+7. **Après ta validation, que relance-t-on en premier ?** La file de la démonstration est vide depuis le 28 à 5 h 26 ; celle de l'existant le sera après A-33 et T-03. En attente, non commencés : le lot des liens vers les archives (A-34) côté existant ; rien côté démonstration.
 
 **Pour Imagine**, `docs/decisions.md` range cinquante-quatre questions, toutes déjà réglées sur un défaut prudent. Le classement en tête de la section « Ouvert — chez Imagine » sépare la quinzaine qui change ce qu'on construit (tarifs, accès découverte, abonnements groupés, rétractation, cookies, offre de bienvenue, import des abonnés hors ligne) de celles qui ne sont que des réglages.
 
@@ -130,6 +130,9 @@ Code clos, ton œil seulement. Dans l'ordre où je les regarderais.
 |---|---|---|---|
 | C-17 Justificatifs du tarif solidaire | `/wp-admin/admin.php?page=imagine-justificatifs` | `e-abo` | Les demandes, leur état ; côté lecteur, `p-sol-att` et `p-sol-ok` dans Mon compte. Question n° 5. |
 | C-30 Page « Bienvenue » et codes suivis | `/bienvenue/` | aucun | La page accueille et renvoie vers « S'abonner » ; aucun prix modifié, aucun avantage. |
+| C-32 Les cookies du site | `/gestion-des-cookies/` | aucun (navigation privée) | Un tableau de quatorze cookies : nom, qui le pose, à quel geste, combien de temps, pour quoi. Aucun bandeau, aucun texte juridique. Question n° 6. |
+| C-31 Adresses refusées à l'inscription | `/wp-admin/options-general.php?page=imagine-domaines-refuses` | `e-admin` | Un domaine par ligne ; liste vide, rien n'est refusé. À juger aussi : le ton du message de refus, qui ne dit pas « jetable » et propose une autre adresse (`production/C-31/A-VOIR.md`). |
+| C-33 Aucun compte montré à un visiteur | `/?author=2`, `/wp-json/wp/v2/users`, `/?feed=rss2&withoutcomments=1` | aucun (navigation privée) | Page introuvable, erreur 404, et un flux signé du nom de l'auteur ou du site, jamais d'un compte. |
 | C-28 Pack thématique | `/product/c28-pack-thematique-fictif/` | aucun | La fiche du pack et ce que l'achat ouvre, numéro par numéro. |
 | C-27 « Comment nous avez-vous connus ? » | `/checkout/` | voir `production/C-27/A-VOIR.md` | La question après une commande ; sa section dans les réglages. |
 | C-21 Export et effacement | `/wp-admin/export-personal-data.php` | `e-admin` | Les outils de confidentialité de WordPress, complétés. |
@@ -144,8 +147,6 @@ Code clos, ton œil seulement. Dans l'ordre où je les regarderais.
 | B-12 Vidéo collée dans un brouillon | `production/B-12/A-VOIR.md` | un compte de rédaction | Sur un brouillon à toi : un simple lien, aucun appel vers un service tiers. |
 
 Rien à regarder : C-23 et C-26 (tests d'étanchéité), C-09 (les profils de test eux-mêmes).
-
-**Pas encore à ouvrir**, en correction après relecture : C-31 (adresses jetables refusées à l'inscription), C-32 (la liste des cookies sur la page « Gestion des cookies »), C-33 (le site ne montre aucun de ses comptes à un visiteur). Je les ajouterai ici quand ils seront clos.
 
 ## Ce qui n'est pas dans ce parcours
 

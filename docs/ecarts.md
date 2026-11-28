@@ -219,3 +219,14 @@ Toute demande hors cahier des charges, toute contradiction interne au cahier des
 - **Voie 1 · quatrième arrêt en trente heures**, d'environ 22 h 53 à 3 h : reprise seule, verrou périmé retiré, cause non établie.
 - **Rapports · un rapport de la voie 2 a reçu la sortie d'une commande à la place de son texte** (accents graves interprétés par le terminal, qui a relancé la préparation de l'image). Corrigé aussitôt, aucun reçu touché.
 - **Vérifications · trois vérificateurs sur quatre n'ont pas pu relancer le rejeu en conteneur** (session non interactive). Ils ont contrôlé les reçus contre les empreintes ; seul celui de C-30 a rejoué la suite.
+
+## 28 novembre 2026, 7 h — lots C-31, C-32, C-33, A-33, voie 1
+
+- **Voie 1 · cinquième arrêt en deux jours** : aucun dépôt ni rapport depuis 3 h, constaté à 7 h 20. Les corrections d'A-33 ne sont pas commencées. Cause non établie, comme les quatre premières fois.
+- **A-33 · un `PRET` antérieur à la relecture est resté dans le dépôt** depuis 2 h 25, alors que le lot est « à corriger » depuis 3 h 48. Le vérificateur de C-33 l'a relevé. Retrait demandé en tête de la voie 1.
+- **A-33 · un dépassement de délai de son vérificateur, lu une fois par la voie 2 rejouant seule** (vers 5 h 10), disparu au rejeu suivant. La voie 1 étant à l'arrêt, ce n'est plus seulement un aléa de deux rejeux simultanés ; à mesurer par la voie 1, lanceur inchangé.
+- **C-31 · une adresse refusée restait dans la session de commande avant le refus** (table des sessions de WooCommerce, commande classique et par blocs). Reproduit puis corrigé en avançant le contrôle ; site fictif.
+- **C-31 · la première visite du panier par blocs a fait migrer la page « Panier » et créé une note de WooCommerce.** État de départ retrouvé depuis les préimages, restauration intégrée à la recette. Site fictif ; noté.
+- **C-31, C-32 · des fichiers `A-VOIR.md` et une section du README périmés** : ils disent « `PRET` absent » ou « local seulement » alors que la réception est faite. Les preuves font foi ; lots non rouverts pour cela.
+- **C-32 · deux relevés de restauration rouges pour des caches natifs** (styles de blocs, délai du cache des compositions du thème). Reçus rouges conservés, exceptions bornées à ces deux noms.
+- **Vérifications · les recettes sur le site ne sont pas rejouées par les vérificateurs** (C-31, C-32, C-33) ; ils ont relancé les suites hors ligne et lu les reçus. Clos avec cette réserve.

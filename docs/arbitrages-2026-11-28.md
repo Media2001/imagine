@@ -83,3 +83,35 @@ Lu : le rapport de 3 h (voie 1) et ceux de 1 h 36 à 4 h 09 (voie 2), les vérif
 
 - Aucun brief écrit, rien d'ajouté à la file de la voie 2 : frein.
 - `docs/validation-ced.md` créé : le parcours de lundi, sept questions en tête. Classement des questions pour Imagine ajouté à `docs/decisions.md`.
+
+# Passage automatique de 7 h
+
+Lu : les quatre rapports de la voie 2 (4 h 42 à 5 h 26), les vérifications de C-31, de C-32 et de C-33. Rien de la voie 1 depuis son rapport de 3 h. Le frein de Ced s'applique : aucun brief, aucun lot nouveau. Aucun accord donné sur le réel.
+
+## Clôtures
+
+- **C-31 (adresses jetables refusées à l'inscription) : code clos**, sur sa vérification « prêt » (cinq instructions appliquées ; suite rejouée par le vérificateur : 1 243 tests, 37 036 assertions, zéro échec, 13 paquets verts). Réserve : les quatre recettes sur le site (104 contrôles) ne sont pas rejouées par lui. Validation visuelle de Ced attendue : l'écran de réglages et le ton du message.
+- **C-32 (les cookies qu'un visiteur reçoit) : code clos sur son verdict d'inventaire**, comme décidé à 4 h (sept instructions appliquées ; 20 tests purs, le banc local et la réception relancés par le vérificateur). Le contrôle strict « aucun cookie en simple lecture » reste rouge, borné aux sept noms `sbjs_…` : constat, pas défaut. Rien n'est éteint, aucun bandeau.
+- **C-33 (ce que le site montre de ses comptes) : code clos**, sur sa vérification « prêt » (trois instructions appliquées, code métier inchangé ; contrôleur pur et vérificateur relancés par le vérificateur, l'ancien contrôleur rejoué rouge). Réserve : PHPUnit lu sur reçus.
+
+## Voie 2
+
+- **C-31, les deux gardes ajoutées à la commande** (commande classique et Store API) : retenues. Ce n'est pas une fonction entrée par une correction : le brief demandait le refus à la création d'un compte pendant une commande, et la correction 3 demandait d'avancer le contrôle si une écriture précédait le refus, ce qui a été reproduit. Elles n'agissent que hors connexion et quand un compte est créé.
+- **C-32, C-31 : textes périmés** (`A-VOIR.md`, section C-32 du README, qui décrivent l'état d'avant la réception). Les lots ne sont pas rouverts pour cela : une retouche de texte périmerait leurs reçus. À reprendre avec la première retouche qui les touchera, ou au gel du code.
+- **C-32, exceptions de cache** : deux noms natifs exacts admis dans la restauration (styles de blocs, cache des compositions du thème), reçus rouges conservés. Retenu : ce sont des caches de rendu, et la borne est fermée.
+- **C-33, le vérificateur du lot n'accepte plus aucun paquet rouge** : il est plus strict que la règle « un paquet rouge d'un lot en cours de l'autre voie ne bloque pas ». Laissé tel quel, le lot est clos ; la règle reste celle de la file, et ce lecteur ne se rejoue pas à chaque paquet nouveau.
+- **La voie 2 est à l'arrêt, file vide** : voulu. Rien n'est ajouté.
+
+## Voie 1
+
+- **Aucun dépôt depuis 3 h** : cinquième arrêt. La file ne change pas (A-33, T-03, la note sur l'import). Je ne peux pas la relancer ; signalé à Ced sans urgence, le frein étant posé.
+- **Le `PRET` d'A-33 de 2 h 25 est à retirer en premier** : il précède la relecture « à corriger ». Tant qu'il est là, A-33 n'est ni clos ni à relire.
+- **Le rejeu de la voie 2 où A-32 et A-33 sont verts ne vaut pas la preuve conjointe** : il porte sur A-33 d'avant corrections. La preuve reste due après le nouveau `PRET`.
+
+## Questions rangées pour Imagine
+
+- Aucune nouvelle. Le ton du message de refus de C-31 est une question visuelle pour Ced.
+
+## Files
+
+- Aucun brief, rien d'ajouté à `A-FAIRE-2.md` hors des trois clôtures. `docs/validation-ced.md` : C-31, C-32 et C-33 ajoutés à l'annexe.

@@ -2,7 +2,7 @@
 
 Tenu à jour par Claude à chaque session avec Ced. **Hermès ne modifie pas ce fichier** : il signale dans son rapport ce qu'il a fait et ce qui bloque, et la consigne passe en « Terminé » à la session suivante.
 
-Mis à jour le 28 novembre 2026, 4 h 30 (passage automatique).
+Mis à jour le 28 novembre 2026, 7 h 30 (passage automatique).
 
 ## FREIN — décision de Ced du 28 novembre 2026, 2 h 40
 
@@ -16,7 +16,9 @@ Le projet a trois chantiers indépendants. Un lot porte la lettre de son chantie
 
 ## Consignes actives, par ordre de priorité
 
-File du 28/11, 4 h 30. Ton rapport de 3 h est lu, merci, ainsi que le `PRET` d'A-32 avec sa borne fermée. **A-32 est clos** (vérification « prêt » de 3 h 33). Le frein de Ced, en tête de ce fichier, règle tout le reste : il ne reste que trois choses à faire, puis tu t'arrêtes, file vide, et c'est ce qui est attendu. Arbitrages : `docs/arbitrages-2026-11-28.md`, passage de 4 h.
+File du 28/11, 4 h 30, **inchangée à 7 h 30** : rien n'est arrivé de ta voie depuis ton rapport de 3 h, les trois points ci-dessous restent à faire, dans cet ordre. Ton rapport de 3 h est lu, merci, ainsi que le `PRET` d'A-32 avec sa borne fermée. **A-32 est clos** (vérification « prêt » de 3 h 33). Le frein de Ced, en tête de ce fichier, règle tout le reste : il ne reste que trois choses à faire, puis tu t'arrêtes, file vide, et c'est ce qui est attendu. Arbitrages : `docs/arbitrages-2026-11-28.md`, passage de 4 h.
+
+**À savoir, lu à 7 h 30 dans les rapports de la voie 2** : son rejeu de 5 h 19, lancé seule, donne `PAQUETS : 13 vérifiés, 0 échecs`, A-32 et A-33 compris ; le rejeu précédent avait lu une fois `A-33 VERIFIER_TIMEOUT`, disparu au suivant. C'est une information, pas la preuve demandée au point 0 : celle-ci se fait après tes corrections et ton nouveau `PRET`. **Le `PRET` d'A-33 de 2 h 25 est toujours dans le dépôt alors que le lot est « à corriger » : retire-le en premier.**
 
 **L'import est gelé**, à l'état scellé par A-28 : plus aucun changement de `wp/outils/staging/` ni de `wp/outils/staging-court/` sans une consigne de cette file, ni fonction, ni correction, ni mise en forme.
 
