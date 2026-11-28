@@ -1,0 +1,28 @@
+{
+  "scope": "imagine-test-demo",
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "before": {
+    "plugins/imagine-site/PageArticle.php": "d5e57aed64a1434b72f80588191d6ff1ebd80270c8da824f9c0d254355a0ee87",
+    "themes/imagine/single.php": "f1aca18f048180ff00b47f1607f3187c6d18213066c9fa2788b7592c356a3b4d",
+    "plugins/imagine-site/imagine-site.php": "8a3166a34827defb54166310bfe32aa6b46b945b3506068f0bf306baad4fb39d"
+  },
+  "readback": {
+    "plugins/imagine-site/PageArticle.php": "6bdef9345fcb5afa806a00d8685ffecf7cd43a183413e22ad41b59ba795db3f3",
+    "themes/imagine/single.php": "f1aca18f048180ff00b47f1607f3187c6d18213066c9fa2788b7592c356a3b4d",
+    "plugins/imagine-site/imagine-site.php": "8a3166a34827defb54166310bfe32aa6b46b945b3506068f0bf306baad4fb39d"
+  },
+  "private_snapshot": {
+    "file": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\b11-private-qe7ckc68\\snapshot.json",
+    "sha256": "f6112c2db123862675bf93a10aed1492fe84128dd92eda4157d8fe60ee3de04e",
+    "private": true
+  }
+}
