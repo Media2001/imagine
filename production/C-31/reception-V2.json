@@ -1,0 +1,43 @@
+{
+  "scope": "imagine-test-demo",
+  "ready": true,
+  "contract_version": 1,
+  "sources": {
+    "production/C-31/verifier.py": "56f19a95c73fd6d3d382e78eb153aaabd3af8b7e4594bd456b088d87ead6c44c",
+    "wp/outils/demo/b13-browser.py": "02a69cab956e503b2a79625df2b084858df9e6b417af638fa503240ebc0d3de0",
+    "wp/outils/demo/b13.py": "3960057fde352c412024678a14d06a7ed6dec04c8d1bff378f7e5305420a5357",
+    "wp/outils/demo/c31-browser.py": "7f2635556cf925232a14c2a5672b80719780be0c995ce4bcfeb1f62138304975",
+    "wp/outils/demo/c31-seed.py": "13f5778f0335144f6092fdecbdbde98fb0a6a4e44d1e8e0d2a6bcb274bb74aba",
+    "wp/outils/demo/c31-standard.py": "dec11113f4a8ef34dee52f75c0baa1e49b91d96a41b762d43088ef8858e660d9",
+    "wp/outils/demo/c31.py": "444c6865d97abf2258b44578f20b06509f0f552bc91b76904e96d30cd3285ed3",
+    "wp/plugins/imagine-site/DomainesRefuses.php": "196f2d81771d8edcc525403b2b0bf383469c4d2158bda3271d30aad3d43e4198",
+    "wp/plugins/imagine-site/DomainesRefusesReglages.php": "73d6d8e9875d2bfba35e110c223206ee24216847366b1966c57aa16dc5ff14ae",
+    "wp/plugins/imagine-site/DomainesRefusesRegles.php": "4f377a275cfedcfe7a5848cf51f53f893750570ddd63addb5783cb425fbedb7e",
+    "wp/plugins/imagine-site/tests/DomainesRefusesC31Test.php": "822a7cf24b1bee6bb813da17877e862600ceec11c41b8f1463bd8a1bffe633db",
+    "wp/tests/demo/b13-contract.py": "ebdb04de4f948ec77ec5214bdf7c17f03c0366a02ad97722cfef9c6b1d9ebe63",
+    "wp/tests/demo/b13-observer.php": "72d46a7ab527893be8d4e7aa8a0e04073bcd9f0c38c655620a1e603290a6c03f",
+    "wp/tests/demo/c31-observer.php": "8f1408659d3422aeac70f80c420c0e21e495b4bbcdb55363b83414f5318ae7ab",
+    "wp/tests/demo/c31-runtime.php": "3e6952c184994026d02a086074dd7c91034987c1f3cc111c3ea1abcd5505efe7"
+  },
+  "bootstrap_contract": {
+    "block": "// C31 — domaines exacts refusés dans les parcours publics natifs.\nrequire_once __DIR__ . '/DomainesRefusesRegles.php';\nrequire_once __DIR__ . '/DomainesRefuses.php';\nrequire_once __DIR__ . '/DomainesRefusesReglages.php';\nDomainesRefuses::register();\nDomainesRefusesReglages::register();\n\n",
+    "sha256": "fb1d81a6e51408ccb04379eb24d5bb62fef277da77e8f321d67e347dcc3410c5",
+    "occurrences": 1
+  },
+  "readme_section": "41ed71e938c79bdd93dea911bca1cc80a64034974315a2a6fe5daed4b018bce0",
+  "evidence": {
+    "A-VOIR.md": "1704d97e215758a4eeba681e79c63513f44537cecbdba12b50a05c4f5e47f633",
+    "native-final-V2.json": "4b95b8f34848a037b6419f057d194844cd5c0f95293ef7b36f6de772ebcdbe01",
+    "browser-final-V2.json": "99a3984a4dfe0aa66d3bb85463fe90be75250616a760d53331012ee5d45524bc",
+    "browser-final-V2.png": "48197f8f190d6658e4a7d0127ff1a6f56a5688ba4bafd1562c11a697d0d016bb",
+    "standard-V2.json": "b6c82650b7199088904da1d2e5300164d9e543f020b8f7d702c8f493d2aa3a1c",
+    "seed-V2.json": "5816c7d4b7d9afb433feef52d30c5fd436aff592808df825c71e9157706c745b",
+    "image-V2.json": "c98f4016752cfcd3f20c43dc6542e24fe336f9f741703075634852d502fc6126",
+    "image-V2.log": "071cab0a2ba8f7164337727b7a5d8d84e169f21add632c28f31d791d4ac1b725",
+    "replay-V2.json": "244833e185f2ea3ab8d46fdb596395430a82beceef592f655cc9a6cc49b76a37",
+    "replay-V2.log": "a5cf7f88e4c0ab6ab17f231ca643d231de78b0a299d2a0f07714e21aa67cc039"
+  },
+  "historical_files": {
+    "red-V2.json": "bc0ba18519aa195adeb4c6625961b9fd4491bb5fd6f054395ec6c40c4e1944e6"
+  }
+}
