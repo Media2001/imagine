@@ -1,5 +1,20 @@
 # Imagine — site (B-00, modèle provisoire)
 
+## C-33 — comptes non publics en anonyme
+
+### Le standard d’abord — cinq lignes
+1. WordPress expose les archives d’auteur, et `redirect_canonical` transforme `?author=ID` en adresse d’auteur : https://developer.wordpress.org/reference/functions/redirect_canonical/ ; `template_redirect` avant cette redirection permet une vraie 404 sans adresse de compte.
+2. Les routes natives REST `/wp/v2/users` et `/wp/v2/users/ID` donnent les auteurs publiés ; `rest_pre_dispatch` les ferme avant le contrôleur : https://developer.wordpress.org/reference/hooks/rest_pre_dispatch/.
+3. Le fournisseur `users` du plan natif se retire avec `wp_sitemaps_add_provider` : https://developer.wordpress.org/reference/hooks/wp_sitemaps_add_provider/ ; les autres fournisseurs restent natifs.
+4. `the_author` porte le nom dans RSS2/Atom ; `get_the_author_user_url` porte le site du compte dans Atom : https://developer.wordpress.org/reference/hooks/the_author/ ; les deux points d’accroche évitent nom et adresse de compte.
+5. `oembed_response_data` remplace `author_name` et supprime `author_url` : https://developer.wordpress.org/reference/hooks/oembed_response_data/ . Sources officielles effectivement lues et empreintes du cœur installé : `production/C-33/standard-V2.json`.
+
+Fermetures **uniquement anonymes**. Aucun comportement ni droit natif changé pour les connectés, notamment administrateur et éditeur ; pas d’extension de leurs droits. Routes REST insensibles à la casse et alias `rest_route` couverts. Les flux RSS2/Atom et l’oEmbed reprennent la signature B16, sinon le nom du site, jamais un repli sur le compte technique ; l’adresse de compte Atom est vide. RSS2 conserve sa CDATA (borne `]]>` protégée), Atom son échappement XML. Aucun gabarit B16 ni autre code clos modifié, aucun compte normal renommé ou altéré.
+
+Le sitemap de la démo est **désactivé à l’état de repos** (`blog_public=0`). La recette le rend actif uniquement pour un témoin, puis restaure l’option exacte : index XML réel non vide, sans fournisseur utilisateurs. Dans ce cœur, l’ancienne adresse `wp-sitemap-users-1.xml` sans fournisseur retombe sur une page HTML 200 sans compte, et ne rend plus de plan d’utilisateurs ; aucune règle de serveur ajoutée pour fabriquer une 404 non demandée. Les autres plans observés : post, page, product, imagine_numero, imagine_evenement, imagine_partenaire ; aucun message de visiteur ni pièce privée dans cet index, aucun autre type corrigé.
+
+Relecture : `python -B production/C-33/verifier.py --live`. Recettes natives et navigateur : `python -B wp/outils/demo/c33.py native LABEL`, `python -B wp/outils/demo/c33-browser.py LABEL`. Réponses anonymes brutes (sans cookies ni jetons), contrôles positifs de présence, six mutations sur cinq voies (index et détail du sitemap), administrateur/éditeur via leurs véritables API REST d’auteur/édition, et capture Edge. Compte et article fictifs supprimés, options de recette et cache natif d’invalidation restaurés depuis snapshot privé ; témoins C26 réutilisés, matrice inchangée. Le premier banc strict a laissé seulement une régénération de version du cache Woo à la suppression de son article : empreintes natives métier égales, cache historique non prétendu restauré ; FAIL conservé et snapshot de cette ligne ajouté pour les passages suivants. Aucune limitation de connexion, 2FA, règle d’hébergement, nouvelle collecte ou transmission. Pas de promesse de fermer les identifiants d’auteur des objets REST `posts`, hors périmètre de la liste de comptes demandée.
+
 ## C-31 — domaines refusés à l’inscription
 
 Standard d'abord : WordPress `register_new_user()` filtre `registration_errors` avant insertion ; Woo `wc_create_new_customer()` filtre `woocommerce_registration_errors` avant `wp_insert_user`. Le checkout classique `WC_Checkout::process_customer()` appelle cette même fabrique. Un seul validateur pur raccordé à ces frontières, jamais un filtre global `wp_insert_user` qui toucherait C16/administration.

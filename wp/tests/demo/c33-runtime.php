@@ -16,6 +16,15 @@ $server=rest_get_server();
 foreach(['/wp/v2/users','/wp/v2/users/'.$uid,'/WP/V2/USERS/'.$uid] as $route){$r=$server->dispatch(new WP_REST_Request('GET',$route));$check('rest_refuse_'.count($checks),$r->get_status()===404 && !str_contains(wp_json_encode($r->get_data()),'NOM_COMPTE_C33_NATIF'));}
 $check('provider_utilisateurs_retire',apply_filters('wp_sitemaps_add_provider',new WP_Sitemaps_Users(),'users')===false);
 $check('provider_contenus_garde',apply_filters('wp_sitemaps_add_provider',new WP_Sitemaps_Posts(),'posts') instanceof WP_Sitemaps_Posts);
+$q=$GLOBALS['wp_query'];$originalPost=$GLOBALS['post']??null;
+try{
+    $GLOBALS['wp_query']=new WP_Query();$GLOBALS['wp_query']->is_feed=true;$GLOBALS['post']=get_post($post);
+    update_post_meta($post,PageArticle::SIGNATURE,'Signé & FICTIF ]]>');
+    set_query_var('feed','rss2');$check('rss2_cdata_protegee',apply_filters('the_author','NOM_COMPTE_C33_NATIF')==='Signé & FICTIF ]]]]><![CDATA[>');
+    set_query_var('feed','atom');$check('atom_xml_echappe',apply_filters('the_author','NOM_COMPTE_C33_NATIF')==='Signé &amp; FICTIF ]]&gt;');
+    $check('atom_url_compte_absente',apply_filters('get_the_author_user_url','https://example.org/compte/')==='');
+}finally{$GLOBALS['wp_query']=$q;$GLOBALS['post']=$originalPost;}
+update_post_meta($post,PageArticle::SIGNATURE,'SIGNATURE_C33_NATIVE');
 $data=get_oembed_response_data(get_post($post),600);
 $check('oembed_signature',$data['author_name']==='SIGNATURE_C33_NATIVE' && !isset($data['author_url']));
 delete_post_meta($post,PageArticle::SIGNATURE);

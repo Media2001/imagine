@@ -1,0 +1,103 @@
+{
+  "scope": "imagine-test-demo",
+  "official": [
+    {
+      "url": "https://developer.wordpress.org/reference/functions/redirect_canonical/",
+      "status": 200,
+      "sha256": "68f3ef24c61536b4fa50ccca6f378e26a02ab18643bdaf9ec50afe345d18ade2"
+    },
+    {
+      "url": "https://developer.wordpress.org/reference/hooks/rest_pre_dispatch/",
+      "status": 200,
+      "sha256": "2eca369597a0535fe244d24f413bc6acb83d9cd2b3f6b6c7c4348176f9aa5b5f"
+    },
+    {
+      "url": "https://developer.wordpress.org/reference/hooks/wp_sitemaps_add_provider/",
+      "status": 200,
+      "sha256": "70afc38345785cfd7860555082b6b7411dab97baf8780b1bb6b36d843b672e67"
+    },
+    {
+      "url": "https://developer.wordpress.org/reference/hooks/the_author/",
+      "status": 200,
+      "sha256": "fef31b5c1d71989731c78f76d577b1e4a1f96d9300952b6b97d76600e405e10b"
+    },
+    {
+      "url": "https://developer.wordpress.org/reference/hooks/oembed_response_data/",
+      "status": 200,
+      "sha256": "9d4e576fd09c3b5cd4a2874349beaf9b52aca65da449f510816c713992913a94"
+    }
+  ],
+  "native": {
+    "wp": "7.0.9",
+    "blog_public": "0",
+    "sources": {
+      "redirect_canonical": {
+        "file": "canonical.php",
+        "line": 42,
+        "sha256": "90698fcfd11e9f79693ed885964b082a01c5ea5e47bdf08ae7eaccaec5fe2907",
+        "author_url_hook": null
+      },
+      "get_the_author_meta": {
+        "file": "author-template.php",
+        "line": 167,
+        "sha256": "fc22c554656d7515f3eb5b85ff81c8679a94f01acd6bf97c334ddaef81b56cf4",
+        "author_url_hook": true
+      },
+      "get_oembed_response_data": {
+        "file": "embed.php",
+        "line": 561,
+        "sha256": "5840d4550355d3e956fddd7ce20d1b3f7a18e8464b024befebec86b5bc9af679",
+        "author_url_hook": null
+      }
+    },
+    "native_product_query_cache_invalidation": [
+      {
+        "line": 45,
+        "source": "add_action( 'set_object_terms', array( __CLASS__, 'delete_product_query_transients' ) );"
+      },
+      {
+        "line": 46,
+        "source": "add_action( 'deleted_term_relationships', array( __CLASS__, 'delete_product_query_transients' ) );"
+      },
+      {
+        "line": 47,
+        "source": "add_action( 'woocommerce_product_set_stock_status', array( __CLASS__, 'delete_product_query_transients' ) );"
+      },
+      {
+        "line": 48,
+        "source": "add_action( 'woocommerce_product_set_visibility', array( __CLASS__, 'delete_product_query_transients' ) );"
+      },
+      {
+        "line": 156,
+        "source": "self::delete_product_query_transients();"
+      },
+      {
+        "line": 175,
+        "source": "public static function delete_product_query_transients() {"
+      },
+      {
+        "line": 176,
+        "source": "WC_Cache_Helper::get_transient_version( 'product_query', true );"
+      },
+      {
+        "line": 858,
+        "source": "self::delete_product_query_transients();"
+      }
+    ]
+  },
+  "sources": {
+    "production/C-33/verifier.py": "1f0075aaa5b5a120b18c950b5aabd4e74bbeed71fadfaeb253d3517700dcda7f",
+    "wp/outils/demo/b13-browser.py": "02a69cab956e503b2a79625df2b084858df9e6b417af638fa503240ebc0d3de0",
+    "wp/outils/demo/b13.py": "3960057fde352c412024678a14d06a7ed6dec04c8d1bff378f7e5305420a5357",
+    "wp/outils/demo/c33-browser.py": "ed61cbd247bd8b3ec273f79fa15259695cf0a7f192c2fa0ef77cd23ccca9ed82",
+    "wp/outils/demo/c33-standard.py": "e785f5cb00e7a2278fecd0c1c58c5a4f5f9cf1c1fb1aa174f7a2b0b7da513404",
+    "wp/outils/demo/c33.py": "952a80175a95dba3b4695740f9fea95bad7d1b5bbc6abc90a5e503ca0f05daa8",
+    "wp/plugins/imagine-site/ComptesPublics.php": "214f7621f247b37573e5b1e0f7a7e1559e891f89dfeee0041948c5a2f465941f",
+    "wp/plugins/imagine-site/ComptesPublicsRegles.php": "f19d048b1f31ba3f44d2ff47d391f1b240164ac959a0fe3bcc74245773838611",
+    "wp/plugins/imagine-site/tests/ComptesPublicsC33Test.php": "913e83cfc140f51e68d295f97d74f00468a69b5504deb6b4fb7c13e5c76ca58f",
+    "wp/tests/demo/b13-contract.py": "ebdb04de4f948ec77ec5214bdf7c17f03c0366a02ad97722cfef9c6b1d9ebe63",
+    "wp/tests/demo/b13-observer.php": "72d46a7ab527893be8d4e7aa8a0e04073bcd9f0c38c655620a1e603290a6c03f",
+    "wp/tests/demo/c33-observer.php": "545107feaaefecc6a41c0d9481071c9c3760901c237333869659f864057ae58f",
+    "wp/tests/demo/c33-runtime.php": "d309b603ac3de1fd0cad01ee849a1e25e8c4e3c174c5071a4bb73f0127d0fb77"
+  }
+}
