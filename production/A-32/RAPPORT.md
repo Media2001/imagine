@@ -1,3 +1,22 @@
+# A-32 — Réception du 28 novembre : périmètre permanent borné
+
+**Fait :** la borne demandée est appliquée à la matrice et aux portails, par la liste fermée `source-roots.json`. Aucun dossier global bascule ni paquet voisin n'est photographié par le lecteur permanent.
+**Prêt à relire :** nouvelle matrice complète A-32 vérifiée ; PRET conditionné au sceau des portails et au lecteur sans argument.
+**À arbitrer par Ced :** aucun nouveau point ; import et lanceur gelés inchangés.
+**Bloqué :** aucun blocage de dépendance observé ; A-31 et A-33 restent PASS après installation de la matrice A-32.
+**Ensuite :** réception A-33, puis T-03, conformément à la file et sans nouveau lot interdit par le frein.
+
+## Réception du 28 novembre
+
+- Test de borne observé rouge avant correction, puis **16 tests Python PASS par console** ; liste fermée des quinze dossiers, tournée, tests A-32, gardien/auxiliaires, import et dépendances de banc explicitement nommés. Les portails comparent leur propre liste à celle du lot, pas à une sélection libre fournie par le reçu.
+- Matrice réelle : `C:/Users/Ced/AppData/Local/hermes/cache/scratch/imagine-20261128-a32-matrix-02`, Python Windows **3.14.6**, UTF-8/cp1252, TMPDIR absent : **72 contrôles natifs et 6 contrôles runner par console**, tous verts ; **180 sources stables**. `wp/tests/a32/verify.py --evidence=...` rend A32_LOCAL_MATRIX PASS.
+- Premier essai interrompu par la limite de l'appel au premier plan : non utilisé comme preuve. Reprise complète en processus suivi ; conteneur résiduel exact `imagine-a32-tournee-af6203c9ba9f` supprimé après vérification de son label, absence relue.
+- Candidat installé par `seal.py --evidence --archive-existing`, précédent paquet authentique archivé hors dépôt. **A-31 reste clos, son lecteur rend PASS, aucun resceau nécessaire.** A-33 rend également PASS ; leurs fichiers et manifestes conservés octet pour octet dans le contrôle daté hors paquet.
+- Portails réels du 28/11 : **A32_CANONICAL_GATES PASS**, préparation d'image relancée après les nouveaux tests ; les deux consoles donnent **1 229 tests / 36 926 assertions**, zéro échec/erreur/ignoré ; **23 outils / 852 contrôles**, zéro échec. `PAQUETS : 12 vérifiés, 0 échecs ; hors rejeu : A-32 (journaux absents)`. Cette exclusion du candidat sans portails n'est pas la réception finale ; celle-ci exige A-32 et A-33 inclus après leurs PRET. A-20/A-21/A-22/A-28 sans argument : sortie 0.
+- Décisions prises à défaut : le frein interdit A-34 non commencé ; les corrections d'A-32 et la réception des lots déjà rendus restent permises. Le contrôle des types inconnus de l'import demande une nouvelle consigne ciblée de dégel ; aucune modification de l'import.
+
+## Historique du 27 novembre — blocages remplacés par la réception ci-dessus
+
 # A-32 — Cinq corrections appliquées, candidat vérifié sans PRET
 
 **Fait :** les cinq instructions de `corrections/A-32.md` sont appliquées ; matrice Windows/native neuve verte, anciens essais hors dépôt.
