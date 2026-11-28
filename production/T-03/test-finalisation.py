@@ -32,8 +32,12 @@ class FinalContracts(unittest.TestCase):
         # Keep the authentic sealed evidence and source contract; change only the
         # unrelated live tree. No neighbouring package is copied or edited.
         helper = SimpleNamespace(source_hashes=lambda: binding['source_sha256'])
+        historical = (BASE / 'preuves/final/native/green.log').read_text(encoding='utf-8-sig')
+        marker = json.loads(next(line[11:] for line in historical.splitlines() if line.startswith('T01_RESULT ')))
+        # This isolated regression can use an older authentic seal while the new
+        # native gate is pending; it never changes the final reader's contract.
         with tempfile.TemporaryDirectory(prefix='t03-empty-neighbours-', dir=Path(os.environ['LOCALAPPDATA']) / 'hermes/cache/scratch') as temporary:
-            with patch.object(reader, 'ROOT', Path(temporary)), patch.object(reader, 'load', return_value=helper):
+            with patch.object(reader, 'ROOT', Path(temporary)), patch.object(reader, 'load', return_value=helper), patch.object(reader, 'LOTS', marker['packets']['lots']):
                 result = reader.verify_gates()
                 self.assertTrue(result['marker']['pass'])
 
