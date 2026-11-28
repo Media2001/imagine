@@ -14,7 +14,7 @@ final class Cookies
         foreach (['sbjs_migrations', 'sbjs_current_add', 'sbjs_first_add', 'sbjs_current', 'sbjs_first', 'sbjs_udata', 'sbjs_session'] as $name) {
             $rows[] = self::ligne($name, preg_quote($name, '~'), 'WooCommerce — attribution d’origine', 'Simple lecture, scripts actifs', $name === 'sbjs_session' ? '30 minutes' : 'Session du navigateur', 'Mesure — attribution d’origine des commandes');
         }
-        $rows[] = self::ligne('wp_woocommerce_session_[hash]', 'wp_woocommerce_session_[a-f0-9]{32}', 'WooCommerce', 'Code suivi connu (C-30), panier ou connexion', '2 jours (réglage natif par défaut)', 'Fonctionnement — session et panier');
+        $rows[] = self::ligne('wp_woocommerce_session_[hash]', 'wp_woocommerce_session_[a-f0-9]{32}', 'WooCommerce', 'Code suivi connu (C-30), panier', '2 jours (réglage natif par défaut)', 'Fonctionnement — session et panier');
         foreach (['woocommerce_items_in_cart', 'woocommerce_cart_hash'] as $name) {
             $rows[] = self::ligne($name, $name, 'WooCommerce', 'Ajout au panier', 'Session du navigateur', 'Fonctionnement — panier');
         }
@@ -55,14 +55,16 @@ final class Cookies
             return $content;
         }
         $html = '<div data-imagine-cookies><table><caption>' . esc_html__('Cookies observés sur la démonstration', 'imagine-site') . '</caption><thead><tr>';
-        foreach (['Nom ou motif', 'Déposé par', 'À quel geste', 'Durée', 'Usage'] as $heading) {
-            $html .= '<th scope="col">' . esc_html__($heading, 'imagine-site') . '</th>';
-        }
+        $html .= '<th scope="col">' . esc_html__('Nom ou motif', 'imagine-site') . '</th>';
+        $html .= '<th scope="col">' . esc_html__('Déposé par', 'imagine-site') . '</th>';
+        $html .= '<th scope="col">' . esc_html__('À quel geste', 'imagine-site') . '</th>';
+        $html .= '<th scope="col">' . esc_html__('Durée', 'imagine-site') . '</th>';
+        $html .= '<th scope="col">' . esc_html__('Usage', 'imagine-site') . '</th>';
         $html .= '</tr></thead><tbody>';
         foreach (self::liste() as $row) {
             $html .= '<tr><th scope="row"><code>' . esc_html($row['nom']) . '</code></th>';
             foreach (['origine', 'geste', 'duree', 'usage'] as $key) {
-                $html .= '<td>' . esc_html__($row[$key], 'imagine-site') . '</td>';
+                $html .= '<td>' . esc_html($row[$key]) . '</td>';
             }
             $html .= '</tr>';
         }
