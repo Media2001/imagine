@@ -1,0 +1,47 @@
+{
+  "scope": "imagine-test-demo",
+  "ready": true,
+  "contract_version": 1,
+  "sources": {
+    "production/C-32/verifier.py": "9bd579bf9370aa43eae0a6c3719b5063269beca6728c44442323335d2eaf93cc",
+    "wp/outils/demo/b13-browser.py": "02a69cab956e503b2a79625df2b084858df9e6b417af638fa503240ebc0d3de0",
+    "wp/outils/demo/b13.py": "3960057fde352c412024678a14d06a7ed6dec04c8d1bff378f7e5305420a5357",
+    "wp/outils/demo/c32-browser.py": "fa8d3a2952c1e5afa9e7b58659ba3a729cc530c56bc35b443d3de25c7193f8f6",
+    "wp/outils/demo/c32-standard.py": "c1df5b875ad5cea99e25135e24e81b7c24fa6db559aa54454c535d10c14ccd71",
+    "wp/outils/demo/c32.py": "50d4baad620ad1e84878321ad99901fb97679fb71154ec05d311d91a9bdd5e6e",
+    "wp/plugins/imagine-site/Cookies.php": "1ca385b79ffecaa93bdeb6ff32545a76232ea532d827c007c7d9fea6805e7a8a",
+    "wp/plugins/imagine-site/tests/CookiesC32Test.php": "e9b59778845bd3824363ef3c3161679cc9aae5d00bce3242fdacba467bd0caaa",
+    "wp/tests/demo/b13-contract.py": "ebdb04de4f948ec77ec5214bdf7c17f03c0366a02ad97722cfef9c6b1d9ebe63",
+    "wp/tests/demo/b13-observer.php": "72d46a7ab527893be8d4e7aa8a0e04073bcd9f0c38c655620a1e603290a6c03f",
+    "wp/tests/demo/c32-observer.php": "22a7566cafbc769fdd8b178b4b8707c316fa688cafae8c33d1555d0610fe8a37",
+    "wp/tests/demo/c32-runtime.php": "2b21ead925233ee1c4cad225ecd9cad1905c7d0bd4e7bcf15fc43dae1abf0599"
+  },
+  "bootstrap_contract": {
+    "block": "// C32 — inventaire fermé, aucun consentement ni script ajouté.\nrequire_once __DIR__ . '/Cookies.php';\nCookies::register();\n\n",
+    "sha256": "843fef36196e665b01f249254cce4670eeea31ebb8b216a87666433f7570d3d1",
+    "occurrences": 1
+  },
+  "readme_section": "12fc371724ddb5a08a18ecb4b1f32b7c6e3cbe29800d55bd9f4c2259ae06146b",
+  "evidence": {
+    "A-VOIR.md": "611e3e647bdc8c5a8de42dba1b787be5b11fc5cc35183134787d906c8750c691",
+    "native-final-V2.json": "7431ef19fdbd5902f997e07e3ea7ca25515965a731fb06f9791d39b0d819b283",
+    "browser-final-V2.json": "01809184ab2f5dd15a5b564896b689e6e238b1059764a14610e93b7e9f5ef8dd",
+    "browser-final-V2.png": "e17ad3ab37ac3e07ac4579902f7893a3aee37efa389d8deb30c259e84f7b31cd",
+    "standard-V2.json": "1b4a6c802f2dfde5d3dbf9f733c41c42784fdfd8ec06cd87a1f7161cedb87adf",
+    "strict-reading-V2.json": "a4d62e5e149438cd95189c4189a632b14db92c23742193eb7198b037720d13bd",
+    "recovery-essai-V2.json": "49d9bfc6d822011f92fd0d57e914a2d044930d71739c3b5e2a1060786c5a95f0",
+    "image-V2.json": "c98f4016752cfcd3f20c43dc6542e24fe336f9f741703075634852d502fc6126",
+    "image-V2.log": "9b016b3e68aca84e9aa251df4166725e9f37fc02ee3a2b2eef8b69ec8f66dbe1",
+    "replay-V2.json": "244833e185f2ea3ab8d46fdb596395430a82beceef592f655cc9a6cc49b76a37",
+    "replay-V2.log": "b68901a515d6a09ea184ad553a83f7e3c00d550e26f2d80f31afc9382b0458bf"
+  },
+  "historical_files": {
+    "browser-essai-V2.json": "2216b2bbbade2cbda6a5e2ea9903c2ac33bde223dcbdd619fad46510e0af8fc5",
+    "browser-essai2-V2.json": "8f9738edb61364743b674401555b3b58a1b821919c681aa14436d10be62d2c55",
+    "installation-V2.json": "14c13dd7190075bea8cbf484d7039746a729ab57f9b5009baf8f5cff809bce04",
+    "native-essai-V2.json": "ae4a976001fbe25f6cbcf38ceab6dc6e83dbd618e4f2971a7a7ee89ef4f3a7ce",
+    "native-essai2-V2.json": "cc8f88d8a50be68990b20cefe3c665815fa4d5438165db3c68b0b4c02254d3b1",
+    "red-V2.json": "0177e3455d7fb08eb38a9bc412414a1b0efac89671c49b9400201fb8c80a499f",
+    "standard-essai-V2.json": "a2046b8a1066cc443cdc14eb903d7422b031ed2638460df2f6269e4b82b3740e"
+  }
+}
