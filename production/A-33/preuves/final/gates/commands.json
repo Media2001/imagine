@@ -14,7 +14,7 @@
     "tmpdir_present": false,
     "sources_stable": true,
     "stdout": "prepare-image.stdout.log",
-    "stdout_sha256": "9e0693ca622c2080333a3931f1f548d9a8754fa3d9caa2b2d437b837cb4b0f60",
+    "stdout_sha256": "849eade72f97e06d94ee66b7667aba6c1b0b4971f01f3dbb41c66452596fec7e",
     "stderr": "prepare-image.stderr.log",
     "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   },
@@ -33,7 +33,7 @@
     "tmpdir_present": false,
     "sources_stable": true,
     "stdout": "global-utf8.stdout.log",
-    "stdout_sha256": "5bc9c5b50d2896e8b664a8ce460d3481f03484bae1b1039b36c1b2b2836f1516",
+    "stdout_sha256": "21b6d633d27a8e791618219106061c2e7b916e8e220771397bbffbbb9012147b",
     "stderr": "global-utf8.stderr.log",
     "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   },
@@ -52,7 +52,7 @@
     "tmpdir_present": false,
     "sources_stable": true,
     "stdout": "global-cp1252.stdout.log",
-    "stdout_sha256": "cfa0d544d8e1a22b8d74d3518ecf941a028a398baf809df9672c097921983e6a",
+    "stdout_sha256": "798d94d210dc6b21c1c5424b1ca4b423f506a9ebf8bca3a36e76669fde009f92",
     "stderr": "global-cp1252.stderr.log",
     "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   }
