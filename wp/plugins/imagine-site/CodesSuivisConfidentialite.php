@@ -25,13 +25,34 @@ final class CodesSuivisConfidentialite
             return [];
         }
         $user = get_user_by('email', $email);
-        $args = ['type' => 'shop_order', 'customer_id' => $user ? $user->ID : 0,
-            'limit' => 50, 'page' => max(1, $page), 'orderby' => 'ID', 'order' => 'ASC'];
-        if (!$user) { $args['billing_email'] = $email; }
+        // Deux flux natifs disjoints ; leur union est ordonnée avant pagination.
+        // Ne pas filtrer par méta : son effacement ne doit pas déplacer la page suivante.
+        $selectors = [['customer_id' => 0, 'billing_email' => $email]];
+        if ($user) {
+            $selectors[] = ['customer_id' => (int) $user->ID];
+        }
         global $wpdb;
-        $wpdb->last_error = '';
-        $orders = wc_get_orders($args);
-        if ($wpdb->last_error !== '' || !is_array($orders)) { throw new \RuntimeException('Lecture impossible'); }
+        $ids = [];
+        $page = max(1, $page);
+        foreach ($selectors as $selector) {
+            for ($part = 1; $part <= $page; $part++) {
+                $wpdb->last_error = '';
+                $batch = wc_get_orders($selector + ['type' => 'shop_order', 'return' => 'ids',
+                    'limit' => 50, 'page' => $part, 'orderby' => 'ID', 'order' => 'ASC']);
+                if ($wpdb->last_error !== '' || !is_array($batch)) {
+                    throw new \RuntimeException('Lecture impossible');
+                }
+                foreach ($batch as $id) { $ids[(int) $id] = (int) $id; }
+                if (count($batch) < 50) { break; }
+            }
+        }
+        ksort($ids, SORT_NUMERIC);
+        $orders = [];
+        foreach (array_slice(array_values($ids), ($page - 1) * 50, 50) as $id) {
+            $order = wc_get_order($id);
+            if (!$order) { throw new \RuntimeException('Commande illisible'); }
+            $orders[] = $order;
+        }
         return $orders;
     }
 
