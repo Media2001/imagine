@@ -11,9 +11,14 @@ identity=o.guard();f,markers=b.inventory()
 pages=o.wp('$o=[];foreach(get_option("imagine_b09_pages") as $k=>$id){$o[$k]=["id"=>$id,"path"=>wp_make_link_relative(get_permalink($id)),"content"=>get_post($id)->post_content];}echo wp_json_encode($o);')
 patterns=o.wp('echo wp_json_encode(Imagine\\Site\\Cookies::liste());')
 def unknown(names):return sorted({n for n in names if not any(re.fullmatch(x['motif'],n) for x in patterns)})
+def require_listed(names):
+    bad=unknown(names)
+    if bad:raise ValueError('Cookie hors liste: '+','.join(bad))
+    return True
 paths=list(dict.fromkeys(['/',f['article_path'],f['issue_path'],f['term_path'],'/evenements/']+[x['path'] for x in pages.values()]+[x['path'] for x in f['posts']]+['/numeros/'+x['slug']+'/' for x in f['issues']]))
 before=b13.c29.state();sessions=o.wp('global $wpdb;echo wp_json_encode($wpdb->get_results("SELECT * FROM {$wpdb->prefix}woocommerce_sessions ORDER BY session_key",ARRAY_A));')
-private=b13.b11.private(sys.argv[1],{'sessions':sessions})
+native_options=o.wp('global $wpdb;echo wp_json_encode($wpdb->get_results("SELECT * FROM {$wpdb->options} WHERE option_name=\'user_count\'",ARRAY_A));')
+private=b13.b11.private(sys.argv[1],{'sessions':sessions,'native_options':native_options})
 probe='mu-plugins/c32-observer.php';checks={};rows=[];external=[];error=None;uid=None;knownkeys=set();userlogin='fictif-c32-'+secrets.token_hex(6)
 def check(n,ok):checks[n]=bool(ok);assert ok,n
 try:
@@ -21,7 +26,7 @@ try:
     b13.b11.upload(probe,(o.ROOT/'wp/tests/demo/c32-observer.php').read_bytes())
     password=secrets.token_urlsafe(40)
     uid=o.wp('$u=wp_insert_user(["user_login"=>'+o.php(userlogin)+',"user_email"=>'+o.php(userlogin+'@example.org')+',"user_pass"=>'+o.php(password)+',"role"=>"subscriber"]);if(is_wp_error($u)){throw new RuntimeException("fixture refusée");}echo wp_json_encode($u);')
-    product=o.wp('$p=get_posts(["post_type"=>"product","post_status"=>"publish","numberposts"=>1,"meta_key"=>"imagine_numero_id"]);if(!$p){throw new RuntimeException("Produit fictif absent");}echo wp_json_encode($p[0]->ID);')
+    product=o.wp('$p=get_posts(["post_type"=>"product","post_status"=>"publish","numberposts"=>1,"meta_key"=>"imagine_achat_numero_id"]);if(!$p){throw new RuntimeException("Produit fictif absent");}echo wp_json_encode($p[0]->ID);')
     with sync_playwright() as p:
         browser=p.chromium.launch(headless=True,channel='msedge')
         def context():
@@ -41,10 +46,14 @@ try:
             names=sorted(set(headers+[c['name'] for c in cookies]));bad=unknown(names)
             item={'kind':kind,'path':path,'status':res.status,'header_names':sorted(set(headers)),'browser':[{k:c[k] for k in ['name','expires','httpOnly','secure','sameSite','path']} for c in cookies],'unknown':bad,'zero_cookie_expected':kind=='lecture','zero_cookie_pass':not names if kind=='lecture' else None}
             rows.append(item)
-            if mutant:check(kind+'_mutation_detectee',bad==['c32_sonde_hors_liste'])
+            if mutant:
+                refused=False
+                try:require_listed(names)
+                except ValueError:refused=True
+                check(kind+'_mutation_detectee',refused and bad==['c32_sonde_hors_liste'])
             else:
                 check(kind+'_'+str(len(rows))+'_200',res.status==200)
-                check(kind+'_'+str(len(rows))+'_liste_fermee',bad==[])
+                check(kind+'_'+str(len(rows))+'_liste_fermee',require_listed(names))
                 check(kind+'_'+str(len(rows))+'_etanche',b.c26.c23.assess(200,body,markers)['ok'])
             if kind=='lecture' and path==pages['cookies']['path']:
                 table=page.locator('[data-imagine-cookies]');check('page_liste_unique',table.count()==1 and table.locator('tbody tr').count()==14)
@@ -73,6 +82,7 @@ except Exception as exc:error=repr(exc)
 finally:
     if uid:
         o.wp('global $wpdb;$id='+str(uid)+';if(get_userdata($id)->user_login!=='+o.php(userlogin)+'){throw new RuntimeException("Compte étranger");}$wpdb->delete($wpdb->usermeta,["user_id"=>$id]);$wpdb->delete($wpdb->users,["ID"=>$id]);clean_user_cache($id);echo wp_json_encode(true);')
+    o.wp('global $wpdb;$wpdb->delete($wpdb->options,["option_name"=>"user_count"]);foreach('+o.php(native_options)+' as $r){$wpdb->insert($wpdb->options,$r);}wp_cache_flush();echo wp_json_encode(true);')
     current=o.wp('global $wpdb;echo wp_json_encode($wpdb->get_results("SELECT * FROM {$wpdb->prefix}woocommerce_sessions ORDER BY session_key",ARRAY_A));');old={r['session_key']:r for r in sessions}
     for row in current:
         key=row['session_key']

@@ -704,6 +704,22 @@ Cache du fragment numéro seulement, indépendant du public. Publication/dépubl
 
 Le mode lecture B03 masque déjà `.imagine-shell > footer` par CSS ; comportement conservé et observé dans le navigateur. Réception `production/B-15/reception-V2.json`, `A-VOIR.md` ; `python -B production/B-15/verifier.py` (`--live` lecture seule). Preuves : quatre pages demandées et FAQ pour vérifier le contexte courant, anonyme/A-PAPIER, cache renouvelé après publication native puis retour exact après retrait ; témoins C26 et mutations, sans étendre sa matrice. Socle, banc B13 et lots clos inchangés. Structure seule, visuel à valider, aucun GO réel.
 
+## C-32 — cookies observés sur la démonstration
+
+### Le standard d’abord — cinq lignes
+1. WordPress ne dépose pas de cookie en simple lecture ; connexion : test, authentification et état connecté ; langue choisie : `wp_lang`. Source officielle : https://developer.wordpress.org/advanced-administration/wordpress/cookies/.
+2. Les commentaires peuvent retenir nom/email/adresse si le visiteur choisit cette option ; ils sont fermés sur cette démonstration, aucun cookie de commentaire n’y a été observé (même source).
+3. WooCommerce emploie deux témoins de panier de session et `wp_woocommerce_session_[hash]`, deux jours par défaut : https://woocommerce.com/document/woocommerce-cookies/ ; aucun de ces trois cookies en lecture sans geste.
+4. L’attribution d’origine WooCommerce pose sept `sbjs_…` dès lecture JavaScript ; six de session, `sbjs_session` à trente minutes : https://woocommerce.com/document/order-attribution-tracking/ et documentation cookies ci-dessus.
+5. Le réglage natif **WooCommerce → Réglages → Avancé → Fonctionnalités → Attribution des commandes**, option `woocommerce_feature_order_attribution_enabled=no`, éteindrait l’attribution ; il est resté activé, aucun lot rendu n’est modifié.
+
+`Cookies::liste()` contient exactement les quatorze noms/motifs réellement observés, producteur, geste, durée et usage. Le filtre natif de contenu rend cette liste sous le texte B09 demeuré vide, sur sa seule page Cookies, sans bandeau, consentement, service ni script livré. Motifs entièrement ancrés ; aucune valeur de cookie dans les preuves du dépôt. Les durées de session et d’authentification sont recoupées avec le code installé ; connexion testée sans « Se souvenir de moi ». La démo HTTP ne prétend pas qualifier les cookies HTTPS/administratifs ni un futur outil de consentement.
+
+**Écart explicite : l’attendu « aucun cookie en simple lecture » est rouge**, sept cookies natifs d’attribution sur les 44 pages relevées, zéro `Set-Cookie` serveur. Le brief interdit de les retirer : liste fermée et étanchéité vertes, pas de promesse de zéro cookie ni de conformité juridique. Consentement à décider par Imagine et son conseil. `strict-reading-V2.json` conserve ce FAIL séparément.
+
+Recettes : `python -B wp/outils/demo/c32.py native LABEL`, `python -B wp/outils/demo/c32-browser.py LABEL`, `python -B production/C-32/verifier.py --live`. Le navigateur exécute réellement les scripts ; code connu C30, vrai ajout au panier B04, vraie connexion d’un compte fictif supprimé et langue de connexion ; deux sondes HTTP/JavaScript font refuser le même contrôleur hors liste puis sont retirées. Paniers/sessions et état métier restaurés avec lecture native, préimages privées persistées ; aucun nouveau contenu de visiteur stocké. PHPUnit est découvert dans le paquet existant, préparation d’image puis rejeu canonique exigés avant PRET ; socle de contrat et C26 inchangés.
+
+
 
 
 

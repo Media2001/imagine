@@ -1,0 +1,57 @@
+{
+  "scope": "imagine-test-demo",
+  "official": [
+    {
+      "url": "https://woocommerce.com/document/woocommerce-cookies/",
+      "sha256": "79eae28e516ab8110af682a907324066248ae0461490f9fe9e2466f00bc4e6d0",
+      "terms_present": {
+        "sbjs_session": false,
+        "sbjs_migrations": false,
+        "wp_woocommerce_session_": true,
+        "woocommerce_cart_hash": true
+      }
+    },
+    {
+      "url": "https://woocommerce.com/document/order-attribution-tracking/",
+      "sha256": "d2f39a966ce179f6a2a7a7cbf594497b2284db33022071ee76b8e57552231cf4",
+      "terms_present": {
+        "Advanced": true,
+        "Order attribution": true,
+        "30 minutes": true
+      }
+    },
+    {
+      "url": "https://developer.wordpress.org/advanced-administration/wordpress/cookies/",
+      "sha256": "b8086326b858f40e0c4939b888328f5f8148ce531cb3ed75408a6d2b50e5de1c",
+      "terms_present": {
+        "wordpress_logged_in_": true,
+        "wordpress_test_cookie": true,
+        "comment_author": true
+      }
+    }
+  ],
+  "native": {
+    "core": "7.0.9",
+    "woo": "11.2.2",
+    "attribution": "yes",
+    "session_sha256": "93020272fe06b6e24624c4288d915b00a3fbc3447e3a324b7d200840c47f059b",
+    "session_default_2_days": true,
+    "auth_default_2_days": true,
+    "remember_14_days": true,
+    "comment_registration": "closed"
+  },
+  "disable_attribution_option": "woocommerce_feature_order_attribution_enabled=no",
+  "sources": {
+    "wp/outils/demo/b13-browser.py": "02a69cab956e503b2a79625df2b084858df9e6b417af638fa503240ebc0d3de0",
+    "wp/outils/demo/b13.py": "3960057fde352c412024678a14d06a7ed6dec04c8d1bff378f7e5305420a5357",
+    "wp/outils/demo/c32-browser.py": "fa8d3a2952c1e5afa9e7b58659ba3a729cc530c56bc35b443d3de25c7193f8f6",
+    "wp/outils/demo/c32-standard.py": "c1df5b875ad5cea99e25135e24e81b7c24fa6db559aa54454c535d10c14ccd71",
+    "wp/outils/demo/c32.py": "50d4baad620ad1e84878321ad99901fb97679fb71154ec05d311d91a9bdd5e6e",
+    "wp/plugins/imagine-site/Cookies.php": "1ca385b79ffecaa93bdeb6ff32545a76232ea532d827c007c7d9fea6805e7a8a",
+    "wp/plugins/imagine-site/tests/CookiesC32Test.php": "e9b59778845bd3824363ef3c3161679cc9aae5d00bce3242fdacba467bd0caaa",
+    "wp/tests/demo/b13-contract.py": "ebdb04de4f948ec77ec5214bdf7c17f03c0366a02ad97722cfef9c6b1d9ebe63",
+    "wp/tests/demo/b13-observer.php": "72d46a7ab527893be8d4e7aa8a0e04073bcd9f0c38c655620a1e603290a6c03f",
+    "wp/tests/demo/c32-observer.php": "22a7566cafbc769fdd8b178b4b8707c316fa688cafae8c33d1555d0610fe8a37",
+    "wp/tests/demo/c32-runtime.php": "2b21ead925233ee1c4cad225ecd9cad1905c7d0bd4e7bcf15fc43dae1abf0599"
+  }
+}
