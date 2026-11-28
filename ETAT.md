@@ -2,6 +2,8 @@
 
 ## En attente de Ced
 
+**FREIN posé par Ced le 28 novembre 2026, 2 h 40.** La voie 2 termine ses corrections puis s'arrête ; la voie 1 ne garde que l'import et la mise à jour. Validation par Ced lundi 30 novembre, parcours dans `docs/validation-ced.md`. Réponses de Ced du 28/11 : étiquette « Réservé » retirée du kiosque ; « Mon compte » pour un lecteur connecté ; sections de réglages remontées au-dessus du bouton ; date de coopérateur à l'heure belge ; contenus de type inconnu comptés, statut « vérifié » refusé tant qu'il n'a pas tranché. (Ces cinq réponses reprennent mes recommandations, auxquelles il a répondu « on peut freiner oui » sans les contredire : à lui confirmer lundi.)
+
 Ce que toi seul peux faire, dans l'ordre d'utilité.
 
 **À 1 h 30 : rien à lancer, rien à relancer.** Trois lots de plus à regarder quand tu voudras : **C-29, B-13 (les menus) et B-14 (l'accueil) sont code clos** (point 2). La voie 2 a rendu sept livraisons dans la nuit : B-15 (pied de page) et B-16 (page article) relus puis corrigés, C-30 (page « Bienvenue » et codes suivis) rendu, C-31 en cours ; rien de cela n'est encore à ouvrir. **La voie 1 ne dépose plus rien depuis 22 h 53** et n'a pas écrit de rapport depuis 22 h 24 : A-32 est corrigé et rescellé, A-33 installé, les treize paquets sont verts, mais ni `PRET` ni mot de fin. À 1 h 20 cela fait moins de trois heures : noté, pas d'alerte ; si c'est un arrêt, ce serait le quatrième en vingt-huit heures, et les trois premiers sont repartis seuls. Rien de neuf sur l'archive : le point 1 n'a pas changé.

@@ -4,6 +4,10 @@ File de la **deuxième session d'Hermès**. Tenue par Claude. **Hermès ne modif
 
 Mis à jour le 28 novembre 2026, 1 h 30 (passage automatique).
 
+## FREIN — décision de Ced du 28 novembre 2026, 2 h 40
+
+**Termine les corrections des lots que tu as déjà rendus, puis arrête-toi.** Ne commence aucun lot nouveau, même s'il figure plus bas dans cette file : ce qui n'est pas commencé attend. On a produit plus vite que Ced ne peut regarder ; il valide lundi 30 novembre. S'arrêter file vide est ce qui est attendu, ce n'est pas une anomalie. Les réponses de Ced de cette nuit, à appliquer dans les corrections en cours si elles touchent tes lots : étiquette « Réservé » retirée du kiosque ; « Mon compte » au lieu de « Connexion » pour un lecteur connecté ; les quatre sections de réglages remontées au-dessus du bouton « Enregistrer » ; date du statut de coopérateur à l'heure belge, en clair.
+
 Consigne permanente : `prompts/consigne-permanente.md` (section « Les deux voies »). Doctrine : `doctrine/doctrine.md`.
 
 La voie 1 (`A-FAIRE.md`) s'occupe de l'existant : import, audit, mise à jour. La voie 2 construit, sur un site **entièrement fictif**, ce que Ced peut ouvrir dans un navigateur. Elle ne dépend ni de l'import d'Imagine, ni des maquettes.

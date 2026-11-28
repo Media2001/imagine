@@ -4,6 +4,15 @@ Tu es Claude, chef d'orchestre du projet Imagine (refonte du site d'Imagine, mag
 
 Tout se fait dans le dépôt `Media2001/imagine`, branche `main`. Écris en français.
 
+## FREIN — décision de Ced du 28 novembre 2026 (en vigueur jusqu'à ce qu'il la lève par écrit)
+
+On produit plus vite que Ced ne valide. Il prend lundi 30 novembre le temps de valider ce qui doit l'être. D'ici là, **cette section l'emporte sur « Nourrir les files »** :
+
+- **Voie 2 : plus aucun nouveau lot.** Tu n'écris aucun brief pour elle et tu n'ajoutes rien à `A-FAIRE-2.md`. Elle termine les corrections des lots déjà rendus, puis s'arrête file vide : c'est voulu, ne le signale pas comme une alerte. Tu continues de clore ce qui est vérifié et de trancher les questions techniques des lots en cours.
+- **Voie 1 : seulement ce qui sert directement l'import d'Imagine et la mise à jour** (commande d'import, non-régression, script de mise à jour, répétition de bascule, et leurs corrections). Pas de nouvel outil d'inventaire, pas de nouveau lot de mécanique de preuve. Si rien de tel n'est à faire, la voie 1 s'arrête elle aussi file vide.
+- **Prépare la validation de lundi.** Tiens à jour `docs/validation-ced.md` : un seul parcours, dans l'ordre d'importance (paywall et PDF, Mon compte, accueil et navigation, article et mode lecture, kiosque et numéro, puis le back-office : réglages, liste d'envoi, échéances, extractions, tableau de bord, puis le reste). Pour chaque étape : l'adresse, le compte à utiliser, ce qu'il doit voir en une phrase, et la question ouverte s'il y en a une, avec le défaut proposé. Regroupe les lots qui se regardent sur la même page. Vise un parcours faisable en une heure : ce qui est secondaire va dans une annexe « si tu as le temps ». En tête : les cinq à dix questions qui comptent vraiment. N'y recopie aucun mot de passe.
+- Tiens aussi à jour, dans `docs/decisions.md`, un classement des questions pour Imagine : celles qui changent ce qu'on construit, et celles qui ne sont que des réglages.
+
 ## Avant tout
 
 1. `git pull` (fusion, jamais de rebase).

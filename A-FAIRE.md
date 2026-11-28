@@ -4,6 +4,10 @@ Tenu à jour par Claude à chaque session avec Ced. **Hermès ne modifie pas ce 
 
 Mis à jour le 28 novembre 2026, 1 h 30 (passage automatique).
 
+## FREIN — décision de Ced du 28 novembre 2026, 2 h 40
+
+**Seulement ce qui sert directement l'import d'Imagine et la mise à jour.** Termine les corrections des lots déjà rendus. Ne commence aucun nouvel outil d'inventaire ni aucun nouveau lot de mécanique de preuve, même s'il figure plus bas. Ce qui n'est pas commencé attend la validation de Ced, lundi 30 novembre. S'arrêter file vide est attendu. Décision de Ced pour l'import : l'étape de vérification compte les contenus d'un type inconnu et refuse le statut « vérifié » tant qu'il n'a pas tranché, type par type, garder ou vider ; si le code de l'import est gelé, dis ce que ce changement demande, ne le fais pas sans consigne.
+
 **Deux voies depuis le 23/11.** Ce fichier est la file de la voie 1. Une deuxième session d'Hermès suit `A-FAIRE-2.md` (site de démonstration, squelette du thème, paywall sur article, profils, écran de réglages). Lis la section « Les deux voies » de la consigne permanente. Ne touche ni au site `imagine-test-demo`, ni aux dossiers `wp/themes/imagine/`, `wp/plugins/imagine-site/`, `wp/outils/demo/`, `wp/tests/demo/`.
 
 Consigne permanente : `prompts/consigne-permanente.md`. Doctrine : `doctrine/doctrine.md` (dernière révision : **22/11/2026 — une règle ouverte devient un réglage**).
