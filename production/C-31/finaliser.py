@@ -11,7 +11,7 @@ evidence = ['A-VOIR.md','README-fragment-V2.md','FINALISATION-V2.md','verifier-c
     'corrections-commande-final-V2.json','corrections-commande-final-V2.png',
     'corrections-cible-final-V2.json','corrections-cible-final-V2.log','corrections-suite-final-V2.json','corrections-suite-final-V2.log','corrections-style-final-V2.json','corrections-style-final-V2.log',
     'corrections-image-V2.json','corrections-image-V2.log','corrections-replay-V2.json','corrections-replay-V2.log',
-    'corrections-installation2-V2.json','corrections-cart-restaure-V2.json']
+    'corrections-installation2-V2.json','corrections-cart-restaure-V2.json','corrections-standard-V2.json','standard-corrections.py']
 v.local(True)
 v.global_gates()
 m = v.c.seal(v.owner, [OUT/n for n in evidence], [OUT/'red-V2.json',OUT/'corrections-red-V2.json',OUT/'corrections-native-red3-V2.json',OUT/'corrections-store-offline-red-V2.json',OUT/'corrections-store-red1-V2.json',OUT/'reception-V2.json'])

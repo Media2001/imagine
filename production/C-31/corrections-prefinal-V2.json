@@ -1,0 +1,24 @@
+{
+  "command": [
+    "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+    "-B",
+    "production/C-31/verifier.py",
+    "--pre-final",
+    "--live"
+  ],
+  "exit": 0,
+  "result": {
+    "native": 46,
+    "browser_registration": 16,
+    "browser_compte": 29,
+    "browser_store_checkout": 13,
+    "offline_package_tests": 267,
+    "offline_package_assertions": 3267,
+    "offline_c31_tests": 9,
+    "offline_c31_assertions": 64,
+    "style_psr12_errors": 0,
+    "C31": "CORRECTIONS_LOCALES_PASS",
+    "PRET": false,
+    "pending": "Image et rejeu global uniques du parent après C32"
+  }
+}

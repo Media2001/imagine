@@ -1,0 +1,44 @@
+{
+  "scope": "imagine-test-demo",
+  "versions": {
+    "wp": "7.0.9",
+    "woocommerce": "11.2.2"
+  },
+  "methods": {
+    "WC_Checkout::process_checkout": {
+      "file": "wp-content/plugins/woocommerce/includes/class-wc-checkout.php",
+      "start": 1371,
+      "sha256": "3189b1b69128171100c56f9daf75b91bbfa6a8496d996d93a6b049846658a138"
+    },
+    "WC_Checkout::get_posted_data": {
+      "file": "wp-content/plugins/woocommerce/includes/class-wc-checkout.php",
+      "start": 805,
+      "sha256": "259bbfa9386a99ba4c89642a8b97127a1173b568ca6b9f75e79483002b031c21"
+    },
+    "WC_Checkout::update_session": {
+      "file": "wp-content/plugins/woocommerce/includes/class-wc-checkout.php",
+      "start": 1110,
+      "sha256": "1a4b694364b689dcc7d75d94410f3683f85e317500f9df5ef917366d196156ed"
+    },
+    "WC_Form_Handler::save_account_details": {
+      "file": "wp-content/plugins/woocommerce/includes/class-wc-form-handler.php",
+      "start": 364,
+      "sha256": "5eb831264dc093509b6b7b5574ce823d801da826f9ee93cecddf068508077740"
+    },
+    "WP_REST_Server::respond_to_request": {
+      "file": "wp-includes/rest-api/class-wp-rest-server.php",
+      "start": 1238,
+      "sha256": "78aeaa966603576f32f62a808cb8440e7b1ebcfd381aea77da2286952c7c4ed0"
+    }
+  },
+  "checkout_get_posted_data_before_session": true,
+  "checkout_posted_data_filter_present": true,
+  "session_saves_customer": true,
+  "account_errors_before_native_save": true,
+  "rest_guard_before_callback": true,
+  "documentation": [
+    "https://developer.wordpress.org/reference/hooks/rest_request_before_callbacks/",
+    "https://developer.woocommerce.com/docs/apis/store-api/resources-endpoints/checkout/",
+    "https://developer.wordpress.org/reference/hooks/registration_errors/"
+  ]
+}
