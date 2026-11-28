@@ -158,7 +158,7 @@ if (getenv('A33_CONFINED') === '1') {
     shared_config.write_text(json.dumps(shared), encoding='utf-8')
     q, dest = inventory('shared-type', shared_config)
     variant = json.loads((dest / 'archives.json').read_bytes()) if dest.exists() else {}
-    check('shared_type_selected_issue_stays_kept', q.returncode == 0 and sum(r['count'] for r in variant.get('published_outside', []) if r['type'] == 'numero') == 2 and variant.get('recent_media') == weight(2, 2, 0, 40))
+    check('shared_type_selected_issue_stays_kept', q.returncode == 0 and [r for r in variant.get('published_outside', []) if r['type'] == 'article'] == [expected[0], expected[1]] and variant.get('recent_media') == weight(2, 2, 0, 40))
     forbidden_map = json.loads(mapping.read_bytes())
     forbidden_map['article_type'] = 'shop_order'
     forbidden_config = OUT / 'noneditorial.json'

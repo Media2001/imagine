@@ -64,6 +64,18 @@ final class Inventory
         $recent = $taxonomy ? [] : array_fill_keys($recentIds, true);
         $p = $wpdb->posts;
         $m = $wpdb->postmeta;
+        // A16 has already validated these scalar references (post or term metadata).
+        $pdfs = [];
+        $pdfTable = $taxonomy ? $wpdb->termmeta : $m;
+        $pdfOwner = $taxonomy ? 'term_id' : 'post_id';
+        foreach ($recentIds as $issueId) {
+            $refs = self::rows("SELECT meta_value FROM $pdfTable WHERE $pdfOwner=%d "
+                . 'AND BINARY meta_key=BINARY %s', [(int) $issueId, $mapping['pdf_cle']]);
+            $pdf = (int) ($refs[0]['meta_value'] ?? 0);
+            if ($pdf > 0) {
+                $pdfs[$pdf] = true;
+            }
+        }
         // Never enumerate an order store or read a commerce object's values.
         $excluded = "('" . implode("','", Analysis::NON_EDITORIAL) . "')";
         $contents = self::rows("SELECT ID,post_type,post_status,post_date_gmt,post_parent FROM $p "
@@ -86,7 +98,7 @@ final class Inventory
                         . 'AND BINARY meta_key=BINARY %s', [$id, $mapping['liaison']['cle']]), 'meta_value');
                 }
                 // A16 already validated all scalar references; no alternate date/rule parser here.
-                $keep = (bool) array_intersect(array_map('intval', $links), $recentIds);
+                $keep = $keep || (bool) array_intersect(array_map('intval', $links), $recentIds);
             }
             if ($keep) {
                 $recent[$id] = true;
@@ -126,11 +138,13 @@ final class Inventory
             $parent = (int) $attachment['post_parent'];
             if ($parent === 0 || $attachment['parent_exists'] === null) {
                 $orphans[] = $size;
-            } elseif (isset($recent[$parent])) {
+            }
+            // Structural orphans remain separately visible, including referenced PDFs.
+            if (isset($pdfs[$id]) || isset($recent[$parent])) {
                 $kept[] = $size;
             } elseif (isset($outside[$parent])) {
                 $byYear[(string) $outside[$parent]][] = $size;
-            } else {
+            } elseif ($parent !== 0 && $attachment['parent_exists'] !== null) {
                 $other[] = $size;
             }
         }

@@ -16,6 +16,9 @@ REQUIRED_NATIVE = {'native_audit', 'native_success', 'twelve_selects_ten_exact',
 REQUIRED_NATIVE |= {'same_a16_refusal_' + f for f in ('numero_type', 'thematique', 'pdf_cle', 'liaison.cle', 'article_type', 'date_cle')}
 REQUIRED_NATIVE |= {prefix + label for prefix in ('channel_', 'immutable_channel_') for label in ('echo', 'stdout', 'stderr', 'early', 'shutdown', 'file', 'exception')}
 REQUIRED_NATIVE |= {'media_watch_positive_inverse', 'no_commerce_mapping_bootstrap'} | {'output_guard_' + name for name in ('existing', 'site', 'repository', 'ancestor', 'root')}
+REQUIRED_NATIVE |= {'pdf_post_orphan_and_shared_deduplicated', 'unknown_year_attachment_json',
+                    'tie_boundary_a16_id_order', 'pdf_taxonomy_and_multilink_deduplicated',
+                    'shared_type_selected_issue_stays_kept'}
 
 
 def load(name, p):
@@ -97,11 +100,11 @@ def native_valid(folder, root=ROOT):
     if not report.complete_report(nominal, folder / 'audit/audit.json', root / 'wp/outils/bascule/a33/correspondance.exemple.json'):
         return False
     d = read(nominal / 'archives.json')
-    expected = [{'type': 'article', 'type_group': 0, 'year': 2010, 'count': 1}, {'type': 'article', 'type_group': 0, 'year': 2011, 'count': 1}, {'type': 'autre', 'type_group': 1, 'year': 2023, 'count': 1}, {'type': 'autre', 'type_group': 2, 'year': 2023, 'count': 1}, {'type': 'numero', 'type_group': 0, 'year': 2010, 'count': 1}, {'type': 'numero', 'type_group': 0, 'year': 2011, 'count': 1}, {'type': 'post', 'type_group': 0, 'year': 2022, 'count': 1}]
+    expected = [{'type': 'article', 'type_group': 0, 'year': 2010, 'count': 1}, {'type': 'article', 'type_group': 0, 'year': 2012, 'count': 1}, {'type': 'autre', 'type_group': 1, 'year': 2023, 'count': 1}, {'type': 'autre', 'type_group': 2, 'year': 2023, 'count': 1}, {'type': 'numero', 'type_group': 0, 'year': 2010, 'count': 1}, {'type': 'numero', 'type_group': 0, 'year': 2012, 'count': 1}, {'type': 'post', 'type_group': 0, 'year': 2022, 'count': 1}, {'type': 'post', 'type_group': 0, 'year': 'inconnu', 'count': 1}]
     return (d['selected_issues'] == 10 and d['published_outside'] == expected
-            and d['outside_media_by_year'] == [{'year': 2010, 'files': {'count': 3, 'present': 2, 'missing': 1, 'known_bytes': 18, 'total_bytes': 'inconnu fichiers absents'}}, {'year': 2011, 'files': {'count': 1, 'present': 1, 'missing': 0, 'known_bytes': 13, 'total_bytes': 13}}, {'year': 2022, 'files': {'count': 1, 'present': 1, 'missing': 0, 'known_bytes': 0, 'total_bytes': 0}}]
+            and d['outside_media_by_year'] == [{'year': 2010, 'files': {'count': 3, 'present': 2, 'missing': 1, 'known_bytes': 18, 'total_bytes': 'inconnu fichiers absents'}}, {'year': 2012, 'files': {'count': 1, 'present': 1, 'missing': 0, 'known_bytes': 13, 'total_bytes': 13}}, {'year': 2022, 'files': {'count': 1, 'present': 1, 'missing': 0, 'known_bytes': 0, 'total_bytes': 0}}, {'year': 'inconnu', 'files': {'count': 1, 'present': 1, 'missing': 0, 'known_bytes': 37, 'total_bytes': 37}}]
             and d['orphan_media'] == {'count': 2, 'present': 2, 'missing': 0, 'known_bytes': 52, 'total_bytes': 52}
-            and d['recent_media'] == {'count': 2, 'present': 2, 'missing': 0, 'known_bytes': 36, 'total_bytes': 36})
+            and d['recent_media'] == {'count': 3, 'present': 3, 'missing': 0, 'known_bytes': 59, 'total_bytes': 59})
 
 
 def local_valid(packet, root=ROOT):

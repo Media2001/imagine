@@ -16,7 +16,19 @@ spec.loader.exec_module(b)
 b.LABEL = 'org.imagine.a33-archives'
 OWN = ['wp/outils/bascule/a33', 'wp/tests/a33']
 SHARED = ['audit', 'a11', 'a12', 'a16', 'stream_guard.py', 'stream_refusals.json']
-DEPS = ['wp/outils/bascule/' + f for f in SHARED] + ['wp/outils/staging', 'wp/outils/staging-court', 'wp/tests/t01', 'wp/tests/rejouer.ps1', 'wp/tests/preparer-image.ps1', 'wp/tests/a02-audit']
+# Closed list of files actually used/copied by this bench, not neighbouring lots.
+DEPS = ['wp/outils/bascule/' + f for f in (
+    'audit', 'a11/Address.php', 'a11/Command.php', 'a11/inventorier-adresses',
+    'a11/Inventory.php', 'a11/ReadOnlyDb.php', 'a11/Runtime.php',
+    'a12/AuditLibrary.php', 'a12/Command.php', 'a12/confine.py',
+    'a12/inventorier-contenus', 'a12/Inventory.php', 'a12/Registry.php',
+    'a16/Command.php', 'a16/confine.py', 'a16/correspondance.exemple.json',
+    'a16/inventorier-numeros', 'a16/Inventory.php', 'a16/Mapping.php',
+    'stream_guard.py', 'stream_bridge.php', 'stream_reports.py',
+    'stream_contract.php', 'stream_refusals.json',
+)] + ['wp/tests/a02-audit/' + f for f in (
+    'run.py', 'inside.py', 'seed.php', 'fingerprint.php', 'unit.php', 'readonly-probe.php',
+)] + ['wp/tests/rejouer.ps1', 'wp/tests/preparer-image.ps1']
 
 
 def manifest(roots):
