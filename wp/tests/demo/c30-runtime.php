@@ -117,4 +117,4 @@ add_filter('query', $blockJournal);
 try { update_option(CodesSuivis::OPTION, ['fictif-refus' => 'FICTIF Refus'], false); }
 finally { remove_filter('query', $blockJournal); }
 $check('journal_echec_restaure_liste', CodesSuivis::configuration() === ['fictif-journal' => 'FICTIF Journal']);
-echo wp_json_encode(['checks' => $checks, 'total' => count($checks)]);
+echo wp_json_encode(['checks' => $checks, 'total' => count($checks), 'price_comparison' => ['without'=>$withoutPrice,'with'=>$withPrice,'mutant'=>$mutantPrice,'quantity'=>2]]);
