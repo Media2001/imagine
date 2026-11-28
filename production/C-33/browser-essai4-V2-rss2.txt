@@ -1,0 +1,40 @@
+{"status": 200, "headers": {"content-type": "application/rss+xml; charset=UTF-8", "link": "<http://192.168.129.32:8085/wp-json/>; rel=\"https://api.w.org/\", <http://192.168.129.32:8085/wp-json/wp/v2/posts/4226>; rel=\"alternate\"; title=\"JSON\"; type=\"application/json\", <http://192.168.129.32:8085/?p=4226>; rel=shortlink"}}
+
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>FICTIF C33 article public &#8211; Imagine — démonstration entièrement fictive</title>
+	<atom:link href="http://192.168.129.32:8085/?feed=rss2&#038;p=4226&#038;withoutcomments=1" rel="self" type="application/rss+xml" />
+	<link>http://192.168.129.32:8085</link>
+	<description>Aucun abonné, article ou paiement réel. Modèle provisoire B-00.</description>
+	<lastBuildDate>Sat, 28 Nov 2026 01:32:06 +0000</lastBuildDate>
+	<language>fr-FR</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.0.9</generator>
+	<item>
+		<title>FICTIF C33 article public</title>
+		<link>http://192.168.129.32:8085/article-c33-d49dfc49f775/</link>
+		
+		<dc:creator><![CDATA[SIGNATURE_FICTIVE_C33]]></dc:creator>
+		<pubDate>Sat, 28 Nov 2026 01:32:06 +0000</pubDate>
+				<category><![CDATA[Uncategorized]]></category>
+		<guid isPermaLink="false">http://192.168.129.32:8085/article-c33-d49dfc49f775/</guid>
+
+					<description><![CDATA[Il n’y a pas d’extrait, car cette publication est protégée.]]></description>
+										<content:encoded><![CDATA[<p>Cet article est réservé aux abonnés.</p>]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

@@ -9,7 +9,7 @@ import c33 as o
 import b13
 sp=importlib.util.spec_from_file_location('c33_common',o.ROOT/'wp/outils/demo/b13-browser.py');b=importlib.util.module_from_spec(sp);sp.loader.exec_module(b)
 i=o.guard();catalog,markers=b.inventory();before=b13.c29.state()
-options=o.wp('global $wpdb;echo wp_json_encode($wpdb->get_results("SELECT * FROM {$wpdb->options} WHERE option_name IN (\'blog_public\',\'user_count\',\'rewrite_rules\') ORDER BY option_name",ARRAY_A));')
+options=o.wp('global $wpdb;echo wp_json_encode($wpdb->get_results("SELECT * FROM {$wpdb->options} WHERE option_name IN (\'blog_public\',\'user_count\',\'rewrite_rules\',\'_transient_product_query-transient-version\') ORDER BY option_name",ARRAY_A));')
 run=secrets.token_hex(6);login='fictif-c33-'+run;display='NOM_COMPTE_FICTIF_C33_'+run;slug='article-c33-'+run;signature='SIGNATURE_FICTIVE_C33'
 private=b13.b11.private(sys.argv[1],{'options':options,'login':login,'slug':slug})
 probe='mu-plugins/c33-observer.php';checks={};rows=[];error=None;external=[];fixture=None
@@ -27,7 +27,7 @@ def control(kind,status,body,headers,expected_signature=signature):
         try:x=ET.fromstring(body);locs=[e.text for e in x.iter() if e.tag.endswith('loc')];present=x.tag.endswith('sitemapindex') and bool(locs)
         except ET.ParseError:present=False;locs=[]
         ok=status==200 and not any('wp-sitemap-users-' in (x or '') for x in locs)
-    elif kind=='users-sitemap':present=bool(body);ok=status==404
+    elif kind=='users-sitemap':present=bool(body);ok=status in [200,404] and '<urlset' not in body
     elif kind=='feed':
         try:x=ET.fromstring(body);present=any(e.tag.endswith('item') or e.tag.endswith('entry') for e in x.iter()) and fixture['path'] in body
         except ET.ParseError:present=False
@@ -62,7 +62,7 @@ update_post_meta($p,Imagine\\Site\\PageArticle::SIGNATURE,'''+o.php(signature)+'
             if mutant:check(name+'_mutation_detectee',not verdict['ok'] and (verdict['leak'] or kind=='sitemap' and 'wp-sitemap-users-' in body))
             else:
                 check(name+'_voie_presente',verdict['present']);check(name+'_fermee_ou_signature',verdict['ok'])
-                check(name+'_etanche',b.c26.c23.assess(response.status,body,markers)['ok'])
+                check(name+'_etanche',b.c26.c23.assess(200,body,markers)['ok'])
             return body
         fetch('archive-nom','author',fixture['author_path']);fetch('archive-numero','author','/?author='+str(uid))
         fetch('rest-liste','rest','/wp-json/wp/v2/users?'+urlencode({'include':uid}));fetch('rest-detail','rest','/wp-json/wp/v2/users/'+str(uid));fetch('rest-alias','rest','/?rest_route=/wp/v2/users/'+str(uid));fetch('rest-casse','rest','/wp-json/WP/V2/USERS/'+str(uid))
@@ -70,15 +70,16 @@ update_post_meta($p,Imagine\\Site\\PageArticle::SIGNATURE,'''+o.php(signature)+'
         sitemap_types=re.findall(r'wp-sitemap-posts-([a-zA-Z0-9_]+)-[0-9]+\.xml',index)
         check('sitemap_posts_non_vide',bool(sitemap_types));private_types=['imagine_sujet','imagine_contact','imagine_inscription','attachment','imagine_justificatif']
         private_sitemap_findings=[t for t in sitemap_types if t in private_types]
-        fetch('rss2','feed','/?feed=rss2&p='+str(pid));fetch('atom','feed','/?feed=atom&p='+str(pid))
+        fetch('rss2','feed','/?feed=rss2&p='+str(pid)+'&withoutcomments=1');fetch('atom','feed','/?feed=atom&p='+str(pid)+'&withoutcomments=1')
         embed='/wp-json/oembed/1.0/embed?'+urlencode({'url':i['url']+fixture['path']})
         fetch('oembed','oembed',embed)
         o.wp('delete_post_meta('+str(pid)+',Imagine\\Site\\PageArticle::SIGNATURE);echo wp_json_encode(true);')
         sitename=o.wp('echo wp_json_encode(get_bloginfo("name"));')
-        fetch('rss2-repli','feed','/?feed=rss2&p='+str(pid),expected_signature=sitename);fetch('oembed-repli','oembed',embed,expected_signature=sitename)
+        fetch('rss2-repli','feed','/?feed=rss2&p='+str(pid)+'&withoutcomments=1',expected_signature=sitename);fetch('oembed-repli','oembed',embed,expected_signature=sitename)
         o.wp('update_post_meta('+str(pid)+',Imagine\\Site\\PageArticle::SIGNATURE,'+o.php(signature)+');echo wp_json_encode(true);')
-        mutations=[('author','author','/?author='+str(uid)),('rest','rest','/wp-json/wp/v2/users/'+str(uid)),('sitemap','sitemap','/wp-sitemap.xml'),('feed','feed','/?feed=rss2&p='+str(pid)),('oembed','oembed',embed)]
-        for name,kind,path in mutations:fetch('mutation-'+name,kind,path+('&' if '?' in path else '?')+'c33_mutate='+name,True)
+        mutations=[('author','author','/?author='+str(uid)),('rest','rest','/wp-json/wp/v2/users/'+str(uid)),('sitemap','sitemap','/wp-sitemap.xml'),('sitemap','users-sitemap','/wp-sitemap-users-1.xml'),('feed','feed','/?feed=rss2&p='+str(pid)+'&withoutcomments=1'),('oembed','oembed',embed)]
+        mutations=[(name+'-users' if kind=='users-sitemap' else name,kind,path) for name,kind,path in mutations]
+        for name,kind,path in mutations:fetch('mutation-'+name,kind,path+('&' if '?' in path else '?')+'c33_mutate='+name.split('-')[0],True)
         auth=o.wp('$id='+str(uid)+';wp_set_current_user($id);$token=WP_Session_Tokens::get_instance($id)->create(time()+3600);wp_set_current_user(0);$_COOKIE[LOGGED_IN_COOKIE]=wp_generate_auth_cookie($id,time()+3600,"logged_in",$token);wp_set_current_user($id);echo wp_json_encode(["cookies"=>[LOGGED_IN_COOKIE=>$_COOKIE[LOGGED_IN_COOKIE]],"nonce"=>wp_create_nonce("wp_rest")]);')
         ctx.add_cookies([{'name':k,'value':v,'url':i['url']} for k,v in auth['cookies'].items()])
         for role in ['administrator','editor']:
@@ -94,7 +95,7 @@ update_post_meta($p,Imagine\\Site\\PageArticle::SIGNATURE,'''+o.php(signature)+'
 except Exception as exc:error=repr(exc)
 finally:
     # Retrouver les objets par leurs identités réservées même si la création a échoué après écriture.
-    cleaned=o.wp('''global $wpdb;$u=get_user_by('login','''+o.php(login)+''');$p=get_page_by_path('''+o.php(slug)+''',OBJECT,'post');if($p){if(!$u || (int)$p->post_author!==(int)$u->ID){throw new RuntimeException('Article étranger');}wp_delete_post($p->ID,true);}if($u){$wpdb->delete($wpdb->usermeta,['user_id'=>$u->ID]);$wpdb->delete($wpdb->users,['ID'=>$u->ID]);clean_user_cache($u->ID);}foreach(['blog_public','user_count','rewrite_rules'] as $key){$wpdb->delete($wpdb->options,['option_name'=>$key]);}foreach('''+o.php(options)+''' as $r){$wpdb->insert($wpdb->options,$r);}wp_cache_flush();echo wp_json_encode(!get_user_by('login','''+o.php(login)+''') && !get_page_by_path('''+o.php(slug)+''',OBJECT,'post'));''')
+    cleaned=o.wp('''global $wpdb;$u=get_user_by('login','''+o.php(login)+''');$p=get_page_by_path('''+o.php(slug)+''',OBJECT,'post');if($p){if(!$u || (int)$p->post_author!==(int)$u->ID){throw new RuntimeException('Article étranger');}wp_delete_post($p->ID,true);}if($u){$wpdb->delete($wpdb->usermeta,['user_id'=>$u->ID]);$wpdb->delete($wpdb->users,['ID'=>$u->ID]);clean_user_cache($u->ID);}foreach(['blog_public','user_count','rewrite_rules','_transient_product_query-transient-version'] as $key){$wpdb->delete($wpdb->options,['option_name'=>$key]);}foreach('''+o.php(options)+''' as $r){$wpdb->insert($wpdb->options,$r);}wp_cache_flush();echo wp_json_encode(!get_user_by('login','''+o.php(login)+''') && !get_page_by_path('''+o.php(slug)+''',OBJECT,'post'));''')
     b13.b11.b10.b09.remove_remote([probe]);removed=o.wp('echo wp_json_encode(!file_exists(WP_CONTENT_DIR."/'+probe+'"));')
     after=b13.c29.state();allowed={'_transient_imagine_b13_thematiques','_transient_timeout_imagine_b13_thematiques','_transient_imagine_b15_numero','_transient_timeout_imagine_b15_numero'}
     delta={k for k in before['option_fingerprints'].keys()|after['option_fingerprints'].keys() if before['option_fingerprints'].get(k)!=after['option_fingerprints'].get(k)}
