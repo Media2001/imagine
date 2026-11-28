@@ -115,3 +115,34 @@ Lu : les quatre rapports de la voie 2 (4 h 42 à 5 h 26), les vérifications de 
 ## Files
 
 - Aucun brief, rien d'ajouté à `A-FAIRE-2.md` hors des trois clôtures. `docs/validation-ced.md` : C-31, C-32 et C-33 ajoutés à l'annexe.
+
+# Passage automatique de 10 h
+
+Lu : les trois rapports de la voie 2 (7 h 28, 8 h 29, 9 h 30 : file vide, arrêt, rien touché), la vérification d'A-33 (8 h 33), `production/A-33/RAPPORT.md`, `production/T-03/BLOCAGE.md` et `FINALISATION.md`. La voie 1 a repris seule à 7 h 33 et déposé jusqu'à 8 h 33 ; elle n'a laissé aucun rapport dans `files/rapports/`. Le frein de Ced s'applique : aucun brief, aucun lot nouveau. Aucun accord donné sur le réel.
+
+## Clôtures
+
+- **A-33 (le poids des archives) : clos**, sur sa vérification « prêt » (deuxième tour : les cinq instructions de la fusion appliquées ; lecteurs scellés d'A-33, d'A-32 et d'A-31 relancés par le vérificateur, tous verts ; 30 tests Python relancés par lui). Réserve : le rejeu en conteneur n'a pas été relancé par le vérificateur, les contrôles natifs et les unités PHP sont lus sur les traces scellées. C'est un outil de lecture, sans rien de visuel ; sa clôture n'est pas un accord pour le lancer sur le réel.
+- **La preuve conjointe due depuis A-32 est rendue** : après le nouveau `PRET`, `PAQUETS : 13 vérifiés, 0 échecs ; hors rejeu : aucun`, A-32 et A-33 compris, dans les deux consoles (1 243 tests, 37 036 assertions), d'après le rapport du lot. La réserve écrite sur A-32 est levée.
+- **T-03 n'est pas clos** : pas de `PRET`, Hermès le dit lui-même. Voir plus bas.
+
+## Voie 1
+
+- **A-33, deux élargissements non demandés par la fusion, signalés par le vérificateur : retenus.** La liste `DEPS` du banc, resserrée à une liste fermée de fichiers, applique la règle « un lecteur ne photographie pas ses voisins ». Le mode « paquet bloqué » (un paquet à portail rouge conservé sans jamais recevoir `PRET`) n'a servi que l'état transitoire ; le paquet livré n'est pas dans ce mode. Aucun nombre produit ne change. Le lot n'est pas rouvert pour les retirer.
+- **Python** : la question est close, la matrice d'A-33 est rejouée en 3.14.6 avec `C:/Python314/python.exe`.
+- **Délais** : aucun `VERIFIER_TIMEOUT` au rejeu général quand la voie 1 rejoue seule ; lecteurs seuls mesurés à 0,24 s (A-32) et 0,22 s (A-33). Les dépassements lus de nuit par la voie 2 sont donc rangés comme un aléa de deux rejeux simultanés. **Ils réapparaissent en revanche dans la preuve native de T-03**, sur sa copie jetable (ligne suivante).
+- **T-03 reste « candidat bloqué, sans `PRET` »** : son lecteur est borné à ses fichiers (fait, régression reproduite puis corrigée), mais la preuve native ne trouve pas de base verte, trois fois de suite, A-32 et A-33 dépassant le délai sur la copie jetable. Hermès n'a relevé aucun délai et n'a fabriqué aucun vert : retenu. **Le lanceur reste gelé, aucun délai n'est relevé par ce passage** : relever un délai du lanceur rouvre la preuve de tous les paquets, et la cause n'est pas établie. Demandé : un diagnostic de cinq lignes, sans réparation (quel vérificateur, sa durée mesurée sur la copie jetable contre 0,2 s sur l'arbre, le verdict du troisième reçu, et si le délai appartient au script de T-03 ou au lanceur gelé). Pas de quatrième essai de la preuve native à l'identique. La clôture de T-03 est de la mécanique de preuve : elle ne bloque ni l'import, ni la validation de lundi, ni un lot clos ; elle attend.
+- **La note sur l'import (contenus d'un type inconnu) n'est pas rendue** : toujours due, dix lignes, aucun code. Pas de dégel.
+- **Un rapport manque** : la voie 1 a travaillé une heure sans rien déposer dans `files/rapports/`. Rappelé dans la file.
+
+## Voie 2
+
+- À l'arrêt, file vide, trois rapports d'une ligne : voulu. Rien n'est ajouté.
+
+## Questions rangées pour Imagine
+
+- Aucune nouvelle.
+
+## Files
+
+- Aucun brief. `A-FAIRE.md` : A-33 en « Terminé », il reste le diagnostic de T-03 et la note sur l'import, puis arrêt. `A-FAIRE-2.md` inchangé. `docs/validation-ced.md` : la question 7 mise à jour, rien d'autre (A-33 n'a rien de visuel).

@@ -1,6 +1,6 @@
 # Validation de Ced — lundi 30 novembre 2026
 
-Tenu par Claude, mis à jour à chaque passage. Dernière mise à jour : 28 novembre 2026, 7 h 30.
+Tenu par Claude, mis à jour à chaque passage. Dernière mise à jour : 28 novembre 2026, 10 h 30.
 
 Un seul parcours, dans l'ordre d'importance, faisable en une heure. Tout se regarde sur le site de démonstration, **entièrement fictif** : `http://192.168.129.32:8085` (réseau local). Les comptes sont des profils de test ; leurs identifiants sont dans ton fichier hors dépôt `C:\Users\Ced\.imagine-demo\identifiants.json` (entrée `c09_accounts`), aucun n'est recopié ici. Pour le détail d'un lot : `production/<lot>/A-VOIR.md`.
 
@@ -21,7 +21,7 @@ Sept pour toi, puis celles d'Imagine.
 4. **Mon compte ne propose pas de bouton « ne pas renouveler ».** Il dit seulement comment l'abonnement se renouvelle. Le bouton attend un staging vérifié avec Stripe en mode test, donc un accord de ta part le moment venu. Défaut : on attend.
 5. **Justificatifs du tarif solidaire : le dossier ne garde que la catégorie, la date de fin et l'état, pas le document.** Défaut proposé : on garde (c'est le moins de données possible).
 6. **Cookies : sept cookies d'attribution d'origine de WooCommerce sont posés dès la simple lecture d'une page.** L'objectif « aucun cookie en simple lecture » n'est donc pas tenu sur la démonstration, et c'est écrit comme tel. Rien n'a été éteint et aucun bandeau n'est construit : savoir s'ils demandent un consentement est une question pour Imagine et son conseil. La liste des quatorze cookies du site se lit sur `/gestion-des-cookies/` (annexe, C-32). Veux-tu, en attendant, éteindre l'attribution sur la démonstration ? Défaut : on ne touche à rien.
-7. **Après ta validation, que relance-t-on en premier ?** La file de la démonstration est vide depuis le 28 à 5 h 26 ; celle de l'existant le sera après A-33 et T-03. En attente, non commencés : le lot des liens vers les archives (A-34) côté existant ; rien côté démonstration.
+7. **Après ta validation, que relance-t-on en premier ?** La file de la démonstration est vide depuis le 28 à 5 h 26 ; celle de l'existant le sera après un diagnostic sur T-03 et une note sur l'import (A-33 est clos ; la clôture de T-03, bloquée sur une preuve qui dépasse son délai, attend ton retour). En attente, non commencés : le lot des liens vers les archives (A-34) côté existant ; rien côté démonstration.
 
 **Pour Imagine**, `docs/decisions.md` range cinquante-quatre questions, toutes déjà réglées sur un défaut prudent. Le classement en tête de la section « Ouvert — chez Imagine » sépare la quinzaine qui change ce qu'on construit (tarifs, accès découverte, abonnements groupés, rétractation, cookies, offre de bienvenue, import des abonnés hors ligne) de celles qui ne sont que des réglages.
 
