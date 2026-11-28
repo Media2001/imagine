@@ -216,6 +216,11 @@ DomainesRefusesReglages::register();
 require_once __DIR__ . '/Cookies.php';
 Cookies::register();
 
+// C33 — comptes natifs non publics pour les visiteurs anonymes.
+require_once __DIR__ . '/ComptesPublicsRegles.php';
+require_once __DIR__ . '/ComptesPublics.php';
+ComptesPublics::register();
+
 // C28 — instantané du pack au paiement, décision et remboursements C14 inchangés.
 require_once __DIR__ . '/PacksRegles.php';
 require_once __DIR__ . '/PacksThematiques.php';
